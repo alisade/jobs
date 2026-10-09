@@ -1,0 +1,114 @@
+{
+  "scenario": "checkout-asked",
+  "run": 2,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Add the ACME yoga mat please"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_che201",
+          "name": "search_products",
+          "input": {
+            "query": "ACME yoga mat"
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_che201",
+          "content": "Search returned 1 result(s) for 'ACME yoga mat': the catalog's closest text matches. Treat a result as the requested item only if its title and attributes match.\n<storefront_data>\n[{\"product_id\": \"AR-1301\", \"title\": \"ACME Fit 6mm Non-Slip Yoga Mat\", \"price\": 42.0, \"rating\": 4.6}]\n</storefront_data>"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_che202",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1301",
+            "quantity": 1
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_che202",
+          "content": "Added AR-1301 x1. Cart now has 1 item(s), subtotal 42.00 USD."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Added the ACME Fit mat; your cart is $42.00."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_che203",
+          "name": "present_suggestions",
+          "input": {
+            "suggestions": [
+              "Check out now",
+              "Keep shopping"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_che203",
+          "content": "Displayed to the customer."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Great, I'm ready to check out"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_che204",
+          "name": "checkout",
+          "input": {
+            "note": "Confirm the mat color"
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_che204",
+          "content": "Displayed to the customer."
+        }
+      ]
+    }
+  ]
+}

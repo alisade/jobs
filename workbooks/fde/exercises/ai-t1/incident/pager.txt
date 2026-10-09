@@ -1,0 +1,16 @@
+[PagerDuty] P2 TRIGGERED  lumen-agent-prod  2026-10-08 14:12 UTC
+Service: lumen-agent (shopping assistant, Messages API path)
+Alert:   turn_error_rate > 1% for 15m (current 2.9%)
+
+Notes from #lumen-oncall:
+  14:14 dana: customers see "Sorry, something went wrong, please try again" mid-chat.
+              Not all of them; maybe 1 in 30 turns. Retrying usually works.
+  14:15 dana: Sentry issue LUMEN-AGENT-4F2 "BadRequestError: Error code: 400" first seen
+              13:52, right after the 2.14.0 deploy (13:40). No 5xx from Anthropic.
+  14:17 raj:  we are also getting 429s since the deploy, the new retry code is logging
+              them at WARNING. Org rate limit? Should we ask for a limit increase?
+  14:18 dana: rolling back would also lose the parallel-tools latency win (-38% p50).
+              Can someone find the actual cause before we decide?
+
+Runbook: replay the recorded turns from the window through the current build with
+`make setup` (or `make replay`); the bundle lands in run/.

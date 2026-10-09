@@ -1,0 +1,29 @@
+{
+  "assembly": "Tailspin.Plugins",
+  "comment": "Export of the sdkmessageprocessingstep rows for the Tailspin.Plugins assembly (PROD, 2026-10-08). stage: 10 PreValidation, 20 PreOperation, 40 PostOperation.",
+  "steps": [
+    {
+      "name": "Tailspin.Plugins.WorkOrderRollupPlugin: Update of contoso_workorder",
+      "pluginType": "Tailspin.Plugins.WorkOrderRollupPlugin",
+      "message": "Update",
+      "primaryEntity": "contoso_workorder",
+      "stage": 40,
+      "mode": "Synchronous",
+      "rank": 1,
+      "filteringAttributes": [],
+      "images": []
+    },
+    {
+      "name": "Tailspin.Plugins.PartsAvailabilityPlugin: Update of contoso_workorder",
+      "pluginType": "Tailspin.Plugins.PartsAvailabilityPlugin",
+      "message": "Update",
+      "primaryEntity": "contoso_workorder",
+      "stage": 40,
+      "mode": "Asynchronous",
+      "rank": 1,
+      "filteringAttributes": ["contoso_partslist"],
+      "images": [],
+      "unsecureConfig": "https://api.northwindparts.example/v2/availability"
+    }
+  ]
+}

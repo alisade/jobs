@@ -1,0 +1,12 @@
+[project]
+name = "contoso-po-sync-incident"
+version = "0.1.0"
+description = "Cloud flow troubleshooting exercise (ms/w7-t1)"
+requires-python = ">=3.12"
+dependencies = ["pytest>=8.0"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

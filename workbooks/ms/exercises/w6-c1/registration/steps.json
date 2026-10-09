@@ -1,0 +1,19 @@
+{
+  "assembly": "Tailspin.Plugins",
+  "comment": "Mirror of the sdkmessageprocessingstep + sdkmessageprocessingstepimage rows you would create in the Plug-in Registration Tool. stage: 10 PreValidation, 20 PreOperation, 40 PostOperation. mode: Synchronous | Asynchronous. Fill in every TODO value.",
+  "steps": [
+    {
+      "name": "Tailspin.Plugins.WorkOrderStatusPlugin: Update of contoso_workorder",
+      "pluginType": "Tailspin.Plugins.WorkOrderStatusPlugin",
+      "message": "Update",
+      "primaryEntity": "contoso_workorder",
+      "stage": 0,
+      "mode": "TODO",
+      "rank": 1,
+      "filteringAttributes": [],
+      "images": [
+        { "type": "TODO PreImage or PostImage", "alias": "TODO", "attributes": [] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: k8s-tools
+  namespace: mcp-tools
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-tools
+  namespace: mcp-tools
+  labels:
+    app: k8s-tools
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: k8s-tools
+  template:
+    metadata:
+      labels:
+        app: k8s-tools
+        version: v1.3.2
+    spec:
+      serviceAccountName: k8s-tools
+      containers:
+        - name: mcp
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/k8s-tools-mcp:v1.3.2
+          args: ["--transport=streamable-http", "--addr=:8080", "--path=/mcp"]
+          ports:
+            - containerPort: 8080
+              name: http-mcp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-tools
+  namespace: mcp-tools
+spec:
+  selector:
+    app: k8s-tools
+  ports:
+    - name: http-mcp
+      port: 8080
+      targetPort: 8080

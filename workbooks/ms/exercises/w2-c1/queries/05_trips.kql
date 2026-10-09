@@ -1,0 +1,6 @@
+// Trips: consecutive readings of one vehicle less than 10 minutes apart form one trip; cap a trip at 12h.
+// Output: VehicleId, TripStart, TripEnd, Readings, MaxSpeedKph  (one row per trip, no duplicate events)
+// TODO: implement with row_window_session(), prev() + row_cumsum(), or scan.
+TelemetryDedup
+| where Timestamp > ago(1d)
+| summarize TripStart = min(Timestamp), TripEnd = max(Timestamp), Readings = count(), MaxSpeedKph = max(SpeedKph) by VehicleId

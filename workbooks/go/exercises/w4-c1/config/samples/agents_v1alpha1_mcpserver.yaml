@@ -1,0 +1,13 @@
+apiVersion: agents.example.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: k8s-tools
+  namespace: agents
+spec:
+  image: ghcr.io/latticeai/mcp-k8s-tools:1.4.0
+  port: 8080
+  replicas: 2
+  transport: streamable-http
+  envFrom:
+    - secretRef:
+        name: k8s-tools-config

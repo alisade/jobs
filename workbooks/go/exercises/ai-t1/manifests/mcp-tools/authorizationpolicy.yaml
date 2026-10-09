@@ -1,0 +1,36 @@
+# Only the agent runtime may call the MCP server, and only on the MCP endpoint.
+# Streamable HTTP uses POST (JSON-RPC), GET (server-sent events) and DELETE (end session).
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: k8s-tools-allow-agents
+  namespace: mcp-tools
+spec:
+  selector:
+    matchLabels:
+      app: k8s-tools
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            principals: ["cluster.local/ns/agents/sa/agent-runtime"]
+      to:
+        - operation:
+            methods: ["POST", "GET", "DELETE"]
+            paths: ["/mcp", "/mcp/*"]
+---
+# The admin endpoints are for kubectl port-forward only, never via the mesh.
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: k8s-tools-deny-admin
+  namespace: mcp-tools
+spec:
+  selector:
+    matchLabels:
+      app: k8s-tools
+  action: DENY
+  rules:
+    - to:
+        - operation:
+            paths: ["/admin", "/admin/*", "/debug/*"]

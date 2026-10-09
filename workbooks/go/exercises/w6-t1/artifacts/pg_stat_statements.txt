@@ -1,0 +1,17 @@
+kb=> SELECT queryid, calls, round(mean_exec_time::numeric,1) AS mean_ms, round(max_exec_time::numeric,1) AS max_ms,
+            rows, shared_blks_read, left(query, 160) AS query
+     FROM pg_stat_statements WHERE dbid = (SELECT oid FROM pg_database WHERE datname='kb')
+     ORDER BY total_exec_time DESC LIMIT 4;
+
+       queryid        | calls  | mean_ms | max_ms  |  rows  | shared_blks_read | query
+----------------------+--------+---------+---------+--------+------------------+------------------------------------------------------------------
+  7731920466121048803 | 182044 |  1977.4 |  3000.9 | 948211 |     118823991021 | SELECT c.id, c.doc_id, c.content, c.embedding <-> $1 AS distance+
+                      |        |         |         |        |                  | FROM kb_chunks c                                                +
+                      |        |         |         |        |                  | WHERE c.tenant_id = $2                                          +
+                      |        |         |         |        |                  | ORDER BY c.embedding <-> $1                                     +
+                      |        |         |         |        |                  | LIMIT $3
+ -2290181733900127716 |   4211 |   311.8 |   902.5 |   4211 |         88130021 | INSERT INTO kb_chunks (tenant_id, collection, doc_id, chunk_no, +
+                      |        |         |         |        |                  | content, embedding) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT ...
+  1180044193726652201 |  39102 |     2.1 |    44.0 |  39102 | 1201             | SELECT etag FROM kb_ingest_watermark WHERE tenant_id = $1 AND ...
+  5524119080113374412 |    912 |     0.4 |     3.3 |    912 | 0                | SELECT 1
+-- pg_stat_statements_reset() was last run 2026-09-01. Note max_ms is clamped by statement_timeout=3s.

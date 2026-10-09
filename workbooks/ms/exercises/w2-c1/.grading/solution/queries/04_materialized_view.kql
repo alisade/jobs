@@ -1,0 +1,7 @@
+// Eventstream delivers at-least-once; retries re-send the same EventId within minutes.
+// Deduplicate by EventId. lookback bounds the part of the view scanned on each materialization.
+.create async ifnotexists materialized-view with (backfill = true, lookback = 6h, docString = "Telemetry deduplicated by EventId") TelemetryDedup on table Telemetry
+{
+    Telemetry
+    | summarize take_any(*) by EventId
+}

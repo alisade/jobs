@@ -1,0 +1,4 @@
+# Index build settings (used by `python -m policy_rag.build`). Changed in release 2026.12.1.
+embedder: hash-bow-v2
+chunk_size: 120        # words per chunk (was 200)
+chunk_overlap: 20      # words shared between consecutive chunks

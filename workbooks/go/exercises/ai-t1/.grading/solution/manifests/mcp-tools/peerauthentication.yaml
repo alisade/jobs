@@ -1,0 +1,11 @@
+# STRICT: the MCP server accepts Istio mTLS only. A caller without a sidecar now fails
+# loudly at connect time (reset) instead of arriving as an anonymous plaintext peer
+# that only the AuthorizationPolicy stands between.
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: mcp-tools
+spec:
+  mtls:
+    mode: STRICT

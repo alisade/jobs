@@ -1,0 +1,416 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Contoso Parts",
+    "description": "Look up spare parts, check stock by warehouse and raise reorders in the Contoso Parts system.",
+    "version": "1.1.0",
+    "contact": {
+      "name": "Contoso Field Engineering Platform team",
+      "email": "fe-platform@contoso.example"
+    }
+  },
+  "host": "contoso-parts-func.azurewebsites.net",
+  "basePath": "/api",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "oauth2-auth": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "tokenUrl": "https://login.windows.net/common/oauth2/authorize",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2-auth": []
+    }
+  ],
+  "paths": {
+    "/parts": {
+      "get": {
+        "operationId": "ListParts",
+        "summary": "List parts",
+        "description": "Lists spare parts in a category. Results are returned in pages.",
+        "x-ms-visibility": "important",
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        },
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersion"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "Category",
+            "description": "The part category to filter on.",
+            "x-ms-visibility": "important",
+            "x-ms-dynamic-values": {
+              "operationId": "ListCategories",
+              "parameters": {
+                "api-version": "2026-09-01"
+              },
+              "value-collection": "value",
+              "value-path": "code",
+              "value-title": "displayName"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "required": false,
+            "default": 100,
+            "minimum": 1,
+            "maximum": 500,
+            "x-ms-summary": "Page Size",
+            "description": "The number of parts to return per page.",
+            "x-ms-visibility": "advanced"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of parts.",
+            "schema": {
+              "$ref": "#/definitions/PartPage"
+            }
+          },
+          "401": {
+            "description": "The caller is not authenticated."
+          }
+        }
+      }
+    },
+    "/parts/{partNumber}": {
+      "get": {
+        "operationId": "GetPart",
+        "summary": "Get a part",
+        "description": "Gets one spare part with its stock on hand.",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersion"
+          },
+          {
+            "$ref": "#/parameters/PartNumber"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The part.",
+            "schema": {
+              "$ref": "#/definitions/Part"
+            }
+          },
+          "404": {
+            "description": "No part has this part number."
+          }
+        }
+      }
+    },
+    "/parts/{partNumber}/reorders": {
+      "post": {
+        "operationId": "CreateReorder",
+        "summary": "Create a reorder",
+        "description": "Raises a reorder for a spare part to be delivered to a warehouse.",
+        "x-ms-visibility": "important",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersion"
+          },
+          {
+            "$ref": "#/parameters/PartNumber"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "x-ms-summary": "Reorder",
+            "description": "The reorder to raise.",
+            "schema": {
+              "$ref": "#/definitions/ReorderRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The reorder was created.",
+            "schema": {
+              "$ref": "#/definitions/Reorder"
+            }
+          },
+          "400": {
+            "description": "The reorder is not valid."
+          },
+          "429": {
+            "description": "Too many requests. Retry after the number of seconds in the Retry-After header."
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "operationId": "ListCategories",
+        "summary": "List categories",
+        "description": "Lists part categories. Used to populate the category dropdown.",
+        "x-ms-visibility": "internal",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The categories.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "x-ms-summary": "Category Code",
+                        "description": "The category code."
+                      },
+                      "displayName": {
+                        "type": "string",
+                        "x-ms-summary": "Category Name",
+                        "description": "The category display name."
+                      }
+                    }
+                  },
+                  "x-ms-summary": "Categories",
+                  "description": "The categories."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/warehouses": {
+      "get": {
+        "operationId": "ListWarehouses",
+        "summary": "List warehouses",
+        "description": "Lists warehouses that accept deliveries. Used to populate the warehouse dropdown.",
+        "x-ms-visibility": "internal",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersion"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The warehouses.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "warehouseCode": {
+                        "type": "string",
+                        "x-ms-summary": "Warehouse Code",
+                        "description": "The warehouse code."
+                      },
+                      "name": {
+                        "type": "string",
+                        "x-ms-summary": "Warehouse Name",
+                        "description": "The warehouse name."
+                      }
+                    }
+                  },
+                  "x-ms-summary": "Warehouses",
+                  "description": "The warehouses."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "ApiVersion": {
+      "name": "api-version",
+      "in": "query",
+      "type": "string",
+      "required": true,
+      "default": "2026-09-01",
+      "x-ms-summary": "API Version",
+      "description": "The version of the Contoso Parts API.",
+      "x-ms-visibility": "internal"
+    },
+    "PartNumber": {
+      "name": "partNumber",
+      "in": "path",
+      "type": "string",
+      "required": true,
+      "x-ms-summary": "Part Number",
+      "description": "The Contoso part number, for example P-10442.",
+      "x-ms-url-encoding": "single"
+    }
+  },
+  "definitions": {
+    "Part": {
+      "type": "object",
+      "properties": {
+        "partNumber": {
+          "type": "string",
+          "x-ms-summary": "Part Number",
+          "description": "The Contoso part number."
+        },
+        "name": {
+          "type": "string",
+          "x-ms-summary": "Part Name",
+          "description": "The part name."
+        },
+        "category": {
+          "type": "string",
+          "x-ms-summary": "Category",
+          "description": "The part category code."
+        },
+        "unitPrice": {
+          "type": "number",
+          "format": "double",
+          "x-ms-summary": "Unit Price",
+          "description": "The unit price in USD."
+        },
+        "quantityOnHand": {
+          "type": "integer",
+          "format": "int32",
+          "x-ms-summary": "Quantity On Hand",
+          "description": "Units in stock across all warehouses."
+        }
+      }
+    },
+    "PartPage": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "x-ms-summary": "Parts",
+          "description": "The parts on this page.",
+          "items": {
+            "$ref": "#/definitions/Part"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "x-ms-summary": "Next Link",
+          "description": "The URL of the next page, absent on the last page.",
+          "x-ms-visibility": "internal"
+        }
+      }
+    },
+    "ReorderRequest": {
+      "type": "object",
+      "required": [
+        "quantity",
+        "warehouseCode"
+      ],
+      "properties": {
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "x-ms-summary": "Quantity",
+          "description": "The number of units to order."
+        },
+        "warehouseCode": {
+          "type": "string",
+          "x-ms-summary": "Warehouse",
+          "description": "The warehouse that receives the delivery.",
+          "x-ms-dynamic-values": {
+            "operationId": "ListWarehouses",
+            "parameters": {
+              "api-version": "2026-09-01"
+            },
+            "value-collection": "value",
+            "value-path": "warehouseCode",
+            "value-title": "name"
+          }
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "Standard",
+            "Expedite"
+          ],
+          "default": "Standard",
+          "x-ms-summary": "Priority",
+          "description": "Expedite is charged at the courier rate.",
+          "x-ms-visibility": "advanced"
+        }
+      }
+    },
+    "Reorder": {
+      "type": "object",
+      "properties": {
+        "reorderId": {
+          "type": "string",
+          "x-ms-summary": "Reorder ID",
+          "description": "The reorder identifier."
+        },
+        "partNumber": {
+          "type": "string",
+          "x-ms-summary": "Part Number",
+          "description": "The part that was reordered."
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-ms-summary": "Quantity",
+          "description": "The number of units ordered."
+        },
+        "warehouseCode": {
+          "type": "string",
+          "x-ms-summary": "Warehouse",
+          "description": "The receiving warehouse."
+        },
+        "status": {
+          "type": "string",
+          "x-ms-summary": "Status",
+          "description": "The reorder status, for example Submitted."
+        },
+        "expectedDelivery": {
+          "type": "string",
+          "format": "date-time",
+          "x-ms-summary": "Expected Delivery",
+          "description": "The expected delivery date and time in UTC."
+        }
+      }
+    }
+  },
+  "x-ms-connector-metadata": [
+    {
+      "propertyName": "Website",
+      "propertyValue": "https://parts.contoso.example"
+    },
+    {
+      "propertyName": "Privacy policy",
+      "propertyValue": "https://parts.contoso.example/privacy"
+    },
+    {
+      "propertyName": "Categories",
+      "propertyValue": "IT Operations;Productivity"
+    }
+  ]
+}

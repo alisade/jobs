@@ -1,0 +1,87 @@
+{
+  "scenario": "reorder",
+  "run": 1,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Reorder the espresso machine I bought last year"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_reo101",
+          "name": "get_orders",
+          "input": {
+            "limit": 5
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_reo101",
+          "content": "<storefront_data>\n[{\"order_id\": \"NW-88213\", \"status\": \"delivered\", \"items\": [{\"product_id\": \"AR-1002\", \"title\": \"Brewline Pro Espresso Machine\", \"quantity\": 1, \"price\": 429.0}]}]\n</storefront_data>"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_reo102",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1002",
+            "quantity": 1
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_reo102",
+          "content": "Added AR-1002 x1. Cart now has 1 item(s), subtotal 449.00 USD."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I've added the Brewline Pro again; it is $449 now, up from the $429 you paid."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_reo103",
+          "name": "present_suggestions",
+          "input": {
+            "suggestions": [
+              "Check out now",
+              "Find descaler"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_reo103",
+          "content": "Displayed to the customer."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+$ istioctl proxy-status
+NAME                                                  CLUSTER        CDS        LDS        EDS        RDS        ECDS       ISTIOD                            VERSION
+istio-ingressgateway-5c7d9f8b6-k2l4m.istio-ingress    Kubernetes     SYNCED     SYNCED     SYNCED     SYNCED     IGNORED    istiod-1-27-1-6b5f8c7d9-x8q2w     1.27.1
+k8s-tools-7f6c5d4b8a-4xv7p.mcp-tools                  Kubernetes     SYNCED     SYNCED     SYNCED     SYNCED     IGNORED    istiod-1-27-1-6b5f8c7d9-x8q2w     1.27.1
+k8s-tools-7f6c5d4b8a-wq9rl.mcp-tools                  Kubernetes     SYNCED     SYNCED     SYNCED     SYNCED     IGNORED    istiod-1-27-1-6b5f8c7d9-x8q2w     1.27.1
+payments-api-79c8d6f5b4-7hj3k.payments-api            Kubernetes     SYNCED     SYNCED     SYNCED     SYNCED     IGNORED    istiod-1-27-1-6b5f8c7d9-x8q2w     1.27.1
+payments-api-79c8d6f5b4-qs8wd.payments-api            Kubernetes     SYNCED     SYNCED     SYNCED     SYNCED     IGNORED    istiod-1-27-1-6b5f8c7d9-x8q2w     1.27.1
+
+$ istioctl tag list
+No Istio revision tag MutatingWebhookConfigurations to list
+
+$ kubectl get mutatingwebhookconfigurations -l app=sidecar-injector
+NAME                            WEBHOOKS   AGE
+istio-sidecar-injector-1-27-1   2          14h

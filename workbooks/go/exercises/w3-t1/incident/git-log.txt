@@ -1,0 +1,24 @@
+$ git log --oneline v0.3.2..v0.4.0
+a41e9c0 (tag: v0.4.0) release v0.4.0
+7d2b113 ci: run envtest against k8s 1.37 assets
+3f08d6e feat(controller): watch owned Secrets so a deleted/edited storage Secret is restored (SEC-2291)
+c19a7f4 chore(rbac): add egress NetworkPolicy for the operator (SEC-2290)
+5be0d21 fix(controller): requeue on status conflict instead of returning an error
+0aa93cb build: bump controller-runtime to v0.25.2, k8s.io/* to v0.37.0
+
+$ git show --stat 3f08d6e
+commit 3f08d6e
+Author: Dan Okafor <dan.okafor@harbor-analytics.io>
+    feat(controller): watch owned Secrets so a deleted/edited storage Secret is restored (SEC-2291)
+
+ internal/controller/tenant_controller.go | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+$ git show 3f08d6e -- internal/controller/tenant_controller.go
+@@ func (r *TenantReconciler) SetupWithManager(mgr ctrl.Manager) error {
+ 	return ctrl.NewControllerManagedBy(mgr).
+ 		For(&platformv1alpha1.Tenant{}).
+ 		Owns(&corev1.ResourceQuota{}).
++		Owns(&corev1.Secret{}).
+ 		Named("tenant").
+ 		Complete(r)

@@ -1,0 +1,36 @@
+kb=> \d+ kb_chunks
+                                                      Table "public.kb_chunks"
+   Column   |           Type           | Collation | Nullable |                Default                | Storage  |
+------------+--------------------------+-----------+----------+---------------------------------------+----------+
+ id         | bigint                   |           | not null | nextval('kb_chunks_id_seq'::regclass) | plain    |
+ tenant_id  | text                     |           | not null |                                       | extended |
+ collection | text                     |           | not null |                                       | extended |
+ doc_id     | text                     |           | not null |                                       | extended |
+ chunk_no   | integer                  |           | not null |                                       | plain    |
+ content    | text                     |           | not null |                                       | extended |
+ embedding  | vector(1024)             |           | not null |                                       | external |
+ created_at | timestamp with time zone |           | not null | now()                                 | plain    |
+Indexes:
+    "kb_chunks_pkey" PRIMARY KEY, btree (id)
+    "kb_chunks_embedding_hnsw" hnsw (embedding vector_cosine_ops) WITH (m='16', ef_construction='64')
+    "kb_chunks_tenant_collection_idx" btree (tenant_id, collection)
+    "kb_chunks_tenant_id_doc_id_chunk_no_key" UNIQUE CONSTRAINT, btree (tenant_id, doc_id, chunk_no)
+Access method: heap
+
+kb=> SELECT relname, n_live_tup, pg_size_pretty(pg_total_relation_size(relid)) FROM pg_stat_user_tables WHERE relname='kb_chunks';
+  relname  | n_live_tup | pg_size_pretty
+-----------+------------+----------------
+ kb_chunks |    2113847 | 19 GB
+
+kb=> SELECT indexrelname, idx_scan, last_idx_scan FROM pg_stat_user_indexes WHERE relname='kb_chunks';
+              indexrelname               | idx_scan |         last_idx_scan
+-----------------------------------------+----------+-------------------------------
+ kb_chunks_pkey                          |    48211 | 2026-10-06 13:58:02.11+00
+ kb_chunks_embedding_hnsw                |   391877 | 2026-09-24 09:09:51.73+00
+ kb_chunks_tenant_collection_idx         |  2210934 | 2026-10-06 14:01:59.40+00
+ kb_chunks_tenant_id_doc_id_chunk_no_key |   902113 | 2026-10-06 11:47:33.02+00
+
+kb=> SHOW hnsw.ef_search;
+ hnsw.ef_search
+----------------
+ 40

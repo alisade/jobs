@@ -1,0 +1,32 @@
+# Captured by the on-call engineer (Priya) from a debug pod in the flagd namespace,
+# 2026-10-06 14:15 UTC, against flagd 1.14.0.
+
+$ curl -s -i -X PUT http://flagd.flags.svc:8088/v1/flags/checkout-v2 \
+    -d '{"owner":"payments@corvidpay.example","env":"prod","enabled":true,"rollout":10}'
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 27
+
+{"error":"internal error"}
+
+# Same request with a description, in case the new omitempty tag matters:
+$ curl -s -i -X PUT http://flagd.flags.svc:8088/v1/flags/checkout-v2 \
+    -d '{"description":"new checkout","owner":"payments@corvidpay.example","env":"prod","enabled":true,"rollout":10}'
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 27
+
+{"error":"internal error"}
+
+# A deliberately bad flag gets a sensible answer:
+$ curl -s -i -X PUT http://flagd.flags.svc:8088/v1/flags/Promo_2026 \
+    -d '{"owner":"growth","env":"qa","rollout":120}'
+HTTP/1.1 422 Unprocessable Entity
+Content-Type: application/json
+Content-Length: 198
+
+{"error":"validation failed","fields":{"env":"must be one of dev, staging, prod","key":"must match ^[a-z][a-z0-9-]{2,62}$","owner":"must be an email address","rollout":"must be between 0 and 100"}}
+
+# Reads still work:
+$ curl -s -o /dev/null -w '%{http_code}\n' http://flagd.flags.svc:8088/v1/flags
+200

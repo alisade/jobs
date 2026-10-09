@@ -1,0 +1,39 @@
+{
+  "assembly": "Fabrikam.Plugins",
+  "comment": "Export of sdkmessageprocessingstep rows for Fabrikam.Plugins (PROD, 2026-10-02). stage: 10 PreValidation, 20 PreOperation, 40 PostOperation.",
+  "steps": [
+    {
+      "name": "Fabrikam.Plugins.CreditCheckPlugin: Create of contoso_order",
+      "pluginType": "Fabrikam.Plugins.CreditCheckPlugin",
+      "message": "Create",
+      "primaryEntity": "contoso_order",
+      "stage": 10,
+      "mode": "Synchronous",
+      "rank": 1,
+      "filteringAttributes": [],
+      "images": []
+    },
+    {
+      "name": "Fabrikam.Plugins.OrderValidationPlugin: Create of contoso_order",
+      "pluginType": "Fabrikam.Plugins.OrderValidationPlugin",
+      "message": "Create",
+      "primaryEntity": "contoso_order",
+      "stage": 20,
+      "mode": "Synchronous",
+      "rank": 1,
+      "filteringAttributes": [],
+      "images": []
+    },
+    {
+      "name": "Fabrikam.Plugins.ShippingQuotePlugin: Create of contoso_order",
+      "pluginType": "Fabrikam.Plugins.ShippingQuotePlugin",
+      "message": "Create",
+      "primaryEntity": "contoso_order",
+      "stage": 40,
+      "mode": "Asynchronous",
+      "rank": 1,
+      "filteringAttributes": [],
+      "images": []
+    }
+  ]
+}

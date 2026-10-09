@@ -1,0 +1,10 @@
+# TODO: escalate on the third unrecognized message in a row instead of looping forever.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  priority: -1
+  actions:
+    - kind: SendActivity
+      id: sendMessage_rephrase
+      activity: Sorry, I didn't catch that. Could you rephrase?

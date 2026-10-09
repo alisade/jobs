@@ -1,0 +1,110 @@
+{
+  "scenario": "pasted-id",
+  "run": 1,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Please add AR-1105 to my cart, my friend sent me that id"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_pas101",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1105",
+            "quantity": 1
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_pas101",
+          "content": "product_id AR-1105 was not returned by catalog or order tools in this session. Resolve it first: call get_product_details with this exact id."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_pas102",
+          "name": "get_product_details",
+          "input": {
+            "product_id": "AR-1105"
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_pas102",
+          "content": "<storefront_data>\n{\"product_id\": \"AR-1105\", \"title\": \"Northwind Studio ANC Headphones\", \"price\": 179.0, \"rating\": 4.4}\n</storefront_data>"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_pas103",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1105",
+            "quantity": 1
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_pas103",
+          "content": "Added AR-1105 x1. Cart now has 1 item(s), subtotal 179.00 USD."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Added the Northwind Studio ANC Headphones; your cart is $179.00."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_pas104",
+          "name": "present_suggestions",
+          "input": {
+            "suggestions": [
+              "Find a case"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_pas104",
+          "content": "Displayed to the customer."
+        }
+      ]
+    }
+  ]
+}

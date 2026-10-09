@@ -1,0 +1,16 @@
+# The MCP server also checks a bearer token at the application layer (projected SA token,
+# audience k8s-tools.mcp.kestrel.internal). The sidecar validates it when present.
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: k8s-tools-jwt
+  namespace: mcp-tools
+spec:
+  selector:
+    matchLabels:
+      app: k8s-tools
+  jwtRules:
+    - issuer: https://oidc.eks.us-east-1.amazonaws.com/id/7F3C1A0B9D2E4F6A8B0C1D2E3F4A5B6C
+      jwksUri: https://oidc.eks.us-east-1.amazonaws.com/id/7F3C1A0B9D2E4F6A8B0C1D2E3F4A5B6C/keys
+      audiences: ["k8s-tools.mcp.kestrel.internal"]
+      forwardOriginalToken: true

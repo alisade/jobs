@@ -1,0 +1,14 @@
+$ kubectl -n agents get events --sort-by=.lastTimestamp | grep -i audit-sink   (14:00-14:45)
+36m   Normal    ScalingReplicaSet        deployment/audit-sink                  Scaled up replica set audit-sink-7c9f6d8b54 to 1
+35m   Normal    ScalingReplicaSet        deployment/audit-sink                  Scaled down replica set audit-sink-6b8d5f9c7d to 2 from 3
+35m   Normal    ScalingReplicaSet        deployment/audit-sink                  Scaled up replica set audit-sink-7c9f6d8b54 to 3 from 2
+35m   Normal    ScalingReplicaSet        deployment/audit-sink                  Scaled down replica set audit-sink-6b8d5f9c7d to 0 from 1
+26m   Normal    SuccessfulRescale        horizontalpodautoscaler/audit-sink     New size: 4; reason: cpu resource utilization (percentage of request) above target
+26m   Normal    ScalingReplicaSet        deployment/audit-sink                  Scaled up replica set audit-sink-7c9f6d8b54 to 4 from 3
+26m   Normal    SuccessfulCreate         replicaset/audit-sink-7c9f6d8b54       Created pod: audit-sink-7c9f6d8b54-m5hzc
+21m   Normal    SuccessfulRescale        horizontalpodautoscaler/audit-sink     New size: 3; reason: All metrics below target
+21m   Normal    ScalingReplicaSet        deployment/audit-sink                  Scaled down replica set audit-sink-7c9f6d8b54 to 3 from 4
+21m   Normal    Killing                  pod/audit-sink-7c9f6d8b54-m5hzc        Stopping container audit-sink
+4m    Warning   BackOff                  pod/audit-sink-7c9f6d8b54-xq2lm        Back-off restarting failed container audit-sink in pod audit-sink-7c9f6d8b54-xq2lm_agents(...)
+4m    Warning   BackOff                  pod/audit-sink-7c9f6d8b54-k8v4n        Back-off restarting failed container audit-sink in pod audit-sink-7c9f6d8b54-k8v4n_agents(...)
+2m    Warning   BackOff                  pod/audit-sink-7c9f6d8b54-t2r9w        Back-off restarting failed container audit-sink in pod audit-sink-7c9f6d8b54-t2r9w_agents(...)

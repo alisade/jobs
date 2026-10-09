@@ -1,0 +1,20 @@
+# istioctl pc log k8s-tools-7f6c5d4b8a-4xv7p.mcp-tools --level rbac:debug,jwt:debug ; then one failing call at 08:31
+2026-10-07T08:31:10.004Z debug envoy jwt external/envoy/source/extensions/filters/http/jwt_authn/filter.cc:56 Called Filter : intercept Http request headers  thread=31
+2026-10-07T08:31:10.004Z debug envoy jwt external/envoy/source/extensions/filters/http/jwt_authn/extractor.cc:300 extract authorizationBearer  thread=31
+2026-10-07T08:31:10.005Z debug envoy jwt external/envoy/source/extensions/filters/http/jwt_authn/authenticator.cc:275 origins-0: Verifying JWT token of issuer https://oidc.eks.us-east-1.amazonaws.com/id/7F3C1A0B9D2E4F6A8B0C1D2E3F4A5B6C  thread=31
+2026-10-07T08:31:10.005Z debug envoy jwt external/envoy/source/extensions/filters/http/jwt_authn/authenticator.cc:360 origins-0: JWT token verification completed with: OK  thread=31
+2026-10-07T08:31:10.005Z debug envoy rbac external/envoy/source/extensions/filters/http/rbac/rbac_filter.cc:170 checking request: requestedServerName: , sourceIP: 10.42.3.17:38830, directRemoteIP: 10.42.3.17:38830, remoteIP: 10.42.3.17:38830,localAddress: 10.42.4.122:8080, ssl: none, headers: ':authority', 'k8s-tools.mcp-tools.svc.cluster.local:8080'
+':path', '/mcp'
+':method', 'POST'
+'user-agent', 'agent-runtime/2.8.0 mcp-go/1.6'
+'content-type', 'application/json'
+'accept', 'application/json, text/event-stream'
+'mcp-protocol-version', '2025-06-18'
+'authorization', 'Bearer [redacted]'
+, dynamicMetadata: filter_metadata {
+  key: "envoy.filters.http.jwt_authn"
+  value { fields { key: "https://oidc.eks.us-east-1.amazonaws.com/id/7F3C1A0B9D2E4F6A8B0C1D2E3F4A5B6C" value { struct_value { fields { key: "sub" value { string_value: "system:serviceaccount:agents:agent-runtime" } } } } }
+}
+  thread=31
+2026-10-07T08:31:10.005Z debug envoy rbac external/envoy/source/extensions/filters/http/rbac/rbac_filter.cc:213 shadow denied, matched policy none  thread=31
+2026-10-07T08:31:10.005Z debug envoy rbac external/envoy/source/extensions/filters/http/rbac/rbac_filter.cc:252 enforced denied, matched policy none  thread=31

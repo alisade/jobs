@@ -1,0 +1,9 @@
+[project]
+name = "contoso-parts-agent"
+version = "0.1.0"
+description = "Hand-written agent loop with server-side guardrails (ms/ai-c1)"
+requires-python = ">=3.12"
+dependencies = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

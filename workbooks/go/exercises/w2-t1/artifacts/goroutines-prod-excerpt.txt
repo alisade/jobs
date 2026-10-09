@@ -1,0 +1,29 @@
+$ curl -s 'http://localhost:6060/debug/pprof/goroutine?debug=2' > goroutines.txt   (02:53 UTC)
+$ grep -c '^goroutine ' goroutines.txt
+15391
+$ grep -A1 '^goroutine ' goroutines.txt | grep -v '^goroutine\|^--' | sort | uniq -c | sort -rn | head
+  15352 github.com/tidewater/driftwood/shipper.(*Shipper).sendOnce.func1()
+     12 internal/poll.runtime_pollWait(0xffff4c2a1e30, 0x72)
+      8 sync.runtime_notifyListWait(0x4000124050, 0x1a)
+      6 runtime.gopark(0x40000a6f30?, 0x1?, 0x0?, 0x0?, 0x0?)
+      ...
+
+--- excerpt (3 of 15391) ---
+
+goroutine 48211 [chan send, 51 minutes]:
+github.com/tidewater/driftwood/shipper.(*Shipper).sendOnce.func1()
+	/src/shipper/shipper.go:116 +0x58
+created by github.com/tidewater/driftwood/shipper.(*Shipper).sendOnce in goroutine 1
+	/src/shipper/shipper.go:115 +0x10c
+
+goroutine 48212 [chan send, 51 minutes]:
+github.com/tidewater/driftwood/shipper.(*Shipper).sendOnce.func1()
+	/src/shipper/shipper.go:116 +0x58
+created by github.com/tidewater/driftwood/shipper.(*Shipper).sendOnce in goroutine 1
+	/src/shipper/shipper.go:115 +0x10c
+
+goroutine 1 [select]:
+github.com/tidewater/driftwood/shipper.(*Shipper).Flush(0x4000196000, {0x1027c8e70, 0x4000096a50}, {0x4002a1c000, 0x1f4, 0x200})
+	/src/shipper/shipper.go:85 +0x2e4
+main.main()
+	/src/cmd/driftwood/main.go:72 +0x6a0

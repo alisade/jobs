@@ -1,0 +1,48 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "token": {
+        "type": "oAuthSetting",
+        "oAuthSettings": {
+          "identityProvider": "aad",
+          "clientId": "3f9c2a71-6b1e-4d8a-9c55-0e7f1b2d4a60",
+          "scopes": [],
+          "redirectMode": "GlobalPerConnector",
+          "properties": {
+            "IsFirstParty": "False"
+          },
+          "customParameters": {
+            "LoginUri": {
+              "value": "https://login.microsoftonline.com"
+            },
+            "TenantId": {
+              "value": "common"
+            },
+            "ResourceUri": {
+              "value": "api://contoso-parts-api"
+            },
+            "EnableOnbehalfOfLogin": {
+              "value": "false"
+            }
+          }
+        }
+      }
+    },
+    "iconBrandColor": "#0b6a4f",
+    "capabilities": [],
+    "publisher": "Contoso Field Engineering",
+    "stackOwner": "Contoso Field Engineering",
+    "policyTemplateInstances": [
+      {
+        "templateId": "setheader",
+        "title": "Identify Power Platform callers",
+        "parameters": {
+          "x-ms-apimTemplateParameter.name": "x-contoso-caller",
+          "x-ms-apimTemplateParameter.value": "power-platform",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Request"
+        }
+      }
+    ]
+  }
+}

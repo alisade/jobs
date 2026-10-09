@@ -1,0 +1,44 @@
+$ kubectl -n agents describe pod audit-sink-7c9f6d8b54-xq2lm   (trimmed)
+Name:             audit-sink-7c9f6d8b54-xq2lm
+Namespace:        agents
+Service Account:  audit-sink
+Node:             ip-10-42-25-130.ec2.internal/10.42.25.130
+Labels:           app.kubernetes.io/name=audit-sink
+                  pod-template-hash=7c9f6d8b54
+Controlled By:    ReplicaSet/audit-sink-7c9f6d8b54
+Containers:
+  audit-sink:
+    Image:          123456789012.dkr.ecr.us-east-1.amazonaws.com/relaypoint/audit-sink:1.14.0
+    State:          Running
+      Started:      Mon, 06 Oct 2026 14:36:05 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Mon, 06 Oct 2026 14:31:41 +0000
+      Finished:     Mon, 06 Oct 2026 14:33:52 +0000
+    Ready:          True
+    Restart Count:  10
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:      250m
+      memory:   256Mi
+    Readiness:  http-get http://:8081/readyz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      KAFKA_BROKERS:            b-1.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098,b-2.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098,b-3.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098
+      KAFKA_GROUP:              audit-sink
+      KAFKA_TOPIC:              agent.audit
+      KAFKA_STATIC_MEMBERSHIP:  true
+      GROUP_INSTANCE_ID:        audit-sink
+      KAFKA_SESSION_TIMEOUT:    120s
+Conditions:
+  Type              Status
+  Ready             True
+  ContainersReady   True
+Events:
+  Type     Reason   Age                  From     Message
+  ----     ------   ----                 ----     -------
+  Normal   Pulled   2m3s (x11 over 36m)  kubelet  Container image "123456789012.dkr.ecr.us-east-1.amazonaws.com/relaypoint/audit-sink:1.14.0" already present on machine
+  Normal   Started  2m3s (x11 over 36m)  kubelet  Started container audit-sink
+  Warning  BackOff  4m (x23 over 31m)    kubelet  Back-off restarting failed container audit-sink in pod audit-sink-7c9f6d8b54-xq2lm_agents(5b0e7f3c-1d2a-4f61-9a0c-2e7d8c41b9aa)

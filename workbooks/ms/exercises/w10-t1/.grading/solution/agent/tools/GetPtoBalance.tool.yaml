@@ -1,0 +1,25 @@
+# Connector tool (Workday HCM custom connector). Code-editor YAML of the tool.
+kind: TaskDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: employeeId
+    description: Workday employee ID of the person asking. Fill it from the signed-in user's profile; only ask if it is unknown.
+    entity: StringPrebuiltEntity
+    shouldPromptUser: false
+
+modelDisplayName: Get time off balance
+modelDescription: |-
+  Looks up how many vacation, PTO, annual leave and sick days the person has left: their remaining
+  time off balance and accrued days. Use it for questions like "how many days off do I have left".
+  It does not book or submit time off and it does not explain leave policy.
+outputs:
+  - propertyName: balances
+    name: balances
+
+action:
+  kind: InvokeConnectorTaskAction
+  connectionReference: litware_hrassist.shared_litware-5fworkday-5fhcm.workday
+  connectionProperties:
+    mode: Invoker
+
+  operationId: GetTimeOffBalances

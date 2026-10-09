@@ -1,0 +1,86 @@
+{
+  "scenario": "premature-claim",
+  "run": 3,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Add the Pulse earbuds"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_pre301",
+          "name": "search_products",
+          "input": {
+            "query": "Pulse earbuds"
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_pre301",
+          "content": "Search returned 1 result(s) for 'Pulse earbuds': the catalog's closest text matches. Treat a result as the requested item only if its title and attributes match.\n<storefront_data>\n[{\"product_id\": \"AR-1108\", \"title\": \"Northwind Pulse Wireless Earbuds\", \"price\": 89.0, \"rating\": 4.1}]\n</storefront_data>"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_pre302",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1108",
+            "quantity": 1
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_pre302",
+          "content": "Added AR-1108 x1. Cart now has 1 item(s), subtotal 89.00 USD."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "The Pulse earbuds are now in your cart; it comes to $89.00."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_pre303",
+          "name": "present_suggestions",
+          "input": {
+            "suggestions": [
+              "Find a case"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_pre303",
+          "content": "Displayed to the customer."
+        }
+      ]
+    }
+  ]
+}

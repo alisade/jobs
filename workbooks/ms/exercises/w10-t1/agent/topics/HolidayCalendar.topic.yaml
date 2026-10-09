@@ -1,0 +1,16 @@
+kind: AdaptiveDialog
+modelDescription: Lists public holidays and the dates offices are closed (for example Thanksgiving, Christmas and New Year) for the current year, by country.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Holiday calendar
+    triggerQueries:
+      - when is the next public holiday
+      - office closure dates
+      - holiday calendar
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_holidays
+      activity: Here is the {Global.Country} holiday calendar for this year.

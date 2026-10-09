@@ -1,0 +1,32 @@
+# From the EKS control plane (CloudWatch Container Insights / kube-apiserver /metrics
+# via the EKS metrics endpoint), rate over 5m, 2026-10-07 02:20 UTC.
+
+sum by (verb, resource, subresource) (rate(apiserver_request_total{group="agents.example.dev"}[5m]))
+  {verb="PUT",   resource="mcpservers", subresource="status"}  697.4
+  {verb="GET",   resource="mcpservers", subresource=""}          0.0
+  {verb="LIST",  resource="mcpservers", subresource=""}          0.0
+  {verb="WATCH", resource="mcpservers", subresource=""}          0.1
+  {verb="PUT",   resource="mcpservers", subresource=""}          0.0
+  {verb="PATCH", resource="mcpservers", subresource=""}          0.0
+
+sum by (verb, resource) (rate(apiserver_request_total{group="apps",resource="deployments",username=~".*agent-fleet-operator.*"}[5m]))
+  (no series: no Deployment writes from the operator)
+
+sum by (code) (rate(apiserver_request_total{group="agents.example.dev",verb="PUT",subresource="status"}[5m]))
+  {code="200"} 695.9
+  {code="409"}   1.5
+
+histogram_quantile(0.99, sum by (le) (rate(apiserver_request_duration_seconds_bucket{group="agents.example.dev",verb="PUT"}[5m])))
+  1.91
+
+sum by (priority_level) (rate(apiserver_flowcontrol_rejected_requests_total[5m]))
+  {priority_level="workload-low"}  0.4
+  {priority_level="global-default"} 0.0
+
+sum by (priority_level) (apiserver_flowcontrol_current_inqueue_requests)
+  {priority_level="workload-low"}  37
+  {priority_level="workload-high"}  0
+
+etcd: rate(etcd_request_duration_seconds_count{operation="update",type="agents.example.dev/mcpservers"}[5m])
+  697.1
+etcd db size (apiserver_storage_size_bytes): 1.41 GiB, +380 MiB since 2026-10-05 (compaction keeping up, history growing)

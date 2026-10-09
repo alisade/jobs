@@ -1,0 +1,4 @@
+# Simplified export of a knowledge source (display name, description, source).
+displayName: Facilities site
+description: Office locations, parking, building access badges and meeting room reservations.
+source: https://litware.sharepoint.com/sites/Facilities

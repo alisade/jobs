@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.25092.170" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25092.170" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25092.00170">
+  <SolutionManifest>
+    <UniqueName>FieldOps</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Field Operations" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Work orders, dispatch board and technician forms for Contoso Field Services." languagecode="1033" />
+    </Descriptions>
+    <Version>1.4.0.0</Version>
+    <Managed>2</Managed>
+    <Publisher>
+      <UniqueName>contoso</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Contoso Field Services" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions />
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>contoso</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>41250</CustomizationOptionValuePrefix>
+      <Addresses />
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="contoso_workorder" behavior="0" />
+      <RootComponent type="1" schemaName="contoso_asset" behavior="2" />
+      <RootComponent type="60" id="{3f6c2a91-7b4e-4d0a-9c15-8e2f6b1d4a07}" behavior="0" />
+      <RootComponent type="26" id="{b81d5e3c-0a29-4f6e-8d47-2c9a1e6f3b58}" behavior="0" />
+      <RootComponent type="80" schemaName="contoso_FieldOpsHub" behavior="0" />
+      <RootComponent type="91" schemaName="Contoso.FieldOps.Plugins, Version=1.4.0.0, Culture=neutral, PublicKeyToken=8f3a1c2b9d4e6f70" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="2" schemaName="contoso_regioncode" displayName="Region Code" parentSchemaName="contoso_asset" parentDisplayName="Asset" solution="ContosoCore (2.1.0.0)" />
+        <Dependent type="60" id="{3f6c2a91-7b4e-4d0a-9c15-8e2f6b1d4a07}" displayName="Asset - Field Ops" parentSchemaName="contoso_asset" parentDisplayName="Asset" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="contoso_regioncode" displayName="Region Code" parentSchemaName="contoso_asset" parentDisplayName="Asset" solution="ContosoCore (2.1.0.0)" />
+        <Dependent type="26" id="{b81d5e3c-0a29-4f6e-8d47-2c9a1e6f3b58}" displayName="Assets by Region" parentSchemaName="contoso_asset" parentDisplayName="Asset" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="contoso_asset" displayName="Asset" solution="ContosoCore (2.0.0.0)" />
+        <Dependent type="1" schemaName="contoso_workorder" displayName="Work Order" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

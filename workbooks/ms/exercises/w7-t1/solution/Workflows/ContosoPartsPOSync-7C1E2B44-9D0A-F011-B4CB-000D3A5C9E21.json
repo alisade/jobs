@@ -1,0 +1,162 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "contoso_sharedcommondataserviceforapps_8a1f2"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_contoso-20parts-5f3f9c2a716b1e4d8a": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "contoso_ContosoParts_3c9d1"
+        },
+        "api": {
+          "name": "shared_contoso-20parts-5f3f9c2a716b1e4d8a",
+          "logicalName": "contoso_5fcontoso-20parts"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_PO_is_approved": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "contoso_purchaseorder",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "statuscode"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "conditions": [
+            {
+              "expression": "@equals(triggerOutputs()?['body/statuscode'], 100000003)"
+            }
+          ]
+        }
+      },
+      "actions": {
+        "Try": {
+          "type": "Scope",
+          "runAfter": {},
+          "actions": {
+            "List_PO_lines": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "contoso_purchaseorderlines",
+                  "$select": "contoso_partnumber,contoso_quantity",
+                  "$filter": "_contoso_purchaseorderid_value eq @{triggerOutputs()?['body/contoso_purchaseorderid']}"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Compose_payload": {
+              "type": "Compose",
+              "runAfter": {
+                "List_PO_lines": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@body('List_PO_lines')?['value']"
+            },
+            "Send_to_Contoso_Parts": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Compose_payload": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_contoso-20parts-5f3f9c2a716b1e4d8a",
+                  "operationId": "SubmitPurchaseOrder",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_contoso-20parts-5f3f9c2a716b1e4d8a"
+                },
+                "parameters": {
+                  "api-version": "2026-09-01",
+                  "body/poNumber": "@triggerOutputs()?['body/contoso_ponumber']",
+                  "body/supplierCode": "@triggerOutputs()?['body/contoso_suppliercode']",
+                  "body/lines": "@outputs('Compose_payload')"
+                },
+                "authentication": "@parameters('$authentication')",
+                "retryPolicy": {
+                  "type": "none"
+                }
+              }
+            },
+            "Mark_PO_as_sent": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Send_to_Contoso_Parts": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateOnlyRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "contoso_purchaseorders",
+                  "recordId": "@triggerOutputs()?['body/contoso_purchaseorderid']",
+                  "item/contoso_partsreference": "@body('Send_to_Contoso_Parts')?['orderReference']",
+                  "item/contoso_syncstatus": 100000001
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          }
+        },
+        "Catch": {
+          "type": "Scope",
+          "runAfter": {
+            "Try": [
+              "Failed"
+            ]
+          },
+          "actions": {
+            "Compose_failure_details": {
+              "type": "Compose",
+              "runAfter": {},
+              "inputs": "@result('Try')"
+            }
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

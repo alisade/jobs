@@ -1,0 +1,20 @@
+-- From the KB-198 benchmark write-up (staging, 600k chunks, image v1.11.2), after the
+-- HNSW index was built. Kept here for comparison.
+kb=> EXPLAIN (ANALYZE, BUFFERS)
+     SELECT c.id, c.doc_id, c.content, c.embedding <=> '[0.0132,-0.0411,...]' AS distance
+     FROM kb_chunks c
+     WHERE c.tenant_id = 'acme'
+     ORDER BY c.embedding <=> '[0.0132,-0.0411,...]'
+     LIMIT 8;
+                                                                   QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=184.31..201.07 rows=8 width=612) (actual time=4.882..5.391 rows=8 loops=1)
+   Buffers: shared hit=1873
+   ->  Index Scan using kb_chunks_embedding_hnsw on kb_chunks c  (cost=184.31..419773.20 rows=200314 width=612) (actual time=4.880..5.386 rows=8 loops=1)
+         Order By: (embedding <=> '[0.0132,-0.0411,...]'::vector)
+         Filter: (tenant_id = 'acme'::text)
+         Rows Removed by Filter: 23
+         Buffers: shared hit=1873
+ Planning Time: 0.311 ms
+ Execution Time: 5.447 ms
+(9 rows)

@@ -1,0 +1,17 @@
+[project]
+name = "ms-w3-c1-table-maintenance"
+version = "0.1.0"
+description = "Contoso Fleet lakehouse table maintenance job (DP-700 workbook)"
+requires-python = ">=3.12"
+dependencies = [
+  "polars>=1.30",
+  "deltalake>=1.0",
+  "pyarrow>=18",
+  "pytest>=8",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]

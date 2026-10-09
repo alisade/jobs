@@ -1,0 +1,51 @@
+# Scraped from agent-fleet-operator :8080/metrics, 60s apart, 2026-10-07 02:20 and 02:21 UTC.
+# (Prometheus text format, trimmed to the mcpserver controller.)
+
+## 02:20:00
+controller_runtime_reconcile_total{controller="mcpserver",result="success"} 18734120
+controller_runtime_reconcile_total{controller="mcpserver",result="error"} 40211
+controller_runtime_reconcile_total{controller="mcpserver",result="requeue"} 0
+controller_runtime_reconcile_total{controller="mcpserver",result="requeue_after"} 0
+controller_runtime_reconcile_errors_total{controller="mcpserver"} 40211
+controller_runtime_active_workers{controller="mcpserver"} 4
+controller_runtime_max_concurrent_reconciles{controller="mcpserver"} 4
+controller_runtime_reconcile_time_seconds_sum{controller="mcpserver"} 101588.7
+controller_runtime_reconcile_time_seconds_count{controller="mcpserver"} 18774331
+workqueue_adds_total{controller="mcpserver",name="mcpserver"} 18801990
+workqueue_depth{controller="mcpserver",name="mcpserver"} 1903
+workqueue_retries_total{controller="mcpserver",name="mcpserver"} 40211
+workqueue_queue_duration_seconds_sum{controller="mcpserver",name="mcpserver"} 9.81e+06
+workqueue_queue_duration_seconds_count{controller="mcpserver",name="mcpserver"} 18799101
+rest_client_requests_total{code="200",host="172.20.0.1:443",method="GET"} 3012
+rest_client_requests_total{code="200",host="172.20.0.1:443",method="PUT"} 18690655
+rest_client_requests_total{code="409",host="172.20.0.1:443",method="PUT"} 40211
+rest_client_requests_total{code="201",host="172.20.0.1:443",method="POST"} 4280
+process_cpu_seconds_total 412337.21
+go_goroutines 211
+
+## 02:21:00
+controller_runtime_reconcile_total{controller="mcpserver",result="success"} 18776011
+controller_runtime_reconcile_total{controller="mcpserver",result="error"} 40302
+controller_runtime_reconcile_total{controller="mcpserver",result="requeue"} 0
+controller_runtime_reconcile_total{controller="mcpserver",result="requeue_after"} 0
+controller_runtime_reconcile_errors_total{controller="mcpserver"} 40302
+controller_runtime_active_workers{controller="mcpserver"} 4
+controller_runtime_max_concurrent_reconciles{controller="mcpserver"} 4
+controller_runtime_reconcile_time_seconds_sum{controller="mcpserver"} 101814.2
+controller_runtime_reconcile_time_seconds_count{controller="mcpserver"} 18816313
+workqueue_adds_total{controller="mcpserver",name="mcpserver"} 18844061
+workqueue_depth{controller="mcpserver",name="mcpserver"} 1911
+workqueue_retries_total{controller="mcpserver",name="mcpserver"} 40302
+workqueue_queue_duration_seconds_sum{controller="mcpserver",name="mcpserver"} 9.83e+06
+workqueue_queue_duration_seconds_count{controller="mcpserver",name="mcpserver"} 18841170
+rest_client_requests_total{code="200",host="172.20.0.1:443",method="GET"} 3012
+rest_client_requests_total{code="200",host="172.20.0.1:443",method="PUT"} 18732546
+rest_client_requests_total{code="409",host="172.20.0.1:443",method="PUT"} 40302
+rest_client_requests_total{code="201",host="172.20.0.1:443",method="POST"} 4280
+process_cpu_seconds_total 412456.80
+go_goroutines 213
+
+## For comparison: v0.2.4, same cluster, 2026-10-05 (2 days before the rollout), 60s apart
+controller_runtime_reconcile_total{controller="mcpserver",result="success"} 902114 -> 902131
+workqueue_depth{controller="mcpserver",name="mcpserver"} 0
+rest_client_requests_total{code="200",host="172.20.0.1:443",method="PUT"} 11870 -> 11870

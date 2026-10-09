@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agent-runtime
+  namespace: agents
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-runtime
+  namespace: agents
+  labels:
+    app: agent-runtime
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: agent-runtime
+  template:
+    metadata:
+      labels:
+        app: agent-runtime
+        version: v2.8.0
+    spec:
+      serviceAccountName: agent-runtime
+      containers:
+        - name: agent
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/agent-runtime:v2.8.0
+          env:
+            - name: MCP_SERVERS
+              value: http://k8s-tools.mcp-tools.svc.cluster.local:8080/mcp
+            - name: MCP_TOKEN_FILE
+              value: /var/run/secrets/mcp/token
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - name: mcp-token
+              mountPath: /var/run/secrets/mcp
+              readOnly: true
+      volumes:
+        - name: mcp-token
+          projected:
+            sources:
+              - serviceAccountToken:
+                  audience: k8s-tools.mcp.kestrel.internal
+                  expirationSeconds: 3600
+                  path: token
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+  namespace: agents
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eval-runner
+  namespace: agents
+  labels:
+    app: eval-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eval-runner
+  template:
+    metadata:
+      labels:
+        app: eval-runner
+    spec:
+      serviceAccountName: default
+      containers:
+        - name: eval
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/eval-runner:v0.9.3

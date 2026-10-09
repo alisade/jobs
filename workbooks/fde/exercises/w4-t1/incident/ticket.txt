@@ -1,0 +1,19 @@
+SUPPORT ESCALATION  SEV-2  opened 2026-10-08 19:42 UTC  by Tier-2 (R. Okafor)
+
+Title: Shopping assistant showed me someone else's cart
+
+Customer report (3 tickets merged, all during the 19:00 "Fall Refresh" push):
+  "I asked the assistant what was in my cart and it listed a cast iron pan and an air
+   purifier. I never looked at either of those."
+  "It said it added the coffee maker for me but my cart has a robot vacuum in it."
+  "Checkout card had items I didn't pick. I removed them, came back 5 min later, fine."
+
+Notes from Tier-2:
+  - Cannot reproduce by hand: every time we try with one test account it works.
+  - Only seen on the Managed Agents (hosted) assistant, never in the web chat.
+  - Started after the 2026.10.07 release. Platform says the session cache TTL change in
+    that release is the obvious suspect ("stale session served to the wrong user").
+  - Nothing in error logs. Gateway p99 latency normal.
+
+Ask: find the root cause before tomorrow's 19:00 push. Rolling back 2026.10.07 entirely
+is the fallback but it also reverts the rate limiter work.

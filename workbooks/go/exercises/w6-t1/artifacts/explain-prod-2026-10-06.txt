@@ -1,0 +1,30 @@
+-- Captured by Marcus at 14:20 UTC with the exact statement from pg_stat_statements,
+-- tenant 'acme', k = 8, vector abbreviated.
+kb=> EXPLAIN (ANALYZE, BUFFERS, SETTINGS)
+     SELECT c.id, c.doc_id, c.content, c.embedding <-> '[0.0132,-0.0411,...]' AS distance
+     FROM kb_chunks c
+     WHERE c.tenant_id = 'acme'
+     ORDER BY c.embedding <-> '[0.0132,-0.0411,...]'
+     LIMIT 8;
+                                                                   QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=412873.55..412874.48 rows=8 width=612) (actual time=8796.122..8802.517 rows=8 loops=1)
+   Buffers: shared hit=31877 read=1062211
+   ->  Gather Merge  (cost=412873.55..489911.80 rows=660268 width=612) (actual time=8796.119..8802.509 rows=8 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=31877 read=1062211
+         ->  Sort  (cost=411873.53..412698.86 rows=330134 width=612) (actual time=8781.402..8781.405 rows=7 loops=3)
+               Sort Key: ((embedding <-> '[0.0132,-0.0411,...]'::vector))
+               Sort Method: top-N heapsort  Memory: 41kB
+               Buffers: shared hit=31877 read=1062211
+               ->  Parallel Seq Scan on kb_chunks c  (cost=0.00..404651.12 rows=330134 width=612) (actual time=0.611..8601.044 rows=264190 loops=3)
+                     Filter: (tenant_id = 'acme'::text)
+                     Rows Removed by Filter: 440425
+                     Buffers: shared hit=31877 read=1062211
+ Settings: effective_cache_size = '24GB', work_mem = '16MB', hnsw.ef_search = '40'
+ Planning:
+   Buffers: shared hit=12
+ Planning Time: 0.402 ms
+ Execution Time: 8802.731 ms
+(19 rows)

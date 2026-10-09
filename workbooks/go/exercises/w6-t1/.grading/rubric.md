@@ -1,0 +1,11 @@
+# Rubric: go/w6-t1 search_kb times out after the knowledge-base backfill
+Pass mark: 70
+
+| # | Criterion | Points | How to judge |
+|---|---|---|---|
+| 1 | Automated tests | 30 | points = 30 * passed / total from grade.sh. Several hidden tests are regression guards the starter already passes; the grader only scores attempts with real changes. |
+| 2 | Root cause identified | 25 | Full: the query ranks with `<->` (L2) while `kb_chunks_embedding_hnsw` is `vector_cosine_ops` (`<=>`), so the planner cannot use the index and does a Parallel Seq Scan + top-N sort; introduced by #412 / v1.14.0. Partial: "index not used" without saying why (opclass/operator mismatch). Zero: blames ef_search, pool size, RDS sizing or the backfill itself. |
+| 3 | Evidence | 20 | Full: quotes at least three independent artifacts, e.g. prod EXPLAIN `Sort Key: (embedding <-> ...)` + `Parallel Seq Scan`, `\d+` showing `vector_cosine_ops`, `last_idx_scan` of the HNSW index frozen at 2026-09-24 09:09 = v1.14.0 rollout, staging EXPLAIN with `<=>` and `Index Scan`, pg_stat_statements text. Explains why it only hurt today (seq scan cost grows with rows; 640k was slow-but-under-timeout) and links KB-224 (1 - L2 distance is not cosine similarity, so 0.72 threshold dropped good hits). Partial: one artifact, or no timeline. Zero: none. |
+| 4 | Fix quality | 10 | Full: one-operator change in the query, ORDER BY stays the bare ascending distance expression with `LIMIT $n`, similarity stays 1 - cosine distance, migrations untouched. Partial: works but reorders by `similarity DESC` or recomputes in SQL in a way that defeats the index, or touches unrelated code. Zero: rebuilds the index, raises timeouts, or lowers MinSimilarity. |
+| 5 | Red herring and production judgement | 15 | Full: explains why KB-231 (ef_search 200, pool 50) would make things worse or do nothing (more concurrent seq scans on a CPU-bound DB; ef_search only affects index scans), plus guard rails: an EXPLAIN-based test/CI check or `pg_stat_user_indexes` alert, verifying with EXPLAIN in prod after rollout, and the filtered-HNSW recall caveat (tenant filter after index scan; `hnsw.iterative_scan` or per-tenant partial indexes). Partial: some of these. Zero: none. |
+Total: 100

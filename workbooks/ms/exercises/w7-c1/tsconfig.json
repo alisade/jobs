@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "lib": ["ES2019", "DOM"],
+    "types": ["powerapps-component-framework", "jest", "node"]
+  },
+  "include": ["AssetTagInput/**/*.ts", "tests/**/*.ts"]
+}

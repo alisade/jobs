@@ -1,0 +1,81 @@
+commit 9e41c07d2b (tag: release-2026.10.06)
+Merge: 5b1a2e0 c3f88d1
+Author: deploy-bot <deploy-bot@bramblewood.example>
+Date:   Tue Oct 6 09:12:44 2026 +0000
+
+    release 2026.10.06: #418 dedupe tools + merchant extra_tools, #421 local_time in
+    session context, #423 anthropic 0.121.0 -> 0.122.0
+
+diff --git a/requirements.txt b/requirements.txt
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-anthropic==0.121.0
++anthropic==0.122.0
+ anyio==4.14.2
+ fastapi==0.141.1
+ httpx==0.28.1
+diff --git a/config/flags.json b/config/flags.json
+--- a/config/flags.json
++++ b/config/flags.json
+@@ -2,5 +2,6 @@
+   "store": "Bramblewood Gear",
+   "enable_fulfillment": true,
+   "enable_web_search": false,
+-  "enable_comparison": true
++  "enable_comparison": true,
++  "extra_tools": ["present_comparison"]
+ }
+diff --git a/storefront_prompt/prompt.py b/storefront_prompt/prompt.py
+--- a/storefront_prompt/prompt.py
++++ b/storefront_prompt/prompt.py
+@@ -64,10 +64,11 @@
+ 
+ 
+ def build_dynamic_context(*, now: datetime, cart_count: int, page: str) -> str:
+-    """The per-request half, after the breakpoint."""
++    """The per-request half, after the breakpoint. The clock is rendered to the hour so the
++    block changes at most once an hour."""
+     payload = {
+         "cart_item_count": cart_count,
+         "current_page": page,
+-        "local_date": now.date().isoformat(),
++        "local_time": now.replace(minute=0, second=0, microsecond=0).isoformat(timespec="minutes"),
+     }
+     return "# Session context\n\n<storefront_data>\n" + json.dumps(payload) + "\n</storefront_data>"
+diff --git a/storefront_prompt/tools.py b/storefront_prompt/tools.py
+--- a/storefront_prompt/tools.py
++++ b/storefront_prompt/tools.py
+@@ -1,16 +1,28 @@
+-"""Which tools this deployment exposes, and their request shape."""
++"""Which tools this deployment exposes, and their request shape.
+ 
++Release 2026.10.06 (PR #418, "Dedupe enabled tools; merchant extra_tools"): merchants can
++now list ``extra_tools`` in flags.json. A name listed there that was already enabled by a
++flag produced a duplicate tool and a 400 ("tools: Tool names must be unique", INC-2291),
++so names are now collected into a set before the specs are looked up.
++"""
++
+ from __future__ import annotations
+ 
+ import copy
+ from typing import Any
+ 
+-from .specs import OPTIONAL_TOOLS, TOOL_ORDER, TOOL_SPECS
++from .specs import CORE_TOOLS, OPTIONAL_TOOLS, TOOL_SPECS
+ 
+ 
+ def enabled_tool_names(flags: dict[str, Any]) -> list[str]:
+-    """Every tool this deployment exposes, in release order."""
+-    return [n for n in TOOL_ORDER if n not in OPTIONAL_TOOLS or flags.get(OPTIONAL_TOOLS[n])]
++    """Every tool this deployment exposes, each name once."""
++    names = set(CORE_TOOLS)
++    names |= {tool for tool, flag in OPTIONAL_TOOLS.items() if flags.get(flag)}
++    for extra in flags.get("extra_tools", []):
++        if extra not in TOOL_SPECS:
++            raise ValueError(f"flags.extra_tools names an unknown tool: {extra!r}")
++        names.add(extra)
++    return list(names)
+ 
+ 
+ def build_tools(flags: dict[str, Any]) -> list[dict[str, Any]]:

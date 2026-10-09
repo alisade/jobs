@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="Tailspin" constructor="AssetTagInput" version="0.1.0"
+           display-name-key="Asset tag input" description-key="Validated Tailspin asset tag entry"
+           control-type="standard">
+    <external-service-usage enabled="false"></external-service-usage>
+    <!-- The column this control is bound to on the form. -->
+    <property name="assetTag" display-name-key="Asset tag" description-key="Asset tag column"
+              of-type="SingleLine.Text" usage="bound" required="true" />
+    <!-- TODO: add the two configuration (input) properties the code reads:
+         tagPrefix  (SingleLine.Text) and debounceMs (Whole.None). See README. -->
+    <resources>
+      <code path="index.ts" order="1" />
+      <!-- TODO: register the stylesheet in css/ -->
+    </resources>
+  </control>
+</manifest>

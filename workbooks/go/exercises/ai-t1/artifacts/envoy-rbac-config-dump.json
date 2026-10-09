@@ -1,0 +1,75 @@
+{
+  "_comment": "istioctl pc listener k8s-tools-7f6c5d4b8a-4xv7p.mcp-tools --port 15006 -o json | jq (virtualInbound, filter chain for 8080, http_connection_manager http_filters, trimmed)",
+  "http_filters": [
+    {
+      "name": "istio.metadata_exchange"
+    },
+    {
+      "name": "envoy.filters.http.jwt_authn",
+      "typed_config": {
+        "@type": "type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication",
+        "providers": {
+          "origins-0": {
+            "issuer": "https://oidc.eks.us-east-1.amazonaws.com/id/7F3C1A0B9D2E4F6A8B0C1D2E3F4A5B6C",
+            "audiences": ["k8s-tools.mcp.kestrel.internal"],
+            "forward": true,
+            "payload_in_metadata": "https://oidc.eks.us-east-1.amazonaws.com/id/7F3C1A0B9D2E4F6A8B0C1D2E3F4A5B6C"
+          }
+        },
+        "rules": [
+          {"match": {"prefix": "/"}, "requires": {"requires_any": {"requirements": [{"provider_name": "origins-0"}, {"allow_missing": {}}]}}}
+        ]
+      }
+    },
+    {
+      "name": "envoy.filters.http.rbac",
+      "typed_config": {
+        "@type": "type.googleapis.com/envoy.extensions.filters.http.rbac.v3.RBAC",
+        "rules": {
+          "action": "DENY",
+          "policies": {
+            "ns[mcp-tools]-policy[k8s-tools-deny-admin]-rule[0]": {
+              "permissions": [{"and_rules": {"rules": [{"or_rules": {"rules": [
+                {"url_path": {"path": {"exact": "/admin"}}},
+                {"url_path": {"path": {"prefix": "/admin/"}}},
+                {"url_path": {"path": {"prefix": "/debug/"}}}
+              ]}}]}}],
+              "principals": [{"and_ids": {"ids": [{"any": true}]}}]
+            }
+          }
+        },
+        "shadow_rules_stat_prefix": "istio_dry_run_deny_"
+      }
+    },
+    {
+      "name": "envoy.filters.http.rbac",
+      "typed_config": {
+        "@type": "type.googleapis.com/envoy.extensions.filters.http.rbac.v3.RBAC",
+        "rules": {
+          "policies": {
+            "ns[mcp-tools]-policy[k8s-tools-allow-agents]-rule[0]": {
+              "permissions": [{"and_rules": {"rules": [
+                {"or_rules": {"rules": [
+                  {"header": {"name": ":method", "string_match": {"exact": "POST"}}},
+                  {"header": {"name": ":method", "string_match": {"exact": "GET"}}},
+                  {"header": {"name": ":method", "string_match": {"exact": "DELETE"}}}
+                ]}},
+                {"or_rules": {"rules": [
+                  {"url_path": {"path": {"exact": "/mcp"}}},
+                  {"url_path": {"path": {"prefix": "/mcp/"}}}
+                ]}}
+              ]}}],
+              "principals": [{"and_ids": {"ids": [{"or_ids": {"ids": [
+                {"authenticated": {"principal_name": {"exact": "spiffe://cluster.local/ns/agents/sa/agent-runtime"}}}
+              ]}}]}}]
+            }
+          }
+        },
+        "shadow_rules_stat_prefix": "istio_dry_run_allow_"
+      }
+    },
+    {
+      "name": "envoy.filters.http.router"
+    }
+  ]
+}

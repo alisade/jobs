@@ -1,0 +1,9 @@
+$ kubectl -n agents top pods -l app.kubernetes.io/name=audit-sink
+NAME                          CPU(cores)   MEMORY(bytes)
+audit-sink-7c9f6d8b54-k8v4n   12m          41Mi
+audit-sink-7c9f6d8b54-t2r9w   487m         233Mi
+audit-sink-7c9f6d8b54-xq2lm   9m           38Mi
+
+$ kubectl -n agents get hpa audit-sink
+NAME         REFERENCE               TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+audit-sink   Deployment/audit-sink   cpu: 66%/70%   3         6         3          212d

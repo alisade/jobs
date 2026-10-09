@@ -1,0 +1,14 @@
+$ kubectl -n tenant-system get pods -o wide
+NAME                               READY   STATUS             RESTARTS        AGE   IP             NODE
+tenant-operator-6c9f7d8b54-7kq2x   0/1     CrashLoopBackOff   7 (2m11s ago)   31m   10.40.71.18    ip-10-40-71-4.ec2.internal
+tenant-operator-6c9f7d8b54-tw9fd   1/1     Running            6 (6m44s ago)   31m   10.40.88.203   ip-10-40-88-12.ec2.internal
+
+$ kubectl -n tenant-system get deploy tenant-operator
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+tenant-operator   1/2     2            1           214d
+
+$ kubectl get tenants -A
+NAMESPACE        NAME          READY   AGE
+team-pricing     pricing       True    41d
+team-forecast    forecasting   True    19d
+team-retention   churn-model           26m

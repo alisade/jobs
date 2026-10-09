@@ -1,0 +1,27 @@
+$ git log --oneline -8 -- retrieval/ migrations/
+3f9c1d2 (tag: v1.14.0) retrieval: add optional collection filter (#418)
+b71e0aa retrieval: unify distance expression in one const; drop hand-written SQL (#412)
+9a04c55 retrieval: make k validation explicit, ErrBadK (#409)
+51d7e3b migrations: 003 hnsw index on embedding (KB-198)
+e2a9f10 retrieval: switch embeddings to voyage-3 (1024d, normalised) (#377)
+0c6b8d4 migrations: 002 ingest watermark
+7d11a3e retrieval: initial pgvector search (#350)
+a55f02c migrations: 001 kb_chunks
+
+$ git show --stat b71e0aa
+commit b71e0aa9c3d4f1e8a7b6c5d4e3f2a1b0c9d8e7f6
+Author: Devon Ruiz <devon.ruiz@harborpoint.example>
+Date:   Tue Sep 22 16:41:09 2026 +0000
+
+    retrieval: unify distance expression in one const; drop hand-written SQL (#412)
+
+    The SELECT list and the ORDER BY were written separately and could drift.
+    Build both from one const. No behaviour change intended. Tests green.
+
+ retrieval/repo.go      | 38 +++++++++++++++-----------------------
+ retrieval/repo_test.go |  6 +++---
+ 2 files changed, 18 insertions(+), 26 deletions(-)
+
+$ kubectl -n kb get deploy kb-retriever -o jsonpath='{.spec.template.spec.containers[0].image}'
+123456789012.dkr.ecr.us-east-1.amazonaws.com/kb-retriever:v1.14.0
+# v1.14.0 rolled out to prod 2026-09-24 09:10 UTC

@@ -1,0 +1,13 @@
+$ istioctl x authz check k8s-tools-7f6c5d4b8a-4xv7p.mcp-tools
+ACTION   AuthorizationPolicy                      RULES
+ALLOW    k8s-tools-allow-agents.mcp-tools         1
+DENY     k8s-tools-deny-admin.mcp-tools           1
+
+$ kubectl get peerauthentication -A
+NAMESPACE      NAME      MODE         AGE
+istio-system   default   PERMISSIVE   402d
+mcp-tools      default   PERMISSIVE   212d
+
+$ kubectl get requestauthentication -A
+NAMESPACE   NAME            AGE
+mcp-tools   k8s-tools-jwt   97d

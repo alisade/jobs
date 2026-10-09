@@ -1,0 +1,38 @@
+$ kubectl -n tenant-system describe pod tenant-operator-6c9f7d8b54-7kq2x
+Name:             tenant-operator-6c9f7d8b54-7kq2x
+Namespace:        tenant-system
+Service Account:  tenant-operator
+Node:             ip-10-40-71-4.ec2.internal/10.40.71.4
+Labels:           app.kubernetes.io/name=tenant-operator
+                  pod-template-hash=6c9f7d8b54
+Status:           Running
+IP:               10.40.71.18
+Controlled By:    ReplicaSet/tenant-operator-6c9f7d8b54
+Containers:
+  manager:
+    Image:         551234567890.dkr.ecr.us-east-1.amazonaws.com/platform/tenant-operator:v0.4.0
+    Args:
+      --leader-elect
+      --health-probe-bind-address=:8081
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Mon, 06 Oct 2026 09:37:51 +0000
+      Finished:     Mon, 06 Oct 2026 09:39:58 +0000
+    Ready:          False
+    Restart Count:  7
+    Liveness:       http-get http://:8081/healthz delay=15s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:8081/readyz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:     100m
+      memory:  128Mi
+Events:
+  Type     Reason     Age                  From     Message
+  ----     ------     ----                 ----     -------
+  Normal   Pulled     31m                  kubelet  Successfully pulled image "551234567890.dkr.ecr.us-east-1.amazonaws.com/platform/tenant-operator:v0.4.0" in 2.114s
+  Normal   Started    31m                  kubelet  Started container manager
+  Warning  BackOff    2m (x19 over 27m)    kubelet  Back-off restarting failed container manager in pod tenant-operator-6c9f7d8b54-7kq2x_tenant-system

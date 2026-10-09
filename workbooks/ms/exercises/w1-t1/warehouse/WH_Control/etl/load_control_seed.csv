@@ -1,0 +1,7 @@
+load_id,source_system,source_schema,source_table,target_table,watermark_column,last_watermark,is_enabled
+1,erp,Sales,SalesOrderHeader,erp_sales_order_header,ModifiedDate,2026-10-11T02:00:00.000,1
+2,erp,Sales,SalesOrderLine,erp_sales_order_line,ModifiedDate,2026-10-11T02:00:00.000,1
+3,erp,Purchasing,PurchaseOrderHeader,erp_purchase_order_header,ModifiedDate,2026-10-11T02:00:00.000,1
+4,erp,Production,Product,erp_product,ModifiedDate,2026-10-11T02:00:00.000,1
+5,erp,Legacy,CustomerArchive,erp_customer_archive,ModifiedDate,2019-01-01T00:00:00.000,0
+6,crm,dbo,Account,crm_account,modifiedon,2026-10-11T02:00:00.000,1

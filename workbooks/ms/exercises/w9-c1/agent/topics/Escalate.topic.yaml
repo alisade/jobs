@@ -1,0 +1,29 @@
+# TODO: use Global.EscalationReason (default UserRequested) and leave it clean afterwards.
+kind: AdaptiveDialog
+startBehavior: CancelOtherTopics
+beginDialog:
+  kind: OnEscalate
+  id: main
+  intent:
+    displayName: Escalate
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - talk to a person
+      - talk to a technician
+      - I want a human
+
+  actions:
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_ticket
+      input:
+        binding:
+          upn: =Global.UserUpn
+          reason: UserRequested
+      output:
+        binding:
+          ticketId: Topic.TicketId
+      flowId: 7b9d4e22-1a3f-4c6d-8e05-2f6a9b3c4d55
+
+    - kind: SendActivity
+      id: sendMessage_ticket
+      activity: I've raised ticket {Topic.TicketId}.

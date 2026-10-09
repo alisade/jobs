@@ -1,0 +1,110 @@
+# audit-sink: consumes agent.audit (6 partitions) and indexes into OpenSearch.
+# Fixed: StatefulSet so each replica has a unique AND stable group.instance.id
+# (audit-sink-0..N), which is what KIP-345 static membership needs.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: audit-sink
+  namespace: agents
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: audit-sink
+  namespace: agents
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: audit-sink
+  ports:
+    - name: metrics
+      port: 8080
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: audit-sink
+  namespace: agents
+  labels:
+    app.kubernetes.io/name: audit-sink
+spec:
+  serviceName: audit-sink
+  replicas: 3
+  podManagementPolicy: Parallel
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: audit-sink
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: audit-sink
+    spec:
+      serviceAccountName: audit-sink
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: audit-sink
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/relaypoint/audit-sink:1.14.1
+          env:
+            - name: KAFKA_BROKERS
+              value: b-1.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098,b-2.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098,b-3.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098
+            - name: KAFKA_GROUP
+              value: audit-sink
+            - name: KAFKA_TOPIC
+              value: agent.audit
+            - name: KAFKA_STATIC_MEMBERSHIP
+              value: "true"
+            # Unique per replica and stable across restarts: audit-sink-0, -1, -2.
+            - name: GROUP_INSTANCE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: KAFKA_SESSION_TIMEOUT
+              value: 120s
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+          ports:
+            - name: metrics
+              containerPort: 8080
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: audit-sink
+  namespace: agents
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: audit-sink
+  minReplicas: 3
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: audit-sink
+  namespace: agents
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: audit-sink

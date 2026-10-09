@@ -1,0 +1,26 @@
+# Namespaces for the agent platform. Owned by platform-mesh (GitOps: argocd app mesh-namespaces).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: agents
+  labels:
+    team: agent-platform
+    istio.io/rev: 1-27-1
+    pod-security.kubernetes.io/enforce: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mcp-tools
+  labels:
+    team: agent-platform
+    istio.io/rev: 1-27-1
+    pod-security.kubernetes.io/enforce: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: batch
+  labels:
+    team: data-eng
+    # not in the mesh by design (Spark jobs); must never reach mcp-tools

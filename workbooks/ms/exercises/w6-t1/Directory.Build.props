@@ -1,0 +1,11 @@
+<Project>
+  <!-- Local test build. Real Dataverse plug-ins target .NET Framework 4.6.2; the plug-in project
+       pins LangVersion 7.3 so the code you write stays portable to that target. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <NuGetAudit>false</NuGetAudit>
+    <NoWarn>$(NoWarn);NU1901;NU1902;NU1903;NU1904;NU1608;NU1701;CS8632</NoWarn>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+</Project>

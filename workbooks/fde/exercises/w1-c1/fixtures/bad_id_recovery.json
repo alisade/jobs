@@ -1,0 +1,58 @@
+{
+  "note": "Recorded 2026-10-02. The model guessed an id from a stale page; the tool error must reach it as is_error so it searches instead.",
+  "responses": [
+    {
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01C1",
+          "name": "get_product_details",
+          "input": {
+            "product_id": "AR-99999"
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 890,
+        "output_tokens": 61,
+        "cache_read_input_tokens": 6188,
+        "cache_creation_input_tokens": 0
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01D1",
+          "name": "search_products",
+          "input": {
+            "query": "yoga mat"
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 214,
+        "output_tokens": 44,
+        "cache_read_input_tokens": 6188,
+        "cache_creation_input_tokens": 342
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "That listing is gone, but the ACME Fit 6mm mat is in stock."
+        }
+      ],
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 188,
+        "output_tokens": 40,
+        "cache_read_input_tokens": 6530,
+        "cache_creation_input_tokens": 705
+      }
+    }
+  ]
+}

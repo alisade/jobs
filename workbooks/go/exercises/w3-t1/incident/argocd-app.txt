@@ -1,0 +1,19 @@
+$ argocd app get tenant-operator-prod-use1
+Name:               argocd/tenant-operator-prod-use1
+Project:            platform
+Server:             https://4A1B...gr7.us-east-1.eks.amazonaws.com
+Namespace:          tenant-system
+Source:
+- Repo:             https://github.com/harbor-analytics/tenant-operator.git
+  Target:           main
+  Path:             config/default
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to main (a41e9c0)
+Health Status:      Degraded
+
+GROUP                  KIND                NAMESPACE      NAME                              STATUS  HEALTH    HOOK  MESSAGE
+                       ServiceAccount      tenant-system  tenant-operator                   Synced                  serviceaccount/tenant-operator unchanged
+rbac.authorization.k8s.io  ClusterRole                    manager-role                      Synced                  clusterrole.rbac.authorization.k8s.io/manager-role unchanged
+rbac.authorization.k8s.io  ClusterRoleBinding             tenant-operator-manager           Synced                  clusterrolebinding.rbac.authorization.k8s.io/tenant-operator-manager unchanged
+networking.k8s.io      NetworkPolicy       tenant-system  tenant-operator-egress            Synced                  networkpolicy.networking.k8s.io/tenant-operator-egress created
+apps                   Deployment          tenant-system  tenant-operator                   Synced  Degraded        deployment.apps/tenant-operator configured

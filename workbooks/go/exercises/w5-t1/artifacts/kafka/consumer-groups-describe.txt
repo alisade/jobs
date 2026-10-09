@@ -1,0 +1,27 @@
+# 14:38:12 UTC, from the kafka-admin pod (MSK IAM auth)
+$ kafka-consumer-groups.sh --bootstrap-server ${MSK_BOOTSTRAP} --command-config iam.properties \
+    --describe --group audit-sink --state
+
+GROUP           COORDINATOR (ID)                                            ASSIGNMENT-STRATEGY  STATE           #MEMBERS
+audit-sink      b-2.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098 (2)   cooperative-sticky   Stable          1
+
+$ kafka-consumer-groups.sh --bootstrap-server ${MSK_BOOTSTRAP} --command-config iam.properties \
+    --describe --group audit-sink --members --verbose
+
+GROUP       CONSUMER-ID                                          GROUP-INSTANCE-ID  HOST           CLIENT-ID  #PARTITIONS  ASSIGNMENT
+audit-sink  audit-sink-538903a1-4981-7305-9b36-296a4380f33c  audit-sink         /10.42.17.203  kgo        6            agent.audit(0,1,2,3,4,5)
+
+$ kafka-consumer-groups.sh --bootstrap-server ${MSK_BOOTSTRAP} --command-config iam.properties \
+    --describe --group audit-sink --offsets
+
+GROUP       TOPIC        PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG     CONSUMER-ID                                          HOST           CLIENT-ID
+audit-sink  agent.audit  0          18822107        18891950        69843   audit-sink-538903a1-4981-7305-9b36-296a4380f33c  /10.42.17.203  kgo
+audit-sink  agent.audit  1          18790311        18860772        70461   audit-sink-538903a1-4981-7305-9b36-296a4380f33c  /10.42.17.203  kgo
+audit-sink  agent.audit  2          18803945        18872011        68066   audit-sink-538903a1-4981-7305-9b36-296a4380f33c  /10.42.17.203  kgo
+audit-sink  agent.audit  3          18811450        18880333        68883   audit-sink-538903a1-4981-7305-9b36-296a4380f33c  /10.42.17.203  kgo
+audit-sink  agent.audit  4          18799032        18867904        68872   audit-sink-538903a1-4981-7305-9b36-296a4380f33c  /10.42.17.203  kgo
+audit-sink  agent.audit  5          18805521        18872276        66755   audit-sink-538903a1-4981-7305-9b36-296a4380f33c  /10.42.17.203  kgo
+
+# 30s later the same command showed a different CONSUMER-ID and HOST /10.42.9.88, same
+# GROUP-INSTANCE-ID audit-sink, #MEMBERS 1, and CURRENT-OFFSET on partition 0 had gone
+# BACKWARDS to 18806390 (uncommitted work was re-delivered to the new member).

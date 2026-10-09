@@ -1,0 +1,30 @@
+# Added in v0.4.0 together with the Secret watch (CKS hardening ticket SEC-2290).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tenant-operator-egress
+  namespace: tenant-system
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: tenant-operator
+  policyTypes: ["Egress"]
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 10.40.0.0/16   # EKS control plane ENIs (cluster endpoint private access)
+      ports:
+        - port: 443
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+        - port: 53
+          protocol: TCP

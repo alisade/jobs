@@ -1,0 +1,190 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "LookupTables",
+        "type": "Lookup",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.00:10:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "DataWarehouseSource",
+            "sqlReaderQuery": {
+              "value": "SELECT load_id, source_schema, source_table, target_table, watermark_column, last_watermark FROM etl.load_control WHERE source_system = '@{pipeline().parameters.source_system}' AND is_enabled = 1",
+              "type": "Expression"
+            },
+            "queryTimeout": "02:00:00",
+            "partitionOption": "None"
+          },
+          "datasetSettings": {
+            "annotations": [],
+            "linkedService": {
+              "name": "WH_Control",
+              "properties": {
+                "annotations": [],
+                "type": "DataWarehouse",
+                "typeProperties": {
+                  "endpoint": "x6eps4xrq2xudenlfv6naeo3i4-prod.datawarehouse.fabric.microsoft.com",
+                  "artifactId": "0c6b8a52-4f3e-4f6c-a0d1-7a9e5c2b1f44",
+                  "workspaceId": "a3f1c2d4-5b6e-4f70-8a91-b2c3d4e5f607"
+                }
+              }
+            },
+            "type": "DataWarehouseTable",
+            "schema": [],
+            "typeProperties": {}
+          }
+        }
+      },
+      {
+        "name": "ForEachTable",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "LookupTables",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@activity('LookupTables').output.value",
+            "type": "Expression"
+          },
+          "isSequential": false,
+          "batchCount": 4,
+          "activities": [
+            {
+              "name": "CopyTable",
+              "type": "Copy",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.02:00:00",
+                "retry": 2,
+                "retryIntervalInSeconds": 120,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "source": {
+                  "type": "AzureSqlSource",
+                  "sqlReaderQuery": {
+                    "value": "SELECT * FROM [@{item().schema_name}].[@{item().table_name}] WHERE [@{item().watermark_column}] > '@{item().last_watermark}'",
+                    "type": "Expression"
+                  },
+                  "queryTimeout": "02:00:00",
+                  "partitionOption": "None"
+                },
+                "sink": {
+                  "type": "LakehouseTableSink",
+                  "tableActionOption": "Append"
+                },
+                "enableStaging": false,
+                "translator": {
+                  "type": "TabularTranslator",
+                  "typeConversion": true
+                },
+                "datasetSettings": {
+                  "annotations": [],
+                  "linkedService": {
+                    "name": "lh_bronze",
+                    "properties": {
+                      "annotations": [],
+                      "type": "Lakehouse",
+                      "typeProperties": {
+                        "artifactId": "9d8e7f60-1a2b-4c3d-8e4f-5a6b7c8d9e0f",
+                        "workspaceId": "a3f1c2d4-5b6e-4f70-8a91-b2c3d4e5f607",
+                        "rootFolder": "Tables"
+                      }
+                    }
+                  },
+                  "type": "LakehouseTable",
+                  "schema": [],
+                  "typeProperties": {
+                    "table": {
+                      "value": "@item().target_table",
+                      "type": "Expression"
+                    }
+                  }
+                }
+              },
+              "externalReferences": {
+                "connection": "4b2a9c11-7e3d-4a8f-b6c5-1d0e9f8a7b62"
+              }
+            },
+            {
+              "name": "UpdateWatermark",
+              "type": "Script",
+              "dependsOn": [
+                {
+                  "activity": "CopyTable",
+                  "dependencyConditions": ["Succeeded"]
+                }
+              ],
+              "policy": {
+                "timeout": "0.00:10:00",
+                "retry": 2,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "linkedService": {
+                "name": "WH_Control",
+                "properties": {
+                  "annotations": [],
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "endpoint": "x6eps4xrq2xudenlfv6naeo3i4-prod.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "0c6b8a52-4f3e-4f6c-a0d1-7a9e5c2b1f44",
+                    "workspaceId": "a3f1c2d4-5b6e-4f70-8a91-b2c3d4e5f607"
+                  }
+                }
+              },
+              "typeProperties": {
+                "scripts": [
+                  {
+                    "type": "NonQuery",
+                    "text": {
+                      "value": "UPDATE etl.load_control SET last_watermark = '@{formatDateTime(pipeline().TriggerTime, 'yyyy-MM-ddTHH:mm:ss')}' WHERE load_id = @{item().load_id}",
+                      "type": "Expression"
+                    }
+                  }
+                ],
+                "scriptBlockExecutionTimeout": "02:00:00"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "FailWithContext",
+        "type": "Fail",
+        "dependsOn": [
+          {
+            "activity": "ForEachTable",
+            "dependencyConditions": ["Failed"]
+          }
+        ],
+        "typeProperties": {
+          "message": {
+            "value": "@concat('Nightly ERP load failed. Pipeline run ', pipeline().RunId, '. See the activity runs in the Monitoring hub.')",
+            "type": "Expression"
+          },
+          "errorCode": "ERP_LOAD_FAILED"
+        }
+      }
+    ],
+    "parameters": {
+      "source_system": {
+        "type": "string",
+        "defaultValue": "erp"
+      }
+    },
+    "annotations": ["owner:data-platform", "tier:1"]
+  }
+}

@@ -1,0 +1,22 @@
+// Parse raw Eventstream payloads into the typed Telemetry table.
+// Output column names, order and types must match Telemetry exactly.
+.create-or-alter function with (folder = "UpdatePolicies", docstring = "Parse RawTelemetry payloads into Telemetry") ParseRawTelemetry()
+{
+    RawTelemetry
+    | project
+        Timestamp = todatetime(Payload.ts),
+        EventId = tostring(Payload.eventId),
+        DeviceId = tostring(Payload.deviceId),
+        VehicleId = tostring(Payload.vehicle.id),
+        SpeedKph = toreal(Payload.speed),
+        EngineTempC = toreal(Payload.engine.tempC),
+        FuelPct = toreal(Payload.fuelPct),
+        Lat = toreal(Payload.pos.lat),
+        Lon = toreal(Payload.pos.lon)
+    | where isnotnull(Timestamp) and isnotempty(VehicleId)
+}
+
+// Transactional: if the policy query fails, the source ingestion fails too and is retried,
+// so Telemetry never silently misses rows that landed in RawTelemetry.
+.alter table Telemetry policy update
+@'[{"IsEnabled": true, "Source": "RawTelemetry", "Query": "ParseRawTelemetry()", "IsTransactional": true, "PropagateIngestionProperties": false}]'

@@ -1,0 +1,9 @@
+2026-10-08 19:03:11,402 INFO gateway.audit tool=get_product_details customer=4f1c0a9e2b77 session=gw-4f1c0a9e2b77 blocked=None error=False
+2026-10-08 19:03:11,415 INFO gateway.audit tool=get_product_details customer=c27d5e8a1f03 session=gw-91be33d07c4a blocked=None error=False
+2026-10-08 19:03:11,416 INFO gateway.audit tool=add_to_cart customer=91be33d07c4a session=gw-c27d5e8a1f03 blocked=None error=False
+2026-10-08 19:03:11,431 WARNING httpx connection pool full, discarding connection: storefront-cdn.larkspur.internal
+2026-10-08 19:03:11,433 INFO gateway.audit tool=add_to_cart customer=91be33d07c4a session=gw-91be33d07c4a blocked=provenance error=False
+2026-10-08 19:03:11,447 INFO gateway.audit tool=get_cart customer=4f1c0a9e2b77 session=gw-d6e0a4b9c512 blocked=None error=False
+2026-10-08 19:03:11,452 INFO gateway.audit tool=search_products customer=d6e0a4b9c512 session=gw-d6e0a4b9c512 blocked=None error=False
+2026-10-08 19:03:12,010 WARNING httpx connection pool full, discarding connection: storefront-cdn.larkspur.internal
+2026-10-08 19:03:12,118 INFO gateway.audit tool=get_cart customer=c27d5e8a1f03 session=gw-c27d5e8a1f03 blocked=None error=False

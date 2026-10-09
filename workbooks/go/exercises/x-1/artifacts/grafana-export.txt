@@ -1,0 +1,10 @@
+# Grafana panel export "labelgate / route latency and saturation", prod-euw1-b, 1m resolution
+# time(UTC)  p50_ms  p99_ms  cpu_cores_per_pod  rss_mib_per_pod  replicas  decision_cache_hit_ratio  req_per_s_total
+11:00        0.31    8.7     0.91              88               6         -                         5420
+11:30        0.30    9.1     0.94              90               6         -                         5510
+11:40        (rollout v2.7.0)
+11:50        0.86    61.0    2.71              171              6         0.06                      5470
+12:20        0.84    72.4    2.83              178              8         0.05                      5600
+13:00        0.81    69.8    2.79              181              12        0.05                      5580
+13:40        0.79    66.1    2.74              183              14        0.06                      5530
+# decision_cache_hit_ratio is low: most series carry a pod label with a random suffix.

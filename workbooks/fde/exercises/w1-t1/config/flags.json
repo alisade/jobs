@@ -1,0 +1,7 @@
+{
+  "store": "Bramblewood Gear",
+  "enable_fulfillment": true,
+  "enable_web_search": false,
+  "enable_comparison": true,
+  "extra_tools": ["present_comparison"]
+}

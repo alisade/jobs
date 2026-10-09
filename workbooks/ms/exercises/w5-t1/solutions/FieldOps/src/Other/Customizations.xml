@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Excerpt of the unpacked FieldOps 1.4.0.0 Customizations.xml (pac solution unpack). Unrelated nodes trimmed. -->
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25092.170" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25092.00170">
+  <Entities>
+    <Entity>
+      <Name LocalizedName="Asset" OriginalName="Asset">contoso_asset</Name>
+      <EntityInfo>
+        <!-- behavior="2" root component: table shell only, metadata and columns are owned by ContosoCore -->
+        <entity Name="contoso_asset" unmodified="1" />
+      </EntityInfo>
+      <FormXml>
+        <forms type="main">
+          <systemform>
+            <formid>{3f6c2a91-7b4e-4d0a-9c15-8e2f6b1d4a07}</formid>
+            <IntroducedVersion>1.4.0.0</IntroducedVersion>
+            <FormPresentation>1</FormPresentation>
+            <FormActivationState>1</FormActivationState>
+            <form>
+              <tabs>
+                <tab name="tab_general" id="{a1c7e5d3-2b4f-4a6e-9c8d-0f1e2d3c4b5a}" verticallayout="true">
+                  <labels><label description="General" languagecode="1033" /></labels>
+                  <columns>
+                    <column width="100%">
+                      <sections>
+                        <section name="sec_location" id="{c3e5a7b9-1d2f-4e6a-8b0c-2d4f6a8b0c1e}">
+                          <labels><label description="Location" languagecode="1033" /></labels>
+                          <rows>
+                            <row>
+                              <cell id="{e5a7c9d1-3f4b-4a6c-8e0a-4f6b8d0e2a3c}">
+                                <labels><label description="Site" languagecode="1033" /></labels>
+                                <control id="contoso_siteid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="contoso_siteid" disabled="false" />
+                              </cell>
+                            </row>
+                            <row>
+                              <cell id="{f6b8d0e2-4a5c-4b7d-9f1b-5a7c9e1f3b4d}">
+                                <labels><label description="Region Code" languagecode="1033" /></labels>
+                                <!-- added in FieldOps 1.4.0.0 (PR #233, dispatch board region filter) -->
+                                <control id="contoso_regioncode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="contoso_regioncode" disabled="false" />
+                              </cell>
+                            </row>
+                          </rows>
+                        </section>
+                      </sections>
+                    </column>
+                  </columns>
+                </tab>
+              </tabs>
+            </form>
+            <LocalizedNames>
+              <LocalizedName description="Asset - Field Ops" languagecode="1033" />
+            </LocalizedNames>
+          </systemform>
+        </forms>
+      </FormXml>
+      <SavedQueries>
+        <savedqueries>
+          <savedquery>
+            <IsCustomizable>1</IsCustomizable>
+            <CanBeDeleted>1</CanBeDeleted>
+            <isquickfindquery>0</isquickfindquery>
+            <isprivate>0</isprivate>
+            <isdefault>0</isdefault>
+            <savedqueryid>{b81d5e3c-0a29-4f6e-8d47-2c9a1e6f3b58}</savedqueryid>
+            <querytype>0</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="contoso_asset">
+                  <attribute name="contoso_name" />
+                  <attribute name="contoso_regioncode" />
+                  <attribute name="contoso_siteid" />
+                  <order attribute="contoso_regioncode" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="0" />
+                  </filter>
+                </entity>
+              </fetch>
+            </fetchxml>
+            <IntroducedVersion>1.4.0.0</IntroducedVersion>
+            <LocalizedNames>
+              <LocalizedName description="Assets by Region" languagecode="1033" />
+            </LocalizedNames>
+          </savedquery>
+        </savedqueries>
+      </SavedQueries>
+    </Entity>
+  </Entities>
+</ImportExportXml>

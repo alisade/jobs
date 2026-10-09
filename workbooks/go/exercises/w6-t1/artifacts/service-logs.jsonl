@@ -1,0 +1,8 @@
+{"time":"2026-10-06T13:27:58.112Z","level":"INFO","msg":"search_kb","tenant":"acme","k":8,"hits":3,"duration_ms":412,"trace_id":"4bf92f3577b34da6a3ce929d0e0e4736"}
+{"time":"2026-10-06T13:29:41.007Z","level":"INFO","msg":"search_kb","tenant":"globex","k":8,"hits":0,"duration_ms":2788,"trace_id":"0af7651916cd43dd8448eb211c80319c"}
+{"time":"2026-10-06T13:31:09.552Z","level":"ERROR","msg":"search_kb failed","tenant":"acme","k":8,"duration_ms":3004,"err":"retrieval: search tenant acme: ERROR: canceling statement due to statement timeout (SQLSTATE 57014)","trace_id":"e3b0c44298fc1c149afbf4c8996fb924"}
+{"time":"2026-10-06T13:33:20.871Z","level":"WARN","msg":"pgxpool acquire slow","wait_ms":5120,"acquired_conns":10,"max_conns":10,"empty_acquire_count":88412}
+{"time":"2026-10-06T13:33:25.990Z","level":"ERROR","msg":"search_kb failed","tenant":"initech","k":5,"duration_ms":10001,"err":"retrieval: search tenant initech: failed to acquire connection: context deadline exceeded","trace_id":"9f86d081884c7d659a2feaa0c55ad015"}
+{"time":"2026-10-06T13:41:02.300Z","level":"WARN","msg":"recall check: low hit count","tenant":"acme","k":8,"hits":0,"min_similarity":0.72,"note":"hits filtered below min_similarity"}
+{"time":"2026-10-06T13:52:44.118Z","level":"ERROR","msg":"search_kb failed","tenant":"acme","k":8,"duration_ms":3002,"err":"retrieval: search tenant acme: ERROR: canceling statement due to statement timeout (SQLSTATE 57014)","trace_id":"2c26b46b68ffc68ff99b453c1d30413413422d70"}
+{"time":"2026-10-06T14:05:17.661Z","level":"WARN","msg":"pgxpool acquire slow","wait_ms":7311,"acquired_conns":10,"max_conns":10,"empty_acquire_count":131977}

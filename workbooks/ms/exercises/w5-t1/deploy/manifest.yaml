@@ -1,0 +1,11 @@
+# Release manifest for UAT. Consumed by .github/workflows/release-uat.yml, which runs for each entry, in order:
+#   pac solution import --path out/<artifact> --activate-plugins [--stage-and-upgrade] --async --max-async-wait-time 60
+# Policy: UAT and PROD receive managed solutions only.
+environment: contoso-fs-uat
+url: https://contoso-fs-uat.crm.dynamics.com
+solutions:
+  - name: FieldOps
+    version: 1.4.0.0
+    managed: true
+    artifact: FieldOps_1_4_0_0_managed.zip
+    stage_and_upgrade: true

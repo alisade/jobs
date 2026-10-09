@@ -1,0 +1,102 @@
+{
+  "properties": {
+    "description": "Nightly orchestration: stage orders, partner export, per-region loads.",
+    "activities": [
+      {
+        "name": "nb_stage_orders",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "description": "TODO: base parameters load_date and env from the pipeline parameters; retry/timeout policy per spec",
+        "typeProperties": {
+          "notebookId": "6c1f0e2a-4b7d-4c55-9a0e-2f8d3b1e7a10",
+          "workspaceId": "0b5e9d2c-71aa-4f3e-8c6b-5d2a9e4f1c33"
+        }
+      },
+      {
+        "name": "web_start_export",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "nb_stage_orders",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "description": "TODO: POST body with loadDate and runId; retry policy per spec",
+        "typeProperties": {
+          "method": "POST",
+          "relativeUrl": "/v1/exports"
+        },
+        "externalReferences": {
+          "connection": "e8f1a2b3-c4d5-4e6f-8a9b-0c1d2e3f4a5b"
+        }
+      },
+      {
+        "name": "until_export_done",
+        "type": "Until",
+        "dependsOn": [
+          {
+            "activity": "web_start_export",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "description": "TODO: poll status until Completed or Failed; timeout; poll interval",
+        "typeProperties": {
+          "expression": {
+            "value": "@equals(variables('export_status'), 'Completed')",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "name": "web_get_export_status",
+              "type": "WebActivity",
+              "dependsOn": [],
+              "typeProperties": {
+                "method": "GET",
+                "relativeUrl": "/v1/exports/TODO"
+              },
+              "externalReferences": {
+                "connection": "e8f1a2b3-c4d5-4e6f-8a9b-0c1d2e3f4a5b"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "foreach_region",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "until_export_done",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "description": "TODO: run the child pipeline once per region, three at a time",
+        "typeProperties": {
+          "items": {
+            "value": "@pipeline().parameters.regions",
+            "type": "Expression"
+          },
+          "isSequential": true,
+          "activities": []
+        }
+      }
+    ],
+    "parameters": {
+      "load_date": {
+        "type": "String",
+        "defaultValue": ""
+      },
+      "env": {
+        "type": "String",
+        "defaultValue": "dev"
+      }
+    },
+    "variables": {}
+  }
+}

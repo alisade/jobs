@@ -1,0 +1,52 @@
+[
+  {
+    "Column": "Timestamp",
+    "DataType": "datetime",
+    "Properties": {
+      "Path": "$.tsMs",
+      "Transform": "DateTimeFromUnixMilliseconds"
+    }
+  },
+  {
+    "Column": "DeviceId",
+    "DataType": "string",
+    "Properties": {
+      "Path": "$.device.id"
+    }
+  },
+  {
+    "Column": "VehicleId",
+    "DataType": "string",
+    "Properties": {
+      "Path": "$.vehicleId"
+    }
+  },
+  {
+    "Column": "SpeedKph",
+    "DataType": "real",
+    "Properties": {
+      "Path": "$.telemetry.speedKph"
+    }
+  },
+  {
+    "Column": "EngineTempC",
+    "DataType": "real",
+    "Properties": {
+      "Path": "$.telemetry.engineTempC"
+    }
+  },
+  {
+    "Column": "FuelPct",
+    "DataType": "real",
+    "Properties": {
+      "Path": "$.telemetry.fuelPct"
+    }
+  },
+  {
+    "Column": "FirmwareVersion",
+    "DataType": "string",
+    "Properties": {
+      "Path": "$.device.fw"
+    }
+  }
+]

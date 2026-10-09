@@ -1,0 +1,79 @@
+# kubectl -n team-payments get mcpserver github-tools -o yaml --show-managed-fields
+# (captured twice, ~1 second apart; only the second capture shown in full)
+apiVersion: agents.example.dev/v1alpha1
+kind: MCPServer
+metadata:
+  creationTimestamp: "2026-09-12T09:41:07Z"
+  finalizers: []
+  generation: 3
+  name: github-tools
+  namespace: team-payments
+  resourceVersion: "88413391"      # first capture: "88412907"
+  uid: 5d7c0b8e-3f0e-4bd4-9a51-7f3b8d6a2c11
+  labels:
+    app.kubernetes.io/part-of: payments-agents
+    argocd.argoproj.io/instance: payments-agents
+  managedFields:
+  - apiVersion: agents.example.dev/v1alpha1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          f:app.kubernetes.io/part-of: {}
+          f:argocd.argoproj.io/instance: {}
+      f:spec:
+        f:envFrom: {}
+        f:image: {}
+        f:port: {}
+        f:replicas: {}
+    manager: argocd-controller
+    operation: Apply
+    time: "2026-09-30T14:01:52Z"
+  - apiVersion: agents.example.dev/v1alpha1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:availableReplicas: {}
+        f:conditions: {}
+        f:endpoint: {}
+        f:lastReconcileID: {}
+        f:observedGeneration: {}
+    manager: manager
+    operation: Update
+    subresource: status
+    time: "2026-10-07T02:20:18Z"
+spec:
+  envFrom:
+  - secretRef:
+      name: github-app
+  - configMapRef:
+      name: tools-config
+  image: ghcr.io/latticeai/mcp-github-tools:2.3.1
+  path: /mcp
+  port: 8080
+  replicas: 2
+  transport: streamable-http
+status:
+  availableReplicas: 2
+  conditions:
+  - lastTransitionTime: "2026-09-30T14:02:11Z"
+    message: 2/2 replicas available
+    observedGeneration: 3
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2026-09-30T14:02:11Z"
+    message: 2/2 replicas available
+    observedGeneration: 3
+    reason: RolloutComplete
+    status: "False"
+    type: Progressing
+  - lastTransitionTime: "2026-09-30T14:02:11Z"
+    message: 2/2 replicas available
+    observedGeneration: 3
+    reason: AsExpected
+    status: "False"
+    type: Degraded
+  endpoint: http://github-tools.team-payments.svc.cluster.local:8080/mcp
+  lastReconcileID: 0b7f3e52-5c1a-4f0e-b1d2-93a7c4e1f6d8   # first capture: 6e21c9d4-08ab-4c3f-9e57-1d0b2a8f4c90
+  observedGeneration: 3

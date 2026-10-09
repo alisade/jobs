@@ -1,0 +1,9 @@
+$ kubectl -n tenant-system logs tenant-operator-6c9f7d8b54-tw9fd
+2026-10-06T09:35:41Z	INFO	setup	starting manager	{"version": "v0.4.0"}
+2026-10-06T09:35:41Z	INFO	controller-runtime.metrics	Starting metrics server
+2026-10-06T09:35:41Z	INFO	starting server	{"name": "health probe", "addr": "[::]:8081"}
+2026-10-06T09:35:41Z	INFO	attempting to acquire leader lease tenant-system/tenant-operator-lock...
+2026-10-06T09:35:41Z	INFO	controller-runtime.metrics	Serving metrics server	{"bindAddress": ":8080", "secure": false}
+E1006 09:35:51.880391       1 leaderelection.go:436] error retrieving resource lock tenant-system/tenant-operator-lock: Get "https://172.20.0.1:443/apis/coordination.k8s.io/v1/namespaces/tenant-system/leases/tenant-operator-lock": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+E1006 09:36:01.881920       1 leaderelection.go:436] error retrieving resource lock tenant-system/tenant-operator-lock: Get "https://172.20.0.1:443/apis/coordination.k8s.io/v1/namespaces/tenant-system/leases/tenant-operator-lock": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+I1006 09:36:01.904417       1 leaderelection.go:257] attempting to acquire leader lease tenant-system/tenant-operator-lock...
