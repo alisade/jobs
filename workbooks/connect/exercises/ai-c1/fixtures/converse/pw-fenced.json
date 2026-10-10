@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "```json\n{\"category\":\"password_reset\",\"priority\":\"P3\",\"summary\":\"Outlook rejects password after change.\",\"needsHuman\":false}\n```"
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 420,
+    "outputTokens": 40,
+    "totalTokens": 720
+  },
+  "metrics": {
+    "latencyMs": 700
+  }
+}

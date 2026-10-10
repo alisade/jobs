@@ -1,0 +1,35 @@
+{
+  "policyVersion": "2026.09-helpdesk",
+  "owner": "LFG Service Desk QA (Charlotte)",
+  "greeting": {
+    "ruleId": "SCRIPT-GREETING",
+    "withinMillis": 15000,
+    "phrases": ["thank you for calling larkspur it", "larkspur service desk", "larkspur it service desk"]
+  },
+  "closing": {
+    "ruleId": "SCRIPT-CLOSING",
+    "lastAgentTurns": 3,
+    "phrases": ["anything else i can help", "anything else i can do", "is there anything else"]
+  },
+  "requiredDisclosure": {
+    "ruleId": "DISCLOSURE-PASSWORD",
+    "phrases": ["larkspur it will never ask for your password", "we will never ask for your password"],
+    "priority": 3
+  },
+  "escalationLanguage": {
+    "ruleId": "ESCALATION-LANGUAGE",
+    "participant": "CUSTOMER",
+    "phrases": ["speak to your supervisor", "speak to your manager", "file a complaint", "this is unacceptable", "escalate this"],
+    "priority": 2
+  },
+  "prohibitedAgentLanguage": {
+    "ruleId": "PROHIBITED-CREDENTIAL-REQUEST",
+    "participant": "AGENT",
+    "phrases": ["read me your password", "tell me your password", "what is your current password", "give me your mfa code"],
+    "priority": 1
+  },
+  "realtime": {
+    "sustainedNegativeTurns": 3
+  },
+  "qaAssignmentGroup": "LFG-SD-QA"
+}

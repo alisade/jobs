@@ -1,0 +1,14 @@
+{
+  "instanceId": "5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+  "modelId": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "guardrail": { "identifier": "gr-lfg-acw-summary", "version": "4" },
+  "maxTokens": 700,
+  "knowledgeBaseId": "KBLFGHELP01",
+  "kbNumberOfResults": 3,
+  "kbMinScore": 0.45,
+  "kbAudience": ["agent", "all-employees"],
+  "idempotencyTable": "lfg-acw-idempotency",
+  "idempotencyTtlSeconds": 86400,
+  "inProgressExpirySeconds": 900,
+  "attributeMaxChars": 256
+}

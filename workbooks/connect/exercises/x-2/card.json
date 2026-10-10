@@ -1,0 +1,26 @@
+{
+  "id": "connect/x-2",
+  "title": "The assistant refuses password resets after the security fix",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 10,
+  "optional": true,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "After a pen-test fix, Larkspur's self-service assistant answers 'I can't help with that here' to password-reset requests and self-service collapses from 85% to under 10%. The thread blames the new prompt line or wants the guardrail rolled back; security will not reopen the finding. You get model invocation logs with guardrail traces, metrics, the release note and the guardrail config.",
+  "task": [
+    "Prove from invocation logs and config why legitimate requests are blocked; rule out the prompt",
+    "Narrow the denied topics so self-service works and every attack stays blocked",
+    "Keep prompt-attack and password protections and the CreateGuardrail limits",
+    "Point the Lambda at a new guardrail version"
+  ],
+  "acceptance": [
+    "All legit eval cases allowed and all attacks blocked, including a held-out set",
+    "Topics narrowed, not deleted; other protections intact",
+    "New guardrail version pinned; ANONYMIZE keeps the conversation",
+    "Root cause with evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 5 Thu - Bedrock Guardrails: denied topics, filters, PII", "href": "week5"},
+    {"label": "Week 10 - AI safety and red-team drills", "href": "week10"}
+  ]
+}

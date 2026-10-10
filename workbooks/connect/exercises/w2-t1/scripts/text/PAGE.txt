@@ -1,0 +1,21 @@
+From: Priya Raman (Service Desk Ops Manager, Pune)        To: help-desk-platform on-call
+Date: Fri 2026-10-09 10:22 ET
+Subject: Password reset service level - third day under target
+
+Service level for PasswordReset has been red all week (weekly SLA report says 70% vs 85% target,
+abandons tripled). General and Applications look fine, better even. We have the same headcount as
+last week except the two Monterrey agents on CBT training on Wednesday.
+
+Supervisors say the board shows people sitting in Available while password-reset callers are
+waiting, but "it is only for a few seconds". The IVR team says nothing changed in the flow. The
+only change on our side was CHG0032015 on Sunday (routing profile consolidation), which Tomas's
+team says was "a straight copy of the existing settings" and was peer reviewed.
+
+Can someone look before Monday? Leadership will ask why we cannot hit 85% after the consolidation
+that was supposed to give us more flexibility.
+
+--
+Thread
+10:31 Tomas Ortega (Connect admin, Monterrey): CHG0032015 only merged two profiles, all queues and
+      priorities were copied from the old ones. Probably the training day plus Friday volume.
+10:40 Priya: Monday and Tuesday were also bad and nobody was in training.

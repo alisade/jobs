@@ -1,0 +1,17 @@
+utterance,expected_intent,expected_system
+reset my okta password,ResetPassword,CI-OKTA-PROD
+i forgot my workday password,ResetPassword,CI-WORKDAY
+my outlook password expired,ResetPassword,CI-EXCHANGE-ONLINE
+reset my email password,ResetPassword,CI-EXCHANGE-ONLINE
+i need a new sap gui password,ResetPassword,CI-SAP-ECC
+unlock my sap account,UnlockAccount,CI-SAP-ECC
+i am locked out of workday,UnlockAccount,CI-WORKDAY
+my single sign on account is locked,UnlockAccount,CI-OKTA-PROD
+vpn is down,ReportOutage,CI-GLOBALPROTECT
+is outlook down,ReportOutage,CI-EXCHANGE-ONLINE
+globalprotect is not working for anyone,ReportOutage,CI-GLOBALPROTECT
+i forgot my password,ResetPassword,
+what is the status of my ticket,CheckTicketStatus,
+check my ticket,CheckTicketStatus,
+there is an outage,ReportOutage,
+locked out,UnlockAccount,

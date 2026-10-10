@@ -1,0 +1,1106 @@
+{
+ "questions": [
+  {
+   "id": "ms-q01",
+   "week": null,
+   "set": "screen",
+   "area": "platform",
+   "type": "single",
+   "stem": "Larkspur Financial Group (LFG) runs its IT help desk on Amazon Connect (now Amazon Connect Customer) in us-east-1. The CIO wants the desk to survive a Regional impairment and asks you, in the design walkthrough, which multi-Region approach you will propose. Numbers are currently forwarded from the old Avaya carrier to Connect-claimed DIDs.",
+   "options": [
+    "Keep the carrier forwarding and add a Chime SDK Voice Connector group that fails over between two Connect instances",
+    "Two independent instances in us-east-1 and us-west-2 with Route 53 health checks that flip the carrier forwarding target",
+    "A single instance with Lambda functions and Lex bots deployed in both Regions; Connect itself is already multi-AZ so no further work is needed",
+    "Amazon Connect Global Resiliency: replicate the instance to us-west-2, use a traffic distribution group to shift telephony and agents, and port the numbers into Connect first"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Connect Global Resiliency (ACGR) is the only AWS-supported multi-Region solution for Connect; it needs a SAML 2.0 instance, Enterprise Support (or Unified Operations) and numbers ported into Connect, not merely forwarded. DIY dual instances are unsupported, bridging calls into Connect through Voice Connector is not a supported pattern without AWS architecture review, and multi-AZ does not cover a Regional event.",
+   "learn": [
+    {
+     "label": "Set up Connect Global Resiliency",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html"
+    },
+    {
+     "label": "Global Resiliency requirements",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-global-resiliency-requirements.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q02",
+   "week": null,
+   "set": "screen",
+   "area": "platform",
+   "type": "multi",
+   "choose": 3,
+   "stem": "During the resiliency workshop the LFG infrastructure manager asks what must be true before Amazon Connect Global Resiliency can be enabled for the help desk instance. Which THREE prerequisites do you list?",
+   "options": [
+    "The replica can be placed in any commercial Region the customer chooses",
+    "The instance uses SAML 2.0 for identity management",
+    "The instance stores users in Amazon Connect (no external IdP)",
+    "The phone numbers are ported into Amazon Connect rather than forwarded from another carrier",
+    "Business Support is sufficient as long as a TAM is assigned",
+    "The account has AWS Enterprise Support (or Unified Operations)"
+   ],
+   "answer": [
+    1,
+    3,
+    5
+   ],
+   "explanation": "ACGR requires a production SAML 2.0 instance, numbers ported into Connect, Enterprise Support or Unified Operations, matching quotas and identical Lambda names. Replica Regions are fixed pairs (for example us-east-1 with us-west-2), and Connect-managed users or Business Support do not qualify.",
+   "learn": [
+    {
+     "label": "Global Resiliency requirements",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-global-resiliency-requirements.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q03",
+   "week": null,
+   "set": "screen",
+   "area": "platform",
+   "type": "single",
+   "stem": "The ticket-lookup Lambda that the help desk flow calls must query ServiceNow and summarize the open incidents with a model; p95 is 22 seconds. A developer proposes raising the Lambda block's time limit to 30 seconds. What do you recommend?",
+   "options": [
+    "Set InvocationTimeLimitSeconds to 30; the 8-second limit only applies to chat contacts",
+    "Invoke the function in asynchronous mode (up to 60 seconds), play a holding prompt or use a Wait block, then load the Lambda result",
+    "Split the work into four synchronous Lambda blocks of about 6 seconds each",
+    "Move the lookup into the Lex fulfillment code hook, which has no time limit inside Connect"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A synchronous Lambda block is capped at 8 seconds and a sequence of Lambda functions is limited to 20 seconds in total, so splitting into four calls still fails. Asynchronous invocation allows up to 60 seconds; the flow continues and later loads the result by invocation ID. Lex code hooks have their own limits and do not remove the latency problem for the caller.",
+   "learn": [
+    {
+     "label": "AWS Lambda function block",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html"
+    },
+    {
+     "label": "Invoke Lambda functions from flows",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q04",
+   "week": null,
+   "set": "screen",
+   "area": "platform",
+   "type": "single",
+   "stem": "LFG finance asks whether the business case must include separate line items for conversational analytics (formerly Contact Lens) and agent assist (formerly Amazon Q in Connect) on a new 2026 instance. What is the accurate answer?",
+   "options": [
+    "AI features are only available through an AWS Marketplace subscription billed by the partner",
+    "Conversational analytics is free, but agent assist requires a separate Bedrock provisioned throughput commitment",
+    "New instances are Amazon Connect Customer, where AI capabilities such as conversational analytics and agent assist are bundled into the per-channel usage price; Connect Customer Basic is the alternative that buys features separately",
+    "Every AI feature is always billed per feature per minute on top of voice usage, with no bundled option"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Since the March 2025 launch of the next generation of Amazon Connect, AI capabilities are included in channel usage pricing for the full Connect Customer tier; the Basic tier buys features separately. Always confirm current numbers on the pricing page before quoting.",
+   "learn": [
+    {
+     "label": "Amazon Connect pricing",
+     "href": "https://aws.amazon.com/connect/pricing/"
+    },
+    {
+     "label": "Next generation Amazon Connect (What's New)",
+     "href": "https://aws.amazon.com/about-aws/whats-new/2025/03/next-generation-amazon-connect-ai-improves-customer-interaction/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q05",
+   "week": null,
+   "set": "screen",
+   "area": "flows",
+   "type": "single",
+   "stem": "An offshore developer built the overflow logic as a Check staffing block with the condition <code>NumberOfAgentsAvailable NumberGreaterThan 5</code> and the flow fails validation. What is your review comment?",
+   "options": [
+    "Use NumberGreaterOrEqualTo 6 instead; Check staffing does not accept NumberGreaterThan",
+    "Replace the block with Check hours of operation, which also reports available agents",
+    "Agent-count metrics in Check staffing only support the condition NumberGreaterThan 0; to branch on thresholds, read the values with Get queue metrics and compare them with Check contact attributes",
+    "Check staffing only works in customer queue flows; move it there"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "For NumberOfAgentsAvailable, NumberOfAgentsStaffed and NumberOfAgentsOnline the only allowed condition is NumberGreaterThan 0. Threshold logic belongs to Get queue metrics plus a comparison. Check hours only evaluates hours of operation.",
+   "learn": [
+    {
+     "label": "Flow language: actions",
+     "href": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-actions.html"
+    },
+    {
+     "label": "Flow language overview",
+     "href": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q06",
+   "week": null,
+   "set": "screen",
+   "area": "flows",
+   "type": "single",
+   "stem": "In UAT, a caller who never presses a key hears the help desk menu for 11 minutes until they hang up. The menu's timeout and invalid-entry branches point back to the same Get customer input block. What is the correct fix?",
+   "options": [
+    "Remove the timeout branch; Connect disconnects automatically after three timeouts",
+    "Wrap the menu in a flow module; modules cannot loop",
+    "Bound the retry with a Loop block (for example 3 iterations): ContinueLooping returns to the menu, DoneLooping routes to a default queue with a message",
+    "Raise the input timeout to 60 seconds so the caller has more time"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Connect does not stop an unbounded menu loop for you. The Loop block with ContinueLooping and DoneLooping conditions bounds retries and gives a deterministic exit to an agent queue. A longer timeout only lengthens dead air, and removing the branch creates a dead end.",
+   "learn": [
+    {
+     "label": "Flow language: actions",
+     "href": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-actions.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q07",
+   "week": null,
+   "set": "screen",
+   "area": "flows",
+   "type": "single",
+   "stem": "The team extracted caller identification into a flow module. Inside the module, <code>$.External.employeeId</code> from the identify Lambda that runs in the calling flow is always empty. Why, and what is the fix?",
+   "options": [
+    "$.External is only populated after Transfer to queue",
+    "Modules run in a different Region; set the Lambda to cross-Region mode",
+    "Flow modules can only be used in customer queue flows, so the reference fails",
+    "Modules cannot read the invoking flow's local data such as Lambda results ($.External); copy the values into contact attributes or pass them as module inputs"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Flow modules do not see the caller flow's local data (External Lambda attributes, Lex attributes, queue metrics, stored input). Persist what you need as contact attributes or use the module's custom inputs. Lambda results also are not saved to the contact record unless copied with Set contact attributes.",
+   "learn": [
+    {
+     "label": "Flow modules",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-flow-modules.html"
+    },
+    {
+     "label": "Invoke Lambda functions from flows",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q08",
+   "week": null,
+   "set": "screen",
+   "area": "flows",
+   "type": "single",
+   "stem": "Password-reset calls use Set routing criteria with step 1 requiring proficiency Okta >= 4 (expiry 30 s) and step 2 requiring Okta >= 2 (expiry 60 s). What happens to a contact still waiting after step 2 expires?",
+   "options": [
+    "It is disconnected with the QueueAtCapacity error",
+    "It stays waiting until an agent with proficiency >= 2 becomes available",
+    "It is offered to any available agent who serves the queue",
+    "It returns to step 1 and the cycle repeats"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Routing criteria steps relax over time; after the last step expires the contact becomes eligible for any agent in the queue. Design the last step deliberately, or keep a final step without expiry if specialist-only handling is mandatory.",
+   "learn": [
+    {
+     "label": "Proficiency-based routing",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q09",
+   "week": null,
+   "set": "screen",
+   "area": "design",
+   "type": "single",
+   "stem": "Discovery data for LFG's Monday 8-9 AM interval: 600 calls, average handle time 300 seconds, target 80% answered in 30 seconds. A stakeholder asks for a quick sanity check before the WFM model is built. What do you tell them?",
+   "options": [
+    "Exactly 50 agents meet the target because occupancy will be 100%",
+    "The offered load is 50 Erlangs, so the interval needs more than 50 agents on the phones before shrinkage; Erlang C sizes the margin above 50 needed for the service level",
+    "The offered load is 10 Erlangs, so 10 agents meet the target",
+    "180,000 agents are needed because 600 x 300 = 180,000"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Traffic intensity A = calls per second x AHT = (600/3600) x 300 = 50 Erlangs. With N <= A the queue grows without bound, so N must exceed 50; Erlang C gives the probability of waiting and the service level for each N, and shrinkage is added on top.",
+   "learn": [
+    {
+     "label": "Forecasting and agent scheduling",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q10",
+   "week": null,
+   "set": "screen",
+   "area": "design",
+   "type": "multi",
+   "choose": 2,
+   "stem": "LFG wants to prove the new password-reset self-service works. Containment is 68% after two weeks. Which TWO measures do you add so containment cannot hide a bad experience?",
+   "options": [
+    "Number of intents configured in the bot",
+    "Customer satisfaction or bot abandonment for contained interactions",
+    "Average handle time of the contained interactions only",
+    "Repeat-contact rate within a few days for the contained interactions",
+    "Total minutes of IVR usage"
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "explanation": "Containment counts callers who did not reach an agent, including those who gave up. Pair it with repeat contacts (did the reset actually work) and satisfaction or abandonment. AHT and intent counts do not measure outcome.",
+   "learn": [
+    {
+     "label": "Strategies for migrating to Connect Customer (Prescriptive Guidance)",
+     "href": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-migration-connect/introduction.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q11",
+   "week": null,
+   "set": "screen",
+   "area": "design",
+   "type": "single",
+   "stem": "Tier-1 agents serve VIPDesk at priority 1 and GeneralSupport at priority 2, both with delay 0. During peaks GeneralSupport callers wait 15 minutes because VIP calls keep arriving. How do you bound the GeneralSupport wait without giving up VIP preference?",
+   "options": [
+    "Lower the VIPDesk queue's maximum contacts so VIP callers overflow",
+    "Swap the priorities so GeneralSupport is priority 1",
+    "Set both queues to priority 2 with no delay",
+    "Set GeneralSupport to priority 1 with a delay (for example 120 s), so GeneralSupport contacts that have waited longer than the delay compete with VIP contacts at priority 1"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Lower priority numbers win, and priority takes precedence. With the same priority and a delay, a contact that ages past the delay is treated at that priority (AWS example 2), so aged GeneralSupport calls compete with VIP calls while fresh VIP calls still go first. Note the trade-off: the delay also means these agents are not offered a GeneralSupport contact until it is that old, so keep another profile serving GeneralSupport with delay 0. Swapping priorities removes the VIP preference.",
+   "learn": [
+    {
+     "label": "Routing profile priority and delay",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing-profiles-priority.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q12",
+   "week": null,
+   "set": "screen",
+   "area": "design",
+   "type": "single",
+   "stem": "LFG wants follow-the-sun coverage: Monterrey (nearshore) covers US evenings and Pune (offshore) covers nights, with onshore staff by day. Which design do you recommend?",
+   "options": [
+    "One instance per shift, switching phone numbers between instances on a schedule",
+    "Separate Connect instances per country with PSTN transfers between them at shift change",
+    "Route by caller area code to the nearest site regardless of time of day",
+    "One production instance (with its Global Resiliency replica) and shared queues; each site's agents get routing profiles and schedules for their hours, and agent hierarchies drive reporting and access by site"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Follow-the-sun is a staffing problem, not a platform split: shared queues with schedules and site-specific routing profiles keep one set of flows, metrics and data. Per-site instances fragment reporting and require PSTN transfers that lose context.",
+   "learn": [
+    {
+     "label": "Routing profile priority and delay",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing-profiles-priority.html"
+    },
+    {
+     "label": "Hierarchy-based access control",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/hierarchy-based-access-control.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q13",
+   "week": null,
+   "set": "screen",
+   "area": "telephony",
+   "type": "single",
+   "stem": "The LFG network team wants to keep its existing carrier SIP trunks and 'bring them into Connect' the way it did with Avaya. What do you tell them?",
+   "options": [
+    "Connect has no native bring-your-own-carrier SIP trunk; numbers are ported or claimed in Connect (or carrier-hosted numbers mapped through a support case), and bridging a carrier through Voice Connector into Connect is unsupported without AWS architecture review",
+    "Create a Chime SDK Voice Connector and point its origination route at the Connect instance's SIP endpoint",
+    "Enable the SIP trunk option on the Connect instance and upload the carrier's TLS certificate",
+    "Use external voice transfer to register the carrier trunk as a Connect telephony provider"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Connect provides AWS-managed PSTN connectivity; the Chime SDK feature comparison lists SIP trunking as Voice Connector only. AWS documents Voice Connector as not a method to route another provider's calls into Connect without prior review. External voice transfer is no longer documented and was never a carrier trunk.",
+   "learn": [
+    {
+     "label": "Chime SDK: Voice Connector and Connect integrations",
+     "href": "https://docs.aws.amazon.com/chime-sdk/latest/ag/vc-connect-integrations.html"
+    },
+    {
+     "label": "Connect telephony concepts",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q14",
+   "week": null,
+   "set": "screen",
+   "area": "telephony",
+   "type": "single",
+   "stem": "After an SBC replacement, PSTN callers to a site on the legacy PBX hear nothing while the PBX user hears the caller. The SIP trace shows the SBC's 200 OK carries <code>c=IN IP4 10.20.4.17</code>. What is the most likely cause?",
+   "options": [
+    "The SBC is advertising its private media address in SDP; NAT/media realm settings must advertise the public address so the far end sends RTP to a reachable IP",
+    "A DTMF payload type mismatch (101 vs 96) is blocking audio",
+    "TLS is enabled on signaling, which always blocks unencrypted RTP",
+    "The codec list order differs between offer and answer"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The c= line tells the peer where to send media. A private RFC 1918 address behind NAT means one direction of RTP goes nowhere: classic one-way audio. DTMF payload types affect digits, not speech, and codec order is negotiated per SDP offer/answer rules.",
+   "learn": [
+    {
+     "label": "RFC 3264: SDP offer/answer",
+     "href": "https://www.rfc-editor.org/rfc/rfc3264"
+    },
+    {
+     "label": "RFC 8866: SDP",
+     "href": "https://www.rfc-editor.org/rfc/rfc8866"
+    }
+   ]
+  },
+  {
+   "id": "ms-q15",
+   "week": null,
+   "set": "screen",
+   "area": "telephony",
+   "type": "multi",
+   "choose": 2,
+   "stem": "You are writing the number-porting section of LFG's cutover plan. Which TWO statements belong in the rollback strategy?",
+   "options": [
+    "Ported numbers keep working on the old carrier for 30 days as a fallback",
+    "Port requests for US numbers should be submitted 90 days ahead to secure the date",
+    "After a port completes, going back requires a new port-away with a fresh LOA, so post-port rollback means forwarding calls back to the legacy platform",
+    "A completed port can be reverted by AWS Support within one hour",
+    "Before the port, forward legacy numbers to Connect-claimed numbers; rollback is removing the forward"
+   ],
+   "answer": [
+    2,
+    4
+   ],
+   "explanation": "AWS recommends forwarding to Connect-claimed numbers during conversion and porting afterwards, which preserves a fallback. Reverting a completed port needs a new LOA, so plan rollback as forward-back. US requests cannot be submitted more than 30 days before the port date.",
+   "learn": [
+    {
+     "label": "About porting",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/about-porting.html"
+    },
+    {
+     "label": "Revert porting to the original carrier",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/revert-porting-to-original-carrier.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q16",
+   "week": null,
+   "set": "screen",
+   "area": "telephony",
+   "type": "single",
+   "stem": "Pune agents work in Citrix VDI and report robotic audio and dropped softphone calls. Which recommendation matches AWS guidance?",
+   "options": [
+    "Move the agents to Voice Connector SIP phones registered to Connect",
+    "Run the CCP inside the VDI session and raise the VM's CPU; WebRTC is designed to run inside VDI",
+    "Disable SRTP on the CCP to reduce jitter",
+    "Use the split or audio-offload model: media handled on the endpoint through Citrix's UC SDK with Connect's open-source VDI libraries in a custom CCP, and confirm outbound UDP 3478 to the Connect TURN endpoints"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "AWS recommends keeping media off the VDI session (split model or audio redirection for WorkSpaces, Citrix, Omnissa, Azure Virtual Desktop) and lists 3478/UDP to TURN as the media path. Connect does not register SIP phones, and media encryption cannot be disabled.",
+   "learn": [
+    {
+     "label": "Using the CCP in VDI",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/using-ccp-vdi.html"
+    },
+    {
+     "label": "CCP networking",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q17",
+   "week": null,
+   "set": "screen",
+   "area": "legacy",
+   "type": "single",
+   "stem": "You are mapping LFG's Avaya Aura configuration to Connect for the offshore team. Which mapping is correct?",
+   "options": [
+    "VDN -> Lambda function; vector -> flow module; skill -> quick connect",
+    "VDN -> phone number (or DNIS) associated with an inbound flow; vector -> flow; skill (hunt group with EAS) -> queue plus routing profile and, where levels matter, proficiencies",
+    "VDN -> queue; vector -> routing profile; skill -> security profile",
+    "VDN -> agent hierarchy; vector -> Lex bot; skill -> hours of operation"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A VDN is a dialable entry point that runs a vector, which maps to a number associated with a flow. Skills with Expert Agent Selection map to queues served through routing profiles, with proficiency levels covering skill levels.",
+   "learn": [
+    {
+     "label": "Migrating Avaya to Connect and Lex V2 (Prescriptive Guidance)",
+     "href": "https://docs.aws.amazon.com/prescriptive-guidance/latest/migrate-avaya-to-connect-lex/introduction.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q18",
+   "week": null,
+   "set": "screen",
+   "area": "legacy",
+   "type": "single",
+   "stem": "A Cisco UCCE routing script uses Run External Script to call a CVP microapp that collects a 6-digit employee id into <code>user.microapp.caller_input</code>, then stores it in an ECC variable for the agent desktop. What is the Connect equivalent?",
+   "options": [
+    "An agent whisper flow that asks the agent to type the id",
+    "A Lambda function that opens a VXML session to the old CVP server",
+    "A quick connect with a DTMF suffix",
+    "A Get customer input block that stores the digits (or a Lex slot), then Set contact attributes so the value travels with the contact to the agent workspace"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Microapp digit collection maps to Store customer input (or a Lex slot); ECC variables map to contact attributes, which are visible in the contact record and the agent workspace.",
+   "learn": [
+    {
+     "label": "Flow language: actions",
+     "href": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-actions.html"
+    },
+    {
+     "label": "Contact attributes list",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-attrib-list.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q19",
+   "week": null,
+   "set": "screen",
+   "area": "legacy",
+   "type": "single",
+   "stem": "The Avaya vector uses <code>queue-to skill 12 pri t</code> for executives and <code>pri l</code> for everyone else in the same skill. After migration, executives wait as long as everyone else. What preserves the nuance?",
+   "options": [
+    "Give the executive path a longer Wait block so it enters the queue later",
+    "Add a second routing profile with a higher priority for the same queue",
+    "Create a quick connect to the executive agents",
+    "Set queue priority on the contact (Set routing parameters, UpdateContactRoutingBehavior QueuePriority) for the executive path so it is ahead of other contacts in the same queue"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Avaya's queue priority within a skill corresponds to contact-level queue priority in Connect (a lower number is served first). Routing profile priority/delay chooses between queues for an agent, not between contacts in one queue.",
+   "learn": [
+    {
+     "label": "Routing profile priority and delay",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing-profiles-priority.html"
+    },
+    {
+     "label": "Flow language: actions",
+     "href": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-actions.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q20",
+   "week": null,
+   "set": "screen",
+   "area": "legacy",
+   "type": "single",
+   "stem": "During coexistence, Avaya answers the call, collects the employee id, then transfers to Connect over the PSTN. The Avaya team asks Connect to read the id from a User-to-User header. What do you propose?",
+   "options": [
+    "Ask the carrier to send the id as the caller name (CNAM)",
+    "Enable the UUI option on the Connect phone number",
+    "Do not rely on UUI or custom X- headers reaching Connect from the PSTN; correlate with a data dip (for example store the id keyed on ANI, dialed DNIS from a pool, and time) that a Connect Lambda reads",
+    "Read $.Media.Sip.Headers.User-to-User in the flow; all carriers pass it"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Connect documents a fixed set of carrier metadata (for example P-Charge-Info, Diversion, ISUP-OLI), with availability varying by provider; arbitrary UUI or X- headers from callers are not documented. Context across the PSTN needs DNIS pools or a data dip keyed on call identifiers.",
+   "learn": [
+    {
+     "label": "Contact attributes list (telephony call metadata)",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-attrib-list.html"
+    },
+    {
+     "label": "Transfer to phone number block",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q21",
+   "week": null,
+   "set": "screen",
+   "area": "ai",
+   "type": "single",
+   "stem": "The bot developer wants one en_US locale to contain both AMAZON.QnAIntent (FAQ answers from a knowledge base) and AMAZON.QinConnectIntent (Connect AI agents self-service). What is your guidance?",
+   "options": [
+    "That works; Lex calls QnAIntent first and QinConnectIntent as fallback",
+    "QinConnectIntent requires Lex V1",
+    "They cannot coexist in the same locale; pick one approach for that locale (AWS recommends agentic self-service with AI agents for new builds) or separate them",
+    "Both intents need a fulfillment Lambda that calls Bedrock directly"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The Lex documentation states AMAZON.QinConnectIntent cannot be used with AMAZON.QnAIntent in the same bot locale. For new self-service, the Connect docs recommend agentic self-service; legacy self-service is not receiving new features.",
+   "learn": [
+    {
+     "label": "AMAZON.QinConnectIntent",
+     "href": "https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-qinconnect.html"
+    },
+    {
+     "label": "AI agent self-service",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/ai-agent-self-service.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q22",
+   "week": null,
+   "set": "screen",
+   "area": "ai",
+   "type": "single",
+   "stem": "LFG adopts a Bedrock Managed Knowledge Base with the ServiceNow connector for KB articles. The design shows a Lambda calling RetrieveAndGenerate. What is your review comment?",
+   "options": [
+    "RetrieveAndGenerate is fine but needs a provisioned throughput model",
+    "Managed knowledge bases do not support ServiceNow; use the web crawler",
+    "Use the Lex QnAIntent instead; managed knowledge bases cannot be called from Lambda",
+    "RetrieveAndGenerate is not supported on managed knowledge bases; call Retrieve (or AgenticRetrieveStream) and generate with Converse, which also gives you control of the prompt, guardrail and latency"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Managed knowledge bases (GA June 2026, ServiceNow connector September 2026) support Retrieve and AgenticRetrieveStream, not RetrieveAndGenerate. Retrieve plus Converse is the usual pattern when you need your own prompt, guardrail and time budget.",
+   "learn": [
+    {
+     "label": "Managed KB ServiceNow connector",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-servicenow-connect.html"
+    },
+    {
+     "label": "Retrieve API",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Retrieve.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q23",
+   "week": null,
+   "set": "screen",
+   "area": "ai",
+   "type": "multi",
+   "choose": 2,
+   "stem": "Employees must only receive answers from KB articles their department and employment type are entitled to. Which TWO controls do you design?",
+   "options": [
+    "Use document-level access control where the connector supports it (for example the managed KB ServiceNow connector's ACL crawling)",
+    "Build the retrieval metadata filter (for example andAll of equals/in on department and employeeType) server-side from the verified caller identity, never from the conversation text",
+    "Increase numberOfResults so the right documents are always included",
+    "Rely on the guardrail's denied topics to block other departments' content",
+    "Tell the model in the system prompt to ignore documents from other departments"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Entitlement must be enforced before generation: metadata filters derived from trusted identity, or connector ACLs. Prompt instructions and guardrails are not access control, and more results increases leakage.",
+   "learn": [
+    {
+     "label": "Knowledge base retrieval configuration",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html"
+    },
+    {
+     "label": "Managed KB ServiceNow connector",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-servicenow-connect.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q24",
+   "week": null,
+   "set": "screen",
+   "area": "ai",
+   "type": "single",
+   "stem": "A Lambda invoked synchronously from a voice flow calls Retrieve and Converse. Callers sometimes hear the error prompt, and logs show the function ran 9.4 s with SDK retries. Which change best fits the Connect constraint?",
+   "options": [
+    "Increase the Lambda function timeout to 15 minutes",
+    "Remove the Retrieve call and let the model answer from training data",
+    "Use a small fast model through an inference profile, cap maxTokens, set explicit SDK request timeouts and maxAttempts so the whole call fits well under 8 s, and return a fallback (escalate to agent) when the budget is exhausted",
+    "Switch to ConverseStream inside the synchronous Lambda so audio starts sooner"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Connect waits at most 8 seconds for a synchronous Lambda (and retries within that window), so the Lambda's own timeout is irrelevant. Budget each SDK call explicitly and degrade gracefully; streaming does not help because the flow only receives the final response.",
+   "learn": [
+    {
+     "label": "Converse API",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html"
+    },
+    {
+     "label": "Invoke Lambda functions from flows",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q25",
+   "week": null,
+   "set": "screen",
+   "area": "lens",
+   "type": "single",
+   "stem": "Supervisors configured a conversational analytics (formerly Contact Lens) rule to alert when a caller says 'security incident' on voice, but alerts never arrive while calls are live; they appear in post-call analysis. What is the most likely cause?",
+   "options": [
+    "Alerts require a Lex bot in the flow",
+    "The flow's Set recording and analytics behavior block enables post-contact analytics only; real-time analytics must be enabled for live alerts",
+    "The rule needs a Lambda target to deliver alerts",
+    "Real-time rules only work for chat"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Real-time rules evaluate real-time analysis; if only post-contact analytics is enabled, matching happens after the call. The analytics mode is chosen per flow in Set recording and analytics behavior.",
+   "learn": [
+    {
+     "label": "Conversational analytics",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens.html"
+    },
+    {
+     "label": "Conversational analytics rules",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/build-rules-for-contact-lens.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q26",
+   "week": null,
+   "set": "screen",
+   "area": "lens",
+   "type": "single",
+   "stem": "A weekly QA report built by the data team shows full card numbers from call transcripts, even though sensitive data redaction is enabled. What do you check first?",
+   "options": [
+    "Whether the agents' security profiles allow recording playback",
+    "Whether the KMS key for the bucket was rotated",
+    "Whether the flow uses a Lex bot",
+    "Whether the pipeline reads the original (raw) analysis output instead of the redacted output location, and whether access to the original files is restricted"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "With redaction enabled, conversational analytics writes a redacted copy alongside the original. Downstream jobs must read the redacted output, and access to the originals should be locked down.",
+   "learn": [
+    {
+     "label": "Sensitive data redaction",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/sensitive-data-redaction.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q27",
+   "week": null,
+   "set": "screen",
+   "area": "lens",
+   "type": "single",
+   "stem": "Compliance wants every help desk contact checked for the mandatory 'we will never ask for your password' disclosure, not a 2% sample. What do you propose?",
+   "options": [
+    "Turn on agent screen recording",
+    "Generative AI performance evaluations (criteria in natural language, applied automatically to up to 100% of contacts with justifications), with human calibration on a sample",
+    "Ask supervisors to listen to 100% of calls",
+    "A Lambda that greps the raw audio for the phrase"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Evaluation forms support generative AI evaluations that score contacts automatically with justifications and transcript references; calibration with humans keeps them honest. Manual 100% review does not scale and screen recording does not check speech.",
+   "learn": [
+    {
+     "label": "Generative AI performance evaluations",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/generative-ai-performance-evaluations.html"
+    },
+    {
+     "label": "Evaluations",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/evaluations.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q28",
+   "week": null,
+   "set": "screen",
+   "area": "lens",
+   "type": "single",
+   "stem": "When a call matches the 'escalation language' category, a ServiceNow QA task must be created exactly once. Which design do you choose?",
+   "options": [
+    "A conversational analytics rule that generates an EventBridge event, consumed by a Lambda or Step Functions workflow that calls the ServiceNow Table API with the contact ID as an idempotency key",
+    "A flow block after Disconnect that calls ServiceNow",
+    "A supervisor manually opens ServiceNow when they see the alert",
+    "A nightly batch that re-creates all tasks from the data lake"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Rules can emit EventBridge events; an event-driven consumer with an idempotency key (lookup-before-create on correlation id) handles at-least-once delivery. Flows end at disconnect, and nightly rebuilds cause duplicates and delay.",
+   "learn": [
+    {
+     "label": "Conversational analytics rules",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/build-rules-for-contact-lens.html"
+    },
+    {
+     "label": "EventBridge events from Connect",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-eventbridge-events.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q29",
+   "week": null,
+   "set": "screen",
+   "area": "agentx",
+   "type": "single",
+   "stem": "Agents need a panel in the agent workspace showing the bot summary, intent, slots and linked ServiceNow incident, with buttons that update the incident. What do you build?",
+   "options": [
+    "A fork of the CCP source code with the panel added",
+    "A third-party application embedded in the Connect agent workspace that subscribes to contact events and calls a backend API for ServiceNow",
+    "A Chrome extension that scrapes the CCP",
+    "A whisper flow that reads the summary to the agent"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Third-party apps run inside the agent workspace with access to contact events and data, so agents stay in one desktop. Forking the CCP or scraping it is brittle; whisper is audio-only and short.",
+   "learn": [
+    {
+     "label": "Third-party applications in the agent workspace",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/3p-apps.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q30",
+   "week": null,
+   "set": "screen",
+   "area": "agentx",
+   "type": "single",
+   "stem": "A business unit wants Salesforce to own the voice experience: Voice Call records, Omni-Channel routing in Salesforce, and a single Salesforce bill, with minimal AWS administration. Which option fits?",
+   "options": [
+    "Service Cloud Voice with Amazon Connect (bundle), where Salesforce provisions and bills the Connect instance",
+    "The Amazon Connect CTI Adapter for Salesforce in the customer's own AWS account",
+    "A custom Streams CCP embedded in a Visualforce page",
+    "Service Cloud Voice partner telephony with a Five9 instance"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The Service Cloud Voice bundle has Salesforce provision and bill the Connect instance with native Voice Call records and Omni-Channel. The CTI Adapter (and SCV with partner telephony, BYOA) keeps the instance in your account, which is better when you need full control of flows and data.",
+   "learn": [
+    {
+     "label": "Salesforce integration (CTI Adapter)",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html"
+    },
+    {
+     "label": "Service Cloud Voice with Amazon Connect (AWS APN blog)",
+     "href": "https://aws.amazon.com/blogs/apn/integrating-amazon-connect-natively-into-salesforce-using-service-cloud-voice/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q31",
+   "week": null,
+   "set": "screen",
+   "area": "agentx",
+   "type": "single",
+   "stem": "On voice, agents see the bot's summary and intent; on chat, the same bot hands off with empty fields. Both channels use the same Lex bot. What is the most likely cause?",
+   "options": [
+    "Lex does not return session attributes on chat",
+    "The chat flow transfers to queue without copying $.Lex.IntentName, slots and session attributes into contact attributes, so nothing persists to the agent workspace",
+    "The agent workspace only displays attributes for voice",
+    "Chat contacts cannot carry contact attributes"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "$.Lex values are flow-local results of the Get customer input block. Each channel's flow must copy what the agent needs into contact attributes before transferring; the difference between channels is almost always a flow difference.",
+   "learn": [
+    {
+     "label": "Get customer input block",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/get-customer-input.html"
+    },
+    {
+     "label": "Contact attributes list",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-attrib-list.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q32",
+   "week": null,
+   "set": "screen",
+   "area": "devops",
+   "type": "single",
+   "stem": "The offshore team promotes flows by exporting from dev and importing in prod by hand; last release pointed prod at a dev Lex alias. What pipeline design do you require?",
+   "options": [
+    "Use one shared Lex alias and Lambda for all environments to avoid ARN changes",
+    "Deploy flows with Terraform only; it rewrites ARNs automatically",
+    "Keep flow JSON in git, rewrite every environment-specific ARN and ID from an environment manifest, fail the build on any unmapped or dangling reference, deploy with CloudFormation/CDK, and run native flow test cases before switching traffic",
+    "Export from dev and import into prod with the admin website, with a second engineer watching"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Flow content embeds ARNs for queues, prompts, Lambda and Lex aliases. Rewriting from a manifest with a dangling-reference check, deploying through AWS::Connect::ContactFlow and running test cases (AWS::Connect::TestCase / StartTestCaseExecution) makes releases repeatable. Sharing resources across environments removes isolation.",
+   "learn": [
+    {
+     "label": "Testing and simulation",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/testing-simulation.html"
+    },
+    {
+     "label": "CloudFormation AWS::Connect resource types",
+     "href": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/AWS_Connect.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q33",
+   "week": null,
+   "set": "screen",
+   "area": "devops",
+   "type": "multi",
+   "choose": 2,
+   "stem": "You need fast rollback for frequently changing logic in the help desk flows. Which TWO statements reflect the current versioning model?",
+   "options": [
+    "Flow modules have immutable versions and aliases; updating a module alias moves every flow that references it",
+    "Every contact flow can be referenced through a ContactFlowAlias CloudFormation resource",
+    "Flow versions are only kept for 24 hours",
+    "Regular flows are rolled back by re-publishing an earlier published version in the flow designer",
+    "CreateContactFlowVersion creates versions for any flow type"
+   ],
+   "answer": [
+    0,
+    3
+   ],
+   "explanation": "Module versions and aliases launched in November 2025. For regular flows there is no alias resource type in CloudFormation, CreateContactFlowVersion is documented for Campaign-type flows, and rollback is by re-publishing a prior version. Putting volatile logic in aliased modules gives one-step rollback.",
+   "learn": [
+    {
+     "label": "Flow version control",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/flow-version-control.html"
+    },
+    {
+     "label": "CreateContactFlowModuleAlias API",
+     "href": "https://docs.aws.amazon.com/connect/latest/APIReference/API_CreateContactFlowModuleAlias.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q34",
+   "week": null,
+   "set": "screen",
+   "area": "devops",
+   "type": "single",
+   "stem": "Which CloudWatch metric in the AWS/Connect namespace would most directly alarm when a release breaks a flow's Lambda or Lex reference and contacts fall into error branches?",
+   "options": [
+    "ConcurrentCallsPercentage",
+    "LongestQueueWaitTime",
+    "MissedCalls",
+    "ContactFlowErrors (and ContactFlowFatalErrors)"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "ContactFlowErrors counts error branches taken in flows; fatal errors count flows that failed to execute. Concurrency, missed calls and wait time are lagging and ambiguous signals. Pair the alarm with flow logs in /aws/connect/&lt;instance-alias&gt;.",
+   "learn": [
+    {
+     "label": "Monitoring Connect with CloudWatch",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/monitoring-cloudwatch.html"
+    },
+    {
+     "label": "Flow logs",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-flow-logs.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q35",
+   "week": null,
+   "set": "screen",
+   "area": "security",
+   "type": "single",
+   "stem": "Agents signing in through the LFG Okta app land in a redirect loop. The SAML app's default relay state is <code>https://lfg-helpdesk.my.connect.aws/ccp-v2</code>. What should it be?",
+   "options": [
+    "https://signin.aws.amazon.com/saml",
+    "https://us-east-1.console.aws.amazon.com/connect/federate/&lt;instance-id&gt; (optionally with a URL-encoded destination such as /ccp-v2)",
+    "The instance access URL with /login appended",
+    "Leave it empty; Connect ignores relay state"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "For SAML sign-in the relay state must use the federate endpoint for the instance's Region and instance ID; deep links use the destination parameter. Also check that the RoleSessionName matches the Connect username and the role allows connect:GetFederationToken.",
+   "learn": [
+    {
+     "label": "Configure SAML for Connect",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html"
+    },
+    {
+     "label": "Troubleshoot SAML",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/troubleshoot-saml.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q36",
+   "week": null,
+   "set": "screen",
+   "area": "security",
+   "type": "single",
+   "stem": "Pune team leads must see only their own queues and agents in real-time metrics and user management. How do you implement this?",
+   "options": [
+    "An IAM policy on the team leads' AWS console users",
+    "A separate Connect instance for Pune",
+    "Rename the queues with a PUNE- prefix and train the leads",
+    "Tag-based access control: access control tags on their security profiles that match tags on the queues, routing profiles and users, plus hiding pages that leak full lists"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Connect supports access control tags on security profiles for queues, routing profiles, users and other resources. AWS advises applying TBAC consistently and disabling pages that list untagged resources, otherwise a user can see or escalate around the restriction.",
+   "learn": [
+    {
+     "label": "Tag-based access control",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/tag-based-access-control.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q37",
+   "week": null,
+   "set": "screen",
+   "area": "security",
+   "type": "single",
+   "stem": "A federal agency client requires FedRAMP High (now Class D) and asks for Connect with agent assist and Cases in AWS GovCloud (US). What is your accurate response?",
+   "options": [
+    "GovCloud Connect can call commercial-Region Lex and Bedrock to fill the gaps",
+    "Connect in GovCloud (US-West) is in scope for Class D, but AI agents (agent assist) and Cases are not available there, so the design needs alternatives (for example ServiceNow for case management) or a different authorization boundary",
+    "Connect is not available in GovCloud",
+    "All commercial Connect features are available in GovCloud with the same release dates"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Connect Customer runs in us-gov-west-1 and is in scope for FedRAMP Class D, but GovCloud lacks AI agents, Cases, Customer Profiles, outbound campaigns and other features. GovCloud is a separate partition, so cross-partition integrations with commercial services are not possible.",
+   "learn": [
+    {
+     "label": "Connect in GovCloud (US)",
+     "href": "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-con.html"
+    },
+    {
+     "label": "FedRAMP services in scope",
+     "href": "https://aws.amazon.com/compliance/services-in-scope/FedRAMP/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q38",
+   "week": null,
+   "set": "screen",
+   "area": "security",
+   "type": "multi",
+   "choose": 2,
+   "stem": "The old design relied on Amazon Connect Voice ID for caller authentication before password resets. Which TWO options do you propose for the replacement?",
+   "options": [
+    "One-time passcode by SMS through AWS End User Messaging to the phone on the employee record",
+    "Ask the caller to read their current password to the agent",
+    "Re-enable Voice ID on the instance; it is still supported for existing customers",
+    "Step-up identity verification with a partner such as CLEAR (verification link sent by SMS from the flow) or a voice biometrics partner",
+    "Trust the caller ID (ANI) alone for password resets"
+   ],
+   "answer": [
+    0,
+    3
+   ],
+   "explanation": "Voice ID reached end of support on 2026-05-20. AWS points to OTP via End User Messaging SMS or partners; CLEAR documents an Amazon Connect integration that sends a verification link from the flow. ANI alone is spoofable and asking for passwords violates policy.",
+   "learn": [
+    {
+     "label": "Voice ID end of support",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html"
+    },
+    {
+     "label": "CLEAR: Amazon Connect integration",
+     "href": "https://docs.clearme.com/docs/amazon-connect"
+    }
+   ]
+  },
+  {
+   "id": "ms-q39",
+   "week": null,
+   "set": "screen",
+   "area": "leader",
+   "type": "single",
+   "stem": "Your Pune team ships flow changes that pass their manual tests but break other paths. As the onshore lead, which practice gives the biggest improvement?",
+   "options": [
+    "Restrict the offshore team to read-only access and make all changes onshore",
+    "Require a screenshot of each flow in the change ticket",
+    "A weekly meeting where developers demo their flows",
+    "Flow JSON in git with pull-request review by a designated reviewer, an automated lint (error branches, loops, references) and native flow test cases running in CI as a merge gate"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Reviews plus automated gates scale across time zones and make quality independent of who is awake. Removing the team's access or adding ceremony without automation does not reduce defects.",
+   "learn": [
+    {
+     "label": "Testing and simulation",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/testing-simulation.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q40",
+   "week": null,
+   "set": "screen",
+   "area": "leader",
+   "type": "order",
+   "choose": 4,
+   "stem": "Arrange the cutover-night steps for moving the LFG help desk main number to Connect (numbers already ported to Connect and parked on a test flow).",
+   "options": [
+    "Place scripted test calls on every path (menu, VIP, after-hours, self-service) and verify CTRs and ServiceNow records",
+    "Open hypercare: watch real-time metrics, flow errors and alarms with the war room",
+    "Disable flow logging to reduce noise",
+    "Delete the legacy vectors so nobody can roll back",
+    "Associate the main number with the production inbound flow",
+    "Freeze changes and confirm the go/no-go checklist with stakeholders"
+   ],
+   "answer": [
+    5,
+    4,
+    0,
+    1
+   ],
+   "explanation": "Freeze and go/no-go first, then switch the number, prove every path with scripted calls and records, then run hypercare with monitoring. Destroying the rollback path or disabling logs during cutover is the opposite of what you want.",
+   "learn": [
+    {
+     "label": "Verify flows before porting",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/verify-flows-before-porting.html"
+    },
+    {
+     "label": "Strategies for migrating to Connect Customer",
+     "href": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-migration-connect/introduction.html"
+    }
+   ]
+  }
+ ]
+}

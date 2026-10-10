@@ -1,0 +1,27 @@
+{
+  "id": "connect/w3-t1",
+  "title": "Dead air on the new SIP trunk",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 3,
+  "optional": false,
+  "area": "Telephony",
+  "scenario": "Since last week some LFG back-office users on Avaya phones hear nothing on calls through the Chime SDK Voice Connector trunk while the far end hears them; a redial usually works. The dashboard shows no SIP errors and the NOC blames a DTMF payload type mismatch. Work the SIP ladders, Voice Connector SIP and media metric logs, the change record and NAT table to the root cause.",
+  "task": [
+    "Correlate failing calls with SBC, SDP and media metrics; explain why the change test passed",
+    "Implement an SDP audit (private c=, SRTP, crypto, telephone-event, missing connection)",
+    "Fix the SBC profile with the smallest safe change; prove it with audit and replay",
+    "Rule the DTMF payload type ticket in or out with evidence"
+  ],
+  "acceptance": [
+    "auditSdp findings correct for crafted SDPs and for the incident bundle",
+    "Every SBC profile advertises a public media address; replay has zero one-way calls",
+    "Unrelated SBC settings unchanged",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - SDP offer/answer, NAT and one-way audio, RFC 4733 DTMF", "href": "week3"},
+    {"label": "Week 3 Thu - Voice Connector SIP message and media metric logs", "href": "week3"},
+    {"label": "Week 3 Wed - SBC topology hiding and media NAT", "href": "week3"}
+  ]
+}

@@ -1,0 +1,232 @@
+{
+  "Version": "1.1.0",
+  "AccountId": "111122223333",
+  "Channel": "VOICE",
+  "ContentMetadata": {
+    "Output": "Redacted",
+    "RedactionTypes": [
+      "PII"
+    ],
+    "RedactionTypesMetadata": {
+      "PII": {
+        "RedactionEntitiesRequested": [
+          "CREDIT_DEBIT_NUMBER",
+          "NAME",
+          "USERNAME",
+          "PASSWORD",
+          "PHONE",
+          "EMAIL"
+        ],
+        "RedactionMaskMode": "PII"
+      }
+    }
+  },
+  "JobStatus": "COMPLETED",
+  "LanguageCode": "en-US",
+  "Participants": [
+    {
+      "ParticipantId": "CUSTOMER",
+      "ParticipantRole": "CUSTOMER"
+    },
+    {
+      "ParticipantId": "AGENT",
+      "ParticipantRole": "AGENT"
+    }
+  ],
+  "Categories": {
+    "MatchedCategories": [
+      "PasswordReset"
+    ],
+    "MatchedDetails": {
+      "PasswordReset": {
+        "PointsOfInterest": [
+          {
+            "BeginOffsetMillis": 0,
+            "EndOffsetMillis": 4000
+          }
+        ]
+      }
+    }
+  },
+  "ConversationCharacteristics": {
+    "TotalConversationDurationMillis": 23000,
+    "Sentiment": {
+      "OverallSentiment": {
+        "AGENT": 1.2,
+        "CUSTOMER": 2.4
+      },
+      "SentimentByPeriod": {
+        "QUARTER": {
+          "AGENT": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 5750,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 5750,
+              "EndOffsetMillis": 11500,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 11500,
+              "EndOffsetMillis": 17250,
+              "Score": 2.5
+            },
+            {
+              "BeginOffsetMillis": 17250,
+              "EndOffsetMillis": 23000,
+              "Score": 2.5
+            }
+          ],
+          "CUSTOMER": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 5750,
+              "Score": -2.5
+            },
+            {
+              "BeginOffsetMillis": 5750,
+              "EndOffsetMillis": 11500,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 11500,
+              "EndOffsetMillis": 17250,
+              "Score": 2.5
+            },
+            {
+              "BeginOffsetMillis": 17250,
+              "EndOffsetMillis": 23000,
+              "Score": 5.0
+            }
+          ]
+        }
+      }
+    },
+    "Interruptions": {
+      "InterruptionsByInterrupter": {
+        "AGENT": []
+      },
+      "TotalCount": 0,
+      "TotalTimeMillis": 0
+    },
+    "NonTalkTime": {
+      "TotalTimeMillis": 0,
+      "Instances": []
+    },
+    "TalkSpeed": {
+      "DetailsByParticipant": {
+        "AGENT": {
+          "AverageWordsPerMinute": 168
+        },
+        "CUSTOMER": {
+          "AverageWordsPerMinute": 151
+        }
+      }
+    },
+    "TalkTime": {
+      "TotalTimeMillis": 21200,
+      "DetailsByParticipant": {
+        "AGENT": {
+          "TotalTimeMillis": 13300
+        },
+        "CUSTOMER": {
+          "TotalTimeMillis": 7900
+        }
+      }
+    }
+  },
+  "CustomModels": [],
+  "Transcript": [
+    {
+      "BeginOffsetMillis": 0,
+      "Content": "Thank you for calling Larkspur IT service desk, this is [PII]. How can I help?",
+      "EndOffsetMillis": 4200,
+      "Id": "t00-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL",
+      "LoudnessScore": [
+        70.1,
+        72.4
+      ],
+      "Redaction": {
+        "RedactedTimestamps": [
+          {
+            "BeginOffsetMillis": 400,
+            "EndOffsetMillis": 900
+          }
+        ]
+      }
+    },
+    {
+      "BeginOffsetMillis": 4500,
+      "Content": "Hi, I'm locked out of my laptop after the password change.",
+      "EndOffsetMillis": 8300,
+      "Id": "t01-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "NEGATIVE",
+      "LoudnessScore": [
+        71.1,
+        72.4
+      ],
+      "IssuesDetected": [
+        {
+          "CharacterOffsets": {
+            "BeginOffsetChar": 0,
+            "EndOffsetChar": 58
+          },
+          "Text": "Hi, I'm locked out of my laptop after the password change."
+        }
+      ]
+    },
+    {
+      "BeginOffsetMillis": 8600,
+      "Content": "Before we start, Larkspur IT will never ask for your password. I'll send a reset link to the phone on file.",
+      "EndOffsetMillis": 13800,
+      "Id": "t02-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL",
+      "LoudnessScore": [
+        72.1,
+        72.4
+      ]
+    },
+    {
+      "BeginOffsetMillis": 14100,
+      "Content": "Okay, got it, the link worked.",
+      "EndOffsetMillis": 16700,
+      "Id": "t03-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "POSITIVE",
+      "LoudnessScore": [
+        73.1,
+        72.4
+      ]
+    },
+    {
+      "BeginOffsetMillis": 17000,
+      "Content": "Great, you should be able to sign in now. Is there anything else I can help you with today?",
+      "EndOffsetMillis": 20900,
+      "Id": "t04-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "POSITIVE",
+      "LoudnessScore": [
+        74.1,
+        72.4
+      ]
+    },
+    {
+      "BeginOffsetMillis": 21200,
+      "Content": "No, that's all, thanks!",
+      "EndOffsetMillis": 22700,
+      "Id": "t05-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "POSITIVE",
+      "LoudnessScore": [
+        70.1,
+        72.4
+      ]
+    }
+  ]
+}

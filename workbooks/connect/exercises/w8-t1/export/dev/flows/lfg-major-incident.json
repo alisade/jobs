@@ -1,0 +1,12 @@
+{
+  "ContactFlow": {
+    "Arn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/contact-flow/c1f449ab-40ae-4766-8d9f-4d6a5dda7beb",
+    "Id": "c1f449ab-40ae-4766-8d9f-4d6a5dda7beb",
+    "Name": "LFG Major Incident",
+    "Type": "CONTACT_FLOW",
+    "State": "ACTIVE",
+    "Status": "PUBLISHED",
+    "Description": "",
+    "Content": "{\"Version\": \"2019-10-30\", \"StartAction\": \"set-q-major\", \"Actions\": [{\"Identifier\": \"set-q-major\", \"Type\": \"UpdateContactTargetQueue\", \"Parameters\": {\"QueueId\": \"arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/174d554b-35e9-4cbe-854b-68fc03f4c0cd\"}, \"Transitions\": {\"NextAction\": \"major-priority\", \"Errors\": [{\"NextAction\": \"fallback-general\", \"ErrorType\": \"NoMatchingError\"}]}}, {\"Identifier\": \"major-priority\", \"Type\": \"UpdateContactRoutingBehavior\", \"Parameters\": {\"QueuePriority\": \"1\"}, \"Transitions\": {\"NextAction\": \"transfer\", \"Errors\": [{\"NextAction\": \"transfer\", \"ErrorType\": \"NoMatchingError\"}]}}, {\"Identifier\": \"fallback-general\", \"Type\": \"UpdateContactTargetQueue\", \"Parameters\": {\"QueueId\": \"arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/2a1a579f-2d67-4e78-8d24-40914411d685\"}, \"Transitions\": {\"NextAction\": \"transfer\", \"Errors\": [{\"NextAction\": \"disconnect\", \"ErrorType\": \"NoMatchingError\"}]}}, {\"Identifier\": \"transfer\", \"Type\": \"TransferContactToQueue\", \"Parameters\": {}, \"Transitions\": {\"Errors\": [{\"NextAction\": \"disconnect\", \"ErrorType\": \"QueueAtCapacity\"}, {\"NextAction\": \"disconnect\", \"ErrorType\": \"NoMatchingError\"}]}}, {\"Identifier\": \"disconnect\", \"Type\": \"DisconnectParticipant\", \"Parameters\": {}, \"Transitions\": {}}]}"
+  }
+}

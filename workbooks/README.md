@@ -1,16 +1,17 @@
 # Workbooks
 
-Hands-on coding and troubleshooting exercises for the three study guides, plus browser self-exams.
+Hands-on coding and troubleshooting exercises for the study guides, plus browser self-exams.
 
 | Track | Workbook | Study guide |
 |---|---|---|
 | `fde` | [fde/workbook.html](fde/workbook.html) | [../study-plan.html](../study-plan.html) |
 | `go` | [go/workbook.html](go/workbook.html) | [../golang-architect-study-plan.html](../golang-architect-study-plan.html) |
 | `ms` | [ms/workbook.html](ms/workbook.html) | [../microsoft-adf-powerapps-study-plan.html](../microsoft-adf-powerapps-study-plan.html) |
+| `connect` | [connect/workbook.html](connect/workbook.html) | [../amazon-connect-study-plan.html](../amazon-connect-study-plan.html) |
 
 ## Workflow
 
-1. Check your tools once per track: `tools/doctor.sh fde` (or `go`, `ms`).
+1. Check your tools once per track: `tools/doctor.sh fde` (or `go`, `ms`, `connect`).
 2. Open the workbook HTML, pick an exercise, read its card.
 3. `cd <track>/exercises/<id> && make setup`, solve it in your editor, run `make test`, fill in `ANSWER.md`.
 4. From this directory, start Claude Code and run `/grade <track>/<id>` (e.g. `/grade fde/w1-c1`).

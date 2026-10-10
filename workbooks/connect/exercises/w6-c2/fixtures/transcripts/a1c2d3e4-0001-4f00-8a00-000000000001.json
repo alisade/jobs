@@ -1,0 +1,52 @@
+[
+  {
+    "participant": "AGENT",
+    "text": "Thank you for calling Larkspur IT service desk, this is [PII].",
+    "beginMillis": 0
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "I changed phones and Okta Verify no longer works, I'm locked out of email.",
+    "beginMillis": 4000
+  },
+  {
+    "participant": "AGENT",
+    "text": "I can help. Larkspur IT will never ask for your password. I'll verify you with your employee ID.",
+    "beginMillis": 8000
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "It's E20417. Also my corporate card 4111 1111 1111 1111 got declined in the expense portal, is that related?",
+    "beginMillis": 12000
+  },
+  {
+    "participant": "AGENT",
+    "text": "That's a separate finance issue, please don't read card numbers on this line. I reset your MFA enrollment in Okta.",
+    "beginMillis": 16000
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "Okay, I see the QR code now and scanned it.",
+    "beginMillis": 20000
+  },
+  {
+    "participant": "AGENT",
+    "text": "Great. I've also linked this to incident INC0041877. Sign in again and you'll be prompted to approve.",
+    "beginMillis": 24000
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "It worked, I'm in.",
+    "beginMillis": 28000
+  },
+  {
+    "participant": "AGENT",
+    "text": "Is there anything else I can help you with today?",
+    "beginMillis": 32000
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "No, thanks.",
+    "beginMillis": 36000
+  }
+]

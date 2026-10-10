@@ -1,0 +1,7 @@
+{
+  "kind": "flow",
+  "name": "LFG Major Incident",
+  "type": "CONTACT_FLOW",
+  "targetId": "0d63fdc8-b069-47ef-8f86-33f73e41a67f",
+  "content": "{\"Version\":\"2019-10-30\",\"StartAction\":\"set-q-major\",\"Actions\":[{\"Identifier\":\"set-q-major\",\"Type\":\"UpdateContactTargetQueue\",\"Parameters\":{\"QueueId\":\"arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/ffa69037-4ce7-484f-87d0-fa3d33e669fd\"},\"Transitions\":{\"NextAction\":\"major-priority\",\"Errors\":[{\"NextAction\":\"fallback-general\",\"ErrorType\":\"NoMatchingError\"}]}},{\"Identifier\":\"major-priority\",\"Type\":\"UpdateContactRoutingBehavior\",\"Parameters\":{\"QueuePriority\":\"1\"},\"Transitions\":{\"NextAction\":\"transfer\",\"Errors\":[{\"NextAction\":\"transfer\",\"ErrorType\":\"NoMatchingError\"}]}},{\"Identifier\":\"fallback-general\",\"Type\":\"UpdateContactTargetQueue\",\"Parameters\":{\"QueueId\":\"arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/895a5686-23de-4486-8c33-72e59acf001a\"},\"Transitions\":{\"NextAction\":\"transfer\",\"Errors\":[{\"NextAction\":\"disconnect\",\"ErrorType\":\"NoMatchingError\"}]}},{\"Identifier\":\"transfer\",\"Type\":\"TransferContactToQueue\",\"Parameters\":{},\"Transitions\":{\"Errors\":[{\"NextAction\":\"disconnect\",\"ErrorType\":\"QueueAtCapacity\"},{\"NextAction\":\"disconnect\",\"ErrorType\":\"NoMatchingError\"}]}},{\"Identifier\":\"disconnect\",\"Type\":\"DisconnectParticipant\",\"Parameters\":{},\"Transitions\":{}}]}"
+}

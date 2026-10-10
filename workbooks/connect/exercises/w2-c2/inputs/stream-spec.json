@@ -1,0 +1,56 @@
+{
+  "seed": 20261102,
+  "durationSeconds": 7200,
+  "description": "LFG Monday 08:00-10:00 ET peak, voice",
+  "queues": [
+    {
+      "queueId": "q-password-reset",
+      "perHour": 140,
+      "ahtSeconds": 240,
+      "patienceSeconds": 150
+    },
+    {
+      "queueId": "q-general",
+      "perHour": 110,
+      "ahtSeconds": 480,
+      "patienceSeconds": 200
+    },
+    {
+      "queueId": "q-apps",
+      "perHour": 40,
+      "ahtSeconds": 600,
+      "patienceSeconds": 260,
+      "routingCriteria": {
+        "steps": [
+          {
+            "expirySeconds": 30,
+            "conditions": [
+              {
+                "attribute": "Application",
+                "value": "SAP",
+                "minLevel": 4
+              }
+            ]
+          },
+          {
+            "expirySeconds": 90,
+            "conditions": [
+              {
+                "attribute": "Application",
+                "value": "SAP",
+                "minLevel": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "queueId": "q-vip",
+      "perHour": 12,
+      "ahtSeconds": 420,
+      "patienceSeconds": 90,
+      "priority": 1
+    }
+  ]
+}

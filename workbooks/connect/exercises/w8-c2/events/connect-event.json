@@ -1,0 +1,16 @@
+{
+  "Name": "ContactFlowEvent",
+  "Details": {
+    "ContactData": {
+      "Attributes": {},
+      "Channel": "VOICE",
+      "ContactId": "6ca32fbd-8f92-46af-92a5-6b0f970f0efe",
+      "CustomerEndpoint": { "Address": "+16175550142", "Type": "TELEPHONE_NUMBER" },
+      "InitialContactId": "6ca32fbd-8f92-46af-92a5-6b0f970f0efe",
+      "InitiationMethod": "INBOUND",
+      "InstanceARN": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+      "SystemEndpoint": { "Address": "+18005550142", "Type": "TELEPHONE_NUMBER" }
+    },
+    "Parameters": {}
+  }
+}

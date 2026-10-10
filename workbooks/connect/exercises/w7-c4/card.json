@@ -1,0 +1,27 @@
+{
+  "id": "connect/w7-c4",
+  "title": "CRM/ITSM integration design: ServiceNow vs Salesforce",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 7,
+  "optional": false,
+  "area": "Agent experience and integrations",
+  "scenario": "LFG's IT help desk works in ServiceNow and its HR People Desk in Salesforce Service Cloud; both move onto one LFG-owned Connect instance. Recommend the agent desktop and integration for each, including Amazon Connect CTI Adapter vs Service Cloud Voice, screen pops and contact-to-ticket logging, for an architecture review board.",
+  "task": [
+    "Compare realistic ServiceNow and Salesforce integration options and who owns the Connect instance in each",
+    "Recommend an architecture with screen pop, click-to-dial and context passing",
+    "Design idempotent, event-driven contact-to-ticket logging with 7-year traceability",
+    "Cover SSO, multi-LOB access control on one instance, operations and risks; end with an ADR"
+  ],
+  "acceptance": [
+    "Graded by rubric only (grade.sh reports 0/0)",
+    "Accurate CTI Adapter vs Service Cloud Voice (bundle vs partner telephony) distinctions",
+    "Requirements R1-R10 traced; logging idempotent and event-driven",
+    "Clear diagram, walkthroughs and decision record"
+  ],
+  "practices": [
+    {"label": "Week 7 - ServiceNow and Salesforce integration patterns", "href": "week7"},
+    {"label": "Week 2 - solution design documents and decision records", "href": "week2"},
+    {"label": "Week 9 - SSO and tag-based access control", "href": "week9"}
+  ]
+}

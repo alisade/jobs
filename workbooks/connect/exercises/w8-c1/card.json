@@ -1,0 +1,26 @@
+{
+  "id": "connect/w8-c1",
+  "title": "Flow promotion tool: dev export to test, prod and DR",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 8,
+  "optional": false,
+  "area": "DevOps and platform engineering",
+  "scenario": "Larkspur promotes console-built flows from dev to test, prod and a us-west-2 DR instance. The old script only rewrote QueueId, and a prod release shipped pointing at the dev Lambda and Lex alias. Write the promotion tool that rewrites every environment-specific reference and fails closed on anything it cannot map.",
+  "task": [
+    "Rewrite queue, hours, prompt, flow, module, Lambda (with qualifier), Lex alias and instance references anywhere in Content, including Metadata and embedded strings",
+    "Map by logical name through the dev inventory and the target manifest",
+    "Report unknown-reference, unmapped-in-target and dangling problems with JSON paths; emit nothing on problems",
+    "Emit modules before flows with target ids and a full replacement report"
+  ],
+  "acceptance": [
+    "prod and DR output match the expected target content",
+    "No dev account, dev ids or source region left in output",
+    "Missing or unknown resources fail closed; foreign-account ARNs pass through",
+    "Output flows still pass validateFlow; input not mutated"
+  ],
+  "practices": [
+    {"label": "Week 8 Mon - CI/CD for Connect across Sandbox/Dev/Test/Prod", "href": "week8"},
+    {"label": "Week 8 Tue - ARN/ID rewriting, versions and aliases, IaC coverage", "href": "week8"}
+  ]
+}

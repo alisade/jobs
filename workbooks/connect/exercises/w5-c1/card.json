@@ -1,0 +1,29 @@
+{
+  "id": "connect/w5-c1",
+  "title": "Lex V2 code hook for the help desk bot",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 5,
+  "optional": false,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "LFG's Lex V2 help desk bot contained 9% of calls: its code hook delegated every turn, accepted three-digit employee IDs, reset the wrong system on vague answers and handed failures to analysts with no context. Implement the code hook against recorded Lex V2 events so it validates, disambiguates, confirms, fulfills and hands off with a contract the Connect flow and agent workspace can read.",
+  "task": [
+    "Route by intent and invocationSource (DialogCodeHook vs FulfillmentCodeHook)",
+    "Normalize and validate EmployeeId with attempt counting; prefill from Connect when verified",
+    "Resolve SystemName from resolvedValues and disambiguate multiple matches",
+    "ConfirmIntent without reading back IDs; Delegate on Confirmed, re-elicit on Denied",
+    "Fulfill reset, unlock and outage; hand off with handoffReason, handoffQueue, intent, slots, summary",
+    "Never throw; preserve Connect's session attributes"
+  ],
+  "acceptance": [
+    "Every response is structurally valid for Lex V2 (ElicitSlot, Close, ConfirmIntent, ElicitIntent rules)",
+    "Validation, prefill, resolution and fallback behave per README on voice, DTMF and chat fixtures",
+    "Handoff contract complete; incoming attributes preserved; backend errors become handoffs",
+    "ANSWER.md explains the Lex config vs code split and how the flow consumes the contract"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - Lex V2 code hooks and session state", "href": "week5"},
+    {"label": "Week 5 - bot-to-agent handoff with context", "href": "week5"},
+    {"label": "Week 7 - agent workspace screen pop from handoff attributes", "href": "week7"}
+  ]
+}

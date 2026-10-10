@@ -1,0 +1,19 @@
+# lfg-identify-caller (CloudFormation / SAM excerpt; deployed by the platform pipeline)
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  IdentifyCallerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: lfg-identify-caller
+      Handler: com.larkspur.helpdesk.EmployeeLookupHandler::handleRequest
+      Runtime: java11
+      MemorySize: 512
+      Timeout: 3
+      CodeUri: target/employee-lookup.jar
+      AutoPublishAlias: live
+      Environment:
+        Variables:
+          TABLE_NAME: lfg-employee-directory
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: lfg-employee-directory

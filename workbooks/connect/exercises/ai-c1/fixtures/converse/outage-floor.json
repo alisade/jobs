@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "{\"category\": \"outage\", \"priority\": \"P1\", \"summary\": \"Entire 4th floor Charlotte cannot log in.\", \"needsHuman\": true}"
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 412,
+    "outputTokens": 58,
+    "totalTokens": 470
+  },
+  "metrics": {
+    "latencyMs": 640
+  }
+}

@@ -1,0 +1,352 @@
+[
+  {
+    "id": "eval-01-mfa",
+    "transcript": [
+      {
+        "participant": "AGENT",
+        "text": "Thank you for calling Larkspur IT service desk, this is [PII].",
+        "beginMillis": 0
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "I changed phones and Okta Verify no longer works, I'm locked out of email.",
+        "beginMillis": 4000
+      },
+      {
+        "participant": "AGENT",
+        "text": "I can help. Larkspur IT will never ask for your password. I'll verify you with your employee ID.",
+        "beginMillis": 8000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "It's E20417. Also my corporate card 4111 1111 1111 1111 got declined in the expense portal, is that related?",
+        "beginMillis": 12000
+      },
+      {
+        "participant": "AGENT",
+        "text": "That's a separate finance issue, please don't read card numbers on this line. I reset your MFA enrollment in Okta.",
+        "beginMillis": 16000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "Okay, I see the QR code now and scanned it.",
+        "beginMillis": 20000
+      },
+      {
+        "participant": "AGENT",
+        "text": "Great. I've also linked this to incident INC0041877. Sign in again and you'll be prompted to approve.",
+        "beginMillis": 24000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "It worked, I'm in.",
+        "beginMillis": 28000
+      },
+      {
+        "participant": "AGENT",
+        "text": "Is there anything else I can help you with today?",
+        "beginMillis": 32000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "No, thanks.",
+        "beginMillis": 36000
+      }
+    ],
+    "reference": {
+      "keyFacts": [
+        [
+          "okta",
+          "mfa"
+        ],
+        [
+          "reset",
+          "re-enrolled",
+          "reenrolled"
+        ],
+        [
+          "signed in",
+          "sign in"
+        ],
+        [
+          "finance"
+        ]
+      ]
+    },
+    "candidate": {
+      "issue": "Locked out of email after a phone change broke Okta Verify MFA.",
+      "actionsTaken": [
+        "Verified the caller with their employee ID",
+        "Reset the Okta MFA enrollment",
+        "Linked the call to incident INC0041877"
+      ],
+      "resolution": "Caller re-enrolled Okta Verify and signed in successfully.",
+      "followUps": [
+        "Caller to contact Finance about the declined corporate card"
+      ],
+      "sentiment": "POSITIVE"
+    },
+    "expectPass": true
+  },
+  {
+    "id": "eval-02-vpn",
+    "transcript": [
+      {
+        "participant": "AGENT",
+        "text": "Thanks for contacting Larkspur IT service desk chat.",
+        "beginMillis": 0
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "GlobalProtect VPN disconnects every ten minutes since this morning.",
+        "beginMillis": 4000
+      },
+      {
+        "participant": "AGENT",
+        "text": "I see a known issue with client 6.2.1. I pushed client 6.2.3 to your laptop.",
+        "beginMillis": 8000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "Installed. Still drops sometimes. You can text me at 555-201-7788 if you need me.",
+        "beginMillis": 12000
+      },
+      {
+        "participant": "AGENT",
+        "text": "I'll keep incident INC0041902 open and network engineering will follow up by end of day.",
+        "beginMillis": 16000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "Thanks.",
+        "beginMillis": 20000
+      }
+    ],
+    "reference": {
+      "keyFacts": [
+        [
+          "vpn",
+          "globalprotect"
+        ],
+        [
+          "6.2.3"
+        ],
+        [
+          "network engineering"
+        ]
+      ]
+    },
+    "candidate": {
+      "issue": "GlobalProtect VPN disconnects every ten minutes.",
+      "actionsTaken": [
+        "Pushed GlobalProtect client 6.2.3 to the laptop",
+        "Kept incident INC0041902 open"
+      ],
+      "resolution": "Partially resolved; drops continue occasionally.",
+      "followUps": [
+        "Network engineering to follow up by end of day"
+      ],
+      "sentiment": "NEUTRAL"
+    },
+    "expectPass": true
+  },
+  {
+    "id": "eval-03-hallucinated-ticket",
+    "transcript": [
+      {
+        "participant": "AGENT",
+        "text": "Thanks for contacting Larkspur IT service desk chat.",
+        "beginMillis": 0
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "GlobalProtect VPN disconnects every ten minutes since this morning.",
+        "beginMillis": 4000
+      },
+      {
+        "participant": "AGENT",
+        "text": "I see a known issue with client 6.2.1. I pushed client 6.2.3 to your laptop.",
+        "beginMillis": 8000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "Installed. Still drops sometimes. You can text me at 555-201-7788 if you need me.",
+        "beginMillis": 12000
+      },
+      {
+        "participant": "AGENT",
+        "text": "I'll keep incident INC0041902 open and network engineering will follow up by end of day.",
+        "beginMillis": 16000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "Thanks.",
+        "beginMillis": 20000
+      }
+    ],
+    "reference": {
+      "keyFacts": [
+        [
+          "vpn",
+          "globalprotect"
+        ],
+        [
+          "6.2.3"
+        ],
+        [
+          "network engineering"
+        ]
+      ]
+    },
+    "candidate": {
+      "issue": "GlobalProtect VPN disconnects.",
+      "actionsTaken": [
+        "Pushed GlobalProtect client 6.2.3 to the laptop",
+        "Opened incident INC0049999 for network engineering"
+      ],
+      "resolution": "Partially resolved.",
+      "followUps": [
+        "Network engineering to follow up"
+      ],
+      "sentiment": "NEUTRAL"
+    },
+    "expectPass": false
+  },
+  {
+    "id": "eval-04-invented-action",
+    "transcript": [
+      {
+        "participant": "AGENT",
+        "text": "Thank you for calling Larkspur IT service desk, this is [PII].",
+        "beginMillis": 0
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "I changed phones and Okta Verify no longer works, I'm locked out of email.",
+        "beginMillis": 4000
+      },
+      {
+        "participant": "AGENT",
+        "text": "I can help. Larkspur IT will never ask for your password. I'll verify you with your employee ID.",
+        "beginMillis": 8000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "It's E20417. Also my corporate card 4111 1111 1111 1111 got declined in the expense portal, is that related?",
+        "beginMillis": 12000
+      },
+      {
+        "participant": "AGENT",
+        "text": "That's a separate finance issue, please don't read card numbers on this line. I reset your MFA enrollment in Okta.",
+        "beginMillis": 16000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "Okay, I see the QR code now and scanned it.",
+        "beginMillis": 20000
+      },
+      {
+        "participant": "AGENT",
+        "text": "Great. I've also linked this to incident INC0041877. Sign in again and you'll be prompted to approve.",
+        "beginMillis": 24000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "It worked, I'm in.",
+        "beginMillis": 28000
+      },
+      {
+        "participant": "AGENT",
+        "text": "Is there anything else I can help you with today?",
+        "beginMillis": 32000
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "No, thanks.",
+        "beginMillis": 36000
+      }
+    ],
+    "reference": {
+      "keyFacts": [
+        [
+          "okta",
+          "mfa"
+        ],
+        [
+          "reset",
+          "re-enrolled",
+          "reenrolled"
+        ],
+        [
+          "signed in",
+          "sign in"
+        ],
+        [
+          "finance"
+        ]
+      ]
+    },
+    "candidate": {
+      "issue": "Okta Verify MFA broken after phone change.",
+      "actionsTaken": [
+        "Reset the Okta MFA enrollment",
+        "Replaced the laptop battery under warranty",
+        "Escalated the declined card to the bank fraud team"
+      ],
+      "resolution": "Caller signed in after MFA re-enrollment.",
+      "followUps": [
+        "Finance to review the card"
+      ],
+      "sentiment": "POSITIVE"
+    },
+    "expectPass": false
+  },
+  {
+    "id": "eval-05-missing-resolution",
+    "transcript": [
+      {
+        "participant": "AGENT",
+        "text": "Larkspur IT service desk, this is [PII].",
+        "beginMillis": 0
+      },
+      {
+        "participant": "CUSTOMER",
+        "text": "I need access to the Finance SharePoint site.",
+        "beginMillis": 4000
+      },
+      {
+        "participant": "AGENT",
+        "text": "I raised access request RITM0098812; your manager will approve it.",
+        "beginMillis": 8000
+      }
+    ],
+    "reference": {
+      "keyFacts": [
+        [
+          "sharepoint"
+        ],
+        [
+          "access request",
+          "ritm0098812"
+        ],
+        [
+          "manager"
+        ],
+        [
+          "approve",
+          "approval"
+        ]
+      ]
+    },
+    "candidate": {
+      "issue": "Needs a laptop.",
+      "actionsTaken": [
+        "Raised access request RITM0098812"
+      ],
+      "resolution": "",
+      "followUps": [],
+      "sentiment": "NEUTRAL"
+    },
+    "expectPass": false
+  }
+]

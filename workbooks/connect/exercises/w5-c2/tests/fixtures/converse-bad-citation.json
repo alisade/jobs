@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "Re-enroll your VPN token in the employee portal [1]. Your manager can also approve an emergency bypass code [4]."
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 1184,
+    "outputTokens": 76,
+    "totalTokens": 1260
+  },
+  "metrics": {
+    "latencyMs": 812
+  }
+}

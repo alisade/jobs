@@ -1,0 +1,30 @@
+{
+  "id": "connect/w5-c4",
+  "title": "Design an AI-assisted help desk (self-service + agent assist)",
+  "type": "design",
+  "estimate": "3 h",
+  "week": 5,
+  "optional": false,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "LFG's steering committee approved Amazon Connect but not the AI features: the Lex pilot contained 9% and every transfer lost context, InfoSec has three conditions and the budget owner wants a cost per contact. Write the lead architect's design for self-service and agent assist with Lex, Bedrock Knowledge Bases, Guardrails, AI agents (formerly Amazon Q in Connect) and ServiceNow.",
+  "task": [
+    "Scope drivers into deterministic self-service, RAG answers and agent assist with targets",
+    "Architecture diagram with managed vs custom components and regions",
+    "Handoff contract to the agent workspace and ServiceNow",
+    "Entitlement-aware retrieval, guardrails, injection handling, logging and retention",
+    "Latency budget, evaluation plan with gates, cost per contact with sensitivity",
+    "Phased rollout, RACI with the offshore team, decisions and risks"
+  ],
+  "acceptance": [
+    "Rubric only: grade.sh reports 0/0 and a completeness report",
+    "Current, correct capabilities with no invented features",
+    "Numbers derived from inputs/ with prices flagged as illustrative",
+    "Clear decisions with alternatives considered"
+  ],
+  "practices": [
+    {"label": "Week 5 - Lex V2, Bedrock, Knowledge Bases, Guardrails", "href": "week5"},
+    {"label": "Week 7 - agent workspace and agent assist", "href": "week7"},
+    {"label": "Week 2 - solution design deliverables", "href": "week2"},
+    {"label": "AI Integration - evals and security", "href": "ai"}
+  ]
+}

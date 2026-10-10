@@ -1,0 +1,17 @@
+[
+  {
+    "participant": "AGENT",
+    "text": "Larkspur IT service desk, how can I help?",
+    "beginMillis": 0
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "[abusive language] fix my laptop now.",
+    "beginMillis": 4000
+  },
+  {
+    "participant": "AGENT",
+    "text": "I understand you're frustrated. Let me look at your laptop ticket.",
+    "beginMillis": 8000
+  }
+]

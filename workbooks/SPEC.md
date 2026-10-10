@@ -1,6 +1,6 @@
 # Workbook specification
 
-Three workbooks share one layout and one grader. A workbook is an HTML page with the
+The workbooks (fde, go, ms, connect) share one layout and one grader. A workbook is an HTML page with the
 problems and a self-exam quiz; each hands-on problem is a folder you solve in your editor
 and grade with `/grade <track>/<id>` in Claude Code, run from this directory.
 
@@ -20,7 +20,9 @@ workbooks/
 
 ## Exercise ids
 
-`w<week>-c<n>` for coding, `w<week>-t<n>` for troubleshooting, `ai-c<n>` / `ai-t<n>` for the
+`w<week>-c<n>` for coding and design (design exercises set `type: design`, have no tests,
+and `grade.sh` prints `GRADE_TESTS {"passed": 0, "total": 0}` with the rubric carrying all
+100 points), `w<week>-t<n>` for troubleshooting, `ai-c<n>` / `ai-t<n>` for the
 AI Integration page, `x-<n>` for add-on weeks. The full id used by the grader and the HTML is
 `<track>/<id>`, e.g. `fde/w1-c1`, `go/w4-t1`, `ms/w6-c1`.
 
@@ -126,4 +128,5 @@ Self-contained single file in the same visual style and behavior as `../study-pl
 5. Scoreboard tab: every exercise with latest/best score, pass/retry, attempts, and the quiz
    score per week; overall percent complete.
 6. The page notes at the top: "Scores update after /grade; reload the page."
-7. localStorage key distinct per workbook: `wb-fde-v1`, `wb-go-v1`, `wb-ms-v1`.
+7. localStorage key distinct per workbook: `wb-fde-v1`, `wb-go-v1`, `wb-ms-v1`, `wb-connect-v1`.
+8. Link checks: docs.aws.amazon.com returns HTTP 200 for missing pages, so compare page titles, not only status codes.

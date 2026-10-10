@@ -1,0 +1,25 @@
+{"id": "H021", "utterance": "how do I submit my expenses for travel", "intent": "Fallback"}
+{"id": "H008", "utterance": "everyone in my team cannot reach SAP", "intent": "ReportOutage"}
+{"id": "H024", "utterance": "how do I reconnect the VPN after a password change", "intent": "HowTo", "goldArticle": "KB0012399", "retrieval": [{"articleId": "KB0010008", "score": 0.78}, {"articleId": "KB0015010", "score": 0.66}, {"articleId": "KB0020011", "score": 0.58}, {"articleId": "KB0012399", "score": 0.49}, {"articleId": "KB0012345", "score": 0.41}, {"articleId": "KB0020099", "score": 0.33}]}
+{"id": "H016", "utterance": "speak to a human", "intent": "TalkToAgent"}
+{"id": "H003", "utterance": "password change required message", "intent": "ResetPassword"}
+{"id": "H013", "utterance": "status of incident INC0049981", "intent": "CheckTicketStatus"}
+{"id": "H012", "utterance": "need a license for Adobe Acrobat", "intent": "RequestAccess"}
+{"id": "H025", "utterance": "how to install the printer on a Mac", "intent": "HowTo", "goldArticle": "KB0010008", "retrieval": [{"articleId": "KB0010008", "score": 0.78}, {"articleId": "KB0015010", "score": 0.66}, {"articleId": "KB0020011", "score": 0.58}, {"articleId": "KB0031002", "score": 0.49}, {"articleId": "KB0012345", "score": 0.41}, {"articleId": "KB0022341", "score": 0.33}]}
+{"id": "H018", "utterance": "transfer me to an agent", "intent": "TalkToAgent"}
+{"id": "H014", "utterance": "update on my ticket please", "intent": "CheckTicketStatus"}
+{"id": "H017", "utterance": "can I talk to a real person", "intent": "TalkToAgent"}
+{"id": "H010", "utterance": "I need access to the payroll folder", "intent": "RequestAccess"}
+{"id": "H023", "utterance": "how to share my Outlook calendar", "intent": "HowTo", "goldArticle": "KB0020120", "retrieval": [{"articleId": "KB0031002", "score": 0.78}, {"articleId": "KB0020120", "score": 0.66}, {"articleId": "KB0022341", "score": 0.58}, {"articleId": "KB0020456", "score": 0.49}, {"articleId": "KB0010007", "score": 0.41}, {"articleId": "KB0012399", "score": 0.33}]}
+{"id": "H019", "utterance": "what time does the gym open", "intent": "Fallback"}
+{"id": "H009", "utterance": "printing is down across the floor", "intent": "ReportOutage"}
+{"id": "H005", "utterance": "too many failed logins and now it is locked", "intent": "UnlockAccount"}
+{"id": "H001", "utterance": "reset password for outlook", "intent": "ResetPassword"}
+{"id": "H022", "utterance": "how do I configure MFA on a replacement phone", "intent": "HowTo", "goldArticle": "KB0031002", "retrieval": [{"articleId": "KB0015010", "score": 0.61}, {"articleId": "KB0020011", "score": 0.52}, {"articleId": "KB0031002", "score": 0.47}, {"articleId": "KB0020120", "score": 0.43}, {"articleId": "KB0010008", "score": 0.38}, {"articleId": "KB0022341", "score": 0.3}]}
+{"id": "H002", "utterance": "I do not remember my password at all", "intent": "ResetPassword"}
+{"id": "H020", "utterance": "who won the game last night", "intent": "Fallback"}
+{"id": "H011", "utterance": "grant permissions for the legal SharePoint", "intent": "RequestAccess"}
+{"id": "H004", "utterance": "I am locked out again", "intent": "UnlockAccount"}
+{"id": "H006", "utterance": "please unlock my user id", "intent": "UnlockAccount"}
+{"id": "H015", "utterance": "has my access request been approved", "intent": "CheckTicketStatus"}
+{"id": "H007", "utterance": "the internet is down for the whole building", "intent": "ReportOutage"}

@@ -1,0 +1,81 @@
+{
+  "name": "SystemName",
+  "identifier": "SYSNAME001",
+  "description": "Business applications callers ask about (CMDB configuration items)",
+  "slotTypeValues": [
+    {
+      "sampleValue": {
+        "value": "Okta"
+      },
+      "synonyms": [
+        {
+          "value": "okta verify"
+        },
+        {
+          "value": "single sign on"
+        },
+        {
+          "value": "sso"
+        }
+      ]
+    },
+    {
+      "sampleValue": {
+        "value": "Workday"
+      },
+      "synonyms": []
+    },
+    {
+      "sampleValue": {
+        "value": "SAP"
+      },
+      "synonyms": [
+        {
+          "value": "sap gui"
+        },
+        {
+          "value": "ecc"
+        }
+      ]
+    },
+    {
+      "sampleValue": {
+        "value": "Outlook"
+      },
+      "synonyms": [
+        {
+          "value": "email"
+        },
+        {
+          "value": "exchange"
+        },
+        {
+          "value": "mail"
+        }
+      ]
+    },
+    {
+      "sampleValue": {
+        "value": "VPN"
+      },
+      "synonyms": [
+        {
+          "value": "globalprotect"
+        },
+        {
+          "value": "global protect"
+        },
+        {
+          "value": "remote access"
+        }
+      ]
+    }
+  ],
+  "parentSlotTypeSignature": null,
+  "valueSelectionSetting": {
+    "resolutionStrategy": "TOP_RESOLUTION",
+    "advancedRecognitionSetting": {
+      "audioRecognitionStrategy": "UseSlotValuesAsCustomVocabulary"
+    }
+  }
+}

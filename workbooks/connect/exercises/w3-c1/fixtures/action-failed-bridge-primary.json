@@ -1,0 +1,21 @@
+{
+  "SchemaVersion": "1.0",
+  "Sequence": 4,
+  "InvocationEventType": "ACTION_FAILED",
+  "ActionData": {
+    "Type": "CallAndBridge",
+    "Parameters": { "CallTimeoutSeconds": 25, "CallerIdNumber": "+18885550177", "Endpoints": [{ "BridgeEndpointType": "PSTN", "Uri": "+16465550171" }] },
+    "ErrorType": "CallNotAnswered",
+    "ErrorMessage": "Call was not answered"
+  },
+  "CallDetails": {
+    "TransactionId": "0b5e7d3c-91aa-4c2e-8f6d-3e2c1b0a9f88",
+    "AwsAccountId": "111122223333",
+    "AwsRegion": "us-east-1",
+    "SipMediaApplicationId": "5d1c0a4e-7b2f-4c11-9e55-0a9c3f1d2b77",
+    "TransactionAttributes": { "state": "BRIDGE_PRIMARY", "employeeId": "220871", "idSource": "dtmf", "shift": "evening", "primary": "+16465550171", "secondary": "+12125550161" },
+    "Participants": [
+      { "CallId": "4f2d9e1a-6b3c-4d8e-9a0f-1c2b3d4e5f60", "ParticipantTag": "LEG-A", "To": "+18885550177", "From": "+13125550109", "Direction": "Inbound", "StartTimeInMilliseconds": "1791341100456", "Status": "Connected" }
+    ]
+  }
+}

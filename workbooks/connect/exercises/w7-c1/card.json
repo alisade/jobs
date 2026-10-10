@@ -1,0 +1,28 @@
+{
+  "id": "connect/w7-c1",
+  "title": "ServiceNow incident Lambda for the help desk flow",
+  "type": "coding",
+  "estimate": "3 h",
+  "week": 7,
+  "optional": false,
+  "area": "Agent experience and integrations",
+  "scenario": "LFG's inbound flow calls a Lambda that identifies the caller through Customer Profiles, counts their open ServiceNow incidents and opens one for the call. The contractor's version minted a token per call, saw only the first page of incidents, threw on 429 at the Monday peak and opened duplicate incidents when Connect retried. Make it production grade against a local fake ServiceNow.",
+  "task": [
+    "Customer Profiles SearchProfiles on _phone, with NOT_FOUND and AMBIGUOUS paths",
+    "ServiceNow sys_user and incident reads with sysparm_query/sysparm_fields and Link pagination",
+    "Create the incident once per contact (correlation_id = ContactId lookup-before-create)",
+    "OAuth client credentials with token caching, early refresh and 401 refresh",
+    "429 Retry-After within a 6.5 s budget; DEGRADED flat map instead of throwing"
+  ],
+  "acceptance": [
+    "Every outcome returns a flat STRING_MAP",
+    "Exactly one incident per contact across retries, even when the match is on the last page",
+    "One token across warm invocations; refreshed near expiry and after 401",
+    "Waits honor Retry-After, stay under budget, bounded retries"
+  ],
+  "practices": [
+    {"label": "Week 7 - ServiceNow integration patterns (Table API, OAuth, idempotency)", "href": "week7"},
+    {"label": "Week 7 - Customer Profiles and screen pops", "href": "week7"},
+    {"label": "Week 1 - Lambda in flows: 8 s sync limit, STRING_MAP", "href": "week1"}
+  ]
+}

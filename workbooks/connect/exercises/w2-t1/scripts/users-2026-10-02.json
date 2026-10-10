@@ -1,0 +1,276 @@
+{
+  "Users": [
+    {
+      "Username": "t1-01",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-02",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-03",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-04",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-05",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-06",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-07",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-08",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-09",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-10",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-11",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-12",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-13",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-14",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "t1-15",
+      "RoutingProfileName": "rp-tier1",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Pune"
+    },
+    {
+      "Username": "gen-01",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-02",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-03",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-04",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-05",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-06",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-07",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-08",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-09",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-10",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "gen-11",
+      "RoutingProfileName": "rp-general",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Monterrey"
+    },
+    {
+      "Username": "app-01",
+      "RoutingProfileName": "rp-apps",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Charlotte"
+    },
+    {
+      "Username": "app-02",
+      "RoutingProfileName": "rp-apps",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Charlotte"
+    },
+    {
+      "Username": "app-03",
+      "RoutingProfileName": "rp-apps",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Charlotte"
+    },
+    {
+      "Username": "app-04",
+      "RoutingProfileName": "rp-apps",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Charlotte"
+    },
+    {
+      "Username": "app-05",
+      "RoutingProfileName": "rp-apps",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Charlotte"
+    },
+    {
+      "Username": "app-06",
+      "RoutingProfileName": "rp-apps",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Charlotte"
+    },
+    {
+      "Username": "app-07",
+      "RoutingProfileName": "rp-apps",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Charlotte"
+    },
+    {
+      "Username": "app-08",
+      "RoutingProfileName": "rp-apps",
+      "SecurityProfiles": [
+        "Agent"
+      ],
+      "HierarchyGroup": "LFG/ServiceDesk/Charlotte"
+    }
+  ]
+}

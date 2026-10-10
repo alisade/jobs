@@ -1,0 +1,16 @@
+# Rubric: connect/w2-c4 Help desk transformation solution design
+Pass mark: 70
+
+| # | Criterion | Points | How to judge |
+|---|---|---|---|
+| 1 | Automated tests | 0 | Does not apply: review-only design exercise (grade.sh reports 0/0) |
+| 2 | Requirements traceability | 10 | Full: every B/F/N requirement maps to a design element and a measure; success metrics have baselines from inputs/. Partial: most mapped, no measures. Zero: no traceability. |
+| 3 | Architecture soundness | 20 | Full: one coherent target architecture with a diagram; uses current Connect capabilities by their current names (Connect Customer, conversational analytics, agent assist / Connect assistant, flow modules, routing criteria, Global Resiliency); synchronous work in flows within the 8 s Lambda budget and slow work async (events, Step Functions); no unsupported patterns (no BYOC SIP trunk into Connect, no Voice ID). Partial: sound but generic or with one unsupported element. Zero: a feature list, not an architecture. |
+| 4 | Routing and workforce with numbers | 10 | Full: queues and routing profiles with priority/delay, proficiency routing for language/apps, VIP, callbacks, hours/holidays; a staffing estimate from the given peak (about 30 on phones / 45 scheduled today at 85/30, falling with AHT and deflection) and its limits. Partial: design without numbers. |
+| 5 | Identity, verification and security | 10 | Full: verification tiers with step-up (push verification, CLEAR or equivalent), no HR knowledge questions read back, agent SAML SSO via Okta, least-privilege security profiles (tag-based access for vendor sites), redaction, KMS, retention per N4, residency per N3, audit. Partial: SSO and encryption only. |
+| 6 | Integration design | 10 | Full: ServiceNow screen pop, incident lookup/create with idempotency (ContactId), OAuth client credentials, retries with backoff, failure behavior that never drops a caller, work notes via async events; Okta and HR directory patterns. Partial: "integrate with ServiceNow" without patterns. |
+| 7 | AI and self-service | 10 | Full: containment strategy per driver with targets, Lex with current generative features where they fit, agent assist on the ServiceNow KB, after-contact summaries, guardrails and an evaluation plan with thresholds. Partial: AI listed without evaluation or guardrails. |
+| 8 | Resiliency and operations | 10 | Full: Global Resiliency replica with traffic distribution, cross-Region dependencies (Lambda, data, secrets), DR runbook and test cadence, alarms on named Connect metrics, support model and runbooks. Partial: "multi-Region" without how. |
+| 9 | Delivery, migration and RACI | 15 | Full: realistic 4-month plan with exit criteria, environments and CI/CD, waves and parallel run, porting lead times and rollback, test strategy (IVR regression, load, UAT, failover), hypercare, RACI with the offshore team. Partial: phases without exit criteria or rollback. |
+| 10 | Risks, decisions and cost | 5 | Full: top risks with mitigations, ADRs with options considered, a cost model with stated assumptions that compares to the budget and explains how B1 is reached (labor, not platform rate). Partial: one of the three. |
+Total: 100

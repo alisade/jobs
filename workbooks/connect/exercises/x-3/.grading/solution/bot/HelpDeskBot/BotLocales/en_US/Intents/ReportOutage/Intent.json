@@ -1,0 +1,35 @@
+{
+  "name": "ReportOutage",
+  "identifier": "REPORTOUTA",
+  "description": null,
+  "parentIntentSignature": null,
+  "sampleUtterances": [
+    {
+      "utterance": "{System} is down"
+    },
+    {
+      "utterance": "is {System} down"
+    },
+    {
+      "utterance": "{System} is not working for anyone"
+    },
+    {
+      "utterance": "there is an outage"
+    },
+    {
+      "utterance": "report an outage"
+    }
+  ],
+  "dialogCodeHook": {
+    "enabled": true
+  },
+  "fulfillmentCodeHook": {
+    "enabled": false
+  },
+  "slotPriorities": [
+    {
+      "slotName": "System",
+      "priority": 1
+    }
+  ]
+}

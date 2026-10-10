@@ -1,0 +1,28 @@
+{
+  "id": "connect/w7-c2",
+  "title": "Agent workspace app: handoff context, guided resolution and agent assist",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 7,
+  "optional": false,
+  "area": "Agent experience and integrations",
+  "scenario": "LFG embeds a third-party app in the Connect agent workspace that shows the Lex bot's handoff context, a guided checklist per intent and ranked knowledge suggestions, and resolves the ServiceNow incident through a backend. The prototype leaked the previous caller's context, crashed on bad slot JSON, showed Executive Office procedures to contractors, duplicated articles and hid backend failures.",
+  "task": [
+    "Render handoff context from only the handoff contact attributes, robust to bad slot JSON",
+    "Correct connected/cleared semantics with chat concurrency and unmount cleanup",
+    "Checklist per intent with verified pre-checks and required-step gating",
+    "Rank agent-assist and Bedrock KB suggestions: dedupe, entitlement, floor, order, cap",
+    "Backend PATCH with auth, validation and visible failure handling"
+  ],
+  "acceptance": [
+    "Never requests all attributes; no unrelated attribute rendered",
+    "Clears only the contact on screen; new contact resets the checklist",
+    "Resolve gated on required steps; failure shown and retryable",
+    "Ranking rules and backend client behavior pass the hidden suite"
+  ],
+  "practices": [
+    {"label": "Week 7 - agent workspace: views, step-by-step guides, third-party apps", "href": "week7"},
+    {"label": "Week 7 - agent assist and bot-to-agent handoff", "href": "week7"},
+    {"label": "Week 5 - knowledge retrieval and metadata filtering", "href": "week5"}
+  ]
+}

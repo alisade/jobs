@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListConnectAnalysis",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::lfg-connect-us-east-1",
+      "Condition": { "StringLike": { "s3:prefix": ["connect/lfg-helpdesk/Analysis/*"] } }
+    },
+    {
+      "Sid": "ReadConnectAnalysis",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::lfg-connect-us-east-1/connect/lfg-helpdesk/Analysis/*"
+    },
+    {
+      "Sid": "WriteReports",
+      "Effect": "Allow",
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::lfg-qa-reports/qa-insights/*"
+    }
+  ]
+}

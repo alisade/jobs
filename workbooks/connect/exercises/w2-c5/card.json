@@ -1,0 +1,26 @@
+{
+  "id": "connect/w2-c5",
+  "title": "IVR and self-service journey redesign",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 2,
+  "optional": false,
+  "area": "Contact center design and solutions",
+  "scenario": "LFG's 2019 Avaya IVR wastes about 94 seconds per call: a language menu, an employee ID that is thrown away, seven options that mostly reach the same agents, impossible password advice and no callbacks. Redesign the voice and chat journey for Amazon Connect from the call-tree export, path metrics and verbatims.",
+  "task": [
+    "Quantify what is wrong with the current IVR",
+    "Journey map, VUI principles, identification and verification tiers",
+    "Natural language vs DTMF with bounded error handling",
+    "Containment estimates by driver, callbacks, after-hours, accessibility",
+    "Measurement, A/B rollout and Connect implementation notes"
+  ],
+  "acceptance": [
+    "Review-only: grade.sh reports 0/0, the rubric carries 100 points",
+    "Diagnosis and containment are quantified and honestly defined",
+    "No dead ends; DTMF and relay access kept; implementable in Connect"
+  ],
+  "practices": [
+    {"label": "Week 2 Tue - journeys, IVR and self-service design", "href": "week2"},
+    {"label": "Week 5 - Lex V2 and generative self-service", "href": "week5"}
+  ]
+}

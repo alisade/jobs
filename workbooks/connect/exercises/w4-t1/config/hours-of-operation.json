@@ -1,0 +1,38 @@
+[
+  {
+    "_source": "connect-config/hours.ts (CDK, stack LfgConnectRouting-prod), exported 2026-10-09 by scripts/export-config.ts",
+    "HoursOfOperationId": "hoo-helpdesk",
+    "HoursOfOperationArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk",
+    "Name": "HelpDeskHours",
+    "Description": "Help desk staffed hours 06:00-20:00, 7 days",
+    "TimeZone": "UTC",
+    "Config": [
+      { "Day": "MONDAY", "StartTime": { "Hours": 6, "Minutes": 0 }, "EndTime": { "Hours": 20, "Minutes": 0 } },
+      { "Day": "TUESDAY", "StartTime": { "Hours": 6, "Minutes": 0 }, "EndTime": { "Hours": 20, "Minutes": 0 } },
+      { "Day": "WEDNESDAY", "StartTime": { "Hours": 6, "Minutes": 0 }, "EndTime": { "Hours": 20, "Minutes": 0 } },
+      { "Day": "THURSDAY", "StartTime": { "Hours": 6, "Minutes": 0 }, "EndTime": { "Hours": 20, "Minutes": 0 } },
+      { "Day": "FRIDAY", "StartTime": { "Hours": 6, "Minutes": 0 }, "EndTime": { "Hours": 20, "Minutes": 0 } },
+      { "Day": "SATURDAY", "StartTime": { "Hours": 6, "Minutes": 0 }, "EndTime": { "Hours": 20, "Minutes": 0 } },
+      { "Day": "SUNDAY", "StartTime": { "Hours": 6, "Minutes": 0 }, "EndTime": { "Hours": 20, "Minutes": 0 } }
+    ],
+    "Tags": { "lfg:wave": "2", "lfg:owner": "it-service-desk" }
+  },
+  {
+    "_source": "connect-config/hours.ts (CDK, stack LfgConnectRouting-prod), exported 2026-10-09 by scripts/export-config.ts",
+    "HoursOfOperationId": "hoo-helpdesk-holidays",
+    "HoursOfOperationArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk-holidays",
+    "Name": "HelpDeskHolidays",
+    "Description": "24x7 except company holidays (closed via overrides, migrated from Avaya holiday table 3)",
+    "TimeZone": "America/New_York",
+    "Config": [
+      { "Day": "MONDAY", "StartTime": { "Hours": 0, "Minutes": 0 }, "EndTime": { "Hours": 23, "Minutes": 59 } },
+      { "Day": "TUESDAY", "StartTime": { "Hours": 0, "Minutes": 0 }, "EndTime": { "Hours": 23, "Minutes": 59 } },
+      { "Day": "WEDNESDAY", "StartTime": { "Hours": 0, "Minutes": 0 }, "EndTime": { "Hours": 23, "Minutes": 59 } },
+      { "Day": "THURSDAY", "StartTime": { "Hours": 0, "Minutes": 0 }, "EndTime": { "Hours": 23, "Minutes": 59 } },
+      { "Day": "FRIDAY", "StartTime": { "Hours": 0, "Minutes": 0 }, "EndTime": { "Hours": 23, "Minutes": 59 } },
+      { "Day": "SATURDAY", "StartTime": { "Hours": 0, "Minutes": 0 }, "EndTime": { "Hours": 23, "Minutes": 59 } },
+      { "Day": "SUNDAY", "StartTime": { "Hours": 0, "Minutes": 0 }, "EndTime": { "Hours": 23, "Minutes": 59 } }
+    ],
+    "Tags": { "lfg:wave": "2", "lfg:owner": "it-service-desk" }
+  }
+]

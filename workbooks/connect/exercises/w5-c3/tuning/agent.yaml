@@ -1,0 +1,28 @@
+# LFG help desk AI agent: intent triage + KB answer settings (pilot config, release 2026.09).
+# The AI agent prompt template renders each intent as "- <name>: <description>" followed by its
+# examples. Tune this file; make eval prints the metrics. See README.md for the go-live gates.
+model:
+  temperature: 0.7
+  maxTokens: 400
+intents:
+  - name: ResetPassword
+    description: Password help
+  - name: UnlockAccount
+    description: Account issues
+  - name: ReportOutage
+    description: Problems
+  - name: HowTo
+    description: Questions
+  - name: RequestAccess
+    description: Access
+  - name: CheckTicketStatus
+    description: Tickets
+  - name: TalkToAgent
+    description: Agent
+classifier:
+  confidenceThreshold: 0.9
+retrieval:
+  topK: 1
+  minScore: 0.75
+answer:
+  requireCitations: false

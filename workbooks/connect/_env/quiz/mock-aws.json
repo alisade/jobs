@@ -1,0 +1,1204 @@
+{
+ "questions": [
+  {
+   "id": "ma-q01",
+   "week": null,
+   "set": "aws",
+   "area": "platform",
+   "type": "single",
+   "stem": "A financial services company runs its employee help desk on Amazon Connect (now Amazon Connect Customer) in us-east-1 with SAML 2.0 sign-in through Okta. All toll-free and DID numbers have been ported into Amazon Connect. A new regulation requires the help desk to keep answering calls during a Regional impairment, with the ability to move both telephony and agents to another Region within minutes. The company has Enterprise Support. Which solution meets these requirements with the LEAST operational overhead?",
+   "options": [
+    "Build a second Amazon Connect instance in us-west-2 with CloudFormation, synchronize users and flows with a nightly Lambda function, and ask the carrier to re-route the numbers during an event",
+    "Deploy the flows' Lambda functions and Lex bots in both Regions and rely on the Multi-AZ design of Amazon Connect for Regional failures",
+    "Work with the AWS account team to enable Amazon Connect Global Resiliency, replicate the instance to us-west-2, create a traffic distribution group, and shift telephony and agent distribution with UpdateTrafficDistribution during an event",
+    "Create Amazon Chime SDK Voice Connectors in both Regions in a Voice Connector group and route calls from the group into whichever Amazon Connect instance is healthy"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Connect Global Resiliency is the AWS-supported multi-Region option: it replicates the instance, uses traffic distribution groups to move telephony and agents in 10% increments, and requires SAML, ported numbers and Enterprise Support, all of which are met. A DIY second instance is unsupported and slow to fail over; Voice Connector bridging into Connect needs AWS architecture approval; Multi-AZ does not cover a Regional event.",
+   "learn": [
+    {
+     "label": "Set up Connect Global Resiliency",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html"
+    },
+    {
+     "label": "Update telephony traffic distribution",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/update-telephony-traffic-distribution.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q02",
+   "week": null,
+   "set": "aws",
+   "area": "platform",
+   "type": "single",
+   "stem": "A help desk go-live with 300 agents is scheduled for Monday. During the Friday load test, about 1 in 20 inbound calls receives a fast busy tone once more than 10 calls are in progress. CloudWatch shows CallsBreachingConcurrencyQuota increasing. Which action resolves the issue?",
+   "options": [
+    "Add a second inbound flow and split the numbers between the flows",
+    "Increase the Lambda reserved concurrency of the functions used by the inbound flow",
+    "Enable Amazon Connect Global Resiliency so calls overflow to the replica Region",
+    "Request a Service Quotas increase for concurrent active calls per instance sized for peak (flow, queued, agent and outbound calls) and alarm on ConcurrentCallsPercentage"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The default concurrent active calls quota is low and counts calls in flows, queues, with agents and outbound; exceeding it produces a reorder (fast busy) tone. A quota increase is the fix; ACGR distributes traffic but does not raise the instance quota, and Lambda concurrency is unrelated to the symptom.",
+   "learn": [
+    {
+     "label": "Connect service quotas",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
+    },
+    {
+     "label": "Monitoring Connect with CloudWatch",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/monitoring-cloudwatch.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q03",
+   "week": null,
+   "set": "aws",
+   "area": "platform",
+   "type": "single",
+   "stem": "A Lambda function invoked synchronously from a Connect flow runs in a VPC to reach an on-premises directory through AWS Direct Connect. After quiet periods, the first calls of the morning take the flow's error branch; logs show initialization durations of 6-7 seconds. The function's p50 duration once warm is 400 ms. The company wants the fix with the LEAST code change.",
+   "options": [
+    "Raise the flow's InvocationTimeLimitSeconds to 20 seconds",
+    "Move the function out of the VPC and open the on-premises directory to the internet",
+    "Publish a version, point the flow at an alias, and configure provisioned concurrency on that alias sized for the morning ramp",
+    "Invoke the same function twice in a row from the flow so the second call is warm"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Provisioned concurrency keeps execution environments initialized for an alias, removing cold-start latency without code changes. Connect caps synchronous invokes at 8 seconds, exposing the directory publicly is unacceptable, and back-to-back invokes add latency against the 20-second chain limit.",
+   "learn": [
+    {
+     "label": "Invoke Lambda functions from flows",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html"
+    },
+    {
+     "label": "Lambda provisioned concurrency",
+     "href": "https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q04",
+   "week": null,
+   "set": "aws",
+   "area": "flows",
+   "type": "single",
+   "stem": "A help desk inbound flow calls four Lambda functions in a row (caller lookup, entitlement check, open-ticket lookup, priority scoring). Each completes in 5-6 seconds at peak, well within its own 8-second block limit, but at peak many contacts take the error branch of the fourth block. Which change addresses the root cause?",
+   "options": [
+    "Move the four calls into a flow module",
+    "Increase each function's memory to reduce duration below 4 seconds",
+    "Break the chain: a sequence of Lambda functions is limited to 20 seconds in total, so consolidate the calls, run slow lookups asynchronously, or insert a Play prompt between invocations",
+    "Change ResponseValidation from STRING_MAP to JSON"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Connect limits a sequence of Lambda invocations to 20 seconds total; a Play prompt (or other interaction) between them resets the chain. Faster functions may help but do not address the documented limit, and response format or modules do not change the chain timing.",
+   "learn": [
+    {
+     "label": "Invoke Lambda functions from flows",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q05",
+   "week": null,
+   "set": "aws",
+   "area": "flows",
+   "type": "single",
+   "stem": "A help desk supports English and Spanish callers across five technology areas (Okta, VPN, Windows, Mac, mobile). Agents have different strength levels per area and language. The current design proposes 10 queues (one per language and area) and 25 routing profiles. Management wants the most precise matching with the LEAST ongoing administration.",
+   "options": [
+    "Create one queue per agent and route with agent hierarchies",
+    "Keep 10 queues and add a Lambda function that picks the agent and transfers with a quick connect",
+    "Create predefined attributes for language and technology, assign agent proficiency levels, use a small number of queues, and set routing criteria steps in the flow that relax proficiency requirements over time",
+    "Use Lex intents to pick one of the 10 queues and increase routing profile delays"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Proficiency-based routing with predefined attributes and routing criteria steps (with expiry) matches contacts to the best agents without multiplying queues and profiles. Custom agent selection in Lambda or per-agent queues add heavy maintenance.",
+   "learn": [
+    {
+     "label": "Proficiency-based routing",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html"
+    },
+    {
+     "label": "Set routing criteria action",
+     "href": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-updateroutingcriteria.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q06",
+   "week": null,
+   "set": "aws",
+   "area": "flows",
+   "type": "single",
+   "stem": "A developer changed a caller-lookup Lambda function to return <code>{\"employee\": {\"id\": \"E1\", \"groups\": [\"vip\", \"finance\"]}}</code>. The flow's Lambda block uses response validation STRING_MAP and now always takes the error branch. The flow needs the employee id and a VIP flag. What is the BEST fix?",
+   "options": [
+    "Store the response in a contact attribute named External",
+    "Wrap the function in Step Functions so the flow can read arrays",
+    "Return a flat map such as {\"employeeId\": \"E1\", \"vip\": \"true\"}, or switch to JSON validation and reference nested values while avoiding arrays, which flows cannot reference",
+    "Increase the response size limit to 256 KB"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "STRING_MAP requires flat string key/value pairs; JSON validation allows nesting but arrays are not referenceable in a flow. Flattening the fields the flow needs is the simplest robust contract.",
+   "learn": [
+    {
+     "label": "AWS Lambda function block",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q07",
+   "week": null,
+   "set": "aws",
+   "area": "design",
+   "type": "multi",
+   "choose": 2,
+   "stem": "Every Monday from 8:00 to 9:30 AM a help desk receives a surge of password-reset calls after weekend credential expiries; abandonment reaches 30% and service level falls to 40%. Hiring more staff for 90 minutes a week is not approved. Which TWO actions improve the experience MOST cost-effectively?",
+   "options": [
+    "Increase the routing profile delay for the password reset queue",
+    "Deflect password resets to self-service: an IVR or bot path that verifies identity and triggers the reset, plus an SMS link to the self-service portal",
+    "Move the password reset queue to a second Amazon Connect instance",
+    "Turn off the queue's maximum contacts limit",
+    "Offer a queued callback when estimated wait time exceeds a threshold so callers keep their place without holding"
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "explanation": "Callbacks flatten peaks without adding agents, and automating the dominant, repeatable call driver removes volume. Delays and capacity limits do not create capacity, and a second instance adds cost and fragmentation.",
+   "learn": [
+    {
+     "label": "Set up queued callback",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-queued-cb.html"
+    },
+    {
+     "label": "Strategies for migrating to Connect Customer",
+     "href": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-migration-connect/introduction.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q08",
+   "week": null,
+   "set": "aws",
+   "area": "design",
+   "type": "single",
+   "stem": "A help desk with 180 agents across three sites uses spreadsheets for forecasting and schedules. Leadership wants forecasts from Amazon Connect historical data, multi-skill schedules, schedule adherence and agent shift bidding with the LEAST integration effort.",
+   "options": [
+    "Export contact records to Amazon S3 and build forecasts with a custom model in Amazon SageMaker AI",
+    "Buy a third-party WFM product and integrate it through the agent event stream",
+    "Use Amazon Connect forecasting and agent scheduling (formerly forecasting, capacity planning, and scheduling)",
+    "Use Amazon QuickSight to forecast volume and keep schedules in spreadsheets"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The native capability forecasts from Connect history and supports capacity plans, multi-skill scheduling, adherence, shift bidding and time off without building integrations. Third-party WFM or custom ML add integration and operations effort.",
+   "learn": [
+    {
+     "label": "Forecasting and agent scheduling",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q09",
+   "week": null,
+   "set": "aws",
+   "area": "design",
+   "type": "single",
+   "stem": "A company is adding chat to its IT help desk. Analysis shows chat agents can handle three conversations at once without hurting quality, but a voice call should block other work. Agents should be able to take a voice call when they are not on chats. Which routing profile configuration meets the requirement?",
+   "options": [
+    "Use a Lambda function in the chat flow to check whether the agent is on a call",
+    "Create separate routing profiles for chat and voice and ask agents to switch profiles during the day",
+    "Set chat concurrency to 1 and add more chat agents",
+    "Configure channel concurrency in the routing profile with voice at 1 and chat at 3, and configure cross-channel behavior so an agent on chats is not offered voice while busy"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Routing profiles set per-channel concurrency and cross-channel behavior, which is how blended agents are modeled. Manual profile switching or Lambda-based agent checks are operationally fragile.",
+   "learn": [
+    {
+     "label": "Create a routing profile",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/routing-profiles.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q10",
+   "week": null,
+   "set": "aws",
+   "area": "design",
+   "type": "single",
+   "stem": "A company integrates its Connect help desk with ServiceNow. Requirements: create an incident during the call when self-service fails, avoid duplicates when retries occur, keep OAuth client secrets out of code, and run post-call work (summary, survey trigger, ticket update) without blocking the caller. Which architecture meets the requirements?",
+   "options": [
+    "A flow-invoked Lambda function that calls the ServiceNow Table API with a client-credentials token whose secret is stored in AWS Secrets Manager, using the contact ID as a correlation ID with lookup-before-create, plus an EventBridge rule on Amazon Connect contact events that starts a Step Functions workflow for after-contact work",
+    "A nightly AWS Glue job that reads contact records and creates incidents in bulk",
+    "A Lambda function with the ServiceNow password in environment variables that creates the incident after every call from the disconnect flow",
+    "An Amazon SQS queue filled by the agent's browser and drained by an on-premises integration server"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Secrets Manager, an idempotency key and event-driven after-contact processing meet every requirement. Plain-text secrets, nightly batches (no in-call incident) and browser-originated queues fail security, timeliness or reliability.",
+   "learn": [
+    {
+     "label": "Amazon Connect contact events",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html"
+    },
+    {
+     "label": "Invoke Lambda functions from flows",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q11",
+   "week": null,
+   "set": "aws",
+   "area": "design",
+   "type": "single",
+   "stem": "The compliance team requires seven years of contact record history for audit queries with SQL. The analytics team already queries the Amazon Connect analytics data lake through Athena. Which approach meets the requirement with the LEAST operational overhead?",
+   "options": [
+    "Store contact records in Amazon ElastiCache with a seven-year TTL",
+    "Keep using the data lake for recent analysis, and regularly copy contact records out with Athena CTAS or UNLOAD into a company-owned S3 bucket with lifecycle rules and Object Lock, because the data lake keeps a rolling 25 months",
+    "Increase the analytics data lake retention setting to seven years",
+    "Export reports from the admin website monthly to CSV files"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The analytics data lake has fixed rolling retention (25 months) that cannot be extended; AWS documents copying data out (CTAS/UNLOAD) for longer retention. Manual CSV exports and caches do not meet audit or query needs.",
+   "learn": [
+    {
+     "label": "Analytics data lake data retention",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/data-lake-data-retention.html"
+    },
+    {
+     "label": "Analytics data lake",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/data-lake.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q12",
+   "week": null,
+   "set": "aws",
+   "area": "telephony",
+   "type": "single",
+   "stem": "A company plans an 18-month migration from Avaya Aura Call Center Elite to Amazon Connect. Before moving any agents, the quality team wants transcripts, sentiment and automated evaluations for calls still handled on Avaya. The calls traverse an Avaya SBCE. Which solution meets the requirement?",
+   "options": [
+    "Port the numbers to Amazon Connect and transfer every call back to Avaya over the PSTN",
+    "Bridge Avaya to Connect with external voice transfer so Connect records the calls",
+    "Record calls on Avaya, upload WAV files to Amazon S3 nightly, and process them with Amazon Transcribe",
+    "Use conversational analytics integration with external voice systems: create an analytics connector, have the SBCE send SIPREC copies of calls with the AmznConnectAgentUserId parameter, and request the required quotas"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Conversational analytics for external voice systems takes a read-only SIPREC fork from the SBC into an analytics connector; AmznConnectAgentUserId is required in the metadata, and the connector and session quotas default to low values. Porting first defeats the phased plan, a nightly batch loses real-time features, and external voice transfer is no longer documented.",
+   "learn": [
+    {
+     "label": "Conversational analytics with external voice systems",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens-integration.html"
+    },
+    {
+     "label": "Call metadata for external voice integration",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/callmetadata-contactlens-integration.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q13",
+   "week": null,
+   "set": "aws",
+   "area": "telephony",
+   "type": "single",
+   "stem": "A company has an on-premises IP PBX for 2,000 back-office employees. It wants to replace its ISDN circuits with cloud SIP trunking to the PSTN, encrypt signaling and media, restrict outbound calling to its own SBC addresses, and log SIP messages for troubleshooting. There is no customer-facing IVR or contact center requirement. Which solution fits?",
+   "options": [
+    "Amazon Connect with claimed DIDs and a SIP trunk to the PBX",
+    "AWS Site-to-Site VPN from the PBX to Amazon Connect",
+    "Amazon Connect external voice transfer connectors",
+    "Amazon Chime SDK Voice Connector with termination enabled and the SBC public CIDRs in the allowed host list, encryption enabled (TLS and SRTP), origination routes to the SBC, and SIP message and media metric logging enabled"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Voice Connector provides SIP trunking for PBXs and SBCs with allowed-host CIDRs, TLS/SRTP, inbound origination routes and logging to CloudWatch. Connect does not offer PBX SIP trunking, and AWS's decision guide points internal telephony without customer-facing automation to Voice Connector.",
+   "learn": [
+    {
+     "label": "Managing Voice Connectors",
+     "href": "https://docs.aws.amazon.com/chime-sdk/latest/ag/voice-connectors.html"
+    },
+    {
+     "label": "Choosing a telephony service",
+     "href": "https://docs.aws.amazon.com/chime-sdk/latest/ag/choosing-telephony-service.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q14",
+   "week": null,
+   "set": "aws",
+   "area": "telephony",
+   "type": "single",
+   "stem": "The same company wants inbound PSTN calls to its Voice Connector numbers to fail over to SBCs in a second AWS Region if the primary Region is impaired, without changing numbers. Which configuration meets the requirement?",
+   "options": [
+    "Configure two origination routes with equal priority on a single Voice Connector",
+    "Create Voice Connectors in two Regions, add them to a Voice Connector group with priorities, and assign the numbers to the group",
+    "Assign the numbers to both Voice Connectors individually",
+    "Use Route 53 failover records for the Voice Connector outbound host name"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Voice Connector groups combine Voice Connectors (which can span Regions) and fail inbound calls over by priority. A number can only be assigned once, DNS failover does not move PSTN delivery, and origination routes on one Voice Connector stay in one Region.",
+   "learn": [
+    {
+     "label": "Voice Connector groups",
+     "href": "https://docs.aws.amazon.com/chime-sdk/latest/ag/voice-connector-groups.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q15",
+   "week": null,
+   "set": "aws",
+   "area": "telephony",
+   "type": "single",
+   "stem": "Outbound notification calls from a company's help desk are increasingly labeled 'spam likely'. Investigation shows the calls use caller IDs from numbers hosted by a reseller and are signed with C attestation. Which change improves STIR/SHAKEN attestation for calls placed from Amazon Connect?",
+   "options": [
+    "Use outbound caller ID numbers claimed in or ported into Amazon Connect under the AWS Service Terms so the calls can be signed with A attestation, and consider a reputation partner for branding",
+    "Set the caller ID name to the company name on every queue",
+    "Place outbound calls through a Voice Connector with encryption enabled",
+    "Configure CNAM on the Amazon Connect numbers"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Connect signs US calls with A attestation when the number is claimed or ported into Connect and the customer is under the AWS Service Terms (or an authorized provider); otherwise B or C. Connect no longer sets CNAM, and encryption does not change attestation.",
+   "learn": [
+    {
+     "label": "STIR/SHAKEN in Amazon Connect",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/stirshaken.html"
+    },
+    {
+     "label": "Optimize outbound calling reputation",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/optimize-outbound-calling.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q16",
+   "week": null,
+   "set": "aws",
+   "area": "telephony",
+   "type": "single",
+   "stem": "A company built an employee IVR on the Amazon Chime SDK PSTN audio service (SIP media application, SIP rule and Lambda handler) in 2024. It now needs agent queues, conversational analytics and generative AI self-service. Which plan aligns with AWS guidance?",
+   "options": [
+    "Forward calls from the SIP media application to Connect through a Voice Connector",
+    "Extend the SIP media application with new actions for queuing and analytics",
+    "Create additional SIP media applications in each Region for the new features",
+    "Migrate the IVR to Amazon Connect using AWS's PSTN audio migration guide (map actions such as PlayAudioAndGetDigits to flow blocks, TransactionAttributes to contact attributes) and port the numbers to Connect through a support case"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "PSTN audio entered maintenance mode on 2026-09-29 and closes to new customers on 2026-10-29; AWS recommends migrating to Connect and publishes an action-to-block mapping. New features will not be added to SIP media applications, and Voice Connector bridging into Connect is not a supported pattern without review.",
+   "learn": [
+    {
+     "label": "PSTN audio maintenance mode",
+     "href": "https://docs.aws.amazon.com/chime-sdk/latest/ag/sip-applications-maintenance-mode.html"
+    },
+    {
+     "label": "Migrate PSTN audio to Connect",
+     "href": "https://docs.aws.amazon.com/chime-sdk/latest/ag/migrate-pstn-audio-to-connect.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q17",
+   "week": null,
+   "set": "aws",
+   "area": "legacy",
+   "type": "single",
+   "stem": "A company migrating from Avaya wants to move IVR self-service to Amazon Lex V2 first while agents stay on Avaya for two more quarters. Carrier contracts terminate on the Avaya platform until the end of the year. Which architecture from AWS Prescriptive Guidance fits?",
+   "options": [
+    "Ingress to Avaya, egress to Amazon Connect through a conference call for every contact, with Connect agents",
+    "Ingress to Avaya, egress to Amazon Lex V2 through call transfers, returning to Avaya agents when self-service cannot complete",
+    "Ingress to Amazon Connect, egress to Avaya for agent transfer",
+    "Port all numbers to Amazon Connect immediately and use Connect for both IVR and agents"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The Avaya-to-Connect-and-Lex guidance describes three options. With carriers staying on Avaya and agents remaining there, ingress to Avaya with egress to Lex V2 by transfer moves self-service first. Ingress to Connect requires moving the carrier side, and the conference option targets Connect agents.",
+   "learn": [
+    {
+     "label": "Avaya to Connect: architecture options",
+     "href": "https://docs.aws.amazon.com/prescriptive-guidance/latest/migrate-avaya-to-connect-lex/architecture-options.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q18",
+   "week": null,
+   "set": "aws",
+   "area": "legacy",
+   "type": "single",
+   "stem": "A company's contact center runs Cisco UCCE 12.6 with CVP. The CFO asks for the latest date by which the migration must finish to stay on a supported platform without upgrading Cisco. What is the correct planning date?",
+   "options": [
+    "July 31, 2025",
+    "December 31, 2025",
+    "December 31, 2027, the last date of support for UCCE, PCCE, UCCX and CVP 12.5/12.6 (end of sale was December 31, 2025)",
+    "There is no announced end of support for 12.x"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Cisco's end-of-life notice for the 12.5/12.6 contact center applications set end of sale on 2025-12-31 and last date of support on 2027-12-31. July 31, 2025 is Genesys PureConnect's end of support.",
+   "learn": [
+    {
+     "label": "Cisco 12.5/12.6 end-of-life notice",
+     "href": "https://www.cisco.com/c/en/us/products/collateral/unified-communications/cisco-collaboration-flex-plan/12-5-12-6-ucce-pcce-uccx-cvp-eol.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q19",
+   "week": null,
+   "set": "aws",
+   "area": "legacy",
+   "type": "multi",
+   "choose": 2,
+   "stem": "A Genesys Engage contact center uses URS routing strategies built in IRD with skill expressions such as <code>Spanish>=5 &amp; VPN>=3</code>, and Composer VoiceXML applications for self-service. Which TWO mappings should the migration design use for Amazon Connect?",
+   "options": [
+    "URS strategies become Amazon Connect security profiles",
+    "Composer VoiceXML self-service becomes flows with Amazon Lex V2 bots and Lambda functions",
+    "Skill expressions become predefined attributes with agent proficiencies and routing criteria (AND/OR conditions with steps)",
+    "Skill expressions become one queue per agent",
+    "Composer applications run unchanged on Amazon Connect's VoiceXML interpreter"
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "explanation": "Connect routing criteria support attribute conditions with proficiency levels, AND/OR expressions and timed steps, the natural target for skill expressions. Connect does not run VoiceXML, so self-service is rebuilt as flows with Lex and Lambda.",
+   "learn": [
+    {
+     "label": "Proficiency-based routing",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html"
+    },
+    {
+     "label": "Strategies for migrating to Connect Customer",
+     "href": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-migration-connect/introduction.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q20",
+   "week": null,
+   "set": "aws",
+   "area": "ai",
+   "type": "single",
+   "stem": "A company wants agentic self-service in its Connect help desk: the assistant must reason over several steps, call internal tools (reset MFA, check ticket status) and hand off to a human with context. The team planned to build Amazon Bedrock Agents action groups. The solution should use the most integrated Connect capability with the LEAST custom orchestration code.",
+   "options": [
+    "Write a custom orchestration loop in a Lambda function invoked synchronously from the flow",
+    "Use a Lex V2 bot with one intent per tool and no generative features",
+    "Use Connect AI agents (formerly Amazon Q in Connect) with an orchestrator AI agent for agentic self-service, exposing internal tools as MCP tools (for example through Amazon Bedrock AgentCore Gateway or flow modules as tools) and using Escalate to hand off",
+    "Create a new Amazon Bedrock Agents (Classic) agent with Lambda action groups"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Connect's recommended agentic self-service uses orchestrator AI agents with MCP tools and Return to Control tools such as Escalate. Bedrock Agents is now 'Agents Classic' and closed to new customers, and a hand-written loop inside an 8-second Lambda adds code and latency risk.",
+   "learn": [
+    {
+     "label": "Agentic self-service",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/agentic-self-service.html"
+    },
+    {
+     "label": "AI agent MCP tools",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/ai-agent-mcp-tools.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q21",
+   "week": null,
+   "set": "aws",
+   "area": "ai",
+   "type": "multi",
+   "choose": 2,
+   "stem": "A self-service assistant built with Retrieve and the Converse API must (1) never speak a caller's personal data back in a response and (2) resist instructions injected through caller speech or through retrieved knowledge articles. Which TWO controls should the architect add?",
+   "options": [
+    "Disable model invocation logging",
+    "Raise the model temperature so injected instructions are less likely to be followed",
+    "An Amazon Bedrock guardrail on Converse with sensitive information filters set to ANONYMIZE or BLOCK on output and the prompt attack content filter on input",
+    "Evaluate retrieved chunks and caller transcripts with the ApplyGuardrail API before they are placed in the prompt, and keep authorization decisions outside the model",
+    "Add 'ignore all previous instructions' to the end of the system prompt"
+   ],
+   "answer": [
+    2,
+    3
+   ],
+   "explanation": "Guardrails provide PII filters (BLOCK, ANONYMIZE) and a prompt attack filter; ApplyGuardrail evaluates any text, including retrieved documents, without invoking a model. Enforcement of actions belongs in code. Temperature and prompt phrasing are not controls, and disabling logs removes audit evidence.",
+   "learn": [
+    {
+     "label": "Guardrail components",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-components.html"
+    },
+    {
+     "label": "ApplyGuardrail API",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-use-independent-api.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q22",
+   "week": null,
+   "set": "aws",
+   "area": "ai",
+   "type": "single",
+   "stem": "In October 2026 a company needs RAG over IT knowledge articles stored in ServiceNow and SharePoint for a help desk bot. Answers must respect document permissions. The team planned a customer-managed Bedrock knowledge base with new SharePoint and ServiceNow data sources. Which approach should the architect choose?",
+   "options": [
+    "Amazon Bedrock Managed Knowledge Base with its SharePoint and ServiceNow connectors and access-control crawling enabled, queried with Retrieve and generation through Converse",
+    "Amazon Kendra with RetrieveAndGenerate",
+    "A customer-managed knowledge base with the web crawler pointed at the ServiceNow portal",
+    "A customer-managed knowledge base with a new SharePoint connector and the ServiceNow connector"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "From 2026-09-30, new SharePoint, Confluence, Salesforce and Web Crawler connectors cannot be created on customer-managed knowledge bases, and ServiceNow is a managed knowledge base connector (with optional ACL crawling). Managed knowledge bases support Retrieve, not RetrieveAndGenerate.",
+   "learn": [
+    {
+     "label": "Knowledge base data source connectors",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-source-connectors.html"
+    },
+    {
+     "label": "Managed KB ServiceNow connector",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-managed-ds-servicenow-connect.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q23",
+   "week": null,
+   "set": "aws",
+   "area": "ai",
+   "type": "single",
+   "stem": "A US federal contractor's help desk calls Claude models on Amazon Bedrock from us-east-1. Peak traffic is throttled, and the security team requires that inference stay within the United States. Which option increases throughput while meeting the requirement with the LEAST operational overhead?",
+   "options": [
+    "Purchase provisioned throughput in every US Region and route manually",
+    "Invoke the model through a US geographic cross-Region inference profile (us. prefix)",
+    "Invoke the model through a global cross-Region inference profile",
+    "Deploy the same Lambda function in eu-west-1 and load-balance between Regions"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Geographic inference profiles distribute requests across Regions within the geography, raising throughput while keeping data in the US. Global profiles can route to any commercial Region, and manual multi-Region or provisioned throughput adds cost and operations.",
+   "learn": [
+    {
+     "label": "Cross-Region inference",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q24",
+   "week": null,
+   "set": "aws",
+   "area": "ai",
+   "type": "single",
+   "stem": "After adding 12 new intents to a Lex V2 help desk bot, 18% of utterances that used to match correctly now fall to AMAZON.FallbackIntent; conversation logs show low nluConfidence across several similar intents. Which change addresses the problem with the LEAST manual tuning?",
+   "options": [
+    "Enable Assisted NLU in Fallback mode (and optionally Intent Disambiguation to offer the top candidate intents) after reviewing overlapping intents with the analytics and Bot Analyzer findings",
+    "Remove AMAZON.FallbackIntent from the bot",
+    "Duplicate every sample utterance into all similar intents",
+    "Set the confidence threshold to 0.00 so FallbackIntent is never chosen"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Assisted NLU uses an LLM to classify when NLU confidence is low, and Intent Disambiguation presents 2-5 candidates. A zero threshold forces wrong matches, the fallback intent is mandatory, and duplicating utterances increases overlap.",
+   "learn": [
+    {
+     "label": "Assisted NLU",
+     "href": "https://docs.aws.amazon.com/lexv2/latest/dg/assisted-nlu.html"
+    },
+    {
+     "label": "Intent confidence scores",
+     "href": "https://docs.aws.amazon.com/lexv2/latest/dg/using-intent-confidence-scores.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q25",
+   "week": null,
+   "set": "aws",
+   "area": "ai",
+   "type": "single",
+   "stem": "Before launching RAG self-service, the CISO requires measurable evidence of answer quality (correctness, faithfulness to sources, citation quality) on a curated question set, repeatable for every knowledge base change. Which approach meets the requirement with the LEAST custom tooling?",
+   "options": [
+    "Amazon Bedrock RAG evaluation jobs for the knowledge base with an evaluator model (LLM-as-a-judge) over a curated dataset, run in the release pipeline",
+    "Compare model output to reference answers with exact string matching",
+    "Ask five agents to try the bot for a week",
+    "Measure only containment rate in production"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Bedrock evaluations include knowledge base (RAG) evaluation with retrieve-only and retrieve-and-generate metrics such as correctness, faithfulness and citation quality computed by an evaluator model. Ad hoc testing and containment are not quality evidence, and exact matching fails for generated text.",
+   "learn": [
+    {
+     "label": "Evaluate knowledge bases",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html"
+    },
+    {
+     "label": "Model and RAG evaluation",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q26",
+   "week": null,
+   "set": "aws",
+   "area": "lens",
+   "type": "single",
+   "stem": "A help desk is enabling chat. Employees sometimes paste personal data into the chat; the privacy office requires that agents never see payment card numbers or national IDs, and transcripts stored later must be redacted too. Which solution meets the requirement with the LEAST custom code?",
+   "options": [
+    "Ask employees not to share personal data in a pre-chat message",
+    "Write a Lambda function in the agent's browser that masks numbers before display",
+    "Enable conversational analytics sensitive data redaction for chat with in-flight redaction so messages reach the agent with entity placeholders, and keep post-contact redaction for stored transcripts",
+    "Enable redaction only for post-contact analysis"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Chat in-flight redaction (November 2025) replaces sensitive entities with placeholders such as [CREDIT_CARD] before agents see them, or uses a custom message processor Lambda; post-contact redaction alone leaves live messages exposed.",
+   "learn": [
+    {
+     "label": "Redaction and message processing for chat",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/redaction-message-processing.html"
+    },
+    {
+     "label": "Sensitive data redaction",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/sensitive-data-redaction.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q27",
+   "week": null,
+   "set": "aws",
+   "area": "lens",
+   "type": "single",
+   "stem": "The help desk manager wants a follow-up task created and a supervisor notified whenever a caller is negative at the end of a call and says phrases like 'still locked out' or 'third time calling'. Which solution meets the requirement with the LEAST operational overhead?",
+   "options": [
+    "A Lambda function subscribed to Kinesis contact record events that scans for phrases",
+    "A nightly Athena query over transcripts that emails supervisors",
+    "A conversational analytics rule with keyword/phrase and sentiment conditions that assigns a category and triggers a task and a notification",
+    "Agents manually flag such calls during after-contact work"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Rules combine keyword/phrase matches and sentiment conditions, categorize contacts and trigger actions such as tasks, notifications and EventBridge events. Custom pipelines or manual flags add operations and delay.",
+   "learn": [
+    {
+     "label": "Conversational analytics rules",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/build-rules-for-contact-lens.html"
+    },
+    {
+     "label": "Categorize contacts with conversational analytics rules",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/rules.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q28",
+   "week": null,
+   "set": "aws",
+   "area": "lens",
+   "type": "single",
+   "stem": "QA reviewers need to see what agents did in the ServiceNow and identity admin consoles during password-reset calls, with sensitive fields hidden, and the solution must keep working when the instance fails over to its Global Resiliency replica. Which feature meets the requirement?",
+   "options": [
+    "Conversational analytics post-contact transcripts",
+    "Contact Lens real-time sentiment",
+    "Amazon Connect agent screen recording with rule-based redaction",
+    "Enabling CloudTrail data events for the agent workspace"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Agent screen recording captures the agent desktop, supports rule-based redaction and works with Global Resiliency. Transcripts and sentiment cover speech, not screen actions, and CloudTrail does not record UI activity in other applications.",
+   "learn": [
+    {
+     "label": "Agent screen recording",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-screen-recording.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q29",
+   "week": null,
+   "set": "aws",
+   "area": "lens",
+   "type": "single",
+   "stem": "A healthcare client asks whether turning on conversational analytics sensitive data redaction makes stored call recordings and transcripts HIPAA de-identified so they can be shared with an analytics vendor. What should the architect answer?",
+   "options": [
+    "No. AWS documents that the redaction feature is not a HIPAA de-identification method; a separate de-identification process and data-sharing review are required",
+    "Yes, redaction produces HIPAA de-identified data for voice and chat",
+    "Yes, if the recordings are deleted after 30 days",
+    "Yes, as long as the S3 bucket uses SSE-KMS"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The sensitive data redaction docs warn that it is not intended to meet HIPAA de-identification requirements and that voice redaction applies after the contact ends. Encryption and retention do not change de-identification status.",
+   "learn": [
+    {
+     "label": "Sensitive data redaction",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/sensitive-data-redaction.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q30",
+   "week": null,
+   "set": "aws",
+   "area": "agentx",
+   "type": "single",
+   "stem": "Employees often return to a help desk chat hours later about the same ticket. Agents currently ask them to repeat everything. The company wants the new chat to load the previous conversation automatically with the LEAST custom code.",
+   "options": [
+    "Keep chats open for seven days with a long chat timeout",
+    "Enable persistent chat and start the new chat from the previous contact so the transcript is rehydrated for the agent and the employee",
+    "Store transcripts in DynamoDB and build a custom agent panel to display them",
+    "Ask the bot to summarize the previous chat into a contact attribute"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Persistent chat rehydrates the prior conversation into the new chat session. Custom storage and panels duplicate a built-in feature, and very long-lived chats tie up concurrency.",
+   "learn": [
+    {
+     "label": "Persistent chat",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/chat-persistence.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q31",
+   "week": null,
+   "set": "aws",
+   "area": "agentx",
+   "type": "single",
+   "stem": "A company already runs a mature Amazon Connect instance with custom flows, Lambda integrations and conversational analytics. Its service teams are moving to Salesforce Service Cloud and want native Voice Call records, Omni-Channel presence and in-console transcription, while the company keeps owning and operating its Connect instance. Which option fits?",
+   "options": [
+    "Service Cloud Voice bundle, letting Salesforce provision a new Connect instance",
+    "Replace Connect with a Salesforce-native telephony provider",
+    "Service Cloud Voice with partner telephony from Amazon Connect (bring your own Amazon Connect)",
+    "Amazon Connect CTI Adapter only, with a custom transcription widget"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Service Cloud Voice with partner telephony (BYOA) gives native Salesforce voice features on a customer-owned Connect instance. The bundle moves the instance into a Salesforce-managed account, and the CTI Adapter alone does not provide the native SCV objects.",
+   "learn": [
+    {
+     "label": "Service Cloud Voice with Amazon Connect (AWS APN blog)",
+     "href": "https://aws.amazon.com/blogs/apn/integrating-amazon-connect-natively-into-salesforce-using-service-cloud-voice/"
+    },
+    {
+     "label": "Salesforce integration (CTI Adapter)",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q32",
+   "week": null,
+   "set": "aws",
+   "area": "agentx",
+   "type": "single",
+   "stem": "When a help desk contact ends, the company must generate a summary, update the ServiceNow incident, and send a survey link by SMS. Steps must be retried independently and audited. Which design has the LEAST operational overhead?",
+   "options": [
+    "An Amazon EventBridge rule on Amazon Connect contact events filtered to DISCONNECTED that starts an AWS Step Functions workflow with one state per step and retries",
+    "A Lambda function invoked from the disconnect flow that performs all three steps synchronously",
+    "An agent-side browser script that calls the three services after the agent clicks close",
+    "A cron job on Amazon EC2 that polls the contact search API every minute"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Connect publishes contact events (source aws.connect, detail-type Amazon Connect Contact Event) to the default event bus; Step Functions gives per-step retries and an execution history. Polling, synchronous flow Lambdas and browser scripts are fragile.",
+   "learn": [
+    {
+     "label": "Amazon Connect contact events",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html"
+    },
+    {
+     "label": "EventBridge events from Connect",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-eventbridge-events.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q33",
+   "week": null,
+   "set": "aws",
+   "area": "agentx",
+   "type": "single",
+   "stem": "New help desk agents in Monterrey need guided, step-by-step screens for the ten most common resolutions (unlock account, VPN reset), triggered automatically by the call reason, with no separate desktop application to deploy.",
+   "options": [
+    "Knowledge articles printed and attached to the routing profile",
+    "Step-by-step guides built from views, launched by flows with the Show view block in the agent workspace",
+    "A custom React desktop built on amazon-connect-streams deployed to every PC",
+    "Agent whisper flows that read the steps aloud"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Step-by-step guides use AWS managed or custom views shown by flows in the agent workspace, driven by contact data. A custom desktop adds build and deployment work, and whispers are not guided UI.",
+   "learn": [
+    {
+     "label": "Step-by-step guides",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/step-by-step-guided-experiences.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q34",
+   "week": null,
+   "set": "aws",
+   "area": "devops",
+   "type": "single",
+   "stem": "A platform team must define, in code, the help desk's queues, routing profiles, flows, conversational analytics rules, evaluation forms, traffic distribution groups and flow test cases, and deploy them through a pipeline to four environments. The team currently uses the hashicorp/aws Terraform provider for Connect. Which approach covers all resources with the LEAST custom code?",
+   "options": [
+    "Export and import the instance configuration manually for each environment",
+    "Use AWS CloudFormation (for example through AWS CDK), which has AWS::Connect resource types for rules, evaluation forms, traffic distribution groups and test cases, keeping Terraform only where it already fits",
+    "Keep using hashicorp/aws Terraform resources, which cover every Connect resource type",
+    "Write a custom tool that calls the Connect APIs for the missing resources"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "CloudFormation includes AWS::Connect::Rule, EvaluationForm, TrafficDistributionGroup and TestCase among others; the hashicorp/aws provider lacks several of them. A custom API tool or manual export adds work and drift.",
+   "learn": [
+    {
+     "label": "CloudFormation AWS::Connect resource types",
+     "href": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/AWS_Connect.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q35",
+   "week": null,
+   "set": "aws",
+   "area": "devops",
+   "type": "single",
+   "stem": "A company wants every flow change to pass automated call-path tests (after-hours, full queue, VIP caller) in a test instance before promotion, run from the CI pipeline without third-party dialers. Which approach meets the requirement?",
+   "options": [
+    "Place manual test calls from a supervisor's phone before each release",
+    "Use Amazon Chime SDK PSTN audio to dial the test numbers from a Lambda function",
+    "Validate the flow JSON with a JSON schema only",
+    "Define Amazon Connect test cases (AWS::Connect::TestCase or CreateTestCase) and run them from the pipeline with StartTestCaseExecution, gating promotion on the results"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Connect's native testing and simulation (console test designer since November 2025, APIs and CloudFormation since February 2026) can simulate conditions like off-hours and full queues and is callable from CI. Manual calls do not scale, PSTN audio is in maintenance mode, and schema checks do not test behavior.",
+   "learn": [
+    {
+     "label": "Testing and simulation",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/testing-simulation.html"
+    },
+    {
+     "label": "Test APIs launch (What's New)",
+     "href": "https://aws.amazon.com/about-aws/whats-new/2026/02/amazon-connect-provides-apis-test-simulate-voice-interactions/"
+    }
+   ]
+  },
+  {
+   "id": "ma-q36",
+   "week": null,
+   "set": "aws",
+   "area": "devops",
+   "type": "single",
+   "stem": "A Lambda function invoked by the help desk flow is updated weekly. A bad deployment last month caused 40 minutes of failed calls. The team wants gradual rollout with automatic rollback, without editing flows at each release. Which solution meets the requirement?",
+   "options": [
+    "Point the flow at a Lambda alias ARN and deploy new versions with AWS CodeDeploy canary or linear traffic shifting on the alias, with CloudWatch alarms on function errors and ContactFlowErrors triggering rollback",
+    "Use Lambda layers to swap code at runtime",
+    "Point the flow at $LATEST and deploy directly",
+    "Create a new function name for each release and update the flow"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Weighted alias traffic shifting with alarm-based rollback is the standard Lambda blue/green pattern; the flow keeps referencing the alias. $LATEST has no rollback, and new function names require flow edits every release.",
+   "learn": [
+    {
+     "label": "Lambda aliases",
+     "href": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html"
+    },
+    {
+     "label": "Monitoring Connect with CloudWatch",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/monitoring-cloudwatch.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q37",
+   "week": null,
+   "set": "aws",
+   "area": "devops",
+   "type": "single",
+   "stem": "A Java 11 Lambda function used by the help desk flow has cold starts of 5-6 seconds after deployments and scale-out, causing error branches. The team will upgrade to Java 21 and wants to reduce cold starts without paying for always-on capacity.",
+   "options": [
+    "Upgrade to the java21 runtime and enable Lambda SnapStart on published versions, invoking the function through an alias",
+    "Enable provisioned concurrency for 100 environments around the clock",
+    "Keep java11 and add a warm-up ping every minute",
+    "Increase the flow's Lambda time limit to 15 seconds"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "SnapStart restores initialized snapshots for published versions and has no extra cost on Java runtimes; it needs uniqueness handling for state captured at snapshot time. Provisioned concurrency costs money continuously, the flow limit is 8 seconds, and java11 is deprecated in 2027.",
+   "learn": [
+    {
+     "label": "Lambda SnapStart",
+     "href": "https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html"
+    },
+    {
+     "label": "Lambda Java runtimes",
+     "href": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-java.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q38",
+   "week": null,
+   "set": "aws",
+   "area": "security",
+   "type": "single",
+   "stem": "Help desk agents on 13-hour weekend shifts sign in to Amazon Connect through SAML 2.0. About 12 hours after sign-in, agents are logged out, sometimes in the middle of a call wrap-up. What should the architect recommend?",
+   "options": [
+    "Increase the IAM role maximum session duration to 24 hours",
+    "Set the IdP session timeout to 24 hours",
+    "Plan for the documented 12-hour session limit: schedule a re-authentication at shift midpoint (sign out of Connect and the IdP and sign in again) and align breaks with it",
+    "Switch the instance identity type to Connect-managed users"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Connect SAML sessions expire 12 hours after sign-in regardless of activity. Role session duration and IdP timeouts do not extend the Connect session, and the identity type cannot be changed after instance creation.",
+   "learn": [
+    {
+     "label": "Configure SAML for Connect",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q39",
+   "week": null,
+   "set": "aws",
+   "area": "security",
+   "type": "single",
+   "stem": "A flow in the contact center account must invoke a Lambda function owned by the ITSM integration team in another AWS account. Security requires least privilege so that no other instance or account can invoke the function. Which configuration meets the requirement?",
+   "options": [
+    "Add a resource-based policy statement on the function allowing principal connect.amazonaws.com with conditions on the source account and the Connect instance ARN",
+    "Make the function URL public with an API key in the flow",
+    "Allow principal * with an aws:SourceIp condition",
+    "Create an IAM user in the Lambda account and store its keys in the flow"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Connect invokes Lambda as the service principal; scoping with source account and source ARN restricts invocation to the specific instance. Wildcard principals, long-term keys or public URLs violate least privilege.",
+   "learn": [
+    {
+     "label": "Invoke Lambda functions from flows",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q40",
+   "week": null,
+   "set": "aws",
+   "area": "security",
+   "type": "single",
+   "stem": "Contact records are streamed from Amazon Connect to Amazon Kinesis Data Streams for a downstream pipeline. Compliance requires encryption at rest with a customer managed AWS KMS key whose usage is auditable. Which configuration meets the requirement?",
+   "options": [
+    "Use the AWS managed key for Kinesis; it cannot be audited",
+    "Enable server-side encryption on the stream with the customer managed key and grant the Amazon Connect service-linked role permission to use the key",
+    "Stream to Amazon S3 instead because Kinesis does not support KMS",
+    "Encrypt records in a flow Lambda function before Connect sends them"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Connect data streaming supports Kinesis server-side encryption with a customer managed key when the instance's service-linked role is allowed to use the key; key usage appears in CloudTrail. Flows do not control the CTR stream payload.",
+   "learn": [
+    {
+     "label": "Data streaming",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/data-streaming.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q41",
+   "week": null,
+   "set": "aws",
+   "area": "security",
+   "type": "multi",
+   "choose": 2,
+   "stem": "Bedrock model invocation logging is enabled for the help desk assistant so prompts and responses can be audited. The privacy officer notes that content blocked by guardrails and caller PII appear in the logs. Which TWO actions reduce the risk while keeping auditability?",
+   "options": [
+    "Make the log bucket public so auditors can reach it",
+    "Encrypt the log destinations with a customer managed KMS key and restrict access to a small audit role",
+    "Disable logging entirely and rely on application logs that contain the same prompts",
+    "Apply retention policies (CloudWatch Logs retention, S3 lifecycle) that match the records schedule",
+    "Copy logs to developer accounts for troubleshooting"
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "explanation": "Invocation logs include request and response bodies, and guardrail-blocked content appears in plain text when logging is on. Treat them as sensitive records: strong encryption, least-privilege access and retention aligned with policy. Disabling logs loses audit evidence and copying them widens exposure.",
+   "learn": [
+    {
+     "label": "Model invocation logging",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html"
+    },
+    {
+     "label": "Guardrails",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q42",
+   "week": null,
+   "set": "aws",
+   "area": "security",
+   "type": "single",
+   "stem": "A federal agency deploys its help desk on Amazon Connect in AWS GovCloud (US-West). The design reuses a Lex bot, Lambda functions and an S3 data lake already running in the agency's commercial us-east-1 account. What is the problem with this design?",
+   "options": [
+    "GovCloud is a separate partition: the Connect instance cannot integrate with commercial-Region Lex, Lambda, Kinesis or S3 resources, so these components must be deployed in GovCloud (where features such as Lex conversation logs differ)",
+    "GovCloud Connect only supports chat",
+    "Connect is not available in GovCloud",
+    "No problem; cross-Region integrations are supported by IAM roles"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Connect in GovCloud runs in a separate partition without cross-partition integrations. Lex in GovCloud supports en-US and es-US and lacks conversation logs, so feature gaps must be designed for.",
+   "learn": [
+    {
+     "label": "Connect in GovCloud (US)",
+     "href": "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-con.html"
+    },
+    {
+     "label": "Lex in GovCloud (US)",
+     "href": "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-lex.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q43",
+   "week": null,
+   "set": "aws",
+   "area": "leader",
+   "type": "single",
+   "stem": "A migration program will move 14 help desk numbers from a legacy carrier to Amazon Connect in three waves. The program manager wants to minimize customer-facing risk on each wave. Which sequencing should the architect recommend?",
+   "options": [
+    "Submit port requests 90 days in advance and test flows after the port completes",
+    "Build and test flows on temporary Connect-claimed numbers, forward each wave's legacy numbers to Connect-claimed numbers as a reversible cutover, then submit port requests per carrier and country no more than 30 days before the port date",
+    "Port all 14 numbers on day one and fix issues as they appear",
+    "Keep all numbers on the legacy carrier permanently and use transfers"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "AWS recommends verifying flows before porting, using forwarding as a reversible step, and filing per-carrier, per-country port requests (US requests no earlier than 30 days before the date). Porting everything first removes the fallback.",
+   "learn": [
+    {
+     "label": "Verify flows before porting",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/verify-flows-before-porting.html"
+    },
+    {
+     "label": "About porting",
+     "href": "https://docs.aws.amazon.com/connect/latest/adminguide/about-porting.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q44",
+   "week": null,
+   "set": "aws",
+   "area": "leader",
+   "type": "single",
+   "stem": "A consultancy delivers the Connect platform with an onshore lead architect, a Monterrey nearshore team building integrations and a Pune offshore team building flows and bots. Production releases have been inconsistent. Which governance model best balances speed and control?",
+   "options": [
+    "Each team deploys to production independently when ready",
+    "Releases are approved by whoever is on shift in Pune",
+    "Only the onshore lead may change anything in any environment",
+    "A RACI where offshore and nearshore engineers are Responsible for build and tests, the onshore lead is Accountable for design approval and release readiness, the client CAB is Consulted, and operations is Informed, backed by pull-request reviews and automated pipeline gates"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Clear accountability plus automated gates keeps throughput across time zones while preventing uncontrolled releases. Centralizing every change creates a bottleneck; independent deployments without gates caused the inconsistency.",
+   "learn": [
+    {
+     "label": "Strategies for migrating to Connect Customer",
+     "href": "https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-migration-connect/introduction.html"
+    }
+   ]
+  },
+  {
+   "id": "ma-q45",
+   "week": null,
+   "set": "aws",
+   "area": "leader",
+   "type": "single",
+   "stem": "After go-live, the client's internal operations team (with an offshore run partner) will take over the Connect platform in six weeks. Which knowledge-transfer approach is MOST effective?",
+   "options": [
+    "Keeping the build team on call indefinitely",
+    "A two-hour recorded walkthrough of the admin website",
+    "Handing over the solution design document only",
+    "Runbooks and architecture decision records, followed by shadowing, reverse shadowing on real incidents, and game days that rehearse failover and common faults, with exit criteria tied to the team resolving incidents unaided"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Effective KT combines documentation with supervised practice and measurable exit criteria. A single recording or document does not build operational capability, and indefinite dependence on the build team is not a handover.",
+   "learn": [
+    {
+     "label": "Prepare your contact center teams for migration (AWS blog)",
+     "href": "https://aws.amazon.com/blogs/contact-center/prepare-your-contact-center-teams-for-migration-to-amazon-connect/"
+    }
+   ]
+  }
+ ]
+}

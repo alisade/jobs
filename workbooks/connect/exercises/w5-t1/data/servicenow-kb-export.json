@@ -1,0 +1,148 @@
+{
+  "result": [
+    {
+      "sys_id": "00000000000000000000000000000001",
+      "number": "KB0012345",
+      "short_description": "VPN token re-enrollment (GlobalConnect 6)",
+      "u_department": "IT",
+      "u_audience": "all-employees",
+      "u_region": "global",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-08-14 10:15:00",
+      "text": "Open the employee portal, choose Security > VPN token, select Re-enroll and approve the push on your registered phone.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "00000000000000000000000000000002",
+      "number": "KB0009001",
+      "short_description": "VPN token re-enrollment (legacy RSA tokens)",
+      "u_department": "IT",
+      "u_audience": "all-employees",
+      "u_region": "global",
+      "workflow_state": "retired",
+      "sys_updated_on": "2024-02-02 10:15:00",
+      "text": "Call the service desk to have an RSA hardware token shipped. Tokens take 5 business days.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "00000000000000000000000000000003",
+      "number": "KB0012399",
+      "short_description": "VPN error 809 after re-enrollment",
+      "u_department": "IT",
+      "u_audience": "all-employees",
+      "u_region": "us",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-08-20 10:15:00",
+      "text": "Restart the GlobalConnect client and sign in again with your new token.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "00000000000000000000000000000004",
+      "number": "KB0020456",
+      "short_description": "Map the Finance network drive (F:)",
+      "u_department": "Finance",
+      "u_audience": "restricted",
+      "u_region": "global",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-07-01 10:15:00",
+      "text": "In File Explorer choose Map network drive, use \\\\lfg-fs02\\finance and your LFG credentials.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "00000000000000000000000000000005",
+      "number": "KB0020457",
+      "short_description": "Quarter-end close: SAP posting periods",
+      "u_department": "Finance",
+      "u_audience": "restricted",
+      "u_region": "global",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-09-29 10:15:00",
+      "text": "Posting periods for Q3 close open on day 1 and close on day 4. Contact the controllership desk for exceptions.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "00000000000000000000000000000006",
+      "number": "KB0030001",
+      "short_description": "Payroll bank account change (HR only)",
+      "u_department": "HR",
+      "u_audience": "restricted",
+      "u_region": "global",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-06-10 10:15:00",
+      "text": "HR case workers verify the employee in Workday, then update the bank account under Pay > Payment elections.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "00000000000000000000000000000007",
+      "number": "KB0030002",
+      "short_description": "Employee relations case intake (HR only)",
+      "u_department": "HR",
+      "u_audience": "restricted",
+      "u_region": "us",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-05-02 10:15:00",
+      "text": "Create an ER case in the HR case management module and restrict visibility to ER partners.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "00000000000000000000000000000008",
+      "number": "KB0031002",
+      "short_description": "Enroll a new phone for MFA",
+      "u_department": "IT",
+      "u_audience": "all-workers",
+      "u_region": "global",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-08-30 10:15:00",
+      "text": "In the employee portal choose Security > MFA devices > Add device and scan the QR code with the authenticator app.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "00000000000000000000000000000009",
+      "number": "KB0031003",
+      "short_description": "Contractor MFA enrollment",
+      "u_department": "IT",
+      "u_audience": "contractors",
+      "u_region": "global",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-08-30 10:15:00",
+      "text": "Contractors enroll MFA through the partner portal, not the employee portal.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "0000000000000000000000000000000a",
+      "number": "KB0015010",
+      "short_description": "Connect to the guest wifi",
+      "u_department": "IT",
+      "u_audience": "public-help",
+      "u_region": "global",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-03-12 10:15:00",
+      "text": "Join LFG-Guest and accept the terms on the captive portal. Sessions last 8 hours.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "0000000000000000000000000000000b",
+      "number": "KB0040001",
+      "short_description": "Legal hold notices: what to do",
+      "u_department": "Legal",
+      "u_audience": "restricted",
+      "u_region": "us",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-04-18 10:15:00",
+      "text": "Do not delete any mailbox content subject to a legal hold. Contact legal operations.",
+      "kb_knowledge_base": "IT Help Desk"
+    },
+    {
+      "sys_id": "0000000000000000000000000000000c",
+      "number": "KB0020099",
+      "short_description": "Set an out-of-office reply",
+      "u_department": "IT",
+      "u_audience": "all-employees",
+      "u_region": "global",
+      "workflow_state": "published",
+      "sys_updated_on": "2026-02-11 10:15:00",
+      "text": "In Outlook choose File > Automatic Replies and set the dates.",
+      "kb_knowledge_base": "IT Help Desk"
+    }
+  ]
+}

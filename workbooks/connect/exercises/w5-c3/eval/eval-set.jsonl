@@ -1,0 +1,53 @@
+{"id": "E026", "utterance": "can I get a Visio license", "intent": "RequestAccess"}
+{"id": "E040", "utterance": "operator", "intent": "TalkToAgent"}
+{"id": "E025", "utterance": "need permissions to the audit SharePoint site", "intent": "RequestAccess"}
+{"id": "E017", "utterance": "the whole office lost wifi", "intent": "ReportOutage"}
+{"id": "E009", "utterance": "my account is locked", "intent": "UnlockAccount"}
+{"id": "E028", "utterance": "new starter needs access to the HR system", "intent": "RequestAccess"}
+{"id": "E014", "utterance": "account lockout on my windows login", "intent": "UnlockAccount"}
+{"id": "E011", "utterance": "it says my user is locked", "intent": "UnlockAccount"}
+{"id": "E052", "utterance": "how do I connect to the guest wifi", "intent": "HowTo", "goldArticle": "KB0015010", "retrieval": [{"articleId": "KB0015010", "score": 0.78}, {"articleId": "KB0012345", "score": 0.66}, {"articleId": "KB0031002", "score": 0.58}, {"articleId": "KB0020099", "score": 0.49}, {"articleId": "KB0022341", "score": 0.41}, {"articleId": "KB0020456", "score": 0.33}]}
+{"id": "E019", "utterance": "Teams calls are failing for all of us", "intent": "ReportOutage"}
+{"id": "E008", "utterance": "I need a new password for the VPN", "intent": "ResetPassword"}
+{"id": "E042", "utterance": "when is the next payday", "intent": "Fallback"}
+{"id": "E047", "utterance": "how to add a shared mailbox in Outlook", "intent": "HowTo", "goldArticle": "KB0020011", "retrieval": [{"articleId": "KB0010007", "score": 0.78}, {"articleId": "KB0020011", "score": 0.66}, {"articleId": "KB0020456", "score": 0.58}, {"articleId": "KB0031002", "score": 0.49}, {"articleId": "KB0015010", "score": 0.41}, {"articleId": "KB0099001", "score": 0.33}]}
+{"id": "E046", "utterance": "how do I set up the VPN on my new laptop", "intent": "HowTo", "goldArticle": "KB0012345", "retrieval": [{"articleId": "KB0012345", "score": 0.78}, {"articleId": "KB0020011", "score": 0.66}, {"articleId": "KB0099001", "score": 0.58}, {"articleId": "KB0010008", "score": 0.49}, {"articleId": "KB0020120", "score": 0.41}, {"articleId": "KB0022341", "score": 0.33}]}
+{"id": "E024", "utterance": "request access to Salesforce for my new hire", "intent": "RequestAccess"}
+{"id": "E035", "utterance": "let me talk to a person", "intent": "TalkToAgent"}
+{"id": "E048", "utterance": "where do I find the printer driver for the sixth floor", "intent": "HowTo", "goldArticle": "KB0010007", "retrieval": [{"articleId": "KB0010007", "score": 0.78}, {"articleId": "KB0015010", "score": 0.66}, {"articleId": "KB0022341", "score": 0.58}, {"articleId": "KB0020011", "score": 0.49}, {"articleId": "KB0099001", "score": 0.41}, {"articleId": "KB0031002", "score": 0.33}]}
+{"id": "E007", "utterance": "my Workday password is not working anymore", "intent": "ResetPassword"}
+{"id": "E002", "utterance": "need to reset my password for email", "intent": "ResetPassword"}
+{"id": "E016", "utterance": "email is down for everyone on our floor", "intent": "ReportOutage"}
+{"id": "E034", "utterance": "where is my ticket about the monitor", "intent": "CheckTicketStatus"}
+{"id": "E033", "utterance": "check on my open request", "intent": "CheckTicketStatus"}
+{"id": "E041", "utterance": "what is on the cafeteria menu today", "intent": "Fallback"}
+{"id": "E053", "utterance": "steps to install Teams on a Mac", "intent": "HowTo", "goldArticle": "KB0022341", "retrieval": [{"articleId": "KB0031002", "score": 0.78}, {"articleId": "KB0020456", "score": 0.66}, {"articleId": "KB0022341", "score": 0.58}, {"articleId": "KB0012345", "score": 0.49}, {"articleId": "KB0020011", "score": 0.41}, {"articleId": "KB0020099", "score": 0.33}]}
+{"id": "E015", "utterance": "I keep getting account locked message", "intent": "UnlockAccount"}
+{"id": "E001", "utterance": "I forgot my password", "intent": "ResetPassword"}
+{"id": "E012", "utterance": "unlock my account please", "intent": "UnlockAccount"}
+{"id": "E045", "utterance": "what is the parking validation code", "intent": "Fallback"}
+{"id": "E013", "utterance": "locked out of my laptop after typing the wrong password", "intent": "UnlockAccount"}
+{"id": "E044", "utterance": "book a conference room for tomorrow", "intent": "Fallback"}
+{"id": "E010", "utterance": "I got locked out after too many attempts", "intent": "UnlockAccount"}
+{"id": "E029", "utterance": "what is the status of my ticket", "intent": "CheckTicketStatus"}
+{"id": "E020", "utterance": "SAP is not loading for anyone in finance", "intent": "ReportOutage"}
+{"id": "E004", "utterance": "cant remember my login password", "intent": "ResetPassword"}
+{"id": "E051", "utterance": "how to set an out of office reply", "intent": "HowTo", "goldArticle": "KB0020099", "retrieval": [{"articleId": "KB0012345", "score": 0.78}, {"articleId": "KB0031002", "score": 0.66}, {"articleId": "KB0012399", "score": 0.58}, {"articleId": "KB0020099", "score": 0.49}, {"articleId": "KB0010008", "score": 0.41}, {"articleId": "KB0099001", "score": 0.33}]}
+{"id": "E031", "utterance": "has my laptop request been approved yet", "intent": "CheckTicketStatus"}
+{"id": "E018", "utterance": "VPN is down for the entire team", "intent": "ReportOutage"}
+{"id": "E006", "utterance": "change my SAP password please", "intent": "ResetPassword"}
+{"id": "E050", "utterance": "how do I map the finance network drive", "intent": "HowTo", "goldArticle": "KB0020456", "retrieval": [{"articleId": "KB0099001", "score": 0.78}, {"articleId": "KB0020456", "score": 0.66}, {"articleId": "KB0015010", "score": 0.58}, {"articleId": "KB0020099", "score": 0.49}, {"articleId": "KB0031002", "score": 0.41}, {"articleId": "KB0010008", "score": 0.33}]}
+{"id": "E030", "utterance": "any update on incident INC0045512", "intent": "CheckTicketStatus"}
+{"id": "E038", "utterance": "I want a human", "intent": "TalkToAgent"}
+{"id": "E032", "utterance": "I opened a ticket yesterday and heard nothing", "intent": "CheckTicketStatus"}
+{"id": "E039", "utterance": "connect me to someone in the service desk", "intent": "TalkToAgent"}
+{"id": "E023", "utterance": "I need access to the finance shared drive", "intent": "RequestAccess"}
+{"id": "E022", "utterance": "nobody on the trading floor can print", "intent": "ReportOutage"}
+{"id": "E021", "utterance": "outage on the shared drive for the whole department", "intent": "ReportOutage"}
+{"id": "E037", "utterance": "representative", "intent": "TalkToAgent"}
+{"id": "E036", "utterance": "agent please", "intent": "TalkToAgent"}
+{"id": "E049", "utterance": "how can I enroll my new phone for MFA", "intent": "HowTo", "goldArticle": "KB0031002", "retrieval": [{"articleId": "KB0020456", "score": 0.61}, {"articleId": "KB0010008", "score": 0.52}, {"articleId": "KB0031002", "score": 0.47}, {"articleId": "KB0020099", "score": 0.43}, {"articleId": "KB0022341", "score": 0.38}, {"articleId": "KB0012399", "score": 0.3}]}
+{"id": "E005", "utterance": "the password reset link never arrived", "intent": "ResetPassword"}
+{"id": "E043", "utterance": "how many vacation days do I have left", "intent": "Fallback"}
+{"id": "E003", "utterance": "my password expired this morning", "intent": "ResetPassword"}
+{"id": "E027", "utterance": "please grant me access to the Tableau server", "intent": "RequestAccess"}

@@ -1,0 +1,126 @@
+{
+  "ExportedAt": "2026-10-02T23:00:00Z",
+  "InstanceId": "5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+  "RoutingProfiles": [
+    {
+      "Name": "rp-tier1",
+      "RoutingProfileId": "8c1d2e3f-0001-4a5b-8c7d-111111111111",
+      "RoutingProfileArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/routing-profile/8c1d2e3f-0001-4a5b-8c7d-111111111111",
+      "Description": "Tier 1: password resets first, general overflow after 10 s",
+      "DefaultOutboundQueueId": "q-general",
+      "MediaConcurrencies": [
+        {
+          "Channel": "VOICE",
+          "Concurrency": 1
+        },
+        {
+          "Channel": "CHAT",
+          "Concurrency": 2
+        }
+      ],
+      "QueueConfigs": [
+        {
+          "QueueReference": {
+            "QueueId": "q-password-reset",
+            "Channel": "VOICE"
+          },
+          "QueueName": "PasswordReset",
+          "Priority": 1,
+          "Delay": 0
+        },
+        {
+          "QueueReference": {
+            "QueueId": "q-general",
+            "Channel": "VOICE"
+          },
+          "QueueName": "GeneralSupport",
+          "Priority": 2,
+          "Delay": 10
+        }
+      ]
+    },
+    {
+      "Name": "rp-general",
+      "RoutingProfileId": "8c1d2e3f-0002-4a5b-8c7d-222222222222",
+      "RoutingProfileArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/routing-profile/8c1d2e3f-0002-4a5b-8c7d-222222222222",
+      "Description": "General support; password reset as 20 s overflow; SAP fallback",
+      "DefaultOutboundQueueId": "q-general",
+      "MediaConcurrencies": [
+        {
+          "Channel": "VOICE",
+          "Concurrency": 1
+        },
+        {
+          "Channel": "CHAT",
+          "Concurrency": 2
+        }
+      ],
+      "QueueConfigs": [
+        {
+          "QueueReference": {
+            "QueueId": "q-general",
+            "Channel": "VOICE"
+          },
+          "QueueName": "GeneralSupport",
+          "Priority": 1,
+          "Delay": 0
+        },
+        {
+          "QueueReference": {
+            "QueueId": "q-password-reset",
+            "Channel": "VOICE"
+          },
+          "QueueName": "PasswordReset",
+          "Priority": 2,
+          "Delay": 20
+        },
+        {
+          "QueueReference": {
+            "QueueId": "q-apps",
+            "Channel": "VOICE"
+          },
+          "QueueName": "Applications",
+          "Priority": 2,
+          "Delay": 0
+        }
+      ]
+    },
+    {
+      "Name": "rp-apps",
+      "RoutingProfileId": "8c1d2e3f-0003-4a5b-8c7d-333333333333",
+      "RoutingProfileArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/routing-profile/8c1d2e3f-0003-4a5b-8c7d-333333333333",
+      "Description": "Applications team",
+      "DefaultOutboundQueueId": "q-general",
+      "MediaConcurrencies": [
+        {
+          "Channel": "VOICE",
+          "Concurrency": 1
+        },
+        {
+          "Channel": "CHAT",
+          "Concurrency": 2
+        }
+      ],
+      "QueueConfigs": [
+        {
+          "QueueReference": {
+            "QueueId": "q-apps",
+            "Channel": "VOICE"
+          },
+          "QueueName": "Applications",
+          "Priority": 1,
+          "Delay": 0
+        },
+        {
+          "QueueReference": {
+            "QueueId": "q-general",
+            "Channel": "VOICE"
+          },
+          "QueueName": "GeneralSupport",
+          "Priority": 2,
+          "Delay": 45
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+display holiday-table 3                                         Page   1 of   1
+                               HOLIDAY TABLE
+
+                        Number: 3      Name: LFG US Holidays 2026
+
+                   ______START______      _______END_______
+                   Month Day Hour Min     Month Day Hour Min     Description
+                     01   01  00  00        01   01  23  59      New Year
+                     05   25  00  00        05   25  23  59      Memorial Day
+                     07   03  00  00        07   03  23  59      Independence Day (obs)
+                     09   07  00  00        09   07  23  59      Labor Day
+                     10   12  00  00        10   12  23  59      Columbus Day
+                     11   26  00  00        11   27  23  59      Thanksgiving
+                     12   24  00  00        12   25  23  59      Christmas

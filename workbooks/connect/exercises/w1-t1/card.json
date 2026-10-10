@@ -1,0 +1,27 @@
+{
+  "id": "connect/w1-t1",
+  "title": "\"All specialists are busy\" on repeat",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Contact flows, IVR and routing",
+  "scenario": "After flow release 2026.10.07, from 14:00 ET help desk callers hear the overflow message on repeat and hang up, for every menu option. CloudWatch shows no flow errors and the IAM team blames Okta rate limits on the reset Lambda. You get flow logs, contact records, queue metrics, Lambda logs and both exported flow versions.",
+  "task": [
+    "Trace the loop through the flow logs and the flow JSON; explain why it began at 14:00",
+    "Rule the Okta 429 theory in or out with evidence",
+    "Fix the flow while keeping the release's intent (never transfer into an unstaffed queue)",
+    "Verify with lint, simulate and tests; write root cause and prevention in ANSWER.md"
+  ],
+  "acceptance": [
+    "Lint clean; no staffing check pinned to the wrong queue; every cycle bounded",
+    "Each caller type reaches its own queue when another team is unstaffed",
+    "Nobody staffed anywhere ends with a message, never a loop or an empty queue",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 1 Tue - flow language, flow logs and error branches", "href": "week1"},
+    {"label": "Week 1 Wed - check staffing, working queue and overflow", "href": "week1"},
+    {"label": "Week 8 - automated flow tests in the pipeline", "href": "week8"}
+  ]
+}

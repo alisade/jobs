@@ -1,0 +1,25 @@
+{
+  "id": "connect/x-1",
+  "title": "Duplicate ServiceNow incidents from the phone channel",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 10,
+  "optional": true,
+  "area": "Agent experience and integrations",
+  "scenario": "Larkspur's Service Desk sees pairs of identical incidents for the same call, a few seconds apart, worse in the mornings. Integration on-call blames Connect invoking the Lambda twice and wants a ServiceNow rule that deletes duplicates. You own the create-incident Lambda; the bundle has Lambda logs, flow logs, the ServiceNow export, transaction times and request timings.",
+  "task": [
+    "Prove the duplicate mechanism from logs, export and timings; rule the double-invocation theory in or out",
+    "Make incident creation idempotent per contact, including ambiguous failures, re-invokes and races",
+    "Keep the flat string map contract and the flow's time budget"
+  ],
+  "acceptance": [
+    "Commit-then-504 and timeouts produce exactly one incident and return its number",
+    "Re-invokes and concurrent invocations create one incident",
+    "DynamoDB claim is a conditional put with TTL",
+    "Root cause with evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 7 Mon - ServiceNow integration patterns", "href": "week7"},
+    {"label": "Week 10 - integration resilience drills", "href": "week10"}
+  ]
+}

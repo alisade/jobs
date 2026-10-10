@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "{\"category\": \"network\", \"priority\": \"P3\", \"summary\": \"VPN drops every 10 minutes.\", \"needsHuman\": true}"
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 412,
+    "outputTokens": 58,
+    "totalTokens": 470
+  },
+  "metrics": {
+    "latencyMs": 640
+  }
+}

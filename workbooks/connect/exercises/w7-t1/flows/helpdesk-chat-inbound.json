@@ -1,0 +1,207 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "start-logging",
+  "Metadata": {
+    "name": "LFG Help Desk Chat Inbound",
+    "version": "12"
+  },
+  "Actions": [
+    {
+      "Identifier": "start-logging",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Transitions": {
+        "NextAction": "lex-bot"
+      }
+    },
+    {
+      "Identifier": "lex-bot",
+      "Type": "ConnectParticipantWithLexBot",
+      "Parameters": {
+        "Text": "Hi, this is the Larkspur help desk assistant. What do you need help with?",
+        "LexV2Bot": {
+          "AliasArn": "arn:aws:lex:us-east-1:111122223333:bot-alias/HDBOT01/PROD01"
+        },
+        "LexSessionAttributes": {
+          "channel": "$.Channel"
+        }
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "handoff-module",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "ResetPassword"
+              ]
+            }
+          },
+          {
+            "NextAction": "handoff-module",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "VpnIssue"
+              ]
+            }
+          },
+          {
+            "NextAction": "handoff-module",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "Escalate"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "set-q-general",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "handoff-module",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "set-q-general",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "handoff-module",
+      "Type": "InvokeFlowModule",
+      "Parameters": {
+        "FlowModuleId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/flow-module/mod-lfg-handoff"
+      },
+      "Transitions": {
+        "NextAction": "route-by-intent",
+        "Errors": [
+          {
+            "NextAction": "route-by-intent",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "route-by-intent",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.Lex.IntentName"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "set-q-password",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "ResetPassword"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "set-q-general",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-password",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-password-reset"
+      },
+      "Transitions": {
+        "NextAction": "transfer",
+        "Errors": [
+          {
+            "NextAction": "set-q-general",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-general",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-general-support"
+      },
+      "Transitions": {
+        "NextAction": "transfer",
+        "Errors": [
+          {
+            "NextAction": "sorry-msg",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "transfer",
+      "Type": "TransferContactToQueue",
+      "Parameters": {},
+      "Transitions": {
+        "Errors": [
+          {
+            "NextAction": "busy-msg",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "sorry-msg",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "busy-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "All agents are busy. Please try again shortly or use the employee portal."
+      },
+      "Transitions": {
+        "NextAction": "disconnect",
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "sorry-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We are having technical difficulties. Please use the employee portal."
+      },
+      "Transitions": {
+        "NextAction": "disconnect",
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "disconnect",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

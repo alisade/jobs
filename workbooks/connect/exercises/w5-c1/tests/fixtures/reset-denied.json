@@ -1,0 +1,107 @@
+{
+  "messageVersion": "1.0",
+  "invocationSource": "DialogCodeHook",
+  "inputMode": "Speech",
+  "responseContentType": "audio/pcm",
+  "sessionId": "8f3c2a10-7b1e-4c55-9d2e-1a2b3c4d5e6f",
+  "inputTranscript": "no",
+  "bot": {
+    "id": "HDB0LFG001",
+    "name": "LfgHelpDeskBot",
+    "localeId": "en_US",
+    "version": "7",
+    "aliasId": "PRODALIAS1",
+    "aliasName": "prod"
+  },
+  "interpretations": [
+    {
+      "interpretationSource": "Lex",
+      "intent": {
+        "name": "ResetPassword",
+        "state": "InProgress",
+        "confirmationState": "Denied",
+        "slots": {
+          "EmployeeId": {
+            "shape": "Scalar",
+            "value": {
+              "originalValue": "44129",
+              "interpretedValue": "44129",
+              "resolvedValues": [
+                "44129"
+              ]
+            }
+          },
+          "SystemName": {
+            "shape": "Scalar",
+            "value": {
+              "originalValue": "vpn",
+              "interpretedValue": "VPN",
+              "resolvedValues": [
+                "VPN"
+              ]
+            }
+          }
+        }
+      },
+      "nluConfidence": 0.9
+    },
+    {
+      "interpretationSource": "Lex",
+      "intent": {
+        "name": "FallbackIntent",
+        "state": "InProgress",
+        "confirmationState": "None",
+        "slots": {}
+      }
+    }
+  ],
+  "requestAttributes": {
+    "x-amz-lex:accept-content-types": "PlainText,SSML"
+  },
+  "sessionState": {
+    "sessionAttributes": {
+      "contactId": "4a573372-1f28-4e26-b97b-6c1d2e3f4a5b",
+      "callerVerified": "false",
+      "channel": "VOICE"
+    },
+    "activeContexts": [],
+    "intent": {
+      "name": "ResetPassword",
+      "state": "InProgress",
+      "confirmationState": "Denied",
+      "slots": {
+        "EmployeeId": {
+          "shape": "Scalar",
+          "value": {
+            "originalValue": "44129",
+            "interpretedValue": "44129",
+            "resolvedValues": [
+              "44129"
+            ]
+          }
+        },
+        "SystemName": {
+          "shape": "Scalar",
+          "value": {
+            "originalValue": "vpn",
+            "interpretedValue": "VPN",
+            "resolvedValues": [
+              "VPN"
+            ]
+          }
+        }
+      }
+    },
+    "originatingRequestId": "9d2f6a1e-0000-4000-8000-000000000012"
+  },
+  "transcriptions": [
+    {
+      "transcription": "no",
+      "transcriptionConfidence": 0.93,
+      "resolvedContext": {
+        "intent": "ResetPassword"
+      },
+      "resolvedSlots": {}
+    }
+  ]
+}

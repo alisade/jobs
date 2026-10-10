@@ -1,0 +1,19 @@
+CHANGE REQUEST CHG0032015                       State: Implemented (2026-10-04 22:10 ET)
+Short description: Consolidate rp-tier1 and rp-general into rp-service-desk (cross-skilling)
+Requested by: Service Desk Ops        Implemented by: T. Ortega        Peer review: R. Iyer (offshore)
+Risk: Low        Backout: re-assign users to rp-tier1 / rp-general (profiles kept, unassigned)
+
+Justification
+  Tier 1 (Pune, 15 agents) and General (Monterrey, 11 agents) are now cross-trained. One routing
+  profile lets both teams take both queues and removes idle time on tier 1 during general peaks.
+
+Implementation steps (as executed)
+  1. Create routing profile rp-service-desk, VOICE concurrency 1, CHAT concurrency 2.
+  2. Add queues to rp-service-desk, copying the queue settings from the existing profiles:
+       GeneralSupport  priority 1  delay 0
+       PasswordReset   priority 1  delay 20
+       Applications    priority 2  delay 0
+  3. Re-assign the 26 tier 1 and general users to rp-service-desk.
+  4. Smoke test: one test call to each queue answered (PASS).
+
+Post-implementation review: pending.

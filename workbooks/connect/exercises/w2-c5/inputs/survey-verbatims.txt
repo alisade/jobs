@@ -1,0 +1,13 @@
+Post-ticket survey comments mentioning the phone line (2026-07..09, sample of 40 of 212)
+
+- "Typed my employee ID twice and the agent still asked for it."
+- "Too many menus, I just pressed 0."
+- "Why does it tell me to reset online when I'm calling BECAUSE I can't log in?"
+- "Waited 12 minutes with no idea how long it would be. Would have taken a callback."
+- "Menu is in English first even though I picked Spanish last time."
+- "I'm hard of hearing and the menu is too fast. Relay operator gave up."
+- "Option for Okta Verify is buried under passwords."
+- "I wanted my ticket status, why do I need a person for that?"
+- "Spent 2 minutes in menus to get the same person anyway."
+- "After 8 pm there is no way to report that the whole floor is down."
+- "Called about Workday, got SAP people, got transferred."

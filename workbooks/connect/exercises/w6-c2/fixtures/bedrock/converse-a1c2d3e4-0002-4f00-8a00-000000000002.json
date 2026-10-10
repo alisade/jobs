@@ -1,0 +1,36 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "toolUse": {
+            "toolUseId": "tooluse_1650",
+            "name": "record_acw_summary",
+            "input": {
+              "issue": "GlobalProtect VPN disconnects every ten minutes.",
+              "actionsTaken": [
+                "Pushed GlobalProtect client 6.2.3 to the laptop",
+                "Kept incident INC0041902 open"
+              ],
+              "resolution": "Partially resolved; drops continue occasionally.",
+              "followUps": [
+                "Network engineering to follow up by end of day; customer reachable at 555-201-7788"
+              ],
+              "sentiment": "NEUTRAL"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "stopReason": "tool_use",
+  "usage": {
+    "inputTokens": 820,
+    "outputTokens": 170,
+    "totalTokens": 990
+  },
+  "metrics": {
+    "latencyMs": 1650
+  }
+}

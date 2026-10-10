@@ -1,0 +1,24 @@
+{
+  "id": "connect/w4-c2",
+  "title": "Migration program plan for the LFG help desk",
+  "type": "design",
+  "estimate": "2-3 h",
+  "week": 4,
+  "optional": false,
+  "area": "Legacy platforms and migration",
+  "scenario": "LFG is moving its help desk from Avaya, Genesys, Five9 and an acquired Cisco UCCE/CVP estate to Amazon Connect. As lead architect you write the migration program plan the steering committee signs, working around three contract dates, a year-end blackout, carrier porting lead times and an onshore/offshore/nearshore team.",
+  "task": [
+    "Waves with dates, reasons and entry/exit criteria",
+    "Coexistence, migration factory, validation and testing gates",
+    "Cutover runbook and an honest rollback plan",
+    "RACI with offshore/nearshore teams, hypercare, KT and decommissioning"
+  ],
+  "acceptance": [
+    "Review-only: rubric scores waves, coexistence, validation, cutover/rollback, delivery model, hypercare",
+    "Uses the dates and volumes in inputs/ and names the trade-offs that cannot be avoided"
+  ],
+  "practices": [
+    {"label": "Week 4 - migration playbooks and coexistence", "href": "week4"},
+    {"label": "Week 9 - offshore leadership, hypercare and KT", "href": "week9"}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "connect/w8-c2",
+  "title": "lfg-identify-caller: Java 11 to Java 21 and AWS SDK for Java 2.x",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 8,
+  "optional": false,
+  "area": "DevOps and platform engineering",
+  "scenario": "The Java Lambda that identifies callers for Larkspur's inbound flow runs on java11 with the AWS SDK for Java 1.x (end of support 2025-12-31) and JUnit 4. Upgrade it to Java 21 and SDK 2.x with SnapStart, keeping its Connect contract and its 3-second budget, without falling into the SDK 2.x semantic change that broke another team's upgrade.",
+  "task": [
+    "Move pom.xml to release 21, the SDK 2.x BOM, a lightweight HTTP client and JUnit 5",
+    "Port the handler to DynamoDbClient with the same flat string map contract",
+    "Add overrideConfig() timeouts inside the flow budget",
+    "Switch infra/function.yaml to java21 with SnapStart on published versions"
+  ],
+  "acceptance": [
+    "Hidden JUnit 5 tests pass against the SDK 2.x API, including not-found as SDK 2.x reports it",
+    "Timeouts within budget; classes compiled for Java 21",
+    "No SDK 1.x or JUnit 4 left; java21 + SnapStart in infra",
+    "ANSWER.md covers breaking changes, SnapStart caveats and rollout"
+  ],
+  "practices": [
+    {"label": "Week 8 Fri - Java Lambda: runtimes, SnapStart, cold starts", "href": "week8"},
+    {"label": "Week 8 Fri - dependency and JDK upgrades (Maven/Gradle)", "href": "week8"}
+  ]
+}

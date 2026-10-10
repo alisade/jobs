@@ -1,0 +1,17 @@
+{
+  "_source": "aws connect describe-instance --instance-id 5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f (2026-10-08)",
+  "Instance": {
+    "Id": "5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+    "Arn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+    "IdentityManagementType": "SAML",
+    "InstanceAlias": "lfg-helpdesk",
+    "InstanceStatus": "ACTIVE",
+    "InboundCallsEnabled": true,
+    "OutboundCallsEnabled": true,
+    "InstanceAccessUrl": "https://lfg-helpdesk.my.connect.aws"
+  },
+  "Region": "us-east-1",
+  "OtherInstances": [
+    { "Alias": "lfg-helpdesk-uat", "Id": "c31d9e04-77aa-4b58-8e2f-0d6c1a9b3e55", "Region": "us-east-1", "IdentityManagementType": "SAML" }
+  ]
+}

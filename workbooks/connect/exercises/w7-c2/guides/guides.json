@@ -1,0 +1,37 @@
+{
+  "ResetPassword": {
+    "title": "Password reset",
+    "steps": [
+      { "id": "verify", "text": "Verify identity (portal SSO or OTP to the mobile on file)", "required": true, "autoWhenVerified": true },
+      { "id": "lockout", "text": "Check Entra ID lockout and recent failed sign-ins", "required": true },
+      { "id": "reset", "text": "Send the self-service reset link; never read a password aloud", "required": true },
+      { "id": "confirm", "text": "Confirm the employee can sign in", "required": true },
+      { "id": "mfa", "text": "Offer to re-register MFA if the device changed", "required": false }
+    ]
+  },
+  "VpnIssue": {
+    "title": "VPN connection problem",
+    "steps": [
+      { "id": "verify", "text": "Verify identity", "required": true, "autoWhenVerified": true },
+      { "id": "client", "text": "Check the GlobalProtect client version and posture status", "required": true },
+      { "id": "cert", "text": "Check the device certificate expiry", "required": true },
+      { "id": "outage", "text": "Check the major-incident board for a VPN outage", "required": false }
+    ]
+  },
+  "AccessRequest": {
+    "title": "Access request",
+    "steps": [
+      { "id": "verify", "text": "Verify identity", "required": true, "autoWhenVerified": true },
+      { "id": "approver", "text": "Identify the approving manager in ServiceNow", "required": true },
+      { "id": "catalog", "text": "Raise the catalog item instead of an incident", "required": true }
+    ]
+  },
+  "_default": {
+    "title": "General triage",
+    "steps": [
+      { "id": "verify", "text": "Verify identity", "required": true, "autoWhenVerified": true },
+      { "id": "describe", "text": "Capture symptoms, impact and urgency in the incident", "required": true },
+      { "id": "kb", "text": "Search knowledge before escalating", "required": false }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "connect/w5-c2",
+  "title": "Permission-aware RAG answers inside a voice turn",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "LFG's pilot RAG Lambda read a Finance-only article to a contractor, invented an uncited bypass code and took 11 s on a busy morning, past Connect's 8 s synchronous limit. Rebuild it with Retrieve plus Converse: entitlement metadata filters, Bedrock Guardrails with contextual grounding, citation checks and a hard latency budget, tested against recorded Bedrock responses.",
+  "task": [
+    "Map contact attributes to entitlements and build the Retrieve metadata filter server-side",
+    "Drop low-score chunks; hand off when nothing relevant is left",
+    "Converse with guardContent grounding_source/query qualifiers, guardrail trace, temperature 0",
+    "Reject guardrail interventions, CANNOT_ANSWER, uncited and out-of-range citations",
+    "Enforce a total latency budget with AbortController; SDK maxAttempts <= 2",
+    "Return a flat STRING_MAP the Connect flow can branch on"
+  ],
+  "acceptance": [
+    "Filters correct for unverified, employee and contractor callers and unaffected by the question",
+    "Each handoff reason produced on its recorded response; citations mapped to KB article ids",
+    "Slow Retrieve/Converse cut off near the budget",
+    "ANSWER.md shows the budget arithmetic and the async-mode alternative"
+  ],
+  "practices": [
+    {"label": "Week 5 Tue - Bedrock Converse, Guardrails and contextual grounding", "href": "week5"},
+    {"label": "Week 5 Wed - Knowledge Bases: Retrieve vs RetrieveAndGenerate, metadata filters", "href": "week5"},
+    {"label": "Week 5 Thu - Lambda from a flow: 8 s sync vs 60 s async", "href": "week5"},
+    {"label": "AI Integration - security and RAG", "href": "ai"}
+  ]
+}

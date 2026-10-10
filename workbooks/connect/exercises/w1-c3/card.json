@@ -1,0 +1,27 @@
+{
+  "id": "connect/w1-c3",
+  "title": "Multi-region resiliency and DR runbook",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Connect platform and architecture",
+  "scenario": "The CIO staff wants the new help desk to meet a 15-minute voice RTO with an AWS-supported multi-region pattern, tested twice a year. You get the requirements, volumes, telephony inventory (two DIDs not yet ported), dependencies (Lambdas, Lex, DynamoDB, S3/KMS, ServiceNow allow list) and the incident history.",
+  "task": [
+    "Design the us-east-1 / us-west-2 architecture with Connect Global Resiliency",
+    "Plan numbers, agents and identity, chat, and every regional dependency",
+    "Write a timed failover and failback runbook with triggers and verification",
+    "Plan drills, cost answer for the CFO, risks and gaps"
+  ],
+  "acceptance": [
+    "Graded by rubric only (grade.sh reports 0/0; the automated row does not apply)",
+    "ACGR mechanics correct: TDG numbers, distribution percentages, global sign-in, prerequisites",
+    "Every dependency has a secondary-region plan and a parity mechanism",
+    "Runbook fits the 15-minute RTO and includes verification and failback"
+  ],
+  "practices": [
+    {"label": "Week 1 Fri - Connect Global Resiliency and traffic distribution groups", "href": "week1"},
+    {"label": "Week 3 - numbers, porting and telephony resilience", "href": "week3"},
+    {"label": "Week 2 - SLA/SLO and DR design for the platform", "href": "week2"}
+  ]
+}

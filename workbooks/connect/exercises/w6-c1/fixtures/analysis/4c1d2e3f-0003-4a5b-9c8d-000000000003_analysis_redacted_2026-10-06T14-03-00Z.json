@@ -1,0 +1,267 @@
+{
+  "Version": "1.1.0",
+  "AccountId": "111122223333",
+  "Channel": "VOICE",
+  "ContentMetadata": {
+    "Output": "Redacted",
+    "RedactionTypes": [
+      "PII"
+    ],
+    "RedactionTypesMetadata": {
+      "PII": {
+        "RedactionEntitiesRequested": [
+          "CREDIT_DEBIT_NUMBER",
+          "NAME",
+          "USERNAME",
+          "PASSWORD",
+          "PHONE",
+          "EMAIL"
+        ],
+        "RedactionMaskMode": "PII"
+      }
+    }
+  },
+  "JobStatus": "COMPLETED",
+  "LanguageCode": "en-US",
+  "Participants": [
+    {
+      "ParticipantId": "CUSTOMER",
+      "ParticipantRole": "CUSTOMER"
+    },
+    {
+      "ParticipantId": "AGENT",
+      "ParticipantRole": "AGENT"
+    }
+  ],
+  "Categories": {
+    "MatchedCategories": [
+      "Escalation",
+      "RepeatCaller"
+    ],
+    "MatchedDetails": {
+      "Escalation": {
+        "PointsOfInterest": [
+          {
+            "BeginOffsetMillis": 0,
+            "EndOffsetMillis": 4000
+          }
+        ]
+      },
+      "RepeatCaller": {
+        "PointsOfInterest": [
+          {
+            "BeginOffsetMillis": 0,
+            "EndOffsetMillis": 4000
+          }
+        ]
+      }
+    }
+  },
+  "ConversationCharacteristics": {
+    "TotalConversationDurationMillis": 22700,
+    "Sentiment": {
+      "OverallSentiment": {
+        "AGENT": -0.4,
+        "CUSTOMER": -3.6
+      },
+      "SentimentByPeriod": {
+        "QUARTER": {
+          "AGENT": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 5675,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 5675,
+              "EndOffsetMillis": 11350,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 11350,
+              "EndOffsetMillis": 17025,
+              "Score": -2.5
+            },
+            {
+              "BeginOffsetMillis": 17025,
+              "EndOffsetMillis": 22700,
+              "Score": 0.0
+            }
+          ],
+          "CUSTOMER": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 5675,
+              "Score": -2.5
+            },
+            {
+              "BeginOffsetMillis": 5675,
+              "EndOffsetMillis": 11350,
+              "Score": -5.0
+            },
+            {
+              "BeginOffsetMillis": 11350,
+              "EndOffsetMillis": 17025,
+              "Score": -5.0
+            },
+            {
+              "BeginOffsetMillis": 17025,
+              "EndOffsetMillis": 22700,
+              "Score": -2.5
+            }
+          ]
+        }
+      }
+    },
+    "Interruptions": {
+      "InterruptionsByInterrupter": {
+        "AGENT": [
+          {
+            "BeginOffsetMillis": 5000,
+            "DurationMillis": 1200,
+            "EndOffsetMillis": 6200
+          },
+          {
+            "BeginOffsetMillis": 12000,
+            "DurationMillis": 1200,
+            "EndOffsetMillis": 13200
+          }
+        ]
+      },
+      "TotalCount": 2,
+      "TotalTimeMillis": 2400
+    },
+    "NonTalkTime": {
+      "TotalTimeMillis": 4200,
+      "Instances": [
+        {
+          "BeginOffsetMillis": 20000,
+          "DurationMillis": 4200,
+          "EndOffsetMillis": 24200
+        }
+      ]
+    },
+    "TalkSpeed": {
+      "DetailsByParticipant": {
+        "AGENT": {
+          "AverageWordsPerMinute": 168
+        },
+        "CUSTOMER": {
+          "AverageWordsPerMinute": 151
+        }
+      }
+    },
+    "TalkTime": {
+      "TotalTimeMillis": 20900,
+      "DetailsByParticipant": {
+        "AGENT": {
+          "TotalTimeMillis": 11800
+        },
+        "CUSTOMER": {
+          "TotalTimeMillis": 9100
+        }
+      }
+    }
+  },
+  "CustomModels": [],
+  "Transcript": [
+    {
+      "BeginOffsetMillis": 0,
+      "Content": "Thank you for calling Larkspur IT service desk, this is [PII]. How can I help?",
+      "EndOffsetMillis": 4100,
+      "Id": "t00-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL",
+      "LoudnessScore": [
+        70.1,
+        72.4
+      ],
+      "Redaction": {
+        "RedactedTimestamps": [
+          {
+            "BeginOffsetMillis": 400,
+            "EndOffsetMillis": 900
+          }
+        ]
+      }
+    },
+    {
+      "BeginOffsetMillis": 4400,
+      "Content": "This is the third time I'm calling about my laptop and nobody fixed it.",
+      "EndOffsetMillis": 8700,
+      "Id": "t01-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "NEGATIVE",
+      "LoudnessScore": [
+        71.1,
+        72.4
+      ],
+      "IssuesDetected": [
+        {
+          "CharacterOffsets": {
+            "BeginOffsetChar": 0,
+            "EndOffsetChar": 71
+          },
+          "Text": "This is the third time I'm calling about my laptop and nobody fixed it."
+        }
+      ]
+    },
+    {
+      "BeginOffsetMillis": 9000,
+      "Content": "Before we start, Larkspur IT will never ask for your password. Let me look at the ticket.",
+      "EndOffsetMillis": 13500,
+      "Id": "t02-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL",
+      "LoudnessScore": [
+        72.1,
+        72.4
+      ]
+    },
+    {
+      "BeginOffsetMillis": 13800,
+      "Content": "This is unacceptable. I want to speak to your supervisor.",
+      "EndOffsetMillis": 17700,
+      "Id": "t03-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "NEGATIVE",
+      "LoudnessScore": [
+        73.1,
+        72.4
+      ],
+      "IssuesDetected": [
+        {
+          "CharacterOffsets": {
+            "BeginOffsetChar": 0,
+            "EndOffsetChar": 57
+          },
+          "Text": "This is unacceptable. I want to speak to your supervisor."
+        }
+      ]
+    },
+    {
+      "BeginOffsetMillis": 18000,
+      "Content": "I understand. I'll escalate this to the desk lead.",
+      "EndOffsetMillis": 21200,
+      "Id": "t04-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL",
+      "LoudnessScore": [
+        74.1,
+        72.4
+      ]
+    },
+    {
+      "BeginOffsetMillis": 21500,
+      "Content": "Fine.",
+      "EndOffsetMillis": 22400,
+      "Id": "t05-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "NEGATIVE",
+      "LoudnessScore": [
+        70.1,
+        72.4
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "connect/ai-t1",
+  "title": "AI summary missing and 8 seconds of silence",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": "ai",
+  "optional": false,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "Since 14:00 one call in five reaches the analyst without the Bedrock-generated summary, after 8 seconds of silence. The summary Lambda reports zero errors and zero throttles; L2 wants more memory. You get flow logs, Lambda logs, X-Ray style timelines, Lambda and Bedrock metrics and the function config.",
+  "task": [
+    "Explain why Connect takes the error branch while the Lambda reports success",
+    "Tie the start time to Bedrock throttling and the SDK retry/backoff chain; rule out memory",
+    "Add a deadline from the flow budget and remaining time, degraded answers, bounded retries, short output",
+    "Set the function timeout to Connect's sync limit; discuss async Lambda mode"
+  ],
+  "acceptance": [
+    "Real SDK retry middleware through a fake HTTP handler: every scenario answers inside the budget",
+    "No exceptions to Connect; flat string map with summaryStatus and degradedReason",
+    "maxTokens <= 400, empty transcript skips Bedrock, Timeout <= 8 s",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "AI Integration - 2 the agent loop: latency budgets", "href": "ai"},
+    {"label": "Week 1 Thu - Lambda in flows: sync 8 s, async 60 s", "href": "week1"},
+    {"label": "Week 5 - Bedrock quotas, inference profiles, latency inside a voice turn", "href": "week5"}
+  ]
+}

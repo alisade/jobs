@@ -1,0 +1,25 @@
+{
+  "id": "connect/w4-t1",
+  "title": "Wave 2 parallel run fails migration validation",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 4,
+  "optional": false,
+  "area": "Legacy platforms and migration",
+  "scenario": "The main help desk number moves from Avaya vector 14 to Connect in ten days, gated on a green migration-validation suite. Friday's run is red: night-shift test calls after 16:00 hear the closed message, a 03:10 call reached the menu, and the admin suspects yesterday's routing-profile release. The factory swears the translated flow matches the vector.",
+  "task": [
+    "Find the root cause from the validation report, flow logs, CTRs and config",
+    "Rule out the red herring with a reason",
+    "Fix the cause in the migration repo, DST-safe, holidays intact",
+    "Explain why the line-by-line flow review missed it and how to stop it shipping again"
+  ],
+  "acceptance": [
+    "Suite green for the parallel-run days, Columbus Day, Thanksgiving and after both DST changes",
+    "Staffed hours, holiday overrides and the flow's hours checks unchanged",
+    "ANSWER.md names the mechanism with evidence"
+  ],
+  "practices": [
+    {"label": "Week 4 - Avaya time-of-day and holiday vectoring vs Connect hours and overrides", "href": "week4"},
+    {"label": "Week 4 - migration validation testing and parallel run", "href": "week4"}
+  ]
+}

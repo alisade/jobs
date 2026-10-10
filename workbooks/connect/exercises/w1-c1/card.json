@@ -1,0 +1,29 @@
+{
+  "id": "connect/w1-c1",
+  "title": "Harden the help desk inbound flow",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 1,
+  "optional": false,
+  "area": "Contact flows, IVR and routing",
+  "scenario": "Larkspur Financial Group is moving its IT service desk from Avaya vectors to Amazon Connect. The contractor's first inbound flow drops callers: a slow directory lookup hangs the IVR, wrong keys loop forever, VIPs queue behind everyone and nobody can report an outage after hours. Author the flow-language JSON so it passes the team's graph lint and the call-path regression suite.",
+  "task": [
+    "Fix and complete flows/helpdesk-inbound.json (flow language 2019-10-30)",
+    "Identify caller in <= 3 s, degrade to unverified on any error",
+    "Bounded menu retries with Loop, VIP and outage at queue priority 1",
+    "Password-reset self-service with fallback to the PasswordReset queue",
+    "Staffing check with overflow; QueueAtCapacity and error handling on transfer",
+    "Explain budgets, fallbacks and production follow-ups in ANSWER.md"
+  ],
+  "acceptance": [
+    "make lint clean: error branches, no dead ends, bounded loops, attributes set before use, working queue before transfer",
+    "Every synchronous Lambda <= 8 s with an error branch",
+    "Call-path suite passes: menu, retries, VIP, outage, identify error/slow, reset outcomes, overflow, capacity, after-hours",
+    "No employee identifier read back in a prompt"
+  ],
+  "practices": [
+    {"label": "Week 1 Tue - flow language, modules and error handling", "href": "week1"},
+    {"label": "Week 1 Wed - queues, routing profiles and priority", "href": "week1"},
+    {"label": "Week 1 Thu - Lambda in flows: sync 8 s vs async 60 s", "href": "week1"}
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "connect/w9-c1",
+  "title": "Identity, access and compliance architecture (enterprise + federal desk)",
+  "type": "design",
+  "estimate": "2-3 h",
+  "week": 9,
+  "optional": false,
+  "area": "Security, identity and compliance",
+  "scenario": "LFG's help desk serves its own employees and, under a federal task order, a federal agency's staff with public-trust agents on site in Woodlawn, MD. Agents are split across the US and Monterrey, developers in Pune, and phone MFA resets were social-engineered twice this year. Design agent identity, access scoping, caller verification, the federal boundary and retention.",
+  "task": [
+    "SAML SSO and IdP-driven user lifecycle for both desks",
+    "RBAC + tag-based access control + hierarchy, mapped to every site/queue rule",
+    "Tiered caller verification incl. OTP, CLEAR and authenticated portal chat",
+    "GovCloud/FedRAMP boundary, public trust, retention and audit"
+  ],
+  "acceptance": [
+    "Review-only: rubric scores boundary, identity, authorization, verification, data protection",
+    "Uses real feature limits (TBAC tag limits, GovCloud gaps, Voice ID end of support)"
+  ],
+  "practices": [
+    {"label": "Week 9 - SAML/SSO, RBAC and tag-based access control", "href": "week9"},
+    {"label": "Week 9 - identity verification, GovCloud/FedRAMP, retention", "href": "week9"},
+    {"label": "Week 1 - Connect Global Resiliency", "href": "week1"}
+  ]
+}

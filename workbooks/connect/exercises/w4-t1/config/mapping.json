@@ -1,0 +1,53 @@
+{
+  "queues": {
+    "GeneralSupport": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-general-support",
+    "PasswordReset": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-password-reset",
+    "VIPDesk": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-vip-desk",
+    "MajorIncident": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-major-incident"
+  },
+  "hours": {
+    "HelpDeskHours": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk",
+    "VIPHours": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-vip",
+    "HelpDeskHolidays": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk-holidays"
+  },
+  "flows": {
+    "PasswordResetSelfService": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/contact-flow/cf-password-reset-ss",
+    "ExecutiveConcierge": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/contact-flow/cf-exec-concierge"
+  },
+  "_comment": "Wave 2 resource mapping (from the discovery workbook, sheet \"VDN 47100\").",
+  "prompts": {
+    "3001": "Welcome to the Larkspur IT help desk.",
+    "3002": "For password resets, press 1. For hardware or software problems, press 2. To report an outage, press 3.",
+    "3009": "The Larkspur IT help desk is closed. Our hours are 6 AM to 8 PM Eastern. Goodbye.",
+    "3010": "The help desk is closed today for a company holiday.",
+    "3011": "No technicians are available right now. Please open a ticket in the employee portal. Goodbye.",
+    "3020": "Welcome to the executive support line.",
+    "3021": "To reach your dedicated technician, press 1. For the general help desk, press 2.",
+    "3022": "Executive support is closed. Transferring you to the general help desk."
+  },
+  "avaya": {
+    "skills": {
+      "210": "GeneralSupport",
+      "220": "PasswordReset",
+      "230": "VIPDesk",
+      "240": "MajorIncident"
+    },
+    "priority": {
+      "t": 1,
+      "h": 2,
+      "m": 3,
+      "l": 4
+    },
+    "holidayTables": {
+      "3": "HelpDeskHolidays"
+    },
+    "timeWindows": {
+      "all 20:00 to all 06:00": "HelpDeskHours",
+      "all 18:00 to all 08:00": "VIPHours"
+    },
+    "numbers": {
+      "47150": "PasswordResetSelfService",
+      "47160": "ExecutiveConcierge"
+    }
+  }
+}

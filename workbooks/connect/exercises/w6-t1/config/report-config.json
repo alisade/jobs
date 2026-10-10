@@ -1,0 +1,7 @@
+{
+  "bucket": "lfg-connect-us-east-1",
+  "analysisPrefix": "connect/lfg-helpdesk/Analysis/Voice/",
+  "outputPrefix": "qa-insights/",
+  "snippetMaxChars": 120,
+  "_owner": "LFG service desk QA (report job lfg-qa-report-job, runs Mondays 23:00 ET)"
+}

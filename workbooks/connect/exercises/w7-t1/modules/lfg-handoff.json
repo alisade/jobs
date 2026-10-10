@@ -1,0 +1,58 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "copy-handoff",
+  "Metadata": {
+    "name": "lfg-handoff",
+    "description": "Shared bot-to-agent handoff: copy bot context into contact attributes (used by chat inbound; voice to adopt next sprint)."
+  },
+  "Actions": [
+    {
+      "Identifier": "copy-handoff",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "lexIntent": "$.Lex.IntentName",
+          "botSummary": "$.Lex.SessionAttributes.botSummary",
+          "lexSlots": "$.Lex.SessionAttributes.lexSlots",
+          "callerVerified": "$.Lex.SessionAttributes.callerVerified",
+          "handoffSource": "bot"
+        },
+        "TargetContact": "Current"
+      },
+      "Transitions": {
+        "NextAction": "tag-contact",
+        "Errors": [
+          {
+            "NextAction": "return",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "tag-contact",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "handoffModuleVersion": "1"
+        },
+        "TargetContact": "Current"
+      },
+      "Transitions": {
+        "NextAction": "return",
+        "Errors": [
+          {
+            "NextAction": "return",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "return",
+      "Type": "EndFlowModuleExecution",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

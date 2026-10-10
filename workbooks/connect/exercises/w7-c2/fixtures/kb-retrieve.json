@@ -1,0 +1,17 @@
+{
+  "_note": "Recorded Bedrock Knowledge Bases Retrieve response for the same chat (query = bot summary). Trimmed.",
+  "retrievalResults": [
+    { "content": { "text": "Employees can reset their own password at portal.larkspur.example after SSO..." },
+      "location": { "type": "S3", "s3Location": { "uri": "s3://lfg-kb/articles/c-pwd-001.html" } },
+      "score": 0.83, "metadata": { "articleId": "c-pwd-001", "department": "all", "title": "Reset an Entra ID password from the employee portal" } },
+    { "content": { "text": "Self-service password reset requires MFA registration..." },
+      "location": { "type": "S3", "s3Location": { "uri": "s3://lfg-kb/articles/c-mfa-031.html" } },
+      "score": 0.71, "metadata": { "articleId": "c-mfa-031", "department": "all", "title": "Register MFA for self-service password reset" } },
+    { "content": { "text": "Trading floor accounts use hardware tokens; resets go through the desk lead..." },
+      "location": { "type": "S3", "s3Location": { "uri": "s3://lfg-kb/articles/c-trade-pwd-007.html" } },
+      "score": 0.69, "metadata": { "articleId": "c-trade-pwd-007", "department": "trading", "title": "Trading floor password resets" } },
+    { "content": { "text": "Map a network printer from Settings..." },
+      "location": { "type": "S3", "s3Location": { "uri": "s3://lfg-kb/articles/c-print-220.html" } },
+      "score": 0.22, "metadata": { "articleId": "c-print-220", "department": "all", "title": "Map a network printer" } }
+  ]
+}

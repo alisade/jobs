@@ -1,0 +1,12 @@
+path,calls_per_month,avg_seconds_in_ivr,pct_zero_out,pct_hangup_in_ivr,pct_transferred_after_answer,notes
+entry_language,23800,14,0.0,1.1,,92% press 1 (English)
+employee_id,23500,22,0.0,2.4,,31% fail first try; 9% never succeed
+main_menu,22300,38,6.8,3.9,,9% press 9 to repeat
+1_password_menu,5150,24,2.1,1.8,4.0,62% option 1 or 2; 21% option 4 (MFA)
+2_software,4100,19,1.4,0.9,18.0,option 4 (other) 44%
+3_hardware,3400,17,1.0,0.7,9.0,
+4_network,2700,18,0.9,0.6,11.0,VPN 71%
+5_apps,2300,21,1.5,1.0,22.0,Workday 2 -> HR-trained subset; 30% of option 1 SAP calls are Workday
+6_ticket_status,1400,26,3.0,2.6,6.0,no self-service; 1,400 calls = 6% of volume
+7_mobile,900,12,0.5,0.4,7.0,
+disconnect_no_input,610,61,,100.0,,callers who never chose

@@ -1,0 +1,27 @@
+{
+  "name": "CheckTicketStatus",
+  "identifier": "CHECKTICKE",
+  "description": null,
+  "parentIntentSignature": null,
+  "sampleUtterances": [
+    {
+      "utterance": "what is the status of my ticket"
+    },
+    {
+      "utterance": "check my ticket"
+    },
+    {
+      "utterance": "any update on my incident"
+    },
+    {
+      "utterance": "ticket status"
+    }
+  ],
+  "dialogCodeHook": {
+    "enabled": true
+  },
+  "fulfillmentCodeHook": {
+    "enabled": false
+  },
+  "slotPriorities": []
+}

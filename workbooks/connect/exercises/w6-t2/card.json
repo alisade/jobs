@@ -1,0 +1,27 @@
+{
+  "id": "connect/w6-t2",
+  "title": "Real-time supervisor alert never fires",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 6,
+  "optional": false,
+  "area": "Contact Lens and quality",
+  "scenario": "A conversational analytics real-time rule should email floor supervisors while an upset caller is still on the line. Three escalations this week produced no alert, although the rule is published, its phrases match the working post-call rule and the change passed a sandbox test. You get flow logs, the inbound flow and a shared recording-defaults module, both rules, post-call excerpts, the EventBridge archive and Kinesis metrics.",
+  "task": [
+    "Trace the effective analytics settings along the call path in the flow logs",
+    "Explain why the sandbox test passed and rule out the Kinesis red herring",
+    "Fix the flow/module so real-time analytics is in effect at the agent leg on every path",
+    "Keep the PCI redaction defaults and the published real-time rule"
+  ],
+  "acceptance": [
+    "RealTime effective at transfer on all four paths; redaction still RedactedOnly",
+    "Module still invoked before every transfer; blocks wire NoMatchingError and ChannelMismatch",
+    "Rule unchanged as a real-time rule",
+    "Root cause with evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 6 - real-time vs post-contact analytics in the flow block", "href": "week6"},
+    {"label": "Week 6 - conversational analytics rules and alerts", "href": "week6"},
+    {"label": "Week 1 - flow modules and shared building blocks", "href": "week1"}
+  ]
+}

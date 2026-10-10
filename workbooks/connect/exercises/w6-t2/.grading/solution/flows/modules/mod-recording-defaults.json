@@ -1,0 +1,73 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "set-recording",
+  "Metadata": {
+    "name": "mod-recording-defaults",
+    "description": "Recording and analytics defaults applied before every queue transfer (v4: RealTime, the last block wins)"
+  },
+  "Actions": [
+    {
+      "Identifier": "set-recording",
+      "Type": "UpdateContactRecordingAndAnalyticsBehavior",
+      "Parameters": {
+        "VoiceBehavior": {
+          "VoiceRecordingBehavior": {
+            "RecordedParticipants": [
+              "Agent",
+              "Customer"
+            ],
+            "IVRRecordingBehavior": "Disabled"
+          },
+          "VoiceAnalyticsBehavior": {
+            "Enabled": "True",
+            "AnalyticsLanguage": "en-US",
+            "AnalyticsModes": [
+              "RealTime"
+            ],
+            "ConversationalAnalyticsRedactionConfiguration": {
+              "Enabled": "True",
+              "RedactionResults": "RedactedOnly",
+              "RedactionMaskMode": "PII",
+              "RedactionEntities": [
+                "CREDIT_DEBIT_NUMBER",
+                "NAME",
+                "USERNAME",
+                "PASSWORD",
+                "PHONE",
+                "EMAIL",
+                "SSN"
+              ]
+            },
+            "SentimentConfiguration": {
+              "Enabled": "True"
+            },
+            "SummaryConfiguration": {
+              "SummaryModes": [
+                "PostContact"
+              ]
+            }
+          }
+        }
+      },
+      "Transitions": {
+        "NextAction": "done",
+        "Errors": [
+          {
+            "NextAction": "done",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "done",
+            "ErrorType": "ChannelMismatch"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "done",
+      "Type": "EndFlowModuleExecution",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

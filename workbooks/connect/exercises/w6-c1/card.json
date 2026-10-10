@@ -1,0 +1,28 @@
+{
+  "id": "connect/w6-c1",
+  "title": "Conversational analytics QA processor with ServiceNow QA tasks",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 6,
+  "optional": false,
+  "area": "Contact Lens and quality",
+  "scenario": "Larkspur's QA team hand-reviews 2% of calls and missed an agent asking a caller for their password. Build a processor over conversational analytics (Contact Lens) post-contact output files and real-time segment events that computes per-agent sentiment and compliance KPIs, raises idempotent ServiceNow QA tasks for findings, and alerts supervisors during live calls.",
+  "task": [
+    "Accept only redacted, completed analysis files; report rejections",
+    "Implement greeting, closing, disclosure, escalation and prohibited-language rules",
+    "Compute per-agent KPIs from ConversationCharacteristics (sentiment, talk time, interruptions)",
+    "Real-time monitor over segment stream events with dedupe and once-per-type alerts",
+    "ServiceNow Table API client: OAuth client credentials, 401 re-auth, Retry-After, idempotent create"
+  ],
+  "acceptance": [
+    "Raw and failed files never enter the pipeline",
+    "Rule results, KPI values and real-time alerts match the fixtures",
+    "Exactly one QA task per (contact, rule) with the right priority, no transcript text, re-run creates nothing",
+    "Bounded retries and no retry storm on bad credentials"
+  ],
+  "practices": [
+    {"label": "Week 6 - conversational analytics outputs and S3 layout", "href": "week6"},
+    {"label": "Week 6 - rules, categories and real-time alerts", "href": "week6"},
+    {"label": "Week 6 - redaction and ServiceNow QA integration", "href": "week6"}
+  ]
+}

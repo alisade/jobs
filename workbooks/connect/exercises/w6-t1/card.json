@@ -1,0 +1,28 @@
+{
+  "id": "connect/w6-t1",
+  "title": "Card numbers in the redacted contact drivers report",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 6,
+  "optional": false,
+  "area": "Contact Lens and quality",
+  "scenario": "Finance paused the weekly service desk contact drivers CSV after it showed full corporate card numbers, although conversational analytics redaction is enabled in the flow and the report job only had a small dedupe fix. You get the S3 mirror of the Analysis/Voice prefix, the flow's analytics block and its last change, the report job's git log, CloudTrail reads and the IAM policy.",
+  "task": [
+    "Trace which S3 objects the report reads and why they contain card numbers",
+    "Connect the flow change, the dedupe fix and the leak; rule out the red herring",
+    "Fix the job: redacted objects only, body check, one row per contact, Luhn scrub",
+    "Least-privilege IAM for the job role on the redacted prefix",
+    "Root cause with evidence and follow-ups in ANSWER.md"
+  ],
+  "acceptance": [
+    "Report reads only Analysis/Voice/Redacted objects and refuses non-redacted bodies",
+    "No Luhn-valid card number in the CSV; one row per contact; earlier contacts back",
+    "Job role can only list/read the redacted prefix",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 6 - sensitive data redaction and output file locations", "href": "week6"},
+    {"label": "Week 6 - Set recording, analytics and processing behavior", "href": "week6"},
+    {"label": "Week 9 - least privilege, PCI and retention", "href": "week9"}
+  ]
+}

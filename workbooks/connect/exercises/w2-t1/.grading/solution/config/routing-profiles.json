@@ -1,0 +1,89 @@
+{
+  "ExportedAt": "2026-10-09T23:00:00Z",
+  "InstanceId": "5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+  "RoutingProfiles": [
+    {
+      "Name": "rp-service-desk",
+      "RoutingProfileId": "8c1d2e3f-0004-4a5b-8c7d-444444444444",
+      "RoutingProfileArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/routing-profile/8c1d2e3f-0004-4a5b-8c7d-444444444444",
+      "Description": "Service desk (CHG0032015): tier 1 and general cross-skilled",
+      "DefaultOutboundQueueId": "q-general",
+      "MediaConcurrencies": [
+        {
+          "Channel": "VOICE",
+          "Concurrency": 1
+        },
+        {
+          "Channel": "CHAT",
+          "Concurrency": 2
+        }
+      ],
+      "QueueConfigs": [
+        {
+          "QueueReference": {
+            "QueueId": "q-general",
+            "Channel": "VOICE"
+          },
+          "QueueName": "GeneralSupport",
+          "Priority": 1,
+          "Delay": 0
+        },
+        {
+          "QueueReference": {
+            "QueueId": "q-password-reset",
+            "Channel": "VOICE"
+          },
+          "QueueName": "PasswordReset",
+          "Priority": 1,
+          "Delay": 0
+        },
+        {
+          "QueueReference": {
+            "QueueId": "q-apps",
+            "Channel": "VOICE"
+          },
+          "QueueName": "Applications",
+          "Priority": 2,
+          "Delay": 0
+        }
+      ]
+    },
+    {
+      "Name": "rp-apps",
+      "RoutingProfileId": "8c1d2e3f-0003-4a5b-8c7d-333333333333",
+      "RoutingProfileArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/routing-profile/8c1d2e3f-0003-4a5b-8c7d-333333333333",
+      "Description": "Applications team",
+      "DefaultOutboundQueueId": "q-general",
+      "MediaConcurrencies": [
+        {
+          "Channel": "VOICE",
+          "Concurrency": 1
+        },
+        {
+          "Channel": "CHAT",
+          "Concurrency": 2
+        }
+      ],
+      "QueueConfigs": [
+        {
+          "QueueReference": {
+            "QueueId": "q-apps",
+            "Channel": "VOICE"
+          },
+          "QueueName": "Applications",
+          "Priority": 1,
+          "Delay": 0
+        },
+        {
+          "QueueReference": {
+            "QueueId": "q-general",
+            "Channel": "VOICE"
+          },
+          "QueueName": "GeneralSupport",
+          "Priority": 2,
+          "Delay": 45
+        }
+      ]
+    }
+  ]
+}

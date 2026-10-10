@@ -1,0 +1,28 @@
+{
+  "id": "connect/w5-t1",
+  "title": "The help desk bot quotes HR-only and retired articles",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 5,
+  "optional": false,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "InfoSec opened a SEV-2: LFG's portal chat bot showed a Finance user an HR-only payroll article and told a controller to order a retired RSA token. Ingestion looks fine and the retriever has not changed in two weeks. Work from retrieval logs, metadata sidecars, ingestion jobs, invocation logs and release diffs to find the trigger and the latent defect, fix both and size the blast radius.",
+  "task": [
+    "Trace filteredCount and fallback in the retrieval log by caller department",
+    "Compare the sidecars with the retriever's filter keys and the release diff",
+    "Rule out the ingestion failures red herring",
+    "Make the exporter honor the metadata schema and the retriever fail closed",
+    "Size the blast radius and write the root cause with evidence"
+  ],
+  "acceptance": [
+    "Sidecars match the schema; filter keys exist in the schema",
+    "Empty filtered results hand off with no unfiltered retry",
+    "Replay shows no entitlement leaks or retired articles; departments find their articles",
+    "ANSWER.md separates trigger from latent defect with evidence and blast radius"
+  ],
+  "practices": [
+    {"label": "Week 5 Wed - Knowledge Bases: metadata filters, sidecars, sync", "href": "week5"},
+    {"label": "Week 5 - permission-aware RAG", "href": "week5"},
+    {"label": "AI Integration - security", "href": "ai"}
+  ]
+}

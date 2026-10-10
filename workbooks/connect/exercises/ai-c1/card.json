@@ -1,0 +1,27 @@
+{
+  "id": "connect/ai-c1",
+  "title": "Guarded LLM triage with an eval gate",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": "ai",
+  "optional": false,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "A hackathon Lambda sends IVR transcripts to Claude on Bedrock and returns the JSON straight to the flow: transcript in the system prompt, no guardrail, no timeout, and callers can talk their way to P1. Harden it and build the offline eval gate the CAB asked for, using recorded Converse responses only.",
+  "task": [
+    "Static system prompt, transcript in a fenced user turn, temperature 0, small max tokens, guardrail on",
+    "Strict output contract with fallbacks for invalid output, guardrail, timeout and errors",
+    "Deterministic guards: P1 only for real outages, injection containment, PII out of summaries",
+    "Eval harness: accuracy, schema-valid, fallback, injection containment, priority ceilings, gate"
+  ],
+  "acceptance": [
+    "Request contract and output handling tests pass against recorded fixtures",
+    "Slow or failing model calls fall back within the budget",
+    "Eval metrics exact on stub and recorded runs; injections contained",
+    "ANSWER.md interprets the gate result and proposes next steps"
+  ],
+  "practices": [
+    {"label": "AI Integration - 4 Security (prompt injection) and 5 Evals", "href": "ai"},
+    {"label": "Week 5 - Converse API, Guardrails, AI agent tuning", "href": "week5"},
+    {"label": "Week 1 Thu - Lambda in flows: the 8 s sync budget", "href": "week1"}
+  ]
+}

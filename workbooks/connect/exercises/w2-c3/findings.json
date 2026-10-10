@@ -1,0 +1,9 @@
+{
+  "driver": null,
+  "change_id": null,
+  "change_date": null,
+  "pre_fcr_rate": null,
+  "post_fcr_rate": null,
+  "excess_contacts_per_week": null,
+  "notes": "Fill in from your queries. See README for the exact definitions."
+}

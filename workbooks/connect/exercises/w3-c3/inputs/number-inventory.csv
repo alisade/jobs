@@ -1,0 +1,10 @@
+number_or_range,type,country,carrier,current_platform,current_target,purpose,monthly_calls,notes
++1 800 555 0142,toll-free,US,Lumen (RespOrg: Lumen),Avaya CM,VDN 4100 -> vector 41 help desk,IT help desk main line,61200,printed on badges and laptops
++1 888 555 0177,toll-free,US,AWS (Chime SDK),Chime SDK SMA,SIP rule -> on-call hotline SMA,IT on-call hotline,1450,see w3-c1; PSTN audio in maintenance mode
++1 212 555 4400,DID,US,Verizon,Avaya CM,VDN 4400 back-office main,Back-office reception (not help desk),8900,stays on Avaya during coexistence
++1 212 555 4401..4499,DID range,US,Verizon,Avaya CM,user extensions,Back-office user DIDs,22000,stays on Avaya; trunk moves to Voice Connector (w3-c2)
++1 212 555 0150..0159,DID range,US,Verizon,Avaya CM,VDN 4150-4159 help desk skills,Direct lines: VIP desk 0150; password 0151; others,9800,VIP desk number given to executives
++1 312 555 0170..0179,DID range,US,AT&T,Avaya CM (Chicago PoP),VDN 4170 help desk overflow,Chicago office help desk,4100,
++1 416 555 0190,DID,CA,Bell Canada,Avaya CM via Toronto gateway,VDN 4190,Toronto office help desk,2300,French and English prompts
++44 20 7946 0123,DID,GB,BT,Genesys Engage (London),Genesys routing strategy HD_UK,London help desk,3900,UK porting needs extra documentation
++1 646 555 0133,DID,US,Verizon,Five9,Five9 campaign IT_NOTIFY outbound caller ID,Outbound outage notifications (caller ID only),0 inbound,used as caller ID by Five9 campaigns

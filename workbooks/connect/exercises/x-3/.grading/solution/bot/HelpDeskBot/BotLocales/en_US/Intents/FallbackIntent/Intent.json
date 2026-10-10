@@ -1,0 +1,13 @@
+{
+  "name": "FallbackIntent",
+  "identifier": "FALLBCKINT",
+  "description": "Default fallback intent",
+  "parentIntentSignature": "AMAZON.FallbackIntent",
+  "sampleUtterances": [],
+  "dialogCodeHook": {
+    "enabled": false
+  },
+  "fulfillmentCodeHook": {
+    "enabled": false
+  }
+}

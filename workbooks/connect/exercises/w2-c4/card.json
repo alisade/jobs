@@ -1,0 +1,27 @@
+{
+  "id": "connect/w2-c4",
+  "title": "Help desk transformation solution design document",
+  "type": "design",
+  "estimate": "3 h",
+  "week": 2,
+  "optional": false,
+  "area": "Contact center design and solutions",
+  "scenario": "Discovery for LFG's Enterprise Help Desk Transformation is done: 182 agents in three sites on Avaya voice, Genesys chat and Five9 notifications, with ServiceNow and Okta, signed-off requirements and a four-month path to a pilot. Write the solution design document the steering committee and the offshore build team will review.",
+  "task": [
+    "Target architecture with a diagram, using current Connect capabilities",
+    "Journeys, identity tiers, routing and a staffing estimate from the given peak",
+    "ServiceNow and Okta integration patterns, AI with evaluation, analytics and QA",
+    "Security, retention, resiliency, operations",
+    "Delivery plan with migration, cutover, rollback and an offshore RACI; risks, ADRs, cost"
+  ],
+  "acceptance": [
+    "Review-only: grade.sh reports 0/0, the rubric carries 100 points",
+    "Every requirement traced to a design element and a measure",
+    "Numbers for staffing and cost; no unsupported patterns"
+  ],
+  "practices": [
+    {"label": "Week 2 - contact center design and solutions", "href": "week2"},
+    {"label": "Week 2 Fri - consulting deliverables and RACI", "href": "week2"},
+    {"label": "Week 1 Fri - Connect Global Resiliency", "href": "week1"}
+  ]
+}

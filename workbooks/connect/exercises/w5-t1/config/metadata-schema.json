@@ -1,0 +1,11 @@
+{
+  "description": "Metadata attributes the help desk KB sidecars carry (S3 <object>.metadata.json). The retriever may only filter on these keys.",
+  "attributes": {
+    "articleId": "STRING",
+    "department": "STRING",
+    "audience": "STRING",
+    "region": "STRING",
+    "status": "STRING",
+    "updated": "STRING"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "description": "LFG infrastructure on-call roster for the IT On-Call Hotline (+1 888 555 0177). Exported nightly from the PagerDuty schedule by the ops-tools job.",
+  "timezone": "America/New_York",
+  "hotlineNumber": "+18885550177",
+  "helpDeskNumber": "+18005550142",
+  "shifts": [
+    { "name": "business-hours", "days": [1, 2, 3, 4, 5], "start": "07:00", "end": "19:00", "primary": "+12125550161", "secondary": "+12125550162" },
+    { "name": "evening",        "days": [1, 2, 3, 4, 5], "start": "19:00", "end": "24:00", "primary": "+16465550171", "secondary": "+12125550161" },
+    { "name": "overnight",      "days": [1, 2, 3, 4, 5, 6, 0], "start": "00:00", "end": "07:00", "primary": "+16465550171", "secondary": "+19175550188" },
+    { "name": "weekend",        "days": [6, 0], "start": "07:00", "end": "24:00", "primary": "+19175550188", "secondary": "+16465550171" }
+  ]
+}

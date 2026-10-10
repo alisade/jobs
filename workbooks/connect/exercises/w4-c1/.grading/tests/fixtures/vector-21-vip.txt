@@ -1,0 +1,27 @@
+display vector 21                                               Page   1 of   6
+                                 CALL VECTOR
+
+    Number: 21              Name: LFG Exec Support
+     Basic? y   EAS? y   G3V4 Enhanced? y   ANI/II-Digits? y   ASAI Routing? y
+ Prompting? y   LAI? n  G3V4 Adv Route? y   CINFO? n   BSR? n   Holidays? y
+01 goto step 16 if holiday not in table 3
+02 announcement 3010
+03 goto step 14 if unconditionally
+04 announcement 3020
+05 wait-time 2 secs hearing silence
+06 collect 1 digits after announcement 3021 for none
+07 goto step 11 if digits = 1
+08 goto step 14 if digits = 2
+09 goto step 14 if unconditionally
+10 stop
+11 goto step 13 if available-agents in skill 230 > 0
+12 route-to number 47160 with cov n if unconditionally
+13 queue-to skill 230 pri t
+14 check skill 210 pri h if unconditionally
+15 busy
+16 goto step 18 if time-of-day is all 18:00 to all 08:00
+17 goto step 4 if unconditionally
+18 announcement 3022
+19 check skill 210 pri l if available-agents > 0
+20 queue-to skill 240 pri m
+21 disconnect after announcement none

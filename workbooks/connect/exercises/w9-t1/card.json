@@ -1,0 +1,24 @@
+{
+  "id": "connect/w9-t1",
+  "title": "Agents stuck in a SAML login loop after the Okta migration",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 9,
+  "optional": false,
+  "area": "Security, identity and compliance",
+  "scenario": "The morning after the IAM team recreated the Connect Okta app in a new Okta org, Monterrey agents bounce between Okta, AWS and a Connect sign-in page and never reach the workspace. AssumeRoleWithSAML succeeds in CloudTrail and the IAM team blames the CISO's Okta session-lifetime change.",
+  "task": [
+    "Walk the IdP-initiated SAML flow hop by hop with the HAR, CloudTrail and both app exports",
+    "Rule out the red herring",
+    "Fix only what is broken in the IdP configuration",
+    "Explain prevention: config as code, SSO canary"
+  ],
+  "acceptance": [
+    "Relay state uses the Connect federation format for the prod instance and Region; deep links URL-encoded",
+    "ACS URL, audience, Role/RoleSessionName attributes, trust policy, GetFederationToken scope and session duration stay valid",
+    "ANSWER.md explains why AssumeRoleWithSAML succeeds but no Connect session is created"
+  ],
+  "practices": [
+    {"label": "Week 9 - SAML 2.0 SSO for Connect: relay state, RoleSessionName, GetFederationToken", "href": "week9"}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "connect/w4-c1",
+  "title": "Translate legacy IVR scripts into Connect flows",
+  "type": "coding",
+  "estimate": "3 h",
+  "week": 4,
+  "optional": false,
+  "area": "Legacy platforms and migration",
+  "scenario": "LFG runs Avaya CM vectors, an inherited Cisco UCCE/CVP routing script and a Five9 inbound IVR. The offshore migration factory will port about 140 scripts, so you build the translator from each export to a Connect flow and the proof that the translated flow treats every call the way the legacy script did.",
+  "task": [
+    "Implement translateAvaya, translateCisco and translateFive9 (export text -> flow JSON) using the discovery mapping",
+    "Map holiday tables and time-of-day to hours of operation, announcements and microapps to prompts and input, queue steps to working queue + staffing check + priority + transfer",
+    "Fail loudly on constructs Connect cannot express",
+    "Document what does not translate 1:1 and how to run the migration factory"
+  ],
+  "acceptance": [
+    "Every translated flow is lint clean and starts with flow logging",
+    "Legacy interpreter and translated flow agree on outcome, queue, priority and prompt sequence over a matrix of times, holidays, staffing and key presses",
+    "Three unseen scripts in the same formats translate and match",
+    "Unsupported constructs throw"
+  ],
+  "practices": [
+    {"label": "Week 4 - Avaya CM vectors, VDNs, skills and holiday vectoring", "href": "week4"},
+    {"label": "Week 4 - Cisco ICM/CVP scripting and Five9 IVR scripts", "href": "week4"},
+    {"label": "Week 4 - concept maps and migration checklists", "href": "week4"}
+  ]
+}

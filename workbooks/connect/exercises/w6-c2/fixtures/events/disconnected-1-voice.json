@@ -1,0 +1,25 @@
+{
+  "version": "0",
+  "id": "evt-0001-disconnected",
+  "detail-type": "Amazon Connect Contact Event",
+  "source": "aws.connect",
+  "account": "111122223333",
+  "time": "2026-10-06T15:01:00Z",
+  "region": "us-east-1",
+  "resources": [
+    "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/contact/a1c2d3e4-0001-4f00-8a00-000000000001",
+    "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f"
+  ],
+  "detail": {
+    "eventType": "DISCONNECTED",
+    "contactId": "a1c2d3e4-0001-4f00-8a00-000000000001",
+    "initialContactId": "a1c2d3e4-0001-4f00-8a00-000000000001",
+    "channel": "VOICE",
+    "instanceArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+    "initiationMethod": "INBOUND",
+    "disconnectTimestamp": "2026-10-06T15:01:00.000Z",
+    "agentInfo": {
+      "agentArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/agent/a-rpatel"
+    }
+  }
+}

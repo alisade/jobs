@@ -1,0 +1,28 @@
+display vector 14                                               Page   1 of   6
+                                 CALL VECTOR
+
+    Number: 14              Name: LFG HD Main
+Multimedia? n       Attendant Vectoring? n    Meet-me Conf? n           Lock? n
+     Basic? y   EAS? y   G3V4 Enhanced? y   ANI/II-Digits? y   ASAI Routing? y
+ Prompting? y   LAI? n  G3V4 Adv Route? y   CINFO? n   BSR? n   Holidays? y
+ Variables? y   3.0 Enhanced? y
+01 goto step 18 if holiday in table 3
+02 goto step 16 if time-of-day is all 20:00 to all 06:00
+03 announcement 3001
+04 collect 1 digits after announcement 3002 for none
+05 goto step 9 if digits = 1
+06 goto step 12 if digits = 2
+07 goto step 14 if digits = 3
+08 goto step 12 if unconditionally
+09 check skill 220 pri h if available-agents > 0
+10 route-to number 47150 with cov n if unconditionally
+11 stop
+12 queue-to skill 210 pri m
+13 goto step 20 if unconditionally
+14 queue-to skill 240 pri t
+15 goto step 12 if unconditionally
+16 disconnect after announcement 3009
+17 stop
+18 announcement 3010
+19 goto step 16 if unconditionally
+20 disconnect after announcement 3011
