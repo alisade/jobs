@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Engineer: Agentic Audit Controls Testing - Highlights</title><style>
+:root{--ink:#1B2A2F;--deep:#0F3B3A;--teal:#0F6E68;--gold:#C8962E;--pale:#EEF3F1;--muted:#7A8B8A}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y mandatory;background:#2a3436}
+body{font-family:Calibri,Carlito,"Segoe UI",-apple-system,Helvetica,Arial,sans-serif;color:var(--ink)}
+h1,h2,h3,.stat b,.row b,.step b{font-family:Cambria,Caladea,Georgia,serif}
+.deck{display:flex;flex-direction:column;align-items:center;gap:28px;padding:28px 0 90px}
+.slide{position:relative;width:min(96vw,calc(88vh*16/9));aspect-ratio:16/9;background:#fff;scroll-snap-align:center;
+  box-shadow:0 8px 30px rgba(0,0,0,.35);padding:5% 5% 7%;font-size:min(1.6vw,2.85vh);overflow:hidden;display:flex;flex-direction:column}
+.slide:not(.dark)::after{content:"AI Engineer learning plan | 2026-11-13";position:absolute;left:5%;bottom:3.5%;font-size:.7em;color:var(--muted)}
+.slide .pg{position:absolute;right:5%;bottom:3.5%;font-size:.7em;color:var(--muted)}
+.dark{background:var(--deep);color:#fff;justify-content:center}
+.dark .pg{color:#9fb5b2}
+h1{font-size:2.6em;line-height:1.1;margin-bottom:.5em}
+h2{font-size:2.2em;color:var(--deep);margin-bottom:.8em}
+h3{font-size:1.1em;color:var(--deep)}
+.sub{font-size:1.15em;color:var(--pale);max-width:30em;line-height:1.4}
+.date{margin-top:1em;color:#9fb5b2;font-size:.9em}
+.split{display:grid;grid-template-columns:1fr auto;gap:6%;align-items:center}
+.bigicon{width:9em;height:9em;border-radius:50%;background:var(--teal);color:var(--gold);padding:2.2em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4em;margin-bottom:1.4em}
+.stat{background:var(--pale);border-radius:.6em;padding:1.2em;text-align:center;display:flex;flex-direction:column;gap:.3em}
+.stat b{white-space:nowrap;font-size:3.6em;color:var(--teal);line-height:1}.stat.gold b{color:var(--gold)}
+.stat span{font-size:1.05em}
+.line{font-size:1.05em;line-height:1.5}.line strong,.ongoing strong{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2em}
+.card{background:var(--pale);border-radius:.6em;padding:1.1em;display:flex;gap:1em;align-items:flex-start}
+.ic{flex:none;width:3.2em;height:3.2em;border-radius:50%;background:var(--teal);color:#fff;padding:.8em}
+.card p,.gap p,.ph p{font-size:.92em;line-height:1.35;margin-top:.3em}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1em}
+.gap{border:1px solid var(--pale);border-radius:.6em;padding:1em;box-shadow:0 2px 8px rgba(0,0,0,.08);display:grid;grid-template-columns:auto 1fr;column-gap:.7em;align-items:center}
+.gap p{grid-column:1/-1;margin-top:.7em}
+.num{width:2em;height:2em;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:bold}
+.gap.hl .num{background:var(--gold)}
+.vocab{display:grid;grid-template-columns:1.5fr 1fr;gap:1.6em;flex:1}
+.vocab ul{padding-left:1.1em;font-size:1.05em;line-height:1.35}.vocab li{margin-bottom:.55em}
+.cap{font-size:.75em;font-style:italic;color:var(--muted);margin-top:1em}
+.panel{background:var(--deep);color:#fff;border-radius:.7em;padding:1.2em}
+.panel .ph{font-weight:bold;display:flex;gap:.6em;align-items:center;margin-bottom:.8em}
+.sic{width:1.8em;height:1.8em;color:var(--gold);flex:none}
+.row{display:flex;align-items:center;gap:.8em;margin:.3em 0}.row b{font-size:2.8em;color:var(--gold);width:2em}
+.panel p{font-size:.75em;font-style:italic;color:var(--pale);margin-top:.8em}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6em 2em;margin-bottom:1.3em}
+.step{position:relative;background:var(--pale);border-radius:.6em;padding:1em;display:flex;gap:.8em;align-items:center;min-height:4.6em}
+.step b{font-size:1.9em;color:var(--teal)}
+.step:not(:nth-child(3n))::after{content:"";position:absolute;right:-1.45em;top:50%;transform:translateY(-50%);border:.45em solid transparent;border-left:.65em solid var(--muted)}
+.step.hl{background:var(--gold);color:#fff}.step.hl b{color:#fff}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2em;position:relative;margin:.6em 0 1.6em;text-align:center}
+.timeline::before{content:"";position:absolute;left:12.5%;right:12.5%;top:.7em;border-top:2px solid var(--muted)}
+.dot{width:1.4em;height:1.4em;border-radius:50%;background:var(--teal);border:3px solid #fff;margin:0 auto .8em;position:relative}
+.ph.hl .dot{background:var(--gold)}
+.ongoing{background:var(--pale);border-radius:.6em;padding:.9em 1.2em;font-size:1.05em}
+.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;background:rgba(15,59,58,.92);padding:8px 14px;border-radius:999px;color:#fff;font:14px Calibri,Helvetica,sans-serif;z-index:9}
+.nav button{background:none;border:1px solid #9fb5b2;color:#fff;border-radius:999px;padding:4px 12px;cursor:pointer;font:inherit}
+.nav button:hover{background:var(--teal)}
+@media print{
+  @page{size:10in 5.625in;margin:0}
+  html,body{background:#fff;scroll-snap-type:none}
+  .deck{padding:0;gap:0;display:block}
+  .slide{width:10in;height:5.625in;aspect-ratio:auto;box-shadow:none;font-size:18px;page-break-after:always;break-after:page;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .nav{display:none}
+}</style></head>
+<body><main class="deck"><section class="slide dark">
+  <div class="split"><div>
+    <h1>AI Engineer: Agentic Audit Controls Testing</h1>
+    <p class="sub">Learning plan highlights for a 26-year DevOps engineer</p>
+    <p class="date">2026-11-13</p>
+  </div><div class="bigicon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"></path></svg></div></div>
+</section>
+<section class="slide">
+  <h2>The gap is narrower than it looks</h2>
+  <div class="stats">
+    <div class="stat"><b>4</b><span>strengths that transfer directly</span></div>
+    <div class="stat"><b>6</b><span>gaps to close, ranked by priority</span></div>
+    <div class="stat gold"><b>6 wks</b><span>to a portfolio project that fits</span></div>
+  </div>
+  <p class="line"><strong>To learn:</strong> LLM app engineering, agent orchestration, audit vocabulary.
+  <strong>Already yours:</strong> infra, security, CI/CD, enterprise integration.</p>
+</section>
+<section class="slide">
+  <h2>What already transfers</h2>
+  <div class="grid2"><div class="card"><div class="ic"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M622.3 271.1l-115.2-45c-4.1-1.6-12.6-3.7-22.2 0l-115.2 45c-10.7 4.2-17.7 14-17.7 24.9 0 111.6 68.7 188.8 132.9 213.9 9.6 3.7 18 1.6 22.2 0C558.4 489.9 640 420.5 640 296c0-10.9-7-20.7-17.7-24.9zM496 462.4V273.3l95.5 37.3c-5.6 87.1-60.9 135.4-95.5 151.8zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm96 40c0-2.5.8-4.8 1.1-7.2-2.5-.1-4.9-.8-7.5-.8h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c6.8 0 13.3-1.5 19.2-4-54-42.9-99.2-116.7-99.2-212z"></path></svg></div><div><h3>Approval gates and scoped access</h3><p>Change management, Spacelift approvals, PIM, least-privilege IAM. Agents need the same.</p></div></div><div class="card"><div class="ic"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M384 320H256c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h128c17.67 0 32-14.33 32-32V352c0-17.67-14.33-32-32-32zM192 32c0-17.67-14.33-32-32-32H32C14.33 0 0 14.33 0 32v128c0 17.67 14.33 32 32 32h95.72l73.16 128.04C211.98 300.98 232.4 288 256 288h.28L192 175.51V128h224V64H192V32zM608 0H480c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h128c17.67 0 32-14.33 32-32V32c0-17.67-14.33-32-32-32z"></path></svg></div><div><h3>Orchestration, retries, state</h3><p>Step Functions and pipelines are multi-step workflows. Agents add one non-deterministic step.</p></div></div><div class="card"><div class="ic"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M519.442 288.651c-41.519 0-59.5 31.593-82.058 31.593C377.409 320.244 432 144 432 144s-196.288 80-196.288-3.297c0-35.827 36.288-46.25 36.288-85.985C272 19.216 243.885 0 210.539 0c-34.654 0-66.366 18.891-66.366 56.346 0 41.364 31.711 59.277 31.711 81.75C175.885 207.719 0 166.758 0 166.758v333.237s178.635 41.047 178.635-28.662c0-22.473-40-40.107-40-81.471 0-37.456 29.25-56.346 63.577-56.346 33.673 0 61.788 19.216 61.788 54.717 0 39.735-36.288 50.158-36.288 85.985 0 60.803 129.675 25.73 181.23 25.73 0 0-34.725-120.101 25.827-120.101 35.962 0 46.423 36.152 86.308 36.152C556.712 416 576 387.99 576 354.443c0-34.199-18.962-65.792-56.558-65.792z"></path></svg></div><div><h3>A skills harness, in daily use</h3><p>Your Claude Code setup loads and runs reusable skills. Present it as real experience.</p></div></div><div class="card"><div class="ic"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 384 512" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M336 64h-80c0-35.3-28.7-64-64-64s-64 28.7-64 64H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM192 40c13.3 0 24 10.7 24 24s-10.7 24-24 24-24-10.7-24-24 10.7-24 24-24zm121.2 231.8l-143 141.8c-4.7 4.7-12.3 4.6-17-.1l-82.6-83.3c-4.7-4.7-4.6-12.3.1-17L99.1 285c4.7-4.7 12.3-4.6 17 .1l46 46.4 106-105.2c4.7-4.7 12.3-4.6 17 .1l28.2 28.4c4.7 4.8 4.6 12.3-.1 17z"></path></svg></div><div><h3>The auditee side of ITGC</h3><p>SOX at Lakeview, FISMA at GSA. You know what evidence auditors ask for.</p></div></div></div>
+</section>
+<section class="slide">
+  <h2>Six gaps, most important first</h2>
+  <div class="grid3"><div class="gap"><div class="num">1</div><h3>Production Python</h3><p>FastAPI, async, Pydantic, google-genai SDK</p></div><div class="gap"><div class="num">2</div><h3>Agent orchestration</h3><p>Google ADK, Agent Engine, LangGraph, MCP, A2A</p></div><div class="gap"><div class="num">3</div><h3>Grounding and RAG</h3><p>Document Intelligence, AI Search, page-level citations</p></div><div class="gap hl"><div class="num">4</div><h3>Evaluations</h3><p>Golden sets, LLM-as-judge, cost tracking, CI gates</p></div><div class="gap"><div class="num">5</div><h3>LLM security</h3><p>Prompt injection, tool scoping, sandboxing, WIF</p></div><div class="gap"><div class="num">6</div><h3>Audit vocabulary</h3><p>Design vs effectiveness, IPE, sampling, deficiencies</p></div></div>
+</section>
+<section class="slide">
+  <h2>Speak the auditor's language</h2>
+  <div class="vocab"><div>
+    <ul>
+      <li>Test of design vs operating effectiveness</li>
+      <li>Population completeness and accuracy (IPE)</li>
+      <li>Evidence sufficiency</li>
+      <li>Exception, deficiency, significant deficiency, material weakness</li>
+      <li>ITGC domains: access, change, operations, SDLC</li>
+    </ul>
+    <p class="cap">Sources: ISACA ITGC material, PCAOB AS 2201, any Big 4 SOX/ITGC primer</p>
+  </div>
+  <div class="panel">
+    <div class="ph"><span class="sic"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M256 336h-.02c0-16.18 1.34-8.73-85.05-181.51-17.65-35.29-68.19-35.36-85.87 0C-2.06 328.75.02 320.33.02 336H0c0 44.18 57.31 80 128 80s128-35.82 128-80zM128 176l72 144H56l72-144zm511.98 160c0-16.18 1.34-8.73-85.05-181.51-17.65-35.29-68.19-35.36-85.87 0-87.12 174.26-85.04 165.84-85.04 181.51H384c0 44.18 57.31 80 128 80s128-35.82 128-80h-.02zM440 320l72-144 72 144H440zm88 128H352V153.25c23.51-10.29 41.16-31.48 46.39-57.25H528c8.84 0 16-7.16 16-16V48c0-8.84-7.16-16-16-16H383.64C369.04 12.68 346.09 0 320 0s-49.04 12.68-63.64 32H112c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h129.61c5.23 25.76 22.87 46.96 46.39 57.25V448H112c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h416c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"></path></svg></span>Sample size by control frequency</div>
+    <div class="row"><b>~25</b><span>daily control</span></div>
+    <div class="row"><b>2</b><span>quarterly control</span></div>
+    <p>Common rule of thumb, not a standard</p>
+  </div></div>
+</section>
+<section class="slide">
+  <h2>Portfolio project: ITGC change tester</h2>
+  <div class="steps"><div class="step"><b>1</b><span>Pull population of merged PRs and tickets</span></div><div class="step"><b>2</b><span>Draw a statistical sample</span></div><div class="step"><b>3</b><span>Agent checks approval, ticket, SoD, tests</span></div><div class="step hl"><b>4</b><span>Human review gate for exceptions</span></div><div class="step"><b>5</b><span>Workpaper with cited evidence</span></div><div class="step"><b>6</b><span>Evals: accuracy, consistency, cost</span></div></div>
+  <p class="line"><strong>Stack:</strong> Gemini, ADK, Pydantic, on Azure. Public repo, synthetic or open-source data only.</p>
+</section>
+<section class="slide">
+  <h2>A six-week plan</h2>
+  <div class="timeline"><div class="ph"><div class="dot"></div><h3>Weeks 1-2</h3><p>Gemini SDK, tool calling, structured outputs, FastAPI</p></div><div class="ph"><div class="dot"></div><h3>Weeks 3-4</h3><p>ADK or LangGraph, state, human-in-the-loop; start project</p></div><div class="ph"><div class="dot"></div><h3>Week 5</h3><p>RAG over evidence, citations, Document Intelligence</p></div><div class="ph hl"><div class="dot"></div><h3>Week 6</h3><p>Evals, tracing, cost, prompt-injection hardening</p></div></div>
+  <div class="ongoing"><strong>Ongoing:</strong> ITGC/SOX reading, an hour or two a week</div>
+</section>
+<section class="slide dark">
+  <div class="split"><div>
+    <h1>Make agents safe and operable in production</h1>
+    <p class="sub">Most applicants can make a demo work. Few can explain why write tools sit behind an approval gate, and how an auditor would reconstruct what the agent did.</p>
+  </div><div class="bigicon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M256 336h-.02c0-16.18 1.34-8.73-85.05-181.51-17.65-35.29-68.19-35.36-85.87 0C-2.06 328.75.02 320.33.02 336H0c0 44.18 57.31 80 128 80s128-35.82 128-80zM128 176l72 144H56l72-144zm511.98 160c0-16.18 1.34-8.73-85.05-181.51-17.65-35.29-68.19-35.36-85.87 0-87.12 174.26-85.04 165.84-85.04 181.51H384c0 44.18 57.31 80 128 80s128-35.82 128-80h-.02zM440 320l72-144 72 144H440zm88 128H352V153.25c23.51-10.29 41.16-31.48 46.39-57.25H528c8.84 0 16-7.16 16-16V48c0-8.84-7.16-16-16-16H383.64C369.04 12.68 346.09 0 320 0s-49.04 12.68-63.64 32H112c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h129.61c5.23 25.76 22.87 46.96 46.39 57.25V448H112c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h416c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"></path></svg></div></div>
+</section></main>
+<div class="nav"><button id="prev" aria-label="Previous slide">Prev</button><span id="ind">1 / 8</span><button id="next" aria-label="Next slide">Next</button><span style="opacity:.7">arrows / space, f = fullscreen</span></div>
+<script>
+const S=[...document.querySelectorAll('.slide')];let cur=0;
+S.forEach((s,i)=>{const p=document.createElement('div');p.className='pg';p.textContent=(i+1)+' / '+S.length;s.appendChild(p)});
+const ind=document.getElementById('ind');
+function go(i){cur=Math.max(0,Math.min(S.length-1,i));S[cur].scrollIntoView({behavior:'smooth',block:'center'});ind.textContent=(cur+1)+' / '+S.length}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){cur=S.indexOf(e.target);ind.textContent=(cur+1)+' / '+S.length}}),{threshold:.6});S.forEach(s=>io.observe(s));
+document.addEventListener('keydown',e=>{if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+ if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+ if(e.key==='Home')go(0);if(e.key==='End')go(S.length-1);if(e.key==='f')document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()});
+document.getElementById('prev').onclick=()=>go(cur-1);document.getElementById('next').onclick=()=>go(cur+1);</script></body></html>
