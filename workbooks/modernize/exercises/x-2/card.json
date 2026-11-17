@@ -1,0 +1,25 @@
+{
+  "id": "modernize/x-2",
+  "title": "Blast radius and rollback for corvane-commons 3.0 (Jakarta)",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 7,
+  "optional": true,
+  "area": "Safe change on monoliths and shared libraries",
+  "scenario": "The platform team wants corvane-commons 3.0 on Jakarta EE 10, dropping 2.x, with an irreversible DDL on a 410-million-row audit table that every consumer runs at startup. Seven consumers depend on it in different ways, from EAP 7.4 WARs to a .NET API and SQL extracts. The board wants your blast radius and rollout plan first.",
+  "task": [
+    "Build the blast-radius table across consumers, DB objects, REST/JSON, JMS and pipelines",
+    "Sequence the change with parallel change and dual publishing of javax and jakarta artifacts",
+    "Give a detection method per risk and a rollback per step, including the DDL",
+    "Define go/no-go gates and push back where ARCH-212 is unsafe"
+  ],
+  "acceptance": [
+    "Every consumer and shared asset has a concrete impact",
+    "Every consumer stays deployable at every step; the plan fits the calendar",
+    "Detection and rollback for each risk and step",
+    "Decisions justified (rubric)"
+  ],
+  "practices": [
+    {"label": "Week 7 - blast radius and parallel change on a shared library", "href": "week7"}
+  ]
+}

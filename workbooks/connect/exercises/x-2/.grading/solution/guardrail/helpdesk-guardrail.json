@@ -1,0 +1,117 @@
+{
+  "name": "lfg-helpdesk-selfservice",
+  "description": "Guardrail for the Larkspur help desk self-service assistant (chat + voice). Version 4: denied topics narrowed to third-party credentials and account takeover (PT-2026-17 follow-up).",
+  "topicPolicyConfig": {
+    "topicsConfig": [
+      {
+        "name": "Other peoples passwords",
+        "definition": "Requests to obtain, reveal, guess or reset a password or credential that belongs to anyone other than the person asking.",
+        "examples": [
+          "my manager's password",
+          "my coworker's password",
+          "someone else's password",
+          "another employee's password",
+          "my colleague's password"
+        ],
+        "type": "DENY",
+        "inputEnabled": true,
+        "inputAction": "BLOCK",
+        "outputEnabled": true,
+        "outputAction": "BLOCK"
+      },
+      {
+        "name": "Account takeover",
+        "definition": "Requests to unlock, reset or take over an account the requester does not own, privileged or service accounts, or to skip identity verification.",
+        "examples": [
+          "reset the password on the CFO's account",
+          "unlock my boss's account",
+          "service account password",
+          "the admin password",
+          "bypass identity verification"
+        ],
+        "type": "DENY",
+        "inputEnabled": true,
+        "inputAction": "BLOCK",
+        "outputEnabled": true,
+        "outputAction": "BLOCK"
+      },
+      {
+        "name": "Investment advice",
+        "definition": "Recommendations about buying or selling securities, funds or other investments.",
+        "examples": [
+          "should I buy Larkspur stock",
+          "which fund should I put my bonus in"
+        ],
+        "type": "DENY",
+        "inputEnabled": true,
+        "inputAction": "BLOCK",
+        "outputEnabled": true,
+        "outputAction": "BLOCK"
+      }
+    ]
+  },
+  "contentPolicyConfig": {
+    "filtersConfig": [
+      {
+        "type": "PROMPT_ATTACK",
+        "inputStrength": "HIGH",
+        "outputStrength": "NONE"
+      },
+      {
+        "type": "MISCONDUCT",
+        "inputStrength": "MEDIUM",
+        "outputStrength": "MEDIUM"
+      },
+      {
+        "type": "INSULTS",
+        "inputStrength": "LOW",
+        "outputStrength": "MEDIUM"
+      }
+    ]
+  },
+  "wordPolicyConfig": {
+    "wordsConfig": [
+      {
+        "text": "mimikatz"
+      },
+      {
+        "text": "pass the hash"
+      }
+    ],
+    "managedWordListsConfig": [
+      {
+        "type": "PROFANITY"
+      }
+    ]
+  },
+  "sensitiveInformationPolicyConfig": {
+    "piiEntitiesConfig": [
+      {
+        "type": "PASSWORD",
+        "action": "BLOCK",
+        "inputAction": "BLOCK",
+        "outputAction": "BLOCK"
+      },
+      {
+        "type": "USERNAME",
+        "action": "ANONYMIZE",
+        "inputAction": "NONE",
+        "outputAction": "ANONYMIZE"
+      },
+      {
+        "type": "EMAIL",
+        "action": "ANONYMIZE",
+        "inputAction": "NONE",
+        "outputAction": "ANONYMIZE"
+      },
+      {
+        "type": "PHONE",
+        "action": "ANONYMIZE",
+        "inputAction": "NONE",
+        "outputAction": "ANONYMIZE"
+      }
+    ]
+  },
+  "blockedInputMessaging": "I can't help with that here. Let me connect you with the help desk.",
+  "blockedOutputsMessaging": "I can't share that. Let me connect you with the help desk."
+}

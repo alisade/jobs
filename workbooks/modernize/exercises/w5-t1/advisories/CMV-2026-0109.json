@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.6.0",
+  "id": "CMV-2026-0109",
+  "summary": "Uncontrolled recursion on long inputs",
+  "database_specific": {
+    "severity": "MEDIUM"
+  },
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "Maven",
+        "name": "org.apache.commons:commons-lang3"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "3.0"
+            },
+            {
+              "fixed": "3.10"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

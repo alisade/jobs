@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mdm-api
+  namespace: mdm
+spec:
+  replicas: 3
+  selector:
+    matchLabels: {app: mdm-api}
+  template:
+    metadata:
+      labels: {app: mdm-api}
+    spec:
+      containers:
+        - name: api
+          image: us-docker.pkg.dev/tsl-artifacts-prod/mdm/mdm-api@sha256:1111222233334444555566667777888899990000aaaabbbbccccddddeeeeffff
+          readinessProbe: {httpGet: {path: /healthz, port: 8080}}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: mdm-api
+  namespace: mdm
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels: {app: mdm-api}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rdm-cache
+  namespace: mdm
+spec:
+  replicas: 3
+  serviceName: rdm-cache
+  selector:
+    matchLabels: {app: rdm-cache}
+  template:
+    metadata:
+      labels: {app: rdm-cache}
+    spec:
+      containers:
+        - name: cache
+          image: us-docker.pkg.dev/tsl-artifacts-prod/mdm/rdm-cache@sha256:aaaabbbbccccddddeeeeffff0000111122223333444455556666777788889999
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: rdm-cache
+  namespace: mdm
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels: {app: rdm-cache}

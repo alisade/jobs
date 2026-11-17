@@ -1,0 +1,27 @@
+{
+  "id": "audit/w5-t1",
+  "title": "An exception closed overnight \"pre-approved by CAB per system note\"",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 5,
+  "optional": false,
+  "area": "LLM security and prompt injection",
+  "scenario": "GRC Hub shows CM-03 exception EXC-2026-0412 closed at 02:14 by svc-controlpilot with the comment 'pre-approved by CAB per system note'. No reviewer touched it and there is no such CAB approval. You get the ADK evidence-review agent, its config, the evidence layout JSON, the overnight trace and logs.",
+  "task": [
+    "Find how an exception closed itself, with evidence from the trace, evidence file, config and code",
+    "Make the agent read-only and route closures through a human approval gate",
+    "Pass evidence as delimited data and flag instruction-like and hidden text deterministically",
+    "Prove it holds against a model that always obeys the planted note"
+  ],
+  "acceptance": [
+    "An always-obedient model cannot close exceptions or change the workpaper",
+    "Unauthorized tool attempts are traced and flagged; the planted paragraph is flagged",
+    "The gate refuses incomplete or self-serving approvals",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 5 Thu - prompt injection via evidence files and the lethal trifecta", "href": "week5"},
+    {"label": "Week 4 - review gates and scoped write tools", "href": "week4"},
+    {"label": "Week 3 Wed - ADK callbacks and tool scoping", "href": "week3"}
+  ]
+}

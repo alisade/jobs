@@ -1,0 +1,61 @@
+{
+  "_comment": "Tailspin Field Services - production security model export (trimmed), environment tsfs-prod",
+  "business_units": [
+    {"id": "tailspin", "parent": null},
+    {"id": "field-ops", "parent": "tailspin"},
+    {"id": "west", "parent": "field-ops"},
+    {"id": "west-seattle", "parent": "west"},
+    {"id": "east", "parent": "field-ops"},
+    {"id": "finance", "parent": "tailspin"}
+  ],
+  "users": [
+    {"id": "maria.dispatch", "bu": "west"},
+    {"id": "raj.manager", "bu": "field-ops"},
+    {"id": "lena.tech", "bu": "east"},
+    {"id": "sam.tech", "bu": "west-seattle"},
+    {"id": "tomas.tech", "bu": "west"},
+    {"id": "priya.finance", "bu": "finance"},
+    {"id": "olga.audit", "bu": "tailspin"}
+  ],
+  "teams": [
+    {"id": "west-dispatch-pool", "bu": "west", "type": "owner", "members": ["tomas.tech"]},
+    {"id": "wo-1005-collab", "bu": "east", "type": "access", "members": ["sam.tech"]}
+  ],
+  "roles": [
+    {"name": "Dispatcher", "privileges": {
+      "tsfs_workorder": {"Create": "Basic", "Read": "Local", "Write": "Basic", "Append": "Basic", "AppendTo": "Local"},
+      "annotation": {"Create": "Basic", "Read": "Basic", "Append": "Basic"}}},
+    {"name": "Regional Manager", "privileges": {
+      "tsfs_workorder": {"Read": "Deep", "Write": "Deep", "Assign": "Deep"}}},
+    {"name": "Technician", "privileges": {
+      "tsfs_workorder": {"Read": "Basic", "Write": "Basic", "AppendTo": "Basic"},
+      "annotation": {"Create": "Basic", "Read": "Basic", "Append": "Basic"}}},
+    {"name": "Dispatch Pool", "inheritance": "team_only", "privileges": {
+      "tsfs_workorder": {"Read": "Basic", "Write": "Basic"}}},
+    {"name": "Ops Auditor", "privileges": {
+      "tsfs_workorder": {"Read": "Organization"}}}
+  ],
+  "assignments": [
+    {"principal": "maria.dispatch", "role": "Dispatcher"},
+    {"principal": "raj.manager", "role": "Regional Manager"},
+    {"principal": "lena.tech", "role": "Technician"},
+    {"principal": "sam.tech", "role": "Technician"},
+    {"principal": "tomas.tech", "role": "Technician"},
+    {"principal": "west-dispatch-pool", "role": "Dispatch Pool"},
+    {"principal": "priya.finance", "role": "Dispatcher", "bu": "east"},
+    {"principal": "olga.audit", "role": "Ops Auditor"}
+  ],
+  "records": [
+    {"id": "wo-1001", "table": "tsfs_workorder", "owner": "maria.dispatch"},
+    {"id": "wo-1002", "table": "tsfs_workorder", "owner": "lena.tech"},
+    {"id": "wo-1003", "table": "tsfs_workorder", "owner": "west-dispatch-pool"},
+    {"id": "wo-1004", "table": "tsfs_workorder", "owner": "sam.tech"},
+    {"id": "wo-1005", "table": "tsfs_workorder", "owner": "lena.tech"},
+    {"id": "wo-1006", "table": "tsfs_workorder", "owner": "tomas.tech"},
+    {"id": "note-77", "table": "annotation", "owner": "maria.dispatch"}
+  ],
+  "shares": [
+    {"record": "wo-1005", "principal": "maria.dispatch", "rights": ["Read"]},
+    {"record": "wo-1005", "principal": "wo-1005-collab", "rights": ["Read", "Write"]}
+  ]
+}

@@ -1,0 +1,11 @@
+PagerDuty  P2  [prod-blue] GKE node pool upgrade not progressing
+Triggered 2026-11-12 04:52 UTC by platform-upgrade-watch (no node finished upgrading for 45 min)
+
+#platform-oncall
+04:53 Priya N.: prod-blue/default started the 1.34.1 upgrade at 03:00 in the maintenance window.
+  One node done (k7m2), the second one (p3x9) has been draining since 03:58.
+04:55 Priya N.: GKE says it respects PDBs for up to 60 minutes per node during a surge upgrade drain,
+  then evicts anyway. We are at ~57 minutes on p3x9. If it force-evicts, RIQ loses a replica in prod.
+04:56 Marco D.: the operation log has a CPU quota warning, I bet the surge node never came up.
+04:58 Dana K.: do not cancel the upgrade blind and do not delete PDBs. Find out what is holding the
+  drain, fix it in Git (ArgoCD syncs k8s/), and write it up. RIQ shipped a canary on Monday.

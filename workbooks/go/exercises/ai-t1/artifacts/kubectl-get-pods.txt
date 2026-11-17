@@ -1,0 +1,16 @@
+$ kubectl get pods -n agents -o wide
+NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE
+agent-runtime-6d8f7b9c4d-7kq2x   1/1     Running   0          94m   10.42.3.17    ip-10-42-3-201.ec2.internal
+agent-runtime-6d8f7b9c4d-g5w9m   1/1     Running   0          94m   10.42.5.88    ip-10-42-5-14.ec2.internal
+agent-runtime-6d8f7b9c4d-zt4hd   1/1     Running   0          94m   10.42.7.230   ip-10-42-7-66.ec2.internal
+eval-runner-5b7c9d8f6-m2kq8      1/1     Running   0          94m   10.42.3.40    ip-10-42-3-201.ec2.internal
+
+$ kubectl get pods -n mcp-tools -o wide
+NAME                         READY   STATUS    RESTARTS   AGE   IP            NODE
+k8s-tools-7f6c5d4b8a-4xv7p   2/2     Running   0          14h   10.42.4.122   ip-10-42-4-9.ec2.internal
+k8s-tools-7f6c5d4b8a-wq9rl   2/2     Running   0          14h   10.42.6.31    ip-10-42-6-170.ec2.internal
+
+$ kubectl get rs -n agents
+NAME                       DESIRED   CURRENT   READY   AGE
+agent-runtime-6d8f7b9c4d   3         3         3       4d2h
+eval-runner-5b7c9d8f6      1         1         1       11d

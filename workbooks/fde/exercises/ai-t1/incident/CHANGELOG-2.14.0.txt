@@ -1,0 +1,9 @@
+lumen-agent 2.14.0 (deployed 2026-10-08 13:40 UTC)
+
+- perf: run the tool calls of one model round in parallel with asyncio.gather and a
+  per-tool timeout (TOOL_TIMEOUT_S=2.0). p50 turn latency 3.9s -> 2.4s.
+- resilience: a tool that fails or times out no longer fails the whole turn; it is
+  skipped and the model sees the other results (it can ask again).
+- resilience: retry 429 rate_limit_error up to 3 times with jittered exponential
+  backoff, honoring retry-after.
+- chore: bump anthropic SDK 0.118 -> 0.122.

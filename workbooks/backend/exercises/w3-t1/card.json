@@ -1,0 +1,27 @@
+{
+  "id": "backend/w3-t1",
+  "title": "The partner sync is missing contacts",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 3,
+  "optional": false,
+  "area": "API design: REST, GraphQL, idempotency, pagination",
+  "scenario": "Marketing Ops reports that their nightly full sync from accounts-svc GET /v1/contacts received 1,969 of 2,431 partner-portal contacts since the November bulk import. They suspect your rate limiting. You get the ticket, their sync log, the service access log with decoded cursors and replica queries.",
+  "task": [
+    "Reproduce with make repro and find the root cause in the pagination code, with evidence from the bundle",
+    "Fix the keyset pagination so a full walk returns every row exactly once",
+    "Reject malformed cursors with an RFC 9457 problem; bound the page size",
+    "Make the index match the sort; write ANSWER.md"
+  ],
+  "acceptance": [
+    "Full walks return every contact exactly once, with heavy timestamp ties and with inserts during the walk",
+    "Cursor is opaque and URL-safe; a tampered cursor returns 400 application/problem+json",
+    "limit capped at 200, limit < 1 is a 400",
+    "ANSWER.md names the root cause with evidence and dismisses the red herring"
+  ],
+  "practices": [
+    {"label": "Week 3 Thu - idempotency keys and cursor pagination", "href": "week3"},
+    {"label": "Week 3 Wed - REST resource design, RFC 9457, OpenAPI, versioning", "href": "week3"},
+    {"label": "Week 2 Tue - indexes", "href": "week2"}
+  ]
+}

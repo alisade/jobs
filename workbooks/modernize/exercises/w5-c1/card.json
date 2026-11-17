@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w5-c1",
+  "title": "PolicyPortal.Rating: .NET Framework 4.8 to .NET 10",
+  "type": "coding",
+  "estimate": "2.5 h",
+  "week": 5,
+  "area": ".NET modernization",
+  "scenario": "Corvane's agent portal is moving from .NET Framework 4.8 on Windows to .NET 10 on Linux, one library at a time. The shared rating library is first. It does not build outside Windows, and underwriting insists that no premium changes by a cent.",
+  "task": [
+    "Convert the classic csproj and packages.config to an SDK-style net10.0 project",
+    "Make the production settings load under any host, not only from App.config",
+    "Replace the BinaryFormatter quote cache with System.Text.Json in the agreed format",
+    "Fix note parsing that breaks on CRLF under ICU string comparison"
+  ],
+  "acceptance": [
+    "SDK-style net10.0 library; no BinaryFormatter",
+    "Hidden tests: production settings and premiums, CRLF and mixed-ending notes, the cache fixture, round trip and legacy entries",
+    "Characterization premiums unchanged",
+    "ANSWER.md maps each fix to its .NET breaking change"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - porting from .NET Framework: project format", "href": "week5"},
+    {"label": "Week 5 Tue - what breaks: BinaryFormatter, ICU, configuration", "href": "week5"}
+  ]
+}

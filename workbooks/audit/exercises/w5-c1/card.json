@@ -1,0 +1,27 @@
+{
+  "id": "audit/w5-c1",
+  "title": "Evidence chunks, hybrid retrieval and citation-checked conclusions",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "Grounding on evidence documents",
+  "scenario": "MFH auditors want 'approved before deploy' cited to the page, table cell or deploy-log row so the external auditor can re-perform it. Evidence sits in a (fake) Azure Blob container as Document Intelligence layout JSON and CSV. Chunk it with locators, retrieve with BM25 plus vectors fused by RRF, ask a fake Gemini for a cited JSON claim, and accept it only if every citation checks out.",
+  "task": [
+    "Chunk layout JSON and CSV with resolvable locators; split tables by row with headers repeated",
+    "Implement BM25, hashing-vector cosine and reciprocal rank fusion",
+    "Write a fail-closed citation verifier that recomputes the conclusion from cited timestamps",
+    "Expand paragraph hits to their page and send the evidence as data to the model"
+  ],
+  "acceptance": [
+    "Locators, chunk ids and table/CSV rows exactly as specified",
+    "Retrieval scores and RRF ordering match hand-computed values",
+    "Fabricated quotes, wrong pages, wrong cells and mere mentions end as insufficient_evidence",
+    "Paragraph and table-cell citations verify; conclusions contradicting timestamps are rejected"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - document parsing that keeps page numbers", "href": "week5"},
+    {"label": "Week 5 Tue - chunking and hybrid search", "href": "week5"},
+    {"label": "Week 5 Wed - citations and insufficient evidence", "href": "week5"}
+  ]
+}

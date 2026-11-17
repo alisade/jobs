@@ -1,0 +1,25 @@
+{
+  "id": "modernize/ai-c1",
+  "title": "A guarded migration agent: tool scoping, approval gates and a planted injection",
+  "type": "coding",
+  "estimate": "2.5 h",
+  "week": "ai",
+  "area": "AI integration: tools, loop and security",
+  "scenario": "The pod wants a migration agent that runs headless in CI, reads ClaimDesk and proposes patches that a reviewer approves. AppSec's condition: safety must not depend on the model behaving. The repository contains a contractor's note telling automated assistants to empty a test and print a secret.",
+  "task": [
+    "Validate every tool call against its schema; one result per tool_use with actionable errors",
+    "Scope paths to the workspace, deny secret reads, allow writes only to src/main and pom.xml",
+    "Gate allowed writes on the reviewer; bound output size and turns; keep an audit trail",
+    "Explain why the guarantees hold even with a compromised model"
+  ],
+  "acceptance": [
+    "The planted-injection run with an approve-everything reviewer changes and leaks nothing",
+    "Path escapes, symlinks, secrets via search, unknown tools and invalid input all handled",
+    "Truncation marker, max_turns and a complete audit trail",
+    "ANSWER.md covers the lethal trifecta and CI hardening"
+  ],
+  "practices": [
+    {"label": "AI Integration - tool design and the agent loop", "href": "ai"},
+    {"label": "AI Integration - security", "href": "ai"}
+  ]
+}

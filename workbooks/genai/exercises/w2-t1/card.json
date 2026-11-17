@@ -1,0 +1,27 @@
+{
+  "id": "genai/w2-t1",
+  "title": "Catalog search p95 went from 80 ms to 4 s and pods fail health checks",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 2,
+  "optional": false,
+  "area": "Python application backend",
+  "scenario": "The morning after catalog-search added promotion badges through a vendor SDK, search latency jumped 50x, liveness probes failed on every pod and doubling the replicas did nothing. The DBA points at a slow query. Find the real cause and ship a fix that keeps the badges.",
+  "task": [
+    "Find the root cause in the stack dump, probe events and latency table",
+    "Explain why health checks fail and why scale-out did not help; rule the slow query in or out",
+    "Fix the endpoint so no request can stall the event loop; bound and degrade the promotions call",
+    "Prove it with make demo and tests; write ANSWER.md"
+  ],
+  "acceptance": [
+    "/healthz answers in under 200 ms while slow searches run",
+    "Concurrent searches overlap",
+    "Slow or failing PromoHub returns results with promotions_degraded true within 0.8 s",
+    "Root cause named precisely with quoted evidence; red herring ruled out"
+  ],
+  "practices": [
+    {"label": "Week 2 - FastAPI concurrency and async/await", "href": "week2"},
+    {"label": "Week 2 - dependency injection and testing with overrides", "href": "week2"},
+    {"label": "Week 3 - timeouts, retries and degradation", "href": "week3"}
+  ]
+}

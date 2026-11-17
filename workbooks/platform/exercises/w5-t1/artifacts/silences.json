@@ -1,0 +1,11 @@
+[
+  {
+    "id": "7f1c2a9e-5b61-4c1e-9b0a-3d2e8f4a1c10",
+    "status": {"state": "expired"},
+    "matchers": [{"name": "alertname", "value": "RiqApi.*", "isRegex": true}, {"name": "cluster", "value": "prod-blue", "isRegex": false}],
+    "startsAt": "2026-11-03T09:00:00Z",
+    "endsAt": "2026-11-03T21:00:00Z",
+    "createdBy": "marco.d",
+    "comment": "CHG-8812 riq-api 5.1 to 5.2 canary on prod-blue, expect noise"
+  }
+]

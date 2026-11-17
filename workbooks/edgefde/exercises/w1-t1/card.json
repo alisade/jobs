@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w1-t1",
+  "title": "Gaps in window counts after every consumer restart",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Production Python and data pipelines",
+  "scenario": "The vibration dashboard has holes in 2026-10-20 for every pump, at different hours, after two OOM kills and a deploy of the Kafka sink. Kafka logged an under-replicated partition that morning and lag warnings all day. The plant is about to train a model on this table.",
+  "task": [
+    "Find the root cause of the missing windows and prove it from the incident logs",
+    "Explain why the holes sit at different hours per pump; rule out the red herrings",
+    "Fix the sink so restarts at any point lose and duplicate nothing, with writes still batched",
+    "Plan the recovery of the lost windows"
+  ],
+  "acceptance": [
+    "Replay with restarts stores exactly 8640 distinct windows and 8640 rows",
+    "Kill after write or before write: still 8640 / 8640; offsets never ahead of durable rows",
+    "Writes stay batched",
+    "ANSWER.md: root cause with log evidence, red herrings, recovery plan"
+  ],
+  "practices": [
+    {"label": "Week 1 Tue - Kafka consumer groups, offsets and auto-commit", "href": "week1"},
+    {"label": "Week 1 Wed - at-least-once plus idempotent writes", "href": "week1"}
+  ]
+}

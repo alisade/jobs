@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/w4-t1",
+  "title": "After the SPA moved to access tokens, other tenants see Acme's shipments",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 4,
+  "optional": false,
+  "area": "Identity and multi-tenancy",
+  "scenario": "Brightline Health (SAML) and Corvid Logistics (OIDC) see Acme Foods' shipments in Tidewater Ask since this morning; Acme users see nothing wrong. Brightline rotated its SAML signing certificate last night. The SPA started sending access tokens instead of ID tokens to the API the same morning.",
+  "task": [
+    "Show what the ID and access tokens carry and how the Lambda resolved the tenant",
+    "Rule the SAML certificate rotation in or out with evidence",
+    "Fix the user pool trigger version, the trigger response and the resolver; keep access tokens",
+    "Write the exposure statement and the rollout order"
+  ],
+  "acceptance": [
+    "V2_0 trigger adds tenant_id to both tokens; unmapped users cannot sign in",
+    "No default tenant; requests without a tenant claim get 403",
+    "Every pilot user served only their own tenant"
+  ],
+  "practices": [
+    {"label": "Week 4 Mon - Cognito user pools and federation", "href": "week4"},
+    {"label": "Week 4 Tue - pre token generation trigger", "href": "week4"},
+    {"label": "Week 4 Wed - JWT authorizers and tenant claims", "href": "week4"}
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyUnapprovedBedrockModels",
+      "Effect": "Deny",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "NotResource": [
+        "arn:aws:bedrock:*::foundation-model/anthropic.claude-sonnet-4-5-*",
+        "arn:aws:bedrock:*::foundation-model/anthropic.claude-haiku-4-5-*",
+        "arn:aws:bedrock:*::foundation-model/amazon.nova-lite-*",
+        "arn:aws:bedrock:*:*:inference-profile/us.anthropic.claude-sonnet-4-5-*",
+        "arn:aws:bedrock:*:*:inference-profile/us.anthropic.claude-haiku-4-5-*"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+# riq-api on every cluster that is not in the canary wave (prod-blue, prod-green, new clusters).
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: riq-api-stable
+  namespace: argocd
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: wave
+              operator: NotIn
+              values: [canary]
+  template:
+    metadata:
+      name: '{{name}}-riq-api'
+    spec:
+      project: riq
+      source:
+        repoURL: https://charts.tessellate.example/platform
+        chart: riq-api
+        # Pinned. A new major (or any version) reaches stable only through a reviewed bump PR after
+        # the canary soak. If you want automatic patches, use a bounded range such as '~2.4'.
+        targetRevision: 2.4.1
+        helm:
+          valueFiles:
+            - 'values-{{metadata.labels.env}}.yaml'
+      destination:
+        server: '{{server}}'
+        namespace: riq
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=false

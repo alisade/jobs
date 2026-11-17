@@ -1,0 +1,5 @@
+{
+  "bucket": "tidewater-kb-docs-111122223333",
+  "table_name": "tidewater-ops",
+  "retryable_errors": ["ConflictException", "ThrottlingException", "InternalServerException", "ServiceQuotaExceededException"]
+}

@@ -1,0 +1,12 @@
+[
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "text": "{\"change_id\": \"CHG-104118\", \"recommendation\": \"no_change\", \"reason\": \"approval precedes deploy\", \"citations\": [\"approval-email p1 para3\"]}"
+    }
+   ]
+  }
+ }
+]

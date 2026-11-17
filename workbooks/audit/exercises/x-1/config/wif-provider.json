@@ -1,0 +1,18 @@
+{
+  "_source": "gcloud iam workload-identity-pools providers describe entra-prod --location=global --workload-identity-pool=azure-mfh --format=json (trimmed)",
+  "project_number": "418203557719",
+  "pool_id": "azure-mfh",
+  "provider_id": "entra-prod",
+  "state": "ACTIVE",
+  "oidc": {
+    "issuer_uri": "https://sts.windows.net/7c1e4b2a-5d3f-4e81-9a6c-2b0d8f4e1a37/",
+    "allowed_audiences": [
+      "api://b6d0a3f2-41c9-4e7a-9b5d-0e8c2f71a6d4"
+    ]
+  },
+  "attribute_mapping": {
+    "google.subject": "assertion.sub",
+    "attribute.tenant": "assertion.tid"
+  },
+  "attribute_condition": "assertion.tid == '7c1e4b2a-5d3f-4e81-9a6c-2b0d8f4e1a37'"
+}

@@ -1,0 +1,11 @@
+{"time":"2026-10-06T14:02:11.004Z","level":"INFO","msg":"flagd listening","addr":"0.0.0.0:8088","version":"1.14.0","pod":"flagd-7d9c6b5f8-x2kqp"}
+{"time":"2026-10-06T14:02:11.010Z","level":"INFO","msg":"flagd listening","addr":"0.0.0.0:8088","version":"1.14.0","pod":"flagd-7d9c6b5f8-m8w4t"}
+{"time":"2026-10-06T14:07:42.118Z","level":"DEBUG","msg":"flag has no description","key":"checkout-v2","pod":"flagd-7d9c6b5f8-x2kqp"}
+{"time":"2026-10-06T14:07:42.119Z","level":"ERROR","msg":"request failed","method":"PUT","path":"/v1/flags/checkout-v2","err":"validation failed: <nil>","pod":"flagd-7d9c6b5f8-x2kqp"}
+{"time":"2026-10-06T14:07:58.530Z","level":"DEBUG","msg":"flag has no description","key":"checkout-v2","pod":"flagd-7d9c6b5f8-m8w4t"}
+{"time":"2026-10-06T14:07:58.531Z","level":"ERROR","msg":"request failed","method":"PUT","path":"/v1/flags/checkout-v2","err":"validation failed: <nil>","pod":"flagd-7d9c6b5f8-m8w4t"}
+{"time":"2026-10-06T14:09:03.877Z","level":"ERROR","msg":"request failed","method":"PUT","path":"/v1/flags/ledger-batch-size","err":"validation failed: <nil>","pod":"flagd-7d9c6b5f8-x2kqp"}
+{"time":"2026-10-06T14:11:20.240Z","level":"DEBUG","msg":"flag has no description","key":"Promo_2026","pod":"flagd-7d9c6b5f8-m8w4t"}
+{"time":"2026-10-06T14:13:45.002Z","level":"DEBUG","msg":"flag has no description","key":"risk-score-v3","pod":"flagd-7d9c6b5f8-x2kqp"}
+{"time":"2026-10-06T14:13:45.003Z","level":"ERROR","msg":"request failed","method":"PUT","path":"/v1/flags/risk-score-v3","err":"validation failed: <nil>","pod":"flagd-7d9c6b5f8-x2kqp"}
+{"time":"2026-10-06T14:20:07.660Z","level":"ERROR","msg":"request failed","method":"PUT","path":"/v1/flags/kyc-provider-b","err":"validation failed: <nil>","pod":"flagd-7d9c6b5f8-m8w4t"}

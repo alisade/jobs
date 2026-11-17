@@ -1,0 +1,10 @@
+CHG-88240 parallel run: claimdesk-recon-extract on JDK 21 (staging) vs JDK 8 (prod), replaying
+August-October 2025. Owner: modernization pod. Status: BLOCKED.
+
+12:02 pod-dev-mia: Aug and Oct files are byte-identical between JDK 8 and JDK 21. September is
+                   rejected by CLMRECON-T, every single record, RC=12.
+12:09 pod-dev-mia: diff shows something in the date column. I bet it's JEP 400, JDK 18 made UTF-8
+                   the default charset and the file is written with the default.
+12:15 pod-dev-tom: or the tzdata bump in 21.0.5, dates near midnight could shift a day?
+12:20 lead:       the go/no-go for the JDK 21 cutover is Monday. root cause with evidence please,
+                  and tell me which other outputs of the monolith have the same exposure.

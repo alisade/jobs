@@ -1,0 +1,44 @@
+{
+  "name": "SystemName",
+  "identifier": "SYSNAME001",
+  "description": "Business applications callers ask about (CMDB configuration items)",
+  "slotTypeValues": [
+    {
+      "sampleValue": {
+        "value": "CI-OKTA-PROD"
+      },
+      "synonyms": []
+    },
+    {
+      "sampleValue": {
+        "value": "CI-WORKDAY"
+      },
+      "synonyms": []
+    },
+    {
+      "sampleValue": {
+        "value": "CI-SAP-ECC"
+      },
+      "synonyms": []
+    },
+    {
+      "sampleValue": {
+        "value": "CI-EXCHANGE-ONLINE"
+      },
+      "synonyms": []
+    },
+    {
+      "sampleValue": {
+        "value": "CI-GLOBALPROTECT"
+      },
+      "synonyms": []
+    }
+  ],
+  "parentSlotTypeSignature": null,
+  "valueSelectionSetting": {
+    "resolutionStrategy": "ORIGINAL_VALUE",
+    "advancedRecognitionSetting": {
+      "audioRecognitionStrategy": "UseSlotValuesAsCustomVocabulary"
+    }
+  }
+}

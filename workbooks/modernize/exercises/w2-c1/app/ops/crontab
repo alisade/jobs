@@ -1,0 +1,3 @@
+# crontab for user claimdesk on cdk-app-01 only
+MAILTO=claimdesk-ops@corvane.example
+30 3 * * 0 /opt/claimdesk/bin/purge-archive.sh >> /var/log/claimdesk/purge.log 2>&1

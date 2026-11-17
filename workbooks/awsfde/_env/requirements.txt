@@ -1,0 +1,12 @@
+# Shared Python toolchain for the awsfde workbook (awsfde/.venv). Test-time only, all offline:
+# moto for DynamoDB/S3/SQS/IAM/STS/Cognito, botocore Stubber for Bedrock, AgentCore, Quick Sight
+# and Neptune Analytics (the service models ship with botocore), networkx + grand-cypher as a
+# local openCypher engine.
+pytest==9.2.0
+boto3==1.44.2
+botocore==1.44.2
+moto==5.2.5
+networkx==3.7
+grand-cypher==1.2.0
+pyyaml==6.0.3
+jsonschema==4.25.1

@@ -1,0 +1,40 @@
+# Connector tool (Workday HCM custom connector). Added in 1.8.0.0.
+kind: TaskDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: leaveType
+    description: The type of leave or PTO, such as vacation, annual leave, sick leave or a personal day.
+    entity: StringPrebuiltEntity
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: startDate
+    description: The first of the vacation days or leave days the employee is asking about.
+    entity: DateTimePrebuiltEntity
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: endDate
+    description: The last of the vacation days or leave days the employee is asking about.
+    entity: DateTimePrebuiltEntity
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: hours
+    description: How many hours or days of leave are left to take on each day.
+    entity: NumberPrebuiltEntity
+    shouldPromptUser: true
+
+modelDisplayName: Leave and PTO
+modelDescription: Handles leave and PTO for employees.
+outputs:
+  - propertyName: requestId
+    name: requestId
+
+action:
+  kind: InvokeConnectorTaskAction
+  connectionReference: litware_hrassist.shared_litware-5fworkday-5fhcm.workday
+  connectionProperties:
+    mode: Invoker
+
+  operationId: SubmitTimeOffRequest

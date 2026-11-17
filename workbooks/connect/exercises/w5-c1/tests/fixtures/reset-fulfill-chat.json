@@ -1,0 +1,107 @@
+{
+  "messageVersion": "1.0",
+  "invocationSource": "FulfillmentCodeHook",
+  "inputMode": "Text",
+  "responseContentType": "text/plain; charset=utf-8",
+  "sessionId": "8f3c2a10-7b1e-4c55-9d2e-1a2b3c4d5e6f",
+  "inputTranscript": "yes please",
+  "bot": {
+    "id": "HDB0LFG001",
+    "name": "LfgHelpDeskBot",
+    "localeId": "en_US",
+    "version": "7",
+    "aliasId": "PRODALIAS1",
+    "aliasName": "prod"
+  },
+  "interpretations": [
+    {
+      "interpretationSource": "Lex",
+      "intent": {
+        "name": "ResetPassword",
+        "state": "ReadyForFulfillment",
+        "confirmationState": "Confirmed",
+        "slots": {
+          "EmployeeId": {
+            "shape": "Scalar",
+            "value": {
+              "originalValue": "44129",
+              "interpretedValue": "44129",
+              "resolvedValues": [
+                "44129"
+              ]
+            }
+          },
+          "SystemName": {
+            "shape": "Scalar",
+            "value": {
+              "originalValue": "workday",
+              "interpretedValue": "WORKDAY",
+              "resolvedValues": [
+                "WORKDAY"
+              ]
+            }
+          }
+        }
+      },
+      "nluConfidence": 0.9
+    },
+    {
+      "interpretationSource": "Lex",
+      "intent": {
+        "name": "FallbackIntent",
+        "state": "InProgress",
+        "confirmationState": "None",
+        "slots": {}
+      }
+    }
+  ],
+  "requestAttributes": {
+    "x-amz-lex:accept-content-types": "PlainText,SSML"
+  },
+  "sessionState": {
+    "sessionAttributes": {
+      "contactId": "c7e0b5a1-2d3e-4f50-8a6b-7c8d9e0f1a2b",
+      "callerVerified": "false",
+      "channel": "CHAT"
+    },
+    "activeContexts": [],
+    "intent": {
+      "name": "ResetPassword",
+      "state": "ReadyForFulfillment",
+      "confirmationState": "Confirmed",
+      "slots": {
+        "EmployeeId": {
+          "shape": "Scalar",
+          "value": {
+            "originalValue": "44129",
+            "interpretedValue": "44129",
+            "resolvedValues": [
+              "44129"
+            ]
+          }
+        },
+        "SystemName": {
+          "shape": "Scalar",
+          "value": {
+            "originalValue": "workday",
+            "interpretedValue": "WORKDAY",
+            "resolvedValues": [
+              "WORKDAY"
+            ]
+          }
+        }
+      }
+    },
+    "originatingRequestId": "9d2f6a1e-0000-4000-8000-000000000018"
+  },
+  "transcriptions": [
+    {
+      "transcription": "yes please",
+      "transcriptionConfidence": 0.93,
+      "resolvedContext": {
+        "intent": "ResetPassword"
+      },
+      "resolvedSlots": {}
+    }
+  ]
+}

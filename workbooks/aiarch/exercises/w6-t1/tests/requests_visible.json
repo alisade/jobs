@@ -1,0 +1,26 @@
+[
+ {
+  "name": "CloudFormation (cfn-exec role) creates the runtime execution role in prod",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/cdk-hnb659fds-cfn-exec-role-111100000004-us-east-1",
+  "action": "iam:CreateRole",
+  "resource": "arn:aws:iam::111100000004:role/LighthouseRuntime-prod-RuntimeRoleFD8790A4-1AbC",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer SSO role creates a role in prod",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123",
+  "action": "iam:CreateRole",
+  "resource": "arn:aws:iam::111100000004:role/shadow-admin",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ }
+]

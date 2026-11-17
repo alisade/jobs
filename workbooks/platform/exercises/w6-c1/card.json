@@ -1,0 +1,28 @@
+{
+  "id": "platform/w6-c1",
+  "title": "plan-gate: a Terraform plan JSON gate for CI",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 6,
+  "optional": false,
+  "area": "Go for platform tooling, Terraform at scale",
+  "scenario": "Tessellate is bringing hundreds of hand-built GCP resources under Terraform in small import batches, and last month a reviewer nearly approved a batch whose plan replaced the core VPC. The platform team wants a small Go binary in every Terraform pipeline (and in the import agent's verification step) that reads terraform show -json output, prints a terraform-style summary, enforces protected types and an imports-only mode for migration PRs, never prints sensitive values, and exits with codes CI can act on.",
+  "task": [
+    "Classify every resource change, including both replace orders, read, no-op and imports",
+    "Summarize like terraform (a replacement counts as add and destroy) and validate the plan format",
+    "Diff top-level attributes and mask anything marked sensitive, at any depth",
+    "Evaluate the policy: protected types, imports-only actions and attribute allow-list",
+    "Wire the CLI: text and --json output, exit 0 / 1 / 2"
+  ],
+  "acceptance": [
+    "Visible and hidden go test suites pass with -race",
+    "No sensitive value appears in text or JSON output",
+    "Parse and usage errors exit 2 and never print PASS",
+    "ANSWER.md explains why the gate reads the plan rather than the code, and where it runs in CI"
+  ],
+  "practices": [
+    {"label": "Week 6 - Go for platform tooling", "href": "week6"},
+    {"label": "Week 3 - Policy as code against the plan, moved and removed blocks", "href": "week3"},
+    {"label": "Week 3 - Import blocks and generated config", "href": "week3"}
+  ]
+}

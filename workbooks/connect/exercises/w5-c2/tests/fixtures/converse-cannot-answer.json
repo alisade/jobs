@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "CANNOT_ANSWER"
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 1184,
+    "outputTokens": 76,
+    "totalTokens": 1260
+  },
+  "metrics": {
+    "latencyMs": 812
+  }
+}

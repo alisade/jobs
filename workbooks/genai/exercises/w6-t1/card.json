@@ -1,0 +1,26 @@
+{
+  "id": "genai/w6-t1",
+  "title": "Holiday peak: the assistant says in stock for sold-out items",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 6,
+  "optional": false,
+  "area": "Retail domain and production GenAI",
+  "scenario": "On Black Friday store associates report that the assistant says a cooler is in stock (6 left) at a store that has had none for two days, and privacy hears that a customer saw someone else's order status. An answer cache shipped a week earlier for holiday load; inventory had a replication lag alert that morning.",
+  "task": [
+    "Line up the conversation log with the inventory audit trail and find the mechanism",
+    "Explain the cross-store answer, the stale answer and the order leak; rule the replication lag in or out",
+    "Cache by data class: stock scoped and fresh, personal never cached, FAQ still cached",
+    "Verify with make demo and tests; write ANSWER.md"
+  ],
+  "acceptance": [
+    "Stock answers never cross stores and are never older than 60 s",
+    "Order answers never cached",
+    "FAQ answers cached 24 h with the hit rate preserved; catalog answers at most 1 h",
+    "Root cause named with quoted evidence; red herring ruled out"
+  ],
+  "practices": [
+    {"label": "Week 6 - retail risks at peak: stock and prices shown as fact", "href": "week6"},
+    {"label": "Week 3 - caching, cost and latency budgets", "href": "week3"}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "genai/x-1",
+  "title": "Ship the assistant into the existing storefront behind a flag",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 7,
+  "optional": true,
+  "area": "Integrating GenAI into existing apps",
+  "scenario": "Kestrel wants the shopping assistant behind its 2023 search box with a strict rollout: two weeks of shadow mode, a growing percentage of customers, a live kill switch, fallback to the regular results on errors or a slow first word, and analytics without what customers typed.",
+  "task": [
+    "Deterministic cohort buckets and mode resolution with a kill switch",
+    "Shadow mode that measures the assistant without rendering it",
+    "Live flag changes that abort in-flight requests without a reload",
+    "Fallback on error or slow first token, regular results one click away, human handoff",
+    "Analytics with a fixed schema and no query text or user id"
+  ],
+  "acceptance": [
+    "Cohorts stable, well spread, monotonic; kill switch wins",
+    "Shadow logs only; nothing new rendered",
+    "Kill switch takes effect live and aborts the stream",
+    "Fallback on error and slow first token; allowed analytics fields only"
+  ],
+  "practices": [
+    {"label": "Week 7 - live-round drills", "href": "week7"},
+    {"label": "Week 5 - feature flags, shadow mode, strangler fig, kill switch", "href": "week5"},
+    {"label": "Week 1 - streaming a model response into the UI", "href": "week1"}
+  ]
+}

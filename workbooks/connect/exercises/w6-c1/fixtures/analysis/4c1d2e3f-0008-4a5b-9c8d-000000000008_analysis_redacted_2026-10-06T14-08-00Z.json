@@ -1,0 +1,131 @@
+{
+  "Version": "1.1.0",
+  "AccountId": "111122223333",
+  "Channel": "VOICE",
+  "ContentMetadata": {
+    "Output": "Redacted",
+    "RedactionTypes": [
+      "PII"
+    ],
+    "RedactionTypesMetadata": {
+      "PII": {
+        "RedactionEntitiesRequested": [
+          "CREDIT_DEBIT_NUMBER",
+          "NAME",
+          "USERNAME",
+          "PASSWORD",
+          "PHONE",
+          "EMAIL"
+        ],
+        "RedactionMaskMode": "PII"
+      }
+    }
+  },
+  "JobStatus": "FAILED",
+  "LanguageCode": "en-US",
+  "Participants": [
+    {
+      "ParticipantId": "CUSTOMER",
+      "ParticipantRole": "CUSTOMER"
+    },
+    {
+      "ParticipantId": "AGENT",
+      "ParticipantRole": "AGENT"
+    }
+  ],
+  "Categories": {
+    "MatchedCategories": [],
+    "MatchedDetails": {}
+  },
+  "ConversationCharacteristics": {
+    "TotalConversationDurationMillis": 0,
+    "Sentiment": {
+      "OverallSentiment": {
+        "AGENT": 0.0,
+        "CUSTOMER": 0.0
+      },
+      "SentimentByPeriod": {
+        "QUARTER": {
+          "AGENT": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 0,
+              "Score": 0
+            },
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 0,
+              "Score": 0
+            },
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 0,
+              "Score": 0
+            },
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 0,
+              "Score": 0
+            }
+          ],
+          "CUSTOMER": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 0,
+              "Score": 0
+            },
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 0,
+              "Score": 0
+            },
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 0,
+              "Score": 0
+            },
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 0,
+              "Score": 0
+            }
+          ]
+        }
+      }
+    },
+    "Interruptions": {
+      "InterruptionsByInterrupter": {
+        "AGENT": []
+      },
+      "TotalCount": 0,
+      "TotalTimeMillis": 0
+    },
+    "NonTalkTime": {
+      "TotalTimeMillis": 0,
+      "Instances": []
+    },
+    "TalkSpeed": {
+      "DetailsByParticipant": {
+        "AGENT": {
+          "AverageWordsPerMinute": 168
+        },
+        "CUSTOMER": {
+          "AverageWordsPerMinute": 151
+        }
+      }
+    },
+    "TalkTime": {
+      "TotalTimeMillis": 0,
+      "DetailsByParticipant": {
+        "AGENT": {
+          "TotalTimeMillis": 0
+        },
+        "CUSTOMER": {
+          "TotalTimeMillis": 0
+        }
+      }
+    }
+  },
+  "CustomModels": [],
+  "Transcript": []
+}

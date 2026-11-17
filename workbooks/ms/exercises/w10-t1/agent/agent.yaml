@@ -1,0 +1,10 @@
+# Simplified export of the agent settings (not the exact Copilot Studio file format).
+name: Litware HR Assist
+schemaName: litware_hrassist
+channel: Microsoft Teams
+orchestration: generative
+authentication: Microsoft Entra ID (single sign-on in Teams)
+instructions: |-
+  You help Litware employees with time off and HR questions. Be concise. Never submit
+  anything on the user's behalf without confirming the dates with them first.
+solutionVersion: 1.8.0.0

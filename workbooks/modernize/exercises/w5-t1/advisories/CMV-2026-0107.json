@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.6.0",
+  "id": "CMV-2026-0107",
+  "summary": "Infinite loop on crafted archives",
+  "database_specific": {
+    "severity": "HIGH"
+  },
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "Maven",
+        "name": "org.apache.commons:commons-compress"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "1.21"
+            },
+            {
+              "fixed": "1.26.0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

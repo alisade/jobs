@@ -1,0 +1,12 @@
+SEC-3318  claimdesk-web 7.5.0 release gate: scanner and remediation report disagree   2026-11-13 10:05 ET
+
+-- #appsec-releases --
+09:40 appsec-mira:  claimdesk-web 7.5.0 remediation report (attached) says 0 CRITICAL open, 2 HIGH.
+                    Release gate passed on that basis. The prod image scan this morning shows 2 CRITICAL
+                    (jackson-databind, commons-text) and 3 HIGH. Which one is lying?
+09:46 dev-ravi:     the report runs off the SBOM we generate at build time, scanner runs on the image.
+                    Scanner DB was rebuilt on the 10th, report ran on the 12th, maybe the scanner has
+                    newer advisories?
+09:52 appsec-mira:  both use the same mirror snapshot (advisories/ in the repo is what the report uses).
+10:01 lead:         7.5.0 is in prod since last night. Please find out which is right before we
+                    decide on an emergency patch. remediate.py has been our gate since March.

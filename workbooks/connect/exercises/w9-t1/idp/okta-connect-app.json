@@ -1,0 +1,44 @@
+{
+  "_source": "Okta Admin > Applications > Amazon Connect - Help Desk (org lfg.okta.com), exported 2026-10-08 after CHG0031177",
+  "id": "0oa9x2lfgconnect7",
+  "label": "Amazon Connect - Help Desk",
+  "signOnMode": "SAML_2_0",
+  "settings": {
+    "signOn": {
+      "ssoAcsUrl": "https://signin.aws.amazon.com/saml",
+      "audience": "urn:amazon:webservices",
+      "recipient": "https://signin.aws.amazon.com/saml",
+      "destination": "https://signin.aws.amazon.com/saml",
+      "defaultRelayState": "https://lfg-helpdesk.my.connect.aws/ccp-v2",
+      "subjectNameIdTemplate": "${user.email}",
+      "subjectNameIdFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+      "responseSigned": true,
+      "assertionSigned": true,
+      "signatureAlgorithm": "RSA_SHA256",
+      "digestAlgorithm": "SHA256",
+      "attributeStatements": [
+        {
+          "name": "https://aws.amazon.com/SAML/Attributes/Role",
+          "namespace": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+          "values": [
+            "arn:aws:iam::111122223333:role/LFG-ConnectAgents,arn:aws:iam::111122223333:saml-provider/LFG-Okta"
+          ]
+        },
+        {
+          "name": "https://aws.amazon.com/SAML/Attributes/RoleSessionName",
+          "namespace": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+          "values": [
+            "String.substringBefore(user.email, \"@\")"
+          ]
+        },
+        {
+          "name": "https://aws.amazon.com/SAML/Attributes/SessionDuration",
+          "namespace": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+          "values": [
+            "43200"
+          ]
+        }
+      ]
+    }
+  }
+}

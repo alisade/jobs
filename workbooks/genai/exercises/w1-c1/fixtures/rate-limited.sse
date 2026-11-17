@@ -1,0 +1,14 @@
+event: meta
+data: {"conversation_id": "c-1b22c0", "model": "primary"}
+
+id: 1
+event: token
+data: {"text": "Let me check "}
+
+id: 2
+event: token
+data: {"text": "that order"}
+
+event: error
+data: {"code": "rate_limited", "message": "The assistant is handling a lot of questions. Please try again.", "retryable": true}
+

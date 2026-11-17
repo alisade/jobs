@@ -1,0 +1,61 @@
+{
+  "_comment": "Legacy-to-Connect resource mapping for the LFG help desk migration (from the discovery workbook). hoursModel documents how each Connect hours of operation resource is configured, so tests can derive open/closed for a given call time.",
+  "queues": {
+    "GeneralSupport": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-general-support",
+    "PasswordReset": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-password-reset",
+    "VIPDesk": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-vip-desk",
+    "MajorIncident": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-major-incident"
+  },
+  "hours": {
+    "HelpDeskHours": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk",
+    "VIPHours": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-vip",
+    "HelpDeskHolidays": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk-holidays"
+  },
+  "hoursModel": {
+    "HelpDeskHours": { "closed": ["20:00", "06:00"] },
+    "VIPHours": { "closed": ["18:00", "08:00"] },
+    "HelpDeskHolidays": { "holiday": true }
+  },
+  "flows": {
+    "PasswordResetSelfService": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/contact-flow/cf-password-reset-ss",
+    "ExecutiveConcierge": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/contact-flow/cf-exec-concierge"
+  },
+  "prompts": {
+    "3001": "Welcome to the Larkspur IT help desk.",
+    "3002": "For password resets, press 1. For hardware or software problems, press 2. To report an outage, press 3.",
+    "3009": "The Larkspur IT help desk is closed. Our hours are 6 AM to 8 PM Eastern. Goodbye.",
+    "3010": "The help desk is closed today for a company holiday.",
+    "3011": "No technicians are available right now. Please open a ticket in the employee portal. Goodbye.",
+    "3020": "Welcome to the executive support line.",
+    "3021": "To reach your dedicated technician, press 1. For the general help desk, press 2.",
+    "3022": "Executive support is closed. Transferring you to the general help desk.",
+    "2002": "For password resets, press 1. For hardware or software problems, press 2. To report an outage, press 3.",
+    "2009": "The Larkspur IT help desk is closed. Our hours are 6 AM to 8 PM Eastern. Goodbye.",
+    "2011": "No technicians are available right now. Please open a ticket in the employee portal. Goodbye.",
+    "2030": "Please enter your six digit employee number.",
+    "2031": "Thank you.",
+    "F-Welcome": "Welcome to the Larkspur IT help desk.",
+    "F-MainMenu": "For password resets, press 1. For anything else, press 2.",
+    "F-NoAgents": "No technicians are available right now. Please open a ticket in the employee portal. Goodbye.",
+    "F-Closed": "The Larkspur IT help desk is closed. Goodbye.",
+    "F-Badge": "Please enter the last four digits of your badge number.",
+    "F-Outage": "We are aware of the current outage and are working on it."
+  },
+  "avaya": {
+    "skills": { "210": "GeneralSupport", "220": "PasswordReset", "230": "VIPDesk", "240": "MajorIncident" },
+    "priority": { "t": 1, "h": 2, "m": 3, "l": 4 },
+    "holidayTables": { "3": "HelpDeskHolidays" },
+    "timeWindows": { "all 20:00 to all 06:00": "HelpDeskHours", "all 18:00 to all 08:00": "VIPHours" },
+    "numbers": { "47150": "PasswordResetSelfService", "47160": "ExecutiveConcierge" }
+  },
+  "cisco": {
+    "skillGroups": { "SG_HD_General": "GeneralSupport", "SG_HD_PwdReset": "PasswordReset", "SG_HD_VIP": "VIPDesk" },
+    "precisionQueues": { "PQ_MajorIncident": "MajorIncident", "PQ_VIP": "VIPDesk" },
+    "timeWindows": { "20:00-06:00": "HelpDeskHours", "18:00-08:00": "VIPHours" },
+    "labels": { "47150": "PasswordResetSelfService", "47160": "ExecutiveConcierge" }
+  },
+  "five9": {
+    "skills": { "HD General": "GeneralSupport", "HD Password Reset": "PasswordReset", "HD VIP": "VIPDesk", "HD Major Incident": "MajorIncident" },
+    "schedules": { "HelpDesk": "HelpDeskHours", "VIP": "VIPHours" }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "root_cause_component": "chunker v2 (chunking/chunker.py): fixed-size word windows cut criteria table rows and drop the header row",
+  "evidence_query_ids": ["KHP-MP-0101-2.d", "KHP-MP-0611-2.d", "KHP-MP-0903-2.f"],
+  "red_herring": "The embedding model upgrade: the regression reproduces with the bm25-only pipeline, which uses no embeddings.",
+  "recall_at_5_before": 0.667,
+  "recall_at_5_after": 1.0
+}

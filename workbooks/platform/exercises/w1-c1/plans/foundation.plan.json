@@ -1,0 +1,949 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.13.4",
+  "variables": {
+    "org_id": {
+      "value": "812345678901"
+    }
+  },
+  "planned_values": {
+    "root_module": {}
+  },
+  "resource_changes": [
+    {
+      "address": "google_folder.platform",
+      "mode": "managed",
+      "type": "google_folder",
+      "name": "platform",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "display_name": "platform",
+          "parent": "organizations/812345678901",
+          "deletion_protection": true
+        },
+        "after_unknown": {
+          "name": true,
+          "folder_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_folder.workloads",
+      "mode": "managed",
+      "type": "google_folder",
+      "name": "workloads",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "display_name": "workloads",
+          "parent": "organizations/812345678901",
+          "deletion_protection": true
+        },
+        "after_unknown": {
+          "name": true,
+          "folder_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.projects[\"net_host\"].google_project.this",
+      "mode": "managed",
+      "type": "google_project",
+      "name": "this",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project_id": "tsl-net-host-prod",
+          "name": "tsl-net-host-prod",
+          "billing_account": "01A2B3-C4D5E6-F7A8B9",
+          "labels": {
+            "tier": "platform",
+            "network": "host"
+          },
+          "auto_create_network": false,
+          "deletion_policy": "PREVENT"
+        },
+        "after_unknown": {
+          "folder_id": true,
+          "number": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.projects[\"ci\"].google_project.this",
+      "mode": "managed",
+      "type": "google_project",
+      "name": "this",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project_id": "tsl-platform-ci",
+          "name": "tsl-platform-ci",
+          "billing_account": "01A2B3-C4D5E6-F7A8B9",
+          "labels": {
+            "tier": "platform"
+          },
+          "auto_create_network": false,
+          "deletion_policy": "PREVENT"
+        },
+        "after_unknown": {
+          "folder_id": true,
+          "number": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.projects[\"mdm\"].google_project.this",
+      "mode": "managed",
+      "type": "google_project",
+      "name": "this",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project_id": "tsl-mdm-prod",
+          "name": "tsl-mdm-prod",
+          "billing_account": "01A2B3-C4D5E6-F7A8B9",
+          "labels": {
+            "tier": "workload",
+            "network": "shared",
+            "owner": "mdm"
+          },
+          "auto_create_network": false,
+          "deletion_policy": "PREVENT"
+        },
+        "after_unknown": {
+          "folder_id": true,
+          "number": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.projects[\"riq\"].google_project.this",
+      "mode": "managed",
+      "type": "google_project",
+      "name": "this",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project_id": "tsl-riq-prod",
+          "name": "tsl-riq-prod",
+          "billing_account": "01A2B3-C4D5E6-F7A8B9",
+          "labels": {
+            "tier": "workload",
+            "network": "shared",
+            "owner": "riq"
+          },
+          "auto_create_network": false,
+          "deletion_policy": "PREVENT"
+        },
+        "after_unknown": {
+          "folder_id": true,
+          "number": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.projects[\"rdm\"].google_project.this",
+      "mode": "managed",
+      "type": "google_project",
+      "name": "this",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project_id": "tsl-rdm-prod",
+          "name": "tsl-rdm-prod",
+          "billing_account": "01A2B3-C4D5E6-F7A8B9",
+          "labels": {
+            "tier": "workload",
+            "network": "shared",
+            "owner": "rdm"
+          },
+          "auto_create_network": true,
+          "deletion_policy": "PREVENT"
+        },
+        "after_unknown": {
+          "folder_id": true,
+          "number": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_compute_shared_vpc_host_project.host",
+      "mode": "managed",
+      "type": "google_compute_shared_vpc_host_project",
+      "name": "host",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project": "tsl-net-host-prod"
+        },
+        "after_unknown": {
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_compute_shared_vpc_service_project.svc[\"mdm\"]",
+      "mode": "managed",
+      "type": "google_compute_shared_vpc_service_project",
+      "name": "svc",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "host_project": "tsl-net-host-prod",
+          "service_project": "tsl-mdm-prod",
+          "deletion_policy": null
+        },
+        "after_unknown": {
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_compute_shared_vpc_service_project.svc[\"riq\"]",
+      "mode": "managed",
+      "type": "google_compute_shared_vpc_service_project",
+      "name": "svc",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "host_project": "tsl-net-host-prod",
+          "service_project": "tsl-riq-prod",
+          "deletion_policy": null
+        },
+        "after_unknown": {
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_compute_network.core",
+      "mode": "managed",
+      "type": "google_compute_network",
+      "name": "core",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "core",
+          "project": "tsl-net-host-prod",
+          "auto_create_subnetworks": false,
+          "routing_mode": "GLOBAL",
+          "delete_default_routes_on_create": false
+        },
+        "after_unknown": {
+          "id": true,
+          "self_link": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_compute_subnetwork.subnets[\"core-usc1\"]",
+      "mode": "managed",
+      "type": "google_compute_subnetwork",
+      "name": "subnets",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "core-usc1",
+          "project": "tsl-net-host-prod",
+          "region": "us-central1",
+          "ip_cidr_range": "10.11.0.0/20",
+          "private_ip_google_access": true,
+          "stack_type": "IPV4_ONLY"
+        },
+        "after_unknown": {
+          "network": true,
+          "id": true,
+          "gateway_address": true,
+          "self_link": true,
+          "secondary_ip_range": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_compute_subnetwork.subnets[\"core-use4\"]",
+      "mode": "managed",
+      "type": "google_compute_subnetwork",
+      "name": "subnets",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "core-use4",
+          "project": "tsl-net-host-prod",
+          "region": "us-east4",
+          "ip_cidr_range": "10.12.0.0/20",
+          "private_ip_google_access": true,
+          "stack_type": "IPV4_ONLY"
+        },
+        "after_unknown": {
+          "network": true,
+          "id": true,
+          "gateway_address": true,
+          "self_link": true,
+          "secondary_ip_range": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_compute_subnetwork.subnets[\"core-euw1\"]",
+      "mode": "managed",
+      "type": "google_compute_subnetwork",
+      "name": "subnets",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "core-euw1",
+          "project": "tsl-net-host-prod",
+          "region": "europe-west1",
+          "ip_cidr_range": "10.13.0.0/20",
+          "private_ip_google_access": true,
+          "stack_type": "IPV4_ONLY"
+        },
+        "after_unknown": {
+          "network": true,
+          "id": true,
+          "gateway_address": true,
+          "self_link": true,
+          "secondary_ip_range": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_compute_subnetwork.subnets[\"core-usc1-gke\"]",
+      "mode": "managed",
+      "type": "google_compute_subnetwork",
+      "name": "subnets",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "core-usc1-gke",
+          "project": "tsl-net-host-prod",
+          "region": "us-central1",
+          "ip_cidr_range": "10.14.0.0/20",
+          "private_ip_google_access": false,
+          "stack_type": "IPV4_ONLY"
+        },
+        "after_unknown": {
+          "network": true,
+          "id": true,
+          "gateway_address": true,
+          "self_link": true,
+          "secondary_ip_range": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_org_policy_policy.org[\"iam.disableServiceAccountKeyCreation\"]",
+      "mode": "managed",
+      "type": "google_org_policy_policy",
+      "name": "disableServiceAccountKeyCreation\"]",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "organizations/812345678901/policies/iam.disableServiceAccountKeyCreation",
+          "parent": "organizations/812345678901",
+          "spec": [
+            {
+              "inherit_from_parent": null,
+              "reset": null,
+              "rules": [
+                {
+                  "enforce": "TRUE",
+                  "allow_all": null,
+                  "deny_all": null,
+                  "condition": [],
+                  "values": []
+                }
+              ]
+            }
+          ],
+          "dry_run_spec": []
+        },
+        "after_unknown": {
+          "id": true,
+          "etag": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_org_policy_policy.org[\"storage.uniformBucketLevelAccess\"]",
+      "mode": "managed",
+      "type": "google_org_policy_policy",
+      "name": "uniformBucketLevelAccess\"]",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "organizations/812345678901/policies/storage.uniformBucketLevelAccess",
+          "parent": "organizations/812345678901",
+          "spec": [
+            {
+              "inherit_from_parent": null,
+              "reset": null,
+              "rules": [
+                {
+                  "enforce": "FALSE",
+                  "allow_all": null,
+                  "deny_all": null,
+                  "condition": [],
+                  "values": []
+                }
+              ]
+            }
+          ],
+          "dry_run_spec": []
+        },
+        "after_unknown": {
+          "id": true,
+          "etag": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_org_policy_policy.org[\"compute.vmExternalIpAccess\"]",
+      "mode": "managed",
+      "type": "google_org_policy_policy",
+      "name": "vmExternalIpAccess\"]",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "organizations/812345678901/policies/compute.vmExternalIpAccess",
+          "parent": "organizations/812345678901",
+          "spec": [
+            {
+              "inherit_from_parent": null,
+              "reset": null,
+              "rules": [
+                {
+                  "enforce": null,
+                  "allow_all": null,
+                  "deny_all": "TRUE",
+                  "condition": [],
+                  "values": []
+                }
+              ]
+            }
+          ],
+          "dry_run_spec": []
+        },
+        "after_unknown": {
+          "id": true,
+          "etag": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_org_policy_policy.org[\"gcp.resourceLocations\"]",
+      "mode": "managed",
+      "type": "google_org_policy_policy",
+      "name": "resourceLocations\"]",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "organizations/812345678901/policies/gcp.resourceLocations",
+          "parent": "organizations/812345678901",
+          "spec": [
+            {
+              "inherit_from_parent": null,
+              "reset": null,
+              "rules": [
+                {
+                  "enforce": null,
+                  "allow_all": null,
+                  "deny_all": null,
+                  "condition": [],
+                  "values": [
+                    {
+                      "allowed_values": [
+                        "in:us-central1-locations",
+                        "in:us-east4-locations",
+                        "in:europe-west1-locations"
+                      ],
+                      "denied_values": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "dry_run_spec": []
+        },
+        "after_unknown": {
+          "id": true,
+          "etag": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_iam_workload_identity_pool.github",
+      "mode": "managed",
+      "type": "google_iam_workload_identity_pool",
+      "name": "github",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project": "tsl-platform-ci",
+          "workload_identity_pool_id": "github",
+          "display_name": "GitHub Actions",
+          "disabled": false
+        },
+        "after_unknown": {
+          "name": true,
+          "id": true,
+          "state": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_iam_workload_identity_pool_provider.github",
+      "mode": "managed",
+      "type": "google_iam_workload_identity_pool_provider",
+      "name": "github",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project": "tsl-platform-ci",
+          "workload_identity_pool_id": "github",
+          "workload_identity_pool_provider_id": "github-actions",
+          "attribute_mapping": {
+            "google.subject": "assertion.sub",
+            "attribute.repository": "assertion.repository",
+            "attribute.repository_owner": "assertion.repository_owner"
+          },
+          "attribute_condition": "assertion.repository_owner == 'tessellate'",
+          "oidc": [
+            {
+              "issuer_uri": "https://token.actions.githubusercontent.com",
+              "allowed_audiences": [],
+              "jwks_json": null
+            }
+          ],
+          "aws": [],
+          "saml": []
+        },
+        "after_unknown": {
+          "name": true,
+          "id": true,
+          "state": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_iam_workload_identity_pool_provider.github_legacy",
+      "mode": "managed",
+      "type": "google_iam_workload_identity_pool_provider",
+      "name": "github_legacy",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project": "tsl-platform-ci",
+          "workload_identity_pool_id": "github",
+          "workload_identity_pool_provider_id": "github-legacy",
+          "attribute_mapping": {
+            "google.subject": "assertion.sub",
+            "attribute.repository": "assertion.repository"
+          },
+          "attribute_condition": null,
+          "oidc": [
+            {
+              "issuer_uri": "https://token.actions.githubusercontent.com",
+              "allowed_audiences": [],
+              "jwks_json": null
+            }
+          ],
+          "aws": [],
+          "saml": []
+        },
+        "after_unknown": {
+          "name": true,
+          "id": true,
+          "state": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_service_account.tf_apply",
+      "mode": "managed",
+      "type": "google_service_account",
+      "name": "tf_apply",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project": "tsl-platform-ci",
+          "account_id": "tf-apply",
+          "display_name": "Terraform apply (CI)"
+        },
+        "after_unknown": {
+          "email": true,
+          "id": true,
+          "member": true,
+          "name": true,
+          "unique_id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_service_account_key.legacy_ci",
+      "mode": "managed",
+      "type": "google_service_account_key",
+      "name": "legacy_ci",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "service_account_id": "projects/tsl-platform-ci/serviceAccounts/legacy-ci@tsl-platform-ci.iam.gserviceaccount.com",
+          "key_algorithm": "KEY_ALG_RSA_2048",
+          "private_key_type": "TYPE_GOOGLE_CREDENTIALS_FILE",
+          "public_key_type": "TYPE_X509_PEM_FILE"
+        },
+        "after_unknown": {
+          "id": true,
+          "name": true,
+          "private_key": true,
+          "public_key": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_folder_iam_member.workloads_viewer",
+      "mode": "managed",
+      "type": "google_folder_iam_member",
+      "name": "workloads_viewer",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "folder": "folders/unknown",
+          "role": "roles/browser",
+          "member": "user:dana.k@tessellate.example",
+          "condition": []
+        },
+        "after_unknown": {
+          "folder": true,
+          "etag": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_project_iam_member.riq_devs[\"roles/editor\"]",
+      "mode": "managed",
+      "type": "google_project_iam_member",
+      "name": "riq_devs",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project": "tsl-riq-prod",
+          "role": "roles/editor",
+          "member": "group:riq-devs@tessellate.example",
+          "condition": []
+        },
+        "after_unknown": {
+          "etag": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_project_iam_member.riq_devs[\"roles/container.developer\"]",
+      "mode": "managed",
+      "type": "google_project_iam_member",
+      "name": "developer\"]",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "project": "tsl-riq-prod",
+          "role": "roles/container.developer",
+          "member": "group:riq-devs@tessellate.example",
+          "condition": []
+        },
+        "after_unknown": {
+          "etag": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_organization_iam_binding.org_admins",
+      "mode": "managed",
+      "type": "google_organization_iam_binding",
+      "name": "org_admins",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "org_id": "812345678901",
+          "role": "roles/resourcemanager.organizationAdmin",
+          "members": [
+            "group:gcp-org-admins@tessellate.example"
+          ],
+          "condition": []
+        },
+        "after_unknown": {
+          "etag": true,
+          "id": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_storage_bucket.tfstate",
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "tfstate",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "tsl-tfstate-prod",
+          "project": "tsl-platform-ci",
+          "location": "US-CENTRAL1",
+          "uniform_bucket_level_access": true,
+          "public_access_prevention": "enforced",
+          "versioning": [
+            {
+              "enabled": true
+            }
+          ],
+          "force_destroy": false,
+          "labels": {}
+        },
+        "after_unknown": {
+          "id": true,
+          "self_link": true,
+          "url": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_storage_bucket.riq_exports",
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "riq_exports",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "tsl-riq-exports",
+          "project": "tsl-riq-prod",
+          "location": "EU",
+          "uniform_bucket_level_access": false,
+          "public_access_prevention": "inherited",
+          "versioning": [],
+          "force_destroy": false,
+          "labels": {
+            "owner": "riq"
+          }
+        },
+        "after_unknown": {
+          "id": true,
+          "self_link": true,
+          "url": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "google_service_account_key.old_deployer",
+      "mode": "managed",
+      "type": "google_service_account_key",
+      "name": "old_deployer",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "delete"
+        ],
+        "before": {
+          "service_account_id": "projects/tsl-platform-ci/serviceAccounts/deployer@tsl-platform-ci.iam.gserviceaccount.com"
+        },
+        "after": null,
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {}
+      }
+    }
+  ],
+  "configuration": {},
+  "timestamp": "2026-11-10T15:02:11Z",
+  "applyable": true,
+  "complete": true,
+  "errored": false
+}

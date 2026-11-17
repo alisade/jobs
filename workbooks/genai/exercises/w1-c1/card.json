@@ -1,0 +1,27 @@
+{
+  "id": "genai/w1-c1",
+  "title": "Streamed shopping-assistant panel (React + TypeScript)",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 1,
+  "optional": false,
+  "area": "React and TypeScript front end",
+  "scenario": "Kestrel Outfitters' assistant gateway streams answers as Server-Sent Events. The prototype panel worked in the demo but behind the CDN and load balancer it garbles JSON, drops words, keeps typing forever when a connection drops, and cannot be stopped. Make it production-ready for the beta.",
+  "task": [
+    "Incremental SSE parser that is correct for any chunking, CRLF and bare CR, comments, multi-line data and ids",
+    "fetch transport with a stream reader, split multi-byte UTF-8, typed HTTP errors, reader cancel on early stop",
+    "Hook with idle/streaming/done/stopped/error, stop, retry, conversation id, no stale updates",
+    "Panel with AI disclosure, Stop, status line, live region, product cards, error alert, human handoff"
+  ],
+  "acceptance": [
+    "Every chunking of the recorded streams renders identical text and cards",
+    "Stop and unmount abort the request; later chunks are ignored",
+    "Error events, drops, early end and 429 show the specified messages; Try again works",
+    "Malformed or unknown events never crash the panel"
+  ],
+  "practices": [
+    {"label": "Week 1 - React components, state and effects", "href": "week1"},
+    {"label": "Week 1 - streaming a model response into the UI (SSE, cancel, errors)", "href": "week1"},
+    {"label": "Week 1 - React Testing Library", "href": "week1"}
+  ]
+}

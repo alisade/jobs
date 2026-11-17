@@ -1,0 +1,50 @@
+kind: AdaptiveDialog
+startBehavior: CancelOtherTopics
+beginDialog:
+  kind: OnEscalate
+  id: main
+  intent:
+    displayName: Escalate
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - talk to a person
+      - talk to a technician
+      - I want a human
+      - connect me to support
+      - raise a ticket
+
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_reasonBlank
+      conditions:
+        - id: conditionItem_reasonBlank
+          condition: =IsBlank(Global.EscalationReason)
+          actions:
+            - kind: SetVariable
+              id: setVariable_reasonUser
+              variable: Global.EscalationReason
+              value: UserRequested
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_ticket
+      input:
+        binding:
+          upn: =Global.UserUpn
+          reason: =Global.EscalationReason
+          summary: =System.Activity.Text
+      output:
+        binding:
+          ticketId: Topic.TicketId
+      flowId: 7b9d4e22-1a3f-4c6d-8e05-2f6a9b3c4d55
+
+    - kind: SendActivity
+      id: sendMessage_ticket
+      activity: I've raised ticket {Topic.TicketId} and a technician will contact you within 30 minutes.
+
+    - kind: SetVariable
+      id: setVariable_reasonReset
+      variable: Global.EscalationReason
+      value: =Blank()
+
+    - kind: EndDialog
+      id: endDialog_escalate

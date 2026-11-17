@@ -1,0 +1,27 @@
+{
+  "id": "connect/w2-c2",
+  "title": "Routing simulator: tune the LFG routing design",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "Contact flows, IVR and routing",
+  "scenario": "LFG's Monday routing design was a one-to-one copy of Avaya skills, and nobody could say what happens to VIP and SAP calls when the apps team also takes overflow. Build a deterministic model of Connect routing (profile priority and delay, contact priority, proficiency steps, abandons) and use it to tune the design.",
+  "task": [
+    "Implement the routing semantics: event order, eligibility, best-contact ordering",
+    "Routing criteria steps with expiry and any-agent fallback",
+    "Metrics: SL with abandons, ASA, abandon rate, occupancy",
+    "Tune routing profiles to hit 80% everywhere and 90% VIP with the same agents",
+    "Explain causes, changes and robustness in ANSWER.md"
+  ],
+  "acceptance": [
+    "Hand-built scenarios pass for every routing rule",
+    "Baseline figures match the reference semantics exactly",
+    "Deterministic, no input mutation, 20,000 contacts in under 5 s",
+    "Tuned design meets the targets with the same agents and proficiencies"
+  ],
+  "practices": [
+    {"label": "Week 2 Wed - routing strategy and queue topology", "href": "week2"},
+    {"label": "Week 1 Wed - queues, routing profiles, proficiencies", "href": "week1"}
+  ]
+}

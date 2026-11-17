@@ -1,0 +1,5 @@
+{"ts":"2026-11-09T21:40:02Z","type":"tool_call","tool":"terraform_plan","input":{"plan":"evidence/plan-run-212.json"}}
+{"ts":"2026-11-09T21:40:03Z","type":"tool_result","tool":"terraform_plan","chars":8000,"note":"tool output limit 8000 chars; plan JSON is 14706 chars"}
+{"ts":"2026-11-09T21:40:09Z","type":"model","plan_summary":{"to_import":8,"to_add":0,"to_change":0,"to_destroy":0},"text":"Import-only plan: 8 resources to import, no changes."}
+{"ts":"2026-11-09T21:40:09Z","type":"verify","input":"model plan_summary","ok":true}
+{"ts":"2026-11-09T21:41:12Z","type":"open_pr","number":212}

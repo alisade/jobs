@@ -1,0 +1,33 @@
+# Owned by the RIQ team (charts/riq-canary, their repo). Platform does not edit this chart.
+# Canary pods carry app: riq-api so the riq-api Service sends them a share of traffic.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: riq-api-canary
+  namespace: riq
+  labels:
+    app: riq-api
+    track: canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: riq-api
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: riq-api
+        track: canary
+    spec:
+      serviceAccountName: riq-api
+      containers:
+        - name: api
+          image: us-docker.pkg.dev/tsl-artifacts-prod/riq/riq-api@sha256:9a0b1c2d3e4f5061728394a5b6c7d8e9f00112233445566778899aabbccddeef
+          ports: [{containerPort: 8080, name: http}]
+          readinessProbe:
+            httpGet: {path: /readyz, port: http}
+            periodSeconds: 5
+          resources:
+            requests: {cpu: 500m, memory: 768Mi}
+            limits: {memory: 768Mi}

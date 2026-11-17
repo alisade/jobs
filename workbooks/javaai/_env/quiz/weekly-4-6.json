@@ -1,0 +1,820 @@
+{
+ "questions": [
+  {
+   "id": "w4-q01",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "A FastAPI handler is <code>async def</code> and calls the synchronous Gemini SDK, which blocks for 2 s. Cloud Run concurrency is 80, CPU is 8%, instances stay at 2. What is happening?",
+   "options": [
+    "Cold starts",
+    "The blocking call freezes the event loop, so one instance serves one request at a time while up to 80 queue; the autoscaler sees neither high concurrency nor high CPU and does not add instances",
+    "Gemini quota",
+    "Memory pressure"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Use def (threadpool) or an async client, and size containerConcurrency to what one instance can really serve. Low CPU with deep queues is the signature of a blocked loop.",
+   "learn": [
+    {
+     "label": "FastAPI concurrency and async",
+     "href": "https://fastapi.tiangolo.com/async/"
+    },
+    {
+     "label": "Cloud Run concurrency",
+     "href": "https://docs.cloud.google.com/run/docs/about-concurrency"
+    }
+   ]
+  },
+  {
+   "id": "w4-q02",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "multi",
+   "stem": "Which TWO Cloud Run settings matter most for long streamed tutor answers?",
+   "options": [
+    "Request timeout long enough for the longest answer (default 300 s, up to 60 minutes)",
+    "Max instances 1",
+    "CPU allocation: request-based billing throttles CPU outside requests, so work after the response is sent needs always-allocated CPU",
+    "Session affinity is required for SSE",
+    "Ingress all"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Timeouts cap streams; CPU allocation decides whether background work after a response runs. Streaming itself works with request-based CPU while the request is open.",
+   "learn": [
+    {
+     "label": "Cloud Run request timeout",
+     "href": "https://docs.cloud.google.com/run/docs/configuring/request-timeout"
+    },
+    {
+     "label": "Cloud Run CPU allocation",
+     "href": "https://docs.cloud.google.com/run/docs/configuring/services/cpu"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w4-q03",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "The catalog API (service account A) calls the tutor agent on Cloud Run with no public access. What is the standard setup?",
+   "options": [
+    "Give allUsers the invoker role and check a header",
+    "Grant A roles/run.invoker on the tutor service; A fetches a Google-signed ID token with the tutor's URL as audience and sends it as a Bearer token; the service may verify the token and caller again",
+    "Share a static API key in Secret Manager",
+    "Use the same service account for both"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "IAM at the edge plus ID tokens is the documented service-to-service pattern; in-app verification of audience and caller is defence in depth.",
+   "learn": [
+    {
+     "label": "Service-to-service authentication",
+     "href": "https://docs.cloud.google.com/run/docs/authenticating/service-to-service"
+    }
+   ]
+  },
+  {
+   "id": "w4-q04",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "In ADK, where do you put a guardrail that refuses off-topic questions without spending a model call?",
+   "options": [
+    "In the instruction text only",
+    "A before_model_callback that returns a response and skips the model call",
+    "An after_tool_callback",
+    "The session service"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "before_model_callback can inspect the request and return an LlmResponse to short-circuit the model. after_model_callback can rewrite responses (the answer-leak check).",
+   "learn": [
+    {
+     "label": "ADK callbacks",
+     "href": "https://adk.dev/callbacks/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q05",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "multi",
+   "stem": "Which TWO statements about ADK sessions and state are correct?",
+   "options": [
+    "Session state holds data that persists across the turns of one conversation (for example the current lesson)",
+    "InMemorySessionService is a production choice on Cloud Run with several instances",
+    "A persistent session service (database or Agent Runtime's managed sessions) is needed when instances scale out or restart",
+    "Sessions are only available in Java",
+    "State is sent to the model automatically in full on every turn"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "In-memory sessions vanish on restart and are not shared across instances. Choose a database-backed service on Cloud Run, or Agent Runtime's managed sessions and memory.",
+   "learn": [
+    {
+     "label": "ADK sessions",
+     "href": "https://adk.dev/sessions/"
+    },
+    {
+     "label": "Agent Runtime",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/runtime"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w4-q06",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "Cloud Run or Agent Runtime (formerly Agent Engine) for the tutor agent?",
+   "options": [
+    "Agent Runtime is always cheaper",
+    "Cloud Run gives a container you control (FastAPI, middleware, any library) and fits a team that already runs containers; Agent Runtime gives managed sessions, memory and agent ops with less control. Decide on control vs managed features",
+    "Cloud Run cannot run ADK",
+    "Agent Runtime cannot use tools"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Both run ADK; the trade-off is control and familiarity vs managed agent services. This posting names Cloud Run.",
+   "learn": [
+    {
+     "label": "Agent Runtime",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/runtime"
+    },
+    {
+     "label": "ADK documentation",
+     "href": "https://adk.dev/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q07",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "The tutor uses McpToolset to connect to a shared MCP server that also exposes write tools for other agents. Which control actually prevents the tutor from writing?",
+   "options": [
+    "A sentence in the instruction saying never to call the write tools",
+    "tool_filter on the McpToolset listing only the read tools, plus an allow-list in the agent and per-caller authorization on the server",
+    "A higher temperature",
+    "Using streamable HTTP instead of stdio"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Instructions are requests that injected content can override. Not offering the tool, refusing it in code and authorizing per caller are controls.",
+   "learn": [
+    {
+     "label": "ADK MCP tools",
+     "href": "https://adk.dev/tools-custom/mcp-tools/"
+    },
+    {
+     "label": "The lethal trifecta",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q08",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "The model asks <code>get_learner_progress(learner_id=\"lrn-bo\")</code> during lrn-ada's session. What is the right design?",
+   "options": [
+    "Trust it; the model knows best",
+    "Bind learner and course to the session in the tool implementation (from tool_context.state or the server's session), so the model never chooses whose data to read",
+    "Ask the learner to confirm",
+    "Return both learners"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Letting the model pick identifiers makes the agent a confused deputy. Tools take only what the model should choose (a query, a lesson id) and read identity from the session.",
+   "learn": [
+    {
+     "label": "Writing effective tools for agents",
+     "href": "https://www.anthropic.com/research/writing-tools-for-agents"
+    },
+    {
+     "label": "ADK callbacks",
+     "href": "https://adk.dev/callbacks/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q09",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "Which ADK workflow agent fits 'retrieve, then draft a hint, then check the hint does not reveal the answer, always in that order'?",
+   "options": [
+    "LoopAgent with no exit",
+    "SequentialAgent with three sub-agents (or one LLM agent plus deterministic steps)",
+    "ParallelAgent",
+    "A single agent with no tools"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Fixed order is a workflow, not an autonomous agent. Keep deterministic steps deterministic; use a loop only for evaluator-optimizer patterns with a bounded number of rounds.",
+   "learn": [
+    {
+     "label": "ADK workflows and multi-agent",
+     "href": "https://adk.dev/workflows/"
+    },
+    {
+     "label": "Building effective agents",
+     "href": "https://www.anthropic.com/research/building-effective-agents"
+    }
+   ]
+  },
+  {
+   "id": "w4-q10",
+   "week": 4,
+   "set": "weekly",
+   "area": "adk",
+   "type": "multi",
+   "stem": "Your MCP server returns whole lesson bodies (20,000 characters) and raw API objects. Which TWO changes follow tool-design guidance?",
+   "options": [
+    "Return compact, task-shaped results with renamed fields, and truncate long text with a flag",
+    "Add more tools that mirror every REST endpoint",
+    "Write descriptions that say when to use the tool and what it returns",
+    "Return stack traces so the model can debug",
+    "Accept learner_id so the model can choose"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Tools for agents are an API for a model: fewer, task-shaped tools, small outputs and descriptions the model can choose by improve accuracy and cost.",
+   "learn": [
+    {
+     "label": "Writing effective tools for agents",
+     "href": "https://www.anthropic.com/research/writing-tools-for-agents"
+    },
+    {
+     "label": "MCP introduction",
+     "href": "https://modelcontextprotocol.io/docs/getting-started/intro"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w5-q01",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "multi",
+   "stem": "Which TWO are reasons to choose pgvector on Cloud SQL or AlloyDB over RAG Engine for the course tutor?",
+   "options": [
+    "Vectors live next to relational data, so course and tenant filters are ordinary SQL in the same query",
+    "No tuning or operations are needed",
+    "You need full control of chunking, indexes (HNSW, IVFFlat) and query plans",
+    "It includes managed ingestion of PDFs",
+    "It is the only option that supports metadata"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "pgvector gives control and co-location at the price of owning tuning and operations. RAG Engine manages ingestion, chunking, embedding and retrieval; Agent Search adds managed ranking and grounding with the least code.",
+   "learn": [
+    {
+     "label": "pgvector",
+     "href": "https://github.com/pgvector/pgvector"
+    },
+    {
+     "label": "RAG Engine overview",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/rag-overview"
+    },
+    {
+     "label": "Agent Search: custom search",
+     "href": "https://docs.cloud.google.com/generative-ai-app-builder/docs/about-generic-search"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w5-q02",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "A learner must only retrieve chunks from their own course. Where does that filter go?",
+   "options": [
+    "Retrieve the global top-k, then drop other courses",
+    "In the retrieval query itself (WHERE course_id = $1 in pgvector, a metadata filter in RAG Engine or Agent Search), because it is access control",
+    "In the prompt: 'only use your course'",
+    "In the Angular app"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Post-filtering returns fewer than k results and is one forgotten line away from a leak. Filter first; it is an authorization rule.",
+   "learn": [
+    {
+     "label": "pgvector",
+     "href": "https://github.com/pgvector/pgvector"
+    },
+    {
+     "label": "RAG Engine overview",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/rag-overview"
+    }
+   ]
+  },
+  {
+   "id": "w5-q03",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Recall@5 is 1.0 for both chunking strategies on your 32-question set, but MRR differs (0.92 vs 0.94). What do you report?",
+   "options": [
+    "Recall@5 proves they are equal",
+    "recall@5 saturates on a small corpus; report recall@1 and MRR, note that one question moves a metric by about 3 points, and label more questions before declaring a winner",
+    "Pick the one with fewer chunks",
+    "Drop MRR"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Small labeled sets have wide uncertainty. Use metrics that still discriminate and grow the set.",
+   "learn": [
+    {
+     "label": "LLM evals FAQ",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "w5-q04",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Why does heading-aware chunking usually beat fixed-size windows for a tutor that must cite sections?",
+   "options": [
+    "It produces more chunks",
+    "Chunks align with the citation unit (a section), carry the heading's vocabulary, and never mix two sections' text, so the cited section is right more often",
+    "It needs no embeddings",
+    "Fixed windows are not allowed by RAG Engine"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Keep lesson and section ids as metadata on every chunk; structure-aware chunking makes citations precise.",
+   "learn": [
+    {
+     "label": "RAG Engine overview",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/rag-overview"
+    }
+   ]
+  },
+  {
+   "id": "w5-q05",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "You switch embedding models. What else must happen?",
+   "options": [
+    "Nothing",
+    "Re-embed the whole corpus with the new model (vectors from different models are not comparable), run the retrieval eval before cutting over, and use the right task type for documents vs queries",
+    "Only re-embed new documents",
+    "Lower the top-k"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Mixed-model vectors silently degrade retrieval. Re-embedding costs money and time; build the new index beside the old one and swap.",
+   "learn": [
+    {
+     "label": "Text embeddings",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings"
+    }
+   ]
+  },
+  {
+   "id": "w5-q06",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "After a content merge, citations point one lesson off and recall@3 drops from 0.90 to 0.05. The embedding model also changed the day before. Which evidence separates the causes?",
+   "options": [
+    "None; roll back both",
+    "The eval history: recall stayed 0.90 after the model change and fell only after the content merge; then compare stored lesson ids with each file's front matter",
+    "Ask Gemini",
+    "Check the Cloud Run logs for 500s"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Change one variable at a time and read the timeline. Ids derived from file order instead of content shift when a file is added.",
+   "learn": [
+    {
+     "label": "LLM evals FAQ",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "w5-q07",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "What is reranking in a retrieval pipeline?",
+   "options": [
+    "Sorting results alphabetically",
+    "A second stage that rescores the top N candidates from fast vector or hybrid search with a more expensive relevance model before taking the top k",
+    "Re-embedding the corpus",
+    "Changing chunk size"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Retrieve broadly and cheaply, then rerank precisely. RAG Engine and Agent Search both offer ranking options; measure the gain with the same labeled set.",
+   "learn": [
+    {
+     "label": "RAG Engine reranking",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/retrieval-and-ranking"
+    }
+   ]
+  },
+  {
+   "id": "w5-q08",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Which layering of tutor evals is the most cost-effective in CI?",
+   "options": [
+    "LLM-as-judge on everything first",
+    "Deterministic checks first (schema valid, answer key, citation exists), then retrieval metrics on labeled questions, then judge metrics with a custom rubric (does not reveal the answer, grounded) on a sample",
+    "Only human review",
+    "Only production metrics"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Cheap, exact checks catch most regressions; judge metrics are for what code cannot check. The Gen AI evaluation service supports custom rubrics and agent trajectory metrics.",
+   "learn": [
+    {
+     "label": "Gen AI evaluation service",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-overview"
+    },
+    {
+     "label": "LLM evals FAQ",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "w5-q09",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "multi",
+   "stem": "Which TWO does agent evaluation add beyond scoring the final answer?",
+   "options": [
+    "Trajectory: whether the agent called the expected tools with the expected arguments in a sensible order",
+    "The color of the UI",
+    "Checking that forbidden tools (writes) were never called",
+    "The model's training data",
+    "The number of Cloud Run instances"
+   ],
+   "answer": [
+    0,
+    3
+   ],
+   "explanation": "Agent evals look at the path as well as the answer: expected tool calls, and no forbidden ones. ADK eval sets and the Gen AI evaluation service both support this.",
+   "learn": [
+    {
+     "label": "Evaluate Gen AI agents",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-agents"
+    },
+    {
+     "label": "ADK: why evaluate agents",
+     "href": "https://adk.dev/evaluate/"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w5-q10",
+   "week": 5,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "How should the retrieval eval run so it actually protects production?",
+   "options": [
+    "As an advisory report someone may read",
+    "As a blocking CI step on changes to chunking, embedding model, index settings and content, comparing to a stored baseline with a tolerance; the baseline moves only in a reviewed change",
+    "Weekly by hand",
+    "Only after incidents"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "An advisory gate is how w5-t1 happened. Make it block, and treat the baseline like code.",
+   "learn": [
+    {
+     "label": "LLM evals FAQ",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q01",
+   "week": 6,
+   "set": "weekly",
+   "area": "tuning",
+   "type": "single",
+   "stem": "When is supervised tuning of Gemini the wrong tool?",
+   "options": [
+    "When you need a consistent output format and house style",
+    "When the model needs fresh or changing knowledge (new course content): use retrieval instead",
+    "When a cheaper model must match a larger one on a narrow task",
+    "When prompts have grown very long"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Tuning teaches format, style and narrow behaviour; it does not keep up with new facts. Try prompting, few-shot and RAG first; tune when the eval says the cheaper path is not enough.",
+   "learn": [
+    {
+     "label": "Tuning overview",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning"
+    },
+    {
+     "label": "Supervised fine-tuning for Gemini",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/supervised-tuning"
+    }
+   ]
+  },
+  {
+   "id": "w6-q02",
+   "week": 6,
+   "set": "weekly",
+   "area": "tuning",
+   "type": "multi",
+   "stem": "Which TWO belong in preparing a supervised tuning dataset?",
+   "options": [
+    "Deduplicate examples and remove anything that overlaps the held-out evaluation set",
+    "Include the evaluation set in training to boost scores",
+    "Use the documented JSONL conversation format (system instruction, user and model turns) with a validation split",
+    "Prefer thousands of noisy examples over a few hundred clean ones",
+    "Shuffle the held-out set into validation"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Leakage inflates scores; clean data beats volume. Follow the format in the prepare-data guide.",
+   "learn": [
+    {
+     "label": "Prepare supervised tuning data",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/supervised-tuning/prepare-data"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w6-q03",
+   "week": 6,
+   "set": "weekly",
+   "area": "tuning",
+   "type": "single",
+   "stem": "Tuned Flash-Lite: valid 1.00, correct 0.90, 0.13 USD per 1,000 items. Few-shot Flash: valid 0.96, correct 0.90, 1.49 USD. Held-out set: 50 items. What is the strongest conclusion?",
+   "options": [
+    "Tuned is more accurate",
+    "They are statistically tied on correctness at n=50; cost (about 11x) and latency favour tuned, provided its training data did not leak the held-out set",
+    "Few-shot is better because it is a bigger model",
+    "Neither can ship"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "With 50 items a proportion near 0.9 has roughly +-8 points of uncertainty. Decide on what the numbers can distinguish, and check for leakage before trusting the tuned result.",
+   "learn": [
+    {
+     "label": "Supervised fine-tuning for Gemini",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/supervised-tuning"
+    },
+    {
+     "label": "LLM evals FAQ",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q04",
+   "week": 6,
+   "set": "weekly",
+   "area": "tuning",
+   "type": "single",
+   "stem": "The docs recommend a setting for thinking on tuned tasks. Which?",
+   "options": [
+    "Maximum thinking budget",
+    "Thinking budget 0 or thinking level minimal on the tuned model",
+    "Thinking only in the system instruction",
+    "Disable structured output"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Per the supervised tuning docs, set thinking to off or minimal for tuned models; tuned narrow tasks gain little from it and pay latency.",
+   "learn": [
+    {
+     "label": "Supervised fine-tuning for Gemini",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/supervised-tuning"
+    },
+    {
+     "label": "Thinking",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/thinking"
+    }
+   ]
+  },
+  {
+   "id": "w6-q05",
+   "week": 6,
+   "set": "weekly",
+   "area": "data",
+   "type": "multi",
+   "stem": "The index (created_at, learner_id) exists, yet <code>WHERE learner_id = ? AND course_id = ? AND date(created_at) &gt;= ? ORDER BY created_at DESC LIMIT 20</code> reads 41M rows. Which TWO explain it?",
+   "options": [
+    "The index leads with the range column, so it cannot narrow by learner first",
+    "Wrapping created_at in date() prevents using the index for the range",
+    "The table needs VACUUM FULL",
+    "LIMIT disables indexes",
+    "PostgreSQL cannot use composite indexes"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Equality columns first, range last: (learner_id, course_id, created_at) serves the filter and the order. Predicates must not wrap the indexed column (or use an expression index).",
+   "learn": [
+    {
+     "label": "PostgreSQL indexes",
+     "href": "https://www.postgresql.org/docs/current/indexes.html"
+    },
+    {
+     "label": "PostgreSQL: using EXPLAIN",
+     "href": "https://www.postgresql.org/docs/current/using-explain.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w6-q06",
+   "week": 6,
+   "set": "weekly",
+   "area": "data",
+   "type": "single",
+   "stem": "Which EXPLAIN ANALYZE detail most directly shows a missing or unusable index?",
+   "options": [
+    "Planning Time",
+    "A large 'Rows Removed by Filter' compared with rows returned, on a scan of the whole table or index",
+    "Buffers: shared hit",
+    "The presence of Limit"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Reading millions of rows to return eleven means the predicate is applied after reading, not used to find rows.",
+   "learn": [
+    {
+     "label": "PostgreSQL: using EXPLAIN",
+     "href": "https://www.postgresql.org/docs/current/using-explain.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q07",
+   "week": 6,
+   "set": "weekly",
+   "area": "data",
+   "type": "multi",
+   "stem": "quiz_attempt grows 6M rows a month and academic records must be kept 4 years. Which TWO fit?",
+   "options": [
+    "Range-partition by month on created_at and drop or detach partitions past retention after archiving",
+    "DELETE old rows nightly",
+    "Keep indexes that lead with tenant and learner on each partition for dashboard queries",
+    "One index per column",
+    "Store attempts in the agent's memory"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Partition pruning and partition drops beat large deletes; local indexes keep queries fast. Analytics belong in BigQuery.",
+   "learn": [
+    {
+     "label": "PostgreSQL partitioning",
+     "href": "https://www.postgresql.org/docs/current/ddl-partitioning.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w6-q08",
+   "week": 6,
+   "set": "weekly",
+   "area": "data",
+   "type": "single",
+   "stem": "You must add a NOT NULL column to a 41M-row table with the app running. What is the expand-and-contract sequence?",
+   "options": [
+    "ALTER TABLE ... ADD COLUMN ... NOT NULL in one migration",
+    "Add the column nullable, deploy code that writes it, backfill in batches, then add the constraint (NOT VALID then VALIDATE for checks), then make reads depend on it",
+    "Rename the table",
+    "Do it during a maintenance window only"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Expand, migrate, contract: each step is backward compatible with the running version, so deploys and rollbacks stay safe.",
+   "learn": [
+    {
+     "label": "Flyway documentation",
+     "href": "https://documentation.red-gate.com/flyway"
+    }
+   ]
+  },
+  {
+   "id": "w6-q09",
+   "week": 6,
+   "set": "weekly",
+   "area": "data",
+   "type": "single",
+   "stem": "Cloud Run scales the catalog API to 30 instances with a Hikari pool of 10 each against a Cloud SQL instance with max_connections 100. What is the risk and a fix?",
+   "options": [
+    "None",
+    "300 possible connections exceed the database limit; cap instances, size the pool to the instance count, or put a pooler (for example the Cloud SQL connector with managed pooling or PgBouncer) in front",
+    "Increase the pool to 50",
+    "Use H2 in production"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Connection math belongs in capacity planning: instances x pool size must fit the database.",
+   "learn": [
+    {
+     "label": "Spring Boot reference",
+     "href": "https://docs.spring.io/spring-boot/index.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q10",
+   "week": 6,
+   "set": "weekly",
+   "area": "tuning",
+   "type": "single",
+   "stem": "A tuned model is pinned to its base model version. What operational duty follows?",
+   "options": [
+    "None; tuned models never change",
+    "Track the base version's retirement date and plan to re-tune on a newer base and re-run the same eval before the old one retires",
+    "Retrain every day",
+    "Switch to few-shot when it retires"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Tuned endpoints inherit the base model's lifecycle. Keep the dataset and eval ready to re-tune.",
+   "learn": [
+    {
+     "label": "Model versions and lifecycle",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"
+    },
+    {
+     "label": "Tuning overview",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning"
+    }
+   ]
+  }
+ ]
+}

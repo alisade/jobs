@@ -1,0 +1,6 @@
+# Cloud Monitoring, quiz-gen, 08:00-16:00 UTC
+day          requests  5xx   5xx_rate  vertex_429s  p50_ms  p95_ms
+2026-11-09   260       6     2.3%      11           2400    5100
+2026-11-10   270       48    17.8%     13           2300    5000
+# Vertex AI quota page, generate_content_requests_per_minute (gemini-2.5-flash, us-central1):
+#   peak usage 2026-11-10: 31% of limit. 429s are from shared Standard PayGo capacity, not the project quota.

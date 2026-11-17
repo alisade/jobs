@@ -1,0 +1,14 @@
+{
+  "_comment": "Extract of contact records (CTR) for the analysis batch: contactId -> agent and queue. The analysis files do not carry the agent id.",
+  "contacts": {
+    "4c1d2e3f-0001-4a5b-9c8d-000000000001": {"agentId": "a-rpatel", "agentName": "Ravi Patel", "queue": "PasswordReset", "channel": "VOICE"},
+    "4c1d2e3f-0002-4a5b-9c8d-000000000002": {"agentId": "a-rpatel", "agentName": "Ravi Patel", "queue": "GeneralSupport", "channel": "VOICE"},
+    "4c1d2e3f-0003-4a5b-9c8d-000000000003": {"agentId": "a-mgarza", "agentName": "Monica Garza", "queue": "GeneralSupport", "channel": "VOICE"},
+    "4c1d2e3f-0004-4a5b-9c8d-000000000004": {"agentId": "a-mgarza", "agentName": "Monica Garza", "queue": "PasswordReset", "channel": "VOICE"},
+    "4c1d2e3f-0005-4a5b-9c8d-000000000005": {"agentId": "a-jlee", "agentName": "Jordan Lee", "queue": "VIPDesk", "channel": "VOICE"},
+    "4c1d2e3f-0006-4a5b-9c8d-000000000006": {"agentId": "a-jlee", "agentName": "Jordan Lee", "queue": "GeneralSupport", "channel": "VOICE"},
+    "4c1d2e3f-0007-4a5b-9c8d-000000000007": {"agentId": "a-rpatel", "agentName": "Ravi Patel", "queue": "GeneralSupport", "channel": "VOICE"},
+    "4c1d2e3f-0008-4a5b-9c8d-000000000008": {"agentId": "a-jlee", "agentName": "Jordan Lee", "queue": "GeneralSupport", "channel": "VOICE"},
+    "4c1d2e3f-0009-4a5b-9c8d-000000000009": {"agentId": "a-mgarza", "agentName": "Monica Garza", "queue": "GeneralSupport", "channel": "CHAT"}
+  }
+}

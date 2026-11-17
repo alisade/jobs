@@ -1,0 +1,11 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "TODODenyOutsideApprovedRegions",
+      "Effect": "Deny",
+      "Action": "TODO:replace-me",
+      "Resource": "*"
+    }
+  ]
+}

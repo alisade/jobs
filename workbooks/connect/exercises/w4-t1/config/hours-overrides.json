@@ -1,0 +1,61 @@
+{
+  "_comment": "Hours of operation overrides. The LFG export script writes a closed day as an empty Config.",
+  "Overrides": [
+    {
+      "HoursOfOperationId": "hoo-helpdesk-holidays",
+      "Name": "New Year",
+      "Description": "closed (from Avaya holiday table 3)",
+      "Config": [],
+      "EffectiveFrom": "2026-01-01",
+      "EffectiveTill": "2026-01-01"
+    },
+    {
+      "HoursOfOperationId": "hoo-helpdesk-holidays",
+      "Name": "Memorial Day",
+      "Description": "closed (from Avaya holiday table 3)",
+      "Config": [],
+      "EffectiveFrom": "2026-05-25",
+      "EffectiveTill": "2026-05-25"
+    },
+    {
+      "HoursOfOperationId": "hoo-helpdesk-holidays",
+      "Name": "Independence Day (obs)",
+      "Description": "closed (from Avaya holiday table 3)",
+      "Config": [],
+      "EffectiveFrom": "2026-07-03",
+      "EffectiveTill": "2026-07-03"
+    },
+    {
+      "HoursOfOperationId": "hoo-helpdesk-holidays",
+      "Name": "Labor Day",
+      "Description": "closed (from Avaya holiday table 3)",
+      "Config": [],
+      "EffectiveFrom": "2026-09-07",
+      "EffectiveTill": "2026-09-07"
+    },
+    {
+      "HoursOfOperationId": "hoo-helpdesk-holidays",
+      "Name": "Columbus Day",
+      "Description": "closed (from Avaya holiday table 3)",
+      "Config": [],
+      "EffectiveFrom": "2026-10-12",
+      "EffectiveTill": "2026-10-12"
+    },
+    {
+      "HoursOfOperationId": "hoo-helpdesk-holidays",
+      "Name": "Thanksgiving",
+      "Description": "closed (from Avaya holiday table 3)",
+      "Config": [],
+      "EffectiveFrom": "2026-11-26",
+      "EffectiveTill": "2026-11-27"
+    },
+    {
+      "HoursOfOperationId": "hoo-helpdesk-holidays",
+      "Name": "Christmas",
+      "Description": "closed (from Avaya holiday table 3)",
+      "Config": [],
+      "EffectiveFrom": "2026-12-24",
+      "EffectiveTill": "2026-12-25"
+    }
+  ]
+}

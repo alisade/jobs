@@ -1,0 +1,7 @@
+#techops-alerts, 2026-11-04 (UTC)
+13:41 Support bot: P2 ticket SUP-55120 "RIQ API intermittent 503 for scoring calls" (3 customers)
+13:43 priya.n: riq-api 503s in Grafana, ~6% on prod-blue. why no page??
+13:44 marco.d: my silence from the canary yesterday? I set it to 12h
+13:46 priya.n: it says expired at 21:00 yesterday. also the new alertmanager route from Monday has continue: true, could that swallow it?
+13:48 marco.d: rolling riq-api back to 5.1.4
+13:52 priya.n: 503s back to baseline. leaving the RCA for the morning

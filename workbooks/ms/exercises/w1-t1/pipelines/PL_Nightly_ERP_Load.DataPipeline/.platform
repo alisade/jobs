@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_Nightly_ERP_Load",
+    "description": "Nightly incremental load of ERP tables listed in WH_Control etl.load_control into lh_bronze"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6f1d2c4e-8a51-4c0b-9b7e-2d5f1e3a9c10"
+  }
+}

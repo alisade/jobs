@@ -1,0 +1,17 @@
+{
+  "region": "us-east-1",
+  "memory_id": "TidewaterAskMemory-a1B2c3D4e5",
+  "memory_strategy": {
+    "type": "userPreferenceMemoryStrategy",
+    "name": "TenantUserPreferences",
+    "namespace_template": "/tenant/{tenantid}/actor/{actorId}/preferences/",
+    "namespace_keys": [{"key": "tenantid", "validation": {"regexPattern": "^[a-z0-9][a-z0-9-]{1,39}$"}}]
+  },
+  "top_k": 5,
+  "runtime": {
+    "protocol": "HTTP",
+    "port": 8080,
+    "inbound_auth": "customJWTAuthorizer (Cognito user pool tidewater-users, audience tidewater-ask-web)",
+    "request_header_allowlist": ["Authorization"]
+  }
+}

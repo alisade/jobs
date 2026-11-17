@@ -1,0 +1,18 @@
+{
+  "FunctionName": "lfg-contact-summary",
+  "Runtime": "nodejs22.x",
+  "Handler": "handler.handler",
+  "MemorySize": 256,
+  "Timeout": 8,
+  "Architectures": [
+    "arm64"
+  ],
+  "Environment": {
+    "Variables": {
+      "MODEL_ID": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "MAX_TOKENS": "350",
+      "FLOW_BUDGET_MS": "6500"
+    }
+  },
+  "InvokedBy": "LFG Help Desk Inbound -> block summarize-selfservice (InvokeLambdaFunction, SYNCHRONOUS, InvocationTimeLimitSeconds 8)"
+}

@@ -1,0 +1,38 @@
+{
+  "_comment": "The parts of DescribeUserPool that matter here (us-east-1_TideW8ter). Edit this file to change the pool, the way you would with UpdateUserPool; cognito_sim reads it.",
+  "Id": "us-east-1_TideW8ter",
+  "Name": "tidewater-ask-prod",
+  "UserPoolTier": "ESSENTIALS",
+  "LambdaConfig": {
+    "PreTokenGenerationConfig": {
+      "LambdaVersion": "V2_0",
+      "LambdaArn": "arn:aws:lambda:us-east-1:111122223333:function:tw-pre-token-generation"
+    }
+  },
+  "AppClient": {
+    "ClientId": "5tw8askspa0client0id00000",
+    "ClientName": "ask-spa",
+    "ReadAttributes": [
+      "email",
+      "custom:tenant_id"
+    ]
+  },
+  "IdentityProviders": [
+    {
+      "ProviderName": "brightline-saml",
+      "ProviderType": "SAML",
+      "AttributeMapping": {
+        "email": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+        "custom:tenant_id": "tenant"
+      }
+    },
+    {
+      "ProviderName": "corvid-oidc",
+      "ProviderType": "OIDC",
+      "AttributeMapping": {
+        "email": "email",
+        "custom:tenant_id": "tw_tenant"
+      }
+    }
+  ]
+}

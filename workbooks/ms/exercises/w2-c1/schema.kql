@@ -1,0 +1,8 @@
+// Contoso Fleet - FleetOps Eventhouse, KQL database "fleet"
+// Tables as deployed by the platform team (read-only for this exercise).
+
+// Eventstream lands each JSON event as one dynamic value.
+.create-merge table RawTelemetry (Payload: dynamic)
+
+// Typed table the dashboard and Activator rules read.
+.create-merge table Telemetry (Timestamp: datetime, EventId: string, DeviceId: string, VehicleId: string, SpeedKph: real, EngineTempC: real, FuelPct: real, Lat: real, Lon: real)

@@ -1,0 +1,28 @@
+{
+  "id": "connect/w3-c3",
+  "title": "Hybrid coexistence and number porting cutover plan",
+  "type": "design",
+  "estimate": "2-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "Telephony",
+  "scenario": "LFG moves its help desk numbers from Avaya (and Genesys in London) to Amazon Connect in four agent waves while back-office users stay on Avaya. Given the number inventory, carriers, freezes and constraints, design the coexistence architecture, cross-platform context passing, porting plan, cutover runbook, parallel run and an honest rollback plan.",
+  "task": [
+    "Group the number inventory into port tickets and waves; find the critical path",
+    "Design coexistence using only documented patterns (forward then port, PSTN transfers, SIPREC analytics)",
+    "Pass employee ID and incident across platforms without SIP headers",
+    "Write the porting plan, a dated cutover runbook for 1-800-555-0142 and the rollback plan",
+    "Risks, RACI with the offshore NOC, open decisions"
+  ],
+  "acceptance": [
+    "Graded by rubric only (no automated tests; grade.sh reports 0/0)",
+    "Architecture does not rely on undocumented Connect capabilities",
+    "Porting timeline respects documented lead times and submission windows",
+    "Rollback distinguishes before, during and after the port"
+  ],
+  "practices": [
+    {"label": "Week 3 Tue - BYOC and coexistence: what Connect supports natively", "href": "week3"},
+    {"label": "Week 3 Fri - number porting, cutover sequencing and rollback", "href": "week3"},
+    {"label": "Week 4 - Avaya and Genesys migration checklists", "href": "week4"}
+  ]
+}

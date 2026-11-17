@@ -1,0 +1,24 @@
+{
+ "services": {
+  "claims-intake": {
+   "owner_group": "claims-platform",
+   "tier": 2,
+   "status": "active"
+  },
+  "payments-ledger": {
+   "owner_group": "payments-sre",
+   "tier": 1,
+   "status": "active"
+  },
+  "agent-gateway": {
+   "owner_group": "platform-engineering",
+   "tier": 1,
+   "status": "active"
+  },
+  "fax-gateway": {
+   "owner_group": "legacy-ops",
+   "tier": 3,
+   "status": "retired"
+  }
+ }
+}

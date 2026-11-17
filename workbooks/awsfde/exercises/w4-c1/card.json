@@ -1,0 +1,27 @@
+{
+  "id": "awsfde/w4-c1",
+  "title": "Tenant-scoped tool Lambda, single-table DynamoDB and LeadingKeys",
+  "type": "coding",
+  "estimate": "2.5 h",
+  "week": 4,
+  "optional": false,
+  "area": "Identity and multi-tenancy",
+  "scenario": "A ticket-lookup Lambda serves both the web app (HTTP API with a Cognito JWT authorizer) and the agent's tool layer. Brightline Health's pen test will forge the tenant in the path, the body and a prompt-injected tool argument. Build the boundary at every layer: token claim, handler, keys, IAM.",
+  "task": [
+    "Single-table keys for four access patterns with tenant-prefixed partition keys",
+    "Pre token generation V2_0 trigger adding tenant_id to ID and access tokens, fail closed",
+    "HTTP API handler taking the tenant only from verified claims (403/404/400 semantics)",
+    "IAM policy with ForAllValues and dynamodb:LeadingKeys on a session tag"
+  ],
+  "acceptance": [
+    "Forged path, body, query and prompt-injected tool arguments all fail",
+    "Trigger shape, V1 and unmapped users handled; keys support every access pattern",
+    "No Scan or writes in the tool role; session tag passed on AssumeRole"
+  ],
+  "practices": [
+    {"label": "Week 4 Tue - pre token generation and tenant claims", "href": "week4"},
+    {"label": "Week 4 Wed - JWT authorizers", "href": "week4"},
+    {"label": "Week 4 Thu - ABAC, session tags and LeadingKeys", "href": "week4"},
+    {"label": "Week 4 Fri - DynamoDB single-table design", "href": "week4"}
+  ]
+}

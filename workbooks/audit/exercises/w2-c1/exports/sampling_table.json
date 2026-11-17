@@ -1,0 +1,29 @@
+{
+ "source": "MFH Internal Audit sampling guide 2026, table 3",
+ "frequencies": {
+  "annual": {
+   "standard": 1,
+   "high": 1
+  },
+  "quarterly": {
+   "standard": 2,
+   "high": 2
+  },
+  "monthly": {
+   "standard": 2,
+   "high": 3
+  },
+  "weekly": {
+   "standard": 5,
+   "high": 10
+  },
+  "daily": {
+   "standard": 25,
+   "high": 40
+  },
+  "recurring": {
+   "standard": 25,
+   "high": 40
+  }
+ }
+}

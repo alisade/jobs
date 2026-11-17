@@ -1,0 +1,21 @@
+[
+  {
+    "Name": "RP-HelpDesk-Tier1",
+    "DefaultOutboundQueue": "q-general-support",
+    "MediaConcurrencies": [{ "Channel": "VOICE", "Concurrency": 1 }, { "Channel": "CHAT", "Concurrency": 2 }],
+    "QueueConfigs": [
+      { "Queue": "q-major-incident", "Channel": "VOICE", "Priority": 1, "Delay": 0 },
+      { "Queue": "q-password-reset", "Channel": "VOICE", "Priority": 2, "Delay": 0 },
+      { "Queue": "q-general-support", "Channel": "VOICE", "Priority": 2, "Delay": 0 }
+    ]
+  },
+  {
+    "Name": "RP-VIPDesk",
+    "DefaultOutboundQueue": "q-vip-desk",
+    "MediaConcurrencies": [{ "Channel": "VOICE", "Concurrency": 1 }],
+    "QueueConfigs": [
+      { "Queue": "q-vip-desk", "Channel": "VOICE", "Priority": 1, "Delay": 0 },
+      { "Queue": "q-general-support", "Channel": "VOICE", "Priority": 2, "Delay": 30 }
+    ]
+  }
+]

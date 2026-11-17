@@ -1,0 +1,329 @@
+{
+  "questions": [
+    {
+      "id": "w7-q01",
+      "week": 7,
+      "set": "weekly",
+      "area": "dynamodb",
+      "type": "single",
+      "stem": "Tidewater's ingestion Lambda returns <code>{\"batchItemFailures\": [{\"itemIdentifier\": \"m-2\"}]}</code> for a batch of ten SQS messages, but all ten keep coming back. What is the most likely cause?",
+      "options": [
+        "The SQS queue is a FIFO queue, which ignores partial batch responses",
+        "ReportBatchItemFailures is not enabled in the event source mapping's FunctionResponseTypes, so Lambda ignores the response body",
+        "batchItemFailures must list the receipt handle, not the messageId",
+        "The function must raise an exception for partial batch responses to apply"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Partial batch responses are only honoured when the event source mapping has FunctionResponseTypes set to ReportBatchItemFailures. Without it Lambda treats the invocation result as all-or-nothing. The identifier is the messageId; FIFO queues support partial batch responses (processing stops at the first failure to keep order); raising an exception fails the whole batch.",
+      "learn": [
+        {
+          "label": "Lambda with SQS",
+          "href": "https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html"
+        }
+      ]
+    },
+    {
+      "id": "w7-q02",
+      "week": 7,
+      "set": "weekly",
+      "area": "dynamodb",
+      "type": "single",
+      "stem": "The ingestion Lambda has a 120 s timeout. What visibility timeout should the source queue have, following the Lambda with SQS guidance?",
+      "options": [
+        "120 s, equal to the function timeout",
+        "At least 720 s (six times the function timeout)",
+        "30 s, so failed messages come back quickly",
+        "It does not matter; Lambda extends visibility automatically"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "AWS recommends a visibility timeout of at least six times the function timeout, so a message does not become visible again (and get processed twice) while an invocation, including its retries and batching window, is still working on it. Lambda does not extend visibility for you.",
+      "learn": [
+        {
+          "label": "Lambda with SQS",
+          "href": "https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html"
+        }
+      ]
+    },
+    {
+      "id": "w7-q03",
+      "week": 7,
+      "set": "weekly",
+      "area": "dynamodb",
+      "type": "multi",
+      "stem": "Which statements about asynchronous Lambda invocation (for example an S3 or SNS trigger) are correct? Choose two.",
+      "options": [
+        "By default Lambda retries a failed asynchronous invocation two more times",
+        "Asynchronous invocations are never retried; you must add a DLQ to get retries",
+        "An on-failure destination can receive the event and error details after retries are exhausted",
+        "Retries for asynchronous invocations are controlled by the SQS maxReceiveCount",
+        "A function DLQ also catches failures from an SQS event source mapping"
+      ],
+      "answer": [
+        0,
+        2
+      ],
+      "explanation": "Async invocations are retried twice by default (configurable 0-2, plus a maximum event age), and on-failure destinations or a function DLQ receive the failed event. maxReceiveCount belongs to SQS queues, and for an SQS event source mapping the queue's own redrive policy, not the function DLQ, catches failures.",
+      "learn": [
+        {
+          "label": "Lambda retry behavior",
+          "href": "https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html"
+        },
+        {
+          "label": "Async invocation destinations and DLQs",
+          "href": "https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w7-q04",
+      "week": 7,
+      "set": "weekly",
+      "area": "dynamodb",
+      "type": "single",
+      "stem": "The S3 bucket sends events to EventBridge, a rule forwards them to SQS, and Lambda deduplicates on the SQS <code>messageId</code>. Corvid still sees duplicate ingestion jobs. Why?",
+      "options": [
+        "messageId is reused by SQS for retries, so it cannot identify a message",
+        "Duplicates upstream (S3 event delivery or EventBridge) arrive as separate SQS messages with different messageIds; deduplicate on a business key such as bucket, key and sequencer",
+        "EventBridge strips the object etag, so no business key exists",
+        "SQS standard queues never deliver duplicates, so the duplicates must come from Lambda concurrency"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Every hop is at least once. A duplicate event from S3 or EventBridge becomes a new SQS message with a new messageId, so messageId dedupe only covers SQS redelivery. The S3 event detail carries key, etag and sequencer; the sequencer orders versions of a key. SQS standard queues can deliver duplicates too.",
+      "learn": [
+        {
+          "label": "S3 EventBridge event message structure",
+          "href": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/ev-events.html"
+        },
+        {
+          "label": "Powertools idempotency (Python)",
+          "href": "https://docs.aws.amazon.com/powertools/python/latest/utilities/idempotency/"
+        }
+      ]
+    },
+    {
+      "id": "w7-q05",
+      "week": 7,
+      "set": "weekly",
+      "area": "dynamodb",
+      "type": "single",
+      "stem": "Which sleep formula is exponential backoff with full jitter, as described in the Builders Library?",
+      "options": [
+        "sleep = base * 2^attempt",
+        "sleep = min(cap, base * 2^attempt) + random(0, 1 s)",
+        "sleep = random(0, min(cap, base * 2^attempt))",
+        "sleep = cap / attempt"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Full jitter picks a uniformly random delay between zero and the capped exponential value, which spreads retries from many clients over time. Pure exponential backoff keeps clients synchronized; adding a small random offset keeps most of the synchronization.",
+      "learn": [
+        {
+          "label": "Timeouts, retries and backoff with jitter (Builders Library)",
+          "href": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"
+        }
+      ]
+    },
+    {
+      "id": "w7-q06",
+      "week": 7,
+      "set": "weekly",
+      "area": "dynamodb",
+      "type": "single",
+      "stem": "A Lambda calls an API through an SDK client with 3 attempts, inside an application retry loop with 3 attempts, triggered by a client that also retries 3 times. In the worst case, how many calls can one user request cause at the API?",
+      "options": [
+        "3",
+        "9",
+        "27",
+        "6"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Retry layers multiply: 3 x 3 x 3 = 27 attempts. Under load this turns a short throttling episode into a retry storm. Retry at one layer, with a budget, and fail fast elsewhere (see w1-t1).",
+      "learn": [
+        {
+          "label": "Timeouts, retries and backoff with jitter (Builders Library)",
+          "href": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"
+        }
+      ]
+    },
+    {
+      "id": "w7-q07",
+      "week": 7,
+      "set": "weekly",
+      "area": "dynamodb",
+      "type": "multi",
+      "stem": "A DynamoDB Streams consumer keeps failing on one malformed record and the shard's iterator age is climbing. Which settings on the event source mapping address this? Choose three.",
+      "options": [
+        "BisectBatchOnFunctionError to split the batch and isolate the bad record",
+        "MaximumRetryAttempts (or MaximumRecordAgeInSeconds) to stop retrying forever",
+        "An on-failure destination (SQS or SNS) to keep a record of what was skipped",
+        "A longer SQS visibility timeout",
+        "Increasing the table's write capacity"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Stream event sources retry a failing batch until it succeeds or expires, blocking the shard. Bisect isolates the poison record, retry and age limits bound the retries, and an on-failure destination records what was skipped. Visibility timeouts belong to SQS; write capacity does not help a consumer error.",
+      "learn": [
+        {
+          "label": "DynamoDB Streams",
+          "href": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html"
+        },
+        {
+          "label": "Lambda retry behavior",
+          "href": "https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html"
+        }
+      ],
+      "choose": 3
+    },
+    {
+      "id": "w7-q08",
+      "week": 7,
+      "set": "weekly",
+      "area": "dynamodb",
+      "type": "single",
+      "stem": "Which EventBridge rule pattern matches new objects under one tenant's prefix in the docs bucket?",
+      "options": [
+        "{\"source\": [\"aws.s3\"], \"detail-type\": [\"Object Created\"], \"detail\": {\"bucket\": {\"name\": [\"tidewater-kb-docs-111122223333\"]}, \"object\": {\"key\": [{\"prefix\": \"tenants/acme-foods/docs/\"}]}}}",
+        "{\"source\": [\"s3.amazonaws.com\"], \"eventName\": [\"PutObject\"]}",
+        "{\"detail-type\": [\"s3:ObjectCreated:*\"]}",
+        "{\"source\": [\"aws.s3\"], \"resources\": [\"tenants/acme-foods/docs/*\"]}"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "S3 events on EventBridge have source aws.s3, detail-type Object Created, and the bucket and object in detail; prefix matching works on detail.object.key. s3:ObjectCreated:* is the event name in S3 event notifications (the non-EventBridge format), and resources holds the bucket ARN, not object keys.",
+      "learn": [
+        {
+          "label": "S3 EventBridge event message structure",
+          "href": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/ev-events.html"
+        },
+        {
+          "label": "What is EventBridge",
+          "href": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html"
+        }
+      ]
+    },
+    {
+      "id": "w7-q09",
+      "week": 7,
+      "set": "weekly",
+      "area": "fde",
+      "type": "multi",
+      "stem": "A customer says on a call: \"the bot gives wrong answers for some users\". Following an agent triage order that checks the cheapest signals first, which two do you check before touching the prompt? Choose two.",
+      "options": [
+        "Whether the affected users' requests fail auth or model access (AccessDenied, missing claims) or hit throttling",
+        "Whether retrieval for those users returns their own documents (tenant filter, metadata, recall on their questions)",
+        "Rewrite the system prompt and redeploy to see if it improves",
+        "Switch to a larger model for everyone",
+        "Ask the customer to retrain their staff on how to phrase questions"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "\"Some users\" points at something per user or per tenant: identity, quotas, tool errors or retrieval. Those are cheap to check from logs and traces and each rules out a class of causes. Prompt and model changes come last because they change behavior for everyone and hide the real fault.",
+      "learn": [
+        {
+          "label": "Well-Architected Generative AI Lens",
+          "href": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html"
+        },
+        {
+          "label": "Builders Library",
+          "href": "https://builder.aws.com/learn/topics/builders-library"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w7-q10",
+      "week": 7,
+      "set": "weekly",
+      "area": "fde",
+      "type": "single",
+      "stem": "You fixed a cross-tenant bug for one customer in a day. What turns it into a reusable pattern rather than a one-off?",
+      "options": [
+        "A detailed incident write-up in the customer's ticket",
+        "A shared component that makes the safe path the only path (library or construct), plus an attack test and eval case that every service runs in CI",
+        "An email to all teams describing the bug",
+        "A new item on the security review checklist"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A pattern changes what other teams' code can do and proves it continuously. Write-ups, emails and checklist items depend on people remembering; a component with a guarantee plus a test in CI does not (see x-2).",
+      "learn": [
+        {
+          "label": "SaaS Lens (Well-Architected)",
+          "href": "https://docs.aws.amazon.com/wellarchitected/latest/saas-lens/saas-lens.html"
+        },
+        {
+          "label": "Builders Library",
+          "href": "https://builder.aws.com/learn/topics/builders-library"
+        }
+      ]
+    },
+    {
+      "id": "w7-q11",
+      "week": 7,
+      "set": "weekly",
+      "area": "fde",
+      "type": "multi",
+      "stem": "A prospect's VP asks for \"an AI assistant for our ops team\" with no further detail. In the first session, what should you do? Choose two.",
+      "options": [
+        "Restate the problem as one or two concrete jobs (who asks what, how often, from which data) and agree what \"working\" means",
+        "Agree what is out of scope for the first delivery",
+        "Start building a general agent with every tool you can connect, then ask for feedback",
+        "Promise production by the end of the week to build trust",
+        "Pick the newest model available so the result is future-proof"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Ambiguous asks are narrowed by naming the user, the job and a measurable definition of done, and by fencing off what the first delivery will not do. Building broadly or promising dates before scoping produces demos, not production systems.",
+      "learn": [
+        {
+          "label": "Well-Architected Generative AI Lens",
+          "href": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w7-q12",
+      "week": 7,
+      "set": "weekly",
+      "area": "fde",
+      "type": "single",
+      "stem": "Mid-debugging with Brightline's engineers, your first hypothesis (an expired token) is ruled out by the logs. What does good FDE practice look like next?",
+      "options": [
+        "Quietly try several changes until something works, then explain it afterwards",
+        "Say out loud what the evidence ruled out and your next hypothesis, then check the cheapest signal that distinguishes the remaining candidates",
+        "Escalate to the service team before doing anything else",
+        "Ask the customer to reproduce it in a new environment first"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Diagnosing in front of a customer works when you narrate: hypothesis, check, what the result rules out, next check. It keeps the customer engaged, builds trust and avoids changing several things at once, which destroys the evidence.",
+      "learn": [
+        {
+          "label": "Builders Library",
+          "href": "https://builder.aws.com/learn/topics/builders-library"
+        }
+      ]
+    }
+  ]
+}

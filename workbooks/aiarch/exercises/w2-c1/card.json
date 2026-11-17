@@ -1,0 +1,26 @@
+{
+  "id": "aiarch/w2-c1",
+  "title": "Help desk orchestrator with two Strands specialists",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "Strands and multi-agent",
+  "scenario": "Lighthouse's first agent is an employee help desk: an orchestrator routes to an IT specialist and an access-review specialist exposed as tools. Security requires an audit record for every tool call and a hard block on delete_* tools; finance wants a cap on model calls per request. Runs offline with a scripted Strands model.",
+  "task": [
+    "Validated, trimmed tools with errors the model can act on",
+    "AuditHook and delete_* block on every agent; BudgetHook on model calls",
+    "Agents as tools: per-specialist model, prompt, tools and hooks",
+    "Requester from the session, never from tool arguments"
+  ],
+  "acceptance": [
+    "Routing, scoping and validation tests pass",
+    "delete_* never runs; budget stops loops at both levels",
+    "ANSWER.md argues hooks vs prompts and the multi-agent pattern choice"
+  ],
+  "practices": [
+    {"label": "Week 2 Mon - Strands agent loop and tools", "href": "week2"},
+    {"label": "Week 2 Tue - multi-agent patterns", "href": "week2"},
+    {"label": "Week 2 Wed - hooks and human-in-the-loop", "href": "week2"}
+  ]
+}

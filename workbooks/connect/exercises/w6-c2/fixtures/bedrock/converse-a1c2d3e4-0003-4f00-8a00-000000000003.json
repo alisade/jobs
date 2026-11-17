@@ -1,0 +1,55 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "Sorry, the model cannot summarize this conversation."
+        }
+      ]
+    }
+  },
+  "stopReason": "guardrail_intervened",
+  "usage": {
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "totalTokens": 0
+  },
+  "metrics": {
+    "latencyMs": 690
+  },
+  "trace": {
+    "guardrail": {
+      "inputAssessment": {
+        "gr-lfg-acw-summary": {
+          "contentPolicy": {
+            "filters": [
+              {
+                "type": "INSULTS",
+                "confidence": "HIGH",
+                "action": "BLOCKED"
+              }
+            ]
+          },
+          "invocationMetrics": {
+            "guardrailProcessingLatency": 230,
+            "usage": {
+              "topicPolicyUnits": 0,
+              "contentPolicyUnits": 1,
+              "wordPolicyUnits": 0,
+              "sensitiveInformationPolicyUnits": 0,
+              "sensitiveInformationPolicyFreeUnits": 0,
+              "contextualGroundingPolicyUnits": 0
+            },
+            "guardrailCoverage": {
+              "textCharacters": {
+                "guarded": 160,
+                "total": 160
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

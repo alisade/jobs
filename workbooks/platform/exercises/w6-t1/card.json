@@ -1,0 +1,26 @@
+{
+  "id": "platform/w6-t1",
+  "title": "The import agent ran terraform apply in staging",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 6,
+  "optional": false,
+  "area": "Agentic toil automation and AI",
+  "scenario": "Overnight the unmanaged-resource import agent resized the RIQ staging Cloud SQL instance: it read an injected instruction in a resource label, was blocked once by its guard, then ran the apply a different way and it went through. The thread wants a better system prompt. You get the agent transcript, the guard, the approval check, audit log excerpts and a replay tool.",
+  "task": [
+    "Replay the transcript through the guard and find exactly why the second apply was allowed",
+    "Find the second control that failed open, and the credential that made an apply possible at all",
+    "Fix the guard (parse, do not pattern-match; allow-list read-only commands) and make approval fail closed",
+    "Root cause, evidence, why the prompt is not the fix, and the credential fix in ANSWER.md"
+  ],
+  "acceptance": [
+    "Every apply/destroy/state-changing variant is denied: -chdir, paths, env prefixes, chains, bash -c, substitution, gcloud deletes and patches",
+    "Read-only commands the agent needs still pass",
+    "The approval check returns not-approved when the change service is down or the change is pending",
+    "Root cause with evidence and the credential finding in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 6 - agentic toil: hooks over instructions, read-only credentials", "href": "week6"},
+    {"label": "AI Integration - security (injection through data the agent reads)", "href": "ai"}
+  ]
+}

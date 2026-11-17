@@ -1,0 +1,26 @@
+{
+  "id": "connect/w8-t1",
+  "title": "Release 2026.10.06: every caller lands in GeneralSupport",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 8,
+  "optional": false,
+  "area": "DevOps and platform engineering",
+  "scenario": "A green pipeline run shipped Larkspur's natural-language front door to prod. Within 30 minutes GeneralSupport waits passed 15 minutes, password-reset self-service stopped working and callers were never asked what they need. On-call blames Lambda cold starts. You get the pipeline log, flow logs, Lambda logs, metrics, the flow diff and the pipeline code.",
+  "task": [
+    "Trace the failing block and what it references, with flow log and artifact evidence",
+    "Explain why promote, lint and the synthetic call were all green; rule the Lambda theory in or out",
+    "Fix the promote step, regenerate release/prod, implement the check-refs gate",
+    "Write root cause, evidence and prevention in ANSWER.md"
+  ],
+  "acceptance": [
+    "Every ARN in release/prod belongs to the prod inventory",
+    "Promote reproduces the expected prod content",
+    "check-refs flags the shipped artifact with path and reason and passes the fixed ones",
+    "Root cause backed by evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 8 Mon - promotion across Sandbox/Dev/Test/Prod", "href": "week8"},
+    {"label": "Week 8 Thu - flow logs, CloudWatch metrics and alarms", "href": "week8"}
+  ]
+}

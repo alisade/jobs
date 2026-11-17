@@ -1,0 +1,17 @@
+[
+  {
+    "name": "search",
+    "description": "Search the caller's purchase orders by free text (customer site, SKU or status). Returns up to 5 order summaries.",
+    "inputSchema": {"type": "object", "properties": {"query": {"type": "string", "description": "free text, e.g. 'Denver' or 'SHIPPED'"}}, "required": ["query"]}
+  },
+  {
+    "name": "lookup_order",
+    "description": "Get one purchase order by id (format PO-12345): status, shipment id and lines.",
+    "inputSchema": {"type": "object", "properties": {"order_id": {"type": "string", "description": "e.g. PO-48812"}}, "required": ["order_id"]}
+  },
+  {
+    "name": "get_invoice_total",
+    "description": "Invoice total for one purchase order: subtotal, tax and total in USD.",
+    "inputSchema": {"type": "object", "properties": {"order_id": {"type": "string", "description": "e.g. PO-48812"}}, "required": ["order_id"]}
+  }
+]

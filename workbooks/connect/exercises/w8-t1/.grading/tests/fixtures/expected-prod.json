@@ -1,0 +1,656 @@
+{
+  "flows": {
+    "LFG Help Desk Inbound": {
+      "Version": "2019-10-30",
+      "StartAction": "start-logging",
+      "Metadata": {
+        "entryPointPosition": {
+          "x": 40,
+          "y": 40
+        },
+        "ActionMetadata": {
+          "set-q-vip": {
+            "position": {
+              "x": 900,
+              "y": 120
+            },
+            "parameters": {
+              "QueueId": {
+                "displayName": "VIPDesk"
+              }
+            },
+            "queue": {
+              "id": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/265f8593-27a5-42eb-8c24-475d5f1d9bc2",
+              "text": "VIPDesk"
+            }
+          },
+          "ask-bot": {
+            "position": {
+              "x": 600,
+              "y": 300
+            },
+            "parameters": {
+              "LexV2Bot": {
+                "AliasArn": {
+                  "displayName": "live",
+                  "useLexBotDropdown": true,
+                  "lexV2BotName": "HelpDeskBot"
+                }
+              }
+            }
+          },
+          "password-module": {
+            "position": {
+              "x": 900,
+              "y": 300
+            },
+            "parameters": {
+              "FlowModuleId": {
+                "displayName": "mod-password-reset"
+              }
+            }
+          }
+        }
+      },
+      "Actions": [
+        {
+          "Identifier": "start-logging",
+          "Type": "UpdateFlowLoggingBehavior",
+          "Parameters": {
+            "FlowLoggingBehavior": "Enabled"
+          },
+          "Transitions": {
+            "NextAction": "check-hours"
+          }
+        },
+        {
+          "Identifier": "check-hours",
+          "Type": "CheckHoursOfOperation",
+          "Parameters": {
+            "HoursOfOperationId": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/operating-hours/970e4cdf-7c68-4fdd-8f7b-bcbc4b42fc38"
+          },
+          "Transitions": {
+            "Conditions": [
+              {
+                "NextAction": "identify-caller",
+                "Condition": {
+                  "Operator": "Equals",
+                  "Operands": [
+                    "True"
+                  ]
+                }
+              },
+              {
+                "NextAction": "after-hours",
+                "Condition": {
+                  "Operator": "Equals",
+                  "Operands": [
+                    "False"
+                  ]
+                }
+              }
+            ],
+            "Errors": [
+              {
+                "NextAction": "identify-caller",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "after-hours",
+          "Type": "InvokeFlowModule",
+          "Parameters": {
+            "FlowModuleId": "05c2c881-dd04-4a67-8a65-8175ef4b3abc"
+          },
+          "Transitions": {
+            "NextAction": "disconnect",
+            "Errors": [
+              {
+                "NextAction": "disconnect",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "identify-caller",
+          "Type": "InvokeLambdaFunction",
+          "Parameters": {
+            "LambdaFunctionARN": "arn:aws:lambda:us-east-1:444455556666:function:lfg-identify-caller:live",
+            "InvocationTimeLimitSeconds": "3",
+            "InvocationType": "SYNCHRONOUS",
+            "LambdaInvocationAttributes": {
+              "instanceArn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+              "callbackQueueId": "c35312bf-6e1f-4bca-8e3a-71a51e56f6a2"
+            },
+            "ResponseValidation": {
+              "ResponseType": "STRING_MAP"
+            }
+          },
+          "Transitions": {
+            "NextAction": "set-verified",
+            "Errors": [
+              {
+                "NextAction": "set-unverified",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "set-verified",
+          "Type": "UpdateContactAttributes",
+          "Parameters": {
+            "Attributes": {
+              "employeeId": "$.External.employeeId",
+              "vip": "$.External.vip",
+              "callerVerified": "true"
+            },
+            "TargetContact": "Current"
+          },
+          "Transitions": {
+            "NextAction": "check-vip",
+            "Errors": [
+              {
+                "NextAction": "set-unverified",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "set-unverified",
+          "Type": "UpdateContactAttributes",
+          "Parameters": {
+            "Attributes": {
+              "employeeId": "",
+              "vip": "false",
+              "callerVerified": "false"
+            },
+            "TargetContact": "Current"
+          },
+          "Transitions": {
+            "NextAction": "check-vip",
+            "Errors": [
+              {
+                "NextAction": "set-q-general",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "check-vip",
+          "Type": "Compare",
+          "Parameters": {
+            "ComparisonValue": "$.Attributes.vip"
+          },
+          "Transitions": {
+            "Conditions": [
+              {
+                "NextAction": "set-q-vip",
+                "Condition": {
+                  "Operator": "Equals",
+                  "Operands": [
+                    "true"
+                  ]
+                }
+              }
+            ],
+            "Errors": [
+              {
+                "NextAction": "ask-bot",
+                "ErrorType": "NoMatchingCondition"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "set-q-vip",
+          "Type": "UpdateContactTargetQueue",
+          "Parameters": {
+            "QueueId": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/265f8593-27a5-42eb-8c24-475d5f1d9bc2"
+          },
+          "Transitions": {
+            "NextAction": "vip-priority",
+            "Errors": [
+              {
+                "NextAction": "set-q-general",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "vip-priority",
+          "Type": "UpdateContactRoutingBehavior",
+          "Parameters": {
+            "QueuePriority": "1"
+          },
+          "Transitions": {
+            "NextAction": "transfer",
+            "Errors": [
+              {
+                "NextAction": "transfer",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "ask-bot",
+          "Type": "ConnectParticipantWithLexBot",
+          "Parameters": {
+            "Text": "In a few words, tell me what you need help with.",
+            "LexV2Bot": {
+              "AliasArn": "arn:aws:lex:us-east-1:444455556666:bot-alias/CGFEJCEHDF/AHIBBDIJHJ"
+            },
+            "LexSessionAttributes": {
+              "callerVerified": "$.Attributes.callerVerified"
+            }
+          },
+          "Transitions": {
+            "Conditions": [
+              {
+                "NextAction": "password-module",
+                "Condition": {
+                  "Operator": "Equals",
+                  "Operands": [
+                    "ResetPassword"
+                  ]
+                }
+              },
+              {
+                "NextAction": "to-major-incident",
+                "Condition": {
+                  "Operator": "Equals",
+                  "Operands": [
+                    "ReportOutage"
+                  ]
+                }
+              },
+              {
+                "NextAction": "set-q-general",
+                "Condition": {
+                  "Operator": "Equals",
+                  "Operands": [
+                    "GeneralIssue"
+                  ]
+                }
+              }
+            ],
+            "Errors": [
+              {
+                "NextAction": "set-q-general",
+                "ErrorType": "InputTimeLimitExceeded"
+              },
+              {
+                "NextAction": "set-q-general",
+                "ErrorType": "NoMatchingCondition"
+              },
+              {
+                "NextAction": "set-q-general",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "password-module",
+          "Type": "InvokeFlowModule",
+          "Parameters": {
+            "FlowModuleId": "4f5167bf-a2d3-4b0a-8ece-6f2f5b5d6ad9"
+          },
+          "Transitions": {
+            "NextAction": "reset-done",
+            "Errors": [
+              {
+                "NextAction": "set-q-password",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "reset-done",
+          "Type": "Compare",
+          "Parameters": {
+            "ComparisonValue": "$.Attributes.resetStatus"
+          },
+          "Transitions": {
+            "Conditions": [
+              {
+                "NextAction": "disconnect",
+                "Condition": {
+                  "Operator": "Equals",
+                  "Operands": [
+                    "SENT"
+                  ]
+                }
+              }
+            ],
+            "Errors": [
+              {
+                "NextAction": "set-q-password",
+                "ErrorType": "NoMatchingCondition"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "to-major-incident",
+          "Type": "TransferToFlow",
+          "Parameters": {
+            "ContactFlowId": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/contact-flow/0d63fdc8-b069-47ef-8f86-33f73e41a67f"
+          },
+          "Transitions": {
+            "Errors": [
+              {
+                "NextAction": "set-q-general",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "set-q-password",
+          "Type": "UpdateContactTargetQueue",
+          "Parameters": {
+            "QueueId": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/1f16d8c5-06d8-4f45-8de4-7942d8aaa860"
+          },
+          "Transitions": {
+            "NextAction": "transfer",
+            "Errors": [
+              {
+                "NextAction": "set-q-general",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "set-q-general",
+          "Type": "UpdateContactTargetQueue",
+          "Parameters": {
+            "QueueId": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/895a5686-23de-4486-8c33-72e59acf001a"
+          },
+          "Transitions": {
+            "NextAction": "transfer",
+            "Errors": [
+              {
+                "NextAction": "tech-msg",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "transfer",
+          "Type": "TransferContactToQueue",
+          "Parameters": {},
+          "Transitions": {
+            "Errors": [
+              {
+                "NextAction": "tech-msg",
+                "ErrorType": "QueueAtCapacity"
+              },
+              {
+                "NextAction": "tech-msg",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "tech-msg",
+          "Type": "MessageParticipant",
+          "Parameters": {
+            "Text": "We are experiencing technical difficulties. Please open a ticket in the employee portal. Goodbye."
+          },
+          "Transitions": {
+            "NextAction": "disconnect",
+            "Errors": [
+              {
+                "NextAction": "disconnect",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "disconnect",
+          "Type": "DisconnectParticipant",
+          "Parameters": {},
+          "Transitions": {}
+        }
+      ]
+    },
+    "LFG Major Incident": {
+      "Version": "2019-10-30",
+      "StartAction": "set-q-major",
+      "Actions": [
+        {
+          "Identifier": "set-q-major",
+          "Type": "UpdateContactTargetQueue",
+          "Parameters": {
+            "QueueId": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/ffa69037-4ce7-484f-87d0-fa3d33e669fd"
+          },
+          "Transitions": {
+            "NextAction": "major-priority",
+            "Errors": [
+              {
+                "NextAction": "fallback-general",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "major-priority",
+          "Type": "UpdateContactRoutingBehavior",
+          "Parameters": {
+            "QueuePriority": "1"
+          },
+          "Transitions": {
+            "NextAction": "transfer",
+            "Errors": [
+              {
+                "NextAction": "transfer",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "fallback-general",
+          "Type": "UpdateContactTargetQueue",
+          "Parameters": {
+            "QueueId": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/895a5686-23de-4486-8c33-72e59acf001a"
+          },
+          "Transitions": {
+            "NextAction": "transfer",
+            "Errors": [
+              {
+                "NextAction": "disconnect",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "transfer",
+          "Type": "TransferContactToQueue",
+          "Parameters": {},
+          "Transitions": {
+            "Errors": [
+              {
+                "NextAction": "disconnect",
+                "ErrorType": "QueueAtCapacity"
+              },
+              {
+                "NextAction": "disconnect",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "disconnect",
+          "Type": "DisconnectParticipant",
+          "Parameters": {},
+          "Transitions": {}
+        }
+      ]
+    }
+  },
+  "modules": {
+    "mod-after-hours": {
+      "Version": "2019-10-30",
+      "StartAction": "closed-msg",
+      "Actions": [
+        {
+          "Identifier": "closed-msg",
+          "Type": "MessageParticipant",
+          "Parameters": {
+            "PromptId": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/prompt/47a260bc-7e58-41d2-8ef2-3b2299720ccc"
+          },
+          "Transitions": {
+            "NextAction": "return",
+            "Errors": [
+              {
+                "NextAction": "return",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "return",
+          "Type": "EndFlowModuleExecution",
+          "Parameters": {},
+          "Transitions": {}
+        }
+      ]
+    },
+    "mod-password-reset": {
+      "Version": "2019-10-30",
+      "StartAction": "reset-lambda",
+      "Actions": [
+        {
+          "Identifier": "reset-lambda",
+          "Type": "InvokeLambdaFunction",
+          "Parameters": {
+            "LambdaFunctionARN": "arn:aws:lambda:us-east-1:444455556666:function:lfg-password-reset:live",
+            "InvocationTimeLimitSeconds": "6",
+            "InvocationType": "SYNCHRONOUS",
+            "LambdaInvocationAttributes": {
+              "employeeId": "$.Attributes.employeeId",
+              "fallbackQueueArn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/1f16d8c5-06d8-4f45-8de4-7942d8aaa860",
+              "audit": "{\"source\":\"ivr\",\"instance\":\"arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d\"}"
+            },
+            "ResponseValidation": {
+              "ResponseType": "STRING_MAP"
+            }
+          },
+          "Transitions": {
+            "NextAction": "save-status",
+            "Errors": [
+              {
+                "NextAction": "save-failed",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "save-status",
+          "Type": "UpdateContactAttributes",
+          "Parameters": {
+            "Attributes": {
+              "resetStatus": "$.External.resetStatus"
+            },
+            "TargetContact": "Current"
+          },
+          "Transitions": {
+            "NextAction": "confirm",
+            "Errors": [
+              {
+                "NextAction": "save-failed",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "confirm",
+          "Type": "Compare",
+          "Parameters": {
+            "ComparisonValue": "$.Attributes.resetStatus"
+          },
+          "Transitions": {
+            "Conditions": [
+              {
+                "NextAction": "sent-msg",
+                "Condition": {
+                  "Operator": "Equals",
+                  "Operands": [
+                    "SENT"
+                  ]
+                }
+              }
+            ],
+            "Errors": [
+              {
+                "NextAction": "return",
+                "ErrorType": "NoMatchingCondition"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "sent-msg",
+          "Type": "MessageParticipant",
+          "Parameters": {
+            "Text": "A reset link has been sent to the mobile number on your employee record."
+          },
+          "Transitions": {
+            "NextAction": "return",
+            "Errors": [
+              {
+                "NextAction": "return",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "save-failed",
+          "Type": "UpdateContactAttributes",
+          "Parameters": {
+            "Attributes": {
+              "resetStatus": "FAILED"
+            },
+            "TargetContact": "Current"
+          },
+          "Transitions": {
+            "NextAction": "return",
+            "Errors": [
+              {
+                "NextAction": "return",
+                "ErrorType": "NoMatchingError"
+              }
+            ]
+          }
+        },
+        {
+          "Identifier": "return",
+          "Type": "EndFlowModuleExecution",
+          "Parameters": {},
+          "Transitions": {}
+        }
+      ]
+    }
+  }
+}

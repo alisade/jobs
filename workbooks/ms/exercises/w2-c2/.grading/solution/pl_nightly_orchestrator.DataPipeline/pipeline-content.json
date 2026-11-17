@@ -1,0 +1,320 @@
+{
+  "properties": {
+    "description": "Nightly orchestration: stage orders, partner export, per-region loads.",
+    "activities": [
+      {
+        "name": "nb_stage_orders",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 120,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "6c1f0e2a-4b7d-4c55-9a0e-2f8d3b1e7a10",
+          "workspaceId": "0b5e9d2c-71aa-4f3e-8c6b-5d2a9e4f1c33",
+          "parameters": {
+            "load_date": {
+              "value": {
+                "value": "@pipeline().parameters.load_date",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "env": {
+              "value": {
+                "value": "@pipeline().parameters.env",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "web_start_export",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "nb_stage_orders",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.00:10:00",
+          "retry": 3,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "POST",
+          "relativeUrl": "/v1/exports",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "value": "@concat('{\"loadDate\":\"', pipeline().parameters.load_date, '\",\"runId\":\"', pipeline().RunId, '\"}')",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "e8f1a2b3-c4d5-4e6f-8a9b-0c1d2e3f4a5b"
+        }
+      },
+      {
+        "name": "until_export_done",
+        "type": "Until",
+        "dependsOn": [
+          {
+            "activity": "web_start_export",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@or(equals(variables('export_status'), 'Completed'), equals(variables('export_status'), 'Failed'))",
+            "type": "Expression"
+          },
+          "timeout": "0.01:00:00",
+          "activities": [
+            {
+              "name": "web_get_export_status",
+              "type": "WebActivity",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.00:02:00",
+                "retry": 2,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "method": "GET",
+                "relativeUrl": {
+                  "value": "@concat('/v1/exports/', activity('web_start_export').output.exportId)",
+                  "type": "Expression"
+                }
+              },
+              "externalReferences": {
+                "connection": "e8f1a2b3-c4d5-4e6f-8a9b-0c1d2e3f4a5b"
+              }
+            },
+            {
+              "name": "set_export_status",
+              "type": "SetVariable",
+              "dependsOn": [
+                {
+                  "activity": "web_get_export_status",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ],
+              "typeProperties": {
+                "variableName": "export_status",
+                "value": {
+                  "value": "@activity('web_get_export_status').output.status",
+                  "type": "Expression"
+                }
+              }
+            },
+            {
+              "name": "wait_poll",
+              "type": "Wait",
+              "dependsOn": [
+                {
+                  "activity": "set_export_status",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ],
+              "typeProperties": {
+                "waitTimeInSeconds": 60
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "fail_export_timeout",
+        "type": "Fail",
+        "dependsOn": [
+          {
+            "activity": "until_export_done",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "message": {
+            "value": "@concat('Partner export did not finish within 1 hour. Last status: ', variables('export_status'), '. Run ', pipeline().RunId)",
+            "type": "Expression"
+          },
+          "errorCode": "EXPORT_TIMEOUT"
+        }
+      },
+      {
+        "name": "if_export_failed",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "until_export_done",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@equals(variables('export_status'), 'Failed')",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "name": "fail_export",
+              "type": "Fail",
+              "dependsOn": [],
+              "typeProperties": {
+                "message": {
+                  "value": "@concat('Partner export reported Failed for load_date ', pipeline().parameters.load_date, '. Run ', pipeline().RunId)",
+                  "type": "Expression"
+                },
+                "errorCode": "EXPORT_FAILED"
+              }
+            }
+          ],
+          "ifFalseActivities": []
+        }
+      },
+      {
+        "name": "foreach_region",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "if_export_failed",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@pipeline().parameters.regions",
+            "type": "Expression"
+          },
+          "isSequential": false,
+          "batchCount": 3,
+          "activities": [
+            {
+              "name": "invoke_region_load",
+              "type": "InvokePipeline",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.03:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "waitOnCompletion": true,
+                "operationType": "InvokeFabricPipeline",
+                "pipelineId": "a3d7c9e1-2f4b-4e8a-b1c6-7e9f0d2a5b48",
+                "workspaceId": "0b5e9d2c-71aa-4f3e-8c6b-5d2a9e4f1c33",
+                "parameters": {
+                  "region": {
+                    "value": "@item()",
+                    "type": "Expression"
+                  },
+                  "load_date": {
+                    "value": "@pipeline().parameters.load_date",
+                    "type": "Expression"
+                  },
+                  "env": {
+                    "value": "@pipeline().parameters.env",
+                    "type": "Expression"
+                  }
+                }
+              },
+              "externalReferences": {
+                "connection": "e8f1a2b3-c4d5-4e6f-8a9b-0c1d2e3f4a5b"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "fail_staging",
+        "type": "Fail",
+        "dependsOn": [
+          {
+            "activity": "nb_stage_orders",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "message": {
+            "value": "@concat('Staging notebook failed: ', activity('nb_stage_orders').error.message, '. Run ', pipeline().RunId)",
+            "type": "Expression"
+          },
+          "errorCode": "STAGING_FAILED"
+        }
+      },
+      {
+        "name": "fail_region_loads",
+        "type": "Fail",
+        "dependsOn": [
+          {
+            "activity": "foreach_region",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "message": {
+            "value": "@concat('One or more region loads failed. Run ', pipeline().RunId)",
+            "type": "Expression"
+          },
+          "errorCode": "REGION_LOAD_FAILED"
+        }
+      }
+    ],
+    "parameters": {
+      "load_date": {
+        "type": "String",
+        "defaultValue": ""
+      },
+      "env": {
+        "type": "String",
+        "defaultValue": "dev"
+      },
+      "regions": {
+        "type": "Array",
+        "defaultValue": [
+          "east",
+          "west",
+          "central"
+        ]
+      }
+    },
+    "variables": {
+      "export_status": {
+        "type": "String",
+        "defaultValue": "Pending"
+      }
+    }
+  }
+}

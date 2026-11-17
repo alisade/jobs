@@ -1,0 +1,32 @@
+[
+  {
+    "participant": "AGENT",
+    "text": "Thanks for contacting Larkspur IT service desk chat.",
+    "beginMillis": 0
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "GlobalProtect VPN disconnects every ten minutes since this morning.",
+    "beginMillis": 4000
+  },
+  {
+    "participant": "AGENT",
+    "text": "I see a known issue with client 6.2.1. I pushed client 6.2.3 to your laptop.",
+    "beginMillis": 8000
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "Installed. Still drops sometimes. You can text me at 555-201-7788 if you need me.",
+    "beginMillis": 12000
+  },
+  {
+    "participant": "AGENT",
+    "text": "I'll keep incident INC0041902 open and network engineering will follow up by end of day.",
+    "beginMillis": 16000
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "Thanks.",
+    "beginMillis": 20000
+  }
+]

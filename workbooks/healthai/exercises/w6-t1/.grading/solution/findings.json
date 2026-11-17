@@ -1,0 +1,7 @@
+{
+  "root_cause_file": "app/logsetup.py",
+  "root_cause_class": "RedactFilter",
+  "leaking_log_call": "log.warning(\"eligibility retry for %s member %s\", name, member) in app/pipeline.py",
+  "span_leak_percent_before": 3.3,
+  "red_herring": "The nested-attribute TODO in scrub_attributes: no nested attributes are emitted, and the leaking spans carry the name in log events, not attributes."
+}

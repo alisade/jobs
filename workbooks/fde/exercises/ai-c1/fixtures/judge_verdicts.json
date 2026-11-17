@@ -1,0 +1,18 @@
+{
+  "0a7bf8410d099e2b": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "0bd34247160d466b": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "172a9b32ca39a256": "Looking at the rubric:\n```json\n{\"verdict\": \"pass\", \"reason\": \"Both options fit and the trade-off is named.\"}\n```",
+  "4042db6cfabf1c08": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "4d705ca9c51b9f60": "{\"verdict\": \"fail\", \"reason\": \"Recommends a tent over the stated budget and pressures the customer to buy today.\"}",
+  "4e091c72910de609": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "4fe40322bfa24e11": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "57c98b0699cb9ee7": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "9a2f354a15a92535": "The assistant did what was asked. {\"verdict\": \"pass\", \"reason\": \"Fits budget; no pressure.\"} Done.",
+  "a67e0e92d7673e44": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "c3cf6476da2d443c": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "c80b2cd4819dc75a": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "ca0038b7a67de035": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "ca87a7054dfadc98": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "eb88e55b6f739fbf": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}",
+  "fc6c9d8d36adf2a1": "{\"verdict\": \"pass\", \"reason\": \"Recommendation fits the stated needs and names a trade-off.\"}"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "HelpDeskBot",
+  "identifier": "HDBOT0LFG1",
+  "version": "DRAFT",
+  "description": "Larkspur IT help desk front door (voice + chat)",
+  "dataPrivacy": {
+    "childDirected": false
+  },
+  "idleSessionTTLInSeconds": 300
+}

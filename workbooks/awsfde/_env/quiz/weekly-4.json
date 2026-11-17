@@ -1,0 +1,320 @@
+{
+ "questions": [
+  {
+   "id": "w4-q01",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "single",
+   "stem": "The SPA switches from sending the ID token to the access token. The <code>tenant_id</code> claim, added by a pre token generation trigger, disappears. Most likely cause?",
+   "options": [
+    "The JWT authorizer strips custom claims",
+    "The trigger uses event version V1_0, which customizes only the ID token; access token customization needs V2_0 (or later)",
+    "Access tokens never carry custom claims",
+    "The app client lacks the openid scope"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Version 1 events can only change ID token claims. Version 2 adds claimsAndScopeOverrideDetails with accessTokenGeneration. The docs tie access token customization to the Essentials or Plus feature plan.",
+   "learn": [
+    {
+     "label": "Pre token generation trigger",
+     "href": "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-token-generation.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q02",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "single",
+   "stem": "Where does a V2_0 pre token generation trigger put a claim for both tokens?",
+   "options": [
+    "event.response.claimsOverrideDetails.claimsToAddOrOverride",
+    "event.response.claimsAndScopeOverrideDetails.idTokenGeneration and .accessTokenGeneration, each with claimsToAddOrOverride",
+    "event.request.userAttributes",
+    "A return value of {\"claims\": {...}}"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "V2 responses use claimsAndScopeOverrideDetails with separate idTokenGeneration and accessTokenGeneration sections (the access token section can also add or suppress scopes). claimsOverrideDetails is the V1 shape.",
+   "learn": [
+    {
+     "label": "Pre token generation trigger",
+     "href": "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-token-generation.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q03",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "multi",
+   "stem": "Your Lambda behind an HTTP API JWT authorizer must decide the tenant. Which are correct? Choose two.",
+   "options": [
+    "Read it from requestContext.authorizer.jwt.claims, which API Gateway populated after validating the token",
+    "Prefer a tenant_id query parameter when present because it is more specific",
+    "If the claim is missing, return 403 instead of falling back to a default tenant",
+    "Decode the token again and trust the payload without validation",
+    "Use the user's email domain as the tenant"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "The authorizer validated issuer, audience and signature, so its claims are the trusted source. Defaults and request parameters turn a missing claim into cross-tenant access (w4-t1).",
+   "learn": [
+    {
+     "label": "HTTP API JWT authorizers",
+     "href": "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-jwt-authorizer.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q04",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "single",
+   "stem": "An identity policy uses <code>ForAllValues:StringLike</code> on <code>dynamodb:LeadingKeys</code> with <code>TENANT#${aws:PrincipalTag/tenant_id}</code> and allows GetItem, Query and Scan. What is wrong?",
+   "options": [
+    "Nothing",
+    "Scan has no leading keys; ForAllValues over an empty set evaluates to true, so Scan reads every tenant's items",
+    "StringLike cannot use policy variables",
+    "LeadingKeys only works with ForAnyValue"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "ForAllValues is true when the request carries no values for the key. Scan provides no leading keys, so the condition passes. Drop Scan from tenant roles; ForAnyValue would be wrong for BatchGetItem with mixed keys.",
+   "learn": [
+    {
+     "label": "DynamoDB fine-grained access with IAM conditions",
+     "href": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q05",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "single",
+   "stem": "How does a tool Lambda get a session whose ABAC policy keys on <code>aws:PrincipalTag/tenant_id</code>?",
+   "options": [
+    "Set an environment variable TENANT_ID",
+    "Call sts:AssumeRole with Tags=[{Key: tenant_id, Value: <verified tenant>}] (the role trust policy must allow sts:TagSession)",
+    "Add the tag to the Lambda function",
+    "Put the tenant in the RoleSessionName"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Session tags passed on AssumeRole become principal tags for that session. The trust policy must allow sts:TagSession. Function tags are resource tags, not principal tags of the execution role session.",
+   "learn": [
+    {
+     "label": "STS session tags",
+     "href": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html"
+    },
+    {
+     "label": "Controlling access with tags (ABAC)",
+     "href": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q06",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "multi",
+   "stem": "Which multi-tenant Cognito models are described as options, with trade-offs? Choose two.",
+   "options": [
+    "One user pool with a tenant attribute or group per tenant",
+    "A separate user pool per tenant for stronger isolation and per-tenant settings",
+    "One IAM user per end user",
+    "Sharing a single Cognito user across tenants",
+    "Storing passwords in DynamoDB per tenant"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "The Cognito multi-tenant guidance covers attribute- or group-based models in one pool, app client per tenant, and pool per tenant, trading isolation and per-tenant configuration against operational overhead.",
+   "learn": [
+    {
+     "label": "Building B2B multi-tenant applications with Cognito",
+     "href": "https://docs.aws.amazon.com/cognito/latest/developerguide/multi-tenant-application-best-practices.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q07",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "single",
+   "stem": "Brightline wants its employees to sign in with their corporate IdP. Which Cognito feature fits a B2B tenant?",
+   "options": [
+    "An identity pool unauthenticated role",
+    "A SAML or OIDC identity provider federated into the user pool, mapped to that tenant",
+    "A user pool group named after the IdP",
+    "Custom authentication challenge triggers"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "User pools federate SAML and OIDC IdPs; a per-tenant IdP plus a mapping to the tenant (attribute or lookup in the trigger) is the usual B2B pattern.",
+   "learn": [
+    {
+     "label": "User pool federation with third-party IdPs",
+     "href": "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation.html"
+    },
+    {
+     "label": "Building B2B multi-tenant applications with Cognito",
+     "href": "https://docs.aws.amazon.com/cognito/latest/developerguide/multi-tenant-application-best-practices.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q08",
+   "week": 4,
+   "set": "weekly",
+   "area": "dynamodb",
+   "type": "single",
+   "stem": "Access patterns: get ticket by id, list a tenant's open tickets newest first, list a tenant's tickets for a shipment. Which design fits single-table modeling best?",
+   "options": [
+    "pk = ticket id; scan with a filter on tenant",
+    "pk = TENANT#t, sk = TICKET#id; GSI1 pk = TENANT#t#STATUS#s, sk = created_at; GSI2 pk = TENANT#t#SHIPMENT#id",
+    "One table per tenant with a scan per query",
+    "pk = status, sk = tenant"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Design from access patterns: every pattern becomes a GetItem or Query, every partition key is tenant-prefixed (which also enables LeadingKeys), and no pattern needs Scan.",
+   "learn": [
+    {
+     "label": "DynamoDB data modeling",
+     "href": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/data-modeling.html"
+    },
+    {
+     "label": "Single-table design (Alex DeBrie)",
+     "href": "https://www.alexdebrie.com/posts/dynamodb-single-table/"
+    },
+    {
+     "label": "Partition key design",
+     "href": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q09",
+   "week": 4,
+   "set": "weekly",
+   "area": "dynamodb",
+   "type": "multi",
+   "stem": "Why is a tenant id as the leading part of every partition key useful? Choose two.",
+   "options": [
+    "IAM dynamodb:LeadingKeys can restrict a session to its tenant's items",
+    "Queries for one tenant never touch another tenant's partition",
+    "It guarantees even partition load for very large tenants",
+    "It removes the need for application tests",
+    "It makes Scan cheaper"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Tenant-prefixed keys make isolation enforceable below the application and keep queries scoped. A very large tenant can still create a hot partition, so high-volume items may need write sharding.",
+   "learn": [
+    {
+     "label": "DynamoDB fine-grained access with IAM conditions",
+     "href": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html"
+    },
+    {
+     "label": "Partition key design",
+     "href": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q10",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "single",
+   "stem": "Another tenant's ticket id is requested with a valid token. Why return 404 rather than 403?",
+   "options": [
+    "404 is cheaper",
+    "The key is built from the caller's tenant, so for them the item does not exist; 403 would confirm that the id exists for someone else",
+    "403 cannot be returned by an HTTP API",
+    "Clients retry 403 automatically"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Returning 403 leaks existence (an enumeration oracle). Building the key from the verified tenant makes 404 the natural, honest answer.",
+   "learn": [
+    {
+     "label": "Building B2B multi-tenant applications with Cognito",
+     "href": "https://docs.aws.amazon.com/cognito/latest/developerguide/multi-tenant-application-best-practices.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q11",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "single",
+   "stem": "Per-user rules such as 'a clinic manager may approve refunds under 500 only for their own clinics' are growing in the tool Lambdas. Which AWS service is designed for this?",
+   "options": [
+    "IAM permission boundaries",
+    "Amazon Verified Permissions with Cedar policies",
+    "Cognito groups only",
+    "AWS WAF"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Verified Permissions evaluates Cedar policies for fine-grained application authorization, keeping rules out of tool code. IAM still guards AWS resources underneath.",
+   "learn": [
+    {
+     "label": "Amazon Verified Permissions",
+     "href": "https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/what-is-avp.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q12",
+   "week": 4,
+   "set": "weekly",
+   "area": "identity",
+   "type": "multi",
+   "stem": "Which statements about Cognito identity pools in this architecture are correct? Choose two.",
+   "options": [
+    "They exchange a user pool token for temporary AWS credentials",
+    "Role-based access control can map token claims or groups to IAM roles",
+    "They replace the need for a user pool for sign-in",
+    "They issue the JWT that API Gateway validates",
+    "They store tenant data"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Identity pools give temporary AWS credentials and can choose roles from token claims; sign-in and JWTs come from the user pool.",
+   "learn": [
+    {
+     "label": "Identity pools role-based access control",
+     "href": "https://docs.aws.amazon.com/cognito/latest/developerguide/role-based-access-control.html"
+    }
+   ]
+  }
+ ]
+}

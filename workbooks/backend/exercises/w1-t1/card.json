@@ -1,0 +1,26 @@
+{
+  "id": "backend/w1-t1",
+  "title": "Contacts attached to the wrong accounts after the pilot import",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 1,
+  "optional": false,
+  "area": "CRM data models and migration",
+  "scenario": "Keystone's first pilot import of a Salesforce-shaped export exited 0, but sales ops reports contacts under the wrong customer, about a dozen accounts missing and some tasks never arriving. The reconciliation report shows an Account difference nobody can explain, and the partner-portal wave (which still sends 15-character ids) is blocked until you find out why.",
+  "task": [
+    "Find the root cause from the export, the pilot database, the import log and the code",
+    "Fix the importer so every legacy record keeps its identity and both extracts link correctly",
+    "Make the reconciliation report clean while still listing legitimate rejects",
+    "Write the root cause with evidence and production follow-ups in ANSWER.md"
+  ],
+  "acceptance": [
+    "canonical_id handles 15- and 18-character ids correctly and rejects malformed ids",
+    "Every named account imported exactly once; every contact on the exact account it names",
+    "Recon has zero unexplained mismatches, lists rejects, and a re-run is idempotent",
+    "ANSWER.md root cause backed by concrete ids and numbers from the bundle"
+  ],
+  "practices": [
+    {"label": "Week 1 Thu - CRM domain: Salesforce objects, IDs, hidden logic", "href": "week1"},
+    {"label": "Week 7 Wed - cutover planning and reconciliation", "href": "week7"}
+  ]
+}

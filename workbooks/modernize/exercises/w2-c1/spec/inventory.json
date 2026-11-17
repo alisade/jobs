@@ -1,0 +1,8 @@
+{
+  "system": "claimdesk-web",
+  "db_objects": [],
+  "integrations": [],
+  "auth_checks": [],
+  "scheduled_jobs": [],
+  "runtime_assumptions": []
+}

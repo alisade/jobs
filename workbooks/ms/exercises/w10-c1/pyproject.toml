@@ -1,0 +1,9 @@
+[project]
+name = "fabrikam-release-gate"
+version = "0.1.0"
+description = "Release gate for the Fabrikam customer-service agent (ms/w10-c1)"
+requires-python = ">=3.12"
+dependencies = ["pyyaml>=6.0", "pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

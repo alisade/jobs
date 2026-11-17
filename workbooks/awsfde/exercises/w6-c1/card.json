@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/w6-c1",
+  "title": "Embed-URL Lambda: registered and anonymous embedding",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 6,
+  "optional": false,
+  "area": "Embedded analytics",
+  "scenario": "Tidewater Ask embeds Quick Sight dashboards: registered tenants with a namespace each and user-based RLS, anonymous tenants on capacity pricing with tag-based RLS. Write the Lambda behind GET /analytics/embed-url that mints the right URL for the caller and nothing more, using the pilot's support tickets as the failure list.",
+  "task": [
+    "Validate AllowedDomains and SessionLifetimeInMinutes against the API rules at cold start",
+    "Build GenerateEmbedUrlForRegisteredUser / ForAnonymousUser requests scoped by the tenant claim",
+    "Map Quick Sight errors to actionable HTTP responses; 503 with retry-after on throttling",
+    "no-store on every response; never log the URL"
+  ],
+  "acceptance": [
+    "Requests validate against the real Quick Sight model (Stubber) with exactly the tenant's scope",
+    "Query-string tenants, foreign dashboards and bad user names never widen access",
+    "Error mapping, headers and logging rules hold"
+  ],
+  "practices": [
+    {"label": "Week 6 Wed - registered vs anonymous embedding", "href": "week6"},
+    {"label": "Week 6 Thu - GenerateEmbedUrl, allowed domains, session lifecycle", "href": "week6"},
+    {"label": "Week 6 Tue - row-level security", "href": "week6"}
+  ]
+}

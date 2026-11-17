@@ -1,0 +1,25 @@
+{
+  "id": "healthai/w4-t1",
+  "title": "A reviewer's decision lands on another member's case",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 4,
+  "optional": false,
+  "area": "LangGraph persistence, threads and asyncio",
+  "scenario": "After a performance release, a nurse's approval for one member and a medical director's denial for another both appeared on a third member's determination letter. The app team suspects thread ids derived from member ids. Replay the review burst, read the audit trail, find the real cause and fix the review service.",
+  "task": [
+    "Reproduce the burst and map each submission to the thread it resumed",
+    "Test the thread-id theory and find the real cause",
+    "Fix the service and add a wrong-thread guard",
+    "Fill in findings.json; write what Privacy should be told"
+  ],
+  "acceptance": [
+    "Concurrent bursts land every decision on its own case and member",
+    "Each thread finalizes once by the right reviewer; no shared mutable config",
+    "Root cause backed by repro and audit evidence"
+  ],
+  "practices": [
+    {"label": "Week 4 Wed - persistence, threads, interrupts, time travel", "href": "week4"},
+    {"label": "Week 1 Mon - asyncio: what runs between awaits", "href": "week1"}
+  ]
+}

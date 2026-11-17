@@ -1,0 +1,238 @@
+{
+  "Version": "1.1.0",
+  "AccountId": "111122223333",
+  "Channel": "VOICE",
+  "ContentMetadata": {
+    "Output": "Redacted",
+    "RedactionTypes": [
+      "PII"
+    ],
+    "RedactionTypesMetadata": {
+      "PII": {
+        "RedactionEntitiesRequested": [
+          "CREDIT_DEBIT_NUMBER",
+          "NAME",
+          "USERNAME",
+          "PASSWORD",
+          "PHONE",
+          "EMAIL"
+        ],
+        "RedactionMaskMode": "PII"
+      }
+    }
+  },
+  "JobStatus": "COMPLETED",
+  "LanguageCode": "en-US",
+  "Participants": [
+    {
+      "ParticipantId": "CUSTOMER",
+      "ParticipantRole": "CUSTOMER"
+    },
+    {
+      "ParticipantId": "AGENT",
+      "ParticipantRole": "AGENT"
+    }
+  ],
+  "Categories": {
+    "MatchedCategories": [
+      "Mailbox"
+    ],
+    "MatchedDetails": {
+      "Mailbox": {
+        "PointsOfInterest": [
+          {
+            "BeginOffsetMillis": 0,
+            "EndOffsetMillis": 4000
+          }
+        ]
+      }
+    }
+  },
+  "ConversationCharacteristics": {
+    "TotalConversationDurationMillis": 33500,
+    "Sentiment": {
+      "OverallSentiment": {
+        "AGENT": 0.6,
+        "CUSTOMER": 0.4
+      },
+      "SentimentByPeriod": {
+        "QUARTER": {
+          "AGENT": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 8375,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 8375,
+              "EndOffsetMillis": 16750,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 16750,
+              "EndOffsetMillis": 25125,
+              "Score": 2.5
+            },
+            {
+              "BeginOffsetMillis": 25125,
+              "EndOffsetMillis": 33500,
+              "Score": 2.5
+            }
+          ],
+          "CUSTOMER": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 8375,
+              "Score": -2.5
+            },
+            {
+              "BeginOffsetMillis": 8375,
+              "EndOffsetMillis": 16750,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 16750,
+              "EndOffsetMillis": 25125,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 25125,
+              "EndOffsetMillis": 33500,
+              "Score": 2.5
+            }
+          ]
+        }
+      }
+    },
+    "Interruptions": {
+      "InterruptionsByInterrupter": {
+        "AGENT": []
+      },
+      "TotalCount": 0,
+      "TotalTimeMillis": 0
+    },
+    "NonTalkTime": {
+      "TotalTimeMillis": 6500,
+      "Instances": [
+        {
+          "BeginOffsetMillis": 20000,
+          "DurationMillis": 6500,
+          "EndOffsetMillis": 26500
+        }
+      ]
+    },
+    "TalkSpeed": {
+      "DetailsByParticipant": {
+        "AGENT": {
+          "AverageWordsPerMinute": 168
+        },
+        "CUSTOMER": {
+          "AverageWordsPerMinute": 151
+        }
+      }
+    },
+    "TalkTime": {
+      "TotalTimeMillis": 31700,
+      "DetailsByParticipant": {
+        "AGENT": {
+          "TotalTimeMillis": 17600
+        },
+        "CUSTOMER": {
+          "TotalTimeMillis": 14100
+        }
+      }
+    }
+  },
+  "CustomModels": [],
+  "Transcript": [
+    {
+      "BeginOffsetMillis": 0,
+      "Content": "Hello? Hello? Is anyone there?",
+      "EndOffsetMillis": 9000,
+      "Id": "t00-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "NEGATIVE",
+      "LoudnessScore": [
+        70.1,
+        72.4
+      ],
+      "IssuesDetected": [
+        {
+          "CharacterOffsets": {
+            "BeginOffsetChar": 0,
+            "EndOffsetChar": 30
+          },
+          "Text": "Hello? Hello? Is anyone there?"
+        }
+      ]
+    },
+    {
+      "BeginOffsetMillis": 9300,
+      "Content": "Sorry about that, I was finishing a note.",
+      "EndOffsetMillis": 16900,
+      "Id": "t01-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL",
+      "LoudnessScore": [
+        71.1,
+        72.4
+      ]
+    },
+    {
+      "BeginOffsetMillis": 17200,
+      "Content": "Thank you for calling Larkspur IT service desk, this is [PII]. How can I help? Before we start, Larkspur IT will never ask for your password.",
+      "EndOffsetMillis": 23600,
+      "Id": "t02-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL",
+      "LoudnessScore": [
+        72.1,
+        72.4
+      ],
+      "Redaction": {
+        "RedactedTimestamps": [
+          {
+            "BeginOffsetMillis": 17600,
+            "EndOffsetMillis": 18100
+          }
+        ]
+      }
+    },
+    {
+      "BeginOffsetMillis": 23900,
+      "Content": "I need my mailbox delegation fixed before the board meeting.",
+      "EndOffsetMillis": 27900,
+      "Id": "t03-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "NEUTRAL",
+      "LoudnessScore": [
+        73.1,
+        72.4
+      ]
+    },
+    {
+      "BeginOffsetMillis": 28200,
+      "Content": "Done, delegation is restored. Is there anything else I can help you with today?",
+      "EndOffsetMillis": 31800,
+      "Id": "t04-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "POSITIVE",
+      "LoudnessScore": [
+        74.1,
+        72.4
+      ]
+    },
+    {
+      "BeginOffsetMillis": 32100,
+      "Content": "That's all.",
+      "EndOffsetMillis": 33200,
+      "Id": "t05-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "POSITIVE",
+      "LoudnessScore": [
+        70.1,
+        72.4
+      ]
+    }
+  ]
+}

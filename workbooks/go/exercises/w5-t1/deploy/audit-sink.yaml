@@ -1,0 +1,97 @@
+# audit-sink: consumes agent.audit (6 partitions) and indexes into OpenSearch.
+# Rendered by the platform chart; this is the exact manifest ArgoCD applied in
+# sync 2026-10-06T14:02Z (PR #412).
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: audit-sink
+  namespace: agents
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audit-sink
+  namespace: agents
+  labels:
+    app.kubernetes.io/name: audit-sink
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: audit-sink
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: audit-sink
+    spec:
+      serviceAccountName: audit-sink
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: audit-sink
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/relaypoint/audit-sink:1.14.0
+          env:
+            - name: KAFKA_BROKERS
+              value: b-1.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098,b-2.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098,b-3.relaypoint-msk.kafka.us-east-1.amazonaws.com:9098
+            - name: KAFKA_GROUP
+              value: audit-sink
+            - name: KAFKA_TOPIC
+              value: agent.audit
+            # PR #412: static membership (KIP-345) so rolling deploys stop
+            # triggering a full rebalance of the group.
+            - name: KAFKA_STATIC_MEMBERSHIP
+              value: "true"
+            - name: GROUP_INSTANCE_ID
+              value: audit-sink
+            - name: KAFKA_SESSION_TIMEOUT
+              value: 120s
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+          ports:
+            - name: metrics
+              containerPort: 8080
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: audit-sink
+  namespace: agents
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: audit-sink
+  minReplicas: 3
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: audit-sink
+  namespace: agents
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: audit-sink

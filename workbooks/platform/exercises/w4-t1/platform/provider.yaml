@@ -1,0 +1,18 @@
+# Installed by the platform bootstrap (ArgoCD app crossplane-providers). One shared config for every
+# team namespace, authenticated with Workload Identity Federation for GKE (KSA provider-gcp-sql ->
+# Google service account crossplane-sql@tsl-platform-prod.iam.gserviceaccount.com).
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-gcp-sql
+spec:
+  package: xpkg.upbound.io/upbound/provider-gcp-sql:v2.1.0
+---
+apiVersion: gcp.m.upbound.io/v1beta1
+kind: ClusterProviderConfig
+metadata:
+  name: default
+spec:
+  projectID: tsl-platform-prod
+  credentials:
+    source: InjectedIdentity

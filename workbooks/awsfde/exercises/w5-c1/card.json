@@ -1,0 +1,27 @@
+{
+  "id": "awsfde/w5-c1",
+  "title": "Supply-chain graph: openCypher queries and a tenant-safe graph tool",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "Knowledge graphs and Neptune",
+  "scenario": "Acme Foods asks relationship questions vector search answers badly. Two tenants' supply chains live in one Neptune Analytics graph loaded from openCypher CSV files. Write five openCypher queries (multi-hop, variable-length, aggregation) and the agent tool that runs named templates through ExecuteQuery with the tenant bound from the verified token.",
+  "task": [
+    "Write five parameterized openCypher queries with every node scoped to $tenant_id",
+    "Statically check templates for unscoped node patterns",
+    "Build ExecuteQuery requests from named templates and validated arguments only",
+    "Parse the payload, cap rows, set a query timeout"
+  ],
+  "acceptance": [
+    "Queries return the expected rows for both tenants, even with planted cross-tenant edges",
+    "The tool refuses model-supplied query text and tenant ids",
+    "Valid ExecuteQuery requests (Stubber) and row truncation"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - graph modeling", "href": "week5"},
+    {"label": "Week 5 Tue - openCypher", "href": "week5"},
+    {"label": "Week 5 Wed - Neptune Database vs Neptune Analytics", "href": "week5"},
+    {"label": "Week 5 Thu - a graph tool for the agent", "href": "week5"}
+  ]
+}

@@ -1,0 +1,8 @@
+#platform-help  Thu 2026-11-12 10:05 UTC
+RIQ (Ana T.): our AppDatabase riq-scores in team-riq has said Ready=False since yesterday's platform
+  release. No Cloud SQL instance in the console. MDM's mdm-golden is the same.
+Marco D.: provider-gcp-sql logs complained about the token yesterday, probably Workload Identity again.
+  I can add a JSON key secret as a workaround.
+Dana K.: no keys. Yesterday's release moved us to Crossplane v2 namespaced XRs and the v2 provider. Find
+  out what the MRs are waiting for. RDM onboards next week, so whatever you do has to work for a new
+  team namespace without a ticket to us.

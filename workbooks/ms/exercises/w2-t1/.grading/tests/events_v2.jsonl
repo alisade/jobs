@@ -1,0 +1,3 @@
+{"schemaVersion": 2, "device": {"id": "dev-9f1", "fw": "4.2.0"}, "vehicleId": "TRK-100", "tsMs": 1792488005123, "telemetry": {"speedKph": 55.4, "engineTempC": 88.2, "fuelPct": 71.5}}
+{"schemaVersion": 2, "device": {"id": "dev-c33", "fw": "4.2.0"}, "vehicleId": "VAN-201", "tsMs": 1792488061000, "telemetry": {"speedKph": 0.0, "engineTempC": 107.9, "fuelPct": 100}}
+{"schemaVersion": 2, "device": {"id": "dev-a07", "fw": "4.2.1-rc1"}, "vehicleId": "TRK-102", "tsMs": 1792488119999, "telemetry": {"speedKph": 121, "engineTempC": 91, "fuelPct": 3.5}}

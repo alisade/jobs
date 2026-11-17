@@ -1,0 +1,28 @@
+{
+  "id": "connect/w6-c3",
+  "title": "QA and compliance monitoring program (design)",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 6,
+  "optional": true,
+  "area": "Contact Lens and quality",
+  "scenario": "Three QA analysts hand-score 2% of calls, vendor QA scores 9 points higher on the same calls, chat is never reviewed and a password request went unnoticed. Design the QA and compliance monitoring program for 140 agents across three sites on conversational analytics, evaluation forms and ServiceNow coaching tasks.",
+  "task": [
+    "Goals, operating model and a RACI across LFG and two vendors",
+    "Rules and categories (real-time vs post-contact) mapped to the compliance risks",
+    "Evaluation form with automated and generative AI answers, validated against humans",
+    "Sampling arithmetic, calibration, disputes and the coaching loop",
+    "Privacy, reporting, rollout and risks"
+  ],
+  "acceptance": [
+    "Every DESIGN.md section filled with tables and a diagram",
+    "Rules use the right trigger and action for each risk",
+    "Sampling fits analyst capacity; vendor scores made comparable",
+    "Graded by rubric (grade.sh reports 0/0)"
+  ],
+  "practices": [
+    {"label": "Week 6 - evaluation forms and generative AI evaluations", "href": "week6"},
+    {"label": "Week 6 - rules, categories and alerts", "href": "week6"},
+    {"label": "Week 2 - quality, analytics and operations design", "href": "week2"}
+  ]
+}

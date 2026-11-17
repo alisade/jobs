@@ -1,0 +1,87 @@
+{
+  "scenario": "hallucinated-id",
+  "run": 1,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Add the Studio ANC headphones"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_hal101",
+          "name": "search_products",
+          "input": {
+            "query": "Studio ANC headphones"
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_hal101",
+          "content": "Search returned 1 result(s) for 'Studio ANC headphones': the catalog's closest text matches. Treat a result as the requested item only if its title and attributes match.\n<storefront_data>\n[{\"product_id\": \"AR-1105\", \"title\": \"Northwind Studio ANC Headphones\", \"price\": 179.0, \"rating\": 4.4}]\n</storefront_data>"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_hal102",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1105",
+            "quantity": 1
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_hal102",
+          "content": "Added AR-1105 x1. Cart now has 1 item(s), subtotal 179.00 USD."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Added the Studio ANC headphones; your cart is $179.00."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_hal103",
+          "name": "present_suggestions",
+          "input": {
+            "suggestions": [
+              "Find a case",
+              "Check out now"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_hal103",
+          "content": "Displayed to the customer."
+        }
+      ]
+    }
+  ]
+}

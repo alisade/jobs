@@ -1,0 +1,24 @@
+{
+  "id": "backend/w4-t1",
+  "title": "Sales managers see someone else's account names in the pipeline view",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 4,
+  "optional": false,
+  "area": "API design: REST, GraphQL, idempotency, pagination",
+  "scenario": "Since the sprint 44 deploy, Americas sales managers sometimes see an EMEA customer's name on their own deals in Keystone's pipeline view, and the agent assistant repeated it. A renamed account kept its old name until a pod restarted. Support blames the CDN. You get the ticket, request and outbound-call logs, the sprint's git log and the GraphQL read layer.",
+  "task": [
+    "Reproduce and find the root cause in the GraphQL read layer; test the CDN theory against the evidence",
+    "Fix it without reintroducing the N+1",
+    "Explain both symptoms with quoted evidence in ANSWER.md and propose prevention and the security follow-up"
+  ],
+  "acceptance": [
+    "Two tenants, sequential or interleaved, see only their own accounts",
+    "Every accounts-svc batch carries the right request's auth; renames show on the next request",
+    "Still one accounts-svc call per request"
+  ],
+  "practices": [
+    {"label": "Week 4 Thu - GraphQL read layer and DataLoader", "href": "week4"},
+    {"label": "Week 2 Thu - row-level security for tenancy", "href": "week2"}
+  ]
+}

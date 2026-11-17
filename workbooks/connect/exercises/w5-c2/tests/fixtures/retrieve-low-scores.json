@@ -1,0 +1,27 @@
+{
+  "retrievalResults": [
+    {
+      "content": {
+        "type": "TEXT",
+        "text": "Printer drivers are installed automatically from the Software Center."
+      },
+      "location": {
+        "type": "S3",
+        "s3Location": {
+          "uri": "s3://lfg-helpdesk-kb/articles/KB0010007.html"
+        }
+      },
+      "metadata": {
+        "x-amz-bedrock-kb-source-uri": "s3://lfg-helpdesk-kb/articles/KB0010007.html",
+        "x-amz-bedrock-kb-chunk-id": "KB0010007-c1",
+        "articleId": "KB0010007",
+        "department": "IT",
+        "region": "global",
+        "audience": "all-employees",
+        "status": "published",
+        "updated": "2026-08-14"
+      },
+      "score": 0.22
+    }
+  ]
+}

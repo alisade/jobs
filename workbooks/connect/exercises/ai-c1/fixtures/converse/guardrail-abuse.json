@@ -1,0 +1,38 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "Sorry, I can't help with that request."
+        }
+      ]
+    }
+  },
+  "stopReason": "guardrail_intervened",
+  "usage": {
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "totalTokens": 0
+  },
+  "metrics": {
+    "latencyMs": 690
+  },
+  "trace": {
+    "guardrail": {
+      "inputAssessment": {
+        "gr-lfg-helpdesk-triage": {
+          "contentPolicy": {
+            "filters": [
+              {
+                "type": "INSULTS",
+                "confidence": "HIGH",
+                "action": "BLOCKED"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

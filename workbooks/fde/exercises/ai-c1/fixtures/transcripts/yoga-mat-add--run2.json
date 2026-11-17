@@ -1,0 +1,91 @@
+{
+  "scenario": "yoga-mat-add",
+  "run": 2,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Add a non-slip yoga mat under $50 to my cart"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_yog201",
+          "name": "search_products",
+          "input": {
+            "query": "non-slip yoga mat",
+            "filters": {
+              "max_price": 50
+            }
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_yog201",
+          "content": "Search returned 1 result(s) for 'non-slip yoga mat': the catalog's closest text matches. Treat a result as the requested item only if its title and attributes match.\n<storefront_data>\n[{\"product_id\": \"AR-1301\", \"title\": \"ACME Fit 6mm Non-Slip Yoga Mat\", \"price\": 42.0, \"rating\": 4.6}]\n</storefront_data>"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_yog202",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1301",
+            "quantity": 1
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_yog202",
+          "content": "Added AR-1301 x1. Cart now has 1 item(s), subtotal 42.00 USD."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Added the ACME Fit 6mm mat; your cart comes to $42.00."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_yog203",
+          "name": "present_suggestions",
+          "input": {
+            "suggestions": [
+              "Find a yoga block",
+              "See mat reviews",
+              "Check out now"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_yog203",
+          "content": "Displayed to the customer."
+        }
+      ]
+    }
+  ]
+}

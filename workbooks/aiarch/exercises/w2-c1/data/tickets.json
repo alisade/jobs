@@ -1,0 +1,23 @@
+{
+ "IT-40001": {
+  "id": "IT-40001",
+  "summary": "Laptop battery swelling",
+  "category": "hardware",
+  "requester": "jdiaz",
+  "status": "open"
+ },
+ "IT-40002": {
+  "id": "IT-40002",
+  "summary": "VPN drops every 20 minutes",
+  "category": "network",
+  "requester": "mchen",
+  "status": "in_progress"
+ },
+ "IT-40003": {
+  "id": "IT-40003",
+  "summary": "Excel add-in crashes on start",
+  "category": "software",
+  "requester": "aokafor",
+  "status": "resolved"
+ }
+}

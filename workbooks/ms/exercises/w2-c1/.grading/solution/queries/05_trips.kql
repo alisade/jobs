@@ -1,0 +1,8 @@
+// Trips: consecutive readings of one vehicle less than 10 minutes apart form one trip.
+// A trip is capped at 12 hours. Input must be serialized in ascending time order per vehicle.
+TelemetryDedup
+| where Timestamp > ago(1d)
+| sort by VehicleId asc, Timestamp asc
+| extend TripStart = row_window_session(Timestamp, 12h, 10m, VehicleId != prev(VehicleId))
+| summarize TripEnd = max(Timestamp), Readings = count(), MaxSpeedKph = max(SpeedKph) by VehicleId, TripStart
+| order by VehicleId asc, TripStart asc

@@ -1,0 +1,42 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "Sorry, I can't answer that. Let me get someone who can help."
+        }
+      ]
+    }
+  },
+  "stopReason": "guardrail_intervened",
+  "usage": {
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "totalTokens": 0
+  },
+  "metrics": {
+    "latencyMs": 402
+  },
+  "trace": {
+    "guardrail": {
+      "inputAssessment": {
+        "gr-lfg-helpdesk": {
+          "contentPolicy": {
+            "filters": [
+              {
+                "type": "PROMPT_ATTACK",
+                "confidence": "HIGH",
+                "filterStrength": "HIGH",
+                "action": "BLOCKED"
+              }
+            ]
+          },
+          "invocationMetrics": {
+            "guardrailProcessingLatency": 120
+          }
+        }
+      }
+    }
+  }
+}

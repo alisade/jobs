@@ -1,0 +1,9 @@
+apiVersion: platform.tessellate.example/v1alpha1
+kind: AppDatabase
+metadata:
+  name: mdm-golden
+  namespace: team-mdm
+spec:
+  size: small
+  version: postgres-15
+  team: mdm

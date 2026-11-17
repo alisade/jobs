@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/w2-t1",
+  "title": "The access-review assistant showed another team's reviews",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 2,
+  "optional": false,
+  "area": "Strands and multi-agent",
+  "scenario": "After release 2.3.0 managers see other teams' access reviews in the Lighthouse assistant, and Bedrock input tokens climb all day until the nightly deploy. On-call blames a temperature change and wants a stricter system prompt. Find the real cause in the logs and code and fix session state.",
+  "task": [
+    "Correlate session ids, agent object ids and token counts in the logs",
+    "Find the state shared across sessions in service/app.py",
+    "Per-session agents with an LRU bound, idle expiry and thread safety",
+    "Explain why prompt and temperature cannot cause or fix this"
+  ],
+  "acceptance": [
+    "Sessions isolated, continuity within a session kept, context size flat",
+    "LRU and idle expiry work with the injected clock; concurrent sessions safe",
+    "ANSWER.md names the shared Agent with evidence"
+  ],
+  "practices": [
+    {"label": "Week 2 Thu - agent state and session management", "href": "week2"},
+    {"label": "Week 3 Wed - Runtime sessions and microVMs", "href": "week3"}
+  ]
+}

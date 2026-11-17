@@ -1,0 +1,27 @@
+{
+  "id": "platform/w2-t1",
+  "title": "prod-blue node pool upgrade stuck at 1 of 6 nodes",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 2,
+  "optional": false,
+  "area": "GKE and fleet operations",
+  "scenario": "The 1.34 surge upgrade of prod-blue's default node pool started in the maintenance window, upgraded one node and has been draining the second for almost an hour. GKE stops honouring PDBs after a bounded wait, so RIQ is about to lose a replica the hard way. You get the page, the GKE operation and logs, kubectl output, the rendered manifests ArgoCD syncs and a drain simulator.",
+  "task": [
+    "Reproduce the stuck drain with make drain and find the PDB that allows zero disruptions",
+    "Explain why it allows zero although all four stable pods are Ready; rule out the quota theory",
+    "Fix the manifests in k8s/ (not the RIQ team's canary chart) so drains proceed and the budget still protects RIQ",
+    "Root cause, evidence, immediate mitigation and prevention in ANSWER.md"
+  ],
+  "acceptance": [
+    "Every node drains with the canary crash-looping, healthy or absent",
+    "The riq-api budget covers exactly the four stable pods and still stops a drain when two are down",
+    "Stable Deployment and mdm budgets unchanged",
+    "Root cause with evidence from the PDB status, pods and events in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 2 - Thu: PDBs, readiness, preStop, safely drain a node", "href": "week2"},
+    {"label": "Week 2 - Wed: surge vs blue-green and upgrade quota", "href": "week2"},
+    {"label": "Week 7 - fleet zero-downtime design", "href": "week7"}
+  ]
+}

@@ -1,0 +1,9 @@
+[project]
+name = "litware-policy-assistant"
+version = "2026.12.1"
+description = "Litware HR policy assistant retrieval pipeline (ms/ai-t1)"
+requires-python = ">=3.12"
+dependencies = ["pyyaml>=6.0", "pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

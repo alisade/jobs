@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w3-c1",
+  "title": "Champion/challenger promotion gate",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "MLOps",
+  "scenario": "Corvane's reliability team moved the champion alias by hand from a notebook, and twice shipped a model with more false alarms to the pump gateways. Replace the human step with a CI gate over an MLflow-shaped file registry: evaluate challenger and champion on the same pinned holdout, promote only on a real improvement, fail closed, roll back on demand.",
+  "task": [
+    "evaluate(): recall, false-alarm rate, p95 single-row latency",
+    "decide(): absolute floors, not worse on either metric, strictly better on one",
+    "promote(): pinned holdout hash, fresh evaluation of both, metrics logged, aliases moved, PR comment",
+    "rollback() and a CLI with exit codes 0 / 3 / 2"
+  ],
+  "acceptance": [
+    "v1 promoted, v2 promoted over v1, v3 rejected (false alarms) with reasons",
+    "Ties, floors and latency budget enforced; stale registry metrics ignored",
+    "Hash mismatch or unreadable artifact fails closed with no alias change",
+    "Rollback restores previous-champion once"
+  ],
+  "practices": [
+    {"label": "Week 3 Tue - registry versions, aliases and lineage", "href": "week3"},
+    {"label": "Week 3 Wed - eval gates in CI for model promotion", "href": "week3"}
+  ]
+}

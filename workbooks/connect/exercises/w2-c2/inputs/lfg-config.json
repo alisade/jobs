@@ -1,0 +1,352 @@
+{
+  "serviceLevelThresholdSeconds": 30,
+  "queues": [
+    {
+      "id": "q-password-reset"
+    },
+    {
+      "id": "q-general"
+    },
+    {
+      "id": "q-apps"
+    },
+    {
+      "id": "q-vip"
+    }
+  ],
+  "routingProfiles": [
+    {
+      "id": "rp-tier1",
+      "queues": [
+        {
+          "queueId": "q-password-reset",
+          "priority": 1,
+          "delaySeconds": 0
+        }
+      ]
+    },
+    {
+      "id": "rp-general",
+      "queues": [
+        {
+          "queueId": "q-general",
+          "priority": 1,
+          "delaySeconds": 0
+        },
+        {
+          "queueId": "q-password-reset",
+          "priority": 1,
+          "delaySeconds": 0
+        }
+      ]
+    },
+    {
+      "id": "rp-apps",
+      "queues": [
+        {
+          "queueId": "q-apps",
+          "priority": 2,
+          "delaySeconds": 0
+        },
+        {
+          "queueId": "q-general",
+          "priority": 1,
+          "delaySeconds": 0
+        }
+      ]
+    },
+    {
+      "id": "rp-vip",
+      "queues": [
+        {
+          "queueId": "q-vip",
+          "priority": 1,
+          "delaySeconds": 0
+        },
+        {
+          "queueId": "q-general",
+          "priority": 1,
+          "delaySeconds": 0
+        }
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "id": "t1-01",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-02",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-03",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-04",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-05",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-06",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-07",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-08",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-09",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-10",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-11",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-12",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-13",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "t1-14",
+      "routingProfileId": "rp-tier1",
+      "proficiencies": []
+    },
+    {
+      "id": "gen-01",
+      "routingProfileId": "rp-general",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "gen-02",
+      "routingProfileId": "rp-general",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "gen-03",
+      "routingProfileId": "rp-general",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "gen-04",
+      "routingProfileId": "rp-general",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "gen-05",
+      "routingProfileId": "rp-general",
+      "proficiencies": []
+    },
+    {
+      "id": "gen-06",
+      "routingProfileId": "rp-general",
+      "proficiencies": []
+    },
+    {
+      "id": "gen-07",
+      "routingProfileId": "rp-general",
+      "proficiencies": []
+    },
+    {
+      "id": "gen-08",
+      "routingProfileId": "rp-general",
+      "proficiencies": []
+    },
+    {
+      "id": "gen-09",
+      "routingProfileId": "rp-general",
+      "proficiencies": []
+    },
+    {
+      "id": "gen-10",
+      "routingProfileId": "rp-general",
+      "proficiencies": []
+    },
+    {
+      "id": "app-01",
+      "routingProfileId": "rp-apps",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "app-02",
+      "routingProfileId": "rp-apps",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "app-03",
+      "routingProfileId": "rp-apps",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "app-04",
+      "routingProfileId": "rp-apps",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "app-05",
+      "routingProfileId": "rp-apps",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "app-06",
+      "routingProfileId": "rp-apps",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "app-07",
+      "routingProfileId": "rp-apps",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "app-08",
+      "routingProfileId": "rp-apps",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "vip-01",
+      "routingProfileId": "rp-vip",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "vip-02",
+      "routingProfileId": "rp-vip",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "vip-03",
+      "routingProfileId": "rp-vip",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "vip-04",
+      "routingProfileId": "rp-vip",
+      "proficiencies": [
+        {
+          "attribute": "Application",
+          "value": "SAP",
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

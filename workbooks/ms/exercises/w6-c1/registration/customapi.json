@@ -1,0 +1,12 @@
+{
+  "comment": "Mirror of the customapi, customapirequestparameter and customapiresponseproperty rows. bindingType: Global | Entity | EntityCollection. allowedCustomProcessingStepType: None | AsyncOnly | SyncAndAsync. Types: Boolean, DateTime, Decimal, Entity, EntityCollection, EntityReference, Float, Integer, Money, Picklist, String, StringArray, Guid.",
+  "uniqueName": "contoso_CalculateSla",
+  "displayName": "Calculate SLA",
+  "pluginType": "Tailspin.Plugins.CalculateSlaPlugin",
+  "isFunction": null,
+  "bindingType": "TODO",
+  "allowedCustomProcessingStepType": "TODO",
+  "isPrivate": false,
+  "requestParameters": [],
+  "responseProperties": []
+}

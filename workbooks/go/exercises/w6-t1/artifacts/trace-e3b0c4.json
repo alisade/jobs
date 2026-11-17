@@ -1,0 +1,15 @@
+{
+  "traceId": "e3b0c44298fc1c149afbf4c8996fb924",
+  "spans": [
+    {"name": "invoke_agent support-agent", "kind": "SERVER", "durationMs": 14210,
+     "attributes": {"gen_ai.operation.name": "invoke_agent", "gen_ai.agent.name": "support-agent"}},
+    {"name": "execute_tool search_kb", "kind": "CLIENT", "durationMs": 3011,
+     "attributes": {"gen_ai.operation.name": "execute_tool", "gen_ai.tool.name": "search_kb", "mcp.method.name": "tools/call", "error.type": "tool_error"}},
+    {"name": "retrieval.Search", "kind": "INTERNAL", "durationMs": 3006,
+     "attributes": {"kb.tenant": "acme", "kb.k": 8, "kb.min_similarity": 0.72}},
+    {"name": "SELECT kb", "kind": "CLIENT", "durationMs": 3004,
+     "attributes": {"db.system.name": "postgresql", "db.operation.name": "SELECT", "db.collection.name": "kb_chunks",
+                    "db.response.status_code": "57014", "error.type": "57014"},
+     "status": {"code": "ERROR", "message": "canceling statement due to statement timeout"}}
+  ]
+}

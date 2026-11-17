@@ -1,0 +1,27 @@
+{
+  "id": "javaai/w4-c1",
+  "title": "Tutor agent service on Cloud Run: ID-token auth, scoped tools, guardrails",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 4,
+  "optional": false,
+  "area": "ADK agents, FastAPI and Cloud Run",
+  "scenario": "Kestrel's FastAPI tutor agent (ADK-style tools and callbacks, called by the Spring Boot API with a Google-signed ID token) trusts everything: no auth, the model can call a write tool, read any learner's progress, loop forever and tell a learner the quiz answer.",
+  "task": [
+    "Verify the caller's ID token: RS256, audience, issuer, expiry, allowed service account (401 vs 403)",
+    "Offer and run only read tools; feed errors back; bind learner and course to the session",
+    "Bound the tool loop with a fallback reply",
+    "Before-model topic guard and after-model answer-leak guard"
+  ],
+  "acceptance": [
+    "Hidden tests for every bad-token case and the model never being reached",
+    "Write tool never executes; scoping and loop bound hold",
+    "Both guards behave and normal hints pass through",
+    "ANSWER.md maps the design onto ADK callbacks and tool filters"
+  ],
+  "practices": [
+    {"label": "Week 4 Tue - ADK agents, function tools and callbacks", "href": "week4"},
+    {"label": "Week 4 Thu - service-to-service auth on Cloud Run", "href": "week4"},
+    {"label": "Week 4 Mon - FastAPI with Pydantic models", "href": "week4"}
+  ]
+}

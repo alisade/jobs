@@ -1,0 +1,27 @@
+{
+  "id": "genai/w3-c1",
+  "title": "Assistant agent endpoint with a confirm-before-write tool",
+  "type": "coding",
+  "estimate": "2.5-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "Production GenAI application engineering",
+  "scenario": "Security review blocked Kestrel's assistant: the prototype agent runs every tool the model asks for, including start_return, without permission checks. An injected product review could start a real return, and any customer could read another's order. Make the agent loop and API safe for the beta.",
+  "task": [
+    "Read tools run automatically; start_return only creates a pending action",
+    "Confirm endpoint: owner and conversation bound, single use, expiring",
+    "Customer-scoped tools that do not leak other customers' orders",
+    "Max turns, is_error tool results, unknown tools, output cap, audit log"
+  ],
+  "acceptance": [
+    "No return without an owner's confirm inside the TTL, exactly once",
+    "Injected instructions in tool output cannot start a return",
+    "Another customer's order looks exactly like a missing one",
+    "Loop limits and audit entries as specified"
+  ],
+  "practices": [
+    {"label": "Week 3 - tool calls and the agent loop in a FastAPI service", "href": "week3"},
+    {"label": "Week 3 - human confirmation before writes", "href": "week3"},
+    {"label": "AI Integration - security and tool design", "href": "ai"}
+  ]
+}

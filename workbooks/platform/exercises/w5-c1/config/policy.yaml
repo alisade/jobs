@@ -1,0 +1,7 @@
+# Admission gate policy for prod-blue / prod-green (PLAT-1201)
+required_attestor: projects/tsl-security/attestors/prod-build-verified
+default_namespace: default
+allowed_registries:
+  # Artifact Registry in any region, but only the prod artifacts project
+  - host: "*-docker.pkg.dev"
+    path_prefix: tsl-artifacts-prod/

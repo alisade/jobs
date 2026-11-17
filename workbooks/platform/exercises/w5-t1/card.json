@@ -1,0 +1,28 @@
+{
+  "id": "platform/w5-t1",
+  "title": "The RIQ burn-rate alert never fired",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 5,
+  "optional": false,
+  "area": "Observability and SLOs",
+  "scenario": "On 2026-11-04 riq-api on prod-blue returned 503 for about 6% of requests for 38 minutes: a 60x burn of a 99.9% SLO. Nobody was paged; Support found it. You get the rule file, the Alertmanager config and silences, the old ServiceMonitor and the new PodMonitoring, the repo history, the rule evaluator log and a TSDB extract you can replay offline.",
+  "task": [
+    "Replay the rules over the incident and find why the fast-burn alert stayed silent",
+    "Rule out the Alertmanager route change and the canary silence with evidence",
+    "Fix rules/riq-slo.rules.yaml for managed collection labels; decide per-cluster or aggregated",
+    "Add a guard so an SLO alert whose selector matches nothing cannot stay silent",
+    "Root cause, evidence and follow-ups in ANSWER.md"
+  ],
+  "acceptance": [
+    "Fast burn pages within 20 minutes of the outage start; healthy day and a 4-minute spike stay quiet",
+    "Slow burn (6h/30m at 6x) pages a burn rate of 12; burn rate 16 pages fast",
+    "An outage on one of two clusters pages within 40 minutes",
+    "A guard alert fires when the SLO series disappear; root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 5 - Thu: Prometheus, PromQL and Managed Service for Prometheus", "href": "week5"},
+    {"label": "Week 5 - Fri: SLOs and multi-window burn-rate alerts", "href": "week5"},
+    {"label": "Interview prep - on-call and incident leadership", "href": "interview"}
+  ]
+}

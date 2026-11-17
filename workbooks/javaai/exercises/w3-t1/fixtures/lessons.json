@@ -1,0 +1,194 @@
+{
+ "bio-101-l1": {
+  "id": "bio-101-l1",
+  "title": "Cell structure",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Cell structure: overview",
+    "text": "Introductory text for Cell structure."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Cell structure with worked examples."
+   }
+  ]
+ },
+ "bio-210-l4": {
+  "id": "bio-210-l4",
+  "title": "Pathogen transmission routes",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Pathogen transmission routes: overview",
+    "text": "Introductory text for Pathogen transmission routes."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Pathogen transmission routes with worked examples."
+   }
+  ]
+ },
+ "bio-210-l5": {
+  "id": "bio-210-l5",
+  "title": "Vaccines and immunity",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Vaccines and immunity: overview",
+    "text": "Introductory text for Vaccines and immunity."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Vaccines and immunity with worked examples."
+   }
+  ]
+ },
+ "hist-220-l2": {
+  "id": "hist-220-l2",
+  "title": "Propaganda in the Second World War",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Propaganda in the Second World War: overview",
+    "text": "Introductory text for Propaganda in the Second World War."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Propaganda in the Second World War with worked examples."
+   }
+  ]
+ },
+ "hist-220-l3": {
+  "id": "hist-220-l3",
+  "title": "Genocide and the Nuremberg trials",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Genocide and the Nuremberg trials: overview",
+    "text": "Introductory text for Genocide and the Nuremberg trials."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Genocide and the Nuremberg trials with worked examples."
+   }
+  ]
+ },
+ "chem-101-l7": {
+  "id": "chem-101-l7",
+  "title": "Lab safety: storing oxidizers",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Lab safety: storing oxidizers: overview",
+    "text": "Introductory text for Lab safety: storing oxidizers."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Lab safety: storing oxidizers with worked examples."
+   }
+  ]
+ },
+ "chem-330-l2": {
+  "id": "chem-330-l2",
+  "title": "Energetic materials: why they are regulated",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Energetic materials: why they are regulated: overview",
+    "text": "Introductory text for Energetic materials: why they are regulated."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Energetic materials: why they are regulated with worked examples."
+   }
+  ]
+ },
+ "stats-101-l1": {
+  "id": "stats-101-l1",
+  "title": "Mean, median and mode",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Mean, median and mode: overview",
+    "text": "Introductory text for Mean, median and mode."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Mean, median and mode with worked examples."
+   }
+  ]
+ },
+ "cs-101-l3": {
+  "id": "cs-101-l3",
+  "title": "Loops and conditionals",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Loops and conditionals: overview",
+    "text": "Introductory text for Loops and conditionals."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Loops and conditionals with worked examples."
+   }
+  ]
+ },
+ "econ-101-l2": {
+  "id": "econ-101-l2",
+  "title": "Supply and demand",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Supply and demand: overview",
+    "text": "Introductory text for Supply and demand."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Supply and demand with worked examples."
+   }
+  ]
+ },
+ "lit-210-l4": {
+  "id": "lit-210-l4",
+  "title": "Poetry of the First World War",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Poetry of the First World War: overview",
+    "text": "Introductory text for Poetry of the First World War."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Poetry of the First World War with worked examples."
+   }
+  ]
+ },
+ "psych-101-l6": {
+  "id": "psych-101-l6",
+  "title": "Substance use disorders",
+  "sections": [
+   {
+    "id": "s1",
+    "heading": "Substance use disorders: overview",
+    "text": "Introductory text for Substance use disorders."
+   },
+   {
+    "id": "s2",
+    "heading": "Key ideas",
+    "text": "The key ideas of Substance use disorders with worked examples."
+   }
+  ]
+ }
+}

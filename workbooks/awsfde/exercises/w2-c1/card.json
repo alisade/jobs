@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/w2-c1",
+  "title": "AgentCore Runtime entrypoint with per-tenant, per-user Memory",
+  "type": "coding",
+  "estimate": "2-2.5 h",
+  "week": 2,
+  "optional": false,
+  "area": "AgentCore: Runtime, Memory, Identity",
+  "scenario": "Tidewater Ask moves to AgentCore Runtime with JWT inbound auth. Implement the container's HTTP contract (/invocations, /ping) and AgentCore Memory partitioned by tenant and user from the verified token, with a test that proves user B cannot recall user A's facts.",
+  "task": [
+    "Derive actorId and the long-term namespace from the verified claims only",
+    "RetrieveMemoryRecords before the model, CreateEvent after it, with custom namespace variables",
+    "401/403/400 handling for token, claims, session header and prompt",
+    "Ping with HealthyBusy and a time_of_last_update that moves only on status change; degrade on throttling"
+  ],
+  "acceptance": [
+    "Memory requests pass botocore validation against the bedrock-agentcore model (Stubber)",
+    "Payload identity fields are ignored; users and tenants are isolated",
+    "Real HTTP server answers /ping and /invocations"
+  ],
+  "practices": [
+    {"label": "Week 2 Mon - AgentCore Runtime and the service contract", "href": "week2"},
+    {"label": "Week 2 Wed - AgentCore Memory and namespaces", "href": "week2"},
+    {"label": "Week 2 Thu - AgentCore Identity and inbound JWT", "href": "week2"}
+  ]
+}

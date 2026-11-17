@@ -1,0 +1,25 @@
+{
+  "id": "modernize/ai-t1",
+  "title": "The headless migration agent costs 4x: prompt caching never hits",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": "ai",
+  "area": "AI integration: context engineering and caching",
+  "scenario": "The pod's migration agent runs headless in CI with a large cached system prompt. FinOps flagged spend at 4x since 2026-11-05 with flat job counts; the dashboard shows zero cache reads, and a developer blames the model bump that shipped the same day.",
+  "task": [
+    "Find every source of cached-prefix instability, including cross-process ones",
+    "Rule the model bump in or out with evidence",
+    "Fix build_request: stable prefix, time after the breakpoint",
+    "Propose the CI guard that would have caught it"
+  ],
+  "acceptance": [
+    "Prefix identical across time, listing order and skill order",
+    "Time still reaches the model after the breakpoint; modules do not share a prefix",
+    "Replay reads the cache after turn one and costs far less",
+    "ANSWER.md explains the mechanisms with evidence"
+  ],
+  "practices": [
+    {"label": "AI Integration - context engineering and caching", "href": "ai"},
+    {"label": "Week 6 - headless agents in CI", "href": "week6"}
+  ]
+}

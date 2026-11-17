@@ -1,0 +1,16 @@
+# Cloud Monitoring, 2026-10-14, 5-minute windows. progress-api (Cloud Run, max instances 4, concurrency 80)
+time   req/s  p50_ms  p95_ms  p99_ms  5xx/s  cloudsql_cpu  cloudsql_conns  qps_db   stmt_per_req(avg)
+08:00   3.1     38     110     160    0.0      9%            12             10      1.8
+08:15   8.4    210     640    1100    0.0     31%            24            580     69
+08:30  21.7    480    1540    2900    0.0     62%            38           1610     74
+08:45  29.9    690    1910    4800    0.1     85%            40           2240     75
+09:00  31.2   1120    3350    6100    1.9     97%            40           2310     74
+09:05  30.8   1480    4020    6000+   4.4     98%            40           2290     74
+
+# Cloud SQL Query Insights, top normalized query by total time 08:30-09:05
+query: select qa1_0.id,qa1_0.correct,... from quiz_attempt qa1_0 left join lesson l1_0 ... where qa1_0.learner_id=$1 and l1_0.id=$2
+calls: 1,912,440   avg 0.9 ms   rows read per call (avg) 18,400   plan: Seq Scan on quiz_attempt (rows 4.1M)
+# 0.8.x (before the release) did one query per request: count(*) of attempts per learner, served by the same seq scan
+# but executed ~1 time per dashboard load instead of ~70.
+
+# Hikari (per instance)   active 10/10 from 09:00, pending up to 37

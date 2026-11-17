@@ -1,0 +1,27 @@
+{
+  "id": "genai/w2-c1",
+  "title": "Catalog service and its typed TypeScript client",
+  "type": "coding",
+  "estimate": "2.5-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "Python application backend and API contracts",
+  "scenario": "The assistant and the React storefront need product search, product detail with stock per store and pickup reservations. The prototype uses offset paging, plain-text errors and hand-written TypeScript types that already disagree with the service. Own the contract end to end: FastAPI service, OpenAPI document and the generated, typed client.",
+  "task": [
+    "FastAPI + SQLAlchemy 2.0: search, filters, keyset cursor pagination with a stable order and a page cap",
+    "RFC 9457 problem+json errors declared in OpenAPI",
+    "Idempotent reservations with an Idempotency-Key header and no overselling",
+    "Export OpenAPI, generate TypeScript types, and build a typed fetch client on them"
+  ],
+  "acceptance": [
+    "Cursor walk returns every item once, in order",
+    "Replay with the same key reserves once; different body is a 422 problem; short stock is 409",
+    "Committed contract equals app.openapi(); generated TS types are current",
+    "Client encodes params, maps problem+json to CatalogError and type-checks"
+  ],
+  "practices": [
+    {"label": "Week 2 - FastAPI routers, dependency injection, error handlers", "href": "week2"},
+    {"label": "Week 2 - SQLAlchemy 2.0 and pytest fixtures", "href": "week2"},
+    {"label": "Week 2 - OpenAPI to TypeScript types", "href": "week2"}
+  ]
+}

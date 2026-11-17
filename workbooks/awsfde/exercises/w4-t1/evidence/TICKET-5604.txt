@@ -1,0 +1,12 @@
+Ticket: CS-5604   Priority: P1 (security)   Opened: 2026-11-12 15:05 UTC
+Customer: Brightline Health (tenant brightline-health, SSO through their SAML IdP)
+Reporter: Dana K., IT security lead, Brightline Health
+
+  Since this morning our staff see a shipments list in Tidewater Ask that is not ours: SH-10001 to
+  Denver, SH-10002 to Boise, values in the tens of thousands. We ship medical supplies to Buffalo.
+  We also rotated our SAML signing certificate yesterday evening (planned change BH-CHG-2231), so
+  maybe the federation is mapping us to the wrong account? Please treat this as a data exposure.
+
+Account team note (Jordan, TAM):
+  Corvid Logistics (OIDC) opened CS-5607 an hour later with the same symptom. Acme Foods users say
+  everything looks normal. Delta Outfitters has not logged in yet today.

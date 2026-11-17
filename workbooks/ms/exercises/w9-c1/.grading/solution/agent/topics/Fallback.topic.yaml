@@ -1,0 +1,25 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  priority: -1
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_fallbackCount
+      conditions:
+        - id: conditionItem_underLimit
+          condition: =System.FallbackCount < 3
+          actions:
+            - kind: SendActivity
+              id: sendMessage_rephrase
+              activity: Sorry, I didn't catch that. Could you rephrase? I can reset passwords or get you a technician.
+
+      elseActions:
+        - kind: SetVariable
+          id: setVariable_reasonUnrecognized
+          variable: Global.EscalationReason
+          value: Unrecognized
+
+        - kind: BeginDialog
+          id: beginDialog_escalateFallback
+          dialog: litware_itdesk.topic.Escalate

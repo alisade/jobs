@@ -1,0 +1,27 @@
+{
+  "id": "platform/w3-c1",
+  "title": "Import blocks from a Cloud Asset Inventory export",
+  "type": "coding",
+  "estimate": "2-2.5 h",
+  "week": 3,
+  "optional": false,
+  "area": "Migrating into Terraform",
+  "scenario": "Tessellate is bringing years of hand-built GCP resources under Terraform, project by project. Typing import blocks by hand is the toil: every resource type has its own import ID format, Google-managed service accounts and the default network must be left alone, and anything already in state must be skipped. You get a Cloud Asset Inventory export of tsl-riq-prod, the IDs Terraform already manages and a starter generator that handles networks and firewalls.",
+  "task": [
+    "Map each supported asset type to its google provider resource and exact import ID (including project IAM members)",
+    "Skip the default network, Google-managed service accounts and service agent bindings; skip what state already has; report unsupported types",
+    "Group files by owner label (subnets inherit their network's owner) with valid, stable, collision-free identifiers",
+    "Output that parses as HCL and is byte-stable regardless of input order"
+  ],
+  "acceptance": [
+    "The export produces exactly the expected 13 import blocks in riq, mdm, riq-ml and platform files",
+    "The report lists skipped, unsupported and already-managed items",
+    "Identifiers sanitized and de-duplicated deterministically",
+    "Same output for shuffled input; CLI writes the files"
+  ],
+  "practices": [
+    {"label": "Week 3 - import blocks, for_each imports, generated config", "href": "week3"},
+    {"label": "Week 3 - Cloud Asset Inventory, bulk-export, terraform query", "href": "week3"},
+    {"label": "Week 6 - the unmanaged-resource agent", "href": "week6"}
+  ]
+}

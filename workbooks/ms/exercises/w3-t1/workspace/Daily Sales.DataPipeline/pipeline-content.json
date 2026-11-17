@@ -1,0 +1,64 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Load Silver",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 120,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "40c7a9d2-6e1b-4f83-a5c0-9b2d7e4f8a16",
+          "workspaceId": "2f1c6a0e-8d3b-4c55-9a71-0b6de4f3a210",
+          "parameters": {
+            "run_date": {
+              "value": {
+                "value": "@formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Load Gold",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "Load Silver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 120,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "d81f2e6b-03a4-4c9e-b7d2-5e8f1a6c3b90",
+          "workspaceId": "2f1c6a0e-8d3b-4c55-9a71-0b6de4f3a210",
+          "parameters": {
+            "run_date": {
+              "value": {
+                "value": "@formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "annotations": []
+  }
+}

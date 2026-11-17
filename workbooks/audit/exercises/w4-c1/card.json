@@ -1,0 +1,28 @@
+{
+  "id": "audit/w4-c1",
+  "title": "Durable test run with a human review gate and a hash-chained execution log",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 4,
+  "optional": false,
+  "area": "Stateful orchestration and human review",
+  "scenario": "ControlPilot tests the Q3 CM-03 sample in one run: evidence, model-backed test, workpaper row in Azure Blob, GRC issue per confirmed exception. Exceptions wait for a human reviewer. The in-memory prototype re-ran every model call after a worker recycle, wrote duplicate workpaper rows and could not show who overrode what. Build the durable version on SQLite checkpoints with local Azure and GRC fakes.",
+  "task": [
+    "Checkpoint every step so a committed step never runs again after a crash and restart",
+    "Make the workpaper upload and the GRC issue exactly-once (deterministic blob name, Idempotency-Key from run, sample and step)",
+    "Enforce the review gate in code: reviewer is not the preparer, overrides need a reason and an evidence reference",
+    "Write a hash-chained JSONL execution log and a verifier that catches edits, deletions and reorders"
+  ],
+  "acceptance": [
+    "Crash before or after any step, restart: one workpaper per sample, one GRC issue per confirmed exception",
+    "No committed model or test step executes twice",
+    "Overrides publish pass with reviewer, reason and evidence; review rules raise ReviewError",
+    "Log chain contiguous across restarts; verify_log flags tampering"
+  ],
+  "practices": [
+    {"label": "Week 4 Mon - durable execution and checkpoints", "href": "week4"},
+    {"label": "Week 4 Tue - review gates and interrupt/resume", "href": "week4"},
+    {"label": "Week 4 Wed - execution log an auditor can follow", "href": "week4"},
+    {"label": "Week 4 Thu - idempotent side effects", "href": "week4"}
+  ]
+}

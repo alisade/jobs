@@ -1,0 +1,30 @@
+// Help desk retriever. Fixed: no unfiltered retry - an empty filtered result is an answer
+// ("nothing you are entitled to"), so the bot hands off instead of widening the search.
+import { Entitlements, Filter, RetrievalOutcome, RetrieveFn, RetrieveInput } from "./types";
+
+export const KB_ID = "KBLFGHELP01";
+
+export function buildFilter(e: Entitlements): Filter {
+  if (!e.callerVerified) {
+    return { andAll: [{ equals: { key: "audience", value: "public-help" } }, { equals: { key: "status", value: "published" } }] };
+  }
+  const audience: Filter =
+    e.employeeType === "contractor"
+      ? { in: { key: "audience", value: ["all-workers", "contractors"] } }
+      : { orAll: [{ in: { key: "audience", value: ["all-workers", "all-employees"] } }, { equals: { key: "department", value: e.department } }] };
+  return {
+    andAll: [audience, { in: { key: "region", value: ["global", e.region.toLowerCase()] } }, { equals: { key: "status", value: "published" } }],
+  };
+}
+
+export async function retrieve(retrieveFn: RetrieveFn, query: string, who: Entitlements, numberOfResults = 3): Promise<RetrievalOutcome> {
+  const input: RetrieveInput = {
+    knowledgeBaseId: KB_ID,
+    retrievalQuery: { text: query },
+    retrievalConfiguration: { vectorSearchConfiguration: { numberOfResults, filter: buildFilter(who) } },
+  };
+  const res = await retrieveFn(input);
+  const log: Record<string, unknown> = { query, filter: input.retrievalConfiguration.vectorSearchConfiguration.filter, filteredCount: res.retrievalResults.length, fallback: null };
+  if (res.retrievalResults.length > 0) return { status: "OK", results: res.retrievalResults, log };
+  return { status: "NO_ARTICLES", results: [], log };
+}

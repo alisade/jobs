@@ -1,0 +1,299 @@
+{
+  "default_target": "cortex-shared-default",
+  "rules": [
+    {
+      "name": "payments-prod",
+      "tenant": "payments",
+      "label": "namespace",
+      "pattern": "payments-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-payments-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "payments"
+      }
+    },
+    {
+      "name": "payments-staging",
+      "tenant": "payments",
+      "label": "namespace",
+      "pattern": "payments-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "payments"
+      }
+    },
+    {
+      "name": "checkout-prod",
+      "tenant": "checkout",
+      "label": "namespace",
+      "pattern": "checkout-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-checkout-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "checkout"
+      }
+    },
+    {
+      "name": "checkout-staging",
+      "tenant": "checkout",
+      "label": "namespace",
+      "pattern": "checkout-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "checkout"
+      }
+    },
+    {
+      "name": "search-prod",
+      "tenant": "search",
+      "label": "namespace",
+      "pattern": "search-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-search-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "search"
+      }
+    },
+    {
+      "name": "search-staging",
+      "tenant": "search",
+      "label": "namespace",
+      "pattern": "search-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "search"
+      }
+    },
+    {
+      "name": "ledger-prod",
+      "tenant": "ledger",
+      "label": "namespace",
+      "pattern": "ledger-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-ledger-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "ledger"
+      }
+    },
+    {
+      "name": "ledger-staging",
+      "tenant": "ledger",
+      "label": "namespace",
+      "pattern": "ledger-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "ledger"
+      }
+    },
+    {
+      "name": "fraud-prod",
+      "tenant": "fraud",
+      "label": "namespace",
+      "pattern": "fraud-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-fraud-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "fraud"
+      }
+    },
+    {
+      "name": "fraud-staging",
+      "tenant": "fraud",
+      "label": "namespace",
+      "pattern": "fraud-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "fraud"
+      }
+    },
+    {
+      "name": "identity-prod",
+      "tenant": "identity",
+      "label": "namespace",
+      "pattern": "identity-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-identity-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "identity"
+      }
+    },
+    {
+      "name": "identity-staging",
+      "tenant": "identity",
+      "label": "namespace",
+      "pattern": "identity-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "identity"
+      }
+    },
+    {
+      "name": "catalog-prod",
+      "tenant": "catalog",
+      "label": "namespace",
+      "pattern": "catalog-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-catalog-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "catalog"
+      }
+    },
+    {
+      "name": "catalog-staging",
+      "tenant": "catalog",
+      "label": "namespace",
+      "pattern": "catalog-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "catalog"
+      }
+    },
+    {
+      "name": "shipping-prod",
+      "tenant": "shipping",
+      "label": "namespace",
+      "pattern": "shipping-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-shipping-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "shipping"
+      }
+    },
+    {
+      "name": "shipping-staging",
+      "tenant": "shipping",
+      "label": "namespace",
+      "pattern": "shipping-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "shipping"
+      }
+    },
+    {
+      "name": "pricing-prod",
+      "tenant": "pricing",
+      "label": "namespace",
+      "pattern": "pricing-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-pricing-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "pricing"
+      }
+    },
+    {
+      "name": "pricing-staging",
+      "tenant": "pricing",
+      "label": "namespace",
+      "pattern": "pricing-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "pricing"
+      }
+    },
+    {
+      "name": "notify-prod",
+      "tenant": "notify",
+      "label": "namespace",
+      "pattern": "notify-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-notify-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "notify"
+      }
+    },
+    {
+      "name": "notify-staging",
+      "tenant": "notify",
+      "label": "namespace",
+      "pattern": "notify-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "notify"
+      }
+    },
+    {
+      "name": "billing-prod",
+      "tenant": "billing",
+      "label": "namespace",
+      "pattern": "billing-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-billing-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "billing"
+      }
+    },
+    {
+      "name": "billing-staging",
+      "tenant": "billing",
+      "label": "namespace",
+      "pattern": "billing-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "billing"
+      }
+    },
+    {
+      "name": "reco-prod",
+      "tenant": "reco",
+      "label": "namespace",
+      "pattern": "reco-(prod|live)(-[a-z0-9]+)?",
+      "target": "cortex-reco-prod",
+      "add_labels": {
+        "tier": "prod",
+        "team": "reco"
+      }
+    },
+    {
+      "name": "reco-staging",
+      "tenant": "reco",
+      "label": "namespace",
+      "pattern": "reco-(stg|staging|qa)[0-9]*",
+      "target": "cortex-shared-nonprod",
+      "add_labels": {
+        "tier": "nonprod",
+        "team": "reco"
+      }
+    },
+    {
+      "name": "kube-system",
+      "tenant": "",
+      "label": "namespace",
+      "pattern": "kube-.*|istio-system|karpenter",
+      "target": "cortex-platform",
+      "add_labels": {
+        "tier": "platform"
+      }
+    },
+    {
+      "name": "canary-pods",
+      "tenant": "",
+      "label": "pod",
+      "pattern": ".*-canary-[a-z0-9]{5}",
+      "target": "cortex-canary",
+      "add_labels": {
+        "canary": "true"
+      }
+    },
+    {
+      "name": "high-card-jobs",
+      "tenant": "",
+      "label": "job",
+      "pattern": "(batch|cron)-[0-9]{8,}",
+      "target": "cortex-batch",
+      "add_labels": {
+        "retention": "7d"
+      }
+    }
+  ]
+}

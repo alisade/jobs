@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forward Deployed Engineer (Edge AI) workbook</title>
+<script src="../grades/grades.js"></script>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #c15f3c; --accent-soft: #f6e9e3; --done: #2f7d4f;
+    --done-soft: #e3f1e8; --warn: #9a6700; --warn-soft: #fff4d6; --bad: #b42318; --bad-soft: #fde8e6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #e08a62; --accent-soft: #3a2a23; --done: #5cc287; --done-soft: #1f3327;
+      --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+    --line: #34343a; --accent: #e08a62; --accent-soft: #3a2a23; --done: #5cc287; --done-soft: #1f3327;
+    --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  .themebtn { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+              border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4, .card h4 { margin: 10px 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  ul.plain { padding-left: 18px; margin: 0; }
+  ul.plain li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--bg);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 0 0 8px; }
+  .note { margin: 0 0 18px; padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .note b { color: var(--warn); }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  .grid2 .card { margin-bottom: 0; }
+  .card h3 { margin: 0; font-size: 16px; }
+  .exhead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em;
+         color: var(--accent); background: var(--accent-soft); }
+  .tag.troubleshooting { color: var(--warn); background: var(--warn-soft); }
+  .tag.opt { color: var(--muted); background: var(--bg); border: 1px solid var(--line); }
+  .est { color: var(--muted); font-size: 13px; }
+  .badge { margin-left: auto; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px;
+           background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+  .badge.pass { background: var(--done-soft); color: var(--done); border-color: transparent; }
+  .badge.retry { background: var(--bad-soft); color: var(--bad); border-color: transparent; }
+  .meta { color: var(--muted); font-size: 13px; margin: 4px 0 10px; }
+  .small { font-size: 13px; color: var(--muted); }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .ok { color: var(--done); font-weight: 600; }
+  .no { color: var(--bad); font-weight: 600; }
+  /* self-exam */
+  .subnav { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 16px; }
+  .subnav button, .btn { font: inherit; font-size: 13px; font-weight: 600; background: var(--panel); color: var(--ink);
+       border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+  .subnav button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .q { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
+  .q .qhead { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .q .qhead .area { background: var(--accent-soft); color: var(--accent); border-radius: 99px; padding: 1px 8px; font-weight: 600; }
+  .q .stem { margin: 0 0 10px; }
+  .q label.opt { display: flex; gap: 10px; align-items: flex-start; padding: 5px 8px; border-radius: 6px; cursor: pointer; }
+  .q label.opt:hover { background: var(--bg); }
+  .q label.opt input { margin-top: 4px; flex: none; accent-color: var(--accent); }
+  .q label.opt.right { background: var(--done-soft); }
+  .q label.opt.wrong { background: var(--bad-soft); }
+  .q ol.actions { margin: 4px 0 10px; padding-left: 22px; }
+  .q .seq { display: grid; grid-template-columns: auto 1fr; gap: 6px 10px; align-items: center; margin: 6px 0; }
+  .q .seq select { font: inherit; font-size: 13px; background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+                   border-radius: 6px; padding: 4px 6px; max-width: 100%; }
+  .q .explain { margin-top: 10px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .q .explain.bad { border-left-color: var(--bad); }
+  .q .actionsrow { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+  details.case { background: var(--warn-soft); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 0 0 12px; }
+  details.case summary { font-weight: 700; cursor: pointer; }
+  details.case h4 { margin: 10px 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .timer { position: sticky; top: 52px; z-index: 4; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+           padding: 8px 14px; margin-bottom: 12px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .timer .clock { font: 600 20px ui-monospace, Menlo, monospace; }
+  .timer .clock.low { color: var(--bad); }
+  .scorebox { font-size: 28px; font-weight: 700; }
+  .bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; min-width: 120px; }
+  .bar > div { height: 100%; background: var(--done); }
+  .bar.badbar > div { background: var(--bad); }
+  .tag.design {{ color: var(--done); background: var(--done-soft); }}
+</style>
+
+</head>
+<body>
+<header>
+  <button class="themebtn" id="themebtn" type="button">light / dark</button>
+  <h1>Forward Deployed Engineer (Edge AI) workbook</h1>
+  <p>Exercises, self-exams and a timed screen for the <a href="../../fde-edge-ai-study-plan.html">FDE Edge AI study plan</a>. Scores update after /grade; reload the page.</p>
+</header>
+<nav><div class="inner" id="tabs"></div></nav>
+<main>
+
+<section class="page" id="overview" data-title="Overview">
+  <h2>FDE (Edge AI) workbook</h2>
+  <p class="lede">Hands-on coding, troubleshooting and design exercises set at Corvane Industrial's Dunmore pump plant
+  (fictional), where you are embedded as a Tessellate Edge (fictional) forward deployed engineer: pipelines, signals, MLOps,
+  edge AI, fleet operations, LLMs at the edge and locked-down networks. One tab per study week, weekly self-exams and one
+  timed screen. Everything grades locally and offline: Python in a shared venv, in-process fakes for Kafka, the registry,
+  the fleet and the CMMS, and a stub LLM that replays recorded turns.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+  <p class="note"><b>Scores update after /grade; reload the page.</b> Grades come from <code>../grades/grades.js</code>, written by
+  <code>tools/update_grades.py</code> when you run <code>/grade edgefde/&lt;id&gt;</code> in Claude Code from the <code>workbooks/</code> folder.
+  Quiz answers and mock results save in this browser (localStorage key <code>wb-edgefde-v1</code>).</p>
+  <div class="grid2">
+    <div class="card"><h3>How to work an exercise</h3><ol>
+      <li><code>tools/doctor.sh edgefde</code> once: python3, uv, jq.</li>
+      <li>Open the week tab, read the card, then the folder README.</li>
+      <li><code>cd edgefde/exercises/&lt;id&gt; &amp;&amp; make setup</code> (the first run builds <code>edgefde/.venv</code>: numpy, scipy, scikit-learn, onnx, onnxruntime, skl2onnx, pydantic, pytest), solve it, <code>make test</code>, fill in <code>ANSWER.md</code>.</li>
+      <li>From <code>workbooks/</code>: <code>/grade edgefde/&lt;id&gt;</code>. Reload this page.</li>
+      <li><code>make clean</code>. Retry as often as you like; every attempt is kept.</li>
+    </ol><p class="small">Do not open <code>.grading/</code> before you submit. Pass mark 70/100. Troubleshooting is graded mostly on root cause and evidence; the design exercise is graded by rubric only (the grader reports 0/0 tests).</p></div>
+    <div class="card"><h3>How the local stand-ins work</h3><ul class="plain">
+      <li>Kafka: an in-process broker with partitions, consumer groups, committed offsets and auto-commit.</li>
+      <li>Signals: synthetic accelerometer captures with known tones, gear mesh and bearing impacts, so every feature has a known answer.</li>
+      <li>MLOps and edge AI: a file-based registry fake; scikit-learn models exported with skl2onnx and quantized with ONNX Runtime on CPU.</li>
+      <li>Fleet and offline: simulated gateways with a fake clock, a SQLite buffer and a lossy uplink.</li>
+      <li>LLM: a stub client replaying recorded OpenAI-compatible turns (the shape Ollama and llama.cpp serve). No API keys.</li>
+      <li>Locked-down network: an evidence bundle (pip/uv logs, s_client captures) and real config files you fix.</li>
+    </ul></div>
+  </div>
+  <h3>Self-exam</h3>
+  <ul class="plain"><li>Weekly sets (75 questions): week 1: 10, week 2: 11, week 3: 10, week 4: 10, week 5: 10, week 6: 11, week 7: 5, AI page: 8.</li><li>Timed: FDE technical screen (edge AI): 20 questions, 45 minutes.</li></ul>
+  <h3>All exercises (16: 7 coding, 8 troubleshooting, 1 design)</h3>
+  <table><tr><th>Id</th><th>Title</th><th>Type</th><th>Week</th><th>Estimate</th><th>Grade</th></tr><tr><td><a href="#ex-w1-c1">edgefde/w1-c1</a></td><td>Idempotent vibration-feature ingest with a safe backfill</td><td>coding</td><td>Week 1</td><td>2-3 h</td><td><span class="badge" data-badge="edgefde/w1-c1"></span></td></tr><tr><td><a href="#ex-w1-t1">edgefde/w1-t1</a></td><td>Gaps in window counts after every consumer restart</td><td>troubleshooting</td><td>Week 1</td><td>1.5-2 h</td><td><span class="badge" data-badge="edgefde/w1-t1"></span></td></tr><tr><td><a href="#ex-w2-c1">edgefde/w2-c1</a></td><td>Spectral features and bearing-fault detection</td><td>coding</td><td>Week 2</td><td>2-3 h</td><td><span class="badge" data-badge="edgefde/w2-c1"></span></td></tr><tr><td><a href="#ex-w2-t1">edgefde/w2-t1</a></td><td>Phantom fault peak on the new pumps</td><td>troubleshooting</td><td>Week 2</td><td>1.5 h</td><td><span class="badge" data-badge="edgefde/w2-t1"></span></td></tr><tr><td><a href="#ex-w3-c1">edgefde/w3-c1</a></td><td>Champion/challenger promotion gate</td><td>coding</td><td>Week 3</td><td>2-3 h</td><td><span class="badge" data-badge="edgefde/w3-c1"></span></td></tr><tr><td><a href="#ex-w3-t1">edgefde/w3-t1</a></td><td>Model v7 promoted on a stale metric</td><td>troubleshooting</td><td>Week 3</td><td>1.5-2 h</td><td><span class="badge" data-badge="edgefde/w3-t1"></span></td></tr><tr><td><a href="#ex-w4-c1">edgefde/w4-c1</a></td><td>Export to ONNX, quantize to INT8, prove the budget</td><td>coding</td><td>Week 4</td><td>2-3 h</td><td><span class="badge" data-badge="edgefde/w4-c1"></span></td></tr><tr><td><a href="#ex-w4-t1">edgefde/w4-t1</a></td><td>INT8 model misses faults on the gateway</td><td>troubleshooting</td><td>Week 4</td><td>1.5-2 h</td><td><span class="badge" data-badge="edgefde/w4-t1"></span></td></tr><tr><td><a href="#ex-w5-c1">edgefde/w5-c1</a></td><td>OTA model rollout with canary and automatic rollback</td><td>coding</td><td>Week 5</td><td>2-3 h</td><td><span class="badge" data-badge="edgefde/w5-c1"></span></td></tr><tr><td><a href="#ex-w5-t1">edgefde/w5-t1</a></td><td>Alert counts tripled after the plant&#x27;s WAN outage</td><td>troubleshooting</td><td>Week 5</td><td>1.5-2 h</td><td><span class="badge" data-badge="edgefde/w5-t1"></span></td></tr><tr><td><a href="#ex-w6-c1">edgefde/w6-c1</a></td><td>Engagement brief, decision record and handoff plan</td><td>design</td><td>Week 6</td><td>2 h</td><td><span class="badge" data-badge="edgefde/w6-c1"></span></td></tr><tr><td><a href="#ex-w6-t1">edgefde/w6-t1</a></td><td>pip and uv fail on the plant build box behind a TLS-inspecting proxy</td><td>troubleshooting</td><td>Week 6</td><td>1.5 h</td><td><span class="badge" data-badge="edgefde/w6-t1"></span></td></tr><tr><td><a href="#ex-ai-c1">edgefde/ai-c1</a></td><td>Operator assistant on a local model: read-only tools, validated answers, hybrid routing</td><td>coding</td><td>AI Integration</td><td>2-3 h</td><td><span class="badge" data-badge="edgefde/ai-c1"></span></td></tr><tr><td><a href="#ex-ai-t1">edgefde/ai-t1</a></td><td>The assistant raised machine 4&#x27;s alarm threshold after reading an alert note</td><td>troubleshooting</td><td>AI Integration</td><td>1.5 h</td><td><span class="badge" data-badge="edgefde/ai-t1"></span></td></tr><tr><td><a href="#ex-x-1">edgefde/x-1</a></td><td>CMMS work-order client: retries, Retry-After and idempotency keys</td><td>coding (optional)</td><td>Week 7 (add-on)</td><td>2 h</td><td><span class="badge" data-badge="edgefde/x-1"></span></td></tr><tr><td><a href="#ex-x-2">edgefde/x-2</a></td><td>Spikes at every chunk boundary in the streaming band-pass</td><td>troubleshooting (optional)</td><td>Week 7 (add-on)</td><td>1-1.5 h</td><td><span class="badge" data-badge="edgefde/x-2"></span></td></tr></table>
+</section>
+
+<section class="page" id="w1" data-title="Week 1">
+  <h2>Week 1 - Production Python and data pipelines</h2>
+  <p class="lede">Packaging, typing and tests; Kafka as a client author; at-least-once plus idempotent writes; backfills and data quality. Study guide: <a href="../../fde-edge-ai-study-plan.html#week1">Week 1</a>.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+  
+  <div class="card ex" data-ex="edgefde/w1-c1" id="ex-w1-c1">
+    <div class="exhead">
+      <h3>Idempotent vibration-feature ingest with a safe backfill</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="edgefde/w1-c1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w1-c1</code> &middot; Production Python and data pipelines</p>
+    <p><b>Scenario.</b> Corvane Industrial&#x27;s pump-plant gateways publish one feature record per 60-second window to Kafka. The prototype consumer duplicated windows after a broker failover and a half-finished backfill left a day at 1.3x its rows. Build a consumer and a backfill CLI that can be killed and rerun at any point without changing the numbers, and that refuse to load an incomplete day.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Pydantic message contract for schema v1/v2 with a quarantine reason for every rejection</li><li>SQLite store: one-transaction batches, upsert keyed by (device, window), higher seq wins</li><li>Consumer that commits offsets only after the write succeeds</li><li>Data quality checks per day (partition, presence, completeness, unknown devices, RMS range)</li><li>Backfill function and CLI that fail before writing when data quality fails</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Crash between poll and write, or a failed write: no lost and no duplicated windows</li><li>Batches are atomic; redelivered bad messages quarantined once</li><li>2026-10-14 backfilled any number of times gives exactly 5760 rows; 2026-10-15 fails on pump-03 completeness</li><li>CLI exit codes 0 / 2; ANSWER.md explains the delivery semantics</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w1-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w1-c1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w1-c1/</code> &middot; <a href="exercises/w1-c1/README.md">README</a> &middot; <a href="exercises/w1-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week1">Week 1 Tue - Kafka as a client author: partitions, groups, offsets</a></li><li><a href="../../fde-edge-ai-study-plan.html#week1">Week 1 Wed - delivery semantics and idempotent writes</a></li><li><a href="../../fde-edge-ai-study-plan.html#week1">Week 1 Thu - backfills and data quality checks</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="edgefde/w1-t1" id="ex-w1-t1">
+    <div class="exhead">
+      <h3>Gaps in window counts after every consumer restart</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5-2 h</span>
+      <span class="badge" data-badge="edgefde/w1-t1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w1-t1</code> &middot; Production Python and data pipelines</p>
+    <p><b>Scenario.</b> The vibration dashboard has holes in 2026-10-20 for every pump, at different hours, after two OOM kills and a deploy of the Kafka sink. Kafka logged an under-replicated partition that morning and lag warnings all day. The plant is about to train a model on this table.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find the root cause of the missing windows and prove it from the incident logs</li><li>Explain why the holes sit at different hours per pump; rule out the red herrings</li><li>Fix the sink so restarts at any point lose and duplicate nothing, with writes still batched</li><li>Plan the recovery of the lost windows</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Replay with restarts stores exactly 8640 distinct windows and 8640 rows</li><li>Kill after write or before write: still 8640 / 8640; offsets never ahead of durable rows</li><li>Writes stay batched</li><li>ANSWER.md: root cause with log evidence, red herrings, recovery plan</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w1-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w1-t1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w1-t1/</code> &middot; <a href="exercises/w1-t1/README.md">README</a> &middot; <a href="exercises/w1-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week1">Week 1 Tue - Kafka consumer groups, offsets and auto-commit</a></li><li><a href="../../fde-edge-ai-study-plan.html#week1">Week 1 Wed - at-least-once plus idempotent writes</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w2" data-title="Week 2">
+  <h2>Week 2 - Signal processing and sensor data</h2>
+  <p class="lede">Sampling, Nyquist and aliasing, FFT and windowing, Welch PSD, filters, envelopes and bearing defect frequencies. Study guide: <a href="../../fde-edge-ai-study-plan.html#week2">Week 2</a>.</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+  
+  <div class="card ex" data-ex="edgefde/w2-c1" id="ex-w2-c1">
+    <div class="exhead">
+      <h3>Spectral features and bearing-fault detection</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="edgefde/w2-c1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w2-c1</code> &middot; Signal processing and sensor data</p>
+    <p><b>Scenario.</b> Corvane&#x27;s pumps run 6205-class bearings at 29.5 Hz with 20 kHz accelerometers. The gateway needs a feature module per 2-second window: time-domain health numbers, Welch band energies, and an outer/inner race early warning from the envelope spectrum that never fires on healthy pumps.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Time-domain AC features: RMS, peak, crest factor, kurtosis</li><li>Welch PSD, band energies and sub-bin dominant frequency</li><li>Bearing defect frequencies from geometry (BPFO, BPFI, BSF, FTF)</li><li>Envelope spectrum and a harmonic-confirmed fault detector</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Known-answer tests on synthetic signals pass (kurtosis, band power, sub-bin frequency, identities)</li><li>Healthy captures never flagged; outer, inner and a weak outer fault found and labelled</li><li>Input validation incl. band above Nyquist</li><li>ANSWER.md explains the envelope in plain words</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w2-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w2-c1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w2-c1/</code> &middot; <a href="exercises/w2-c1/README.md">README</a> &middot; <a href="exercises/w2-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week2">Week 2 Mon - sampling, Nyquist and the FFT</a></li><li><a href="../../fde-edge-ai-study-plan.html#week2">Week 2 Tue - windowing, leakage and Welch PSD</a></li><li><a href="../../fde-edge-ai-study-plan.html#week2">Week 2 Thu - features and bearing defect frequencies</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="edgefde/w2-t1" id="ex-w2-t1">
+    <div class="exhead">
+      <h3>Phantom fault peak on the new pumps</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5 h</span>
+      <span class="badge" data-badge="edgefde/w2-t1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w2-t1</code> &middot; Signal processing and sensor data</p>
+    <p><b>Scenario.</b> The outer-race early warning fires on all four new gearbox-driven pumps at 702 Hz, every capture, three weeks after installation with new bearings. A firmware update changed the accelerometer gain the same week. The plant is close to switching the system off.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Explain where the 702 Hz line comes from, with the Nyquist numbers</li><li>Rule the firmware gain change in or out with a reason</li><li>Fix the 10 kHz to 2 kHz reduction without touching the signed-off detector</li><li>Say what to ask the sensor vendor and the sample rate needed to watch the mesh</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>P07-P10 quiet, P01-P06 quiet, P03 still flagged near 772 Hz</li><li>1298 Hz attenuated at least 40 dB at 702 Hz; 100/300/772 Hz pass within 1 dB</li><li>2 kHz output and detector constants unchanged</li><li>ANSWER.md: aliasing explained with numbers; red herring ruled out</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w2-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w2-t1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w2-t1/</code> &middot; <a href="exercises/w2-t1/README.md">README</a> &middot; <a href="exercises/w2-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week2">Week 2 Mon - sampling, Nyquist and aliasing</a></li><li><a href="../../fde-edge-ai-study-plan.html#week2">Week 2 Wed - anti-alias filters and decimation</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w3" data-title="Week 3">
+  <h2>Week 3 - MLOps</h2>
+  <p class="lede">Registry, champion/challenger, eval gates in CI that fail closed, drift and monitoring. Study guide: <a href="../../fde-edge-ai-study-plan.html#week3">Week 3</a>.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+  
+  <div class="card ex" data-ex="edgefde/w3-c1" id="ex-w3-c1">
+    <div class="exhead">
+      <h3>Champion/challenger promotion gate</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="edgefde/w3-c1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w3-c1</code> &middot; MLOps</p>
+    <p><b>Scenario.</b> Corvane&#x27;s reliability team moved the champion alias by hand from a notebook, and twice shipped a model with more false alarms to the pump gateways. Replace the human step with a CI gate over an MLflow-shaped file registry: evaluate challenger and champion on the same pinned holdout, promote only on a real improvement, fail closed, roll back on demand.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>evaluate(): recall, false-alarm rate, p95 single-row latency</li><li>decide(): absolute floors, not worse on either metric, strictly better on one</li><li>promote(): pinned holdout hash, fresh evaluation of both, metrics logged, aliases moved, PR comment</li><li>rollback() and a CLI with exit codes 0 / 3 / 2</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>v1 promoted, v2 promoted over v1, v3 rejected (false alarms) with reasons</li><li>Ties, floors and latency budget enforced; stale registry metrics ignored</li><li>Hash mismatch or unreadable artifact fails closed with no alias change</li><li>Rollback restores previous-champion once</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w3-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w3-c1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w3-c1/</code> &middot; <a href="exercises/w3-c1/README.md">README</a> &middot; <a href="exercises/w3-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week3">Week 3 Tue - registry versions, aliases and lineage</a></li><li><a href="../../fde-edge-ai-study-plan.html#week3">Week 3 Wed - eval gates in CI for model promotion</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="edgefde/w3-t1" id="ex-w3-t1">
+    <div class="exhead">
+      <h3>Model v7 promoted on a stale metric</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5-2 h</span>
+      <span class="badge" data-badge="edgefde/w3-t1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w3-t1</code> &middot; MLOps</p>
+    <p><b>Scenario.</b> The pump gateways raised about six times more alerts all weekend after the nightly pipeline promoted v7 through an automatic gate. The gate passed, the build was green, and nobody touched the gateways. You get the CI log, a registry snapshot, gateway alert counts and the team changelog.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find what the gate actually compared and prove it from the log and the registry</li><li>Explain why v7 alerts so much on the gateways</li><li>Rule out the holdout refresh and the cache warning</li><li>Fix ci/ so unevaluated or wrongly evaluated challengers fail the build, while better ones still promote</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Replaying build #412 exits non-zero and v6 stays champion</li><li>Gate exit 2 without metrics bound to the challenger version and pinned holdout; 0 better; 3 tie or worse</li><li>Evaluate step fails loudly</li><li>ANSWER.md: full cause chain with evidence, remediation, prevention</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w3-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w3-t1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w3-t1/</code> &middot; <a href="exercises/w3-t1/README.md">README</a> &middot; <a href="exercises/w3-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week3">Week 3 Wed - eval gates and fail-closed CI for models</a></li><li><a href="../../fde-edge-ai-study-plan.html#week3">Week 3 Thu - monitoring after promotion</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w4" data-title="Week 4">
+  <h2>Week 4 - Edge AI runtimes</h2>
+  <p class="lede">ONNX export, ONNX Runtime, static INT8 quantization with calibration, honest benchmarks. Study guide: <a href="../../fde-edge-ai-study-plan.html#week4">Week 4</a>.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+  
+  <div class="card ex" data-ex="edgefde/w4-c1" id="ex-w4-c1">
+    <div class="exhead">
+      <h3>Export to ONNX, quantize to INT8, prove the budget</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="edgefde/w4-c1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w4-c1</code> &middot; Edge AI runtimes</p>
+    <p><b>Scenario.</b> Corvane&#x27;s controls engineer allows the anomaly model on the shared ARM gateways only within a written budget, and the reliability lead allows INT8 only if it keeps detections. Build the rerunnable export pipeline: scikit-learn MLP to ONNX, parity check, static INT8 with correct calibration, batch-1 benchmark, and a report with a budget verdict CI can act on.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>skl2onnx export with a dynamic batch and no ZipMap; parity vs scikit-learn &lt; 1e-4</li><li>Static INT8 (QDQ) calibrated the way the gateway feeds the model</li><li>Batch-1 benchmark with warm-up: p50 and p95</li><li>Budget check and report.json / report.md; exit 0 / 4 / 2</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Graph contract and parity checks pass</li><li>INT8 is quantized, smaller, and within the recall and false-alarm budget</li><li>Each budget rule fires independently; report schema; CLI exit codes</li><li>ANSWER.md: benchmark table and the limits of a laptop benchmark</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w4-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w4-c1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w4-c1/</code> &middot; <a href="exercises/w4-c1/README.md">README</a> &middot; <a href="exercises/w4-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week4">Week 4 Mon - ONNX and export paths from scikit-learn</a></li><li><a href="../../fde-edge-ai-study-plan.html#week4">Week 4 Wed - static INT8 quantization and calibration data</a></li><li><a href="../../fde-edge-ai-study-plan.html#week4">Week 4 Thu - benchmarking honestly at batch size 1</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="edgefde/w4-t1" id="ex-w4-t1">
+    <div class="exhead">
+      <h3>INT8 model misses faults on the gateway</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5-2 h</span>
+      <span class="badge" data-badge="edgefde/w4-t1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w4-t1</code> &middot; Edge AI runtimes</p>
+    <p><b>Scenario.</b> A day after Corvane switched its pump gateways to the INT8 model, a vibration route finds an outer-race fault that the edge system never alerted on; no pump raised a single alert all day. The release log warns about IR versions and pre-processing and the gateway says XNNPACK is missing. Is INT8 just not accurate enough?</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find the root cause with numbers from the INT8 graph and the data</li><li>Rule the release and runtime warnings in or out</li><li>Fix the release script so INT8 detects like FP32</li><li>Propose the release gate that would have stopped it</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>INT8 within 0.02 recall and 0.01 false-alarm rate of FP32 on the gateway day</li><li>INT8 input range fits the standardized features from the shipped scaler.json</li><li>Still static INT8 QDQ and under 0.6x FP32 size</li><li>ANSWER.md: root cause with inspect evidence, red herrings, prevention</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w4-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w4-t1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w4-t1/</code> &middot; <a href="exercises/w4-t1/README.md">README</a> &middot; <a href="exercises/w4-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week4">Week 4 Wed - calibration data for static quantization</a></li><li><a href="../../fde-edge-ai-study-plan.html#week4">Week 4 Fri - ONNX Runtime on IoT and edge</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w5" data-title="Week 5">
+  <h2>Week 5 - Edge fleet operations</h2>
+  <p class="lede">OTA canary and rollback, offline buffering and idempotent replay, air-gapped installs. Study guide: <a href="../../fde-edge-ai-study-plan.html#week5">Week 5</a>.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+  
+  <div class="card ex" data-ex="edgefde/w5-c1" id="ex-w5-c1">
+    <div class="exhead">
+      <h3>OTA model rollout with canary and automatic rollback</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="edgefde/w5-c1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w5-c1</code> &middot; Edge fleet operations</p>
+    <p><b>Scenario.</b> Corvane&#x27;s ten gateways get new pump-health models by hand on Sundays; last month a model that crashed on the newer rev2 boards took four gateways offline for a day. Build a rollout controller over a simulated fleet: canary, phased batches, health gates per window, automatic rollback, offline devices handled, resumable after its own crash.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Canary on the first online device, then cumulative phases 1 / 20% / 50% / 100%</li><li>Health gates: process up, error rate, p95 latency, alert rate vs baseline</li><li>Automatic rollback of every touched device; offline devices skipped after a timeout</li><li>Max concurrent updates, atomic state file, resume without restarting, one rollout at a time</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Bad models stop at the canary; the rev2-only failure rolls back all touched devices in phase 3</li><li>max_concurrent honoured; short outages wait, long outages are skipped</li><li>Resume after a controller crash updates no device twice</li><li>ANSWER.md maps the design to a real OTA system</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w5-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w5-c1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w5-c1/</code> &middot; <a href="exercises/w5-c1/README.md">README</a> &middot; <a href="exercises/w5-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week5">Week 5 Tue - rollout strategy: canary, phases, automatic rollback</a></li><li><a href="../../fde-edge-ai-study-plan.html#week5">Week 5 Wed - offline devices, buffering and replay</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="edgefde/w5-t1" id="ex-w5-t1">
+    <div class="exhead">
+      <h3>Alert counts tripled after the plant&#x27;s WAN outage</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5-2 h</span>
+      <span class="badge" data-badge="edgefde/w5-t1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w5-t1</code> &middot; Edge fleet operations</p>
+    <p><b>Scenario.</b> After a 3-hour WAN outage and a flaky replacement router, the cloud dashboard shows two to three times the normal events for 09:00-13:00 on every pump and planners raised work orders off duplicates. The gateway buffered locally as designed; the log is full of NTP drift warnings.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find why the cloud holds more events than the gateway produced, with evidence</li><li>Rule the clock drift in or out</li><li>Make replay exactly-once under lost acks, partial acks, restarts and re-emitted readings</li><li>Plan the cleanup of duplicates and work orders</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Cloud counts equal gateway counts on the outage day, also with 90% lost acks</li><li>Partial acks leave unacknowledged rows pending; ids stable across resends</li><li>Order per device preserved; buffer cap still enforced</li><li>ANSWER.md: root cause with evidence, red herring, cleanup plan</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w5-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w5-t1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w5-t1/</code> &middot; <a href="exercises/w5-t1/README.md">README</a> &middot; <a href="exercises/w5-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week5">Week 5 Wed - offline buffering in SQLite WAL and idempotent replay</a></li><li><a href="../../fde-edge-ai-study-plan.html#week1">Week 1 Wed - idempotency keys and at-least-once delivery</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w6" data-title="Week 6">
+  <h2>Week 6 - LLMs at the edge and FDE practice</h2>
+  <p class="lede">Engagement framing and handoff, locked-down networks, proxies and CA bundles. Study guide: <a href="../../fde-edge-ai-study-plan.html#week6">Week 6</a>.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+  
+  <div class="card ex" data-ex="edgefde/w6-c1" id="ex-w6-c1">
+    <div class="exhead">
+      <h3>Engagement brief, decision record and handoff plan</h3>
+      <span class="tag design">design</span>
+      <span class="est">2 h</span>
+      <span class="badge" data-badge="edgefde/w6-c1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w6-c1</code> &middot; FDE practice</p>
+    <p><b>Scenario.</b> An 8-week pilot at Corvane&#x27;s Dunmore plant. The plant manager wants &#x27;AI on the pumps&#x27; for a VP review, reliability wants fewer surprise bearing failures, controls was burned by a vendor box that cried wolf, security keeps raw data on site, the planner owns the work-order queue. Write the brief everyone signs before any code.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Frame the problem and compute today&#x27;s cost from the inputs</li><li>Agree target metrics with measurement and owners, false alarms included</li><li>Cut scope, honour every site constraint, plan a measured thin slice</li><li>Write an ADR with real options and the customer-owned handoff list</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Graded by rubric only (grade.sh reports 0/0; the automated row does not apply)</li><li>Baseline cost arithmetic shown; metrics are numbers with owners</li><li>Every constraint honoured; scope cuts explained to the stakeholders</li><li>Handoff assets each have a client-side owner</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w6-c1
+make setup      # nothing to install; read inputs/
+# write BRIEF.md and ANSWER.md
+make test       # completeness report (rubric-graded, no tests)
+# from workbooks/ in Claude Code:
+/grade edgefde/w6-c1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w6-c1/</code> &middot; <a href="exercises/w6-c1/README.md">README</a> &middot; <a href="exercises/w6-c1/ANSWER.md">ANSWER.md</a> &middot; <a href="exercises/w6-c1/BRIEF.md">BRIEF.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week6">Week 6 Mon - framing and measurable outcomes</a></li><li><a href="../../fde-edge-ai-study-plan.html#week6">Week 6 Thu - customer-owned assets and the handoff pack</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="edgefde/w6-t1" id="ex-w6-t1">
+    <div class="exhead">
+      <h3>pip and uv fail on the plant build box behind a TLS-inspecting proxy</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5 h</span>
+      <span class="badge" data-badge="edgefde/w6-t1"></span>
+    </div>
+    <p class="meta"><code>edgefde/w6-t1</code> &middot; Locked-down networks</p>
+    <p><b>Scenario.</b> On Corvane&#x27;s level 3 build box pip failed with certificate errors, so someone added trusted hosts and pip works. uv in CI, the kit&#x27;s uplink client and model downloads still fail, and security wants the trusted-host change reverted by Friday. You get the logs, s_client captures, env, proxy policy and the config files.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Explain why each client fails, with evidence from the bundle</li><li>Build one CA bundle every client uses, with verification on</li><li>Fix NO_PROXY so internal hosts skip the inspecting proxy</li><li>Write the verification plan and the revert of the workaround</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Bundle has public roots, corporate root and the proxy issuing CA</li><li>pip, uv, requests and curl all point at the same bundle</li><li>No verification bypass; NO_PROXY covers *.corvane.internal correctly</li><li>ANSWER.md: per-client root cause with evidence</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/w6-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/w6-t1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/w6-t1/</code> &middot; <a href="exercises/w6-t1/README.md">README</a> &middot; <a href="exercises/w6-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week6">Week 6 Wed - proxies, TLS inspection and CA bundles</a></li><li><a href="../../fde-edge-ai-study-plan.html#week5">Week 5 Fri - air-gapped installs and the field kit</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI Integration - AI integration fundamentals</h2>
+  <p class="lede">The shared AI Integration page applied to an edge operator assistant: read-only tools, validated answers, hybrid routing, and an injection that reached a write tool. Study guide: <a href="../../fde-edge-ai-study-plan.html#ai">AI Integration</a>.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+  
+  <div class="card ex" data-ex="edgefde/ai-c1" id="ex-ai-c1">
+    <div class="exhead">
+      <h3>Operator assistant on a local model: read-only tools, validated answers, hybrid routing</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="edgefde/ai-c1"></span>
+    </div>
+    <p class="meta"><code>edgefde/ai-c1</code> &middot; LLMs at the edge</p>
+    <p><b>Scenario.</b> Operators want grounded answers to &#x27;why did machine 4 alert at 14:05?&#x27; from a small local model on the plant server, with a cloud model only when policy allows and never with raw waveforms. The model is a stub replaying recorded OpenAI-compatible turns.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Pydantic answer contract with an action enum that cannot change state</li><li>Read-only tools with recoverable error results and a non-raising dispatcher</li><li>Agent loop: parallel tool calls, citation checks, validate-and-retry, max turns, latency</li><li>Router: local first, cloud only by policy, no local-only tools or raw samples to the cloud</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>18 recorded eval scenarios pass</li><li>Citations must match executed tool calls; enum and bounds enforced</li><li>Cloud never sees get_raw_capture or samples</li><li>ANSWER.md: enforcement in code, eval plan on the real model, policy governance</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/ai-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/ai-c1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/ai-c1/</code> &middot; <a href="exercises/ai-c1/README.md">README</a> &middot; <a href="exercises/ai-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#ai">AI Integration - tool design and the agent loop</a></li><li><a href="../../fde-edge-ai-study-plan.html#ai">AI Integration - security and evals</a></li><li><a href="../../fde-edge-ai-study-plan.html#week6">Week 6 Tue - local models and hybrid routing</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="edgefde/ai-t1" id="ex-ai-t1">
+    <div class="exhead">
+      <h3>The assistant raised machine 4&#x27;s alarm threshold after reading an alert note</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5 h</span>
+      <span class="badge" data-badge="edgefde/ai-t1"></span>
+    </div>
+    <p class="meta"><code>edgefde/ai-t1</code> &middot; LLMs at the edge</p>
+    <p><b>Scenario.</b> P04&#x27;s alarms stopped while vibration kept rising: after an operator asked the read-only assistant about the afternoon alerts, the P04 threshold was 40 dB. The model was upgraded that morning. You have the transcript, the audit log and the recorded model turns.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Separate the trigger from the root cause using the transcript and audit log</li><li>Rule the model upgrade in or out</li><li>Enforce read-only in the dispatcher with an allow-list and audited blocks</li><li>Replace the combined read/write tool with a read-only one</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Recorded injection and alias variant: no write, P04 stays at 12 dB, blocks audited</li><li>Offered tools are read-only; dispatch refuses writes even when called directly</li><li>Legitimate reads still work</li><li>ANSWER.md: trigger vs cause, red herring, security argument</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/ai-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/ai-t1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/ai-t1/</code> &middot; <a href="exercises/ai-t1/README.md">README</a> &middot; <a href="exercises/ai-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#ai">AI Integration - security: enforcement lives server-side</a></li><li><a href="../../fde-edge-ai-study-plan.html#week6">Week 6 Tue - tool scoping for edge agents</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w7" data-title="Week 7 (add-on)">
+  <h2>Week 7 (add-on) - Integrations and field drills</h2>
+  <p class="lede">Optional: a CMMS work-order client with retries and idempotency keys, and a streaming filter drill. Study guide: <a href="../../fde-edge-ai-study-plan.html#week7">Week 7 (add-on)</a>.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+  
+  <div class="card ex" data-ex="edgefde/x-1" id="ex-x-1">
+    <div class="exhead">
+      <h3>CMMS work-order client: retries, Retry-After and idempotency keys</h3>
+      <span class="tag coding">coding</span><span class="tag opt">optional</span>
+      <span class="est">2 h</span>
+      <span class="badge" data-badge="edgefde/x-1"></span>
+    </div>
+    <p class="meta"><code>edgefde/x-1</code> &middot; API integrations</p>
+    <p><b>Scenario.</b> The edge kit raises a draft work order in Corvane&#x27;s CMMS when an anomaly is confirmed. The prototype&#x27;s single POST lost orders during the CMMS&#x27;s nightly 503s and duplicated them when a response was lost. One anomaly must mean one work order, always.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Idempotency key derived from machine and alert window</li><li>One retry loop: timeouts, retryable errors only, full-jitter backoff, Retry-After, budget</li><li>OAuth client credentials with caching, expiry refresh and one refresh on 401</li><li>Pydantic WorkOrder results and complete pagination</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>40 anomalies through 30% faults create exactly 40 work orders</li><li>Retry-After in seconds and HTTP-date honoured; no retry on 422; budget enforced</li><li>Timeout on every call; token refresh paths; pagination complete</li><li>ANSWER.md explains why the key, not the retries, prevents duplicates</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/x-1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/x-1
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/x-1/</code> &middot; <a href="exercises/x-1/README.md">README</a> &middot; <a href="exercises/x-1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week7">Week 7 Mon - API integrations: timeouts, retries, backoff with jitter</a></li><li><a href="../../fde-edge-ai-study-plan.html#week7">Week 7 Tue - idempotency keys, pagination, OAuth client credentials</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="edgefde/x-2" id="ex-x-2">
+    <div class="exhead">
+      <h3>Spikes at every chunk boundary in the streaming band-pass</h3>
+      <span class="tag troubleshooting">troubleshooting</span><span class="tag opt">optional</span>
+      <span class="est">1-1.5 h</span>
+      <span class="badge" data-badge="edgefde/x-2"></span>
+    </div>
+    <p class="meta"><code>edgefde/x-2</code> &middot; Signal processing and sensor data</p>
+    <p><b>Scenario.</b> After moving the impact detector from batch captures to the live stream in 1-second chunks, every pump alerts every second with kurtosis 12-15, including a freshly rebuilt one. The driver also logs clock drift.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find why healthy pumps alert on every chunk, with sample-level evidence</li><li>Rule the clock drift in or out</li><li>Make the streaming filter chunk-size invariant and make reset() work</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Chunked output equals one-shot causal filtering within 1e-9 for three chunk sizes</li><li>Causal, no edge transients, healthy quiet, faulty alerts</li><li>ANSWER.md: root cause, red herring, why not zero-phase</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd edgefde/exercises/x-2
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade edgefde/x-2
+make clean</pre>
+        <p class="small">Folder: <code>edgefde/exercises/x-2/</code> &middot; <a href="exercises/x-2/README.md">README</a> &middot; <a href="exercises/x-2/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../fde-edge-ai-study-plan.html#week2">Week 2 Wed - filters: FIR vs IIR, filtfilt offline, state when streaming</a></li><li><a href="../../fde-edge-ai-study-plan.html#week7">Week 7 - field drills</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="selfexam" data-title="Self-exam">
+  <h2>Self-exam</h2>
+  <p class="lede">Scenario questions per study week (check each answer to see the explanation), and a timed screen scored by area
+  with a full review and docs links after you submit.</p>
+  <div class="subnav" id="se-nav"></div>
+  <div id="se-root"></div>
+</section>
+
+<section class="page" id="scoreboard" data-title="Scoreboard">
+  <h2>Scoreboard</h2>
+  <p class="lede">Exercise scores come from <code>../grades/grades.js</code> (reload after <code>/grade</code>); quiz and mock scores from this browser.</p>
+  <p class="card" id="sb-overall"></p>
+  <h3>Exercises</h3>
+  <table><thead><tr><th>Exercise</th><th>Title</th><th>Type</th><th>Latest</th><th>Best</th><th>Status</th><th>Attempts</th><th>Feedback</th></tr></thead><tbody id="sb-ex"></tbody></table>
+  <h3>Weekly quizzes</h3>
+  <table><thead><tr><th>Set</th><th>Correct / checked</th><th>Checked / total</th><th>%</th></tr></thead><tbody id="sb-quiz"></tbody></table>
+  <h3>Mock exams</h3>
+  <table><thead><tr><th>Exam</th><th>Latest</th><th>Best</th><th>Status</th><th>Attempts</th><th>Weakest areas (latest)</th></tr></thead><tbody id="sb-mock"></tbody></table>
+</section>
+</main>
+<script>window.EDGEFDE_DATA = {"areas":[{"key":"pipelines","name":"Production Python and data pipelines"},{"key":"signals","name":"Signal processing and sensor data"},{"key":"mlops","name":"MLOps: registry, gates, monitoring"},{"key":"edgeai","name":"Edge AI: ONNX, quantization, runtimes"},{"key":"fleet","name":"Edge fleet operations"},{"key":"llm","name":"LLMs and agents at the edge"},{"key":"network","name":"Locked-down networks and on-site debugging"},{"key":"integrations","name":"API integrations"},{"key":"fde","name":"FDE practice: framing, outcomes, handoff"}],"weekly":[{"id":"w1-q01","week":1,"set":"weekly","area":"pipelines","type":"single","stem":"A Kafka consumer writes feature rows to Postgres. The team wants no lost and no duplicated rows after crashes. Which combination achieves that most simply?","options":["enable.auto.commit=true with a 1 s interval","Commit offsets before the write so a crash never reprocesses","Commit offsets after the DB transaction commits, and make the write an upsert on a natural key","Enable the idempotent producer on the gateways"],"answer":[2],"explanation":"At-least-once delivery (commit after the durable write) plus an idempotent write keyed on a natural id gives effectively-once results. Committing first loses data on a crash; the idempotent producer only removes duplicates between producer and broker.","learn":[{"label":"Message delivery semantics (Confluent)","href":"https://docs.confluent.io/kafka/design/delivery-semantics.html"},{"label":"Apache Kafka documentation","href":"https://kafka.apache.org/documentation/"}]},{"id":"w1-q02","week":1,"set":"weekly","area":"pipelines","type":"multi","stem":"Which two statements about <code>enable.idempotence=true<\/code> on a Kafka producer are true? (choose two)","options":["It prevents duplicate records in a partition caused by producer retries","It makes the consumer's database writes idempotent","It requires acks=all","It turns at-least-once consumers into exactly-once consumers"],"answer":[0,2],"explanation":"The idempotent producer dedupes retries per partition and needs acks=all. It says nothing about what your consumer does with the data downstream.","learn":[{"label":"Kafka producer config: enable.idempotence","href":"https://kafka.apache.org/documentation/#producerconfigs_enable.idempotence"},{"label":"Exactly-once semantics in Kafka (Confluent)","href":"https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/"}]},{"id":"w1-q03","week":1,"set":"weekly","area":"pipelines","type":"single","stem":"Gateways key messages by device id. Why does that matter for the consumer?","options":["It spreads one device across all partitions for throughput","All of a device's messages land on one partition, so per-device order is preserved","It lets the broker compact old messages","It is required for consumer groups to work"],"answer":[1],"explanation":"The partitioner hashes the key; one key always maps to one partition, which is the only place Kafka guarantees order.","learn":[{"label":"Apache Kafka documentation","href":"https://kafka.apache.org/documentation/"}]},{"id":"w1-q04","week":1,"set":"weekly","area":"pipelines","type":"single","stem":"A backfill of 2026-10-14 is rerun after a partial failure and the day ends with 1.3x the expected rows. What is the root design flaw?","options":["The orchestrator retried too quickly","The write is a plain INSERT, not idempotent per natural key","The archive files were compressed","The day was not partitioned by hour"],"answer":[1],"explanation":"A backfill must be safe to rerun: upsert or replace-partition semantics keyed on (device, window). Retries then cannot double count.","learn":[{"label":"Airflow backfill","href":"https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/backfill.html"}]},{"id":"w1-q05","week":1,"set":"weekly","area":"pipelines","type":"single","stem":"A data quality check counts windows per device per day for completeness. The archive contains some duplicate lines. What must the check count?","options":["Lines in the files","Valid records","Distinct (device, window_start) keys","Bytes per device"],"answer":[2],"explanation":"Duplicates would inflate completeness and hide a gap. Count distinct keys.","learn":[{"label":"Pandera (dataframe validation)","href":"https://pandera.readthedocs.io/en/stable/"}]},{"id":"w1-q06","week":1,"set":"weekly","area":"pipelines","type":"single","stem":"Gateway firmware 4.2 adds a field <code>firmware<\/code> to every message. The consumer's Pydantic model is strict and starts quarantining every message. Which is the best fix?","options":["Pin all gateways to firmware 4.1","Configure the model to ignore unknown fields and version the schema (BACKWARD compatible changes)","Catch ValidationError and write the raw dict","Disable validation for v2 messages"],"answer":[1],"explanation":"Adding an optional field is a backward-compatible change; consumers should tolerate unknown fields. A schema registry enforces the compatibility rule at publish time.","learn":[{"label":"Schema Registry overview","href":"https://docs.confluent.io/platform/current/schema-registry/index.html"},{"label":"Pydantic docs","href":"https://pydantic.dev/docs/validation/latest/get-started/"}]},{"id":"w1-q07","week":1,"set":"weekly","area":"pipelines","type":"single","stem":"Which MQTT QoS level guarantees a message arrives at least once, possibly duplicated?","options":["QoS 0","QoS 1","QoS 2","Retained messages"],"answer":[1],"explanation":"QoS 1 is at-least-once; QoS 2 is exactly-once between client and broker (expensive); QoS 0 is fire-and-forget. Retained messages are about the last value per topic.","learn":[{"label":"MQTT","href":"https://mqtt.org/"}]},{"id":"w1-q08","week":1,"set":"weekly","area":"pipelines","type":"single","stem":"A Python ingest service spends most of its time waiting on the broker and an HTTP enrichment API. Which concurrency model fits best?","options":["multiprocessing with one process per message","asyncio with bounded concurrency and timeouts on every call","Threads without timeouts","A busy loop polling every millisecond"],"answer":[1],"explanation":"I/O-bound work suits asyncio (or a small thread pool); every external call needs a timeout and concurrency needs a bound.","learn":[{"label":"asyncio","href":"https://docs.python.org/3/library/asyncio.html"}]},{"id":"w1-q09","week":1,"set":"weekly","area":"pipelines","type":"multi","stem":"Which two belong in the CI gate of a production Python service repo? (choose two)","options":["mypy (strict on src/) and ruff","pytest with property-based tests for parsers","pip install --upgrade of every dependency on each run","Disabling tests that touch time zones"],"answer":[0,1],"explanation":"Types, lint and tests (including Hypothesis for parsers and signal functions) belong in CI. Unpinned upgrades break reproducibility; a lock file (uv) is the fix.","learn":[{"label":"mypy","href":"https://mypy.readthedocs.io/en/stable/"},{"label":"Hypothesis","href":"https://hypothesis.readthedocs.io/en/latest/"},{"label":"uv","href":"https://docs.astral.sh/uv/"}]},{"id":"w1-q10","week":1,"set":"weekly","area":"pipelines","type":"single","stem":"A consumer rejects messages with naive timestamps (no UTC offset). A colleague asks why not just assume local time. The best answer:","options":["Python cannot parse naive timestamps","The idempotency key is built from window_start; a guessed offset makes the same window two keys around DST changes and across sites","Naive timestamps are larger on the wire","Pydantic requires offsets"],"answer":[1],"explanation":"Keys must be stable. Guessing time zones creates duplicate or colliding windows (DST, multi-site).","learn":[{"label":"Pydantic docs","href":"https://pydantic.dev/docs/validation/latest/get-started/"}]},{"id":"w2-q01","week":2,"set":"weekly","area":"signals","type":"single","stem":"An accelerometer samples at 2 kHz. A 1.3 kHz gear-mesh tone is present at the sensor and there is no anti-alias filter. Where does it appear in the spectrum?","options":["1300 Hz","700 Hz","300 Hz","It is removed automatically"],"answer":[1],"explanation":"Nyquist is fs/2 = 1 kHz. A tone above it folds to |f - fs| = |1300 - 2000| = 700 Hz.","learn":[{"label":"Nyquist-Shannon sampling theorem (Wikipedia)","href":"https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem"}]},{"id":"w2-q02","week":2,"set":"weekly","area":"signals","type":"single","stem":"Where must anti-aliasing happen for a sensor stream that will be sampled or decimated?","options":["After the FFT","Before sampling (analog) or before dropping samples (digital low-pass)","Only in the cloud","In the detector threshold"],"answer":[1],"explanation":"Once a tone has folded it is indistinguishable from real content. Filter before sampling or before decimation.","learn":[{"label":"Nyquist-Shannon sampling theorem (Wikipedia)","href":"https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem"},{"label":"SciPy signal processing tutorial","href":"https://docs.scipy.org/doc/scipy/tutorial/signal.html"}]},{"id":"w2-q03","week":2,"set":"weekly","area":"signals","type":"single","stem":"You compute an FFT over 4096 samples at 20 kHz. What is the bin spacing?","options":["0.2 Hz","4.88 Hz","20 Hz","4096 Hz"],"answer":[1],"explanation":"Frequency resolution = fs / N = 20000 / 4096 = 4.88 Hz.","learn":[{"label":"SciPy FFT tutorial","href":"https://docs.scipy.org/doc/scipy/tutorial/fft.html"}]},{"id":"w2-q04","week":2,"set":"weekly","area":"signals","type":"single","stem":"Why apply a Hann window before the FFT of a vibration window?","options":["It increases the frequency resolution","It reduces spectral leakage from the discontinuity at the window edges","It removes DC","It doubles the sample rate"],"answer":[1],"explanation":"Windowing tapers the edges so a tone that is not bin-centred does not smear across the spectrum; it slightly widens the main lobe.","learn":[{"label":"SciPy FFT tutorial","href":"https://docs.scipy.org/doc/scipy/tutorial/fft.html"},{"label":"The Scientist and Engineer's Guide to DSP","href":"https://www.dspguide.com/"}]},{"id":"w2-q05","week":2,"set":"weekly","area":"signals","type":"single","stem":"Vibration teams summarise spectra with Welch's method rather than one long FFT. Why?","options":["It is the only method SciPy supports","Averaging overlapping windowed segments lowers the variance of the PSD estimate","It increases the resolution","It removes aliasing"],"answer":[1],"explanation":"Welch trades resolution for a much less noisy estimate by averaging periodograms of overlapping segments.","learn":[{"label":"scipy.signal.welch","href":"https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html"}]},{"id":"w2-q06","week":2,"set":"weekly","area":"signals","type":"single","stem":"A bearing outer-race defect on a pump does not show a line at BPFO in the raw spectrum, only a hump near 3 kHz. What reveals BPFO?","options":["A longer FFT","The envelope spectrum: band-pass around the resonance, Hilbert envelope, then the spectrum of the envelope","Low-pass filtering at 100 Hz","Kurtosis alone"],"answer":[1],"explanation":"Each impact rings a structural resonance; the defect rate modulates that resonance. Demodulating (the envelope) turns sidebands into a line at BPFO and its harmonics.","learn":[{"label":"SciPy signal processing tutorial","href":"https://docs.scipy.org/doc/scipy/tutorial/signal.html"},{"label":"CWRU Bearing Data Center","href":"https://engineering.case.edu/bearingdatacenter"}]},{"id":"w2-q07","week":2,"set":"weekly","area":"signals","type":"multi","stem":"Which two features rise sharply for impulsive signals such as early bearing damage? (choose two)","options":["Kurtosis","Crest factor","Mean","Sample rate"],"answer":[0,1],"explanation":"Impulses make the tails heavy (kurtosis well above 3) and the peak large relative to RMS (crest factor).","learn":[{"label":"scikit-learn novelty and outlier detection","href":"https://scikit-learn.org/stable/modules/outlier_detection.html"}]},{"id":"w2-q08","week":2,"set":"weekly","area":"signals","type":"single","stem":"<code>scipy.signal.filtfilt<\/code> works well offline but is wrong on the live gateway stream. Why?","options":["It is too slow","It is zero-phase, so it needs future samples (non-causal) and pads each chunk edge","It only supports FIR filters","It changes the sample rate"],"answer":[1],"explanation":"Zero-phase filtering runs forwards and backwards over the whole signal. Streaming needs a causal filter with its state carried between chunks.","learn":[{"label":"scipy.signal.butter","href":"https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html"},{"label":"SciPy signal processing tutorial","href":"https://docs.scipy.org/doc/scipy/tutorial/signal.html"}]},{"id":"w2-q09","week":2,"set":"weekly","area":"signals","type":"single","stem":"BPFO + BPFI equals which quantity for a rolling-element bearing?","options":["The shaft speed","Number of balls x shaft speed","Twice the cage frequency","The ball spin frequency"],"answer":[1],"explanation":"BPFO = n/2 fr (1 - r) and BPFI = n/2 fr (1 + r); their sum is n fr.","learn":[{"label":"CWRU Bearing Data Center","href":"https://engineering.case.edu/bearingdatacenter"}]},{"id":"w2-q10","week":2,"set":"weekly","area":"signals","type":"single","stem":"A firmware update multiplies every raw sample by 1.6. Which detector scores are unaffected?","options":["An absolute RMS threshold in raw counts","A peak-to-median ratio in dB on the spectrum","Band energy in raw counts squared","Peak amplitude in raw counts"],"answer":[1],"explanation":"A uniform gain cancels in any ratio; absolute thresholds in raw units move.","learn":[{"label":"The Scientist and Engineer's Guide to DSP","href":"https://www.dspguide.com/"}]},{"id":"w2-q11","week":2,"set":"weekly","area":"signals","type":"single","stem":"Shaft speed on a variable-speed pump drifts from 25 to 32 Hz. What keeps BPFO-based detection valid?","options":["A fixed BPFO band computed at 29.5 Hz","Recompute defect frequencies per window from a tachometer or a 1x speed estimate (order tracking)","Higher sample rate","A longer window"],"answer":[1],"explanation":"Defect frequencies scale with shaft speed; track speed or resample to orders.","learn":[{"label":"CWRU Bearing Data Center","href":"https://engineering.case.edu/bearingdatacenter"},{"label":"SciPy signal processing tutorial","href":"https://docs.scipy.org/doc/scipy/tutorial/signal.html"}]},{"id":"w3-q01","week":3,"set":"weekly","area":"mlops","type":"single","stem":"A promotion gate compares challenger and champion. Which design avoids comparing apples to oranges?","options":["Use each model's validation metric from its training run","Evaluate both on the same fixed holdout set (hash checked) in the same job","Use the metric with the most recent timestamp for the model name","Compare training loss"],"answer":[1],"explanation":"Same data, same code, same job. Metrics from different runs or datasets are not comparable.","learn":[{"label":"MLflow model evaluation","href":"https://mlflow.org/docs/latest/ml/evaluation/"},{"label":"Continuous delivery for machine learning","href":"https://martinfowler.com/articles/cd4ml.html"}]},{"id":"w3-q02","week":3,"set":"weekly","area":"mlops","type":"multi","stem":"The eval step crashed but CI continued (<code>|| true<\/code>) and the gate read the latest metrics for the model name, which belonged to the previous version. What two changes close the hole? (choose two)","options":["Fail the eval step on error (non-zero exit)","Bind metrics to the exact model version and holdout hash, and fail closed when missing","Use >= instead of > in the comparison","Retrain more often"],"answer":[0,1],"explanation":"A gate that cannot find the challenger's own metrics must reject (fail closed). Silent eval failures must fail the pipeline.","learn":[{"label":"MLflow Model Registry","href":"https://mlflow.org/docs/latest/ml/model-registry/"},{"label":"MLOps: continuous delivery and automation pipelines (Google Cloud)","href":"https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning"}]},{"id":"w3-q03","week":3,"set":"weekly","area":"mlops","type":"single","stem":"Why use registry aliases (champion, challenger) rather than hard-coded version numbers in the serving config?","options":["Aliases are faster to load","Promotion and rollback become moving a pointer, with history, without redeploying config","Versions cannot be deleted","Aliases encrypt the model"],"answer":[1],"explanation":"Aliases decouple deployment from version numbers and make rollback a one-line change.","learn":[{"label":"MLflow Model Registry","href":"https://mlflow.org/docs/latest/ml/model-registry/"}]},{"id":"w3-q04","week":3,"set":"weekly","area":"mlops","type":"multi","stem":"For a pump-fault detector, which pair of metrics should the gate use? (choose two)","options":["Recall on confirmed failures","False alarms per machine-week","Accuracy on all windows","Training time"],"answer":[0,1],"explanation":"Faults are rare, so accuracy is meaningless (always 'healthy' scores 99%). The business cares about catching failures and not crying wolf.","learn":[{"label":"Rules of Machine Learning (Google)","href":"https://developers.google.com/machine-learning/guides/rules-of-ml"}]},{"id":"w3-q05","week":3,"set":"weekly","area":"mlops","type":"single","stem":"Input drift is detected on three pumps after a seasonal temperature change. What should happen first?","options":["Retrain automatically on the last week","Investigate: check whether prediction quality (confirmed outcomes, alert rate) changed and why","Delete the drifted data","Roll back to the oldest model"],"answer":[1],"explanation":"Drift is a signal to investigate, not an automatic retrain trigger; retraining on unlabelled shifted data can make things worse.","learn":[{"label":"Evidently (drift and model monitoring)","href":"https://docs.evidentlyai.com/introduction"}]},{"id":"w3-q06","week":3,"set":"weekly","area":"mlops","type":"single","stem":"Which practice makes any registered model rebuildable months later?","options":["Store only the ONNX file","Version the training data (DVC or table snapshots) and record its hash, code commit and params on the run","Keep the notebook","Tag the model with the author's name"],"answer":[1],"explanation":"Lineage needs data, code and parameters. The artifact alone cannot be reproduced or audited.","learn":[{"label":"DVC","href":"https://doc.dvc.org/"},{"label":"MLflow Model Registry","href":"https://mlflow.org/docs/latest/ml/model-registry/"}]},{"id":"w3-q07","week":3,"set":"weekly","area":"mlops","type":"single","stem":"According to 'Hidden technical debt in ML systems', most of a production ML system is:","options":["The model code","Infrastructure around it: data collection, features, serving, monitoring, configuration","GPU drivers","Hyperparameters"],"answer":[1],"explanation":"The model is a small box in the middle; the surrounding pipeline is where debt and failures live.","learn":[{"label":"Hidden technical debt in ML systems","href":"https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html"}]},{"id":"w3-q08","week":3,"set":"weekly","area":"mlops","type":"single","stem":"The first model ever for a site has no champion. What should the gate do?","options":["Promote anything","Require it to clear absolute thresholds agreed with the client (recall, false alarms, latency)","Refuse forever","Promote only on Fridays"],"answer":[1],"explanation":"With no champion, compare against the agreed absolute bar (and the baseline process).","learn":[{"label":"Rules of Machine Learning (Google)","href":"https://developers.google.com/machine-learning/guides/rules-of-ml"}]},{"id":"w3-q09","week":3,"set":"weekly","area":"mlops","type":"single","stem":"A challenger ties the champion on recall and false alarms. With a strict-improvement rule, what is the outcome and why can that be right?","options":["Promote, ties are improvements","Reject: promotion carries risk and cost, so it needs evidence of benefit","Average the models","Promote the older one"],"answer":[1],"explanation":"Non-inferiority rules are possible but must be explicit. A tie with >= quietly promotes untested changes, as in the stale-metric incident.","learn":[{"label":"Continuous delivery for machine learning","href":"https://martinfowler.com/articles/cd4ml.html"}]},{"id":"w3-q10","week":3,"set":"weekly","area":"mlops","type":"single","stem":"Which serving option fits a plant with intermittent WAN and 10 gateways?","options":["A cloud REST endpoint called per window","On-device inference with the model shipped as a versioned artifact","Batch scoring in the cloud once a week","Notebook on a laptop"],"answer":[1],"explanation":"Local inference keeps working offline; the registry still governs which version each device runs.","learn":[{"label":"MLOps: continuous delivery and automation pipelines (Google Cloud)","href":"https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning"}]},{"id":"w4-q01","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"After static INT8 quantization the model's recall collapses from 0.91 to 0.35, but FP32 is fine. Preprocessing at runtime applies a StandardScaler outside the graph. What is the most likely cause?","options":["INT8 is not supported on ARM","The calibration data reader fed raw unscaled features, so activation ranges were calibrated on the wrong distribution","The opset is too new","Per-tensor quantization"],"answer":[1],"explanation":"Calibration must see exactly what the model sees at runtime. Wrong input scale means wrong scales and zero points everywhere.","learn":[{"label":"ONNX Runtime quantization","href":"https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"}]},{"id":"w4-q02","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"What is the difference between dynamic and static quantization in ONNX Runtime?","options":["Dynamic quantizes only weights ahead of time and activations at runtime; static needs calibration data to fix activation ranges ahead of time","Static is for GPUs only","Dynamic needs a calibration set","There is none"],"answer":[0],"explanation":"Static (QDQ) usually gives better latency on CPUs/NPUs but needs representative calibration data.","learn":[{"label":"ONNX Runtime quantization","href":"https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"}]},{"id":"w4-q03","week":4,"set":"weekly","area":"edgeai","type":"multi","stem":"Which two belong in an honest edge benchmark? (choose two)","options":["Warm-up runs, then p50 and p95 latency at batch size 1","Size, latency and accuracy reported together for FP32 and INT8","Only the fastest run","Latency measured with batch size 256"],"answer":[0,1],"explanation":"Edge inference is usually batch 1; tail latency matters; a smaller faster model that is wrong is not a win.","learn":[{"label":"ONNX Runtime performance tuning","href":"https://onnxruntime.ai/docs/performance/tune-performance/"}]},{"id":"w4-q04","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"A TensorRT engine built on a Jetson Orin is copied to a Jetson Xavier and fails to load. Why?","options":["TensorRT engines are tied to the GPU architecture and TensorRT version they were built with","ONNX files cannot be copied","The engine is encrypted","Xavier does not support FP16"],"answer":[0],"explanation":"Ship the ONNX model and build (or cache) engines per target; or use the ORT TensorRT EP with an engine cache.","learn":[{"label":"TensorRT documentation","href":"https://docs.nvidia.com/deeplearning/tensorrt/latest/index.html"},{"label":"TensorRT execution provider","href":"https://onnxruntime.ai/docs/execution-providers/TensorRT-ExecutionProvider.html"}]},{"id":"w4-q05","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"One ONNX file must run on an Intel-based industrial PC and an NVIDIA Jetson. What does ONNX Runtime offer?","options":["Two separate model formats","Execution providers (OpenVINO, CUDA/TensorRT, CPU) selected at session creation for the same model","Nothing; you need two runtimes","Automatic retraining per device"],"answer":[1],"explanation":"Execution providers let the same graph use vendor accelerators, with CPU fallback for unsupported ops.","learn":[{"label":"ONNX Runtime execution providers","href":"https://onnxruntime.ai/docs/execution-providers/"},{"label":"OpenVINO execution provider","href":"https://onnxruntime.ai/docs/execution-providers/OpenVINO-ExecutionProvider.html"}]},{"id":"w4-q06","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"After exporting an sklearn pipeline with skl2onnx, what is the first check before quantizing?","options":["File size","Parity: ONNX FP32 outputs match sklearn within a tolerance on real inputs","Opset is the newest","Graph has fewer than 10 nodes"],"answer":[1],"explanation":"Prove the export is correct before optimising it, otherwise quantization errors and export bugs mix.","learn":[{"label":"sklearn-onnx","href":"https://onnx.ai/sklearn-onnx/"}]},{"id":"w4-q07","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"A colleague sets intra_op_num_threads to 16 on a 4-core ARM gateway that also runs the feature pipeline. Likely effect?","options":["Faster inference","Oversubscription: worse and noisier latency for both inference and the pipeline","No effect","Lower memory"],"answer":[1],"explanation":"Match threads to available cores and the workload mix; measure.","learn":[{"label":"ONNX Runtime performance tuning","href":"https://onnxruntime.ai/docs/performance/tune-performance/"}]},{"id":"w4-q08","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"Which graph optimization level should you use when you want to ship a pre-optimized model file to many identical devices?","options":["Apply optimizations offline and save the optimized model, then load with minimal runtime optimization","Always disable optimizations","Optimize on every boot","Optimizations change accuracy, so never"],"answer":[0],"explanation":"Offline optimization saves start-up time on devices; keep it per hardware target where EP-specific.","learn":[{"label":"ONNX Runtime graph optimizations","href":"https://onnxruntime.ai/docs/performance/model-optimizations/graph-optimizations.html"}]},{"id":"w4-q09","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"The client does multi-camera video analytics on NVIDIA Jetson. Which stack is most likely already in use?","options":["DeepStream on JetPack with TensorRT","OpenVINO","LiteRT Micro","A Raspberry Pi"],"answer":[0],"explanation":"Vision on Jetson usually means JetPack, TensorRT and DeepStream pipelines.","learn":[{"label":"NVIDIA JetPack","href":"https://developer.nvidia.com/embedded/jetpack"},{"label":"TensorRT documentation","href":"https://docs.nvidia.com/deeplearning/tensorrt/latest/index.html"}]},{"id":"w4-q10","week":4,"set":"weekly","area":"edgeai","type":"single","stem":"INT8 model size dropped only from 13 KB to 10 KB. Why so little?","options":["Quantization failed","Small models are dominated by graph structure, metadata and Q/DQ nodes; weight savings show on larger layers","INT8 is 16 bits","ONNX compresses FP32"],"answer":[1],"explanation":"Report the numbers honestly; on small models the latency and accuracy matter more than size.","learn":[{"label":"ONNX Runtime quantization","href":"https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"}]},{"id":"w5-q01","week":5,"set":"weekly","area":"fleet","type":"single","stem":"A new model version is rolled out to 10 gateways. Which order is right?","options":["All at once, roll back if anyone complains","Canary one device, gate on health and model metrics for N windows, then batches, automatic rollback on failure","Alphabetical by hostname","Only devices that are offline"],"answer":[1],"explanation":"Same as a Kubernetes canary: limit blast radius, gate on real signals, roll back automatically.","learn":[{"label":"Mender deployments","href":"https://docs.mender.io/overview/deployment"},{"label":"AWS IoT Jobs","href":"https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html"}]},{"id":"w5-q02","week":5,"set":"weekly","area":"fleet","type":"single","stem":"During a rollout two devices are offline. How should the controller treat them?","options":["As failures that trigger rollback","Not as failures; they block phase completion until a timeout, then are reported and retried later","Mark the rollout complete","Delete them from the fleet"],"answer":[1],"explanation":"Unreachable is not unhealthy. Rolling back the fleet because of a WAN blip is its own outage.","learn":[{"label":"AWS IoT Jobs","href":"https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html"}]},{"id":"w5-q03","week":5,"set":"weekly","area":"fleet","type":"single","stem":"After a WAN outage, the cloud shows three times the alerts for line 2. The buffer generates event ids with uuid4 at send time. What is wrong?","options":["uuid4 collisions","The id is not stable across retries, so the server cannot dedupe resends after lost acks","SQLite is too slow","Clock drift"],"answer":[1],"explanation":"Assign the event id at capture (device + sequence or window) and dedupe on it server-side.","learn":[{"label":"SQLite write-ahead logging","href":"https://www.sqlite.org/wal.html"}]},{"id":"w5-q04","week":5,"set":"weekly","area":"fleet","type":"single","stem":"Why SQLite in WAL mode for the gateway's offline buffer?","options":["It is the only embedded database","Readers and the writer do not block each other, and commits are durable and fast on small devices","It compresses data","It replicates to the cloud"],"answer":[1],"explanation":"WAL lets the replay reader run while the capture path keeps writing; transactions make mark-as-sent atomic.","learn":[{"label":"SQLite write-ahead logging","href":"https://www.sqlite.org/wal.html"}]},{"id":"w5-q05","week":5,"set":"weekly","area":"fleet","type":"multi","stem":"Which two help when gateways are on slow metered links? (choose two)","options":["Send features and alerts, raw clips only on request","Cap the buffer on disk with an explicit drop policy that is reported","Upload raw waveforms every second","Disable buffering"],"answer":[0,1],"explanation":"Bandwidth and disk are budgets; make the trade-off explicit.","learn":[{"label":"AWS IoT Greengrass V2","href":"https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html"}]},{"id":"w5-q06","week":5,"set":"weekly","area":"fleet","type":"single","stem":"Why separate the model artifact from the application image?","options":["Smaller Docker layers only","Ship a new model (with version reported back) without rebuilding or redeploying the app, and roll back the model alone","Models cannot be in images","Licensing"],"answer":[1],"explanation":"Model and code change at different rates; each needs its own version and rollback.","learn":[{"label":"AWS IoT Greengrass V2","href":"https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html"}]},{"id":"w5-q07","week":5,"set":"weekly","area":"fleet","type":"single","stem":"A site with no internet needs k3s on the gateways. What does the air-gap install use?","options":["A VPN to the internet","The k3s binary and the airgap images tarball copied to each node, plus a private registry if needed","apt-get on site","Pulling from Docker Hub through USB tethering"],"answer":[1],"explanation":"k3s documents an air-gap path with saved images; same idea for docker image save/load.","learn":[{"label":"K3s air-gap install","href":"https://docs.k3s.io/installation/airgap"}]},{"id":"w5-q08","week":5,"set":"weekly","area":"fleet","type":"single","stem":"Device identity for 200 gateways should use:","options":["One shared API key baked into the image","Per-device certificates issued at enrollment, revocable individually","The MAC address as password","No auth on the plant network"],"answer":[1],"explanation":"Shared keys mean one leak compromises the fleet and cannot be revoked per device.","learn":[{"label":"AWS IoT Greengrass V2","href":"https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html"}]},{"id":"w5-q09","week":5,"set":"weekly","area":"fleet","type":"single","stem":"The rollout controller crashes halfway. What property lets it continue safely?","options":["It restarts from the beginning","Its state (phase, touched devices, versions) is persisted and every step is idempotent, so it resumes","It deletes the manifest","It waits for a human every time"],"answer":[1],"explanation":"Controllers must be restartable; desired-state reconciliation (like ArgoCD) gives this naturally.","learn":[{"label":"Mender deployments","href":"https://docs.mender.io/overview/deployment"}]},{"id":"w5-q10","week":5,"set":"weekly","area":"fleet","type":"single","stem":"A/B partition (image-based) updates as in Mender give which main benefit on devices?","options":["Smaller downloads","Atomic update with automatic fallback to the previous partition if the new one fails to boot","No reboot needed","Faster CPUs"],"answer":[1],"explanation":"A bad image cannot brick the device; the bootloader falls back.","learn":[{"label":"Mender deployments","href":"https://docs.mender.io/overview/deployment"}]},{"id":"w6-q01","week":6,"set":"weekly","area":"network","type":"single","stem":"pip on a client build box fails with 'certificate verify failed: unable to get local issuer certificate' through a TLS-inspecting proxy. The right fix:","options":["Add trusted-host for every index","Point pip (and every other client) at a CA bundle that contains the proxy's issuing chain plus the public roots","Set PYTHONHTTPSVERIFY=0","Use http:// indexes"],"answer":[1],"explanation":"The proxy re-signs traffic; clients must trust its chain. Disabling verification is a security finding, not a fix.","learn":[{"label":"pip: HTTPS certificates","href":"https://pip.pypa.io/en/stable/topics/https-certificates/"},{"label":"uv: TLS certificates","href":"https://docs.astral.sh/uv/concepts/authentication/certificates/"}]},{"id":"w6-q02","week":6,"set":"weekly","area":"network","type":"single","stem":"openssl s_client through the proxy shows a one-certificate chain issued by 'Corp Inspection Issuing CA 2' and verify code 20, with only the corporate root in the CAfile. What is missing?","options":["The leaf certificate","The intermediate 'Corp Inspection Issuing CA 2' (the proxy does not send it)","The public roots","An OCSP response"],"answer":[1],"explanation":"Code 20 means the chain cannot be built to a trusted root: an intermediate is missing.","learn":[{"label":"Requests: SSL verification and proxies","href":"https://requests.readthedocs.io/en/latest/user/advanced/"},{"label":"Everything curl: proxies","href":"https://everything.curl.dev/usingcurl/proxies/"}]},{"id":"w6-q03","week":6,"set":"weekly","area":"network","type":"single","stem":"Which NO_PROXY value correctly bypasses the proxy for every host under corp.internal?","options":["*corp.internal*",".corp.internal","corp.internal/*","*"],"answer":[1],"explanation":"A leading dot (or the bare domain in most clients) matches subdomains; '*' disables the proxy for everything.","learn":[{"label":"Everything curl: proxies","href":"https://everything.curl.dev/usingcurl/proxies/"},{"label":"Requests: SSL verification and proxies","href":"https://requests.readthedocs.io/en/latest/user/advanced/"}]},{"id":"w6-q04","week":6,"set":"weekly","area":"network","type":"multi","stem":"The site has no internet at all. Which two prepare a Python install? (choose two)","options":["pip download (or a locked uv environment) into a wheelhouse for the target platform","Save container images to tar files with checksums","Install from PyPI on site","Ask the client to open the firewall for a day"],"answer":[0,1],"explanation":"Build the field kit before you travel: wheelhouse, saved images, mirrored model files with checksums.","learn":[{"label":"pip download","href":"https://pip.pypa.io/en/stable/cli/pip_download/"}]},{"id":"w6-q05","week":6,"set":"weekly","area":"network","type":"single","stem":"docker pull fails on a client host behind a proxy while curl works. Most likely:","options":["Docker does not support proxies","The Docker daemon has its own proxy configuration; the shell's HTTPS_PROXY does not apply to it","The image is too big","DNS is broken"],"answer":[1],"explanation":"The daemon pulls images, not the CLI; configure the daemon proxy (and its CA) separately.","learn":[{"label":"Docker daemon proxy configuration","href":"https://docs.docker.com/engine/daemon/proxy/"}]},{"id":"w6-q06","week":6,"set":"weekly","area":"llm","type":"single","stem":"An edge assistant runs a small local model. Which tasks suit it best?","options":["Long multi-step plans over many tools","Short tool-calling lookups and summaries grounded in tool results","Writing new firmware","Unbounded autonomous operation"],"answer":[1],"explanation":"Small models do well on short, well-scoped tool tasks; route harder questions elsewhere when policy allows.","learn":[{"label":"Ollama tool calling","href":"https://docs.ollama.com/capabilities/tool-calling"},{"label":"llama.cpp","href":"https://github.com/ggml-org/llama.cpp"}]},{"id":"w6-q07","week":6,"set":"weekly","area":"llm","type":"multi","stem":"Which two belong in a hybrid edge-cloud router policy? (choose two)","options":["Cloud only when a policy flag allows it","Never send raw site data to the cloud without approval","Always prefer the cloud for speed","Send everything to both and compare"],"answer":[0,1],"explanation":"Residency and network policy are the client's; the router enforces them in code.","learn":[{"label":"Effective context engineering for AI agents","href":"https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"}]},{"id":"w6-q08","week":6,"set":"weekly","area":"fde","type":"single","stem":"A plant manager asks for 'AI on the pumps'. What is the FDE's first deliverable?","options":["A model demo","A one-page brief: who has the problem, today's cost, the target metric and baseline, constraints, out of scope","A cloud account","A chatbot"],"answer":[1],"explanation":"Frame the problem and agree the measurable outcome before code, so the result is not argued later.","learn":[{"label":"What are Forward Deployed Engineers? (The Pragmatic Engineer)","href":"https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers"},{"label":"The Mom Test","href":"https://www.momtestbook.com/"}]},{"id":"w6-q09","week":6,"set":"weekly","area":"fde","type":"single","stem":"Which question follows The Mom Test when interviewing a maintenance planner?","options":["Would you use an app that predicts failures?","Tell me about the last unplanned bearing failure: what happened and what did it cost?","Do you like AI?","How much would you pay for this?"],"answer":[1],"explanation":"Ask about past behaviour and real costs, not hypothetical wishes.","learn":[{"label":"The Mom Test","href":"https://www.momtestbook.com/"}]},{"id":"w6-q10","week":6,"set":"weekly","area":"fde","type":"single","stem":"Which handoff list makes the work customer-owned?","options":["A slide deck","Code in their repo, model card, runbooks (retrain, roll back, add a device), an eval suite they can rerun, each with a client owner","Your personal notes","A support contract with you"],"answer":[1],"explanation":"The client must be able to operate and change it without calling you.","learn":[{"label":"Trading margin for moat (a16z)","href":"https://a16z.com/services-led-growth/"},{"label":"What are Forward Deployed Engineers? (The Pragmatic Engineer)","href":"https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers"}]},{"id":"w6-q11","week":6,"set":"weekly","area":"network","type":"single","stem":"On site, a connection to the historian times out and the client's network team says 'the firewall is open'. Best next step?","options":["Escalate to their CIO","Capture packets (tcpdump) on both ends to show where SYN/ACK stops, and share the evidence","Disable the host firewall","Retry for an hour"],"answer":[1],"explanation":"Evidence ends arguments; show exactly where the conversation stops.","learn":[{"label":"Effective troubleshooting (Google SRE book)","href":"https://sre.google/sre-book/effective-troubleshooting/"}]},{"id":"ai-q01","week":"ai","set":"weekly","area":"llm","type":"single","stem":"An alert note typed by a contractor tells the assistant to raise a threshold, and the threshold changes. Where must the control live?","options":["In the system prompt","In the tool dispatcher: an explicit allow-list, write tools behind a human approval the model cannot satisfy","In the model choice","In the alert UI colour"],"answer":[1],"explanation":"Prompts are not enforcement. The model can call whatever the dispatcher will run.","learn":[{"label":"OWASP Top 10 for LLM Applications","href":"https://genai.owasp.org/llm-top-10/"},{"label":"The lethal trifecta (Simon Willison)","href":"https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"}]},{"id":"ai-q02","week":"ai","set":"weekly","area":"llm","type":"multi","stem":"The lethal trifecta has three legs. Which two of these options are legs? (choose two)","options":["Access to private data and exposure to untrusted content","An exfiltration channel","A small model","Prompt caching"],"answer":[0,1],"explanation":"Private data + untrusted content + a way to send data out. Remove one leg.","learn":[{"label":"The lethal trifecta (Simon Willison)","href":"https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"}]},{"id":"ai-q03","week":"ai","set":"weekly","area":"llm","type":"single","stem":"The assistant cites tool call 'c9' that never ran. What should the loop do?","options":["Accept it","Reject the answer as invalid and retry once with the error, then fail","Run c9 now","Delete the citation silently"],"answer":[1],"explanation":"Citations are checked against executed calls in code; otherwise grounding is decoration.","learn":[{"label":"Claude tool use overview","href":"https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"}]},{"id":"ai-q04","week":"ai","set":"weekly","area":"llm","type":"single","stem":"Why return tool errors as data ({\"error\": ...}) instead of raising?","options":["Exceptions are slow","The model can read the error and correct its call (for example a valid machine id), and the loop stays in control","JSON is required","To hide errors"],"answer":[1],"explanation":"Errors the model can act on, with the valid choices listed, are part of tool design.","learn":[{"label":"Claude tool use overview","href":"https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"},{"label":"Building effective agents","href":"https://www.anthropic.com/research/building-effective-agents"}]},{"id":"ai-q05","week":"ai","set":"weekly","area":"llm","type":"single","stem":"Your eval suite for the assistant should start with:","options":["LLM-as-judge on everything","Error analysis of real transcripts, then deterministic checks (schema, citations, tool calls) before any model-graded rubric","Exact-match on the answer text","Only latency"],"answer":[1],"explanation":"Read outputs, categorise failures, then test the real failure modes deterministically first.","learn":[{"label":"LLM evals FAQ (Hamel Husain)","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"ai-q06","week":"ai","set":"weekly","area":"llm","type":"single","stem":"Which telemetry lets you debug a slow answer on the plant server?","options":["A single log line per day","Spans per model call and per tool call with token counts and latency (OTel GenAI conventions)","CPU temperature only","Nothing; models are black boxes"],"answer":[1],"explanation":"Trace each turn: model, tool, tokens, latency.","learn":[{"label":"OpenTelemetry GenAI semantic conventions","href":"https://opentelemetry.io/docs/specs/semconv/gen-ai/"}]},{"id":"ai-q07","week":"ai","set":"weekly","area":"llm","type":"single","stem":"A small local model returns prose instead of the JSON object about 10% of the time. Best first fix?","options":["Switch to a cloud model","Validate with Pydantic and retry once with the exact validation error; measure the rate in evals","Regex the prose","Ignore failures"],"answer":[1],"explanation":"Validate-and-retry fixes most format errors; the eval tells you whether it is enough.","learn":[{"label":"Pydantic docs","href":"https://pydantic.dev/docs/validation/latest/get-started/"},{"label":"LLM evals FAQ (Hamel Husain)","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"ai-q08","week":"ai","set":"weekly","area":"llm","type":"single","stem":"What does GGUF Q4 vs Q8 trade on an edge box?","options":["Nothing","Q4 halves memory and speeds up tokens per second at some quality cost versus Q8","Q8 is smaller","Q4 only runs on GPUs"],"answer":[1],"explanation":"Quantization levels trade RAM and speed against quality; measure on your tasks and hardware.","learn":[{"label":"GGUF format (Hugging Face)","href":"https://huggingface.co/docs/hub/gguf"},{"label":"Jetson AI Lab","href":"https://www.jetson-ai-lab.com/"}]},{"id":"w7-q01","week":7,"set":"weekly","area":"integrations","type":"single","stem":"A POST to create a work order times out. The server may have created it. How do you retry safely?","options":["Retry without changes","Retry with the same Idempotency-Key derived from the anomaly (machine + alert window)","Never retry","Create a new key per attempt"],"answer":[1],"explanation":"The server dedupes on the key, so a lost response cannot create a second work order.","learn":[{"label":"Making retries safe with idempotent APIs","href":"https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/"},{"label":"Idempotent requests (Stripe API)","href":"https://docs.stripe.com/api/idempotent_requests"}]},{"id":"w7-q02","week":7,"set":"weekly","area":"integrations","type":"multi","stem":"Which errors should the client retry? (choose two)","options":["503 and timeouts","429 honouring Retry-After","400 validation errors","401 without refreshing the token"],"answer":[0,1],"explanation":"Retry transient errors with backoff and a budget; fix the request for 4xx; refresh the token on 401 once.","learn":[{"label":"Timeouts, retries and backoff with jitter","href":"https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"},{"label":"Tenacity (retries)","href":"https://tenacity.readthedocs.io/en/latest/"}]},{"id":"w7-q03","week":7,"set":"weekly","area":"integrations","type":"single","stem":"Why full jitter on exponential backoff?","options":["It is faster","It spreads retries from many clients so they do not hit the server in synchronized waves","It is required by HTTP","It reduces payload size"],"answer":[1],"explanation":"Synchronized retries cause thundering herds; jitter decorrelates them.","learn":[{"label":"Timeouts, retries and backoff with jitter","href":"https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"}]},{"id":"w7-q04","week":7,"set":"weekly","area":"integrations","type":"single","stem":"A Python HTTP client in the integration has no timeout set. What happens on a half-open connection?","options":["It fails fast","The call can hang indefinitely and block the worker","It retries automatically","It switches to HTTP/2"],"answer":[1],"explanation":"Every external call needs connect and read timeouts (httpx makes them explicit).","learn":[{"label":"HTTPX","href":"https://www.python-httpx.org/"}]},{"id":"w7-q05","week":7,"set":"weekly","area":"signals","type":"single","stem":"A streaming band-pass reset on every 1-second chunk produces a spike at each chunk start on a DC-coupled accelerometer. Why?","options":["Clock drift","Each chunk starts from zero state, so the +1 g gravity offset looks like a step that rings the filter","Aliasing","The window is too short"],"answer":[1],"explanation":"Carry the filter state (zi) between chunks and initialise it to the steady state.","learn":[{"label":"scipy.signal.butter","href":"https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html"}]}],"mocks":{"screen":{"title":"FDE technical screen (edge AI)","short":"FDE technical screen","minutes":45,"scale":"percent","pass":70,"unit":"%","intro":"A forward deployed engineering screen across pipelines, signal processing, MLOps, edge AI, fleet operations, LLMs at the edge, locked-down networks and FDE practice. No answers are shown until you submit or time runs out. Scored as percent correct with 70% to pass.","questions":[{"id":"m-01","week":"mock","set":"mock","area":"pipelines","type":"single","stem":"Gateways resend a day of features after an outage. The sink uses INSERT with a surrogate id. What happens and what fixes it?","options":["Nothing; Kafka dedupes","Duplicates; upsert on (device, window_start) with a seq guard","Data loss; enable auto-commit","Duplicates; increase partitions"],"answer":[1],"explanation":"Redelivery is normal; the write must be idempotent on a natural key.","learn":[{"label":"Message delivery semantics (Confluent)","href":"https://docs.confluent.io/kafka/design/delivery-semantics.html"}]},{"id":"m-02","week":"mock","set":"mock","area":"pipelines","type":"single","stem":"Which statement about Kafka transactions is correct?","options":["They make writes to an external database exactly-once","They provide exactly-once between Kafka topics (read-process-write), not into your database","They replace consumer groups","They require auto-commit"],"answer":[1],"explanation":"EOS covers Kafka-to-Kafka; external sinks still need idempotency.","learn":[{"label":"Exactly-once semantics in Kafka (Confluent)","href":"https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/"}]},{"id":"m-03","week":"mock","set":"mock","area":"signals","type":"single","stem":"A 120 Hz tone sampled at 200 Hz appears at:","options":["120 Hz","80 Hz","20 Hz","200 Hz"],"answer":[1],"explanation":"Nyquist 100 Hz; 200 - 120 = 80 Hz.","learn":[{"label":"Nyquist-Shannon sampling theorem (Wikipedia)","href":"https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem"}]},{"id":"m-04","week":"mock","set":"mock","area":"signals","type":"single","stem":"You need 1 Hz resolution at fs = 10 kHz. Minimum FFT length?","options":["1,000","10,000","100","20,000"],"answer":[1],"explanation":"Resolution = fs / N, so N = 10,000 samples (1 s).","learn":[{"label":"SciPy FFT tutorial","href":"https://docs.scipy.org/doc/scipy/tutorial/fft.html"}]},{"id":"m-05","week":"mock","set":"mock","area":"signals","type":"multi","stem":"Which two are frequency-domain features? (choose two)","options":["Band energy from a Welch PSD","Dominant frequency","Crest factor","Kurtosis"],"answer":[0,1],"explanation":"Crest factor and kurtosis are time-domain.","learn":[{"label":"scipy.signal.welch","href":"https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html"}]},{"id":"m-06","week":"mock","set":"mock","area":"mlops","type":"single","stem":"Your champion/challenger gate cannot find metrics for the challenger. It should:","options":["Use the champion's metrics","Exit with an error and not move any alias (fail closed)","Promote and alert","Retry forever"],"answer":[1],"explanation":"Missing evidence is a reject.","learn":[{"label":"MLflow Model Registry","href":"https://mlflow.org/docs/latest/ml/model-registry/"}]},{"id":"m-07","week":"mock","set":"mock","area":"mlops","type":"single","stem":"Why is accuracy a poor gate metric for rare-fault detection?","options":["It is hard to compute","Predicting 'healthy' always scores near 100%","It needs labels","It ignores latency"],"answer":[1],"explanation":"Use recall on faults and false alarms per machine-week.","learn":[{"label":"Rules of Machine Learning (Google)","href":"https://developers.google.com/machine-learning/guides/rules-of-ml"}]},{"id":"m-08","week":"mock","set":"mock","area":"edgeai","type":"single","stem":"INT8 accuracy is far below FP32 only after static quantization. First thing to check:","options":["Opset version","That calibration inputs match the runtime preprocessing and distribution","Disk space","Thread count"],"answer":[1],"explanation":"Calibration on the wrong distribution is the classic failure.","learn":[{"label":"ONNX Runtime quantization","href":"https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"}]},{"id":"m-09","week":"mock","set":"mock","area":"edgeai","type":"single","stem":"Which execution provider would you try first on an Intel industrial PC with an iGPU?","options":["CUDA","OpenVINO","TensorRT","CoreML"],"answer":[1],"explanation":"OpenVINO targets Intel CPUs, GPUs and NPUs.","learn":[{"label":"OpenVINO execution provider","href":"https://onnxruntime.ai/docs/execution-providers/OpenVINO-ExecutionProvider.html"}]},{"id":"m-10","week":"mock","set":"mock","area":"edgeai","type":"multi","stem":"p50 latency is 2 ms but p95 is 40 ms on the gateway. Likely causes? (choose two)","options":["Thread oversubscription with the feature pipeline","Thermal throttling or CPU frequency scaling on the small board","The model is FP32","Batch size 1"],"answer":[0,1],"explanation":"Tails come from contention and thermals; measure under the real load.","learn":[{"label":"ONNX Runtime performance tuning","href":"https://onnxruntime.ai/docs/performance/tune-performance/"}]},{"id":"m-11","week":"mock","set":"mock","area":"fleet","type":"single","stem":"The canary device passes health checks but its alert rate is 8x the fleet baseline. The controller should:","options":["Promote: it is healthy","Fail the canary on the model-metric gate and roll it back","Ignore alert rates","Promote half the fleet"],"answer":[1],"explanation":"Health is necessary, not sufficient; model behaviour is a gate too.","learn":[{"label":"Mender deployments","href":"https://docs.mender.io/overview/deployment"}]},{"id":"m-12","week":"mock","set":"mock","area":"fleet","type":"multi","stem":"Replay after an outage must not duplicate. Which two are required? (choose two)","options":["An event id assigned at capture time","Server-side dedupe on that id and marking rows sent per acknowledged id","Generating ids at send time","Sending larger batches"],"answer":[0,1],"explanation":"Stable ids plus per-id acks make replay idempotent.","learn":[{"label":"SQLite write-ahead logging","href":"https://www.sqlite.org/wal.html"}]},{"id":"m-13","week":"mock","set":"mock","area":"network","type":"single","stem":"A previous engineer set PIP_TRUSTED_HOST to make pip work behind the proxy. Why is uv still failing and requests too?","options":["uv and requests ignore pip settings; and verification was never fixed, only bypassed for pip","uv is broken","requests needs HTTP/2","The wheel is corrupt"],"answer":[0],"explanation":"Fix the trust store for every client instead of bypassing one.","learn":[{"label":"uv: TLS certificates","href":"https://docs.astral.sh/uv/concepts/authentication/certificates/"},{"label":"Requests: SSL verification and proxies","href":"https://requests.readthedocs.io/en/latest/user/advanced/"}]},{"id":"m-14","week":"mock","set":"mock","area":"network","type":"single","stem":"Which variable does uv read for a custom CA file (with native TLS off)?","options":["UV_CA","SSL_CERT_FILE","PIP_CERT","CURL_CA_BUNDLE"],"answer":[1],"explanation":"uv honours SSL_CERT_FILE (or native-tls to use the system store).","learn":[{"label":"uv: TLS certificates","href":"https://docs.astral.sh/uv/concepts/authentication/certificates/"}]},{"id":"m-15","week":"mock","set":"mock","area":"llm","type":"single","stem":"Which control actually prevents an injected note from changing state?","options":["A stronger system prompt","Only read-only tools are dispatchable; writes need out-of-band human approval","A bigger model","Lower temperature"],"answer":[1],"explanation":"Enforcement is server-side.","learn":[{"label":"OWASP Top 10 for LLM Applications","href":"https://genai.owasp.org/llm-top-10/"}]},{"id":"m-16","week":"mock","set":"mock","area":"llm","type":"single","stem":"The cloud fallback must never receive raw waveforms. How do you guarantee it?","options":["Ask the cloud model not to request them","Build the cloud run without the raw-data tool and strip raw fields in code","Encrypt the waveform","Use a smaller payload"],"answer":[1],"explanation":"Do not offer or dispatch it; prove it in a test.","learn":[{"label":"The lethal trifecta (Simon Willison)","href":"https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"}]},{"id":"m-17","week":"mock","set":"mock","area":"integrations","type":"single","stem":"The CMMS returns 429 with Retry-After: 30. Your backoff says 2 s. Which wins?","options":["2 s","30 s (honour the server), within the retry budget","0 s","Give up"],"answer":[1],"explanation":"Retry-After is the server's explicit instruction.","learn":[{"label":"Timeouts, retries and backoff with jitter","href":"https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"}]},{"id":"m-18","week":"mock","set":"mock","area":"fde","type":"single","stem":"Two weeks into an 8-week engagement, what should exist?","options":["A complete architecture deck","A thin end-to-end slice on one machine, measured against the baseline","All ten pumps instrumented","A signed renewal"],"answer":[1],"explanation":"Ship thin and measure, then widen.","learn":[{"label":"What are Forward Deployed Engineers? (The Pragmatic Engineer)","href":"https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers"}]},{"id":"m-19","week":"mock","set":"mock","area":"fde","type":"single","stem":"The controls engineer distrusts alarms after a failed vendor trial. Best design response?","options":["Hide the alarm count","Shadow mode with false alarms per machine-week as a signed metric before going live","Escalate to the plant manager","Lower the threshold"],"answer":[1],"explanation":"Make the fear a metric and let them sign it.","learn":[{"label":"The Mom Test","href":"https://www.momtestbook.com/"}]},{"id":"m-20","week":"mock","set":"mock","area":"fde","type":"single","stem":"What is a 'defensible wedge' in FDE terms?","options":["A patent","A customer-owned asset that solves the first problem well and makes the next engagement easier","An exclusivity clause","A proprietary file format"],"answer":[1],"explanation":"Value the client keeps and builds on.","learn":[{"label":"Trading margin for moat (a16z)","href":"https://a16z.com/services-led-growth/"}]}]}}};</script>
+<script>
+(function () {
+  var KEY = "wb-edgefde-v1";
+  var PASS = 70;
+  var D = window.EDGEFDE_DATA || { areas: [], weekly: [], mocks: {} };
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  state.q = state.q || {};
+  state.mock = state.mock || {};
+  state.mockRun = state.mockRun || {};
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked: keep in memory */ } }
+  var G = window.GRADES || {};
+
+  // ---------- theme ----------
+  function applyTheme() {
+    if (state.theme) document.documentElement.setAttribute("data-theme", state.theme);
+    else document.documentElement.removeAttribute("data-theme");
+  }
+  applyTheme();
+  document.getElementById("themebtn").addEventListener("click", function () {
+    var dark = state.theme ? state.theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    state.theme = dark ? "light" : "dark"; save(); applyTheme();
+  });
+
+  // ---------- tabs ----------
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id; a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    var target = document.getElementById(id);
+    var page = target ? (target.classList.contains("page") ? target : target.closest("section.page")) : null;
+    if (!page) page = document.getElementById("overview");
+    pages.forEach(function (p) { p.classList.toggle("active", p === page); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === page.id); });
+    if (target && target !== page) target.scrollIntoView(); else window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+
+  // ---------- grades ----------
+  function fbHref(fb) {
+    if (!fb) return null;
+    if (fb.indexOf("grades/") === 0) return "../" + fb;
+    return "../grades/" + fb;
+  }
+  function gradeInfo(id) {
+    var g = G[id];
+    if (!g || !g.attempts || !g.attempts.length) return null;
+    var last = g.attempts[g.attempts.length - 1];
+    return { latest: g.latest, best: g.best, attempts: g.attempts.length, passed: g.best >= PASS,
+             feedback: fbHref(last.feedback), ts: last.ts, summary: last.summary };
+  }
+  document.querySelectorAll("[data-badge]").forEach(function (b) {
+    var gi = gradeInfo(b.dataset.badge);
+    if (!gi) { b.textContent = "not attempted"; return; }
+    b.classList.add(gi.passed ? "pass" : "retry");
+    b.innerHTML = "latest " + gi.latest + " / best " + gi.best + " - " + (gi.passed ? "PASS" : "RETRY") +
+      (gi.feedback ? ' - <a href="' + gi.feedback + '">feedback</a>' : "");
+    b.title = gi.summary || "";
+  });
+  function weekPct(pageId) {
+    var cards = document.querySelectorAll('#' + pageId + ' [data-ex]');
+    if (!cards.length) return null;
+    var done = 0;
+    cards.forEach(function (c) { var gi = gradeInfo(c.dataset.ex); if (gi && gi.passed) done++; });
+    return Math.round(100 * done / cards.length);
+  }
+
+  // ---------- questions ----------
+  var AREAS = D.areas;
+  function areaOf(key) { return AREAS.filter(function (a) { return a.key === key; })[0] || { key: key, name: key }; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function sameSet(a, b) { if (a.length !== b.length) return false; return a.slice().sort().join(",") === b.slice().sort().join(","); }
+  function isCorrect(q, resp) {
+    if (!resp) return false;
+    if (q.type === "order") return resp.length === q.answer.length && resp.join(",") === q.answer.join(",");
+    return sameSet(resp.map(Number), q.answer.map(Number));
+  }
+  function askText(q) {
+    if (q.type === "multi") return "Choose " + (q.choose || q.answer.length) + ". Scored all or nothing.";
+    if (q.type === "order") return "Arrange " + (q.choose || q.answer.length) + " of the actions in the correct order. Not every action is used.";
+    return "Choose one.";
+  }
+  function renderQ(q, num, mode, getResp, setResp, reveal) {
+    var el = document.createElement("div");
+    el.className = "q"; el.dataset.qid = q.id;
+    var area = areaOf(q.area);
+    var typeLabel = q.type === "multi" ? "multi-select" : (q.type === "order" ? "build list" : "single answer");
+    el.innerHTML = '<div class="qhead"><b>Q' + num + '</b><span class="area">' + esc(area.name) + '</span><span>' + typeLabel +
+      '</span><span>' + esc(q.id) + '</span></div><div class="stem">' + q.stem + '</div><p class="small">' + askText(q) + '</p>';
+    var body = document.createElement("div");
+    var resp = getResp();
+    var inputs = [];
+    if (q.type === "order") {
+      var ol = document.createElement("ol"); ol.className = "actions"; ol.type = "A";
+      q.options.forEach(function (o) { var li = document.createElement("li"); li.innerHTML = o; ol.appendChild(li); });
+      body.appendChild(ol);
+      var seq = document.createElement("div"); seq.className = "seq";
+      var n = q.choose || q.answer.length;
+      for (var i = 0; i < n; i++) {
+        var lab = document.createElement("span"); lab.textContent = "Step " + (i + 1);
+        var sel = document.createElement("select");
+        var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "- choose an action -"; sel.appendChild(o0);
+        q.options.forEach(function (o, j) {
+          var op = document.createElement("option"); op.value = String(j);
+          var tmp = document.createElement("div"); tmp.innerHTML = o;
+          op.textContent = String.fromCharCode(65 + j) + ". " + tmp.textContent; sel.appendChild(op);
+        });
+        if (resp && resp[i] !== undefined && resp[i] !== null) sel.value = String(resp[i]);
+        seq.appendChild(lab); seq.appendChild(sel); inputs.push(sel);
+      }
+      body.appendChild(seq);
+    } else {
+      q.options.forEach(function (o, j) {
+        var lab = document.createElement("label"); lab.className = "opt";
+        var inp = document.createElement("input");
+        inp.type = q.type === "multi" ? "checkbox" : "radio";
+        inp.name = mode + "-" + q.id; inp.value = String(j);
+        if (resp && resp.map(Number).indexOf(j) >= 0) inp.checked = true;
+        var span = document.createElement("span"); span.innerHTML = String.fromCharCode(65 + j) + ". " + o;
+        lab.appendChild(inp); lab.appendChild(span); body.appendChild(lab); inputs.push(inp);
+      });
+    }
+    el.appendChild(body);
+    function readResp() {
+      if (q.type === "order") return inputs.map(function (s) { return s.value === "" ? null : Number(s.value); });
+      return inputs.filter(function (i) { return i.checked; }).map(function (i) { return Number(i.value); });
+    }
+    inputs.forEach(function (inp) { inp.addEventListener("change", function () { setResp(readResp(), false); }); });
+    var explain = document.createElement("div");
+    function showExplain() {
+      var r = getResp(); var ok = isCorrect(q, r);
+      explain.className = "explain" + (ok ? "" : " bad");
+      var key;
+      if (q.type === "order") key = q.answer.map(function (j, k) { return (k + 1) + ". " + String.fromCharCode(65 + j); }).join("  ");
+      else key = q.answer.map(function (j) { return String.fromCharCode(65 + j); }).join(", ");
+      var links = (q.learn || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + "</a>"; }).join(" / ");
+      explain.innerHTML = '<b class="' + (ok ? "ok" : "no") + '">' + (ok ? "Correct." : "Incorrect.") + "</b> Answer: " + key +
+        "<br>" + q.explanation + (links ? '<br><span class="small">Learn: ' + links + "</span>" : "");
+      if (q.type !== "order") {
+        body.querySelectorAll("label.opt").forEach(function (lab, j) {
+          lab.classList.toggle("right", q.answer.map(Number).indexOf(j) >= 0);
+          lab.classList.toggle("wrong", (r || []).indexOf(j) >= 0 && q.answer.map(Number).indexOf(j) < 0);
+        });
+      }
+      if (!explain.parentNode) el.appendChild(explain);
+    }
+    if (mode === "practice") {
+      var row = document.createElement("div"); row.className = "actionsrow";
+      var b = document.createElement("button"); b.className = "btn"; b.textContent = "Check answer";
+      b.addEventListener("click", function () { setResp(readResp(), true); showExplain(); });
+      var clr = document.createElement("button"); clr.className = "btn"; clr.textContent = "Reset";
+      clr.addEventListener("click", function () { setResp(null, false); var nq = renderQ(q, num, mode, getResp, setResp, false); el.parentNode.replaceChild(nq, el); });
+      row.appendChild(b); row.appendChild(clr); el.appendChild(row);
+    } else {
+      inputs.forEach(function (i) { i.disabled = !!reveal; });
+    }
+    if (reveal) showExplain();
+    return el;
+  }
+  function renderList(container, list, mode, getResp, setResp, revealFn) {
+    list.forEach(function (q, i) {
+      container.appendChild(renderQ(q, i + 1, mode,
+        function () { return getResp(q); }, function (r, checked) { setResp(q, r, checked); }, revealFn(q)));
+    });
+  }
+
+  // ---------- weekly practice ----------
+  var SETS = [];
+  (function () {
+    var by = {};
+    D.weekly.forEach(function (q) { var w = String(q.week); (by[w] = by[w] || []).push(q); });
+    Object.keys(by).sort(function (a, b) { return (a === "ai") - (b === "ai") || Number(a) - Number(b); }).forEach(function (w) {
+      SETS.push({ key: "w" + w, label: w === "ai" ? "AI Integration" : "Week " + w, list: by[w] });
+    });
+  })();
+  function setScore(list) {
+    var answered = 0, right = 0;
+    list.forEach(function (q) { var s = state.q[q.id]; if (s && s.checked) { answered++; if (isCorrect(q, s.r)) right++; } });
+    return { answered: answered, right: right, total: list.length };
+  }
+  var MOCKS = [["screen", D.mocks.screen], ["aws", D.mocks.aws]].filter(function (m) { return m[1]; });
+
+  var seRoot = document.getElementById("se-root");
+  var seNav = document.getElementById("se-nav");
+  var current = state.seView || "w1";
+  function buildNav() {
+    seNav.innerHTML = "";
+    SETS.forEach(function (s) {
+      var b = document.createElement("button"); b.textContent = s.label; b.dataset.view = s.key; seNav.appendChild(b);
+    });
+    MOCKS.forEach(function (m) {
+      var b = document.createElement("button"); b.textContent = "Mock: " + m[1].short; b.dataset.view = "mock:" + m[0]; seNav.appendChild(b);
+    });
+    seNav.querySelectorAll("button").forEach(function (b) {
+      b.classList.toggle("active", b.dataset.view === current);
+      b.addEventListener("click", function () { current = b.dataset.view; state.seView = current; save(); buildNav(); renderView(); });
+    });
+  }
+  function renderView() {
+    seRoot.innerHTML = "";
+    if (timerHandle) { clearInterval(timerHandle); timerHandle = null; }
+    if (current.indexOf("mock:") === 0) {
+      var key = current.slice(5);
+      var m = MOCKS.filter(function (x) { return x[0] === key; })[0];
+      if (m) { renderMock(key, m[1]); return; }
+      current = "w1";
+    }
+    var set = SETS.filter(function (s) { return s.key === current; })[0] || SETS[0];
+    if (!set) { seRoot.textContent = "No questions loaded."; return; }
+    var list = set.list;
+    var head = document.createElement("div"); head.className = "card";
+    head.innerHTML = "<b>" + esc(set.label) + "</b>: " + list.length +
+      ' questions. <span id="se-score"></span> Answers save in this browser. <button class="btn" id="se-reset">Reset this set</button>';
+    function headScore() { var s2 = setScore(list); head.querySelector("#se-score").textContent = "Score so far: " + s2.right + " / " + s2.answered + " checked (" + s2.total + " total)."; }
+    seRoot.appendChild(head);
+    head.querySelector("#se-reset").addEventListener("click", function () {
+      if (!confirm("Clear your answers for this set?")) return;
+      list.forEach(function (q) { delete state.q[q.id]; }); save(); renderView(); refreshScore();
+    });
+    headScore();
+    renderList(seRoot, list, "practice",
+      function (q) { return state.q[q.id] ? state.q[q.id].r : null; },
+      function (q, r, checked) {
+        if (r === null) delete state.q[q.id];
+        else state.q[q.id] = { r: r, checked: !!checked };
+        save(); refreshScore(); headScore();
+      },
+      function (q) { return !!(state.q[q.id] && state.q[q.id].checked); });
+  }
+
+  // ---------- mock exams ----------
+  var timerHandle = null;
+  function fmt(sec) { sec = Math.max(0, Math.floor(sec)); var m = Math.floor(sec / 60), s = sec % 60; return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s; }
+  function scaled(mock, right, total) {
+    if (mock.scale === "aws") return Math.round(100 + 900 * right / total);
+    return Math.round(100 * right / total);
+  }
+  function passed(mock, score) { return score >= mock.pass; }
+  function scoreMock(mock, run) {
+    var byArea = {}; var right = 0; var wrong = [];
+    mock.questions.forEach(function (q) {
+      var a = byArea[q.area] = byArea[q.area] || { right: 0, total: 0 };
+      a.total++;
+      if (isCorrect(q, run.answers[q.id])) { a.right++; right++; } else wrong.push(q.id);
+    });
+    return { score: scaled(mock, right, mock.questions.length), right: right, total: mock.questions.length, byArea: byArea, wrong: wrong };
+  }
+  function answeredCount(run) {
+    return Object.keys(run.answers).filter(function (k) { var r = run.answers[k]; return r && r.length && r.some(function (x) { return x !== null; }); }).length;
+  }
+  function finishMock(key, mock, auto) {
+    var run = state.mockRun[key]; if (!run) return;
+    var res = scoreMock(mock, run);
+    res.ts = new Date().toISOString().slice(0, 19);
+    res.minutes = Math.round((Math.min(Date.now(), run.deadline) - run.started) / 60000);
+    res.auto = !!auto; res.answers = run.answers;
+    (state.mock[key] = state.mock[key] || []).push(res);
+    delete state.mockRun[key]; save();
+    if (timerHandle) { clearInterval(timerHandle); timerHandle = null; }
+    refreshScore(); renderView();
+  }
+  function renderMock(key, mock) {
+    var run = state.mockRun[key];
+    var hist = state.mock[key] || [];
+    var counts = {}; mock.questions.forEach(function (q) { counts[q.area] = (counts[q.area] || 0) + 1; });
+    if (!run) {
+      var intro = document.createElement("div"); intro.className = "card";
+      var mix = AREAS.filter(function (a) { return counts[a.key]; }).map(function (a) { return "<li>" + esc(a.name) + ": " + counts[a.key] + " questions</li>"; }).join("");
+      intro.innerHTML = "<h3>" + esc(mock.title) + "</h3><p>" + mock.questions.length + " questions, " + mock.minutes + " minutes. " + mock.intro +
+        "</p><ul class='plain'>" + mix + "</ul>";
+      var go = document.createElement("button"); go.className = "btn primary"; go.textContent = "Start the " + mock.minutes + "-minute timer";
+      go.addEventListener("click", function () {
+        state.mockRun[key] = { started: Date.now(), deadline: Date.now() + mock.minutes * 60000, answers: {} }; save(); renderView();
+      });
+      intro.appendChild(go); seRoot.appendChild(intro);
+      if (hist.length) renderMockResult(key, mock, hist[hist.length - 1], hist);
+      return;
+    }
+    if (Date.now() >= run.deadline) { finishMock(key, mock, true); return; }
+    var bar = document.createElement("div"); bar.className = "timer";
+    bar.innerHTML = '<span class="clock" id="mock-clock"></span><span id="mock-answered"></span>';
+    var sub = document.createElement("button"); sub.className = "btn primary"; sub.textContent = "Submit exam";
+    sub.addEventListener("click", function () {
+      if (confirm("Submit now? " + answeredCount(run) + " of " + mock.questions.length + " answered.")) finishMock(key, mock, false);
+    });
+    var ab = document.createElement("button"); ab.className = "btn"; ab.textContent = "Abandon";
+    ab.addEventListener("click", function () { if (confirm("Abandon this attempt without scoring?")) { delete state.mockRun[key]; save(); renderView(); } });
+    bar.appendChild(sub); bar.appendChild(ab); seRoot.appendChild(bar);
+    function tick() {
+      var left = (run.deadline - Date.now()) / 1000;
+      var c = document.getElementById("mock-clock"); if (!c) { clearInterval(timerHandle); return; }
+      c.textContent = fmt(left) + " left"; c.classList.toggle("low", left < 600);
+      document.getElementById("mock-answered").textContent = answeredCount(run) + " / " + mock.questions.length + " answered";
+      if (left <= 0) finishMock(key, mock, true);
+    }
+    var holder = document.createElement("div"); seRoot.appendChild(holder);
+    renderList(holder, mock.questions, "mock",
+      function (q) { return run.answers[q.id] || null; },
+      function (q, r) { run.answers[q.id] = r; save(); },
+      function () { return false; });
+    tick(); timerHandle = setInterval(tick, 1000);
+  }
+  function renderMockResult(key, mock, res, hist) {
+    var box = document.createElement("div"); box.className = "card";
+    var ok = passed(mock, res.score);
+    var rows = AREAS.filter(function (a) { return res.byArea[a.key]; }).map(function (a) {
+      var x = res.byArea[a.key]; var p = Math.round(100 * x.right / x.total);
+      return "<tr><td>" + esc(a.name) + "</td><td>" + x.right + " / " + x.total + "</td><td>" + p +
+        '%</td><td><div class="bar' + (p < 70 ? " badbar" : "") + '"><div style="width:' + p + '%"></div></div></td></tr>';
+    }).join("");
+    var hrows = hist.map(function (h, i) {
+      return "<tr><td>" + (i + 1) + "</td><td>" + esc(h.ts.replace("T", " ")) + "</td><td>" + h.score + mock.unit + "</td><td>" +
+        (passed(mock, h.score) ? '<span class="ok">pass</span>' : '<span class="no">below pass</span>') + "</td><td>" + h.right + " / " + h.total + "</td><td>" + h.minutes + " min" + (h.auto ? " (time up)" : "") + "</td></tr>";
+    }).join("");
+    box.innerHTML = "<h3>Latest result</h3><p class='scorebox " + (ok ? "ok" : "no") + "'>" + res.score + mock.unit + " - " + (ok ? "PASS" : "BELOW PASS") +
+      "</p><p>" + res.right + " of " + res.total + " correct in " + res.minutes + " minutes. Pass mark: " + mock.pass + mock.unit + ".</p>" +
+      "<h4>By area</h4><table><tr><th>Area</th><th>Correct</th><th>%</th><th></th></tr>" + rows + "</table>" +
+      "<h4>All attempts</h4><table><tr><th>#</th><th>When</th><th>Score</th><th></th><th>Correct</th><th>Time</th></tr>" + hrows + "</table>" +
+      "<h4>Review: questions you missed (" + res.wrong.length + "), with explanations and docs links</h4>";
+    seRoot.appendChild(box);
+    var wrongQs = mock.questions.filter(function (q) { return res.wrong.indexOf(q.id) >= 0; });
+    var holder = document.createElement("div"); seRoot.appendChild(holder);
+    renderList(holder, wrongQs, "review",
+      function (q) { return (res.answers || {})[q.id] || null; }, function () {}, function () { return true; });
+    var all = document.createElement("details"); all.className = "case";
+    all.innerHTML = "<summary>Review all " + mock.questions.length + " questions</summary>";
+    var h2 = document.createElement("div"); all.appendChild(h2);
+    all.addEventListener("toggle", function () {
+      if (all.open && !h2.childNodes.length) renderList(h2, mock.questions, "reviewall",
+        function (q) { return (res.answers || {})[q.id] || null; }, function () {}, function () { return true; });
+    });
+    seRoot.appendChild(all);
+  }
+
+  // ---------- scoreboard ----------
+  function refreshScore() {
+    var body = document.getElementById("sb-ex"); body.innerHTML = "";
+    var cards = document.querySelectorAll(".page [data-ex]");
+    var total = 0, passedN = 0, reqTotal = 0, reqPassed = 0;
+    cards.forEach(function (c) {
+      var id = c.dataset.ex; var gi = gradeInfo(id); var optional = !!c.querySelector(".tag.opt");
+      total++; if (gi && gi.passed) passedN++;
+      if (!optional) { reqTotal++; if (gi && gi.passed) reqPassed++; }
+      var title = c.querySelector("h3").textContent; var typ = c.querySelector(".tag").textContent;
+      var tr = document.createElement("tr");
+      tr.innerHTML = '<td><a href="#' + c.id + '">' + esc(id) + "</a>" + (optional ? " (optional)" : "") + "</td><td>" + esc(title) + "</td><td>" + esc(typ) + "</td><td>" +
+        (gi ? gi.latest : "-") + "</td><td>" + (gi ? gi.best : "-") + "</td><td>" +
+        (gi ? (gi.passed ? '<span class="ok">pass</span>' : '<span class="no">retry</span>') : "not attempted") + "</td><td>" + (gi ? gi.attempts : 0) + "</td><td>" +
+        (gi && gi.feedback ? '<a href="' + gi.feedback + '">latest</a>' : "") + "</td>";
+      body.appendChild(tr);
+    });
+    var qb = document.getElementById("sb-quiz"); qb.innerHTML = "";
+    var qTotal = 0, qChecked = 0;
+    SETS.forEach(function (s) {
+      var sc = setScore(s.list); qTotal += sc.total; qChecked += sc.answered;
+      var tr = document.createElement("tr");
+      tr.innerHTML = "<td>" + esc(s.label) + "</td><td>" + sc.right + " / " + sc.answered + "</td><td>" + sc.answered + " / " + sc.total +
+        "</td><td>" + (sc.answered ? Math.round(100 * sc.right / sc.answered) + "%" : "-") + "</td>";
+      qb.appendChild(tr);
+    });
+    var mb = document.getElementById("sb-mock"); mb.innerHTML = "";
+    var mocksPassed = 0;
+    MOCKS.forEach(function (m) {
+      var hist = state.mock[m[0]] || [];
+      var best = hist.reduce(function (acc, h) { return Math.max(acc, h.score); }, -1);
+      if (best >= 0 && passed(m[1], best)) mocksPassed++;
+      var last = hist.length ? hist[hist.length - 1] : null;
+      var weakest = "";
+      if (last) {
+        var ws = Object.keys(last.byArea).map(function (k) { var x = last.byArea[k]; return [k, x.right / x.total]; }).sort(function (a, b) { return a[1] - b[1]; }).slice(0, 2);
+        weakest = ws.map(function (w) { return esc(areaOf(w[0]).name) + " (" + Math.round(100 * w[1]) + "%)"; }).join(", ");
+      }
+      var tr = document.createElement("tr");
+      tr.innerHTML = "<td>" + esc(m[1].title) + "</td><td>" + (last ? last.score + m[1].unit : "-") + "</td><td>" + (best >= 0 ? best + m[1].unit : "-") + "</td><td>" +
+        (best >= 0 ? (passed(m[1], best) ? '<span class="ok">pass</span>' : '<span class="no">below pass</span>') : "not taken") + "</td><td>" + hist.length + "</td><td>" + weakest + "</td>";
+      mb.appendChild(tr);
+    });
+    var pe = reqTotal ? reqPassed / reqTotal : 0, pq = qTotal ? qChecked / qTotal : 0, pm = MOCKS.length ? mocksPassed / MOCKS.length : 0;
+    var overall = Math.round(100 * (pe + pq + pm) / 3);
+    document.getElementById("sb-overall").innerHTML = "<b>" + overall + "% complete</b> - exercises passed " + reqPassed + " / " + reqTotal +
+      " required (" + passedN + " / " + total + " incl. optional), quiz questions checked " + qChecked + " / " + qTotal + ", mock exams passed " + mocksPassed + " / " + MOCKS.length + ".";
+    document.getElementById("bar-all").style.width = overall + "%";
+    var ov = tabs.querySelector('[data-page="overview"] .pct'); if (ov) ov.textContent = overall + "%";
+    pages.forEach(function (p) {
+      var v = weekPct(p.id); if (v === null) return;
+      var t = tabs.querySelector('[data-page="' + p.id + '"] .pct'); if (t) t.textContent = v + "%";
+      var b = document.getElementById("bar-" + p.id); if (b) b.style.width = v + "%";
+    });
+  }
+
+  buildNav(); renderView(); refreshScore(); show();
+})();
+</script>
+</body>
+</html>

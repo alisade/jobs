@@ -1,0 +1,8 @@
+2026-11-12T02:00:19.884Z INFO  request GET /v1/accounts/91442/timeline tenant=bu-amer
+2026-11-12T02:00:29.886Z ERROR sqlalchemy.pool QueuePool limit of size 10 overflow 5 reached, connection timed out, timeout 10.00
+2026-11-12T02:00:29.902Z ERROR request GET /v1/accounts/91442/timeline -> 500 elapsed_ms=10018
+2026-11-12T02:00:41.120Z ERROR request POST /v1/accounts/88310/activities -> 500 elapsed_ms=10002 (pool timeout)
+2026-11-12T02:01:02.004Z WARN  healthz db check timed out after 2000 ms -> 503
+2026-11-12T02:06:31.550Z INFO  config pool_size=40 max_overflow=10 (restart)
+2026-11-12T02:06:52.771Z ERROR request GET /v1/accounts/52210/timeline -> 500 elapsed_ms=10007 (pool timeout)
+2026-11-12T02:10:45.311Z INFO  request GET /v1/accounts/52210/timeline -> 200 elapsed_ms=21

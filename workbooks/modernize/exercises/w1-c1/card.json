@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w1-c1",
+  "title": "ClaimDesk rating export: JDK 8 to JDK 21 without changing a byte of the feed",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 1,
+  "area": "Enterprise Java modernization",
+  "scenario": "Corvane Mutual's reinsurance rating export is a Java 8 module of the ClaimDesk monolith. The platform team is retiring the JDK 8 hosts; on JDK 21 the module does not compile, and once it does it fails at startup. The reinsurer's COBOL parser accepts only byte-identical envelopes, and golden masters captured from production are your contract.",
+  "task": [
+    "Build for release 21; replace JAXB-from-the-JDK with Jakarta XML Binding 4 plus a runtime",
+    "Replace sun.misc.BASE64Encoder with java.util.Base64 without changing the envelope bytes",
+    "Remove the reflective default-charset hack instead of adding --add-opens",
+    "Write the change log in ANSWER.md"
+  ],
+  "acceptance": [
+    "Hidden characterization tests: envelopes and XML byte-identical to the production golden masters, including accented names",
+    "Class files are version 65; no sun.misc, setAccessible, javax.xml.bind or --add-opens left",
+    "The nightly batch runs end to end",
+    "ANSWER.md explains each breakage, which JDK release caused it, and the rollout"
+  ],
+  "practices": [
+    {"label": "Week 1 Mon - JDK 8 to 21: what was removed and encapsulated", "href": "week1"},
+    {"label": "Week 1 Tue - jdeps, jdeprscan and the migration guide", "href": "week1"}
+  ]
+}

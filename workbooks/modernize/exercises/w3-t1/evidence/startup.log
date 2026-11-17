@@ -1,0 +1,8 @@
+2026-11-09T06:02:11-05:00 cdk-app-01 claimdesk-gateway 5.1.3 starting
+2026-11-09T06:02:12-05:00 cdk-app-01 JwksCache: JWKS loaded from https://corvane.okta.example/oauth2/aus1claimdesk/v1/keys: 1 key(s) [k-2026-10]
+2026-11-09T06:02:15-05:00 cdk-app-02 claimdesk-gateway 5.1.3 starting
+2026-11-09T06:02:16-05:00 cdk-app-02 JwksCache: JWKS loaded from https://corvane.okta.example/oauth2/aus1claimdesk/v1/keys: 1 key(s) [k-2026-10]
+2026-11-09T06:02:20-05:00 cdk-app-04 claimdesk-gateway 5.1.3 starting
+2026-11-09T06:02:21-05:00 cdk-app-04 JwksCache: JWKS loaded from https://corvane.okta.example/oauth2/aus1claimdesk/v1/keys: 1 key(s) [k-2026-10]
+2026-11-11T06:10:03-05:00 cdk-app-03 claimdesk-gateway 5.1.3 starting (after RHEL patching reboot, CHG-88190)
+2026-11-11T06:10:04-05:00 cdk-app-03 JwksCache: JWKS loaded from https://corvane.okta.example/oauth2/aus1claimdesk/v1/keys: 2 key(s) [k-2026-10, k-2026-11]

@@ -1,0 +1,9 @@
+apiVersion: platform.harbor-analytics.io/v1alpha1
+kind: Tenant
+metadata:
+  name: churn-model
+  namespace: team-retention
+spec:
+  cpu: "16"
+  memory: 64Gi
+  bucketPrefix: churn-model/

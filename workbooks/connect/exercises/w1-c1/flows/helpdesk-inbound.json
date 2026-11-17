@@ -1,0 +1,222 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "start-logging",
+  "Metadata": {
+    "name": "LFG Help Desk Inbound",
+    "description": "Main inbound flow for the Larkspur IT help desk (+1 800 555 0142)."
+  },
+  "Actions": [
+    {
+      "Identifier": "start-logging",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Transitions": {
+        "NextAction": "check-hours"
+      }
+    },
+    {
+      "Identifier": "check-hours",
+      "Type": "CheckHoursOfOperation",
+      "Parameters": {
+        "HoursOfOperationId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "identify-caller",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "True"
+              ]
+            }
+          },
+          {
+            "NextAction": "after-hours-msg",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "False"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "after-hours-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "The Larkspur IT help desk is closed. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "disconnect",
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "identify-caller",
+      "Type": "InvokeLambdaFunction",
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:111122223333:function:lfg-identify-caller",
+        "InvocationTimeLimitSeconds": "30",
+        "InvocationType": "SYNCHRONOUS",
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Transitions": {
+        "NextAction": "check-vip"
+      }
+    },
+    {
+      "Identifier": "check-vip",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.Attributes.vip"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "set-q-vip",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "true"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "main-menu",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-vip",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-vip-desk"
+      },
+      "Transitions": {
+        "NextAction": "transfer"
+      }
+    },
+    {
+      "Identifier": "main-menu",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "For password resets, press 1. For hardware or software problems, press 2.",
+        "InputTimeLimitSeconds": "5",
+        "StoreInput": "False"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "password-reset",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "set-q-general",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "main-menu",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "password-reset",
+      "Type": "InvokeLambdaFunction",
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:111122223333:function:lfg-password-reset",
+        "InvocationTimeLimitSeconds": "8",
+        "InvocationType": "SYNCHRONOUS",
+        "LambdaInvocationAttributes": {
+          "employeeId": "$.Attributes.employeeId"
+        },
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Transitions": {
+        "NextAction": "reset-sent-msg"
+      }
+    },
+    {
+      "Identifier": "reset-sent-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "A password reset link has been sent to your mobile phone. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "disconnect",
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-general",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-general-support"
+      },
+      "Transitions": {
+        "NextAction": "transfer",
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "transfer",
+      "Type": "TransferContactToQueue",
+      "Parameters": {},
+      "Transitions": {
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "disconnect",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

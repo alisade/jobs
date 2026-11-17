@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w6-c1",
+  "title": "Engagement brief, decision record and handoff plan",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 6,
+  "optional": false,
+  "area": "FDE practice",
+  "scenario": "An 8-week pilot at Corvane's Dunmore plant. The plant manager wants 'AI on the pumps' for a VP review, reliability wants fewer surprise bearing failures, controls was burned by a vendor box that cried wolf, security keeps raw data on site, the planner owns the work-order queue. Write the brief everyone signs before any code.",
+  "task": [
+    "Frame the problem and compute today's cost from the inputs",
+    "Agree target metrics with measurement and owners, false alarms included",
+    "Cut scope, honour every site constraint, plan a measured thin slice",
+    "Write an ADR with real options and the customer-owned handoff list"
+  ],
+  "acceptance": [
+    "Graded by rubric only (grade.sh reports 0/0; the automated row does not apply)",
+    "Baseline cost arithmetic shown; metrics are numbers with owners",
+    "Every constraint honoured; scope cuts explained to the stakeholders",
+    "Handoff assets each have a client-side owner"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - framing and measurable outcomes", "href": "week6"},
+    {"label": "Week 6 Thu - customer-owned assets and the handoff pack", "href": "week6"}
+  ]
+}

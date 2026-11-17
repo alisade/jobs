@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "{\"category\": \"hardware\", \"priority\": \"P3\", \"summary\": \"Cracked laptop screen after drop.\", \"needsHuman\": true}"
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 412,
+    "outputTokens": 58,
+    "totalTokens": 470
+  },
+  "metrics": {
+    "latencyMs": 640
+  }
+}

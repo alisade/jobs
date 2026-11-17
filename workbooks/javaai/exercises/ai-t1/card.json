@@ -1,0 +1,24 @@
+{
+  "id": "javaai/ai-t1",
+  "title": "The tutor marked lessons mastered that learners never attempted",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": "ai",
+  "optional": false,
+  "area": "AI integration fundamentals",
+  "scenario": "37 learners have two lessons marked mastered without a quiz, and certificates come from mastery. The writes came from the tutor agent's service account. The tutor switched Gemini versions the day before; L2 wants to roll back and make the NEVER-call instruction louder. You get the agent config, tool-call logs, the mastery audit and a lesson diff.",
+  "task": [
+    "Find what made the tutor write and why it could",
+    "Rule the model-version theory in or out",
+    "Filter the toolset, enforce a read-only allow-list in code, sanitise and label content"
+  ],
+  "acceptance": [
+    "No write from the injected lesson; read tools only offered",
+    "Writes refused even with the filter removed",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "AI Integration - 4 security", "href": "ai"},
+    {"label": "Week 4 Fri - MCP in ADK and tool filters", "href": "week4"}
+  ]
+}

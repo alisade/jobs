@@ -1,0 +1,9 @@
+commit 3f0b6d1  (sprint 44, deployed 2026-11-03)
+    KEY-2410 pipeline view: fix N+1 on Opportunity.account
+
+    The pipeline view made one accounts-svc call per opportunity (p95 900 ms for big pipelines).
+    Batch through DataLoader. One loader for the process, configured at startup, so every request
+    shares the batching and the cache.
+
+ src/context.ts | 18 ++++++++++++++
+ src/schema.ts  |  6 ++--

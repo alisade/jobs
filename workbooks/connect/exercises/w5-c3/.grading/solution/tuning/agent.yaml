@@ -1,0 +1,57 @@
+# LFG help desk AI agent: tuned for go-live (see ANSWER.md for the iteration log).
+model:
+  temperature: 0
+  maxTokens: 200
+intents:
+  - name: ResetPassword
+    description: Caller forgot, lost or cannot remember a password, or needs to change or reset a password that expired or stopped working
+    examples:
+      - I need a new password
+      - my password does not work
+      - reset link did not come through
+      - password change required
+  - name: UnlockAccount
+    description: Caller account or user id is locked out or blocked after failed logins or attempts and needs to be unlocked
+    examples:
+      - locked out of windows
+      - lockout after failed sign in
+      - user locked again
+  - name: ReportOutage
+    description: A service is down, failing, not loading or not working for everyone, all of us, the whole team, floor, office, building or department
+    examples:
+      - email down for everyone
+      - wifi down across the office
+      - nobody can print on our floor
+      - calls failing for the whole team
+  - name: HowTo
+    description: How to set up, install, configure, connect, enroll, map, share, add or find something on a laptop, phone, Outlook, Teams, VPN, wifi, drive or printer
+    examples:
+      - how do I install software on a Mac
+      - steps to set up a new phone
+      - how to set up an auto reply in Outlook
+      - where is the printer driver
+  - name: RequestAccess
+    description: Request access, permissions or a license to a system, folder, share, drive, site or application for me or a new hire or starter
+    examples:
+      - grant me permissions
+      - need a software license
+      - new joiner needs access
+  - name: CheckTicketStatus
+    description: Status or update on an existing ticket, incident, INC number or request I raised; has it been approved
+    examples:
+      - any news on my ticket
+      - heard nothing since I logged it
+      - follow up on my request
+  - name: TalkToAgent
+    description: Caller asks for a person, human, agent, representative, operator or someone on the service desk
+    examples:
+      - real person
+      - transfer me
+      - speak to someone
+classifier:
+  confidenceThreshold: 0.5
+retrieval:
+  topK: 4
+  minScore: 0.4
+answer:
+  requireCitations: true

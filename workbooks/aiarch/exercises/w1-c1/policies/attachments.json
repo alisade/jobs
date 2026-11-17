@@ -1,0 +1,20 @@
+{
+  "scps": {
+    "Root": ["FullAWSAccess"],
+    "Security": ["FullAWSAccess"],
+    "Infrastructure": ["FullAWSAccess"],
+    "Workloads": ["FullAWSAccess"],
+    "Dev": ["FullAWSAccess"],
+    "Prod": ["FullAWSAccess"],
+    "Sandbox": ["FullAWSAccess"],
+    "Suspended": ["FullAWSAccess"],
+    "111100000001": ["FullAWSAccess"],
+    "111100000002": ["FullAWSAccess"],
+    "111100000003": ["FullAWSAccess"],
+    "111100000004": ["FullAWSAccess"],
+    "111100000005": ["FullAWSAccess"]
+  },
+  "rcps": {
+    "Root": ["RCPFullAWSAccess"]
+  }
+}

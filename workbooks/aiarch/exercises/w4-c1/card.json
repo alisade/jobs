@@ -1,0 +1,26 @@
+{
+  "id": "aiarch/w4-c1",
+  "title": "On-behalf-of token exchange for Lighthouse tools",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 4,
+  "optional": false,
+  "area": "Identity and authorization",
+  "scenario": "A Lighthouse tool forwards the manager's gateway token to the access-requests API, which rejects it on audience; a service account would make the agent a confused deputy. Implement RFC 8693 token exchange so the API sees the user as subject and the agent as actor, with narrowed scope, verified responses and a safe cache. Offline fake IdP.",
+  "task": [
+    "Validate inbound JWTs: algorithm allow-list, kid, issuer, audience, expiry",
+    "Build the RFC 8693 request with scope narrowing and an actor token",
+    "Verify the issued token: audience, subject, scope, actor",
+    "Cache per user, target and scope; refresh before expiry"
+  ],
+  "acceptance": [
+    "API sees the user with the agent as actor; replayed user token fails",
+    "Misbehaving IdP responses and forged tokens are rejected",
+    "ANSWER.md maps the flow onto AgentCore Identity"
+  ],
+  "practices": [
+    {"label": "Week 4 Mon - OAuth 2.0 and JWT access tokens", "href": "week4"},
+    {"label": "Week 4 Tue - OBO and RFC 8693 token exchange", "href": "week4"},
+    {"label": "Week 4 Wed - AgentCore Identity", "href": "week4"}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "audit/w2-c1",
+  "title": "CM-03 population, completeness and accuracy checks, and a reproducible sample",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "Audit domain: ITGCs, populations, sampling, evidence",
+  "scenario": "Before ControlPilot tests anything, internal audit at MFH must define the CM-03 population (every production change in the interim period, by local date), reconcile it to DeployHub's control total, test the export's accuracy, size the sample from the firm's table and draw it reproducibly. Deterministic code, no model.",
+  "task": [
+    "Build the population from the deploy log with local-date boundaries, collapsing re-deploys",
+    "Keep unmerged and off-main changes in the population as flagged items",
+    "Reconcile to the control total and write the IPE accuracy checks",
+    "Size the sample from the table and select it with a recorded seed and a population hash"
+  ],
+  "acceptance": [
+    "Both period boundaries right in America/Chicago; failed and non-prod runs excluded",
+    "Population reconciles (220) and the three seeded accuracy findings are reported",
+    "Selection reproducible, order independent and exactly the documented method",
+    "ANSWER.md makes the IPE argument and handles the findings"
+  ],
+  "practices": [
+    {"label": "Week 2 Wed - population completeness and accuracy (IPE)", "href": "week2"},
+    {"label": "Week 2 Thu - sampling by control frequency", "href": "week2"},
+    {"label": "Week 1 Mon - which steps must stay deterministic", "href": "week1"}
+  ]
+}

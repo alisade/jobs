@@ -1,0 +1,25 @@
+{
+  "id": "awsfde/w6-t1",
+  "title": "Embedded dashboard blank on refresh, and one customer saw another customer's numbers",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 6,
+  "optional": false,
+  "area": "Embedded analytics",
+  "scenario": "The morning after a web release, embedded Quick Sight dashboards are blank on most page loads, one tenant gets logged out after 15 minutes, and Corvid Logistics saw Acme Foods' numbers in its own portal. Nothing changed in Quick Sight. You have CloudFront access logs, the Lambda log, the embed redeem log and the distribution config.",
+  "task": [
+    "Trace page loads through CloudFront, the embed Lambda and URL redemption",
+    "Explain the blank dashboards and the cross-tenant view with log evidence",
+    "Separate the red herrings (session lifetime, AllowedDomains wildcard)",
+    "Fix at the edge and in the Lambda without losing catalog or static caching"
+  ],
+  "acceptance": [
+    "Replay: no blank dashboards, no cross-tenant views, no edge hits on the embed endpoint",
+    "Two independent layers prevent caching; other caching unchanged",
+    "Root cause, evidence and exposure statement in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 6 Thu - GenerateEmbedUrl APIs and session lifecycle", "href": "week6"},
+    {"label": "Week 6 Fri - the embedding backend", "href": "week6"}
+  ]
+}

@@ -1,0 +1,12 @@
+SIEM ALERT  DLP-PCI-004 / DLP-PII-011   severity HIGH   2026-10-08 06:10 UTC
+source: northwind-prod-use1 / trust-layer / decisions.log (index: agent-trust)
+
+  rule                 first seen (UTC)       matches (24h)
+  EMAIL_ADDRESS        2026-10-07 15:42       41,882
+  CARD_BIN_IN_FIELD    2026-10-07 15:42       38,107
+  PAN_CANDIDATE        2026-10-07 15:44          212
+
+No matches in the 30 days before 2026-10-07 15:42.
+Deploys in window: trust-layer 1.14.0 at 2026-10-07 15:38 (PR #412).
+Action required within 24h per PCI DSS 3.4 / data-handling standard DH-7:
+  1) stop the leak  2) root cause  3) scope (which fields, which loggers)  4) purge plan

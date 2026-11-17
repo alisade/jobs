@@ -1,0 +1,6 @@
+{
+  "_comment": "Environment of the tw-ask-shipments Lambda (prod).",
+  "TABLE_NAME": "tidewater-ops",
+  "LOG_LEVEL": "INFO",
+  "DEFAULT_TENANT": "acme-foods"
+}

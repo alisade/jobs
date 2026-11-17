@@ -1,0 +1,6 @@
+review_id,sku,posted_at,author,rating,moderation_score,decision,reviewer
+rv-49920,KO-TENT-2P,2026-10-02T14:11:00Z,hikes_with_dogs,4,0.88,auto_approved,
+rv-50112,KO-TENT-2P,2026-10-19T08:30:00Z,camp_mom_3,5,0.93,auto_approved,
+rv-50877,KO-TENT-2P,2026-11-08T17:55:12Z,trailfan_88,5,0.91,auto_approved,
+rv-51230,KO-BAG-20F,2026-11-09T14:02:40Z,trailfan_88,5,0.79,auto_approved,
+rv-48811,KO-TENT-3P,2026-04-11T10:00:00Z,fam_of_three,5,0.95,auto_approved,

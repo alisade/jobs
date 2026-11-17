@@ -1,0 +1,29 @@
+# Prometheus (AMP) query results, step 1m, 13:50-14:45 UTC. Values sampled every 5m.
+
+## sum(kafka_consumergroup_lag{consumergroup="audit-sink",topic="agent.audit"})
+13:50  1,204      13:55  988       14:00  1,377     14:05  21,904
+14:10  88,310     14:15  151,722   14:20  298,040   14:25  412,880
+14:30  455,102    14:35  402,771   14:40  413,018   14:45  431,550
+
+## kafka_consumergroup_members{consumergroup="audit-sink"}   (kafka-exporter)
+13:50  3   14:00  3   14:05  1   14:10  1   14:15  1   14:20  1   14:30  1   14:40  1
+
+## sum by (pod) (rate(audit_sink_records_processed_total[5m]))   at 14:40
+audit-sink-7c9f6d8b54-k8v4n   0
+audit-sink-7c9f6d8b54-t2r9w   3,912
+audit-sink-7c9f6d8b54-xq2lm   0
+# before 14:02 each of 3 pods did ~1,300/s; topic produce rate is ~3,950/s
+
+## sum(rate(audit_sink_records_processed_total[5m])) / sum(rate(kafka_topic_partition_current_offset{topic="agent.audit"}[5m]))
+14:40  1.31     # >1 means records are processed more than once
+
+## sum by (pod) (rate(container_cpu_cfs_throttled_periods_total{container="audit-sink"}[5m]))
+##   / sum by (pod) (rate(container_cpu_cfs_periods_total{container="audit-sink"}[5m]))
+14:40  audit-sink-7c9f6d8b54-k8v4n  0.00
+14:40  audit-sink-7c9f6d8b54-t2r9w  0.38
+14:40  audit-sink-7c9f6d8b54-xq2lm  0.00
+
+## increase(kube_pod_container_status_restarts_total{namespace="agents",container="audit-sink"}[40m])
+audit-sink-7c9f6d8b54-k8v4n  10
+audit-sink-7c9f6d8b54-t2r9w  9
+audit-sink-7c9f6d8b54-xq2lm  10

@@ -1,0 +1,8 @@
+{"ts":"2026-10-07T06:41:20.118Z","level":"INFO","msg":"starting agent-runtime","version":"v2.8.0","mcp_servers":["http://k8s-tools.mcp-tools.svc.cluster.local:8080/mcp"]}
+{"ts":"2026-10-07T06:41:20.341Z","level":"INFO","msg":"mcp token loaded","file":"/var/run/secrets/mcp/token","aud":"k8s-tools.mcp.kestrel.internal","exp_in":"59m58s"}
+{"ts":"2026-10-07T06:43:05.552Z","level":"ERROR","msg":"mcp initialize failed","server":"k8s-tools","status":403,"body":"RBAC: access denied","retry_in":"2s"}
+{"ts":"2026-10-07T06:43:07.903Z","level":"ERROR","msg":"mcp initialize failed","server":"k8s-tools","status":403,"body":"RBAC: access denied","retry_in":"4s"}
+{"ts":"2026-10-07T07:41:20.344Z","level":"WARN","msg":"mcp token near expiry, kubelet should rotate","exp_in":"9m59s"}
+{"ts":"2026-10-07T07:46:21.002Z","level":"INFO","msg":"mcp token reloaded","aud":"k8s-tools.mcp.kestrel.internal","exp_in":"59m59s","kid":"c3b1f0e2a9d8"}
+{"ts":"2026-10-07T07:58:41.331Z","level":"ERROR","msg":"mcp initialize failed","server":"k8s-tools","status":403,"body":"RBAC: access denied","retry_in":"8s"}
+{"ts":"2026-10-07T07:58:41.332Z","level":"WARN","msg":"tool server unavailable, continuing without tools","server":"k8s-tools","tools_lost":["get_pod_status","list_events","describe_deployment"]}

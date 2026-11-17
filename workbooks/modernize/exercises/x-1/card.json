@@ -1,0 +1,26 @@
+{
+  "id": "modernize/x-1",
+  "title": "ClaimDesk will not deploy on JBoss EAP 8: the legacy security domain",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 7,
+  "optional": true,
+  "area": "App servers: JBoss EAP/WildFly",
+  "scenario": "The first ClaimDesk deployment to JBoss EAP 8 failed: the security CLI script copied from EAP 7.4 errors out and the Jakarta EE 10 WAR will not deploy. A developer blames the WAR; security wants the same LDAP, groups and roles and no secrets in scripts.",
+  "task": [
+    "Explain the CLI failure and the deployment failure from the logs; separate noise from cause",
+    "Rewrite the security setup for Elytron with identical user lookup, nested groups and role mapping",
+    "Use the existing credential store instead of the vault; keep the WAR unchanged",
+    "Map each old login-module option to its Elytron home in ANSWER.md"
+  ],
+  "acceptance": [
+    "Static dry run clean: EAP 8 subsystems only, references resolve, no vault",
+    "dir-context, ldap-realm with role recursion, decoder, mapper, domain, FORM factory, Undertow domain as the WAR names it",
+    "Applied as a batch and reloaded",
+    "ANSWER.md explains the legacy subsystem removal"
+  ],
+  "practices": [
+    {"label": "Week 7 add-on - JBoss EAP 8 security migration", "href": "week7"},
+    {"label": "Week 4 - app server targets", "href": "week4"}
+  ]
+}

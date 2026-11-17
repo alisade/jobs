@@ -1,0 +1,31 @@
+{
+  "Role": {
+    "RoleName": "LFG-ConnectAgents",
+    "Arn": "arn:aws:iam::111122223333:role/LFG-ConnectAgents",
+    "MaxSessionDuration": 43200,
+    "AssumeRolePolicyDocument": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": { "Federated": "arn:aws:iam::111122223333:saml-provider/LFG-Okta" },
+          "Action": "sts:AssumeRoleWithSAML",
+          "Condition": { "StringEquals": { "SAML:aud": "https://signin.aws.amazon.com/saml" } }
+        }
+      ]
+    }
+  },
+  "InlinePolicies": {
+    "connect-federation": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "FederateIntoHelpDesk",
+          "Effect": "Allow",
+          "Action": "connect:GetFederationToken",
+          "Resource": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/user/${aws:userid}"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+# Cloud Logging, service=progress-api revision=progress-api-00042-kiv, 2026-10-14 (excerpt)
+# hibernate.generate_statistics=true logs one session summary per request (StatisticalLoggingSessionEventListener)
+08:51:02.114 INFO  r.trace=4f1c GET /api/learners/lrn-20817/progress 200 2318ms
+08:51:02.114 INFO  r.trace=4f1c Session Metrics { 1180200 nanoseconds spent acquiring 1 JDBC connections;
+                     0 nanoseconds spent releasing 0 JDBC connections; 2051771000 nanoseconds spent preparing 131 JDBC statements;
+                     2101876000 nanoseconds spent executing 131 JDBC statements; ... }
+08:51:02.377 INFO  r.trace=52aa GET /api/learners/lrn-03311/progress 200 1102ms
+08:51:02.377 INFO  r.trace=52aa Session Metrics { ... preparing 64 JDBC statements; ... executing 64 JDBC statements; ... }
+08:51:03.020 INFO  r.trace=5c07 GET /api/learners/lrn-00012/progress 200 41ms
+08:51:03.020 INFO  r.trace=5c07 Session Metrics { ... preparing 1 JDBC statements; ... executing 1 JDBC statements; ... }
+# (lrn-00012 has no enrollments)
+09:05:44.902 WARN  com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Connection is not available, request timed out after 3000ms (total=10, active=10, idle=0, waiting=37)
+09:05:44.903 ERROR o.a.c.c.C.[dispatcherServlet] : Servlet.service() threw exception
+                     org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+                     Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 3000ms
+09:05:45.118 INFO  r.trace=61d0 GET /api/learners/lrn-11872/progress 200 5904ms
+09:05:45.118 INFO  r.trace=61d0 Session Metrics { ... preparing 157 JDBC statements; ... executing 157 JDBC statements; ... }
+
+# SQL sample for r.trace=4f1c with spring.jpa.show-sql=true on a staging replay (first 14 of 131 lines)
+select e1_0.id,e1_0.course_id,e1_0.enrolled_at,e1_0.learner_id from enrollment e1_0 where e1_0.learner_id=? order by e1_0.enrolled_at,e1_0.id
+select c1_0.id,c1_0.slug,c1_0.title from course c1_0 where c1_0.id=?
+select l1_0.course_id,l1_0.id,l1_0.position,l1_0.title from lesson l1_0 where l1_0.course_id=? order by l1_0.position
+select qa1_0.id,qa1_0.correct,qa1_0.created_at,qa1_0.learner_id,qa1_0.lesson_id from quiz_attempt qa1_0 left join lesson l1_0 on l1_0.id=qa1_0.lesson_id where qa1_0.learner_id=? and l1_0.id=?
+select qa1_0.id,qa1_0.correct,qa1_0.created_at,qa1_0.learner_id,qa1_0.lesson_id from quiz_attempt qa1_0 left join lesson l1_0 on l1_0.id=qa1_0.lesson_id where qa1_0.learner_id=? and l1_0.id=?
+select qa1_0.id,qa1_0.correct,qa1_0.created_at,qa1_0.learner_id,qa1_0.lesson_id from quiz_attempt qa1_0 left join lesson l1_0 on l1_0.id=qa1_0.lesson_id where qa1_0.learner_id=? and l1_0.id=?
+select qa1_0.id,qa1_0.correct,qa1_0.created_at,qa1_0.learner_id,qa1_0.lesson_id from quiz_attempt qa1_0 left join lesson l1_0 on l1_0.id=qa1_0.lesson_id where qa1_0.learner_id=? and l1_0.id=?
+select qa1_0.id,qa1_0.correct,qa1_0.created_at,qa1_0.learner_id,qa1_0.lesson_id from quiz_attempt qa1_0 left join lesson l1_0 on l1_0.id=qa1_0.lesson_id where qa1_0.learner_id=? and l1_0.id=?
+select qa1_0.id,qa1_0.correct,qa1_0.created_at,qa1_0.learner_id,qa1_0.lesson_id from quiz_attempt qa1_0 left join lesson l1_0 on l1_0.id=qa1_0.lesson_id where qa1_0.learner_id=? and l1_0.id=?
+select c1_0.id,c1_0.slug,c1_0.title from course c1_0 where c1_0.id=?
+select l1_0.course_id,l1_0.id,l1_0.position,l1_0.title from lesson l1_0 where l1_0.course_id=? order by l1_0.position
+select qa1_0.id,qa1_0.correct,qa1_0.created_at,qa1_0.learner_id,qa1_0.lesson_id from quiz_attempt qa1_0 left join lesson l1_0 on l1_0.id=qa1_0.lesson_id where qa1_0.learner_id=? and l1_0.id=?
+select qa1_0.id,qa1_0.correct,qa1_0.created_at,qa1_0.learner_id,qa1_0.lesson_id from quiz_attempt qa1_0 left join lesson l1_0 on l1_0.id=qa1_0.lesson_id where qa1_0.learner_id=? and l1_0.id=?
+...

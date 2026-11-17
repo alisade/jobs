@@ -1,0 +1,12 @@
+# Rubric: awsfde/w6-t1 Embedded dashboard blank on refresh, and a cross-tenant view
+Pass mark: 70
+
+| # | Criterion | Points | How to judge |
+|---|---|---|---|
+| 1 | Automated tests | 30 | points = 30 * passed / total from grade.sh |
+| 2 | Root cause identified | 25 | Full: release 2026.11.05 moved the embed endpoint under /api/* behind CloudFront, whose behavior uses tw-api-short-cache (DefaultTTL 300, query in key, no Authorization or other identity in the key); the Lambda sends no Cache-Control, so DefaultTTL applies and one embed URL is served to every page load for 5 minutes regardless of user or tenant; embed URLs are single use, so every later load redeems an already-used URL (blank). Partial (10-15): "CloudFront caching" without the TTL/key/single-use mechanism. Zero: blames Quick Sight, RLS, AllowedDomains or session lifetime. |
+| 3 | Evidence | 20 | Full: Hit lines on /api/analytics/embed-url with different tenants, Lambda invocations far fewer than page loads (11 Miss vs 64 requests, or lambda.log count), already_used redeems in quicksight-embed.log, and the cross-tenant pair: Acme load-063 Miss at 09:45:34, Corvid load-064 Hit 0.1 s later and redeemed first (09:45:35, data_tenant acme-foods) so Acme's own redeem failed. Partial: one source. |
+| 4 | Red herrings | 5 | ASK-380 (SessionLifetimeInMinutes 15) explains only the Brightline logout complaint: a deliberate security setting, not a fault; the AllowedDomains wildcard is valid (up to three domains, https://*.domain for subdomains). |
+| 5 | Fix quality | 10 | Full: a /api/analytics/* behavior (ordered before /api/*) on Managed-CachingDisabled (4135ea2d-6df8-44a3-9df3-4b5a84be39ad) AND cache-control: no-store on every Lambda response; catalog caching kept. Partial: only one layer, or CachingDisabled on all of /api/* (loses ASK-377). Zero: adding Authorization to the cache key as the only fix. |
+| 6 | Exposure and prevention | 10 | Full: Acme Foods operations data was displayed to one Corvid Logistics user once (09:45:35); for about 3.5 hours embed URLs (bearer tokens) for one tenant were handed to other tenants' browsers, but all were already redeemed so unusable; notify both. Prevention: per-path managed cache policies with a review rule for any behavior covering auth'd endpoints, no-store as a default in the API framework, a synthetic two-tenant test after deploys, alarm on embed URLs issued vs page loads. Partial: generic. |
+Total: 100

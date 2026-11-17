@@ -1,0 +1,41 @@
+{
+  "name": "ResetPassword",
+  "identifier": "RESETPASSW",
+  "description": null,
+  "parentIntentSignature": null,
+  "sampleUtterances": [
+    {
+      "utterance": "reset my {System} password"
+    },
+    {
+      "utterance": "I forgot my {System} password"
+    },
+    {
+      "utterance": "I need a new {System} password"
+    },
+    {
+      "utterance": "my {System} password expired"
+    },
+    {
+      "utterance": "I forgot my password"
+    },
+    {
+      "utterance": "reset my password"
+    },
+    {
+      "utterance": "password reset"
+    }
+  ],
+  "dialogCodeHook": {
+    "enabled": true
+  },
+  "fulfillmentCodeHook": {
+    "enabled": false
+  },
+  "slotPriorities": [
+    {
+      "slotName": "System",
+      "priority": 1
+    }
+  ]
+}

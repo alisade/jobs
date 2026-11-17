@@ -1,0 +1,5 @@
+# Shared Python toolchain for the modernize workbook (modernize/.venv). Tests and tooling only.
+pytest==8.3.4
+pyyaml==6.0.2
+jsonschema==4.23.0
+packaging==24.2

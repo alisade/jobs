@@ -1,0 +1,8 @@
+{
+  "release": "2026.11.06",
+  "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "max_tokens": 1024,
+  "lambda_reserved_concurrency": 150,
+  "lambda_timeout_s": 60,
+  "api_gateway_timeout_s": 29
+}

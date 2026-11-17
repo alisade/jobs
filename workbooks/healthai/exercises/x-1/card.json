@@ -1,0 +1,24 @@
+{
+  "id": "healthai/x-1",
+  "title": "Design: LoRA-tuned small model vs prompting for ICD-10-CM extraction",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 7,
+  "optional": true,
+  "area": "PEFT/LoRA, Agent Platform serving, evals",
+  "scenario": "Kestrel measured a prompted large model and a LoRA-tuned 2B open model on the same synthetic held-out notes for ICD-10-CM code suggestions. Decide what ships first with real cost arithmetic and slice-level quality, then design serving inside the HIPAA boundary, release gates and the October 1 code-set update.",
+  "task": [
+    "Compute cost per 1,000 notes, per month and the break-even volume",
+    "Analyse quality by slice and recommend what ships first",
+    "Design serving, evaluation gates, code-set updates and PHI handling"
+  ],
+  "acceptance": [
+    "Arithmetic correct and the decision follows from it",
+    "Rare codes and invalid codes treated as the costly errors",
+    "Deployable architecture and gates inside the HIPAA boundary"
+  ],
+  "practices": [
+    {"label": "Week 7 - PEFT, LoRA and QLoRA", "href": "week7"},
+    {"label": "Week 5 Thu - Model Garden and endpoints", "href": "week5"}
+  ]
+}

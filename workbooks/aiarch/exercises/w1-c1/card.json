@@ -1,0 +1,27 @@
+{
+  "id": "aiarch/w1-c1",
+  "title": "Lighthouse org guardrails: five SCPs and one RCP",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 1,
+  "optional": false,
+  "area": "Multi-account governance",
+  "scenario": "Harbor Point Mutual's new AWS organization for the Lighthouse agent platform has OUs and accounts but no guardrails. Security signed off region, audit, IAM-user, Bedrock model and private-access rules plus an org-boundary RCP. Write them as code and prove them against a request table with a local SCP/RCP evaluator before anything is attached for real.",
+  "task": [
+    "Region deny with a global-services exception and the US cross-Region inference exception",
+    "Protect the org trail and its bucket; deny leaving the org and creating IAM users or keys",
+    "Approved Bedrock models on Workloads and Sandbox; VPC-endpoint-only Bedrock and AgentCore in Prod",
+    "An RCP that blocks outside-org principals without breaking GitLab OIDC or AWS services",
+    "Break-glass exemption scoped by aws:PrincipalArn"
+  ],
+  "acceptance": [
+    "Visible and hidden request tables give the expected decisions",
+    "Deny-only statements with Sids, FullAWSAccess kept, size limits, RCP shape",
+    "ANSWER.md has a no-lockout rollout plan and the limits of SCPs"
+  ],
+  "practices": [
+    {"label": "Week 1 Mon - Organizations and OU design", "href": "week1"},
+    {"label": "Week 1 Tue - SCPs, RCPs and policy evaluation", "href": "week1"},
+    {"label": "Week 1 Wed - agent guardrails: regions, models, endpoints", "href": "week1"}
+  ]
+}

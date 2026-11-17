@@ -1,0 +1,51 @@
+# fabric-cicd parameterization for the Contoso Retail Sales workspace.
+# Source of truth is the DEV workspace (git-synced). PPE and PROD are deployed by deploy/deploy.py.
+# Docs: https://microsoft.github.io/fabric-cicd/latest/how_to/parameterization/
+
+find_replace:
+    # DEV workspace id -> target workspace id (notebook default lakehouse binding)
+    - find_value: "2f1c6a0e-8d3b-4c55-9a71-0b6de4f3a210"
+      replace_value:
+          PPE: "$workspace.$id"
+          PROD: "$workspace.$id"
+      item_type: "Notebook"
+      item_name: ["nb_load_silver", "nb_load_gold"]
+
+    # lh_silver (DEV) -> lh_silver in the target workspace
+    - find_value: "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      replace_value:
+          PPE: "$items.Lakehouse.lh_silver.$id"
+          PROD: "$items.Lakehouse.lh_silver.$id"
+      item_type: "Notebook"
+      item_name: ["nb_load_silver", "nb_load_gold"]
+
+    # lh_gold (DEV) -> lh_gold in the target workspace
+    - find_value: "6e0d8f4a-1b2c-4d3e-8f90-a1b2c3d4e5f6"
+      replace_value:
+          PPE: "$items.Lakehouse.lh_gold.$id"
+          PROD: "$items.Lakehouse.lh_gold.$id"
+      item_type: "Notebook"
+      item_name: "nb_load_gold"
+
+key_value_replace:
+    # Pipeline notebook activities point at the target workspace and its notebooks
+    - find_key: $.properties.activities[?(@.name=="Load Silver")].typeProperties.notebookId
+      replace_value:
+          PPE: "$items.Notebook.nb_load_silver.$id"
+          PROD: "$items.Notebook.nb_load_silver.$id"
+      item_type: "DataPipeline"
+    - find_key: $.properties.activities[?(@.name=="Load Gold")].typeProperties.notebookId
+      replace_value:
+          PPE: "$items.Notebook.Load Gold Sales.$id"
+          PROD: "$items.Notebook.Load Gold Sales.$id"
+      item_type: "DataPipeline"
+    - find_key: $.properties.activities[?(@.name=="Load Silver")].typeProperties.workspaceId
+      replace_value:
+          PPE: "$workspace.$id"
+          PROD: "$workspace.$id"
+      item_type: "DataPipeline"
+    - find_key: $.properties.activities[?(@.name=="Load Gold")].typeProperties.workspaceId
+      replace_value:
+          PPE: "$workspace.$id"
+          PROD: "$workspace.$id"
+      item_type: "DataPipeline"

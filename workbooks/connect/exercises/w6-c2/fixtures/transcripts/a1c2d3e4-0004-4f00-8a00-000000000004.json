@@ -1,0 +1,17 @@
+[
+  {
+    "participant": "AGENT",
+    "text": "Larkspur IT service desk, this is [PII].",
+    "beginMillis": 0
+  },
+  {
+    "participant": "CUSTOMER",
+    "text": "I need access to the Finance SharePoint site.",
+    "beginMillis": 4000
+  },
+  {
+    "participant": "AGENT",
+    "text": "I raised access request RITM0098812; your manager will approve it.",
+    "beginMillis": 8000
+  }
+]

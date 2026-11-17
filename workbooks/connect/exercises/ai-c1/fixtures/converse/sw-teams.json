@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "{\"category\": \"software\", \"priority\": \"P3\", \"summary\": \"Teams update fails with access denied.\", \"needsHuman\": true}"
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 412,
+    "outputTokens": 58,
+    "totalTokens": 470
+  },
+  "metrics": {
+    "latencyMs": 640
+  }
+}

@@ -1,0 +1,15 @@
+# kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels
+PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
+catch-all,         0, true,  false, 0,  0,     1043,     0, 0, 0
+exempt,            0, true,  false, 0,  0,   912877,     0, 0, 0
+global-default,    0, true,  false, 0,  0,   210334,     0, 0, 0
+leader-election,   0, true,  false, 0,  0,    88213,     0, 0, 0
+node-high,         0, true,  false, 0,  0,   340119,     0, 0, 0
+system,            0, true,  false, 0,  0,   120440,     0, 0, 0
+workload-high,     0, true,  false, 0,  2,   498120,     0, 0, 0
+workload-low,     11, false, false, 37, 24, 58813402,  1712, 0, 0
+
+# kubectl get flowschema service-accounts -o jsonpath='{.spec.priorityLevelConfiguration.name}'
+workload-low
+# (agent-fleet-operator's ServiceAccount matches the default "service-accounts" FlowSchema.
+#  EKS support suggested a dedicated FlowSchema + PriorityLevelConfiguration for it.)

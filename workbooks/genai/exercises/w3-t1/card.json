@@ -1,0 +1,27 @@
+{
+  "id": "genai/w3-t1",
+  "title": "The assistant's model bill went up 9x overnight",
+  "type": "troubleshooting",
+  "estimate": "1.5-2.5 h",
+  "week": 3,
+  "optional": false,
+  "area": "Production GenAI engineering",
+  "scenario": "The day after a prompt change that enabled long product comparisons, Kestrel's model spend jumped from $410 to $3,710 and comparison questions fail after a long wait. Marketing blames its holiday email. Use the provider usage export and gateway logs to find the cost multiplier and fix the gateway.",
+  "task": [
+    "Group the usage export by request and explain the per-question multiplier",
+    "Explain why only comparison questions fail and rule out the traffic increase",
+    "Fix the gateway: timeout sized to max_tokens, retry only transient errors with backoff, shared attempt cap, cost cap",
+    "Log every attempt with tokens and cost, including discarded ones"
+  ],
+  "acceptance": [
+    "A long answer is billed once; 400 is never retried",
+    "429 honours retry-after, 529 backs off; at most 3 calls per question",
+    "Timeouts go to the fallback once; the cost cap raises BudgetExceeded",
+    "Root cause named with numbers from the evidence"
+  ],
+  "practices": [
+    {"label": "Week 3 - rate limits, retries, timeouts and model fallback", "href": "week3"},
+    {"label": "Week 3 - cost and latency budgets, tokens per call", "href": "week3"},
+    {"label": "Week 5 - resilience patterns: retry budgets and circuit breakers", "href": "week5"}
+  ]
+}

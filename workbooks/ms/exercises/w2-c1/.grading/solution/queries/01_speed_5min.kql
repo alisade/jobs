@@ -1,0 +1,6 @@
+// Fleet dashboard tile: 5-minute tumbling windows per vehicle, last hour.
+Telemetry
+| where Timestamp > ago(1h)
+| summarize AvgSpeedKph = avg(SpeedKph), MaxEngineTempC = max(EngineTempC), Readings = count()
+    by VehicleId, Window = bin(Timestamp, 5m)
+| order by VehicleId asc, Window asc

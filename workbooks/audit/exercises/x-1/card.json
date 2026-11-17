@@ -1,0 +1,25 @@
+{
+  "id": "audit/x-1",
+  "title": "Azure Function cannot reach Gemini: Workload Identity Federation impersonation denied",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 7,
+  "optional": true,
+  "area": "Cross-cloud auth and production hardening",
+  "scenario": "ControlPilot's nightly Azure Function moved from a Google service-account key to keyless Workload Identity Federation. STS accepts the managed identity's Entra token, but impersonating the Gemini service account fails with PERMISSION_DENIED on iam.serviceAccounts.getAccessToken. The cloud team blames the token audience; someone suggests roles/owner. You get the credential config, provider, IAM policies, decoded token claims, logs and a local simulator.",
+  "task": [
+    "Follow the call path hop by hop and find where and why it fails",
+    "Rule the audience theory in or out with evidence",
+    "Fix config/ with least privilege: only this identity may impersonate the service account",
+    "Write root cause, evidence and the rejected shortcuts in ANSWER.md"
+  ],
+  "acceptance": [
+    "The Function's token reaches Gemini in the simulator",
+    "Other identities, other tenants and other audiences are denied",
+    "No over-broad grants, no keys, provider settings unchanged",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 7 Mon - Workload Identity Federation with other clouds", "href": "week7"}
+  ]
+}

@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Java full stack + AI workbook - Spring Boot, Angular, Gemini, ADK, RAG</title>
+<script src="../grades/grades.js"></script>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #c15f3c; --accent-soft: #f6e9e3; --done: #2f7d4f;
+    --done-soft: #e3f1e8; --warn: #9a6700; --warn-soft: #fff4d6; --bad: #b42318; --bad-soft: #fde8e6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #e08a62; --accent-soft: #3a2a23; --done: #5cc287; --done-soft: #1f3327;
+      --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+    --line: #34343a; --accent: #e08a62; --accent-soft: #3a2a23; --done: #5cc287; --done-soft: #1f3327;
+    --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  .themebtn { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+              border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4, .card h4 { margin: 10px 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  ul.plain { padding-left: 18px; margin: 0; }
+  ul.plain li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--bg);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 0 0 8px; }
+  .note { margin: 0 0 18px; padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .note b { color: var(--warn); }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  .grid2 .card { margin-bottom: 0; }
+  .card h3 { margin: 0; font-size: 16px; }
+  .exhead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em;
+         color: var(--accent); background: var(--accent-soft); }
+  .tag.troubleshooting { color: var(--warn); background: var(--warn-soft); }
+  .tag.opt { color: var(--muted); background: var(--bg); border: 1px solid var(--line); }
+  .est { color: var(--muted); font-size: 13px; }
+  .badge { margin-left: auto; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px;
+           background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+  .badge.pass { background: var(--done-soft); color: var(--done); border-color: transparent; }
+  .badge.retry { background: var(--bad-soft); color: var(--bad); border-color: transparent; }
+  .meta { color: var(--muted); font-size: 13px; margin: 4px 0 10px; }
+  .small { font-size: 13px; color: var(--muted); }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .ok { color: var(--done); font-weight: 600; }
+  .no { color: var(--bad); font-weight: 600; }
+  /* self-exam */
+  .subnav { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 16px; }
+  .subnav button, .btn { font: inherit; font-size: 13px; font-weight: 600; background: var(--panel); color: var(--ink);
+       border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+  .subnav button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .q { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
+  .q .qhead { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .q .qhead .area { background: var(--accent-soft); color: var(--accent); border-radius: 99px; padding: 1px 8px; font-weight: 600; }
+  .q .stem { margin: 0 0 10px; }
+  .q label.opt { display: flex; gap: 10px; align-items: flex-start; padding: 5px 8px; border-radius: 6px; cursor: pointer; }
+  .q label.opt:hover { background: var(--bg); }
+  .q label.opt input { margin-top: 4px; flex: none; accent-color: var(--accent); }
+  .q label.opt.right { background: var(--done-soft); }
+  .q label.opt.wrong { background: var(--bad-soft); }
+  .q ol.actions { margin: 4px 0 10px; padding-left: 22px; }
+  .q .seq { display: grid; grid-template-columns: auto 1fr; gap: 6px 10px; align-items: center; margin: 6px 0; }
+  .q .seq select { font: inherit; font-size: 13px; background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+                   border-radius: 6px; padding: 4px 6px; max-width: 100%; }
+  .q .explain { margin-top: 10px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .q .explain.bad { border-left-color: var(--bad); }
+  .q .actionsrow { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+  details.case { background: var(--warn-soft); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 0 0 12px; }
+  details.case summary { font-weight: 700; cursor: pointer; }
+  details.case h4 { margin: 10px 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .timer { position: sticky; top: 52px; z-index: 4; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+           padding: 8px 14px; margin-bottom: 12px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .timer .clock { font: 600 20px ui-monospace, Menlo, monospace; }
+  .timer .clock.low { color: var(--bad); }
+  .scorebox { font-size: 28px; font-weight: 700; }
+  .bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; min-width: 120px; }
+  .bar > div { height: 100%; background: var(--done); }
+  .bar.badbar > div { background: var(--bad); }
+  .tag.design { color: var(--done); background: var(--done-soft); }
+</style>
+
+</head>
+<body>
+<header>
+  <button class="themebtn" id="themebtn" type="button">light / dark</button>
+  <h1>Java full stack + AI workbook - Spring Boot, Angular, Gemini, ADK, RAG</h1>
+  <p>Exercises and self-exams for the <a href="../../java-fullstack-ai-study-plan.html">Java full stack + AI study plan</a>. Scores update after /grade; reload the page.</p>
+</header>
+<nav><div class="inner" id="tabs"></div></nav>
+<main>
+
+<section class="page" id="overview" data-title="Overview">
+  <h2>Java full stack + AI workbook</h2>
+  <p class="lede">Hands-on coding, troubleshooting and design exercises for Kestrel Learning (fictional), an AI tutor
+  for open university courses: a Spring Boot system of record, an Angular learner app, Gemini on Vertex AI, a Python
+  ADK agent on Cloud Run, RAG and evals. One tab per study week, plus weekly self-exams.
+  Everything grades locally and offline: no Google Cloud project, no API keys, models are scripted or recorded.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+  <p class="note"><b>Scores update after /grade; reload the page.</b> Grades come from <code>../grades/grades.js</code>, written by
+  <code>tools/update_grades.py</code> when you run <code>/grade javaai/&lt;id&gt;</code> in Claude Code from the <code>workbooks/</code> folder.
+  Quiz answers save in this browser (localStorage key <code>wb-javaai-v1</code>).</p>
+  <div class="grid2">
+    <div class="card"><h3>How to work an exercise</h3><ol>
+      <li><code>tools/doctor.sh javaai</code> once: JDK 21 + Maven (Java exercises), node 22, uv, python3, jq.</li>
+      <li>Open the week tab, read the card, then the folder README.</li>
+      <li><code>cd javaai/exercises/&lt;id&gt; &amp;&amp; make setup</code> (first run downloads Maven artifacts to ~/.m2, or builds <code>javaai/.venv</code> / <code>javaai/_env/node_modules</code>), solve it, <code>make test</code>, fill in <code>ANSWER.md</code>.</li>
+      <li>From <code>workbooks/</code>: <code>/grade javaai/&lt;id&gt;</code>. Reload this page.</li>
+      <li><code>make clean</code>. Retry as often as you like; every attempt is kept.</li>
+    </ol><p class="small">Do not open <code>.grading/</code> before you submit. Pass mark 70/100. Troubleshooting is graded mostly on root cause and evidence; design exercises are graded by rubric only (0/0 tests).</p></div>
+    <div class="card"><h3>How the local stand-ins work</h3><ul class="plain">
+      <li>Java 21 with Maven: Spring Boot 3.5 with H2 in PostgreSQL mode for Cloud SQL, MockMvc and JdbcTemplate tests, Hibernate statistics for statement counts.</li>
+      <li>Gemini: a scripted client (Java) or recorded generateContent responses with safety ratings (Python); tokens and cost are part of the contract.</li>
+      <li>ADK: the agent loop, callbacks and McpToolset are modelled in small local stand-ins with the same names, so the guardrails are code you write and test.</li>
+      <li>FastAPI with httpx in-process; Google ID tokens signed with test-only RSA keys; Cloud Run settings checked in service.yaml.</li>
+      <li>MCP: the official Python SDK over an in-memory session. RAG: a deterministic embedder. Angular logic: TypeScript + RxJS with jest. SQL plans: SQLite with the same plan shapes.</li>
+    </ul></div>
+  </div>
+  <h3>Self-exam</h3>
+  <ul class="plain"><li>Weekly sets (80 questions): week 1: 11, week 2: 10, week 3: 11, week 4: 10, week 5: 10, week 6: 10, week 7: 10, AI page: 8.</li></ul>
+  <h3>All exercises (16: 8 coding, 7 troubleshooting, 1 design)</h3>
+  <table><tr><th>Id</th><th>Title</th><th>Type</th><th>Week</th><th>Estimate</th><th>Grade</th></tr><tr><td><a href="#ex-w1-c1">javaai/w1-c1</a></td><td>Catalog API: validation, problem details and a schema that enforces itself</td><td>coding</td><td>Week 1</td><td>2-3 h</td><td><span class="badge" data-badge="javaai/w1-c1"></span></td></tr><tr><td><a href="#ex-w1-t1">javaai/w1-t1</a></td><td>The learner dashboard got slow after a small release</td><td>troubleshooting</td><td>Week 1</td><td>1.5-2 h</td><td><span class="badge" data-badge="javaai/w1-t1"></span></td></tr><tr><td><a href="#ex-w2-c1">javaai/w2-c1</a></td><td>Streaming tutor chat: SSE parsing, cancellation and an answer-leak guard</td><td>coding</td><td>Week 2</td><td>2-3 h</td><td><span class="badge" data-badge="javaai/w2-c1"></span></td></tr><tr><td><a href="#ex-w2-t1">javaai/w2-t1</a></td><td>The quiz shows the previous lesson&#x27;s questions and answers are rejected</td><td>troubleshooting</td><td>Week 2</td><td>1-1.5 h</td><td><span class="badge" data-badge="javaai/w2-t1"></span></td></tr><tr><td><a href="#ex-w3-c1">javaai/w3-c1</a></td><td>Quiz generation with Gemini structured output: validate, retry, back off</td><td>coding</td><td>Week 3</td><td>2-3 h</td><td><span class="badge" data-badge="javaai/w3-c1"></span></td></tr><tr><td><a href="#ex-w3-t1">javaai/w3-t1</a></td><td>Generate quiz fails for biology, history and psychology lessons</td><td>troubleshooting</td><td>Week 3</td><td>1.5 h</td><td><span class="badge" data-badge="javaai/w3-t1"></span></td></tr><tr><td><a href="#ex-w4-c1">javaai/w4-c1</a></td><td>Tutor agent service on Cloud Run: ID-token auth, scoped tools, guardrails</td><td>coding</td><td>Week 4</td><td>2-3 h</td><td><span class="badge" data-badge="javaai/w4-c1"></span></td></tr><tr><td><a href="#ex-w4-t1">javaai/w4-t1</a></td><td>The tutor is slow at 09:00 and some answers never arrive</td><td>troubleshooting</td><td>Week 4</td><td>1.5 h</td><td><span class="badge" data-badge="javaai/w4-t1"></span></td></tr><tr><td><a href="#ex-w5-c1">javaai/w5-c1</a></td><td>Retrieval eval for the course tutor: chunking, recall@k, MRR and a CI gate</td><td>coding</td><td>Week 5</td><td>2-3 h</td><td><span class="badge" data-badge="javaai/w5-c1"></span></td></tr><tr><td><a href="#ex-w5-t1">javaai/w5-t1</a></td><td>The tutor cites the wrong lessons after a content release</td><td>troubleshooting</td><td>Week 5</td><td>1-1.5 h</td><td><span class="badge" data-badge="javaai/w5-t1"></span></td></tr><tr><td><a href="#ex-w6-c1">javaai/w6-c1</a></td><td>Tune or prompt? Build the tuning set and pick a model with numbers</td><td>coding</td><td>Week 6</td><td>2-3 h</td><td><span class="badge" data-badge="javaai/w6-c1"></span></td></tr><tr><td><a href="#ex-w6-t1">javaai/w6-t1</a></td><td>The dashboard&#x27;s Recent activity card got slow as data grew</td><td>troubleshooting</td><td>Week 6</td><td>1-1.5 h</td><td><span class="badge" data-badge="javaai/w6-t1"></span></td></tr><tr><td><a href="#ex-ai-c1">javaai/ai-c1</a></td><td>A read-only learner-progress MCP server for the tutor agent</td><td>coding</td><td>AI Integration</td><td>2 h</td><td><span class="badge" data-badge="javaai/ai-c1"></span></td></tr><tr><td><a href="#ex-ai-t1">javaai/ai-t1</a></td><td>The tutor marked lessons mastered that learners never attempted</td><td>troubleshooting</td><td>AI Integration</td><td>1-1.5 h</td><td><span class="badge" data-badge="javaai/ai-t1"></span></td></tr><tr><td><a href="#ex-x-1">javaai/x-1</a></td><td>Bounded contexts, write ownership and the schema for twelve universities</td><td>design (optional)</td><td>Week 7 (add-on)</td><td>2-3 h</td><td><span class="badge" data-badge="javaai/x-1"></span></td></tr><tr><td><a href="#ex-x-2">javaai/x-2</a></td><td>When will the tutor portfolio be done? Flow metrics and a Monte Carlo forecast</td><td>coding (optional)</td><td>Week 7 (add-on)</td><td>1.5-2 h</td><td><span class="badge" data-badge="javaai/x-2"></span></td></tr></table>
+</section>
+
+<section class="page" id="w1" data-title="Week 1">
+  <h2>Week 1 - Java 21 and Spring Boot backend</h2>
+  <p class="lede">REST with Bean Validation, problem details, JPA and Flyway, the N+1 problem and indexes. Study guide: <a href="../../java-fullstack-ai-study-plan.html#week1">Week 1</a>.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+  
+  <div class="card ex" data-ex="javaai/w1-c1" id="ex-w1-c1">
+    <div class="exhead">
+      <h3>Catalog API: validation, problem details and a schema that enforces itself</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="javaai/w1-c1"></span>
+    </div>
+    <p class="meta"><code>javaai/w1-c1</code> &middot; Java and Spring Boot</p>
+    <p><b>Scenario.</b> Kestrel Learning&#x27;s Spring Boot catalog API (courses, lessons, quiz items, attempts) shipped fast: bad input is stored or answered with a 500, two authors created the same slug, the learner quiz JSON carries the answer key, the list endpoint honours size=100000 and the database enforces nothing. V1 of the schema is already applied everywhere.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Bean Validation on the request records, including a class-level constraint for answerIndex and distinct options</li><li>RFC 9457 problem details with an errors array; 404 and 409 mapped, races backstopped by constraints</li><li>A learner view without the key or explanation</li><li>Page-size cap and page validation</li><li>A V2 Flyway migration with unique, FK and CHECK constraints and a learner index; V1 untouched</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Hidden MockMvc tests: status codes, application/problem+json, field names in errors</li><li>Hidden JdbcTemplate tests prove the database rejects bad rows</li><li>V1 checksum unchanged, a later migration applied</li><li>ANSWER.md explains the two layers and a safe rollout against dirty data</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w1-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w1-c1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w1-c1/</code> &middot; <a href="exercises/w1-c1/README.md">README</a> &middot; <a href="exercises/w1-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week1">Week 1 Tue - Spring Boot REST, records and Bean Validation</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week1">Week 1 Wed - Spring Data JPA and Flyway migrations</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week1">Week 1 Thu - problem details, error handling and tests</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="javaai/w1-t1" id="ex-w1-t1">
+    <div class="exhead">
+      <h3>The learner dashboard got slow after a small release</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5-2 h</span>
+      <span class="badge" data-badge="javaai/w1-t1"></span>
+    </div>
+    <p class="meta"><code>javaai/w1-t1</code> &middot; Java and Spring Boot</p>
+    <p><b>Scenario.</b> The day after progress-api 0.9.0 (per-lesson progress for every enrolled course), semester traffic arrived: p95 4 s, Cloud SQL CPU 98%, HikariCP &#x27;Connection is not available&#x27;. L2 wants pool size 50 and 12 instances. You get the page, request logs with Hibernate session metrics, Query Insights numbers and the code.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find the root cause and reproduce it with a statement count</li><li>Judge the pool-size proposal with numbers</li><li>Make statements per request a small constant with identical JSON</li><li>Back the replacement query with an index in a new migration</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Hibernate statistics: &lt;= 4 statements, independent of data size</li><li>Response unchanged for small, large and empty learners</li><li>Pool not raised; learner_id index present</li><li>Root cause and evidence in ANSWER.md</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w1-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w1-t1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w1-t1/</code> &middot; <a href="exercises/w1-t1/README.md">README</a> &middot; <a href="exercises/w1-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week1">Week 1 Wed - Spring Data JPA, fetch plans and the N+1 problem</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week1">Week 1 Fri - indexes, EXPLAIN and performance</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w2" data-title="Week 2">
+  <h2>Week 2 - Angular and TypeScript front end</h2>
+  <p class="lede">Signals and RxJS, streamed responses, cancellation and races, testing framework-free logic. Study guide: <a href="../../java-fullstack-ai-study-plan.html#week2">Week 2</a>.</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+  
+  <div class="card ex" data-ex="javaai/w2-c1" id="ex-w2-c1">
+    <div class="exhead">
+      <h3>Streaming tutor chat: SSE parsing, cancellation and an answer-leak guard</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="javaai/w2-c1"></span>
+    </div>
+    <p class="meta"><code>javaai/w2-c1</code> &middot; Angular and TypeScript</p>
+    <p><b>Scenario.</b> Kestrel&#x27;s Angular tutor panel streams the agent&#x27;s answer over SSE. Pilot bugs: lost words and broken characters, two answers mixed when a learner asks again, a spinner that never stops when the agent is down, and a reply that spelled out the answer to the learner&#x27;s open quiz question. The logic is framework-free TypeScript + RxJS tested with jest.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>parseSse that survives chunks cut anywhere, including inside UTF-8 characters</li><li>A streaming leak guard that redacts quiz answers split across tokens</li><li>A store with latest-wins cancellation, error states and a first-token timeout</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Hidden jest tests cut the stream at every byte offset</li><li>Guard: across tokens, no false positives, no early prefix</li><li>Store: cancellation, flush on done, citations, errors, timeout</li><li>ANSWER.md: Angular wiring and why the server guard stays</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w2-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w2-c1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w2-c1/</code> &middot; <a href="exercises/w2-c1/README.md">README</a> &middot; <a href="exercises/w2-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week2">Week 2 Tue - signals and RxJS</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week2">Week 2 Wed - HttpClient and streamed responses</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week2">Week 2 Thu - testing services and components</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="javaai/w2-t1" id="ex-w2-t1">
+    <div class="exhead">
+      <h3>The quiz shows the previous lesson&#x27;s questions and answers are rejected</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1-1.5 h</span>
+      <span class="badge" data-badge="javaai/w2-t1"></span>
+    </div>
+    <p class="meta"><code>javaai/w2-t1</code> &middot; Angular and TypeScript</p>
+    <p><b>Scenario.</b> On slow connections learners click a new lesson and still see the previous lesson&#x27;s quiz; submitting fails with a 409 &#x27;quiz item does not belong to lesson&#x27;. L2 blames CDN caching and wants no-store. You get a HAR summary, client error beacons, CDN headers and the RxJS store behind the screen.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Reproduce the bug in a test with responses released out of order</li><li>Rule the cache theory in or out</li><li>Fix the store: latest wins, cancel in flight, clear and gate submit</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Hidden jest tests for ordering, cancellation, gating and recovery</li><li>Root cause and evidence in ANSWER.md</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w2-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w2-t1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w2-t1/</code> &middot; <a href="exercises/w2-t1/README.md">README</a> &middot; <a href="exercises/w2-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week2">Week 2 Tue - RxJS flattening operators</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week2">Week 2 Wed - HttpClient and cancellation</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w3" data-title="Week 3">
+  <h2>Week 3 - Gemini on Vertex AI in production</h2>
+  <p class="lede">Structured output with validation and retries, 429 backoff, safety filters and blocked responses, cost. Study guide: <a href="../../java-fullstack-ai-study-plan.html#week3">Week 3</a>.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+  
+  <div class="card ex" data-ex="javaai/w3-c1" id="ex-w3-c1">
+    <div class="exhead">
+      <h3>Quiz generation with Gemini structured output: validate, retry, back off</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="javaai/w3-c1"></span>
+    </div>
+    <p class="meta"><code>javaai/w3-c1</code> &middot; Gemini on Vertex AI</p>
+    <p><b>Scenario.</b> Kestrel&#x27;s /quiz/generate prototype calls Gemini once in text mode and trusts the JSON. The pilot got 3-option items, answerIndex 4, citations to sections that do not exist, stems that gave the answer away, and a 500 storm when PayGo capacity was tight at 09:00. Make it production-grade in Java 21 against a scripted Gemini fake.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Response schema in Gemini&#x27;s OpenAPI-subset style and JSON mode on the request</li><li>A validator for meaning: counts, ranges, distinct options, grounding, giveaways</li><li>Corrective retries with the problems fed back, capped at 3</li><li>SAFETY and RECITATION as Blocked; full-jitter backoff with Retry-After and a deadline</li><li>Tokens and cost summed across attempts</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Hidden JUnit tests for request, schema, each validation rule and retry path</li><li>Exact backoff sleeps and no sleep past the deadline</li><li>No exception escapes generate()</li><li>ANSWER.md: why validate under a schema, Blocked vs Failed, retry cost</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w3-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w3-c1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w3-c1/</code> &middot; <a href="exercises/w3-c1/README.md">README</a> &middot; <a href="exercises/w3-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week3">Week 3 Mon - structured output from Java</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week3">Week 3 Tue - quotas, PayGo 429s and backoff</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week3">Week 3 Wed - safety filters</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="javaai/w3-t1" id="ex-w3-t1">
+    <div class="exhead">
+      <h3>Generate quiz fails for biology, history and psychology lessons</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5 h</span>
+      <span class="badge" data-badge="javaai/w3-t1"></span>
+    </div>
+    <p class="meta"><code>javaai/w3-t1</code> &middot; Gemini on Vertex AI</p>
+    <p><b>Scenario.</b> Since Monday&#x27;s release 2.3, Generate quiz returns 500 for many biology, history and psychology lessons while statistics and CS work. Error rate 2.3% to 17.8%. L2 sees 429s and wants a quota increase and more retries. You get logs for both days, the release diff, metrics and a replay of the model with recorded safety ratings.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find the change and the mechanism that turns it into a 500</li><li>Explain the errors that existed before the release</li><li>Rule the quota theory in or out</li><li>Restore the right thresholds and return a graceful 422 for blocked content</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>No lesson returns 500; ordinary lessons generate again</li><li>Blocked responses: 422 with status, source, category, message</li><li>All four categories configured, not LOW_AND_ABOVE, not NONE</li><li>Root cause and evidence in ANSWER.md</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w3-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w3-t1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w3-t1/</code> &middot; <a href="exercises/w3-t1/README.md">README</a> &middot; <a href="exercises/w3-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week3">Week 3 Wed - safety filters and blocked responses</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week3">Week 3 Tue - quotas, PayGo and 429s</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w4" data-title="Week 4">
+  <h2>Week 4 - Python FastAPI and ADK on Cloud Run</h2>
+  <p class="lede">ID-token auth, scoped tools and callbacks, async vs blocking calls, Cloud Run concurrency and timeouts. Study guide: <a href="../../java-fullstack-ai-study-plan.html#week4">Week 4</a>.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+  
+  <div class="card ex" data-ex="javaai/w4-c1" id="ex-w4-c1">
+    <div class="exhead">
+      <h3>Tutor agent service on Cloud Run: ID-token auth, scoped tools, guardrails</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="javaai/w4-c1"></span>
+    </div>
+    <p class="meta"><code>javaai/w4-c1</code> &middot; ADK agents, FastAPI and Cloud Run</p>
+    <p><b>Scenario.</b> Kestrel&#x27;s FastAPI tutor agent (ADK-style tools and callbacks, called by the Spring Boot API with a Google-signed ID token) trusts everything: no auth, the model can call a write tool, read any learner&#x27;s progress, loop forever and tell a learner the quiz answer.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Verify the caller&#x27;s ID token: RS256, audience, issuer, expiry, allowed service account (401 vs 403)</li><li>Offer and run only read tools; feed errors back; bind learner and course to the session</li><li>Bound the tool loop with a fallback reply</li><li>Before-model topic guard and after-model answer-leak guard</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Hidden tests for every bad-token case and the model never being reached</li><li>Write tool never executes; scoping and loop bound hold</li><li>Both guards behave and normal hints pass through</li><li>ANSWER.md maps the design onto ADK callbacks and tool filters</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w4-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w4-c1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w4-c1/</code> &middot; <a href="exercises/w4-c1/README.md">README</a> &middot; <a href="exercises/w4-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week4">Week 4 Tue - ADK agents, function tools and callbacks</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week4">Week 4 Thu - service-to-service auth on Cloud Run</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week4">Week 4 Mon - FastAPI with Pydantic models</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="javaai/w4-t1" id="ex-w4-t1">
+    <div class="exhead">
+      <h3>The tutor is slow at 09:00 and some answers never arrive</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1.5 h</span>
+      <span class="badge" data-badge="javaai/w4-t1"></span>
+    </div>
+    <p class="meta"><code>javaai/w4-t1</code> &middot; ADK agents, FastAPI and Cloud Run</p>
+    <p><b>Scenario.</b> At the 09:00 cohort start the FastAPI tutor on Cloud Run takes 10-25 s and 6% of turns end in 504s. Gemini latency is unchanged, CPU is under 10% and only 2-3 of 20 instances run. L2 blames cold starts and wants min instances 5. You get the service.yaml, the code, request logs and metrics.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find why one instance serves one turn at a time and prove it with make load</li><li>Explain why the autoscaler did not add instances and where the 504s come from</li><li>Rule cold starts in or out</li><li>Fix the handler and the Cloud Run concurrency and timeout</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Concurrent turns overlap; health checks answer during load</li><li>timeoutSeconds &gt;= 120, containerConcurrency 2-40, ingress internal</li><li>Root cause and evidence in ANSWER.md</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w4-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w4-t1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w4-t1/</code> &middot; <a href="exercises/w4-t1/README.md">README</a> &middot; <a href="exercises/w4-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week4">Week 4 Wed - Cloud Run concurrency, CPU allocation and timeouts</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week4">Week 4 Mon - FastAPI async vs sync handlers</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w5" data-title="Week 5">
+  <h2>Week 5 - RAG on GCP and retrieval evals</h2>
+  <p class="lede">Chunking and metadata, filtered retrieval, recall@k and MRR, eval gates, ingestion identity. Study guide: <a href="../../java-fullstack-ai-study-plan.html#week5">Week 5</a>.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+  
+  <div class="card ex" data-ex="javaai/w5-c1" id="ex-w5-c1">
+    <div class="exhead">
+      <h3>Retrieval eval for the course tutor: chunking, recall@k, MRR and a CI gate</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="javaai/w5-c1"></span>
+    </div>
+    <p class="meta"><code>javaai/w5-c1</code> &middot; RAG and evaluation</p>
+    <p><b>Scenario.</b> Before anyone judges generated tutor answers, Kestrel needs to know whether the right lesson section comes back. Build the offline harness that runs in CI: two chunking strategies, a course-filtered index, section-level recall@k and MRR, and a gate against a stored baseline, on two open courses with 32 labeled questions.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Fixed-size-with-overlap and heading-aware chunkers that keep citation metadata</li><li>Top-k search filtered to the learner&#x27;s course before ranking</li><li>Section-level recall@k and MRR with dedupe</li><li>An evaluate report and a CI gate with reasons</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Hand-computed metric cases and exact chunk windows</li><li>No cross-course results</li><li>Heading-aware beats fixed on MRR; the CLI gate passes</li><li>ANSWER.md interprets the numbers and plans next steps</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w5-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w5-c1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w5-c1/</code> &middot; <a href="exercises/w5-c1/README.md">README</a> &middot; <a href="exercises/w5-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week5">Week 5 Mon - chunking and metadata</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week5">Week 5 Thu - retrieval metrics and CI gates</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="javaai/w5-t1" id="ex-w5-t1">
+    <div class="exhead">
+      <h3>The tutor cites the wrong lessons after a content release</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1-1.5 h</span>
+      <span class="badge" data-badge="javaai/w5-t1"></span>
+    </div>
+    <p class="meta"><code>javaai/w5-t1</code> &middot; RAG and evaluation</p>
+    <p><b>Scenario.</b> Since this morning the Microbiology tutor cites lessons one off and some links 404. The release eval fell from 0.90 to 0.05 recall@3 on the content merge, but the gate is advisory. The ingest release the day before also changed the embedding model, and L2 wants to roll it back and re-embed for 4 hours.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Prove where the ids come from and what changed</li><li>Rule the embedding-model theory in or out</li><li>Make ids content-derived, validated and order independent</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Ids from front matter; renames change nothing</li><li>Missing and duplicate ids raise; recall@3 &gt;= 0.9; idempotent</li><li>Root cause and evidence in ANSWER.md</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w5-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w5-t1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w5-t1/</code> &middot; <a href="exercises/w5-t1/README.md">README</a> &middot; <a href="exercises/w5-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week5">Week 5 Mon - chunking and metadata</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week5">Week 5 Thu - retrieval evals as release gates</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w6" data-title="Week 6">
+  <h2>Week 6 - Tuning, evaluation and data at scale</h2>
+  <p class="lede">Supervised tuning data, comparing candidates on one eval set, composite indexes and EXPLAIN. Study guide: <a href="../../java-fullstack-ai-study-plan.html#week6">Week 6</a>.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+  
+  <div class="card ex" data-ex="javaai/w6-c1" id="ex-w6-c1">
+    <div class="exhead">
+      <h3>Tune or prompt? Build the tuning set and pick a model with numbers</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="javaai/w6-c1"></span>
+    </div>
+    <p class="meta"><code>javaai/w6-c1</code> &middot; Tuning and evaluation</p>
+    <p><b>Scenario.</b> Course Ops wrote 309 quiz items in the house style and asked whether a tuned Flash-Lite can replace prompted Flash. Recorded outputs exist for three candidates on a 50-item held-out set. Build the supervised tuning dataset (format, duplicates, leakage, split) and the comparison that decides what ships.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Gemini supervised tuning JSONL examples</li><li>Dedupe, leakage check and a deterministic hash split with a report</li><li>Strict output parsing, correctness, grounding, cost per 1,000 and latency percentiles</li><li>A decision rule and a written recommendation</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Exact dataset counts and order-independent split</li><li>Scores match the reference for all candidates</li><li>pick() under three threshold settings</li><li>ANSWER.md recommends with caveats</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w6-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w6-c1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w6-c1/</code> &middot; <a href="exercises/w6-c1/README.md">README</a> &middot; <a href="exercises/w6-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week6">Week 6 Mon - when tuning beats prompting and RAG</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week6">Week 6 Tue - supervised tuning data</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week6">Week 6 Wed - comparing candidates on one eval set</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="javaai/w6-t1" id="ex-w6-t1">
+    <div class="exhead">
+      <h3>The dashboard&#x27;s Recent activity card got slow as data grew</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1-1.5 h</span>
+      <span class="badge" data-badge="javaai/w6-t1"></span>
+    </div>
+    <p class="meta"><code>javaai/w6-t1</code> &middot; Data and schema design</p>
+    <p><b>Scenario.</b> The learner dashboard&#x27;s Recent activity query takes 1.5-4 s on 41M quiz attempts and Cloud SQL CPU is 80-90%. The query has not changed since July; VACUUM ANALYZE changed nothing. You get Query Insights, a PostgreSQL plan, the migrations and a 200k-row local copy (SQLite, same plan shapes).</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Explain from the plans why the existing index does not help</li><li>Rule vacuum and buffers in or out</li><li>Add an additive V7 index and fix the predicate without changing results</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>V1-V6 untouched; V7 additive</li><li>Plan searches by learner, course and the created_at range, no temp sort</li><li>Same rows, inclusive boundary day</li><li>Root cause and evidence in ANSWER.md</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/w6-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/w6-t1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/w6-t1/</code> &middot; <a href="exercises/w6-t1/README.md">README</a> &middot; <a href="exercises/w6-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week6">Week 6 Thu - indexes, EXPLAIN and composite index order</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week6">Week 6 Fri - migrations at scale</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI Integration - AI integration fundamentals</h2>
+  <p class="lede">The shared AI Integration page applied to this role: an MCP server designed around tasks, and a prompt injection that made the tutor write. Study guide: <a href="../../java-fullstack-ai-study-plan.html#ai">AI Integration</a>.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+  
+  <div class="card ex" data-ex="javaai/ai-c1" id="ex-ai-c1">
+    <div class="exhead">
+      <h3>A read-only learner-progress MCP server for the tutor agent</h3>
+      <span class="tag coding">coding</span>
+      <span class="est">2 h</span>
+      <span class="badge" data-badge="javaai/ai-c1"></span>
+    </div>
+    <p class="meta"><code>javaai/ai-c1</code> &middot; AI integration fundamentals</p>
+    <p><b>Scenario.</b> The tutor agent&#x27;s MCP server is a 1:1 copy of the catalog REST API: the model chooses any learner_id, raw objects carry the quiz answer and email, a write tool is exposed, and one lesson body hides an instruction for AI tutors to call it. Redesign it around the tutor&#x27;s tasks with the Python MCP SDK.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Three task-shaped, read-only, well-described tools</li><li>Learner bound to the session; enrollment scoping</li><li>Outputs without answers or PII; bounded, stripped, labelled lesson text</li><li>An actionable outage error</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Hidden tests over the MCP protocol for tools, annotations and schemas</li><li>Scoping, output shapes and no reachable write</li><li>ANSWER.md: ADK McpToolset wiring and why per-session binding</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/ai-c1
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/ai-c1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/ai-c1/</code> &middot; <a href="exercises/ai-c1/README.md">README</a> &middot; <a href="exercises/ai-c1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#ai">AI Integration - 1 tool design and 4 security</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week4">Week 4 Fri - MCP in ADK</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="javaai/ai-t1" id="ex-ai-t1">
+    <div class="exhead">
+      <h3>The tutor marked lessons mastered that learners never attempted</h3>
+      <span class="tag troubleshooting">troubleshooting</span>
+      <span class="est">1-1.5 h</span>
+      <span class="badge" data-badge="javaai/ai-t1"></span>
+    </div>
+    <p class="meta"><code>javaai/ai-t1</code> &middot; AI integration fundamentals</p>
+    <p><b>Scenario.</b> 37 learners have two lessons marked mastered without a quiz, and certificates come from mastery. The writes came from the tutor agent&#x27;s service account. The tutor switched Gemini versions the day before; L2 wants to roll back and make the NEVER-call instruction louder. You get the agent config, tool-call logs, the mastery audit and a lesson diff.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Find what made the tutor write and why it could</li><li>Rule the model-version theory in or out</li><li>Filter the toolset, enforce a read-only allow-list in code, sanitise and label content</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>No write from the injected lesson; read tools only offered</li><li>Writes refused even with the filter removed</li><li>Root cause and evidence in ANSWER.md</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/ai-t1
+make setup      # deps + incident bundle
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/ai-t1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/ai-t1/</code> &middot; <a href="exercises/ai-t1/README.md">README</a> &middot; <a href="exercises/ai-t1/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#ai">AI Integration - 4 security</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week4">Week 4 Fri - MCP in ADK and tool filters</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="w7" data-title="Week 7 (add-on)">
+  <h2>Week 7 (add-on) - Architecture and delivery</h2>
+  <p class="lede">Optional: bounded contexts and the schema for twelve universities, and a Kanban Monte Carlo forecast. Study guide: <a href="../../java-fullstack-ai-study-plan.html#week7">Week 7 (add-on)</a>.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+  
+  <div class="card ex" data-ex="javaai/x-1" id="ex-x-1">
+    <div class="exhead">
+      <h3>Bounded contexts, write ownership and the schema for twelve universities</h3>
+      <span class="tag design">design</span><span class="tag opt">optional</span>
+      <span class="est">2-3 h</span>
+      <span class="badge" data-badge="javaai/x-1"></span>
+    </div>
+    <p class="meta"><code>javaai/x-1</code> &middot; Architecture and delivery</p>
+    <p><b>Scenario.</b> Kestrel grows from one pilot university to twelve. The Spring Boot catalog API is a shared tangle, every feature asks for a microservice, generated drafts once leaked to learners, quiz attempts grow 6M rows a month, transcripts are not stored and three universities need logically isolated data. Write the design document for the architecture review.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Ubiquitous language, bounded contexts and a context map</li><li>Aggregates, invariants and write ownership; events with an outbox</li><li>Modular monolith with Spring Modulith vs separate services, with reasons</li><li>Schema, partitioning, analytics, tenancy, retention and a migration path</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Rubric-graded (0/0 tests): decisions tied to the constraints</li><li>Concrete tables, constraints and indexes with named queries</li><li>A stepwise migration with checks</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/x-1
+make setup      # nothing to install; read inputs/
+# write DESIGN.md and ANSWER.md
+make test       # completeness report (rubric-graded, no tests)
+# from workbooks/ in Claude Code:
+/grade javaai/x-1
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/x-1/</code> &middot; <a href="exercises/x-1/README.md">README</a> &middot; <a href="exercises/x-1/ANSWER.md">ANSWER.md</a> &middot; <a href="exercises/x-1/DESIGN.md">DESIGN.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week7">Week 7 Mon - DDD and bounded contexts</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week7">Week 7 Tue - Spring Modulith and service boundaries</a></li><li><a href="../../java-fullstack-ai-study-plan.html#week7">Week 7 Wed - schema design, partitioning and tenancy</a></li></ul></div>
+    </div>
+  </div>
+  <div class="card ex" data-ex="javaai/x-2" id="ex-x-2">
+    <div class="exhead">
+      <h3>When will the tutor portfolio be done? Flow metrics and a Monte Carlo forecast</h3>
+      <span class="tag coding">coding</span><span class="tag opt">optional</span>
+      <span class="est">1.5-2 h</span>
+      <span class="badge" data-badge="javaai/x-2"></span>
+    </div>
+    <p class="meta"><code>javaai/x-2</code> &middot; Architecture and delivery</p>
+    <p><b>Scenario.</b> After 12 weeks on a Kanban board, the product lead asks when the remaining 40 items will be done and what the team can promise for the next four weeks. Estimates have been wrong every sprint; answer from throughput history with a seeded Monte Carlo forecast.</p>
+    <div class="cols">
+      <div><h4>Task</h4><ul class="plain"><li>Weekly throughput with zero weeks, cycle times, nearest-rank percentiles</li><li>A seeded Monte Carlo of weeks to finish, with a cap and an empty-history error</li><li>Finish dates by confidence and items in N weeks at the low end</li><li>Little&#x27;s law and a message to the product lead</li></ul></div>
+      <div><h4>Acceptance criteria</h4><ul class="plain"><li>Exact numbers on the data and hand cases</li><li>Seeded results reproducible</li><li>ANSWER.md communicates ranges and assumptions</li></ul></div>
+    </div>
+    <div class="cols">
+      <div><h4>Run it</h4>
+<pre>cd javaai/exercises/x-2
+make setup      # deps
+make test       # visible tests
+# fill in ANSWER.md, then from workbooks/ in Claude Code:
+/grade javaai/x-2
+make clean</pre>
+        <p class="small">Folder: <code>javaai/exercises/x-2/</code> &middot; <a href="exercises/x-2/README.md">README</a> &middot; <a href="exercises/x-2/ANSWER.md">ANSWER.md</a></p>
+      </div>
+      <div><h4>Practices (study guide)</h4><ul class="links"><li><a href="../../java-fullstack-ai-study-plan.html#week7">Week 7 Thu - Kanban, flow metrics and forecasting</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="page" id="selfexam" data-title="Self-exam">
+  <h2>Self-exam</h2>
+  <p class="lede">Scenario questions per study week. Check each answer to see the explanation and the docs it comes from.</p>
+  <div class="subnav" id="se-nav"></div>
+  <div id="se-root"></div>
+</section>
+
+<section class="page" id="scoreboard" data-title="Scoreboard">
+  <h2>Scoreboard</h2>
+  <p class="lede">Exercise scores come from <code>../grades/grades.js</code> (reload after <code>/grade</code>); quiz and mock scores from this browser.</p>
+  <p class="card" id="sb-overall"></p>
+  <h3>Exercises</h3>
+  <table><thead><tr><th>Exercise</th><th>Title</th><th>Type</th><th>Latest</th><th>Best</th><th>Status</th><th>Attempts</th><th>Feedback</th></tr></thead><tbody id="sb-ex"></tbody></table>
+  <h3>Weekly quizzes</h3>
+  <table><thead><tr><th>Set</th><th>Correct / checked</th><th>Checked / total</th><th>%</th></tr></thead><tbody id="sb-quiz"></tbody></table>
+  <table style="display:none"><tbody id="sb-mock"></tbody></table>
+</section>
+</main>
+<script>window.JAVAAI_DATA = {"areas":[{"key":"java","name":"Java and Spring Boot"},{"key":"angular","name":"Angular and TypeScript"},{"key":"gemini","name":"Gemini on Vertex AI"},{"key":"adk","name":"ADK agents, FastAPI and Cloud Run"},{"key":"rag","name":"RAG and evaluation"},{"key":"tuning","name":"Tuning and evaluation"},{"key":"data","name":"Data and schema design"},{"key":"arch","name":"Architecture and delivery"},{"key":"delivery","name":"Kanban and forecasting"},{"key":"ai","name":"AI integration fundamentals"}],"weekly":[{"id":"w1-q01","week":1,"set":"weekly","area":"java","type":"single","stem":"Kestrel's grader models questions as <code>sealed interface Question permits MultipleChoice, ShortAnswer, TrueFalse<\/code> with records for each. A colleague adds a fourth record <code>Ordering<\/code> to the permits list. What happens to <code>switch (q) { case MultipleChoice m -&gt; ...; case ShortAnswer s -&gt; ...; case TrueFalse t -&gt; ...; }<\/code> used as an expression?","options":["It compiles and throws MatchException at run time for Ordering","It no longer compiles: the switch expression is not exhaustive over the sealed hierarchy","It compiles and returns null for Ordering","It compiles only if a default branch already exists elsewhere in the class"],"answer":[1],"explanation":"Pattern-matching switch over a sealed type must be exhaustive; adding a permitted subtype makes every exhaustive switch without a default a compile error, which is exactly why sealed types plus switch are safer than visitor or instanceof chains.","learn":[{"label":"Pattern matching","href":"https://docs.oracle.com/en/java/javase/21/language/pattern-matching.html"},{"label":"Records (Java 21)","href":"https://docs.oracle.com/en/java/javase/21/language/records.html"}]},{"id":"w1-q02","week":1,"set":"weekly","area":"java","type":"multi","stem":"The quiz-generation endpoint makes a blocking 2-6 s HTTPS call to Gemini per request. Under load the Tomcat pool of 200 threads is exhausted while CPU is at 15%. Which TWO changes address the cause on Java 21 and Spring Boot 3.2+?","options":["Set spring.threads.virtual.enabled=true so each request runs on a virtual thread","Raise -Xmx to 8 GB","Use a reactive or async HTTP client, or keep the blocking client and let virtual threads park while waiting","Wrap the call in synchronized to serialise it","Lower the JDBC pool size to free threads"],"answer":[0,2],"explanation":"The threads are parked on network I/O, not computing. Virtual threads make blocking cheap (the carrier thread is released while waiting), or an async client avoids holding a thread at all. Watch for pinning (synchronized blocks around I/O on older JDKs) and keep an outbound concurrency limit so you do not just move the queue to Gemini's 429s.","learn":[{"label":"Virtual threads","href":"https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html"},{"label":"Spring Boot reference","href":"https://docs.spring.io/spring-boot/index.html"}],"choose":2},{"id":"w1-q03","week":1,"set":"weekly","area":"java","type":"single","stem":"A learner-facing record <code>QuizItemLearnerView(Long id, String stem, List&lt;String&gt; options)<\/code> is built from the entity's mutable <code>ArrayList<\/code>. What is the risk and the idiomatic fix?","options":["None: records are deeply immutable","The record holds a reference to the mutable list, so later changes leak in; copy defensively in the compact constructor with List.copyOf(options)","Records cannot hold collections; use an array","Mark the field transient"],"answer":[1],"explanation":"Records make the fields final, not the objects they point to. A compact constructor with <code>options = List.copyOf(options)<\/code> gives an unmodifiable snapshot (and rejects nulls).","learn":[{"label":"Records (Java 21)","href":"https://docs.oracle.com/en/java/javase/21/language/records.html"}]},{"id":"w1-q04","week":1,"set":"weekly","area":"java","type":"single","stem":"The catalog API returns a 500 with a stack trace when an author posts a duplicate course slug. Which design gives a correct result even when two authors submit the same slug at the same instant?","options":["Check findBySlug() before insert and return 409 if present","A unique constraint in the database, mapped from DataIntegrityViolationException to a 409 problem detail, with the pre-check kept only for a friendly message","Synchronize the controller method","Retry the insert until it succeeds"],"answer":[1],"explanation":"A select-then-insert check races; only the database can enforce uniqueness across concurrent transactions and other writers. Map the violation to 409 in one @RestControllerAdvice.","learn":[{"label":"Spring Boot reference","href":"https://docs.spring.io/spring-boot/index.html"},{"label":"Spring Data JPA","href":"https://spring.io/projects/spring-data-jpa/"}]},{"id":"w1-q05","week":1,"set":"weekly","area":"java","type":"single","stem":"V1__catalog.sql is applied in every environment. You need a unique constraint on course.slug. What is the correct move with Flyway?","options":["Edit V1 and run flyway repair in every environment","Add V2__course_slug_unique.sql; on PostgreSQL, find and clean duplicates first and build the index concurrently","Let Hibernate ddl-auto=update add it","Drop and recreate the schema in production"],"answer":[1],"explanation":"Applied migrations are immutable: Flyway validates checksums and the deploy fails if V1 changes. New changes go in new versions; on a large live table use CREATE UNIQUE INDEX CONCURRENTLY (non-transactional migration) and then attach the constraint.","learn":[{"label":"Flyway documentation","href":"https://documentation.red-gate.com/flyway"}]},{"id":"w1-q06","week":1,"set":"weekly","area":"java","type":"multi","stem":"The progress endpoint loops over enrollments, then <code>course.getLessons()<\/code>, then queries attempts per lesson. A learner in 8 courses of 15 lessons triggers 137 SQL statements. Which fixes keep the statement count constant? Choose TWO.","options":["A JPQL fetch join (or @EntityGraph) for enrollment, course and lessons","Raise the Hikari pool size","A single grouped aggregate query for attempts per lesson for the learner","Enable spring.jpa.open-in-view","Set hibernate.default_batch_fetch_size=16"],"answer":[0,2],"explanation":"Fetch joins load the graph in one statement and a GROUP BY tally replaces the per-lesson queries. Batch fetching reduces the count by a factor but still grows with data; open-in-view hides lazy loading rather than removing it; the pool is a symptom.","learn":[{"label":"Spring Data JPA","href":"https://spring.io/projects/spring-data-jpa/"}],"choose":2},{"id":"w1-q07","week":1,"set":"weekly","area":"java","type":"single","stem":"Which statement about <code>spring.jpa.open-in-view<\/code> is accurate?","options":["It is false by default in Spring Boot 3","It defaults to true, keeps a persistence context open for the whole web request so lazy loading in views and serializers silently issues queries, and Boot logs a warning about it","It only affects Spring WebFlux","It disables the second-level cache"],"answer":[1],"explanation":"Boot keeps the historic default of true and warns at startup. Turning it off makes lazy loading outside a transaction fail loudly, which surfaces N+1 problems during development.","learn":[{"label":"Spring Boot reference","href":"https://docs.spring.io/spring-boot/index.html"},{"label":"Spring Data JPA","href":"https://spring.io/projects/spring-data-jpa/"}]},{"id":"w1-q08","week":1,"set":"weekly","area":"java","type":"single","stem":"The Angular app consumes 400 errors from the catalog API. Which response shape gives the client a stable contract for field errors?","options":["text/plain with the exception message","application/problem+json (RFC 9457) with type, title, status, detail and an errors array of {field, message}","HTTP 200 with {\"ok\": false}","A redirect to an error page"],"answer":[1],"explanation":"Problem details are a standard media type; a stable type URI and an errors extension let clients switch on the problem and map messages to form controls. Spring Boot 3 supports ProblemDetail and spring.mvc.problemdetails.enabled.","learn":[{"label":"Spring Boot reference","href":"https://docs.spring.io/spring-boot/index.html"}]},{"id":"w1-q09","week":1,"set":"weekly","area":"java","type":"single","stem":"You stream tutor tokens from Spring MVC to the browser. Which return type is the standard building block in Spring MVC (not WebFlux)?","options":["ResponseEntity&lt;String&gt; built after the model finishes","SseEmitter (or ResponseBodyEmitter), sending events as tokens arrive from the model client","A @Scheduled method that polls the model","DeferredResult&lt;List&lt;String&gt;&gt;"],"answer":[1],"explanation":"SseEmitter writes text/event-stream asynchronously from another thread; set a timeout, complete on done, completeWithError on failure, and handle client disconnects so you stop paying for tokens nobody reads.","learn":[{"label":"Spring MVC async and SSE","href":"https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-async.html"}]},{"id":"w1-q10","week":1,"set":"weekly","area":"java","type":"single","stem":"The tutor agent calls the catalog API with a Google-signed ID token. What does the Spring Boot side configure to validate it?","options":["HTTP Basic with the service account email","spring-boot-starter-oauth2-resource-server with the issuer (and JWK set) configured, plus an audience check for the API's URL and an authorization rule on the caller's email","A shared API key in a header","CORS allowed origins"],"answer":[1],"explanation":"The resource server validates signature, expiry and issuer from the JWK set; add an audience validator and authorize by the caller identity. Cloud Run IAM in front is the first layer.","learn":[{"label":"Spring Security OAuth2 resource server","href":"https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/index.html"}]},{"id":"w1-q11","week":1,"set":"weekly","area":"java","type":"single","stem":"Spec-driven development with an agentic coding tool on this codebase: which practice makes the agent's output verifiable?","options":["Let the agent write code first, then generate the spec from it","Write acceptance criteria the agent can check itself (tests, schema rules, status codes), review the plan, then have it implement and run the checks before claiming done","Ask the agent to be careful","Disable tests so the agent moves faster"],"answer":[1],"explanation":"Spec, plan, tasks, implementation, each reviewed; acceptance criteria that are executable (like the hidden tests in w1-c1) separate 'the model said so' from verified outcomes. Hooks can enforce running them.","learn":[{"label":"GitHub Spec Kit","href":"https://github.com/github/spec-kit"},{"label":"Claude Code hooks","href":"https://code.claude.com/docs/en/hooks"}]},{"id":"w2-q01","week":2,"set":"weekly","area":"angular","type":"single","stem":"A learner clicks lesson 2 then lesson 3 on a slow connection; lesson 2's response arrives last and replaces lesson 3's quiz. Which RxJS operator on <code>lessonId$<\/code> gives latest-wins and cancels the in-flight HttpClient request?","options":["mergeMap","concatMap","switchMap","exhaustMap"],"answer":[2],"explanation":"switchMap unsubscribes the previous inner observable when a new value arrives; for HttpClient that aborts the request. mergeMap keeps all (last to arrive wins), concatMap queues, exhaustMap ignores new values while busy (right for a submit button).","learn":[{"label":"Angular HTTP client","href":"https://angular.dev/guide/http"},{"label":"Angular signals","href":"https://angular.dev/guide/signals"}]},{"id":"w2-q02","week":2,"set":"weekly","area":"angular","type":"single","stem":"Which operator fits a quiz Submit button so double clicks never post twice while the first request is in flight?","options":["switchMap","exhaustMap","mergeMap","debounceTime alone"],"answer":[1],"explanation":"exhaustMap ignores new source values until the current inner observable completes. switchMap would cancel the first POST, which may already have reached the server.","learn":[{"label":"Angular HTTP client","href":"https://angular.dev/guide/http"}]},{"id":"w2-q03","week":2,"set":"weekly","area":"angular","type":"single","stem":"In a standalone component the store exposes <code>state$<\/code> (an Observable). What is the idiomatic way to read it in a signal-based template?","options":["Subscribe in ngOnInit and never unsubscribe","toSignal(state$) from @angular/core/rxjs-interop, then read state() in the template","Call state$.value in the template","Use setInterval to copy values"],"answer":[1],"explanation":"toSignal subscribes in an injection context and unsubscribes when the component is destroyed; computed() can derive view state from it. For manual subscriptions use takeUntilDestroyed().","learn":[{"label":"Angular signals","href":"https://angular.dev/guide/signals"}]},{"id":"w2-q04","week":2,"set":"weekly","area":"angular","type":"multi","stem":"Which TWO statements about signals are correct?","options":["computed() is lazily evaluated and memoised, recomputing only when a dependency changes","Signals replace HttpClient","effect() is meant for side effects such as logging or syncing to storage, not for deriving state","Writing to a signal inside computed() is the recommended pattern","Signals require zone.js"],"answer":[0,2],"explanation":"Derive state with computed(); use effect() sparingly for side effects. Signals work with or without zone.js (zoneless change detection uses them).","learn":[{"label":"Angular signals","href":"https://angular.dev/guide/signals"}],"choose":2},{"id":"w2-q05","week":2,"set":"weekly","area":"angular","type":"single","stem":"The quiz form must type-check answers as numbers and disallow submit until every question is answered. Which approach matches Angular's typed forms?","options":["FormGroup&lt;any&gt;","A FormGroup built with FormControl&lt;number | null&gt; per question and Validators.required, using the form's valid status to enable submit","Template-driven forms with ngModel strings","Store answers in localStorage"],"answer":[1],"explanation":"Typed reactive forms infer control value types; nonNullable controls and validators keep the submit gate in the model, not scattered in the template.","learn":[{"label":"Angular typed forms","href":"https://angular.dev/guide/forms/typed-forms"}]},{"id":"w2-q06","week":2,"set":"weekly","area":"angular","type":"multi","stem":"You stream tutor tokens into the page. Which TWO choices make the experience accessible?","options":["Render the streaming text in a region with aria-live=\"polite\" so screen readers announce updates without interrupting","Move focus to every new token","Provide a way to stop the stream and keep keyboard focus on the input","Animate each character with a flashing color","Disable the input while streaming without telling the user"],"answer":[0,2],"explanation":"A polite live region announces new content without stealing focus; a stop control and predictable focus serve keyboard and screen-reader users. A learning product must work with both.","learn":[{"label":"Angular overview","href":"https://angular.dev/overview"}],"choose":2},{"id":"w2-q07","week":2,"set":"weekly","area":"angular","type":"single","stem":"Why does decoding each fetch chunk with <code>new TextDecoder().decode(chunk)<\/code> occasionally show a broken character?","options":["Fetch corrupts UTF-8","A multi-byte character can be split across chunks; decode with one TextDecoder and { stream: true } so the partial bytes are carried over","TextDecoder only supports ASCII","The server sends Latin-1"],"answer":[1],"explanation":"Chunk boundaries fall anywhere in the byte stream. A single streaming decoder keeps incomplete sequences until the next chunk; the same applies to SSE event boundaries, which need a text buffer.","learn":[{"label":"Angular HTTP client","href":"https://angular.dev/guide/http"}]},{"id":"w2-q08","week":2,"set":"weekly","area":"angular","type":"single","stem":"An HTTP interceptor adds the auth header and retries failed requests 3 times. What is the risk for <code>POST /api/lessons/3/attempts<\/code>?","options":["None, retries are always safe","Retrying a non-idempotent POST after a timeout can record the attempt twice; retry only idempotent methods, or send an idempotency key the server deduplicates","Interceptors cannot see POST requests","The retry will change the HTTP method"],"answer":[1],"explanation":"A timeout does not mean the server did nothing. Limit retries to GET/PUT/DELETE or make the write idempotent with a key.","learn":[{"label":"Angular HTTP client","href":"https://angular.dev/guide/http"}]},{"id":"w2-q09","week":2,"set":"weekly","area":"angular","type":"single","stem":"Which test setup best fits a framework-free store that wraps HttpClient-like observables?","options":["An end-to-end browser test for every case","Plain unit tests with a fake API whose Subjects the test releases in chosen order, plus a few TestBed tests for the component wiring","Snapshot tests of the rendered HTML only","Manual testing with Chrome throttling"],"answer":[1],"explanation":"Controllable fakes make races deterministic (respond to lesson 3, then lesson 2). Keep component tests thin; Angular's testing guide covers HttpTestingController for the HTTP layer.","learn":[{"label":"Angular testing","href":"https://angular.dev/guide/testing"}]},{"id":"w2-q10","week":2,"set":"weekly","area":"angular","type":"single","stem":"The client-side leak guard redacts the quiz answer from streamed tutor text. Why is the server-side guard still required?","options":["It is not; the client guard is enough","Client code can be bypassed (dev tools, another client, the raw API), so the control must live on the server; the client guard is defence in depth and UX","Browsers block regex","Angular strips HTML"],"answer":[1],"explanation":"Anything enforced only in the browser is a suggestion. The tutor agent's after-model check (w4-c1) is the control.","learn":[{"label":"OWASP Top 10 for LLM Applications","href":"https://genai.owasp.org/llm-top-10/"}]},{"id":"w3-q01","week":3,"set":"weekly","area":"gemini","type":"multi","stem":"The quiz generator uses Gemini controlled generation with responseMimeType application/json and a responseSchema. Which TWO problems can still reach your code?","options":["Output that is not JSON at all when the finish reason is STOP","answerIndex pointing at the wrong option, or a sectionId that does not exist in the lesson","Truncated JSON when the finish reason is MAX_TOKENS","A schema with OBJECT type returning an array","Unicode in option text"],"answer":[1,2],"explanation":"The schema constrains shape, not meaning: grounding, giveaways and correctness need a validator. A response cut off at the token limit is incomplete regardless of the schema.","learn":[{"label":"Structured output","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/control-generated-output"}],"choose":2},{"id":"w3-q02","week":3,"set":"weekly","area":"gemini","type":"multi","stem":"At 09:00 every cohort's batch hits Gemini at once on Standard PayGo and you see bursts of 429 RESOURCE_EXHAUSTED. Which TWO are appropriate?","options":["Exponential backoff with full jitter, honouring Retry-After, with a deadline","Retry immediately in a tight loop","Provisioned Throughput (reserved capacity) for the latency-sensitive tutor path if the volume is predictable","Switch models on every retry","Raise the HTTP client timeout to 10 minutes"],"answer":[0,2],"explanation":"PayGo uses shared capacity, so 429s under load are expected; jittered backoff spreads retries. Provisioned Throughput reserves capacity for the workload that cannot wait.","learn":[{"label":"Standard PayGo","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/standard-paygo"},{"label":"Provisioned Throughput","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput"},{"label":"Quotas and system limits","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/quotas"}],"choose":2},{"id":"w3-q03","week":3,"set":"weekly","area":"gemini","type":"single","stem":"A Gemini response comes back with a candidate whose finishReason is SAFETY and no content. What should the quiz service do?","options":["Index candidates[0].content.parts[0].text and let the exception become a 500","Retry the same request three times","Return a typed blocked result (category, source) the UI can explain, count it per category, and not retry","Lower every category to BLOCK_NONE"],"answer":[2],"explanation":"A safety block is a decision, not a transient error. Surface it to authors with a clear message and track it; tune thresholds per category for the audience rather than switching filters off.","learn":[{"label":"Safety filters","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/configure-safety-filters"}]},{"id":"w3-q04","week":3,"set":"weekly","area":"gemini","type":"single","stem":"A request is rejected before generation: no candidates, promptFeedback.blockReason SAFETY. What does that tell you?","options":["The output was filtered","The prompt itself was rated at or above a threshold, so there is nothing to parse; handle it as a prompt-level block","The model is down","The quota is exhausted"],"answer":[1],"explanation":"Prompt-level blocks come back as promptFeedback with no candidates. Code must check for it before reading candidates.","learn":[{"label":"Safety filters","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/configure-safety-filters"}]},{"id":"w3-q05","week":3,"set":"weekly","area":"gemini","type":"single","stem":"Release 2.3 copied the kids product's safety profile (BLOCK_LOW_AND_ABOVE everywhere) into the adult university quiz service. What is the senior fix?","options":["Turn all filters off for adults","Separate profiles per product and audience with an owner and review, restore per-category thresholds that fit adult course content, and keep an eval set of lessons that must not be blocked","Ask authors to avoid biology","Retry blocked requests until one passes"],"answer":[1],"explanation":"Thresholds are product decisions: one profile for different audiences is the bug. A must-not-block eval set catches regressions in CI.","learn":[{"label":"Safety filters","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/configure-safety-filters"}]},{"id":"w3-q06","week":3,"set":"weekly","area":"gemini","type":"single","stem":"Which statement about thinking on Gemini 2.5 models is accurate enough for a cost discussion?","options":["Thinking tokens are free","Thinking improves quality on hard tasks at the cost of latency and billed tokens; you control it with a thinking budget or level, and tuned or simple extraction tasks often want it minimal","Thinking can only be turned on for Pro","Thinking output is returned verbatim to users"],"answer":[1],"explanation":"Thinking is a latency/cost/quality dial. For format-heavy tasks like quiz JSON a small budget is often enough; measure with the same eval set.","learn":[{"label":"Thinking","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/thinking"}]},{"id":"w3-q07","week":3,"set":"weekly","area":"gemini","type":"single","stem":"The tutor sends the same 40,000-token course chapter with every turn. Which feature reduces cost and latency for that repeated prefix?","options":["Raising temperature","Context caching for the large repeated context","Streaming","A larger max_output_tokens"],"answer":[1],"explanation":"Context caching stores the repeated prefix so subsequent requests pay a reduced rate for cached tokens and skip re-processing; keep the cached part byte-stable and put per-turn data after it.","learn":[{"label":"Context caching","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/context-cache/context-cache-overview"}]},{"id":"w3-q08","week":3,"set":"weekly","area":"gemini","type":"single","stem":"Why pin a specific Gemini model version in production config rather than an alias that moves?","options":["Aliases are slower","Behaviour, quality and cost change between versions; pinning makes upgrades a deliberate change you run through the eval suite, and you track retirement dates","Pinned versions never retire","Aliases are not supported on Vertex AI"],"answer":[1],"explanation":"Model versions have lifecycles and retirement dates. Upgrades go through evals like any dependency bump.","learn":[{"label":"Model versions and lifecycle","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"}]},{"id":"w3-q09","week":3,"set":"weekly","area":"gemini","type":"single","stem":"You call Gemini from Spring Boot. When would you pick Spring AI's Google GenAI chat client over the Google Gen AI Java SDK directly?","options":["Never; Spring AI cannot call Gemini","When you want Spring abstractions (ChatClient, structured output to Java types, advisors, observability) and portability across providers; choose the SDK when you need every Gemini-specific option first","Only for Kotlin","Only on Cloud Run"],"answer":[1],"explanation":"Spring AI adds convenience and integration; the SDK exposes new Gemini features (safety settings, thinking config, caching) as soon as they ship. Know both and why.","learn":[{"label":"Spring AI: Google GenAI chat","href":"https://docs.spring.io/spring-ai/reference/api/chat/google-genai-chat.html"}]},{"id":"w3-q10","week":3,"set":"weekly","area":"gemini","type":"single","stem":"Each corrective retry for invalid quiz JSON resends the lesson context. What does that do to cost, and what is the sensible control?","options":["Nothing; retries are free","Each retry pays the full input again (most of the cost), so cap validity attempts (for example 3), log tokens per request and track retry rate as a metric","It halves output cost","It only affects latency"],"answer":[1],"explanation":"Retries multiply input tokens. Cap them, measure them, and fix the prompt or schema when the retry rate rises.","learn":[{"label":"Quotas and system limits","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/quotas"}]},{"id":"w3-q11","week":3,"set":"weekly","area":"gemini","type":"single","stem":"Model Armor sits in front of the tutor. What is it for?","options":["Replacing safety filters","Screening prompts and responses for prompt injection, jailbreaks and sensitive data as a separate policy layer","Caching responses","Tuning models"],"answer":[1],"explanation":"Model Armor is a screening service for prompts and responses (injection, sensitive data, harmful content), configured as templates you apply in front of models and agents.","learn":[{"label":"Model Armor overview","href":"https://docs.cloud.google.com/model-armor/overview"}]},{"id":"w4-q01","week":4,"set":"weekly","area":"adk","type":"single","stem":"A FastAPI handler is <code>async def<\/code> and calls the synchronous Gemini SDK, which blocks for 2 s. Cloud Run concurrency is 80, CPU is 8%, instances stay at 2. What is happening?","options":["Cold starts","The blocking call freezes the event loop, so one instance serves one request at a time while up to 80 queue; the autoscaler sees neither high concurrency nor high CPU and does not add instances","Gemini quota","Memory pressure"],"answer":[1],"explanation":"Use def (threadpool) or an async client, and size containerConcurrency to what one instance can really serve. Low CPU with deep queues is the signature of a blocked loop.","learn":[{"label":"FastAPI concurrency and async","href":"https://fastapi.tiangolo.com/async/"},{"label":"Cloud Run concurrency","href":"https://docs.cloud.google.com/run/docs/about-concurrency"}]},{"id":"w4-q02","week":4,"set":"weekly","area":"adk","type":"multi","stem":"Which TWO Cloud Run settings matter most for long streamed tutor answers?","options":["Request timeout long enough for the longest answer (default 300 s, up to 60 minutes)","Max instances 1","CPU allocation: request-based billing throttles CPU outside requests, so work after the response is sent needs always-allocated CPU","Session affinity is required for SSE","Ingress all"],"answer":[0,2],"explanation":"Timeouts cap streams; CPU allocation decides whether background work after a response runs. Streaming itself works with request-based CPU while the request is open.","learn":[{"label":"Cloud Run request timeout","href":"https://docs.cloud.google.com/run/docs/configuring/request-timeout"},{"label":"Cloud Run CPU allocation","href":"https://docs.cloud.google.com/run/docs/configuring/services/cpu"}],"choose":2},{"id":"w4-q03","week":4,"set":"weekly","area":"adk","type":"single","stem":"The catalog API (service account A) calls the tutor agent on Cloud Run with no public access. What is the standard setup?","options":["Give allUsers the invoker role and check a header","Grant A roles/run.invoker on the tutor service; A fetches a Google-signed ID token with the tutor's URL as audience and sends it as a Bearer token; the service may verify the token and caller again","Share a static API key in Secret Manager","Use the same service account for both"],"answer":[1],"explanation":"IAM at the edge plus ID tokens is the documented service-to-service pattern; in-app verification of audience and caller is defence in depth.","learn":[{"label":"Service-to-service authentication","href":"https://docs.cloud.google.com/run/docs/authenticating/service-to-service"}]},{"id":"w4-q04","week":4,"set":"weekly","area":"adk","type":"single","stem":"In ADK, where do you put a guardrail that refuses off-topic questions without spending a model call?","options":["In the instruction text only","A before_model_callback that returns a response and skips the model call","An after_tool_callback","The session service"],"answer":[1],"explanation":"before_model_callback can inspect the request and return an LlmResponse to short-circuit the model. after_model_callback can rewrite responses (the answer-leak check).","learn":[{"label":"ADK callbacks","href":"https://adk.dev/callbacks/"}]},{"id":"w4-q05","week":4,"set":"weekly","area":"adk","type":"multi","stem":"Which TWO statements about ADK sessions and state are correct?","options":["Session state holds data that persists across the turns of one conversation (for example the current lesson)","InMemorySessionService is a production choice on Cloud Run with several instances","A persistent session service (database or Agent Runtime's managed sessions) is needed when instances scale out or restart","Sessions are only available in Java","State is sent to the model automatically in full on every turn"],"answer":[0,2],"explanation":"In-memory sessions vanish on restart and are not shared across instances. Choose a database-backed service on Cloud Run, or Agent Runtime's managed sessions and memory.","learn":[{"label":"ADK sessions","href":"https://adk.dev/sessions/"},{"label":"Agent Runtime","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/runtime"}],"choose":2},{"id":"w4-q06","week":4,"set":"weekly","area":"adk","type":"single","stem":"Cloud Run or Agent Runtime (formerly Agent Engine) for the tutor agent?","options":["Agent Runtime is always cheaper","Cloud Run gives a container you control (FastAPI, middleware, any library) and fits a team that already runs containers; Agent Runtime gives managed sessions, memory and agent ops with less control. Decide on control vs managed features","Cloud Run cannot run ADK","Agent Runtime cannot use tools"],"answer":[1],"explanation":"Both run ADK; the trade-off is control and familiarity vs managed agent services. This posting names Cloud Run.","learn":[{"label":"Agent Runtime","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/runtime"},{"label":"ADK documentation","href":"https://adk.dev/"}]},{"id":"w4-q07","week":4,"set":"weekly","area":"adk","type":"single","stem":"The tutor uses McpToolset to connect to a shared MCP server that also exposes write tools for other agents. Which control actually prevents the tutor from writing?","options":["A sentence in the instruction saying never to call the write tools","tool_filter on the McpToolset listing only the read tools, plus an allow-list in the agent and per-caller authorization on the server","A higher temperature","Using streamable HTTP instead of stdio"],"answer":[1],"explanation":"Instructions are requests that injected content can override. Not offering the tool, refusing it in code and authorizing per caller are controls.","learn":[{"label":"ADK MCP tools","href":"https://adk.dev/tools-custom/mcp-tools/"},{"label":"The lethal trifecta","href":"https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"}]},{"id":"w4-q08","week":4,"set":"weekly","area":"adk","type":"single","stem":"The model asks <code>get_learner_progress(learner_id=\"lrn-bo\")<\/code> during lrn-ada's session. What is the right design?","options":["Trust it; the model knows best","Bind learner and course to the session in the tool implementation (from tool_context.state or the server's session), so the model never chooses whose data to read","Ask the learner to confirm","Return both learners"],"answer":[1],"explanation":"Letting the model pick identifiers makes the agent a confused deputy. Tools take only what the model should choose (a query, a lesson id) and read identity from the session.","learn":[{"label":"Writing effective tools for agents","href":"https://www.anthropic.com/research/writing-tools-for-agents"},{"label":"ADK callbacks","href":"https://adk.dev/callbacks/"}]},{"id":"w4-q09","week":4,"set":"weekly","area":"adk","type":"single","stem":"Which ADK workflow agent fits 'retrieve, then draft a hint, then check the hint does not reveal the answer, always in that order'?","options":["LoopAgent with no exit","SequentialAgent with three sub-agents (or one LLM agent plus deterministic steps)","ParallelAgent","A single agent with no tools"],"answer":[1],"explanation":"Fixed order is a workflow, not an autonomous agent. Keep deterministic steps deterministic; use a loop only for evaluator-optimizer patterns with a bounded number of rounds.","learn":[{"label":"ADK workflows and multi-agent","href":"https://adk.dev/workflows/"},{"label":"Building effective agents","href":"https://www.anthropic.com/research/building-effective-agents"}]},{"id":"w4-q10","week":4,"set":"weekly","area":"adk","type":"multi","stem":"Your MCP server returns whole lesson bodies (20,000 characters) and raw API objects. Which TWO changes follow tool-design guidance?","options":["Return compact, task-shaped results with renamed fields, and truncate long text with a flag","Add more tools that mirror every REST endpoint","Write descriptions that say when to use the tool and what it returns","Return stack traces so the model can debug","Accept learner_id so the model can choose"],"answer":[0,2],"explanation":"Tools for agents are an API for a model: fewer, task-shaped tools, small outputs and descriptions the model can choose by improve accuracy and cost.","learn":[{"label":"Writing effective tools for agents","href":"https://www.anthropic.com/research/writing-tools-for-agents"},{"label":"MCP introduction","href":"https://modelcontextprotocol.io/docs/getting-started/intro"}],"choose":2},{"id":"w5-q01","week":5,"set":"weekly","area":"rag","type":"multi","stem":"Which TWO are reasons to choose pgvector on Cloud SQL or AlloyDB over RAG Engine for the course tutor?","options":["Vectors live next to relational data, so course and tenant filters are ordinary SQL in the same query","No tuning or operations are needed","You need full control of chunking, indexes (HNSW, IVFFlat) and query plans","It includes managed ingestion of PDFs","It is the only option that supports metadata"],"answer":[0,2],"explanation":"pgvector gives control and co-location at the price of owning tuning and operations. RAG Engine manages ingestion, chunking, embedding and retrieval; Agent Search adds managed ranking and grounding with the least code.","learn":[{"label":"pgvector","href":"https://github.com/pgvector/pgvector"},{"label":"RAG Engine overview","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/rag-overview"},{"label":"Agent Search: custom search","href":"https://docs.cloud.google.com/generative-ai-app-builder/docs/about-generic-search"}],"choose":2},{"id":"w5-q02","week":5,"set":"weekly","area":"rag","type":"single","stem":"A learner must only retrieve chunks from their own course. Where does that filter go?","options":["Retrieve the global top-k, then drop other courses","In the retrieval query itself (WHERE course_id = $1 in pgvector, a metadata filter in RAG Engine or Agent Search), because it is access control","In the prompt: 'only use your course'","In the Angular app"],"answer":[1],"explanation":"Post-filtering returns fewer than k results and is one forgotten line away from a leak. Filter first; it is an authorization rule.","learn":[{"label":"pgvector","href":"https://github.com/pgvector/pgvector"},{"label":"RAG Engine overview","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/rag-overview"}]},{"id":"w5-q03","week":5,"set":"weekly","area":"rag","type":"single","stem":"Recall@5 is 1.0 for both chunking strategies on your 32-question set, but MRR differs (0.92 vs 0.94). What do you report?","options":["Recall@5 proves they are equal","recall@5 saturates on a small corpus; report recall@1 and MRR, note that one question moves a metric by about 3 points, and label more questions before declaring a winner","Pick the one with fewer chunks","Drop MRR"],"answer":[1],"explanation":"Small labeled sets have wide uncertainty. Use metrics that still discriminate and grow the set.","learn":[{"label":"LLM evals FAQ","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"w5-q04","week":5,"set":"weekly","area":"rag","type":"single","stem":"Why does heading-aware chunking usually beat fixed-size windows for a tutor that must cite sections?","options":["It produces more chunks","Chunks align with the citation unit (a section), carry the heading's vocabulary, and never mix two sections' text, so the cited section is right more often","It needs no embeddings","Fixed windows are not allowed by RAG Engine"],"answer":[1],"explanation":"Keep lesson and section ids as metadata on every chunk; structure-aware chunking makes citations precise.","learn":[{"label":"RAG Engine overview","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/rag-overview"}]},{"id":"w5-q05","week":5,"set":"weekly","area":"rag","type":"single","stem":"You switch embedding models. What else must happen?","options":["Nothing","Re-embed the whole corpus with the new model (vectors from different models are not comparable), run the retrieval eval before cutting over, and use the right task type for documents vs queries","Only re-embed new documents","Lower the top-k"],"answer":[1],"explanation":"Mixed-model vectors silently degrade retrieval. Re-embedding costs money and time; build the new index beside the old one and swap.","learn":[{"label":"Text embeddings","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings"}]},{"id":"w5-q06","week":5,"set":"weekly","area":"rag","type":"single","stem":"After a content merge, citations point one lesson off and recall@3 drops from 0.90 to 0.05. The embedding model also changed the day before. Which evidence separates the causes?","options":["None; roll back both","The eval history: recall stayed 0.90 after the model change and fell only after the content merge; then compare stored lesson ids with each file's front matter","Ask Gemini","Check the Cloud Run logs for 500s"],"answer":[1],"explanation":"Change one variable at a time and read the timeline. Ids derived from file order instead of content shift when a file is added.","learn":[{"label":"LLM evals FAQ","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"w5-q07","week":5,"set":"weekly","area":"rag","type":"single","stem":"What is reranking in a retrieval pipeline?","options":["Sorting results alphabetically","A second stage that rescores the top N candidates from fast vector or hybrid search with a more expensive relevance model before taking the top k","Re-embedding the corpus","Changing chunk size"],"answer":[1],"explanation":"Retrieve broadly and cheaply, then rerank precisely. RAG Engine and Agent Search both offer ranking options; measure the gain with the same labeled set.","learn":[{"label":"RAG Engine reranking","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/retrieval-and-ranking"}]},{"id":"w5-q08","week":5,"set":"weekly","area":"rag","type":"single","stem":"Which layering of tutor evals is the most cost-effective in CI?","options":["LLM-as-judge on everything first","Deterministic checks first (schema valid, answer key, citation exists), then retrieval metrics on labeled questions, then judge metrics with a custom rubric (does not reveal the answer, grounded) on a sample","Only human review","Only production metrics"],"answer":[1],"explanation":"Cheap, exact checks catch most regressions; judge metrics are for what code cannot check. The Gen AI evaluation service supports custom rubrics and agent trajectory metrics.","learn":[{"label":"Gen AI evaluation service","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-overview"},{"label":"LLM evals FAQ","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"w5-q09","week":5,"set":"weekly","area":"rag","type":"multi","stem":"Which TWO does agent evaluation add beyond scoring the final answer?","options":["Trajectory: whether the agent called the expected tools with the expected arguments in a sensible order","The color of the UI","Checking that forbidden tools (writes) were never called","The model's training data","The number of Cloud Run instances"],"answer":[0,3],"explanation":"Agent evals look at the path as well as the answer: expected tool calls, and no forbidden ones. ADK eval sets and the Gen AI evaluation service both support this.","learn":[{"label":"Evaluate Gen AI agents","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-agents"},{"label":"ADK: why evaluate agents","href":"https://adk.dev/evaluate/"}],"choose":2},{"id":"w5-q10","week":5,"set":"weekly","area":"rag","type":"single","stem":"How should the retrieval eval run so it actually protects production?","options":["As an advisory report someone may read","As a blocking CI step on changes to chunking, embedding model, index settings and content, comparing to a stored baseline with a tolerance; the baseline moves only in a reviewed change","Weekly by hand","Only after incidents"],"answer":[1],"explanation":"An advisory gate is how w5-t1 happened. Make it block, and treat the baseline like code.","learn":[{"label":"LLM evals FAQ","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"w6-q01","week":6,"set":"weekly","area":"tuning","type":"single","stem":"When is supervised tuning of Gemini the wrong tool?","options":["When you need a consistent output format and house style","When the model needs fresh or changing knowledge (new course content): use retrieval instead","When a cheaper model must match a larger one on a narrow task","When prompts have grown very long"],"answer":[1],"explanation":"Tuning teaches format, style and narrow behaviour; it does not keep up with new facts. Try prompting, few-shot and RAG first; tune when the eval says the cheaper path is not enough.","learn":[{"label":"Tuning overview","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning"},{"label":"Supervised fine-tuning for Gemini","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/supervised-tuning"}]},{"id":"w6-q02","week":6,"set":"weekly","area":"tuning","type":"multi","stem":"Which TWO belong in preparing a supervised tuning dataset?","options":["Deduplicate examples and remove anything that overlaps the held-out evaluation set","Include the evaluation set in training to boost scores","Use the documented JSONL conversation format (system instruction, user and model turns) with a validation split","Prefer thousands of noisy examples over a few hundred clean ones","Shuffle the held-out set into validation"],"answer":[0,2],"explanation":"Leakage inflates scores; clean data beats volume. Follow the format in the prepare-data guide.","learn":[{"label":"Prepare supervised tuning data","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/supervised-tuning/prepare-data"}],"choose":2},{"id":"w6-q03","week":6,"set":"weekly","area":"tuning","type":"single","stem":"Tuned Flash-Lite: valid 1.00, correct 0.90, 0.13 USD per 1,000 items. Few-shot Flash: valid 0.96, correct 0.90, 1.49 USD. Held-out set: 50 items. What is the strongest conclusion?","options":["Tuned is more accurate","They are statistically tied on correctness at n=50; cost (about 11x) and latency favour tuned, provided its training data did not leak the held-out set","Few-shot is better because it is a bigger model","Neither can ship"],"answer":[1],"explanation":"With 50 items a proportion near 0.9 has roughly +-8 points of uncertainty. Decide on what the numbers can distinguish, and check for leakage before trusting the tuned result.","learn":[{"label":"Supervised fine-tuning for Gemini","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/supervised-tuning"},{"label":"LLM evals FAQ","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"w6-q04","week":6,"set":"weekly","area":"tuning","type":"single","stem":"The docs recommend a setting for thinking on tuned tasks. Which?","options":["Maximum thinking budget","Thinking budget 0 or thinking level minimal on the tuned model","Thinking only in the system instruction","Disable structured output"],"answer":[1],"explanation":"Per the supervised tuning docs, set thinking to off or minimal for tuned models; tuned narrow tasks gain little from it and pay latency.","learn":[{"label":"Supervised fine-tuning for Gemini","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/supervised-tuning"},{"label":"Thinking","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/thinking"}]},{"id":"w6-q05","week":6,"set":"weekly","area":"data","type":"multi","stem":"The index (created_at, learner_id) exists, yet <code>WHERE learner_id = ? AND course_id = ? AND date(created_at) &gt;= ? ORDER BY created_at DESC LIMIT 20<\/code> reads 41M rows. Which TWO explain it?","options":["The index leads with the range column, so it cannot narrow by learner first","Wrapping created_at in date() prevents using the index for the range","The table needs VACUUM FULL","LIMIT disables indexes","PostgreSQL cannot use composite indexes"],"answer":[0,1],"explanation":"Equality columns first, range last: (learner_id, course_id, created_at) serves the filter and the order. Predicates must not wrap the indexed column (or use an expression index).","learn":[{"label":"PostgreSQL indexes","href":"https://www.postgresql.org/docs/current/indexes.html"},{"label":"PostgreSQL: using EXPLAIN","href":"https://www.postgresql.org/docs/current/using-explain.html"}],"choose":2},{"id":"w6-q06","week":6,"set":"weekly","area":"data","type":"single","stem":"Which EXPLAIN ANALYZE detail most directly shows a missing or unusable index?","options":["Planning Time","A large 'Rows Removed by Filter' compared with rows returned, on a scan of the whole table or index","Buffers: shared hit","The presence of Limit"],"answer":[1],"explanation":"Reading millions of rows to return eleven means the predicate is applied after reading, not used to find rows.","learn":[{"label":"PostgreSQL: using EXPLAIN","href":"https://www.postgresql.org/docs/current/using-explain.html"}]},{"id":"w6-q07","week":6,"set":"weekly","area":"data","type":"multi","stem":"quiz_attempt grows 6M rows a month and academic records must be kept 4 years. Which TWO fit?","options":["Range-partition by month on created_at and drop or detach partitions past retention after archiving","DELETE old rows nightly","Keep indexes that lead with tenant and learner on each partition for dashboard queries","One index per column","Store attempts in the agent's memory"],"answer":[0,2],"explanation":"Partition pruning and partition drops beat large deletes; local indexes keep queries fast. Analytics belong in BigQuery.","learn":[{"label":"PostgreSQL partitioning","href":"https://www.postgresql.org/docs/current/ddl-partitioning.html"}],"choose":2},{"id":"w6-q08","week":6,"set":"weekly","area":"data","type":"single","stem":"You must add a NOT NULL column to a 41M-row table with the app running. What is the expand-and-contract sequence?","options":["ALTER TABLE ... ADD COLUMN ... NOT NULL in one migration","Add the column nullable, deploy code that writes it, backfill in batches, then add the constraint (NOT VALID then VALIDATE for checks), then make reads depend on it","Rename the table","Do it during a maintenance window only"],"answer":[1],"explanation":"Expand, migrate, contract: each step is backward compatible with the running version, so deploys and rollbacks stay safe.","learn":[{"label":"Flyway documentation","href":"https://documentation.red-gate.com/flyway"}]},{"id":"w6-q09","week":6,"set":"weekly","area":"data","type":"single","stem":"Cloud Run scales the catalog API to 30 instances with a Hikari pool of 10 each against a Cloud SQL instance with max_connections 100. What is the risk and a fix?","options":["None","300 possible connections exceed the database limit; cap instances, size the pool to the instance count, or put a pooler (for example the Cloud SQL connector with managed pooling or PgBouncer) in front","Increase the pool to 50","Use H2 in production"],"answer":[1],"explanation":"Connection math belongs in capacity planning: instances x pool size must fit the database.","learn":[{"label":"Spring Boot reference","href":"https://docs.spring.io/spring-boot/index.html"}]},{"id":"w6-q10","week":6,"set":"weekly","area":"tuning","type":"single","stem":"A tuned model is pinned to its base model version. What operational duty follows?","options":["None; tuned models never change","Track the base version's retirement date and plan to re-tune on a newer base and re-run the same eval before the old one retires","Retrain every day","Switch to few-shot when it retires"],"answer":[1],"explanation":"Tuned endpoints inherit the base model's lifecycle. Keep the dataset and eval ready to re-tune.","learn":[{"label":"Model versions and lifecycle","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"},{"label":"Tuning overview","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning"}]},{"id":"w7-q01","week":7,"set":"weekly","area":"arch","type":"single","stem":"'Lesson' means a content page to authors and a unit of mastery to the learning team, and both teams edit the same table. What does DDD suggest?","options":["One shared Lesson entity with more columns","Separate bounded contexts (Catalog and Learning) with their own models and language, integrating by id and events","Rename the table","A microservice per table"],"answer":[1],"explanation":"A bounded context is the boundary within which a term has one meaning. Different meanings deserve different models.","learn":[{"label":"Bounded context (Fowler)","href":"https://martinfowler.com/bliki/BoundedContext.html"},{"label":"Domain-driven design (Fowler)","href":"https://martinfowler.com/bliki/DomainDrivenDesign.html"}]},{"id":"w7-q02","week":7,"set":"weekly","area":"arch","type":"multi","stem":"Which TWO are good reasons to split a separate service out of the modular monolith?","options":["A different runtime or failure mode (the Python ADK agent, LLM latency)","A new feature","Independent scaling needs or a compliance boundary","A developer prefers a new framework","To reduce the number of Git repositories"],"answer":[0,2],"explanation":"Start with modules; split where runtime, scaling, failure or ownership truly differ. Otherwise a module with enforced boundaries is cheaper.","learn":[{"label":"Spring Modulith","href":"https://spring.io/projects/spring-modulith/"},{"label":"Domain-driven design (Fowler)","href":"https://martinfowler.com/bliki/DomainDrivenDesign.html"}],"choose":2},{"id":"w7-q03","week":7,"set":"weekly","area":"arch","type":"single","stem":"How do you stop the Learning module from reaching into Catalog's internals in a Spring Boot monolith?","options":["Code review only","Spring Modulith: application modules by package, ApplicationModules.verify() in a test so illegal dependencies fail the build, and published events between modules","Put each module in a different database","Make every class public"],"answer":[1],"explanation":"Spring Modulith documents and verifies module structure and supports event publication between modules (with an event publication registry for reliability).","learn":[{"label":"Spring Modulith","href":"https://spring.io/projects/spring-modulith/"}]},{"id":"w7-q04","week":7,"set":"weekly","area":"arch","type":"single","stem":"Generated quiz drafts leaked to learners because drafts and published items shared a table with a status column. What is the structural fix?","options":["A better WHERE clause","Drafts live in Authoring's own aggregate; publishing creates a separate, immutable published item in Catalog through one command, so learner queries cannot see drafts","A trigger that hides drafts","Train authors"],"answer":[1],"explanation":"Make the invalid state unrepresentable instead of relying on every query remembering a filter.","learn":[{"label":"Domain-driven design (Fowler)","href":"https://martinfowler.com/bliki/DomainDrivenDesign.html"}]},{"id":"w7-q05","week":7,"set":"weekly","area":"arch","type":"single","stem":"Learning must tell Analytics and Tutoring about each recorded attempt without losing events if Pub/Sub is briefly down. Which pattern?","options":["Publish to Pub/Sub inside the HTTP request after commit","Transactional outbox: write the event row in the same transaction as the attempt, relay it to Pub/Sub, consumers idempotent on event id","Two-phase commit across Pub/Sub and PostgreSQL","Poll the attempts table from every consumer"],"answer":[1],"explanation":"The outbox removes the dual-write problem; idempotent consumers handle at-least-once delivery.","learn":[{"label":"Spring Modulith","href":"https://spring.io/projects/spring-modulith/"}]},{"id":"w7-q06","week":7,"set":"weekly","area":"delivery","type":"single","stem":"Your team's weekly throughput over 12 weeks includes one zero week (a conference). For a Monte Carlo forecast, what do you do with it?","options":["Remove it as an outlier","Keep it: holidays, conferences and incidents recur, and the forecast should include that risk","Replace it with the average","Double the next week"],"answer":[1],"explanation":"Forecasts from history should sample the history you have; zero weeks are part of real delivery.","learn":[{"label":"Kanban (Atlassian)","href":"https://www.atlassian.com/agile/kanban"}]},{"id":"w7-q07","week":7,"set":"weekly","area":"delivery","type":"single","stem":"Average WIP is 6 items and throughput is 0.75 items per day. What does Little's law predict for average cycle time?","options":["4.5 days","8 days","0.125 days","6.75 days"],"answer":[1],"explanation":"Cycle time = WIP / throughput = 6 / 0.75 = 8 days. Raising WIP without raising throughput lengthens cycle time.","learn":[{"label":"Kanban (Atlassian)","href":"https://www.atlassian.com/agile/kanban"}]},{"id":"w7-q08","week":7,"set":"weekly","area":"delivery","type":"single","stem":"On a cumulative flow diagram the 'In review' band keeps widening while 'Done' grows slowly. What does it show?","options":["Healthy flow","A bottleneck at review: work arrives faster than it leaves; limit WIP there and swarm on reviews","Too few backlog items","The chart is broken"],"answer":[1],"explanation":"Widening bands mean growing WIP in that state; the fix is a WIP limit and helping the constrained step.","learn":[{"label":"Jira cumulative flow diagram","href":"https://support.atlassian.com/jira-software-cloud/docs/view-and-understand-the-cumulative-flow-diagram/"}]},{"id":"w7-q09","week":7,"set":"weekly","area":"delivery","type":"single","stem":"How would you plan 'will tuning beat prompting?' on the board?","options":["As a normal story with points","As a time-boxed spike with an exit criterion defined by the eval (for example correct >= 0.88 at lower cost), ending in a decision either way","Leave it until the end","Ask the model"],"answer":[1],"explanation":"Uncertain AI work needs a time box and an eval-based definition of done, or it never closes.","learn":[{"label":"Kanban (Atlassian)","href":"https://www.atlassian.com/agile/kanban"},{"label":"LLM evals FAQ","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"w7-q10","week":7,"set":"weekly","area":"java","type":"single","stem":"You review a Kotlin service in the same codebase. Which statement about Kotlin is correct?","options":["Kotlin cannot call Java libraries","Kotlin types distinguish nullable (String?) from non-null (String) at compile time, data classes generate equals/hashCode/toString, and Kotlin and Java interoperate on the JVM","Kotlin requires a different JVM","Kotlin has no coroutines"],"answer":[1],"explanation":"Null safety and data classes are the first things to read for; coroutines are Kotlin's concurrency model, comparable to virtual threads for I/O-bound work.","learn":[{"label":"Kotlin getting started","href":"https://kotlinlang.org/docs/getting-started.html"}]},{"id":"ai-q01","week":"ai","set":"weekly","area":"ai","type":"single","stem":"Which part of integrating Gemini is NOT ordinary API work?","options":["Auth, retries and timeouts","Rate limits","Outputs vary run to run, so correctness is measured with scored eval suites rather than exact-match asserts","Streaming over HTTP"],"answer":[2],"explanation":"Most of the integration is normal API engineering; non-deterministic output is what changes testing, release gates and observability.","learn":[{"label":"LLM evals FAQ","href":"https://hamel.dev/blog/posts/evals-faq/"}]},{"id":"ai-q02","week":"ai","set":"weekly","area":"ai","type":"single","stem":"The model can skip, fake or reorder tool calls. Where must the rule 'never mark mastery from the tutor' be enforced?","options":["In the system prompt","Server-side: the tool is not offered, the agent refuses it, and the MCP server authorizes per caller","In the Angular UI","In the eval suite only"],"answer":[1],"explanation":"Enforcement lives outside the model. Prompts influence behaviour; code and authorization decide it.","learn":[{"label":"OWASP Top 10 for LLM Applications","href":"https://genai.owasp.org/llm-top-10/"},{"label":"The lethal trifecta","href":"https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"}]},{"id":"ai-q03","week":"ai","set":"weekly","area":"ai","type":"single","stem":"Simon Willison's lethal trifecta: which three ingredients together make an agent exploitable by injected content?","options":["Access to private data, exposure to untrusted content, and a way to send data out (exfiltration)","Streaming, caching and retries","Python, Java and TypeScript","Low temperature, high top-p, long context"],"answer":[0],"explanation":"Remove one leg (often the exfiltration channel or the write capability) to break the attack. ai-t1 shows that untrusted content plus a write tool is already enough to corrupt data.","learn":[{"label":"The lethal trifecta","href":"https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"}]},{"id":"ai-q04","week":"ai","set":"weekly","area":"ai","type":"multi","stem":"Which TWO are context-engineering choices for the tutor?","options":["Load only the lesson sections relevant to the question (just-in-time retrieval) instead of the whole course","Put every tool's full documentation in every turn","Keep the stable prefix (instructions, cached chapter) first and per-turn data after it so caching works","Paste all previous sessions into the prompt","Return 20,000-character tool results"],"answer":[0,2],"explanation":"Context is a budget: retrieve what the turn needs and keep the cacheable prefix byte-stable.","learn":[{"label":"Effective context engineering","href":"https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"},{"label":"Context caching","href":"https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/context-cache/context-cache-overview"}],"choose":2},{"id":"ai-q05","week":"ai","set":"weekly","area":"ai","type":"single","stem":"What belongs on an OpenTelemetry span around each Gemini call, per the GenAI semantic conventions?","options":["Only the HTTP status","The model, operation and token usage (input and output) as gen_ai.* attributes, with latency, so cost and performance are traceable per request","The learner's password","Nothing; LLM calls should not be traced"],"answer":[1],"explanation":"The GenAI conventions standardise attribute names so dashboards and cost reports work across providers and services.","learn":[{"label":"OTel GenAI semantic conventions","href":"https://opentelemetry.io/docs/specs/semconv/gen-ai/"}]},{"id":"ai-q06","week":"ai","set":"weekly","area":"ai","type":"multi","stem":"An MCP server exposes the learner-progress tools. Which TWO design choices are right?","options":["Task-shaped read-only tools with clear descriptions and annotations","A 1:1 copy of every REST endpoint including writes","The learner identity taken from the authenticated session, not from a tool argument","Raw database rows as results","No error handling, so the model sees stack traces"],"answer":[0,2],"explanation":"Design MCP tools around tasks; never let the model choose whose data to read.","learn":[{"label":"MCP introduction","href":"https://modelcontextprotocol.io/docs/getting-started/intro"},{"label":"Writing effective tools for agents","href":"https://www.anthropic.com/research/writing-tools-for-agents"}],"choose":2},{"id":"ai-q07","week":"ai","set":"weekly","area":"ai","type":"single","stem":"Your team shares agent skills and hooks across repositories. Which guardrail must be a hook rather than an instruction?","options":["A preference for short commit messages","Blocking a push that contains secrets or forbidden attribution, because a hook runs deterministically whatever the model decides","Using tabs vs spaces","The tone of PR descriptions"],"answer":[1],"explanation":"Hooks are deterministic guardrails around a non-deterministic agent; skills carry reusable procedures and are loaded on demand.","learn":[{"label":"Claude Code hooks","href":"https://code.claude.com/docs/en/hooks"},{"label":"Claude Code skills","href":"https://code.claude.com/docs/en/skills"}]},{"id":"ai-q08","week":"ai","set":"weekly","area":"ai","type":"single","stem":"Workflow or agent for 'generate 5 quiz items, validate, retry invalid ones, store drafts for review'?","options":["A fully autonomous agent with all tools","A workflow: deterministic steps (validate, store) around a model call, with a bounded corrective retry loop","No model at all","A multi-agent swarm"],"answer":[1],"explanation":"Use the model where judgement is needed and keep the rest deterministic; it is cheaper, testable and safer.","learn":[{"label":"Building effective agents","href":"https://www.anthropic.com/research/building-effective-agents"}]}],"mocks":{}};</script>
+<script>
+(function () {
+  var KEY = "wb-javaai-v1";
+  var PASS = 70;
+  var D = window.JAVAAI_DATA || { areas: [], weekly: [], mocks: {} };
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  state.q = state.q || {};
+  state.mock = state.mock || {};
+  state.mockRun = state.mockRun || {};
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked: keep in memory */ } }
+  var G = window.GRADES || {};
+
+  // ---------- theme ----------
+  function applyTheme() {
+    if (state.theme) document.documentElement.setAttribute("data-theme", state.theme);
+    else document.documentElement.removeAttribute("data-theme");
+  }
+  applyTheme();
+  document.getElementById("themebtn").addEventListener("click", function () {
+    var dark = state.theme ? state.theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    state.theme = dark ? "light" : "dark"; save(); applyTheme();
+  });
+
+  // ---------- tabs ----------
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id; a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    var target = document.getElementById(id);
+    var page = target ? (target.classList.contains("page") ? target : target.closest("section.page")) : null;
+    if (!page) page = document.getElementById("overview");
+    pages.forEach(function (p) { p.classList.toggle("active", p === page); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === page.id); });
+    if (target && target !== page) target.scrollIntoView(); else window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+
+  // ---------- grades ----------
+  function fbHref(fb) {
+    if (!fb) return null;
+    if (fb.indexOf("grades/") === 0) return "../" + fb;
+    return "../grades/" + fb;
+  }
+  function gradeInfo(id) {
+    var g = G[id];
+    if (!g || !g.attempts || !g.attempts.length) return null;
+    var last = g.attempts[g.attempts.length - 1];
+    return { latest: g.latest, best: g.best, attempts: g.attempts.length, passed: g.best >= PASS,
+             feedback: fbHref(last.feedback), ts: last.ts, summary: last.summary };
+  }
+  document.querySelectorAll("[data-badge]").forEach(function (b) {
+    var gi = gradeInfo(b.dataset.badge);
+    if (!gi) { b.textContent = "not attempted"; return; }
+    b.classList.add(gi.passed ? "pass" : "retry");
+    b.innerHTML = "latest " + gi.latest + " / best " + gi.best + " - " + (gi.passed ? "PASS" : "RETRY") +
+      (gi.feedback ? ' - <a href="' + gi.feedback + '">feedback</a>' : "");
+    b.title = gi.summary || "";
+  });
+  function weekPct(pageId) {
+    var cards = document.querySelectorAll('#' + pageId + ' [data-ex]');
+    if (!cards.length) return null;
+    var done = 0;
+    cards.forEach(function (c) { var gi = gradeInfo(c.dataset.ex); if (gi && gi.passed) done++; });
+    return Math.round(100 * done / cards.length);
+  }
+
+  // ---------- questions ----------
+  var AREAS = D.areas;
+  function areaOf(key) { return AREAS.filter(function (a) { return a.key === key; })[0] || { key: key, name: key }; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function sameSet(a, b) { if (a.length !== b.length) return false; return a.slice().sort().join(",") === b.slice().sort().join(","); }
+  function isCorrect(q, resp) {
+    if (!resp) return false;
+    if (q.type === "order") return resp.length === q.answer.length && resp.join(",") === q.answer.join(",");
+    return sameSet(resp.map(Number), q.answer.map(Number));
+  }
+  function askText(q) {
+    if (q.type === "multi") return "Choose " + (q.choose || q.answer.length) + ". Scored all or nothing.";
+    if (q.type === "order") return "Arrange " + (q.choose || q.answer.length) + " of the actions in the correct order. Not every action is used.";
+    return "Choose one.";
+  }
+  function renderQ(q, num, mode, getResp, setResp, reveal) {
+    var el = document.createElement("div");
+    el.className = "q"; el.dataset.qid = q.id;
+    var area = areaOf(q.area);
+    var typeLabel = q.type === "multi" ? "multi-select" : (q.type === "order" ? "build list" : "single answer");
+    el.innerHTML = '<div class="qhead"><b>Q' + num + '</b><span class="area">' + esc(area.name) + '</span><span>' + typeLabel +
+      '</span><span>' + esc(q.id) + '</span></div><div class="stem">' + q.stem + '</div><p class="small">' + askText(q) + '</p>';
+    var body = document.createElement("div");
+    var resp = getResp();
+    var inputs = [];
+    if (q.type === "order") {
+      var ol = document.createElement("ol"); ol.className = "actions"; ol.type = "A";
+      q.options.forEach(function (o) { var li = document.createElement("li"); li.innerHTML = o; ol.appendChild(li); });
+      body.appendChild(ol);
+      var seq = document.createElement("div"); seq.className = "seq";
+      var n = q.choose || q.answer.length;
+      for (var i = 0; i < n; i++) {
+        var lab = document.createElement("span"); lab.textContent = "Step " + (i + 1);
+        var sel = document.createElement("select");
+        var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "- choose an action -"; sel.appendChild(o0);
+        q.options.forEach(function (o, j) {
+          var op = document.createElement("option"); op.value = String(j);
+          var tmp = document.createElement("div"); tmp.innerHTML = o;
+          op.textContent = String.fromCharCode(65 + j) + ". " + tmp.textContent; sel.appendChild(op);
+        });
+        if (resp && resp[i] !== undefined && resp[i] !== null) sel.value = String(resp[i]);
+        seq.appendChild(lab); seq.appendChild(sel); inputs.push(sel);
+      }
+      body.appendChild(seq);
+    } else {
+      q.options.forEach(function (o, j) {
+        var lab = document.createElement("label"); lab.className = "opt";
+        var inp = document.createElement("input");
+        inp.type = q.type === "multi" ? "checkbox" : "radio";
+        inp.name = mode + "-" + q.id; inp.value = String(j);
+        if (resp && resp.map(Number).indexOf(j) >= 0) inp.checked = true;
+        var span = document.createElement("span"); span.innerHTML = String.fromCharCode(65 + j) + ". " + o;
+        lab.appendChild(inp); lab.appendChild(span); body.appendChild(lab); inputs.push(inp);
+      });
+    }
+    el.appendChild(body);
+    function readResp() {
+      if (q.type === "order") return inputs.map(function (s) { return s.value === "" ? null : Number(s.value); });
+      return inputs.filter(function (i) { return i.checked; }).map(function (i) { return Number(i.value); });
+    }
+    inputs.forEach(function (inp) { inp.addEventListener("change", function () { setResp(readResp(), false); }); });
+    var explain = document.createElement("div");
+    function showExplain() {
+      var r = getResp(); var ok = isCorrect(q, r);
+      explain.className = "explain" + (ok ? "" : " bad");
+      var key;
+      if (q.type === "order") key = q.answer.map(function (j, k) { return (k + 1) + ". " + String.fromCharCode(65 + j); }).join("  ");
+      else key = q.answer.map(function (j) { return String.fromCharCode(65 + j); }).join(", ");
+      var links = (q.learn || []).map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + "</a>"; }).join(" / ");
+      explain.innerHTML = '<b class="' + (ok ? "ok" : "no") + '">' + (ok ? "Correct." : "Incorrect.") + "</b> Answer: " + key +
+        "<br>" + q.explanation + (links ? '<br><span class="small">Learn: ' + links + "</span>" : "");
+      if (q.type !== "order") {
+        body.querySelectorAll("label.opt").forEach(function (lab, j) {
+          lab.classList.toggle("right", q.answer.map(Number).indexOf(j) >= 0);
+          lab.classList.toggle("wrong", (r || []).indexOf(j) >= 0 && q.answer.map(Number).indexOf(j) < 0);
+        });
+      }
+      if (!explain.parentNode) el.appendChild(explain);
+    }
+    if (mode === "practice") {
+      var row = document.createElement("div"); row.className = "actionsrow";
+      var b = document.createElement("button"); b.className = "btn"; b.textContent = "Check answer";
+      b.addEventListener("click", function () { setResp(readResp(), true); showExplain(); });
+      var clr = document.createElement("button"); clr.className = "btn"; clr.textContent = "Reset";
+      clr.addEventListener("click", function () { setResp(null, false); var nq = renderQ(q, num, mode, getResp, setResp, false); el.parentNode.replaceChild(nq, el); });
+      row.appendChild(b); row.appendChild(clr); el.appendChild(row);
+    } else {
+      inputs.forEach(function (i) { i.disabled = !!reveal; });
+    }
+    if (reveal) showExplain();
+    return el;
+  }
+  function renderList(container, list, mode, getResp, setResp, revealFn) {
+    list.forEach(function (q, i) {
+      container.appendChild(renderQ(q, i + 1, mode,
+        function () { return getResp(q); }, function (r, checked) { setResp(q, r, checked); }, revealFn(q)));
+    });
+  }
+
+  // ---------- weekly practice ----------
+  var SETS = [];
+  (function () {
+    var by = {};
+    D.weekly.forEach(function (q) { var w = String(q.week); (by[w] = by[w] || []).push(q); });
+    Object.keys(by).sort(function (a, b) { return (a === "ai") - (b === "ai") || Number(a) - Number(b); }).forEach(function (w) {
+      SETS.push({ key: "w" + w, label: w === "ai" ? "AI Integration" : "Week " + w, list: by[w] });
+    });
+  })();
+  function setScore(list) {
+    var answered = 0, right = 0;
+    list.forEach(function (q) { var s = state.q[q.id]; if (s && s.checked) { answered++; if (isCorrect(q, s.r)) right++; } });
+    return { answered: answered, right: right, total: list.length };
+  }
+  var MOCKS = [["screen", D.mocks.screen], ["aws", D.mocks.aws]].filter(function (m) { return m[1]; });
+
+  var seRoot = document.getElementById("se-root");
+  var seNav = document.getElementById("se-nav");
+  var current = state.seView || "w1";
+  function buildNav() {
+    seNav.innerHTML = "";
+    SETS.forEach(function (s) {
+      var b = document.createElement("button"); b.textContent = s.label; b.dataset.view = s.key; seNav.appendChild(b);
+    });
+    MOCKS.forEach(function (m) {
+      var b = document.createElement("button"); b.textContent = "Mock: " + m[1].short; b.dataset.view = "mock:" + m[0]; seNav.appendChild(b);
+    });
+    seNav.querySelectorAll("button").forEach(function (b) {
+      b.classList.toggle("active", b.dataset.view === current);
+      b.addEventListener("click", function () { current = b.dataset.view; state.seView = current; save(); buildNav(); renderView(); });
+    });
+  }
+  function renderView() {
+    seRoot.innerHTML = "";
+    if (timerHandle) { clearInterval(timerHandle); timerHandle = null; }
+    if (current.indexOf("mock:") === 0) {
+      var key = current.slice(5);
+      var m = MOCKS.filter(function (x) { return x[0] === key; })[0];
+      if (m) { renderMock(key, m[1]); return; }
+      current = "w1";
+    }
+    var set = SETS.filter(function (s) { return s.key === current; })[0] || SETS[0];
+    if (!set) { seRoot.textContent = "No questions loaded."; return; }
+    var list = set.list;
+    var head = document.createElement("div"); head.className = "card";
+    head.innerHTML = "<b>" + esc(set.label) + "</b>: " + list.length +
+      ' questions. <span id="se-score"></span> Answers save in this browser. <button class="btn" id="se-reset">Reset this set</button>';
+    function headScore() { var s2 = setScore(list); head.querySelector("#se-score").textContent = "Score so far: " + s2.right + " / " + s2.answered + " checked (" + s2.total + " total)."; }
+    seRoot.appendChild(head);
+    head.querySelector("#se-reset").addEventListener("click", function () {
+      if (!confirm("Clear your answers for this set?")) return;
+      list.forEach(function (q) { delete state.q[q.id]; }); save(); renderView(); refreshScore();
+    });
+    headScore();
+    renderList(seRoot, list, "practice",
+      function (q) { return state.q[q.id] ? state.q[q.id].r : null; },
+      function (q, r, checked) {
+        if (r === null) delete state.q[q.id];
+        else state.q[q.id] = { r: r, checked: !!checked };
+        save(); refreshScore(); headScore();
+      },
+      function (q) { return !!(state.q[q.id] && state.q[q.id].checked); });
+  }
+
+  // ---------- mock exams ----------
+  var timerHandle = null;
+  function fmt(sec) { sec = Math.max(0, Math.floor(sec)); var m = Math.floor(sec / 60), s = sec % 60; return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s; }
+  function scaled(mock, right, total) {
+    if (mock.scale === "aws") return Math.round(100 + 900 * right / total);
+    return Math.round(100 * right / total);
+  }
+  function passed(mock, score) { return score >= mock.pass; }
+  function scoreMock(mock, run) {
+    var byArea = {}; var right = 0; var wrong = [];
+    mock.questions.forEach(function (q) {
+      var a = byArea[q.area] = byArea[q.area] || { right: 0, total: 0 };
+      a.total++;
+      if (isCorrect(q, run.answers[q.id])) { a.right++; right++; } else wrong.push(q.id);
+    });
+    return { score: scaled(mock, right, mock.questions.length), right: right, total: mock.questions.length, byArea: byArea, wrong: wrong };
+  }
+  function answeredCount(run) {
+    return Object.keys(run.answers).filter(function (k) { var r = run.answers[k]; return r && r.length && r.some(function (x) { return x !== null; }); }).length;
+  }
+  function finishMock(key, mock, auto) {
+    var run = state.mockRun[key]; if (!run) return;
+    var res = scoreMock(mock, run);
+    res.ts = new Date().toISOString().slice(0, 19);
+    res.minutes = Math.round((Math.min(Date.now(), run.deadline) - run.started) / 60000);
+    res.auto = !!auto; res.answers = run.answers;
+    (state.mock[key] = state.mock[key] || []).push(res);
+    delete state.mockRun[key]; save();
+    if (timerHandle) { clearInterval(timerHandle); timerHandle = null; }
+    refreshScore(); renderView();
+  }
+  function renderMock(key, mock) {
+    var run = state.mockRun[key];
+    var hist = state.mock[key] || [];
+    var counts = {}; mock.questions.forEach(function (q) { counts[q.area] = (counts[q.area] || 0) + 1; });
+    if (!run) {
+      var intro = document.createElement("div"); intro.className = "card";
+      var mix = AREAS.filter(function (a) { return counts[a.key]; }).map(function (a) { return "<li>" + esc(a.name) + ": " + counts[a.key] + " questions</li>"; }).join("");
+      intro.innerHTML = "<h3>" + esc(mock.title) + "</h3><p>" + mock.questions.length + " questions, " + mock.minutes + " minutes. " + mock.intro +
+        "</p><ul class='plain'>" + mix + "</ul>";
+      var go = document.createElement("button"); go.className = "btn primary"; go.textContent = "Start the " + mock.minutes + "-minute timer";
+      go.addEventListener("click", function () {
+        state.mockRun[key] = { started: Date.now(), deadline: Date.now() + mock.minutes * 60000, answers: {} }; save(); renderView();
+      });
+      intro.appendChild(go); seRoot.appendChild(intro);
+      if (hist.length) renderMockResult(key, mock, hist[hist.length - 1], hist);
+      return;
+    }
+    if (Date.now() >= run.deadline) { finishMock(key, mock, true); return; }
+    var bar = document.createElement("div"); bar.className = "timer";
+    bar.innerHTML = '<span class="clock" id="mock-clock"></span><span id="mock-answered"></span>';
+    var sub = document.createElement("button"); sub.className = "btn primary"; sub.textContent = "Submit exam";
+    sub.addEventListener("click", function () {
+      if (confirm("Submit now? " + answeredCount(run) + " of " + mock.questions.length + " answered.")) finishMock(key, mock, false);
+    });
+    var ab = document.createElement("button"); ab.className = "btn"; ab.textContent = "Abandon";
+    ab.addEventListener("click", function () { if (confirm("Abandon this attempt without scoring?")) { delete state.mockRun[key]; save(); renderView(); } });
+    bar.appendChild(sub); bar.appendChild(ab); seRoot.appendChild(bar);
+    function tick() {
+      var left = (run.deadline - Date.now()) / 1000;
+      var c = document.getElementById("mock-clock"); if (!c) { clearInterval(timerHandle); return; }
+      c.textContent = fmt(left) + " left"; c.classList.toggle("low", left < 600);
+      document.getElementById("mock-answered").textContent = answeredCount(run) + " / " + mock.questions.length + " answered";
+      if (left <= 0) finishMock(key, mock, true);
+    }
+    var holder = document.createElement("div"); seRoot.appendChild(holder);
+    renderList(holder, mock.questions, "mock",
+      function (q) { return run.answers[q.id] || null; },
+      function (q, r) { run.answers[q.id] = r; save(); },
+      function () { return false; });
+    tick(); timerHandle = setInterval(tick, 1000);
+  }
+  function renderMockResult(key, mock, res, hist) {
+    var box = document.createElement("div"); box.className = "card";
+    var ok = passed(mock, res.score);
+    var rows = AREAS.filter(function (a) { return res.byArea[a.key]; }).map(function (a) {
+      var x = res.byArea[a.key]; var p = Math.round(100 * x.right / x.total);
+      return "<tr><td>" + esc(a.name) + "</td><td>" + x.right + " / " + x.total + "</td><td>" + p +
+        '%</td><td><div class="bar' + (p < 70 ? " badbar" : "") + '"><div style="width:' + p + '%"></div></div></td></tr>';
+    }).join("");
+    var hrows = hist.map(function (h, i) {
+      return "<tr><td>" + (i + 1) + "</td><td>" + esc(h.ts.replace("T", " ")) + "</td><td>" + h.score + mock.unit + "</td><td>" +
+        (passed(mock, h.score) ? '<span class="ok">pass</span>' : '<span class="no">below pass</span>') + "</td><td>" + h.right + " / " + h.total + "</td><td>" + h.minutes + " min" + (h.auto ? " (time up)" : "") + "</td></tr>";
+    }).join("");
+    box.innerHTML = "<h3>Latest result</h3><p class='scorebox " + (ok ? "ok" : "no") + "'>" + res.score + mock.unit + " - " + (ok ? "PASS" : "BELOW PASS") +
+      "</p><p>" + res.right + " of " + res.total + " correct in " + res.minutes + " minutes. Pass mark: " + mock.pass + mock.unit + ".</p>" +
+      "<h4>By area</h4><table><tr><th>Area</th><th>Correct</th><th>%</th><th></th></tr>" + rows + "</table>" +
+      "<h4>All attempts</h4><table><tr><th>#</th><th>When</th><th>Score</th><th></th><th>Correct</th><th>Time</th></tr>" + hrows + "</table>" +
+      "<h4>Review: questions you missed (" + res.wrong.length + "), with explanations and docs links</h4>";
+    seRoot.appendChild(box);
+    var wrongQs = mock.questions.filter(function (q) { return res.wrong.indexOf(q.id) >= 0; });
+    var holder = document.createElement("div"); seRoot.appendChild(holder);
+    renderList(holder, wrongQs, "review",
+      function (q) { return (res.answers || {})[q.id] || null; }, function () {}, function () { return true; });
+    var all = document.createElement("details"); all.className = "case";
+    all.innerHTML = "<summary>Review all " + mock.questions.length + " questions</summary>";
+    var h2 = document.createElement("div"); all.appendChild(h2);
+    all.addEventListener("toggle", function () {
+      if (all.open && !h2.childNodes.length) renderList(h2, mock.questions, "reviewall",
+        function (q) { return (res.answers || {})[q.id] || null; }, function () {}, function () { return true; });
+    });
+    seRoot.appendChild(all);
+  }
+
+  // ---------- scoreboard ----------
+  function refreshScore() {
+    var body = document.getElementById("sb-ex"); body.innerHTML = "";
+    var cards = document.querySelectorAll(".page [data-ex]");
+    var total = 0, passedN = 0, reqTotal = 0, reqPassed = 0;
+    cards.forEach(function (c) {
+      var id = c.dataset.ex; var gi = gradeInfo(id); var optional = !!c.querySelector(".tag.opt");
+      total++; if (gi && gi.passed) passedN++;
+      if (!optional) { reqTotal++; if (gi && gi.passed) reqPassed++; }
+      var title = c.querySelector("h3").textContent; var typ = c.querySelector(".tag").textContent;
+      var tr = document.createElement("tr");
+      tr.innerHTML = '<td><a href="#' + c.id + '">' + esc(id) + "</a>" + (optional ? " (optional)" : "") + "</td><td>" + esc(title) + "</td><td>" + esc(typ) + "</td><td>" +
+        (gi ? gi.latest : "-") + "</td><td>" + (gi ? gi.best : "-") + "</td><td>" +
+        (gi ? (gi.passed ? '<span class="ok">pass</span>' : '<span class="no">retry</span>') : "not attempted") + "</td><td>" + (gi ? gi.attempts : 0) + "</td><td>" +
+        (gi && gi.feedback ? '<a href="' + gi.feedback + '">latest</a>' : "") + "</td>";
+      body.appendChild(tr);
+    });
+    var qb = document.getElementById("sb-quiz"); qb.innerHTML = "";
+    var qTotal = 0, qChecked = 0;
+    SETS.forEach(function (s) {
+      var sc = setScore(s.list); qTotal += sc.total; qChecked += sc.answered;
+      var tr = document.createElement("tr");
+      tr.innerHTML = "<td>" + esc(s.label) + "</td><td>" + sc.right + " / " + sc.answered + "</td><td>" + sc.answered + " / " + sc.total +
+        "</td><td>" + (sc.answered ? Math.round(100 * sc.right / sc.answered) + "%" : "-") + "</td>";
+      qb.appendChild(tr);
+    });
+    var mb = document.getElementById("sb-mock"); mb.innerHTML = "";
+    var mocksPassed = 0;
+    MOCKS.forEach(function (m) {
+      var hist = state.mock[m[0]] || [];
+      var best = hist.reduce(function (acc, h) { return Math.max(acc, h.score); }, -1);
+      if (best >= 0 && passed(m[1], best)) mocksPassed++;
+      var last = hist.length ? hist[hist.length - 1] : null;
+      var weakest = "";
+      if (last) {
+        var ws = Object.keys(last.byArea).map(function (k) { var x = last.byArea[k]; return [k, x.right / x.total]; }).sort(function (a, b) { return a[1] - b[1]; }).slice(0, 2);
+        weakest = ws.map(function (w) { return esc(areaOf(w[0]).name) + " (" + Math.round(100 * w[1]) + "%)"; }).join(", ");
+      }
+      var tr = document.createElement("tr");
+      tr.innerHTML = "<td>" + esc(m[1].title) + "</td><td>" + (last ? last.score + m[1].unit : "-") + "</td><td>" + (best >= 0 ? best + m[1].unit : "-") + "</td><td>" +
+        (best >= 0 ? (passed(m[1], best) ? '<span class="ok">pass</span>' : '<span class="no">below pass</span>') : "not taken") + "</td><td>" + hist.length + "</td><td>" + weakest + "</td>";
+      mb.appendChild(tr);
+    });
+    var pe = reqTotal ? reqPassed / reqTotal : 0, pq = qTotal ? qChecked / qTotal : 0, pm = MOCKS.length ? mocksPassed / MOCKS.length : 0;
+    var overall = MOCKS.length ? Math.round(100 * (pe + pq + pm) / 3) : Math.round(100 * (pe + pq) / 2);
+    document.getElementById("sb-overall").innerHTML = "<b>" + overall + "% complete</b> - exercises passed " + reqPassed + " / " + reqTotal +
+      " required (" + passedN + " / " + total + " incl. optional), quiz questions checked " + qChecked + " / " + qTotal + ", mock exams passed " + mocksPassed + " / " + MOCKS.length + ".";
+    document.getElementById("bar-all").style.width = overall + "%";
+    var ov = tabs.querySelector('[data-page="overview"] .pct'); if (ov) ov.textContent = overall + "%";
+    pages.forEach(function (p) {
+      var v = weekPct(p.id); if (v === null) return;
+      var t = tabs.querySelector('[data-page="' + p.id + '"] .pct'); if (t) t.textContent = v + "%";
+      var b = document.getElementById("bar-" + p.id); if (b) b.style.width = v + "%";
+    });
+  }
+
+  buildNav(); renderView(); refreshScore(); show();
+})();
+</script>
+</body>
+</html>

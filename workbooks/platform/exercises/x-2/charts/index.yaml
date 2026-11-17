@@ -1,0 +1,31 @@
+# Mirror of https://charts.tessellate.example/platform/index.yaml as of 2026-11-10 15:30 UTC
+apiVersion: v1
+entries:
+  riq-api:
+    - name: riq-api
+      version: 3.0.0
+      appVersion: "3.0.0"
+      created: "2026-11-10T15:02:41Z"
+      description: RIQ risk query API. BREAKING - values key db.url renamed to database.dsn
+      urls: [https://charts.tessellate.example/platform/riq-api-3.0.0.tgz]
+    - name: riq-api
+      version: 3.0.0-rc.1
+      appVersion: "3.0.0-rc.1"
+      created: "2026-11-06T10:14:09Z"
+      urls: [https://charts.tessellate.example/platform/riq-api-3.0.0-rc.1.tgz]
+    - name: riq-api
+      version: 2.4.1
+      appVersion: "2.4.1"
+      created: "2026-10-21T09:40:00Z"
+      urls: [https://charts.tessellate.example/platform/riq-api-2.4.1.tgz]
+    - name: riq-api
+      version: 2.4.0
+      appVersion: "2.4.0"
+      created: "2026-09-30T13:02:00Z"
+      urls: [https://charts.tessellate.example/platform/riq-api-2.4.0.tgz]
+    - name: riq-api
+      version: 2.3.0
+      appVersion: "2.3.0"
+      created: "2026-08-02T08:11:00Z"
+      urls: [https://charts.tessellate.example/platform/riq-api-2.3.0.tgz]
+generated: "2026-11-10T15:02:44Z"

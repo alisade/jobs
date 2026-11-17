@@ -1,0 +1,23 @@
+{
+  "Name": "ContactFlowEvent",
+  "Details": {
+    "ContactData": {
+      "Attributes": { "callerVerified": "true" },
+      "Channel": "VOICE",
+      "ContactId": "6a1f0c2e-8d4b-4f7e-b3a9-0c5d2e7f9a11",
+      "InitialContactId": "6a1f0c2e-8d4b-4f7e-b3a9-0c5d2e7f9a11",
+      "InitiationMethod": "INBOUND",
+      "InstanceARN": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+      "PreviousContactId": "6a1f0c2e-8d4b-4f7e-b3a9-0c5d2e7f9a11",
+      "Queue": null,
+      "SystemEndpoint": { "Address": "+18005550142", "Type": "TELEPHONE_NUMBER" },
+      "CustomerEndpoint": { "Address": "+12125550187", "Type": "TELEPHONE_NUMBER" },
+      "MediaStreams": { "Customer": { "Audio": null } }
+    },
+    "Parameters": {
+      "action": "lookupOrCreate",
+      "shortDescription": "Laptop will not connect to VPN (reported via phone IVR)",
+      "category": "network"
+    }
+  }
+}

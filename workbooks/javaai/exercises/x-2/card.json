@@ -1,0 +1,24 @@
+{
+  "id": "javaai/x-2",
+  "title": "When will the tutor portfolio be done? Flow metrics and a Monte Carlo forecast",
+  "type": "coding",
+  "estimate": "1.5-2 h",
+  "week": 7,
+  "optional": true,
+  "area": "Architecture and delivery",
+  "scenario": "After 12 weeks on a Kanban board, the product lead asks when the remaining 40 items will be done and what the team can promise for the next four weeks. Estimates have been wrong every sprint; answer from throughput history with a seeded Monte Carlo forecast.",
+  "task": [
+    "Weekly throughput with zero weeks, cycle times, nearest-rank percentiles",
+    "A seeded Monte Carlo of weeks to finish, with a cap and an empty-history error",
+    "Finish dates by confidence and items in N weeks at the low end",
+    "Little's law and a message to the product lead"
+  ],
+  "acceptance": [
+    "Exact numbers on the data and hand cases",
+    "Seeded results reproducible",
+    "ANSWER.md communicates ranges and assumptions"
+  ],
+  "practices": [
+    {"label": "Week 7 Thu - Kanban, flow metrics and forecasting", "href": "week7"}
+  ]
+}

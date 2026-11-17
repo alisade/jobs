@@ -1,0 +1,5 @@
+// Fleet dashboard tile: 5-minute tumbling windows per vehicle, last hour.
+// Output columns (the tile binds to these names): VehicleId, Window, AvgSpeedKph, MaxEngineTempC, Readings
+// TODO: filter to the last hour, aggregate in 5-minute tumbling windows per vehicle, order the output.
+Telemetry
+| take 100

@@ -1,0 +1,26 @@
+diff --git a/infra/gateway.ts b/infra/gateway.ts
+-    authorizerType: "AWS_IAM",
+-    roleArn: "arn:aws:iam::111122223333:role/tw-ask-acme-gateway-exec",
++    authorizerType: "CUSTOM_JWT",
++    authorizerConfiguration: { customJWTAuthorizer: { discoveryUrl: COGNITO_DISCOVERY, allowedClients: ["tw-ask-agent-runtime"] } },
++    roleArn: "arn:aws:iam::111122223333:role/tw-ask-acme-gateway-exec-v2",
+diff --git a/infra/targets.ts b/infra/targets.ts
+-  name: "orders",
++  name: "tw_orders",        // naming standard: <product>_<domain>
+diff --git a/infra/iam.ts b/infra/iam.ts
++  // v2 exec role: lambda:InvokeFunction on tw-order-tools-prod only (least privilege)
++  new iam.PolicyStatement({ actions: ["lambda:InvokeFunction"], resources: [orderToolsFn.functionArn] }),
+diff --git a/order_tools/tools.json b/order_tools/tools.json
+   {"name": "search", ...},
++  {"name": "lookup_order", ...},
++  {"name": "get_invoice_total", ...}
+diff --git a/order_tools/tools.py b/order_tools/tools.py
++def lookup_order(args: dict) -> dict:
++def get_invoice_total(args: dict) -> dict:
+-HANDLERS = {"search": search}
++HANDLERS = {"search": search, "lookup_order": lookup_order, "get_invoice_total": get_invoice_total}
+diff --git a/order_tools/tests/test_tools.py b/order_tools/tests/test_tools.py
++def test_lookup_order():
++    assert tools.lookup_order({"order_id": "PO-48812"})["status"] == "SHIPPED"
++def test_invoice_total():
++    assert tools.get_invoice_total({"order_id": "PO-48812"})["total"] == 941.76

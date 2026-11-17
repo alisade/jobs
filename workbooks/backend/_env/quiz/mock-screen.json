@@ -1,0 +1,687 @@
+{
+ "questions": [
+  {
+   "id": "ms-q01",
+   "week": null,
+   "set": "screen",
+   "area": "design",
+   "type": "single",
+   "stem": "Keystone must serve accounts to five product teams and several agentic apps. One team asks for direct read access to the accounts tables 'for performance'. What do you propose?",
+   "options": [
+    "Grant SELECT on the tables to their role",
+    "Keep table ownership in accounts-svc; offer a read API or a GraphQL read layer, and publish change events they can project locally if they need low latency",
+    "Copy the tables nightly into their schema",
+    "Merge their service into accounts-svc"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Direct table access makes the schema a cross-team contract and bypasses tenancy logic. An API plus events gives them speed without coupling.",
+   "learn": [
+    {
+     "label": "Microservice architecture patterns",
+     "href": "https://microservices.io/patterns/microservices.html"
+    },
+    {
+     "label": "Monolith to Microservices (Newman)",
+     "href": "https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q02",
+   "week": null,
+   "set": "screen",
+   "area": "design",
+   "type": "multi",
+   "stem": "The interviewer asks how Keystone isolates tenants that are business units with very different sizes (bu-amer is 20x bu-apac). Choose TWO sound points.",
+   "options": [
+    "Shared schema with RLS by default, with the option to move a very large tenant to its own database later",
+    "Per-tenant quotas and rate limits at the API layer to contain noisy neighbors",
+    "Create one schema per tenant and run migrations by hand",
+    "Disable RLS for the largest tenant for speed",
+    "Put all tenants in separate Kubernetes clusters from day one"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Start simple and keep a migration path for an outlier; enforce fairness with quotas. Disabling RLS or hand-run per-schema migrations trade safety for nothing.",
+   "learn": [
+    {
+     "label": "Azure multitenant architecture guide",
+     "href": "https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/overview"
+    },
+    {
+     "label": "AWS SaaS architecture fundamentals",
+     "href": "https://docs.aws.amazon.com/whitepapers/latest/saas-architecture-fundamentals/saas-architecture-fundamentals.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ms-q03",
+   "week": null,
+   "set": "screen",
+   "area": "postgres",
+   "type": "single",
+   "stem": "Under PgBouncer transaction pooling, a developer sets the tenant with <code>SET app.tenant_id = 'bu-amer'</code> right after checking out a connection, outside any transaction. A bu-emea user later sees bu-amer rows. Why?",
+   "options": [
+    "RLS does not work with PgBouncer",
+    "The session-level SET persisted on the server connection, which PgBouncer then handed to another client",
+    "current_setting caches across databases",
+    "FORCE ROW LEVEL SECURITY was missing"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Transaction pooling reassigns server connections between transactions, carrying session state. SET LOCAL inside the transaction is the fix.",
+   "learn": [
+    {
+     "label": "Row-level security for tenants (Crunchy Data)",
+     "href": "https://www.crunchydata.com/blog/row-level-security-for-tenants-in-postgres"
+    },
+    {
+     "label": "PostgreSQL: row security policies",
+     "href": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q04",
+   "week": null,
+   "set": "screen",
+   "area": "postgres",
+   "type": "single",
+   "stem": "A query <code>WHERE account_id::text = $1</code> on a uuid column started doing a sequential scan after a release. The index on account_id exists. Why?",
+   "options": [
+    "The index needs REINDEX",
+    "Casting the indexed column means the index (on the uuid value) cannot be used; compare against a uuid parameter instead",
+    "ANALYZE was not run",
+    "uuid columns cannot be indexed"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "An expression on the column defeats a plain index. Cast the parameter, not the column, or build an expression index if you truly need it.",
+   "learn": [
+    {
+     "label": "PostgreSQL: indexes",
+     "href": "https://www.postgresql.org/docs/current/indexes.html"
+    },
+    {
+     "label": "PostgreSQL: using EXPLAIN",
+     "href": "https://www.postgresql.org/docs/current/using-explain.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q05",
+   "week": null,
+   "set": "screen",
+   "area": "postgres",
+   "type": "single",
+   "stem": "A plan shows <code>Nested Loop (rows=3) (actual rows=410000)</code> with an inner index scan executed 410,000 times. What do you look at first?",
+   "options": [
+    "The server's CPU model",
+    "The row estimate error on the outer side: fix statistics (ANALYZE, extended statistics for correlated columns) so the planner can pick a hash join",
+    "Disable nested loops globally",
+    "Add more indexes until it changes"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Bad estimates drive bad join choices. Fix the estimate rather than forcing planner settings.",
+   "learn": [
+    {
+     "label": "PostgreSQL: using EXPLAIN",
+     "href": "https://www.postgresql.org/docs/current/using-explain.html"
+    },
+    {
+     "label": "pgMustard: EXPLAIN glossary",
+     "href": "https://www.pgmustard.com/docs/explain"
+    }
+   ]
+  },
+  {
+   "id": "ms-q06",
+   "week": null,
+   "set": "screen",
+   "area": "postgres",
+   "type": "multi",
+   "stem": "Which TWO statements about Serializable isolation in PostgreSQL are true?",
+   "options": [
+    "It can abort transactions with a serialization failure, so the application must retry",
+    "It prevents anomalies such as write skew that Read Committed allows",
+    "It takes table locks for every read",
+    "It makes SELECT ... FOR UPDATE unnecessary in all cases and has no cost",
+    "It is the default isolation level"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "SSI detects dangerous patterns and aborts one transaction; you must retry. Read Committed is the default.",
+   "learn": [
+    {
+     "label": "PostgreSQL: transaction isolation",
+     "href": "https://www.postgresql.org/docs/current/transaction-iso.html"
+    },
+    {
+     "label": "PostgreSQL: concurrency control",
+     "href": "https://www.postgresql.org/docs/current/mvcc.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ms-q07",
+   "week": null,
+   "set": "screen",
+   "area": "python",
+   "type": "single",
+   "stem": "accounts-svc uses asyncio.gather to call three partner APIs per request. One hangs for 90 s. What should the code have?",
+   "options": [
+    "Nothing; gather times out by default",
+    "A timeout per call (asyncio.timeout or client timeouts) and bounded concurrency, with a clear error mapping",
+    "A thread per call",
+    "A longer Uvicorn keep-alive"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Every external call needs a deadline. gather waits for the slowest call forever otherwise.",
+   "learn": [
+    {
+     "label": "Python asyncio",
+     "href": "https://docs.python.org/3/library/asyncio.html"
+    },
+    {
+     "label": "FastAPI: concurrency and async/await",
+     "href": "https://fastapi.tiangolo.com/async/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q08",
+   "week": null,
+   "set": "screen",
+   "area": "python",
+   "type": "single",
+   "stem": "Lazy loading of account.contacts inside an async endpoint raises an error with SQLAlchemy's AsyncSession. What is the idiomatic fix?",
+   "options": [
+    "Switch back to a sync engine",
+    "Load eagerly in the query (selectinload) or use explicit awaitable access, avoiding implicit IO on attribute access",
+    "Catch and ignore the error",
+    "Increase the pool size"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Implicit lazy loads do IO on attribute access, which asyncio cannot do transparently. Eager loading also avoids the N+1.",
+   "learn": [
+    {
+     "label": "SQLAlchemy asyncio extension",
+     "href": "https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html"
+    },
+    {
+     "label": "SQLAlchemy 2.0 unified tutorial",
+     "href": "https://docs.sqlalchemy.org/en/20/tutorial/index.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q09",
+   "week": null,
+   "set": "screen",
+   "area": "api",
+   "type": "single",
+   "stem": "A client sends POST /v1/accounts with Idempotency-Key K. The first request is still running when an identical retry arrives. What should the second request get?",
+   "options": [
+    "A second account",
+    "A 409 Conflict problem response (optionally with Retry-After) because the key is in progress",
+    "A 200 with an empty body",
+    "It should block for up to 10 minutes"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The key is claimed but has no stored response yet. Reject concurrent use; the client retries and later gets the replayed response.",
+   "learn": [
+    {
+     "label": "IETF draft: Idempotency-Key header",
+     "href": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/"
+    },
+    {
+     "label": "Idempotency keys in Postgres (Brandur Leach)",
+     "href": "https://brandur.org/idempotency-keys"
+    }
+   ]
+  },
+  {
+   "id": "ms-q10",
+   "week": null,
+   "set": "screen",
+   "area": "api",
+   "type": "single",
+   "stem": "A partner reports missing contacts while paging. The cursor is the last row's created_at, and the query is WHERE created_at &gt; $cursor ORDER BY created_at. What is the bug?",
+   "options": [
+    "The page size is too small",
+    "Rows with identical created_at (from a bulk import) are skipped; the sort and cursor need a unique tie-breaker such as (created_at, id)",
+    "Cursors must be integers",
+    "The partner should use OFFSET"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Non-unique sort keys make keyset pagination skip or repeat rows at page boundaries. Add the id to both the ORDER BY and the cursor.",
+   "learn": [
+    {
+     "label": "AIP-158: pagination",
+     "href": "https://google.aip.dev/158"
+    },
+    {
+     "label": "Use The Index, Luke",
+     "href": "https://use-the-index-luke.com/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q11",
+   "week": null,
+   "set": "screen",
+   "area": "typescript",
+   "type": "single",
+   "stem": "A DataLoader is created at module scope in pipeline-svc's GraphQL server. Two weeks later a bu-emea manager sees a bu-amer account name. Why?",
+   "options": [
+    "DataLoader has a bug",
+    "The loader cache is shared across requests, so values loaded under one user's authorization are served to another; loaders must be created per request",
+    "GraphQL leaks data by design",
+    "The CDN cached the response"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Per-request loaders scope the cache and authorization context to the request.",
+   "learn": [
+    {
+     "label": "GraphQL: authorization",
+     "href": "https://graphql.org/learn/authorization/"
+    },
+    {
+     "label": "GraphQL: best practices",
+     "href": "https://graphql.org/learn/best-practices/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q12",
+   "week": null,
+   "set": "screen",
+   "area": "typescript",
+   "type": "single",
+   "stem": "pipeline-svc loses about 0.5% of requests during every rollout. Pods exit within 100 ms of SIGTERM. What is missing?",
+   "options": [
+    "More replicas",
+    "Graceful shutdown: stop accepting, wait for endpoint removal (preStop or readiness failure), drain in-flight requests with fastify.close(), then exit",
+    "A bigger node",
+    "HTTP/2"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Endpoint removal lags the SIGTERM. Draining and a short delay before closing listeners avoid dropped requests.",
+   "learn": [
+    {
+     "label": "Node.js: the event loop",
+     "href": "https://nodejs.org/learn/asynchronous-work/event-loop-timers-and-nexttick"
+    },
+    {
+     "label": "Fastify docs",
+     "href": "https://fastify.dev/docs/latest/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q13",
+   "week": null,
+   "set": "screen",
+   "area": "events",
+   "type": "single",
+   "stem": "Consumers see duplicate OpportunityStageChanged events with different event_ids after relay restarts. What is the most likely relay bug?",
+   "options": [
+    "Kafka duplicated them",
+    "The relay generates a new event id at publish time instead of reusing the outbox row's id, so consumer dedupe cannot recognize redeliveries",
+    "The consumer group rebalanced",
+    "The topic has too many partitions"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Redelivery is expected; changing identity is the bug. Keep the outbox row's event_id end to end.",
+   "learn": [
+    {
+     "label": "Transactional outbox pattern",
+     "href": "https://microservices.io/patterns/data/transactional-outbox.html"
+    },
+    {
+     "label": "Kafka: message delivery semantics",
+     "href": "https://kafka.apache.org/documentation/#semantics"
+    }
+   ]
+  },
+  {
+   "id": "ms-q14",
+   "week": null,
+   "set": "screen",
+   "area": "events",
+   "type": "multi",
+   "stem": "Kafka's idempotent producer is enabled. Which TWO statements are true?",
+   "options": [
+    "It prevents duplicates caused by producer retries within a producer session",
+    "It does not make consumers idempotent or remove duplicates from an outbox relay re-reading rows after a crash",
+    "It provides exactly-once processing end to end automatically",
+    "It guarantees ordering across partitions",
+    "It removes the need for an outbox"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Producer idempotence handles broker-level retry duplicates only. Application-level redelivery still needs stable ids and idempotent consumers.",
+   "learn": [
+    {
+     "label": "Kafka: message delivery semantics",
+     "href": "https://kafka.apache.org/documentation/#semantics"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ms-q15",
+   "week": null,
+   "set": "screen",
+   "area": "go",
+   "type": "single",
+   "stem": "A Go consumer launches one goroutine per message with no limit. During a backlog of 2M messages memory explodes. What is the fix?",
+   "options": [
+    "Add GOGC=off",
+    "Bound concurrency with a worker pool or semaphore, and keep per-key ordering by routing a key to one worker",
+    "Use channels of size 2M",
+    "Rewrite in Java"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Unbounded goroutines are cheap until they are not. A bounded pool applies backpressure; per-key routing preserves ordering.",
+   "learn": [
+    {
+     "label": "Go by Example",
+     "href": "https://gobyexample.com/"
+    },
+    {
+     "label": "Effective Go",
+     "href": "https://go.dev/doc/effective_go"
+    }
+   ]
+  },
+  {
+   "id": "ms-q16",
+   "week": null,
+   "set": "screen",
+   "area": "go",
+   "type": "single",
+   "stem": "A Go service uses http.Get to call the accounts API. During an outage of that API every handler hangs. Why?",
+   "options": [
+    "http.Get retries forever",
+    "The default http.Client has no timeout; use a client with Timeout and pass request contexts with deadlines",
+    "Go cannot do HTTP",
+    "The DNS cache is full"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The default client never times out. Always set timeouts and propagate context.",
+   "learn": [
+    {
+     "label": "Go: net/http package",
+     "href": "https://pkg.go.dev/net/http"
+    },
+    {
+     "label": "Go: context package",
+     "href": "https://pkg.go.dev/context"
+    }
+   ]
+  },
+  {
+   "id": "ms-q17",
+   "week": null,
+   "set": "screen",
+   "area": "workflow",
+   "type": "single",
+   "stem": "After a deploy, Temporal workers log nondeterminism errors for in-flight lead workflows only; new ones work. What changed?",
+   "options": [
+    "The Temporal server was upgraded",
+    "The workflow code changed its command sequence (for example a new activity or datetime.now()) without patching, so old histories no longer replay",
+    "The activities got slower",
+    "The task queue filled up"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Only replays of old histories fail. Fix with workflow.patched or worker versioning, and add a replay test to CI.",
+   "learn": [
+    {
+     "label": "Temporal: event history",
+     "href": "https://docs.temporal.io/encyclopedia/event-history"
+    },
+    {
+     "label": "Temporal: workflows",
+     "href": "https://docs.temporal.io/workflows"
+    }
+   ]
+  },
+  {
+   "id": "ms-q18",
+   "week": null,
+   "set": "screen",
+   "area": "workflow",
+   "type": "single",
+   "stem": "Which statement about Temporal activities is correct?",
+   "options": [
+    "Activities run exactly once",
+    "Activities are retried per their retry policy and can run more than once, so side effects need idempotency",
+    "Activities must be deterministic",
+    "Activities cannot call databases"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "At-least-once execution means idempotency keys on external writes.",
+   "learn": [
+    {
+     "label": "Temporal: activities",
+     "href": "https://docs.temporal.io/activities"
+    }
+   ]
+  },
+  {
+   "id": "ms-q19",
+   "week": null,
+   "set": "screen",
+   "area": "crm",
+   "type": "single",
+   "stem": "The import shows 2,000 Accounts in the Salesforce export but 1,987 in Keystone, with some Contacts on the wrong account. IDs were normalized with lower(). What happened?",
+   "options": [
+    "13 accounts failed validation",
+    "Case-distinct 15-character IDs collapsed into the same key, so upserts merged different accounts; convert to 18-character IDs and compare exactly",
+    "The CSV had a BOM",
+    "Bulk API truncated the export"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "15-character IDs are case-sensitive. Lowercasing merges distinct records; the reconciliation counts exposed it.",
+   "learn": [
+    {
+     "label": "Trailhead: data modeling",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/data_modeling"
+    },
+    {
+     "label": "Trailhead: Salesforce API basics",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/api_basics"
+    }
+   ]
+  },
+  {
+   "id": "ms-q20",
+   "week": null,
+   "set": "screen",
+   "area": "crm",
+   "type": "single",
+   "stem": "During the strangler migration, both Salesforce and Keystone accept edits to Contacts for two weeks. What must exist?",
+   "options": [
+    "Nothing; last write wins is fine",
+    "Conflict rules, a sync direction per field, drift detection with reconciliation, and a rollback plan",
+    "A freeze on edits",
+    "Daily CSV exports"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Dual-write or bidirectional sync needs explicit conflict handling and reconciliation. Prefer one-way CDC with a clear source of truth per phase.",
+   "learn": [
+    {
+     "label": "Trailhead: Change Data Capture basics",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/change-data-capture"
+    },
+    {
+     "label": "Strangler application pattern",
+     "href": "https://microservices.io/patterns/refactoring/strangler-application.html"
+    }
+   ]
+  },
+  {
+   "id": "ms-q21",
+   "week": null,
+   "set": "screen",
+   "area": "agents",
+   "type": "single",
+   "stem": "A product team wants their agent to call Keystone with a service account that can read all tenants 'to keep it simple'. What is the problem?",
+   "options": [
+    "Service accounts cannot call MCP servers",
+    "The agent would be able to do more than the user it acts for; any injection becomes a cross-tenant breach. Use delegation so the agent acts with the user's identity",
+    "It is slower",
+    "RLS does not support service accounts"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The agent never gets a broader role than the human. Delegated identity plus RLS makes that hold in the database.",
+   "learn": [
+    {
+     "label": "MCP specification: authorization",
+     "href": "https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization"
+    },
+    {
+     "label": "The lethal trifecta",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q22",
+   "week": null,
+   "set": "screen",
+   "area": "agents",
+   "type": "multi",
+   "stem": "Which TWO controls should hold even if the model is fully compromised by an injected instruction?",
+   "options": [
+    "Tenant scoping derived from the authenticated session",
+    "Write tools that only propose and require approval through a workflow",
+    "A system prompt saying 'never reveal other tenants'",
+    "Lower temperature",
+    "A longer tool description"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Server-side scope and approval gates do not depend on model behavior. Prompt text and sampling settings do.",
+   "learn": [
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    },
+    {
+     "label": "Building effective agents",
+     "href": "https://www.anthropic.com/research/building-effective-agents"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ms-q23",
+   "week": null,
+   "set": "screen",
+   "area": "delivery",
+   "type": "single",
+   "stem": "A Helm upgrade adds a NOT NULL column that the new code requires. Old pods still run during the rollout. What is the safe sequence?",
+   "options": [
+    "Add the column as NOT NULL with no default in a pre-upgrade job",
+    "Add it nullable (or with a default), deploy code that writes it, backfill, then add NOT NULL (via a validated CHECK) in a later release",
+    "Deploy code first, then the migration",
+    "Stop all pods during the upgrade"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Expand/contract keeps old and new code compatible at every step of a rolling deploy.",
+   "learn": [
+    {
+     "label": "Parallel change / expand-contract",
+     "href": "https://martinfowler.com/bliki/ParallelChange.html"
+    },
+    {
+     "label": "Helm docs",
+     "href": "https://helm.sh/docs/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q24",
+   "week": null,
+   "set": "screen",
+   "area": "design",
+   "type": "order",
+   "stem": "Order a migration of the pipeline capability off the CRM.",
+   "options": [
+    "Decommission the Salesforce pipeline after a rollback window",
+    "Inventory objects, fields, validation rules and flows",
+    "Delete the Salesforce org first",
+    "Route the pipeline app to Keystone and flip the source of truth",
+    "Build Keystone pipeline with legacy IDs and a one-way CDC sync from Salesforce",
+    "Run reconciliation until counts, checksums and sampled diffs match"
+   ],
+   "answer": [
+    1,
+    4,
+    5,
+    3,
+    0
+   ],
+   "explanation": "Inventory, build and sync, reconcile, flip, then retire after the rollback window. Each step is reversible until the last.",
+   "learn": [
+    {
+     "label": "Strangler application pattern",
+     "href": "https://microservices.io/patterns/refactoring/strangler-application.html"
+    },
+    {
+     "label": "Trailhead: Change Data Capture basics",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/change-data-capture"
+    }
+   ],
+   "choose": 5
+  }
+ ]
+}

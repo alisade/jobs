@@ -1,0 +1,29 @@
+{
+  "id": "backend/ai-c1",
+  "title": "Tenant-scoped MCP tool server with an audit log",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": "ai",
+  "optional": false,
+  "area": "Agentic apps on the platform: MCP, scopes, audit",
+  "scenario": "Lumenfold's sales assistant needs tools over Keystone. The hackathon prototype of keystone-mcp searches every business unit, assigns leads directly and logs nothing. Turn it into the production tool surface: four task-level tools, identity from a signed delegation token, scope checks, idempotent writes, approval instead of assignment, and an append-only audit entry for every call.",
+  "task": [
+    "Verify the delegation token (HMAC, expiry, claims) when the session starts",
+    "Scope every read and write to the delegated user's tenant; other tenants' ids are not found",
+    "crm.write for writes; log_activity idempotent per key; propose_lead_assignment starts an approval and never assigns",
+    "Audit every call (agent, on-behalf-of, tenant, tool, args hash, outcome, trace id), including denials",
+    "Tool descriptions written for a model; record content marked untrusted"
+  ],
+  "acceptance": [
+    "Two users in two tenants each see only their own data through a real MCP client session",
+    "No tool schema has a tenant, user or agent argument",
+    "Scope denials and not-found results are tool errors and are audited",
+    "Proposals are idempotent, start one approval and leave the lead unassigned"
+  ],
+  "practices": [
+    {"label": "AI Integration - tool design", "href": "ai"},
+    {"label": "AI Integration - security", "href": "ai"},
+    {"label": "Week 1 Fri - shared core: tool calling, MCP, LLM security", "href": "week1"},
+    {"label": "Week 6 Thu - workflow primitives for product teams and agents", "href": "week6"}
+  ]
+}

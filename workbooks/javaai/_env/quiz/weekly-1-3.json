@@ -1,0 +1,822 @@
+{
+ "questions": [
+  {
+   "id": "w1-q01",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "Kestrel's grader models questions as <code>sealed interface Question permits MultipleChoice, ShortAnswer, TrueFalse</code> with records for each. A colleague adds a fourth record <code>Ordering</code> to the permits list. What happens to <code>switch (q) { case MultipleChoice m -&gt; ...; case ShortAnswer s -&gt; ...; case TrueFalse t -&gt; ...; }</code> used as an expression?",
+   "options": [
+    "It compiles and throws MatchException at run time for Ordering",
+    "It no longer compiles: the switch expression is not exhaustive over the sealed hierarchy",
+    "It compiles and returns null for Ordering",
+    "It compiles only if a default branch already exists elsewhere in the class"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Pattern-matching switch over a sealed type must be exhaustive; adding a permitted subtype makes every exhaustive switch without a default a compile error, which is exactly why sealed types plus switch are safer than visitor or instanceof chains.",
+   "learn": [
+    {
+     "label": "Pattern matching",
+     "href": "https://docs.oracle.com/en/java/javase/21/language/pattern-matching.html"
+    },
+    {
+     "label": "Records (Java 21)",
+     "href": "https://docs.oracle.com/en/java/javase/21/language/records.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q02",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "multi",
+   "stem": "The quiz-generation endpoint makes a blocking 2-6 s HTTPS call to Gemini per request. Under load the Tomcat pool of 200 threads is exhausted while CPU is at 15%. Which TWO changes address the cause on Java 21 and Spring Boot 3.2+?",
+   "options": [
+    "Set spring.threads.virtual.enabled=true so each request runs on a virtual thread",
+    "Raise -Xmx to 8 GB",
+    "Use a reactive or async HTTP client, or keep the blocking client and let virtual threads park while waiting",
+    "Wrap the call in synchronized to serialise it",
+    "Lower the JDBC pool size to free threads"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "The threads are parked on network I/O, not computing. Virtual threads make blocking cheap (the carrier thread is released while waiting), or an async client avoids holding a thread at all. Watch for pinning (synchronized blocks around I/O on older JDKs) and keep an outbound concurrency limit so you do not just move the queue to Gemini's 429s.",
+   "learn": [
+    {
+     "label": "Virtual threads",
+     "href": "https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html"
+    },
+    {
+     "label": "Spring Boot reference",
+     "href": "https://docs.spring.io/spring-boot/index.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w1-q03",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "A learner-facing record <code>QuizItemLearnerView(Long id, String stem, List&lt;String&gt; options)</code> is built from the entity's mutable <code>ArrayList</code>. What is the risk and the idiomatic fix?",
+   "options": [
+    "None: records are deeply immutable",
+    "The record holds a reference to the mutable list, so later changes leak in; copy defensively in the compact constructor with List.copyOf(options)",
+    "Records cannot hold collections; use an array",
+    "Mark the field transient"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Records make the fields final, not the objects they point to. A compact constructor with <code>options = List.copyOf(options)</code> gives an unmodifiable snapshot (and rejects nulls).",
+   "learn": [
+    {
+     "label": "Records (Java 21)",
+     "href": "https://docs.oracle.com/en/java/javase/21/language/records.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q04",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "The catalog API returns a 500 with a stack trace when an author posts a duplicate course slug. Which design gives a correct result even when two authors submit the same slug at the same instant?",
+   "options": [
+    "Check findBySlug() before insert and return 409 if present",
+    "A unique constraint in the database, mapped from DataIntegrityViolationException to a 409 problem detail, with the pre-check kept only for a friendly message",
+    "Synchronize the controller method",
+    "Retry the insert until it succeeds"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A select-then-insert check races; only the database can enforce uniqueness across concurrent transactions and other writers. Map the violation to 409 in one @RestControllerAdvice.",
+   "learn": [
+    {
+     "label": "Spring Boot reference",
+     "href": "https://docs.spring.io/spring-boot/index.html"
+    },
+    {
+     "label": "Spring Data JPA",
+     "href": "https://spring.io/projects/spring-data-jpa/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q05",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "V1__catalog.sql is applied in every environment. You need a unique constraint on course.slug. What is the correct move with Flyway?",
+   "options": [
+    "Edit V1 and run flyway repair in every environment",
+    "Add V2__course_slug_unique.sql; on PostgreSQL, find and clean duplicates first and build the index concurrently",
+    "Let Hibernate ddl-auto=update add it",
+    "Drop and recreate the schema in production"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Applied migrations are immutable: Flyway validates checksums and the deploy fails if V1 changes. New changes go in new versions; on a large live table use CREATE UNIQUE INDEX CONCURRENTLY (non-transactional migration) and then attach the constraint.",
+   "learn": [
+    {
+     "label": "Flyway documentation",
+     "href": "https://documentation.red-gate.com/flyway"
+    }
+   ]
+  },
+  {
+   "id": "w1-q06",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "multi",
+   "stem": "The progress endpoint loops over enrollments, then <code>course.getLessons()</code>, then queries attempts per lesson. A learner in 8 courses of 15 lessons triggers 137 SQL statements. Which fixes keep the statement count constant? Choose TWO.",
+   "options": [
+    "A JPQL fetch join (or @EntityGraph) for enrollment, course and lessons",
+    "Raise the Hikari pool size",
+    "A single grouped aggregate query for attempts per lesson for the learner",
+    "Enable spring.jpa.open-in-view",
+    "Set hibernate.default_batch_fetch_size=16"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Fetch joins load the graph in one statement and a GROUP BY tally replaces the per-lesson queries. Batch fetching reduces the count by a factor but still grows with data; open-in-view hides lazy loading rather than removing it; the pool is a symptom.",
+   "learn": [
+    {
+     "label": "Spring Data JPA",
+     "href": "https://spring.io/projects/spring-data-jpa/"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w1-q07",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "Which statement about <code>spring.jpa.open-in-view</code> is accurate?",
+   "options": [
+    "It is false by default in Spring Boot 3",
+    "It defaults to true, keeps a persistence context open for the whole web request so lazy loading in views and serializers silently issues queries, and Boot logs a warning about it",
+    "It only affects Spring WebFlux",
+    "It disables the second-level cache"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Boot keeps the historic default of true and warns at startup. Turning it off makes lazy loading outside a transaction fail loudly, which surfaces N+1 problems during development.",
+   "learn": [
+    {
+     "label": "Spring Boot reference",
+     "href": "https://docs.spring.io/spring-boot/index.html"
+    },
+    {
+     "label": "Spring Data JPA",
+     "href": "https://spring.io/projects/spring-data-jpa/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q08",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "The Angular app consumes 400 errors from the catalog API. Which response shape gives the client a stable contract for field errors?",
+   "options": [
+    "text/plain with the exception message",
+    "application/problem+json (RFC 9457) with type, title, status, detail and an errors array of {field, message}",
+    "HTTP 200 with {\"ok\": false}",
+    "A redirect to an error page"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Problem details are a standard media type; a stable type URI and an errors extension let clients switch on the problem and map messages to form controls. Spring Boot 3 supports ProblemDetail and spring.mvc.problemdetails.enabled.",
+   "learn": [
+    {
+     "label": "Spring Boot reference",
+     "href": "https://docs.spring.io/spring-boot/index.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q09",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "You stream tutor tokens from Spring MVC to the browser. Which return type is the standard building block in Spring MVC (not WebFlux)?",
+   "options": [
+    "ResponseEntity&lt;String&gt; built after the model finishes",
+    "SseEmitter (or ResponseBodyEmitter), sending events as tokens arrive from the model client",
+    "A @Scheduled method that polls the model",
+    "DeferredResult&lt;List&lt;String&gt;&gt;"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "SseEmitter writes text/event-stream asynchronously from another thread; set a timeout, complete on done, completeWithError on failure, and handle client disconnects so you stop paying for tokens nobody reads.",
+   "learn": [
+    {
+     "label": "Spring MVC async and SSE",
+     "href": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-async.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q10",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "The tutor agent calls the catalog API with a Google-signed ID token. What does the Spring Boot side configure to validate it?",
+   "options": [
+    "HTTP Basic with the service account email",
+    "spring-boot-starter-oauth2-resource-server with the issuer (and JWK set) configured, plus an audience check for the API's URL and an authorization rule on the caller's email",
+    "A shared API key in a header",
+    "CORS allowed origins"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The resource server validates signature, expiry and issuer from the JWK set; add an audience validator and authorize by the caller identity. Cloud Run IAM in front is the first layer.",
+   "learn": [
+    {
+     "label": "Spring Security OAuth2 resource server",
+     "href": "https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/index.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q11",
+   "week": 1,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "Spec-driven development with an agentic coding tool on this codebase: which practice makes the agent's output verifiable?",
+   "options": [
+    "Let the agent write code first, then generate the spec from it",
+    "Write acceptance criteria the agent can check itself (tests, schema rules, status codes), review the plan, then have it implement and run the checks before claiming done",
+    "Ask the agent to be careful",
+    "Disable tests so the agent moves faster"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Spec, plan, tasks, implementation, each reviewed; acceptance criteria that are executable (like the hidden tests in w1-c1) separate 'the model said so' from verified outcomes. Hooks can enforce running them.",
+   "learn": [
+    {
+     "label": "GitHub Spec Kit",
+     "href": "https://github.com/github/spec-kit"
+    },
+    {
+     "label": "Claude Code hooks",
+     "href": "https://code.claude.com/docs/en/hooks"
+    }
+   ]
+  },
+  {
+   "id": "w2-q01",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "single",
+   "stem": "A learner clicks lesson 2 then lesson 3 on a slow connection; lesson 2's response arrives last and replaces lesson 3's quiz. Which RxJS operator on <code>lessonId$</code> gives latest-wins and cancels the in-flight HttpClient request?",
+   "options": [
+    "mergeMap",
+    "concatMap",
+    "switchMap",
+    "exhaustMap"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "switchMap unsubscribes the previous inner observable when a new value arrives; for HttpClient that aborts the request. mergeMap keeps all (last to arrive wins), concatMap queues, exhaustMap ignores new values while busy (right for a submit button).",
+   "learn": [
+    {
+     "label": "Angular HTTP client",
+     "href": "https://angular.dev/guide/http"
+    },
+    {
+     "label": "Angular signals",
+     "href": "https://angular.dev/guide/signals"
+    }
+   ]
+  },
+  {
+   "id": "w2-q02",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "single",
+   "stem": "Which operator fits a quiz Submit button so double clicks never post twice while the first request is in flight?",
+   "options": [
+    "switchMap",
+    "exhaustMap",
+    "mergeMap",
+    "debounceTime alone"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "exhaustMap ignores new source values until the current inner observable completes. switchMap would cancel the first POST, which may already have reached the server.",
+   "learn": [
+    {
+     "label": "Angular HTTP client",
+     "href": "https://angular.dev/guide/http"
+    }
+   ]
+  },
+  {
+   "id": "w2-q03",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "single",
+   "stem": "In a standalone component the store exposes <code>state$</code> (an Observable). What is the idiomatic way to read it in a signal-based template?",
+   "options": [
+    "Subscribe in ngOnInit and never unsubscribe",
+    "toSignal(state$) from @angular/core/rxjs-interop, then read state() in the template",
+    "Call state$.value in the template",
+    "Use setInterval to copy values"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "toSignal subscribes in an injection context and unsubscribes when the component is destroyed; computed() can derive view state from it. For manual subscriptions use takeUntilDestroyed().",
+   "learn": [
+    {
+     "label": "Angular signals",
+     "href": "https://angular.dev/guide/signals"
+    }
+   ]
+  },
+  {
+   "id": "w2-q04",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "multi",
+   "stem": "Which TWO statements about signals are correct?",
+   "options": [
+    "computed() is lazily evaluated and memoised, recomputing only when a dependency changes",
+    "Signals replace HttpClient",
+    "effect() is meant for side effects such as logging or syncing to storage, not for deriving state",
+    "Writing to a signal inside computed() is the recommended pattern",
+    "Signals require zone.js"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Derive state with computed(); use effect() sparingly for side effects. Signals work with or without zone.js (zoneless change detection uses them).",
+   "learn": [
+    {
+     "label": "Angular signals",
+     "href": "https://angular.dev/guide/signals"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w2-q05",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "single",
+   "stem": "The quiz form must type-check answers as numbers and disallow submit until every question is answered. Which approach matches Angular's typed forms?",
+   "options": [
+    "FormGroup&lt;any&gt;",
+    "A FormGroup built with FormControl&lt;number | null&gt; per question and Validators.required, using the form's valid status to enable submit",
+    "Template-driven forms with ngModel strings",
+    "Store answers in localStorage"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Typed reactive forms infer control value types; nonNullable controls and validators keep the submit gate in the model, not scattered in the template.",
+   "learn": [
+    {
+     "label": "Angular typed forms",
+     "href": "https://angular.dev/guide/forms/typed-forms"
+    }
+   ]
+  },
+  {
+   "id": "w2-q06",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "multi",
+   "stem": "You stream tutor tokens into the page. Which TWO choices make the experience accessible?",
+   "options": [
+    "Render the streaming text in a region with aria-live=\"polite\" so screen readers announce updates without interrupting",
+    "Move focus to every new token",
+    "Provide a way to stop the stream and keep keyboard focus on the input",
+    "Animate each character with a flashing color",
+    "Disable the input while streaming without telling the user"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "A polite live region announces new content without stealing focus; a stop control and predictable focus serve keyboard and screen-reader users. A learning product must work with both.",
+   "learn": [
+    {
+     "label": "Angular overview",
+     "href": "https://angular.dev/overview"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w2-q07",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "single",
+   "stem": "Why does decoding each fetch chunk with <code>new TextDecoder().decode(chunk)</code> occasionally show a broken character?",
+   "options": [
+    "Fetch corrupts UTF-8",
+    "A multi-byte character can be split across chunks; decode with one TextDecoder and { stream: true } so the partial bytes are carried over",
+    "TextDecoder only supports ASCII",
+    "The server sends Latin-1"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Chunk boundaries fall anywhere in the byte stream. A single streaming decoder keeps incomplete sequences until the next chunk; the same applies to SSE event boundaries, which need a text buffer.",
+   "learn": [
+    {
+     "label": "Angular HTTP client",
+     "href": "https://angular.dev/guide/http"
+    }
+   ]
+  },
+  {
+   "id": "w2-q08",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "single",
+   "stem": "An HTTP interceptor adds the auth header and retries failed requests 3 times. What is the risk for <code>POST /api/lessons/3/attempts</code>?",
+   "options": [
+    "None, retries are always safe",
+    "Retrying a non-idempotent POST after a timeout can record the attempt twice; retry only idempotent methods, or send an idempotency key the server deduplicates",
+    "Interceptors cannot see POST requests",
+    "The retry will change the HTTP method"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A timeout does not mean the server did nothing. Limit retries to GET/PUT/DELETE or make the write idempotent with a key.",
+   "learn": [
+    {
+     "label": "Angular HTTP client",
+     "href": "https://angular.dev/guide/http"
+    }
+   ]
+  },
+  {
+   "id": "w2-q09",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "single",
+   "stem": "Which test setup best fits a framework-free store that wraps HttpClient-like observables?",
+   "options": [
+    "An end-to-end browser test for every case",
+    "Plain unit tests with a fake API whose Subjects the test releases in chosen order, plus a few TestBed tests for the component wiring",
+    "Snapshot tests of the rendered HTML only",
+    "Manual testing with Chrome throttling"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Controllable fakes make races deterministic (respond to lesson 3, then lesson 2). Keep component tests thin; Angular's testing guide covers HttpTestingController for the HTTP layer.",
+   "learn": [
+    {
+     "label": "Angular testing",
+     "href": "https://angular.dev/guide/testing"
+    }
+   ]
+  },
+  {
+   "id": "w2-q10",
+   "week": 2,
+   "set": "weekly",
+   "area": "angular",
+   "type": "single",
+   "stem": "The client-side leak guard redacts the quiz answer from streamed tutor text. Why is the server-side guard still required?",
+   "options": [
+    "It is not; the client guard is enough",
+    "Client code can be bypassed (dev tools, another client, the raw API), so the control must live on the server; the client guard is defence in depth and UX",
+    "Browsers block regex",
+    "Angular strips HTML"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Anything enforced only in the browser is a suggestion. The tutor agent's after-model check (w4-c1) is the control.",
+   "learn": [
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q01",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "multi",
+   "stem": "The quiz generator uses Gemini controlled generation with responseMimeType application/json and a responseSchema. Which TWO problems can still reach your code?",
+   "options": [
+    "Output that is not JSON at all when the finish reason is STOP",
+    "answerIndex pointing at the wrong option, or a sectionId that does not exist in the lesson",
+    "Truncated JSON when the finish reason is MAX_TOKENS",
+    "A schema with OBJECT type returning an array",
+    "Unicode in option text"
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "explanation": "The schema constrains shape, not meaning: grounding, giveaways and correctness need a validator. A response cut off at the token limit is incomplete regardless of the schema.",
+   "learn": [
+    {
+     "label": "Structured output",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/control-generated-output"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w3-q02",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "multi",
+   "stem": "At 09:00 every cohort's batch hits Gemini at once on Standard PayGo and you see bursts of 429 RESOURCE_EXHAUSTED. Which TWO are appropriate?",
+   "options": [
+    "Exponential backoff with full jitter, honouring Retry-After, with a deadline",
+    "Retry immediately in a tight loop",
+    "Provisioned Throughput (reserved capacity) for the latency-sensitive tutor path if the volume is predictable",
+    "Switch models on every retry",
+    "Raise the HTTP client timeout to 10 minutes"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "PayGo uses shared capacity, so 429s under load are expected; jittered backoff spreads retries. Provisioned Throughput reserves capacity for the workload that cannot wait.",
+   "learn": [
+    {
+     "label": "Standard PayGo",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/standard-paygo"
+    },
+    {
+     "label": "Provisioned Throughput",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput"
+    },
+    {
+     "label": "Quotas and system limits",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/quotas"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w3-q03",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "A Gemini response comes back with a candidate whose finishReason is SAFETY and no content. What should the quiz service do?",
+   "options": [
+    "Index candidates[0].content.parts[0].text and let the exception become a 500",
+    "Retry the same request three times",
+    "Return a typed blocked result (category, source) the UI can explain, count it per category, and not retry",
+    "Lower every category to BLOCK_NONE"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "A safety block is a decision, not a transient error. Surface it to authors with a clear message and track it; tune thresholds per category for the audience rather than switching filters off.",
+   "learn": [
+    {
+     "label": "Safety filters",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/configure-safety-filters"
+    }
+   ]
+  },
+  {
+   "id": "w3-q04",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "A request is rejected before generation: no candidates, promptFeedback.blockReason SAFETY. What does that tell you?",
+   "options": [
+    "The output was filtered",
+    "The prompt itself was rated at or above a threshold, so there is nothing to parse; handle it as a prompt-level block",
+    "The model is down",
+    "The quota is exhausted"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Prompt-level blocks come back as promptFeedback with no candidates. Code must check for it before reading candidates.",
+   "learn": [
+    {
+     "label": "Safety filters",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/configure-safety-filters"
+    }
+   ]
+  },
+  {
+   "id": "w3-q05",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "Release 2.3 copied the kids product's safety profile (BLOCK_LOW_AND_ABOVE everywhere) into the adult university quiz service. What is the senior fix?",
+   "options": [
+    "Turn all filters off for adults",
+    "Separate profiles per product and audience with an owner and review, restore per-category thresholds that fit adult course content, and keep an eval set of lessons that must not be blocked",
+    "Ask authors to avoid biology",
+    "Retry blocked requests until one passes"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Thresholds are product decisions: one profile for different audiences is the bug. A must-not-block eval set catches regressions in CI.",
+   "learn": [
+    {
+     "label": "Safety filters",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/configure-safety-filters"
+    }
+   ]
+  },
+  {
+   "id": "w3-q06",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "Which statement about thinking on Gemini 2.5 models is accurate enough for a cost discussion?",
+   "options": [
+    "Thinking tokens are free",
+    "Thinking improves quality on hard tasks at the cost of latency and billed tokens; you control it with a thinking budget or level, and tuned or simple extraction tasks often want it minimal",
+    "Thinking can only be turned on for Pro",
+    "Thinking output is returned verbatim to users"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Thinking is a latency/cost/quality dial. For format-heavy tasks like quiz JSON a small budget is often enough; measure with the same eval set.",
+   "learn": [
+    {
+     "label": "Thinking",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/thinking"
+    }
+   ]
+  },
+  {
+   "id": "w3-q07",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "The tutor sends the same 40,000-token course chapter with every turn. Which feature reduces cost and latency for that repeated prefix?",
+   "options": [
+    "Raising temperature",
+    "Context caching for the large repeated context",
+    "Streaming",
+    "A larger max_output_tokens"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Context caching stores the repeated prefix so subsequent requests pay a reduced rate for cached tokens and skip re-processing; keep the cached part byte-stable and put per-turn data after it.",
+   "learn": [
+    {
+     "label": "Context caching",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/context-cache/context-cache-overview"
+    }
+   ]
+  },
+  {
+   "id": "w3-q08",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "Why pin a specific Gemini model version in production config rather than an alias that moves?",
+   "options": [
+    "Aliases are slower",
+    "Behaviour, quality and cost change between versions; pinning makes upgrades a deliberate change you run through the eval suite, and you track retirement dates",
+    "Pinned versions never retire",
+    "Aliases are not supported on Vertex AI"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Model versions have lifecycles and retirement dates. Upgrades go through evals like any dependency bump.",
+   "learn": [
+    {
+     "label": "Model versions and lifecycle",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions"
+    }
+   ]
+  },
+  {
+   "id": "w3-q09",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "You call Gemini from Spring Boot. When would you pick Spring AI's Google GenAI chat client over the Google Gen AI Java SDK directly?",
+   "options": [
+    "Never; Spring AI cannot call Gemini",
+    "When you want Spring abstractions (ChatClient, structured output to Java types, advisors, observability) and portability across providers; choose the SDK when you need every Gemini-specific option first",
+    "Only for Kotlin",
+    "Only on Cloud Run"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Spring AI adds convenience and integration; the SDK exposes new Gemini features (safety settings, thinking config, caching) as soon as they ship. Know both and why.",
+   "learn": [
+    {
+     "label": "Spring AI: Google GenAI chat",
+     "href": "https://docs.spring.io/spring-ai/reference/api/chat/google-genai-chat.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q10",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "Each corrective retry for invalid quiz JSON resends the lesson context. What does that do to cost, and what is the sensible control?",
+   "options": [
+    "Nothing; retries are free",
+    "Each retry pays the full input again (most of the cost), so cap validity attempts (for example 3), log tokens per request and track retry rate as a metric",
+    "It halves output cost",
+    "It only affects latency"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Retries multiply input tokens. Cap them, measure them, and fix the prompt or schema when the retry rate rises.",
+   "learn": [
+    {
+     "label": "Quotas and system limits",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/quotas"
+    }
+   ]
+  },
+  {
+   "id": "w3-q11",
+   "week": 3,
+   "set": "weekly",
+   "area": "gemini",
+   "type": "single",
+   "stem": "Model Armor sits in front of the tutor. What is it for?",
+   "options": [
+    "Replacing safety filters",
+    "Screening prompts and responses for prompt injection, jailbreaks and sensitive data as a separate policy layer",
+    "Caching responses",
+    "Tuning models"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Model Armor is a screening service for prompts and responses (injection, sensitive data, harmful content), configured as templates you apply in front of models and agents.",
+   "learn": [
+    {
+     "label": "Model Armor overview",
+     "href": "https://docs.cloud.google.com/model-armor/overview"
+    }
+   ]
+  }
+ ]
+}

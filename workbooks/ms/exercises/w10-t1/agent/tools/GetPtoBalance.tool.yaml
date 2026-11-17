@@ -1,0 +1,21 @@
+# Connector tool (Workday HCM custom connector). Code-editor YAML of the tool.
+kind: TaskDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: employeeId
+    entity: StringPrebuiltEntity
+    shouldPromptUser: false
+
+modelDisplayName: Get PTO balance
+modelDescription: Handles leave and PTO for employees.
+outputs:
+  - propertyName: balances
+    name: balances
+
+action:
+  kind: InvokeConnectorTaskAction
+  connectionReference: litware_hrassist.shared_litware-5fworkday-5fhcm.workday
+  connectionProperties:
+    mode: Invoker
+
+  operationId: GetTimeOffBalances

@@ -1,0 +1,27 @@
+{
+  "id": "connect/w7-t1",
+  "title": "Bot-to-agent handoff loses context on chat",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 7,
+  "optional": false,
+  "area": "Agent experience and integrations",
+  "scenario": "After a flow release, LFG chat agents get an empty assistant panel on every bot handoff while voice works. Customers say they told the bot everything. You get flow logs, Lex conversation logs, contact records for both channels, agent panel captures, the flows and the new shared handoff module.",
+  "task": [
+    "Find where the bot context is lost, with quoted evidence from flow logs, Lex logs and CTRs",
+    "Explain why voice is unaffected and UAT passed; rule out the persistent-chat red herring",
+    "Fix the chat path so it hands over the same context as voice, keeping the shared module",
+    "Verify with lint, tests and a regenerated bundle"
+  ],
+  "acceptance": [
+    "Chat handoffs carry lexIntent, botSummary, lexSlots, callerVerified, handoffSource for every intent",
+    "Voice and chat parity; routing and bot-timeout behavior unchanged",
+    "The module no longer depends on data a flow module cannot read",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 7 - bot-to-agent handoff and persistent chat", "href": "week7"},
+    {"label": "Week 1 - flow modules: inputs, outputs and what they cannot see", "href": "week1"},
+    {"label": "Week 5 - Lex session attributes into Connect", "href": "week5"}
+  ]
+}

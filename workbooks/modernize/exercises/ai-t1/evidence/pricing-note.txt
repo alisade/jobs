@@ -1,0 +1,2 @@
+POD-215 model bump review (2026-11-05): the new model has the same per-token prices as the previous
+one for input, cache writes, cache reads and output on our contract. Approved by FinOps.

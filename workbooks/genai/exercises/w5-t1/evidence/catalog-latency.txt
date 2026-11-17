@@ -1,0 +1,13 @@
+# catalog-service GET /inventory/{sku} server-side latency (Prometheus, 5m windows)
+time    rps     p50     p95     p99
+09:00   210     0.16s   0.31s   0.48s
+12:00   340     0.18s   0.36s   0.55s
+16:00   880     0.41s   0.88s   1.40s
+16:40   1450    0.69s   1.20s   1.95s
+17:00   1620    0.71s   1.26s   2.10s
+
+# requests per assistant turn that called check_inventory (from assistant logs)
+before 2026.11.18:  6 calls  (3 SKUs x 2 stores)
+after  2026.11.18:  avg 31 calls, max 40   (up to 20 SKUs x 2 stores)
+
+# POST /inventory/lookup (batch, up to 50 pairs) at 17:00: rps 12, p50 0.74s, p95 1.31s

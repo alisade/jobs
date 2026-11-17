@@ -1,0 +1,19 @@
+CS-5610  2026-11-12 09:51 UTC  P1 (security)  Corvid Logistics
+  "Our ops lead opened the Operations dashboard at 09:45 and saw Acme Foods' lanes and volumes.
+   Screenshot attached (dashboard header shows our logo, data rows show ACME- lane codes). Logged
+   out and back in, then it was blank."
+
+CS-5604  2026-11-12 09:20 UTC  P2  Acme Foods
+  "Dashboard is blank about every other time we open it. A refresh sometimes fixes it, sometimes not.
+   Console shows an Embedding SDK error."
+
+CS-5607  2026-11-12 09:33 UTC  P3  Brightline Health
+  "Since last week we get logged out of the analytics view after about 15 minutes, in the middle of
+   reviewing numbers. Very annoying."
+
+CS-5608  2026-11-12 09:40 UTC  P2  Delta Outfitters
+  "Blank dashboard on most page loads today."
+
+Account team (Jordan, TAM):
+  Started this morning. Nothing changed in Quick Sight itself: same dashboards, same datasets, RLS
+  rules untouched. The portal team says AllowedDomains looks odd (a wildcard), maybe that?

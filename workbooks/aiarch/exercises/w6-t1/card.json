@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/w6-t1",
+  "title": "Prod deploy blocked by an explicit deny in an SCP",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 6,
+  "optional": false,
+  "area": "Multi-account governance",
+  "scenario": "The v2.6.0 prod CDK deploy rolled back: CloudFormation could not create an IAM role because of an explicit deny in a service control policy. A new SCP exempts the GitLab deploy roles, so on-call blames a permissions boundary. Trace who really made the call and fix the SCP without weakening it.",
+  "task": [
+    "Read the CloudTrail record and the CDK assume chain",
+    "Replay the calls through the org policies with the evaluator",
+    "Fix the exemption with the smallest change",
+    "Explain explicit vs implicit deny"
+  ],
+  "acceptance": [
+    "Exec role allowed; deploy roles, developers and look-alikes denied",
+    "No blanket exemption; org guardrails still hold",
+    "ANSWER.md names the CloudFormation execution role with evidence"
+  ],
+  "practices": [
+    {"label": "Week 6 Wed - CDK Pipelines and bootstrap trust", "href": "week6"},
+    {"label": "Week 1 Tue - SCP evaluation", "href": "week1"}
+  ]
+}

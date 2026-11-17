@@ -1,0 +1,86 @@
+commit 9e1d4c07b2a3f8e61d0c2b5f0f6a7d3e88c41a20
+Author: dev.r <dev.r@relaypoint.example>
+Date:   Mon Oct 6 13:41:08 2026 +0000
+
+    audit-sink: static membership to stop rebalance storms on deploy (#412)
+
+    Every rolling deploy triggered 3 full rebalances of audit-sink (one per pod),
+    each pausing consumption for ~10s. KIP-345 static membership lets a restarted
+    member reclaim its partitions without a rebalance as long as it comes back
+    within session.timeout.
+
+    Also right-size CPU: p95 usage last 14d was 210m.
+
+diff --git a/deploy/audit-sink.yaml b/deploy/audit-sink.yaml
+index 3c1a0d2..b7f2e91 100644
+--- a/deploy/audit-sink.yaml
++++ b/deploy/audit-sink.yaml
+@@ -38,13 +38,21 @@ spec:
+             - name: KAFKA_TOPIC
+               value: agent.audit
++            # PR #412: static membership (KIP-345) so rolling deploys stop
++            # triggering a full rebalance of the group.
++            - name: KAFKA_STATIC_MEMBERSHIP
++              value: "true"
++            - name: GROUP_INSTANCE_ID
++              value: audit-sink
++            - name: KAFKA_SESSION_TIMEOUT
++              value: 120s
+           resources:
+             requests:
+               cpu: 250m
+               memory: 256Mi
+             limits:
+-              cpu: "1"
++              cpu: 500m
+               memory: 512Mi
+diff --git a/internal/sink/config.go b/internal/sink/config.go
+index 77ab210..e04c9d3 100644
+--- a/internal/sink/config.go
++++ b/internal/sink/config.go
+@@ -12,6 +12,8 @@ type Config struct {
+ 	Brokers          []string
+ 	Group            string
+ 	Topic            string
++	StaticMembership bool
++	InstanceID       string // group.instance.id (KIP-345) when StaticMembership is true
+ 	SessionTimeout   time.Duration
+ 	RebalanceTimeout time.Duration
+ }
+@@ -30,6 +32,7 @@ func FromEnv(getenv func(string) string) (Config, error) {
+ 	c := Config{
+ 		Group:            or(getenv("KAFKA_GROUP"), "audit-sink"),
+ 		Topic:            or(getenv("KAFKA_TOPIC"), "agent.audit"),
++		StaticMembership: getenv("KAFKA_STATIC_MEMBERSHIP") != "false",
+ 	}
+@@ -48,6 +51,13 @@ func FromEnv(getenv func(string) string) (Config, error) {
+ 		return Config{}, fmt.Errorf("KAFKA_REBALANCE_TIMEOUT: %w", err)
+ 	}
++	if c.StaticMembership {
++		c.InstanceID = getenv("GROUP_INSTANCE_ID")
++		if c.InstanceID == "" {
++			// Keep local docker-compose runs working without extra env.
++			c.InstanceID = "audit-sink-0"
++		}
++	}
+ 	return c, nil
+ }
+@@ -62,6 +72,9 @@ func (c Config) Opts() []kgo.Opt {
+ 		kgo.DisableAutoCommit(),
+ 	}
++	if c.StaticMembership && c.InstanceID != "" {
++		opts = append(opts, kgo.InstanceID(c.InstanceID))
++	}
+ 	return opts
+ }
+diff --git a/cmd/audit-sink/main.go b/cmd/audit-sink/main.go
+index 1b2c3d4..5e6f7a8 100644
+--- a/cmd/audit-sink/main.go
++++ b/cmd/audit-sink/main.go
+@@ -40,6 +40,10 @@ func main() {
+ 	err = sink.Run(ctx, cl, log, func(r *kgo.Record) error { return nil /* index into OpenSearch */ })
+ 	cl.Close()
++	if errors.Is(err, sink.ErrFenced) {
++		log.Error("fatal: fenced, exiting so the kubelet restarts us", "err", err)
++		os.Exit(1)
++	}

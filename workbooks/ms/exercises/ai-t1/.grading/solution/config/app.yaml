@@ -1,0 +1,5 @@
+# Policy assistant runtime settings (query path).
+index_dir: index
+query_embedder: hash-bow-v2
+top_k: 3
+min_score: 0.0

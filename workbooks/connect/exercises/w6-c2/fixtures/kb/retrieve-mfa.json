@@ -1,0 +1,57 @@
+{
+  "retrievalResults": [
+    {
+      "content": {
+        "text": "If you replace your phone, re-register Okta Verify from the enrollment portal...",
+        "type": "TEXT"
+      },
+      "location": {
+        "type": "S3",
+        "s3Location": {
+          "uri": "s3://lfg-kb-articles/kb/KB0012041-okta-verify-reregister.md"
+        }
+      },
+      "score": 0.71,
+      "metadata": {
+        "title": "Re-register Okta Verify after a phone change",
+        "kb_number": "KB0012041",
+        "audience": "all-employees"
+      }
+    },
+    {
+      "content": {
+        "text": "Email lockouts after repeated MFA failures clear automatically after 30 minutes...",
+        "type": "TEXT"
+      },
+      "location": {
+        "type": "S3",
+        "s3Location": {
+          "uri": "s3://lfg-kb-articles/kb/KB0011877-mfa-lockout.md"
+        }
+      },
+      "score": 0.52,
+      "metadata": {
+        "kb_number": "KB0011877",
+        "audience": "agent"
+      }
+    },
+    {
+      "content": {
+        "text": "Corporate card declines are handled by Finance Operations...",
+        "type": "TEXT"
+      },
+      "location": {
+        "type": "S3",
+        "s3Location": {
+          "uri": "s3://lfg-kb-articles/kb/KB0009001-corporate-card.md"
+        }
+      },
+      "score": 0.31,
+      "metadata": {
+        "title": "Corporate card declines",
+        "kb_number": "KB0009001",
+        "audience": "all-employees"
+      }
+    }
+  ]
+}

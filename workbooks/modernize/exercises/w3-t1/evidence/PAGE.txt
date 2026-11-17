@@ -1,0 +1,11 @@
+INCIDENT INC-7759  P2  opened 2026-11-11 10:05 ET
+Summary: agent portal users get "Session expired, please sign in again" on claim pages (HTTP 401
+from the ClaimDesk API). Started Tuesday 2026-11-10 mid-morning. Signing in again sometimes helps,
+sometimes not. Refreshing the page a few times "usually" works. About 40% of adjusters affected,
+the rest fine.
+
+#claimdesk-oncall
+10:12 oncall-dana: only some users. ones who signed in before Tuesday morning are fine??
+10:20 oncall-dana: cdk-app-02 has an NTP warning, clock is 18 s fast. token exp checks? I'll restart chronyd.
+10:41 dev-ravi: we shipped nothing since Friday. Okta team says "no changes on our side except routine housekeeping".
+10:55 lead: please find the real cause before anyone restarts the whole tier "to see if it helps".

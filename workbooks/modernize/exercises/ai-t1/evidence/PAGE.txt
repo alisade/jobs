@@ -1,0 +1,9 @@
+FINOPS ALERT  2026-11-12 08:00  project: claimdesk-modernization  service: model API
+Spend for "migration-agent" CI jobs is 4.1x the 4-week average (week of 2026-11-05).
+Jobs did not get slower in wall-clock terms, and the number of jobs is flat (+3%).
+
+#claimdesk-pod
+08:20 pod-dev-tom: the model bump went in on the 5th too (POD-215), newer model must cost more
+08:31 pod-dev-mia: dashboard says cache_read_input_tokens is 0 for every request since the 5th. before
+                   that most turns read ~32k cached tokens
+08:40 lead: find out why caching stopped and fix it; FinOps wants an answer and a guard by Friday

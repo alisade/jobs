@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/w2-t1",
+  "title": "\"Order tool unavailable\" after the Gateway release",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 2,
+  "optional": false,
+  "area": "AgentCore: Gateway, Identity, Observability",
+  "scenario": "After a release that added two tools to an AgentCore Gateway Lambda target, renamed the target and switched inbound auth to Cognito JWT, Acme Foods' agent says the order lookup tool is unavailable while order search still works. Platform suspects the authorizer. Find the real cause from gateway and Lambda logs.",
+  "task": [
+    "Separate gateway, auth and function failures using the logs",
+    "Find why only the new tools fail and why search keeps working",
+    "Fix the dispatcher for <targetName>___<toolName> names of any shape",
+    "Return error objects for unknown tools, invalid input and missing orders"
+  ],
+  "acceptance": [
+    "All tools dispatch for target names with underscores or hyphens",
+    "Replay shows no function errors except the legitimate PO-99999 miss",
+    "ANSWER.md root cause with log evidence; auth change ruled in or out"
+  ],
+  "practices": [
+    {"label": "Week 2 Tue - AgentCore Gateway Lambda targets", "href": "week2"},
+    {"label": "Week 2 Thu - Gateway inbound authorization", "href": "week2"},
+    {"label": "Week 2 Fri - AgentCore Observability", "href": "week2"}
+  ]
+}

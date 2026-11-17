@@ -1,0 +1,28 @@
+{
+  "id": "connect/w3-c1",
+  "title": "Keep the on-call hotline alive: PSTN audio handler",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "Telephony",
+  "scenario": "LFG's IT On-Call Hotline runs on a Chime SDK SIP media application that bridges callers to the engineer on call. PSTN audio is now in maintenance mode and the hotline migrates to Connect in wave 3, but last week it bridged engineers to the wrong callers, left engineer legs open after callers hung up and logged full employee IDs. Fix the handler state machine against recorded events.",
+  "task": [
+    "Move all call state into TransactionAttributes; make invocations replay-safe",
+    "Use the X-Employee-Id SIP header from the Avaya SBCE when valid",
+    "Primary -> secondary -> help desk bridge failover with the hotline as caller ID",
+    "Handle HANGUP from either leg, input failures and INVALID_LAMBDA_RESPONSE",
+    "Structured, masked logging; map the handler to Connect flow blocks in ANSWER.md"
+  ],
+  "acceptance": [
+    "Whole-call simulations pass through the SMA stand-in with a valid response contract",
+    "Recorded fixtures produce the right actions",
+    "Concurrent calls do not share state; same event twice gives the same response",
+    "No full employee ID in logs"
+  ],
+  "practices": [
+    {"label": "Week 3 Thu - Chime SDK PSTN audio: SIP media applications, SIP rules, Lambda actions", "href": "week3"},
+    {"label": "Week 3 Fri - migrating PSTN audio workloads to Connect", "href": "week3"},
+    {"label": "Week 3 Mon - SIP headers, E.164 and caller ID", "href": "week3"}
+  ]
+}

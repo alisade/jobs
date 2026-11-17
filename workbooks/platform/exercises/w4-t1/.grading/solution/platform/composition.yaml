@@ -1,0 +1,94 @@
+# AppDatabase -> Cloud SQL (provider-gcp-sql, namespaced MRs). Owned by TechOps platform.
+# providerConfigRef.kind is explicit: namespaced MRs default to the namespaced ProviderConfig kind.
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: appdatabase-cloudsql
+  labels:
+    provider: gcp
+spec:
+  compositeTypeRef:
+    apiVersion: platform.tessellate.example/v1alpha1
+    kind: AppDatabase
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+      - name: instance
+        base:
+          apiVersion: sql.gcp.m.upbound.io/v1beta1
+          kind: DatabaseInstance
+          spec:
+            forProvider:
+              region: us-central1
+              deletionProtection: true
+              settings:
+              - tier: db-custom-1-3840
+                availabilityType: ZONAL
+            deletionPolicy: Orphan
+            providerConfigRef:
+              kind: ClusterProviderConfig
+              name: default
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.size
+          toFieldPath: spec.forProvider.settings.0.tier
+          transforms:
+          - type: map
+            map:
+              small: db-custom-1-3840
+              medium: db-custom-2-7680
+              large: db-custom-8-30720
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.version
+          toFieldPath: spec.forProvider.databaseVersion
+          transforms:
+          - type: map
+            map:
+              postgres-15: POSTGRES_15
+              postgres-16: POSTGRES_16
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.team
+          toFieldPath: metadata.labels.team
+      - name: database
+        base:
+          apiVersion: sql.gcp.m.upbound.io/v1beta1
+          kind: Database
+          spec:
+            forProvider:
+              instanceSelector:
+                matchControllerRef: true
+            providerConfigRef:
+              kind: ClusterProviderConfig
+              name: default
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: spec.forProvider.name
+      - name: user
+        base:
+          apiVersion: sql.gcp.m.upbound.io/v1beta1
+          kind: User
+          spec:
+            forProvider:
+              instanceSelector:
+                matchControllerRef: true
+            writeConnectionSecretToRef:
+              name: placeholder
+            providerConfigRef:
+              kind: ClusterProviderConfig
+              name: default
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: spec.writeConnectionSecretToRef.name
+          transforms:
+          - type: string
+            string:
+              type: Format
+              fmt: '%s-db-conn'

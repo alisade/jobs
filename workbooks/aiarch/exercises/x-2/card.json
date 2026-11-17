@@ -1,0 +1,24 @@
+{
+  "id": "aiarch/x-2",
+  "title": "Pipeline ADR: GitLab-native vs CDK Pipelines, plus endpoint policies",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 7,
+  "optional": true,
+  "area": "GitLab CI/CD and CDK pipelines",
+  "scenario": "Security wants deploys executed inside AWS with a named approver, audit wants one record, developers want results on the merge request, FinOps wants it cheap. Write the ADR that picks between GitLab-native cdk deploy, CDK Pipelines sourced from GitLab and a hybrid, and design the VPC endpoint policies, including the OAuth bearer-token case.",
+  "task": [
+    "Compare three delivery options against the stated constraints",
+    "Decide and state what you give up",
+    "Draw the release flow with digest promotion, approval and rollback",
+    "Sketch endpoint policies, including bearer-token callers"
+  ],
+  "acceptance": [
+    "Rubric-graded: options, decision, flow, endpoint policies, consequences",
+    "Endpoint policies handle the Principal \"*\" constraint for OAuth calls correctly"
+  ],
+  "practices": [
+    {"label": "Week 6 Wed - CDK Pipelines and CodeConnections", "href": "week6"},
+    {"label": "Week 6 Thu - PrivateLink and endpoint policies", "href": "week6"}
+  ]
+}

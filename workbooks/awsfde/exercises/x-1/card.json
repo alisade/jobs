@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/x-1",
+  "title": "Idempotent document-ingestion Lambda",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 7,
+  "optional": true,
+  "area": "DynamoDB and event-driven backends",
+  "scenario": "S3 Object Created events flow through EventBridge and SQS to a Lambda that starts a Knowledge Base sync per tenant. The pilot started duplicate syncs, failed whole batches on ConflictException and let a poison message cycle for four hours. Rebuild it idempotent, with partial batch failure and a poison policy.",
+  "task": [
+    "Parse the EventBridge S3 event and validate the tenant prefix and registry",
+    "Conditional job record per object version and a deterministic clientToken",
+    "Report only failed records in batchItemFailures; finish PENDING records on retry",
+    "Record and drop poison messages instead of redelivering them"
+  ],
+  "acceptance": [
+    "Three deliveries of one event: one job record, one StartIngestionJob call",
+    "Mixed batch reports only the failed record; conflict then retry finishes the job",
+    "Every poison case recorded, not redelivered, nothing started"
+  ],
+  "practices": [
+    {"label": "Week 7 Tue - SQS with Lambda, partial batch failure, DLQs", "href": "week7"},
+    {"label": "Week 7 Wed - idempotency", "href": "week7"},
+    {"label": "Week 7 Thu - timeouts, retries and backoff with jitter", "href": "week7"}
+  ]
+}

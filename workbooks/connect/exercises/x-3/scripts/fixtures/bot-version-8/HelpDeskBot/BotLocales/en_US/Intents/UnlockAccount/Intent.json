@@ -1,0 +1,35 @@
+{
+  "name": "UnlockAccount",
+  "identifier": "UNLOCKACCO",
+  "description": null,
+  "parentIntentSignature": null,
+  "sampleUtterances": [
+    {
+      "utterance": "unlock my {System} account"
+    },
+    {
+      "utterance": "my {System} account is locked"
+    },
+    {
+      "utterance": "I am locked out of {System}"
+    },
+    {
+      "utterance": "locked out"
+    },
+    {
+      "utterance": "my account is locked"
+    }
+  ],
+  "dialogCodeHook": {
+    "enabled": true
+  },
+  "fulfillmentCodeHook": {
+    "enabled": false
+  },
+  "slotPriorities": [
+    {
+      "slotName": "System",
+      "priority": 1
+    }
+  ]
+}

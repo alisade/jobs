@@ -1,0 +1,11 @@
+# Rubric: go/w4-t1 The operator that set the control plane on fire
+Pass mark: 70
+
+| # | Criterion | Points | How to judge |
+|---|---|---|---|
+| 1 | Automated tests | 30 | points = 30 * passed / total from grade.sh |
+| 2 | Root cause identified | 25 | Full: names BOTH halves of the loop: (a) `status.lastReconcileID` changes on every reconcile, so the "only write when changed" DeepEqual guard never holds and every reconcile is a status PUT; (b) `For(&MCPServer{})` has no predicate, so each status update is a watch event that re-enqueues the same object. Partial (10-15): only one half, or "status updates cause reconciles" without why this release. Zero: blames QPS, APF, Deployments or the controller-runtime bump. |
+| 3 | Evidence | 15 | Full: cites specific artifacts: audit events where the only changing field is `lastReconcileID` with incrementing resourceVersions, PUT on `mcpservers/status` ~= reconcile rate (~700/s) while Deployment writes are zero and every log line says `unchanged`, `generation` stays 3, managedFields shows `manager` owning `f:lastReconcileID`, git log 41d07e3; plus local repro numbers before/after. Partial: some evidence. Zero: assertion only. |
+| 4 | Fix quality and reasoning | 20 | Full: stops writing a per-reconcile value to status (status is a function of observed state; the reconcileID already rides on every log line), keeps the field in the CRD; optionally adds `GenerationChangedPredicate` (OR label/annotation) on `For()` ONLY as defense in depth, and explains why a global `WithEventFilter` would break Ready (Deployment status does not bump generation) and why a predicate alone is a band-aid (every legitimate reconcile still writes). Partial: predicate-only fix, or field removed from the CRD. Zero: rate limiting, MaxConcurrentReconciles, or QPS tweaks as the fix. |
+| 5 | Red herring and prevention | 10 | Full: explains that client-side throttling and APF queueing were symptoms; raising QPS/Burst removed the client's back-pressure and pushed the loop onto the API server/etcd (worse latency, etcd growth); proposes guard rails: an envtest steady-state test like the repro in CI, an alert on reconcile rate vs object count or on `PUT .../status` rate, a dedicated FlowSchema/PriorityLevel for the operator, revert QPS. Partial: some. Zero: none. |
+Total: 100

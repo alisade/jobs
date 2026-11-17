@@ -1,0 +1,5 @@
+{
+  "comment": "metrics of prompt v3 accepted by the audit manager on 2026-10-28; thresholds agreed with the CM-03 control owner",
+  "metrics": {"accuracy_overall": 0.966, "exception_recall": 1.0},
+  "thresholds": {"min_exception_recall": 0.95, "max_accuracy_drop": 0.02}
+}

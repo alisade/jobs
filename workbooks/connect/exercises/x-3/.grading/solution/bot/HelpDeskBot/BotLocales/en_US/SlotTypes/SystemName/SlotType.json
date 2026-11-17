@@ -1,0 +1,97 @@
+{
+  "name": "SystemName",
+  "identifier": "SYSNAME001",
+  "description": "Business applications callers ask about (CMDB configuration items)",
+  "slotTypeValues": [
+    {
+      "sampleValue": {
+        "value": "CI-OKTA-PROD"
+      },
+      "synonyms": [
+        {
+          "value": "okta"
+        },
+        {
+          "value": "okta verify"
+        },
+        {
+          "value": "single sign on"
+        },
+        {
+          "value": "sso"
+        }
+      ]
+    },
+    {
+      "sampleValue": {
+        "value": "CI-WORKDAY"
+      },
+      "synonyms": [
+        {
+          "value": "workday"
+        }
+      ]
+    },
+    {
+      "sampleValue": {
+        "value": "CI-SAP-ECC"
+      },
+      "synonyms": [
+        {
+          "value": "sap"
+        },
+        {
+          "value": "sap gui"
+        },
+        {
+          "value": "ecc"
+        }
+      ]
+    },
+    {
+      "sampleValue": {
+        "value": "CI-EXCHANGE-ONLINE"
+      },
+      "synonyms": [
+        {
+          "value": "outlook"
+        },
+        {
+          "value": "email"
+        },
+        {
+          "value": "exchange"
+        },
+        {
+          "value": "mail"
+        }
+      ]
+    },
+    {
+      "sampleValue": {
+        "value": "CI-GLOBALPROTECT"
+      },
+      "synonyms": [
+        {
+          "value": "vpn"
+        },
+        {
+          "value": "globalprotect"
+        },
+        {
+          "value": "global protect"
+        },
+        {
+          "value": "remote access"
+        }
+      ]
+    }
+  ],
+  "parentSlotTypeSignature": null,
+  "valueSelectionSetting": {
+    "resolutionStrategy": "TOP_RESOLUTION",
+    "advancedRecognitionSetting": {
+      "audioRecognitionStrategy": "UseSlotValuesAsCustomVocabulary"
+    }
+  }
+}

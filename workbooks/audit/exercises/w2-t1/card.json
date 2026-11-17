@@ -1,0 +1,26 @@
+{
+  "id": "audit/w2-t1",
+  "title": "The CM-03 population does not reconcile: 38 vs 421",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 2,
+  "optional": false,
+  "area": "Audit domain: ITGCs, populations, sampling, evidence",
+  "scenario": "The external auditor rejects MFH's H1 CM-03 population: 38 changes extracted from the source-control API against 421 in DeployHub's production deploy log. The export exits 0 with no errors; the team blames time zones, token scope and a GHE upgrade.",
+  "task": [
+    "Reproduce the extraction and read the request-level export log",
+    "Prove the root cause and rule each theory in or out with evidence",
+    "Fix the client so extraction is complete for any server page cap and cannot loop",
+    "Write the auditor note in IPE terms and the control that stops a silent short extraction"
+  ],
+  "acceptance": [
+    "Population reconciles to the deploy log",
+    "All PRs fetched for several caps and page sizes with the right number of requests",
+    "Pagination loops are bounded; the time-zone filter is untouched",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 2 Wed - population completeness and accuracy (IPE)", "href": "week2"},
+    {"label": "Week 2 Wed - REST pagination with Link headers", "href": "week2"}
+  ]
+}

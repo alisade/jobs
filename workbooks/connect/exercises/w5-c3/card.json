@@ -1,0 +1,27 @@
+{
+  "id": "connect/w5-c3",
+  "title": "Tune the help desk AI agent against an eval set",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 5,
+  "optional": false,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "LFG's help desk AI agent missed its go-live gate: one-word intent descriptions and a 0.9 threshold sent almost everything to analysts, and lowering the threshold made it answer from the wrong articles. Tune the agent config against a recorded, labeled eval set (scored by a documented deterministic simulator) until accuracy, containment, hallucination and latency gates pass, without overfitting a hidden holdout.",
+  "task": [
+    "Run make eval and classify failures: misroute, fallback, hallucination, latency",
+    "Rewrite intent descriptions and few-shot examples within the context budget",
+    "Set the confidence threshold, retrieval topK/minScore and citation requirement",
+    "Keep temperature 0 and short answers for voice",
+    "Write an iteration log with metrics in ANSWER.md"
+  ],
+  "acceptance": [
+    "Visible: accuracy >= 0.85, containment >= 0.45, no hallucinations, misroutes <= 5%, p95 <= 1800 ms",
+    "Hidden holdout: accuracy >= 0.80, containment >= 0.35, gap to visible <= 0.10",
+    "No eval utterances pasted into the config",
+    "Iteration log shows each change and the metric it moved"
+  ],
+  "practices": [
+    {"label": "Week 5 Fri - prompt engineering and tuning AI agents", "href": "week5"},
+    {"label": "AI Integration - evals", "href": "ai"}
+  ]
+}

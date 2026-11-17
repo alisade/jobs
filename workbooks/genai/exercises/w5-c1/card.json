@@ -1,0 +1,27 @@
+{
+  "id": "genai/w5-c1",
+  "title": "Service boundaries for the shopping assistant: three ADRs",
+  "type": "design",
+  "estimate": "2-2.5 h",
+  "week": 5,
+  "optional": false,
+  "area": "Microservices architecture and trade-offs",
+  "scenario": "Kestrel's architecture review board approves the shopping assistant on Thursday. Three decisions are open: separate service or storefront module, how answers stream through the CDN and API gateway, and where model fallback and rate limiting live. Write the ADRs and defend them against the incident history.",
+  "task": [
+    "ADR-1: separate service vs storefront module; catalog via API vs database",
+    "ADR-2: SSE vs WebSocket vs polling through the existing CDN and Kong",
+    "ADR-3: fallback and rate limiting in the assistant vs a shared LLM gateway",
+    "System diagram, how-it-fails table, latency and cost budget"
+  ],
+  "acceptance": [
+    "Every ADR compares real options against the inputs and names bad consequences",
+    "Data ownership, fail-soft and security constraints respected",
+    "Failure table covers outages, rate limits, slow dependencies and peak",
+    "Readable by the board in 15 minutes"
+  ],
+  "practices": [
+    {"label": "Week 5 - service boundaries, sync vs async, resilience patterns", "href": "week5"},
+    {"label": "Week 5 - writing ADRs", "href": "week5"},
+    {"label": "Week 3 - streaming, retries and fallback models", "href": "week3"}
+  ]
+}

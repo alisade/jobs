@@ -1,0 +1,26 @@
+{
+  "id": "javaai/x-1",
+  "title": "Bounded contexts, write ownership and the schema for twelve universities",
+  "type": "design",
+  "estimate": "2-3 h",
+  "week": 7,
+  "optional": true,
+  "area": "Architecture and delivery",
+  "scenario": "Kestrel grows from one pilot university to twelve. The Spring Boot catalog API is a shared tangle, every feature asks for a microservice, generated drafts once leaked to learners, quiz attempts grow 6M rows a month, transcripts are not stored and three universities need logically isolated data. Write the design document for the architecture review.",
+  "task": [
+    "Ubiquitous language, bounded contexts and a context map",
+    "Aggregates, invariants and write ownership; events with an outbox",
+    "Modular monolith with Spring Modulith vs separate services, with reasons",
+    "Schema, partitioning, analytics, tenancy, retention and a migration path"
+  ],
+  "acceptance": [
+    "Rubric-graded (0/0 tests): decisions tied to the constraints",
+    "Concrete tables, constraints and indexes with named queries",
+    "A stepwise migration with checks"
+  ],
+  "practices": [
+    {"label": "Week 7 Mon - DDD and bounded contexts", "href": "week7"},
+    {"label": "Week 7 Tue - Spring Modulith and service boundaries", "href": "week7"},
+    {"label": "Week 7 Wed - schema design, partitioning and tenancy", "href": "week7"}
+  ]
+}

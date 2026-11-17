@@ -1,0 +1,13 @@
+// Parse raw Eventstream payloads into the typed Telemetry table.
+// See data/raw_sample.json for the payload shape and schema.kql for the target table.
+
+// TODO 1: .create-or-alter function ParseRawTelemetry() that reads RawTelemetry and projects
+//         exactly the Telemetry columns, in order, with the right types. Drop rows with no
+//         timestamp or no vehicle id.
+.create-or-alter function with (folder = "UpdatePolicies") ParseRawTelemetry()
+{
+    RawTelemetry
+    | project Payload
+}
+
+// TODO 2: .alter table Telemetry policy update with a production-safe policy object.

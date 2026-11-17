@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Replays Wednesday's saves against the simulator and writes the incident bundle (make setup). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Tailspin.Plugins/Tailspin.Plugins.csproj" />
+    <ProjectReference Include="../../sim/Dataverse.Sim/Dataverse.Sim.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+$ kubectl -n tenant-system get lease tenant-operator-lock -o yaml
+apiVersion: coordination.k8s.io/v1
+kind: Lease
+metadata:
+  name: tenant-operator-lock
+  namespace: tenant-system
+  resourceVersion: "918273645"
+spec:
+  acquireTime: "2026-10-06T09:37:58.112903Z"
+  holderIdentity: tenant-operator-6c9f7d8b54-7kq2x_5d1c4a0e-2f7b-4f43-9c61-0b8d1e7a2c55
+  leaseDurationSeconds: 15
+  leaseTransitions: 14
+  renewTime: "2026-10-06T09:39:57.901114Z"

@@ -1,0 +1,11 @@
+{
+ "_note": "Illustrative USD per 1M tokens for the exercise; check the current pricing page before using real numbers.",
+ "gemini-2.5-flash": {
+  "input": 0.3,
+  "output": 2.5
+ },
+ "gemini-2.5-flash-lite": {
+  "input": 0.1,
+  "output": 0.4
+ }
+}

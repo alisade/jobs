@@ -1,0 +1,26 @@
+{
+  "SchemaVersion": "1.0",
+  "Sequence": 1,
+  "InvocationEventType": "NEW_INBOUND_CALL",
+  "CallDetails": {
+    "TransactionId": "6f9c3a2e-5d1b-4c7a-9e0f-2b8d4a1c7e33",
+    "AwsAccountId": "111122223333",
+    "AwsRegion": "us-east-1",
+    "SipMediaApplicationId": "5d1c0a4e-7b2f-4c11-9e55-0a9c3f1d2b77",
+    "Participants": [
+      {
+        "CallId": "c70f341a-adde-4406-9dea-1e01d34d033d",
+        "ParticipantTag": "LEG-A",
+        "To": "+18885550177",
+        "From": "+12125550133",
+        "Direction": "Inbound",
+        "StartTimeInMilliseconds": "1791339240123",
+        "Status": "Connected",
+        "SipHeaders": {
+          "X-Employee-Id": "104233",
+          "Diversion": "<sip:+12125554400@avaya-sm1.lfg.internal>;reason=unconditional"
+        }
+      }
+    ]
+  }
+}

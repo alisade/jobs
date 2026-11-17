@@ -1,0 +1,26 @@
+PAGE  SEV-2  tidewater-ask-answer-prod  Mon 2026-11-09 09:06 (local)
+Alarm: AnswerApi-5xx-rate > 10% for 3 datapoints (API Gateway HTTP API, POST /v1/answer)
+
+-- #ask-oncall thread --------------------------------------------------------------
+
+09:06 pager-bot: AnswerApi-5xx-rate ALARM. 5xx 41% (09:03), p95 latency 29.0 s (gateway limit).
+09:08 support (Brightline Health CSM): "Clinics say Ask spins for half a minute then shows
+      'Something went wrong'. Hitting refresh does not help. Started right at 9."
+09:09 on-call (Priya): Bedrock console for the model shows InvocationThrottles through the roof,
+      ~1,800/min at 09:03. Last Monday's peak was ~530 for the whole morning. Traffic is only
+      up ~20% week on week (Brightline added two clinics on 11-05).
+09:11 on-call (Priya): Lambda ConcurrentExecutions pinned at 150 = the new reserved concurrency
+      from Friday's release. Some calls get 429 straight from Lambda. Should we raise it again?
+09:12 platform (Marco): Friday's release 2026.11.06 was literally the "resilience hardening" for
+      INC-4410 (users saw errors when Bedrock throttled during the 09:00 login wave). It added more
+      retries, so this should have got BETTER, not worse. Also raised reserved concurrency
+      100 -> 150 because we were worried about the Brightline growth.
+09:13 on-call (Priya): it calmed down by itself at ~09:12. Opening a ticket for a quota increase
+      for the model (RPM) and asking the team for root cause before next Monday.
+09:14 eng manager: before we ask AWS for quota, I want to know why 20% more traffic produced
+      3x the Bedrock calls. Root cause and fix by Wednesday please.
+
+Attached (made by make setup):
+  run/dashboard.txt                  per-minute panel, Mondays 2026-11-02 and 2026-11-09, 08:50-09:20
+  run/logs/<day>/requests.log        one JSON line per API request (incl. per-attempt detail)
+  run/logs/<day>/summary.json        the same morning as one summary

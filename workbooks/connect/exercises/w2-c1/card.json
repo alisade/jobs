@@ -1,0 +1,27 @@
+{
+  "id": "connect/w2-c1",
+  "title": "Erlang C staffing calculator",
+  "type": "coding",
+  "estimate": "1.5-2 h",
+  "week": 2,
+  "optional": false,
+  "area": "Contact center design and solutions",
+  "scenario": "LFG's steering committee wants to know how many agents Monday needs and what an extra minute of AHT costs. The WFM spreadsheet port returns NaN for the full help desk, undershoots the load and applies shrinkage the wrong way. Build an explainable, numerically stable Erlang C model and a per-interval staffing plan.",
+  "task": [
+    "Erlang B recursion and Erlang C without overflow (500-Erlang center)",
+    "Service level, ASA and occupancy with defined unstable and zero-load behavior",
+    "agentsRequired with occupancy cap, chat concurrency, shrinkage and validation",
+    "staffingPlan for the Monday forecast: per interval, peak and agent-hours",
+    "Answer the steering committee's what-if questions in ANSWER.md"
+  ],
+  "acceptance": [
+    "Matches independently computed Erlang values to 4-5 decimals",
+    "Edge cases: unstable queue, zero load, invalid input, impossible ceiling",
+    "Monday plan matches the reference interval by interval",
+    "ANSWER.md gives the numbers and the limits of Erlang C"
+  ],
+  "practices": [
+    {"label": "Week 2 Thu - workforce and capacity planning, Erlang C", "href": "week2"},
+    {"label": "Week 2 Mon - discovery: volumes, AHT, service level, shrinkage", "href": "week2"}
+  ]
+}

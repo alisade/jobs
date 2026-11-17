@@ -1,0 +1,24 @@
+{
+  "id": "modernize/w3-t1",
+  "title": "401s for some adjusters after the IdP rotated its signing key",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 3,
+  "area": "Security modernization (LDAP to OIDC/JWT)",
+  "scenario": "Since Tuesday morning about 40% of adjusters get 'session expired' from the ClaimDesk API. Nothing was deployed, retries sometimes work, and on-call suspects an 18-second clock drift on one node. The logs from four gateway nodes, the gateway startup and the Okta system log hold the answer.",
+  "task": [
+    "Correlate failures by node, user and kid; explain why retries sometimes work",
+    "Rule the NTP drift theory in or out",
+    "Fix JwksCache: maxAge refresh, rate-limited refresh on unknown kid, survive IdP outages",
+    "Write the root cause with log evidence and the immediate mitigation"
+  ],
+  "acceptance": [
+    "Rotated keys verify on long-running nodes; previous keys still verify",
+    "Unknown-kid floods and concurrent misses cause at most one fetch per interval",
+    "Retired keys drop after maxAge; outages keep cached keys",
+    "ANSWER.md names the startup-only JWKS load with evidence"
+  ],
+  "practices": [
+    {"label": "Week 3 Wed - token pitfalls: rotation, skew, audience", "href": "week3"}
+  ]
+}

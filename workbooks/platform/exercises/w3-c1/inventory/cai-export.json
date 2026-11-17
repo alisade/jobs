@@ -1,0 +1,234 @@
+{
+  "assets": [
+    {
+      "name": "//compute.googleapis.com/projects/tsl-riq-prod/global/networks/riq-legacy",
+      "assetType": "compute.googleapis.com/Network",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "riq-legacy",
+          "autoCreateSubnetworks": false,
+          "labels": {
+            "owner": "riq"
+          }
+        }
+      }
+    },
+    {
+      "name": "//compute.googleapis.com/projects/tsl-riq-prod/global/networks/default",
+      "assetType": "compute.googleapis.com/Network",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "default",
+          "autoCreateSubnetworks": true
+        }
+      }
+    },
+    {
+      "name": "//compute.googleapis.com/projects/tsl-riq-prod/global/networks/mdm-peering",
+      "assetType": "compute.googleapis.com/Network",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "mdm-peering",
+          "labels": {
+            "owner": "mdm"
+          }
+        }
+      }
+    },
+    {
+      "name": "//compute.googleapis.com/projects/tsl-riq-prod/regions/us-central1/subnetworks/riq-usc1",
+      "assetType": "compute.googleapis.com/Subnetwork",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "riq-usc1",
+          "network": "https://www.googleapis.com/compute/v1/projects/tsl-riq-prod/global/networks/riq-legacy",
+          "region": "https://www.googleapis.com/compute/v1/projects/tsl-riq-prod/regions/us-central1"
+        }
+      }
+    },
+    {
+      "name": "//compute.googleapis.com/projects/tsl-riq-prod/regions/us-east4/subnetworks/riq-use4",
+      "assetType": "compute.googleapis.com/Subnetwork",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "riq-use4",
+          "network": "https://www.googleapis.com/compute/v1/projects/tsl-riq-prod/global/networks/riq-legacy",
+          "region": "https://www.googleapis.com/compute/v1/projects/tsl-riq-prod/regions/us-east4"
+        }
+      }
+    },
+    {
+      "name": "//compute.googleapis.com/projects/tsl-riq-prod/global/firewalls/allow-iap-ssh",
+      "assetType": "compute.googleapis.com/Firewall",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "allow-iap-ssh",
+          "network": ".../riq-legacy"
+        }
+      }
+    },
+    {
+      "name": "//compute.googleapis.com/projects/tsl-riq-prod/global/firewalls/allow-health-checks",
+      "assetType": "compute.googleapis.com/Firewall",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "allow-health-checks",
+          "network": ".../riq-legacy"
+        }
+      }
+    },
+    {
+      "name": "//storage.googleapis.com/tsl-riq-exports",
+      "assetType": "storage.googleapis.com/Bucket",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "tsl-riq-exports",
+          "labels": {
+            "owner": "riq"
+          }
+        }
+      }
+    },
+    {
+      "name": "//storage.googleapis.com/tsl-riq-models.v2",
+      "assetType": "storage.googleapis.com/Bucket",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "tsl-riq-models.v2",
+          "labels": {
+            "owner": "RIQ-ML"
+          }
+        }
+      }
+    },
+    {
+      "name": "//iam.googleapis.com/projects/tsl-riq-prod/serviceAccounts/104221907315540017113",
+      "assetType": "iam.googleapis.com/ServiceAccount",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "email": "riq-api@tsl-riq-prod.iam.gserviceaccount.com",
+          "name": "projects/tsl-riq-prod/serviceAccounts/riq-api@tsl-riq-prod.iam.gserviceaccount.com"
+        }
+      }
+    },
+    {
+      "name": "//iam.googleapis.com/projects/tsl-riq-prod/serviceAccounts/110000000000000000001",
+      "assetType": "iam.googleapis.com/ServiceAccount",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "email": "530118224466-compute@developer.gserviceaccount.com",
+          "name": "projects/tsl-riq-prod/serviceAccounts/530118224466-compute@developer.gserviceaccount.com"
+        }
+      }
+    },
+    {
+      "name": "//iam.googleapis.com/projects/tsl-riq-prod/serviceAccounts/110000000000000000002",
+      "assetType": "iam.googleapis.com/ServiceAccount",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "email": "9riq-batch@tsl-riq-prod.iam.gserviceaccount.com",
+          "name": "projects/tsl-riq-prod/serviceAccounts/9riq-batch@tsl-riq-prod.iam.gserviceaccount.com"
+        }
+      }
+    },
+    {
+      "name": "//cloudsql.googleapis.com/projects/tsl-riq-prod/instances/riq-legacy-pg",
+      "assetType": "sqladmin.googleapis.com/Instance",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "riq-legacy-pg",
+          "project": "tsl-riq-prod",
+          "settings": {
+            "userLabels": {
+              "owner": "riq"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "//pubsub.googleapis.com/projects/tsl-riq-prod/topics/riq-events",
+      "assetType": "pubsub.googleapis.com/Topic",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+        "data": {
+          "name": "projects/tsl-riq-prod/topics/riq-events"
+        }
+      }
+    },
+    {
+      "name": "//cloudresourcemanager.googleapis.com/projects/530118224466",
+      "assetType": "cloudresourcemanager.googleapis.com/Project",
+      "resource": {
+        "version": "v1",
+        "parent": "//cloudresourcemanager.googleapis.com/folders/77",
+        "data": {
+          "projectId": "tsl-riq-prod",
+          "projectNumber": "530118224466"
+        }
+      },
+      "iamPolicy": {
+        "bindings": [
+          {
+            "role": "roles/container.developer",
+            "members": [
+              "group:riq-devs@tessellate.example"
+            ]
+          },
+          {
+            "role": "roles/cloudsql.client",
+            "members": [
+              "serviceAccount:riq-api@tsl-riq-prod.iam.gserviceaccount.com",
+              "group:riq-devs@tessellate.example"
+            ]
+          },
+          {
+            "role": "roles/container.serviceAgent",
+            "members": [
+              "serviceAccount:service-530118224466@container-engine-robot.iam.gserviceaccount.com"
+            ]
+          },
+          {
+            "role": "roles/editor",
+            "members": [
+              "serviceAccount:530118224466@cloudservices.gserviceaccount.com"
+            ]
+          },
+          {
+            "role": "roles/logging.logWriter",
+            "members": [
+              "serviceAccount:riq-api@tsl-riq-prod.iam.gserviceaccount.com"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

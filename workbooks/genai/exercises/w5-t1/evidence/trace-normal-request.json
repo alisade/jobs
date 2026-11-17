@@ -1,0 +1,179 @@
+{
+ "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+ "spans": [
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "a0",
+   "parentSpanId": null,
+   "name": "POST /api/assistant/stream",
+   "startTimeUnixMs": 1763460000000,
+   "durationMs": 5714,
+   "status": "OK",
+   "attributes": {
+    "http.route": "/api/assistant/stream",
+    "service.name": "kong",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "a1",
+   "parentSpanId": "a0",
+   "name": "assistant.turn",
+   "startTimeUnixMs": 1763460000012,
+   "durationMs": 5694,
+   "status": "OK",
+   "attributes": {
+    "service.name": "assistant-service",
+    "conversation.id": "4bf92f3577b34da6a3ce929d0e0e4736"
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "a2",
+   "parentSpanId": "a1",
+   "name": "chat provider-a",
+   "startTimeUnixMs": 1763460000020,
+   "durationMs": 2140,
+   "status": "OK",
+   "attributes": {
+    "gen_ai.operation.name": "chat",
+    "gen_ai.request.model": "provider-a-large",
+    "gen_ai.usage.input_tokens": 3120,
+    "gen_ai.usage.output_tokens": 96
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "a3",
+   "parentSpanId": "a1",
+   "name": "execute_tool search_products",
+   "startTimeUnixMs": 1763460002165,
+   "durationMs": 140,
+   "status": "OK",
+   "attributes": {
+    "gen_ai.tool.name": "search_products",
+    "products.returned": 20
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "a4",
+   "parentSpanId": "a1",
+   "name": "execute_tool check_inventory",
+   "startTimeUnixMs": 1763460002315,
+   "durationMs": 1076,
+   "status": "OK",
+   "attributes": {
+    "gen_ai.tool.name": "check_inventory",
+    "skus": 3,
+    "stores": 2
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "c00",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763460002317,
+   "durationMs": 160,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "c01",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763460002480,
+   "durationMs": 185,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "c02",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763460002668,
+   "durationMs": 172,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "c03",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763460002843,
+   "durationMs": 190,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "c04",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763460003036,
+   "durationMs": 168,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "c05",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763460003207,
+   "durationMs": 181,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+   "spanId": "a5",
+   "parentSpanId": "a1",
+   "name": "chat provider-a",
+   "startTimeUnixMs": 1763460003396,
+   "durationMs": 2310,
+   "status": "OK",
+   "attributes": {
+    "gen_ai.operation.name": "chat",
+    "gen_ai.request.model": "provider-a-large",
+    "gen_ai.usage.input_tokens": 4410,
+    "gen_ai.usage.output_tokens": 412
+   }
+  }
+ ]
+}

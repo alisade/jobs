@@ -1,0 +1,26 @@
+{
+  "id": "connect/w2-c3",
+  "title": "Help desk KPI analytics: find what broke first-contact resolution",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 2,
+  "optional": false,
+  "area": "Contact center design and solutions",
+  "scenario": "Six weeks into the LFG pilot the steering committee wants twelve more agents because the help desk looks busier. With six weeks of contact records, the staffing export and the change calendar, answer the business questions in SQL (DuckDB locally, Athena in production), find the real root cause and cost the recommendation.",
+  "task": [
+    "Fix the weekly volume, AHT and abandon-by-interval drafts (local time, definitions)",
+    "Write the 7-day repeat-contact FCR proxy per week and driver",
+    "Find the driver and change behind the KPI problem with an evidence query",
+    "Fill in findings.json and write the CAB recommendation"
+  ],
+  "acceptance": [
+    "Q1-Q4 equal the reference results on a freshly generated dataset",
+    "findings.json: right driver, change and date; rates within tolerance",
+    "ANSWER.md explains censoring, red herrings and a costed recommendation"
+  ],
+  "practices": [
+    {"label": "Week 2 Mon - discovery: call drivers, AHT, FCR, abandon", "href": "week2"},
+    {"label": "Week 2 Fri - business analysis and contact-center data", "href": "week2"},
+    {"label": "Week 7 - Glue and Athena over contact records", "href": "week7"}
+  ]
+}

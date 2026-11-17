@@ -1,0 +1,25 @@
+{
+  "id": "healthai/w5-t1",
+  "title": "The chunker splits a criteria table mid-row",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 5,
+  "optional": false,
+  "area": "RAG at scale: chunking and retrieval evals",
+  "scenario": "Release 2026.11 shipped a new chunker and an embedding model upgrade together. The criteria agent now misses step-therapy rows and recall@5 fell from 0.98 to 0.67. The ML team wants to roll back the embedding model. Find the real cause and fix the chunker.",
+  "task": [
+    "Reproduce with the BM25-only eval and inspect the chunks",
+    "Separate the two release changes with evidence",
+    "Rewrite the chunker to respect headings and table rows",
+    "Fill in findings.json and ANSWER.md"
+  ],
+  "acceptance": [
+    "Every criteria row whole in exactly one chunk; header repeated",
+    "Correct section paths; nothing lost; recall@5 >= 0.95",
+    "Root cause and red herring backed by eval evidence"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - structure-aware chunking, parsing, metadata", "href": "week5"},
+    {"label": "Week 5 Wed - retrieval evals", "href": "week5"}
+  ]
+}

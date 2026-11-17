@@ -1,0 +1,4 @@
+routing summary 2026-11-10 (release 2026.10.4), 118 cases
+route=clinical-review reason=ready count=104
+route=clinical-review reason=diagnosis outside policy count=8
+route=pended reason=missing diagnosis count=6

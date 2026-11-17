@@ -1,0 +1,8 @@
+{
+  "name": "connect-kit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local stand-ins for the connect workbook: flow validator and interpreter, fake ServiceNow, fake Streams, Erlang C helpers.",
+  "main": "index.js",
+  "types": "index.d.ts"
+}

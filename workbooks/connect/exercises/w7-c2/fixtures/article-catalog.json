@@ -1,0 +1,9 @@
+{
+  "_note": "Knowledge article catalog exported from the ServiceNow KB sync: agent assist contentId -> article metadata.",
+  "c-pwd-001": { "articleId": "c-pwd-001", "department": "all" },
+  "c-lock-014": { "articleId": "c-lock-014", "department": "all" },
+  "c-exec-pwd-002": { "articleId": "c-exec-pwd-002", "department": "executive-office" },
+  "c-print-220": { "articleId": "c-print-220", "department": "all" },
+  "c-mfa-031": { "articleId": "c-mfa-031", "department": "all" },
+  "c-trade-pwd-007": { "articleId": "c-trade-pwd-007", "department": "trading" }
+}

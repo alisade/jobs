@@ -1,0 +1,493 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.13.4",
+  "planned_values": {
+    "root_module": {}
+  },
+  "resource_changes": [
+    {
+      "address": "google_compute_firewall.riq_fw_0",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "riq_fw_0",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_fw_0",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_fw_0",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/firewalls/riq-fw-0"
+        }
+      }
+    },
+    {
+      "address": "google_compute_firewall.riq_fw_1",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "riq_fw_1",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_fw_1",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_fw_1",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/firewalls/riq-fw-1"
+        }
+      }
+    },
+    {
+      "address": "google_compute_firewall.riq_fw_2",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "riq_fw_2",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_fw_2",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_fw_2",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/firewalls/riq-fw-2"
+        }
+      }
+    },
+    {
+      "address": "google_compute_firewall.riq_fw_3",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "riq_fw_3",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_fw_3",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_fw_3",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/firewalls/riq-fw-3"
+        }
+      }
+    },
+    {
+      "address": "google_compute_firewall.riq_fw_4",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "riq_fw_4",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_fw_4",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_fw_4",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/firewalls/riq-fw-4"
+        }
+      }
+    },
+    {
+      "address": "google_compute_firewall.riq_fw_5",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "riq_fw_5",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_fw_5",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_fw_5",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/firewalls/riq-fw-5"
+        }
+      }
+    },
+    {
+      "address": "google_service_account.riq_sa_0",
+      "mode": "managed",
+      "type": "google_service_account",
+      "name": "riq_sa_0",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_sa_0",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_sa_0",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/serviceAccounts/riq-sa-0@tsl-riq-prod.iam.gserviceaccount.com"
+        }
+      }
+    },
+    {
+      "address": "google_service_account.riq_sa_1",
+      "mode": "managed",
+      "type": "google_service_account",
+      "name": "riq_sa_1",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_sa_1",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_sa_1",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/serviceAccounts/riq-sa-1@tsl-riq-prod.iam.gserviceaccount.com"
+        }
+      }
+    },
+    {
+      "address": "google_service_account.riq_sa_2",
+      "mode": "managed",
+      "type": "google_service_account",
+      "name": "riq_sa_2",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_sa_2",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_sa_2",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/serviceAccounts/riq-sa-2@tsl-riq-prod.iam.gserviceaccount.com"
+        }
+      }
+    },
+    {
+      "address": "google_service_account.riq_sa_3",
+      "mode": "managed",
+      "type": "google_service_account",
+      "name": "riq_sa_3",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_sa_3",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_sa_3",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "projects/tsl-riq-prod/serviceAccounts/riq-sa-3@tsl-riq-prod.iam.gserviceaccount.com"
+        }
+      }
+    },
+    {
+      "address": "google_storage_bucket.riq_bucket_0",
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "riq_bucket_0",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_bucket_0",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_bucket_0",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "tsl-riq-prod/tsl-riq-bucket-0"
+        }
+      }
+    },
+    {
+      "address": "google_storage_bucket.riq_bucket_1",
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "riq_bucket_1",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_bucket_1",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_bucket_1",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "tsl-riq-prod/tsl-riq-bucket-1"
+        }
+      }
+    },
+    {
+      "address": "google_storage_bucket.riq_bucket_2",
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "riq_bucket_2",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq_bucket_2",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after": {
+          "name": "riq_bucket_2",
+          "labels": {
+            "owner": "riq"
+          },
+          "description": "imported by tsl-import-agent from Cloud Asset Inventory 2026-11-09 for the RIQ production project"
+        },
+        "after_unknown": {},
+        "before_sensitive": {},
+        "after_sensitive": {},
+        "importing": {
+          "id": "tsl-riq-prod/tsl-riq-bucket-2"
+        }
+      }
+    },
+    {
+      "address": "google_sql_database_instance.riq_main",
+      "mode": "managed",
+      "type": "google_sql_database_instance",
+      "name": "riq_main",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "delete",
+          "create"
+        ],
+        "before": {
+          "name": "riq-main",
+          "database_version": "POSTGRES_15",
+          "settings": [
+            {
+              "tier": "db-custom-8-32768"
+            }
+          ],
+          "deletion_protection": true
+        },
+        "after": {
+          "name": "riq-main",
+          "database_version": "POSTGRES_16",
+          "settings": [
+            {
+              "tier": "db-custom-8-32768"
+            }
+          ],
+          "deletion_protection": true
+        },
+        "after_unknown": {
+          "connection_name": true,
+          "ip_address": true
+        },
+        "before_sensitive": {
+          "root_password": true
+        },
+        "after_sensitive": {
+          "root_password": true
+        },
+        "replace_paths": [
+          [
+            "database_version"
+          ]
+        ],
+        "importing": {
+          "id": "projects/tsl-riq-prod/instances/riq-main"
+        }
+      },
+      "action_reason": "replace_because_cannot_update"
+    }
+  ],
+  "configuration": {
+    "provider_config": {
+      "google": {
+        "name": "google",
+        "expressions": {
+          "project": {
+            "constant_value": "tsl-riq-prod"
+          }
+        }
+      }
+    }
+  },
+  "timestamp": "2026-11-09T21:40:02Z",
+  "applyable": true,
+  "complete": true,
+  "errored": false
+}

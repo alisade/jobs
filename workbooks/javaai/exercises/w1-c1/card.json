@@ -1,0 +1,28 @@
+{
+  "id": "javaai/w1-c1",
+  "title": "Catalog API: validation, problem details and a schema that enforces itself",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 1,
+  "optional": false,
+  "area": "Java and Spring Boot",
+  "scenario": "Kestrel Learning's Spring Boot catalog API (courses, lessons, quiz items, attempts) shipped fast: bad input is stored or answered with a 500, two authors created the same slug, the learner quiz JSON carries the answer key, the list endpoint honours size=100000 and the database enforces nothing. V1 of the schema is already applied everywhere.",
+  "task": [
+    "Bean Validation on the request records, including a class-level constraint for answerIndex and distinct options",
+    "RFC 9457 problem details with an errors array; 404 and 409 mapped, races backstopped by constraints",
+    "A learner view without the key or explanation",
+    "Page-size cap and page validation",
+    "A V2 Flyway migration with unique, FK and CHECK constraints and a learner index; V1 untouched"
+  ],
+  "acceptance": [
+    "Hidden MockMvc tests: status codes, application/problem+json, field names in errors",
+    "Hidden JdbcTemplate tests prove the database rejects bad rows",
+    "V1 checksum unchanged, a later migration applied",
+    "ANSWER.md explains the two layers and a safe rollout against dirty data"
+  ],
+  "practices": [
+    {"label": "Week 1 Tue - Spring Boot REST, records and Bean Validation", "href": "week1"},
+    {"label": "Week 1 Wed - Spring Data JPA and Flyway migrations", "href": "week1"},
+    {"label": "Week 1 Thu - problem details, error handling and tests", "href": "week1"}
+  ]
+}

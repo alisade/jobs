@@ -1,0 +1,3 @@
+// Eventstream delivers at-least-once; retries re-send the same EventId within minutes.
+// TODO: create materialized view TelemetryDedup on table Telemetry that keeps one row per EventId,
+//       backfilled from existing data, with a lookback that bounds the dedupe window.

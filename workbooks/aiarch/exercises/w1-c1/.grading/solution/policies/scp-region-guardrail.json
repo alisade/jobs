@@ -1,0 +1,41 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyOutsideApprovedRegions",
+      "Effect": "Deny",
+      "NotAction": [
+        "account:*", "budgets:*", "ce:*", "cloudfront:*", "cur:*", "globalaccelerator:*", "health:*",
+        "iam:*", "organizations:*", "route53:*", "route53domains:*", "shield:*", "sso:*",
+        "sts:*", "support:*", "trustedadvisor:*", "waf:*", "wellarchitected:*",
+        "bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {"aws:RequestedRegion": ["us-east-1", "us-east-2"]},
+        "ArnNotLike": {"aws:PrincipalArn": "arn:aws:iam::*:role/hpm-breakglass"}
+      }
+    },
+    {
+      "Sid": "DenyBedrockOutsideInferenceDestinations",
+      "Effect": "Deny",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {"aws:RequestedRegion": ["us-east-1", "us-east-2", "us-west-2"]},
+        "ArnNotLike": {"aws:PrincipalArn": "arn:aws:iam::*:role/hpm-breakglass"}
+      }
+    },
+    {
+      "Sid": "DenyUsWest2UnlessUsInferenceProfile",
+      "Effect": "Deny",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {"aws:RequestedRegion": "us-west-2"},
+        "StringNotLike": {"bedrock:InferenceProfileArn": "arn:aws:bedrock:*:*:inference-profile/us.*"},
+        "ArnNotLike": {"aws:PrincipalArn": "arn:aws:iam::*:role/hpm-breakglass"}
+      }
+    }
+  ]
+}

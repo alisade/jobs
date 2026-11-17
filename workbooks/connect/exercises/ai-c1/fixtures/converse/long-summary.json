@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "{\"category\": \"access_request\", \"priority\": \"P4\", \"summary\": \"Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. Badge failure. \", \"needsHuman\": true, \"confidence\": 0.93, \"internalNotes\": \"none\"}"
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 412,
+    "outputTokens": 58,
+    "totalTokens": 470
+  },
+  "metrics": {
+    "latencyMs": 640
+  }
+}

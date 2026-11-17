@@ -1,0 +1,9 @@
+item,value,unit,notes
+prompted_input_tokens_per_note,2900,tokens,"5 examples + note"
+prompted_output_tokens_per_note,120,tokens,
+prompted_price_input,1.25,usd_per_million_tokens,"list price used for planning"
+prompted_price_output,10.00,usd_per_million_tokens,
+endpoint_g2_standard_8_l4,0.85,usd_per_hour,"planning figure, one replica"
+endpoint_throughput,6,notes_per_second,"measured with vLLM, batch on"
+training_run_cost,38,usd,"one LoRA run incl. eval"
+engineer_time_per_retrain,6,hours,"data refresh, eval, approval"

@@ -1,0 +1,267 @@
+{
+ "questions": [
+  {
+   "id": "w1-q01",
+   "week": 1,
+   "set": "weekly",
+   "area": "governance",
+   "type": "multi",
+   "stem": "Harbor Point attaches a new SCP to the Root. Which principals are NOT affected by it? Choose two.",
+   "options": [
+    "Roles in the management account",
+    "Service-linked roles in member accounts",
+    "IAM users in member accounts",
+    "Roles assumed through IAM Identity Center in member accounts",
+    "The root user of a member account"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "SCPs never apply to the management account, and they do not restrict service-linked roles. They do apply to every other principal in member accounts, including the member account root user and Identity Center roles.",
+   "learn": [
+    {
+     "label": "Service control policies",
+     "href": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html"
+    },
+    {
+     "label": "SCP evaluation",
+     "href": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_evaluation.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q02",
+   "week": 1,
+   "set": "weekly",
+   "area": "governance",
+   "type": "single",
+   "stem": "An OU has FullAWSAccess detached and only a deny-list SCP attached. What happens to accounts in that OU?",
+   "options": [
+    "Nothing changes: deny-list SCPs work without FullAWSAccess",
+    "Every action not explicitly allowed by some SCP at that level is implicitly denied, so effectively everything is blocked",
+    "Only the denied actions are blocked",
+    "Only the management account loses access"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "At every level of the path from root to account at least one attached SCP must allow the action. Removing FullAWSAccess leaves no Allow at that level, so everything is implicitly denied. Keep FullAWSAccess when you use a deny-list strategy.",
+   "learn": [
+    {
+     "label": "SCP evaluation",
+     "href": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_evaluation.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q03",
+   "week": 1,
+   "set": "weekly",
+   "area": "governance",
+   "type": "single",
+   "stem": "Your region-deny SCP uses <code>StringNotEquals aws:RequestedRegion [us-east-1, us-east-2]</code>. Lighthouse invokes Claude through the US cross-Region inference profile and some calls fail with an explicit SCP deny. Why?",
+   "options": [
+    "Inference profiles are global, so RequestedRegion is aws-global",
+    "The profile routes requests to destination Regions such as us-west-2, and the request is evaluated there",
+    "Bedrock ignores SCPs, so the error must come from an identity policy",
+    "Cross-Region inference requires an RCP"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A cross-Region inference profile can process a request in any Region of its geography, and authorization happens in the destination Region. An SCP region allow-list must permit those destinations for Bedrock invocation, ideally only when bedrock:InferenceProfileArn names an approved profile.",
+   "learn": [
+    {
+     "label": "Bedrock cross-Region inference",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html"
+    },
+    {
+     "label": "Service control policies",
+     "href": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q04",
+   "week": 1,
+   "set": "weekly",
+   "area": "governance",
+   "type": "single",
+   "stem": "A Deny statement has <code>\"StringNotLike\": {\"bedrock:InferenceProfileArn\": \"arn:aws:bedrock:*:*:inference-profile/us.*\"}</code>. A direct InvokeModel call without any profile reaches it. What is the result?",
+   "options": [
+    "Not denied: the key is missing so the condition is false",
+    "Denied: a negated operator evaluates to true when the key is missing",
+    "Error: the policy fails to evaluate",
+    "Denied only if the statement uses IfExists"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "For negated operators (StringNotEquals, StringNotLike, ArnNotLike, ...) a missing key makes the condition true, so the deny applies. That is exactly what you want here; use ...IfExists when absence must not deny.",
+   "learn": [
+    {
+     "label": "Global condition keys",
+     "href": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html"
+    },
+    {
+     "label": "IAM policy evaluation logic",
+     "href": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q05",
+   "week": 1,
+   "set": "weekly",
+   "area": "governance",
+   "type": "single",
+   "stem": "You add an RCP denying <code>sts:*</code> to principals outside your org ID. Next morning every GitLab pipeline fails to assume its deploy role. What happened?",
+   "options": [
+    "RCPs cannot be applied to STS",
+    "AssumeRoleWithWebIdentity callers are web identities with no aws:PrincipalOrgID, so the RCP denies them",
+    "The OIDC provider thumbprint expired",
+    "RCPs also apply to the management account"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A GitLab OIDC token is not an AWS principal in your org, so aws:PrincipalOrgID is absent. Scope the RCP to sts:AssumeRole (or add a condition for the federated provider) so web identity federation keeps working.",
+   "learn": [
+    {
+     "label": "Resource control policies",
+     "href": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_rcps.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q06",
+   "week": 1,
+   "set": "weekly",
+   "area": "governance",
+   "type": "multi",
+   "stem": "Which statements about RCPs are true? Choose two.",
+   "options": [
+    "They restrict what can be done to resources in member accounts, whoever the caller is",
+    "They can grant access that identity policies do not",
+    "RCP statements use Principal \"*\" and only the Deny effect",
+    "They replace bucket policies"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "RCPs are resource-side guardrails: deny-only, Principal \"*\", applied to resources in member accounts. Like SCPs they never grant permissions.",
+   "learn": [
+    {
+     "label": "Resource control policies",
+     "href": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_rcps.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q07",
+   "week": 1,
+   "set": "weekly",
+   "area": "identity",
+   "type": "single",
+   "stem": "A developer needs read-only access in dev and prod and admin in a sandbox. In IAM Identity Center what do you create?",
+   "options": [
+    "Three IAM users with access keys",
+    "Permission sets (for example ReadOnly and SandboxAdmin) assigned to the developer's group per account",
+    "One permission set per account with inline Allow *",
+    "An SCP that grants admin in the sandbox"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Permission sets are templates that Identity Center provisions as roles in each assigned account. Assign them to groups from the IdP per account; SCPs never grant.",
+   "learn": [
+    {
+     "label": "Permission sets",
+     "href": "https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q08",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "A GitLab job's id_token has sub <code>project_path:harborpoint/lighthouse/platform:ref_type:tag:ref:v2.4.0</code>. Which trust condition admits release tags of this project only?",
+   "options": [
+    "StringLike gitlab.com:sub project_path:harborpoint/lighthouse/platform:*",
+    "StringLike gitlab.com:sub project_path:harborpoint/lighthouse/platform:ref_type:tag:ref:v*",
+    "StringEquals gitlab.com:aud sts.amazonaws.com only",
+    "StringLike gitlab.com:sub *:ref_type:tag:*"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Pin the project path and ref type, and match the tag pattern. The project-wide wildcard also admits branches and MR pipelines; the last option admits any project's tags. Keep aud pinned too.",
+   "learn": [
+    {
+     "label": "GitLab OIDC to AWS",
+     "href": "https://docs.gitlab.com/ci/cloud_services/aws/"
+    },
+    {
+     "label": "ID token authentication",
+     "href": "https://docs.gitlab.com/ci/secrets/id_token_authentication/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q09",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "Your prod deploy role trusts GitLab tags matching v*. What prevents any developer from creating a tag v9.9.9 on a feature branch and deploying it?",
+   "options": [
+    "The IAM trust policy checks ref_protected",
+    "GitLab protected tags (who may create v*) plus a protected environment with required approvals",
+    "The OIDC provider thumbprint",
+    "STS session duration"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "IAM sees only aud and sub (plus amr where sent) from the token, so who may create a release tag is enforced in GitLab with protected tags and protected environments with approvals.",
+   "learn": [
+    {
+     "label": "GitLab OIDC to AWS",
+     "href": "https://docs.gitlab.com/ci/cloud_services/aws/"
+    },
+    {
+     "label": "Protected environments",
+     "href": "https://docs.gitlab.com/ci/environments/protected_environments/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q10",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "You bootstrap the prod account with <code>cdk bootstrap --trust 111100000002</code>. What does that allow?",
+   "options": [
+    "The shared-services account can assume prod's CDK deploy, file publishing and image publishing roles",
+    "Prod resources can read shared-services ECR",
+    "It creates an SCP exemption for CDK",
+    "It lets CloudFormation in shared-services create prod resources without roles"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "--trust lets the trusted account's principals assume the bootstrap roles in the target account, which is how a pipeline or CI role in shared-services deploys cross-account.",
+   "learn": [
+    {
+     "label": "Bootstrap environments (trust)",
+     "href": "https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping-env.html"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+  "retrievalResults": [
+    {
+      "content": {
+        "type": "TEXT",
+        "text": "VPN token re-enrollment: open the employee portal, choose Security > VPN token, select Re-enroll, then approve the push on your registered phone. The old token stops working immediately."
+      },
+      "location": {
+        "type": "S3",
+        "s3Location": {
+          "uri": "s3://lfg-helpdesk-kb/articles/KB0012345.html"
+        }
+      },
+      "metadata": {
+        "x-amz-bedrock-kb-source-uri": "s3://lfg-helpdesk-kb/articles/KB0012345.html",
+        "x-amz-bedrock-kb-chunk-id": "KB0012345-c1",
+        "articleId": "KB0012345",
+        "department": "IT",
+        "region": "global",
+        "audience": "all-employees",
+        "status": "published",
+        "updated": "2026-08-14"
+      },
+      "score": 0.71
+    },
+    {
+      "content": {
+        "type": "TEXT",
+        "text": "If the VPN client shows error 809 after re-enrollment, restart the GlobalConnect client and sign in again with your new token."
+      },
+      "location": {
+        "type": "S3",
+        "s3Location": {
+          "uri": "s3://lfg-helpdesk-kb/articles/KB0012399.html"
+        }
+      },
+      "metadata": {
+        "x-amz-bedrock-kb-source-uri": "s3://lfg-helpdesk-kb/articles/KB0012399.html",
+        "x-amz-bedrock-kb-chunk-id": "KB0012399-c1",
+        "articleId": "KB0012399",
+        "department": "IT",
+        "region": "us",
+        "audience": "all-employees",
+        "status": "published",
+        "updated": "2026-08-14"
+      },
+      "score": 0.62
+    },
+    {
+      "content": {
+        "type": "TEXT",
+        "text": "Printer drivers are installed automatically from the Software Center."
+      },
+      "location": {
+        "type": "S3",
+        "s3Location": {
+          "uri": "s3://lfg-helpdesk-kb/articles/KB0010007.html"
+        }
+      },
+      "metadata": {
+        "x-amz-bedrock-kb-source-uri": "s3://lfg-helpdesk-kb/articles/KB0010007.html",
+        "x-amz-bedrock-kb-chunk-id": "KB0010007-c1",
+        "articleId": "KB0010007",
+        "department": "IT",
+        "region": "global",
+        "audience": "all-employees",
+        "status": "published",
+        "updated": "2026-08-14"
+      },
+      "score": 0.31
+    }
+  ],
+  "guardrailAction": "NONE"
+}

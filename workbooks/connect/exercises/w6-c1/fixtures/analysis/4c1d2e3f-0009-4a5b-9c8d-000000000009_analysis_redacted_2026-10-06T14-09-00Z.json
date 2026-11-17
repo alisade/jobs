@@ -1,0 +1,143 @@
+{
+  "Version": "1.1.0",
+  "AccountId": "111122223333",
+  "Channel": "CHAT",
+  "ContentMetadata": {
+    "Output": "Redacted",
+    "RedactionTypes": [
+      "PII"
+    ],
+    "RedactionTypesMetadata": {
+      "PII": {
+        "RedactionEntitiesRequested": [
+          "CREDIT_DEBIT_NUMBER",
+          "NAME",
+          "USERNAME",
+          "PASSWORD",
+          "PHONE",
+          "EMAIL"
+        ],
+        "RedactionMaskMode": "PII"
+      }
+    }
+  },
+  "JobStatus": "COMPLETED",
+  "LanguageCode": "en-US",
+  "Participants": [
+    {
+      "ParticipantId": "CUSTOMER",
+      "ParticipantRole": "CUSTOMER"
+    },
+    {
+      "ParticipantId": "AGENT",
+      "ParticipantRole": "AGENT"
+    }
+  ],
+  "Categories": {
+    "MatchedCategories": [
+      "AccessRequest"
+    ],
+    "MatchedDetails": {
+      "AccessRequest": {
+        "PointsOfInterest": [
+          {
+            "BeginOffsetMillis": 0,
+            "EndOffsetMillis": 4000
+          }
+        ]
+      }
+    }
+  },
+  "ConversationCharacteristics": {
+    "TotalConversationDurationMillis": 10500,
+    "Sentiment": {
+      "OverallSentiment": {
+        "AGENT": 0.3,
+        "CUSTOMER": 0.9
+      },
+      "SentimentByPeriod": {
+        "QUARTER": {
+          "AGENT": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 2625,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 2625,
+              "EndOffsetMillis": 5250,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 5250,
+              "EndOffsetMillis": 7875,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 7875,
+              "EndOffsetMillis": 10500,
+              "Score": 0.0
+            }
+          ],
+          "CUSTOMER": [
+            {
+              "BeginOffsetMillis": 0,
+              "EndOffsetMillis": 2625,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 2625,
+              "EndOffsetMillis": 5250,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 5250,
+              "EndOffsetMillis": 7875,
+              "Score": 0.0
+            },
+            {
+              "BeginOffsetMillis": 7875,
+              "EndOffsetMillis": 10500,
+              "Score": 2.5
+            }
+          ]
+        }
+      }
+    }
+  },
+  "CustomModels": [],
+  "Transcript": [
+    {
+      "BeginOffsetMillis": 0,
+      "Content": "Thank you for contacting Larkspur IT service desk chat. Before we start, Larkspur IT will never ask for your password.",
+      "EndOffsetMillis": 3000,
+      "Id": "t00-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL"
+    },
+    {
+      "BeginOffsetMillis": 3300,
+      "Content": "I need access to the Finance SharePoint site.",
+      "EndOffsetMillis": 5800,
+      "Id": "t01-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "NEUTRAL"
+    },
+    {
+      "BeginOffsetMillis": 6100,
+      "Content": "I've raised the access request; your manager will approve it. Is there anything else I can help you with today?",
+      "EndOffsetMillis": 9100,
+      "Id": "t02-agent",
+      "ParticipantId": "AGENT",
+      "Sentiment": "NEUTRAL"
+    },
+    {
+      "BeginOffsetMillis": 9400,
+      "Content": "No thanks.",
+      "EndOffsetMillis": 10200,
+      "Id": "t03-customer",
+      "ParticipantId": "CUSTOMER",
+      "Sentiment": "NEUTRAL"
+    }
+  ]
+}

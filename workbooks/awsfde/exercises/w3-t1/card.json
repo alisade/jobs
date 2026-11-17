@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/w3-t1",
+  "title": "A new tenant sees another tenant's documents in answers",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 3,
+  "optional": false,
+  "area": "RAG and vector stores on AWS",
+  "scenario": "Delta Outfitters, three days into its pilot, opens a P1 security ticket: answers about returns quote another company's policy and a citation points at /tenants/acme-foods/. Established tenants never saw this. The same release re-ingested the Knowledge Base with hierarchical chunking.",
+  "task": [
+    "Find which Retrieve calls reached the KB without the tenant filter, and why only Delta",
+    "Rule the re-ingest in or out with evidence",
+    "Fix the retrieval path so no request can return another tenant's chunks",
+    "Write the exposure statement for the customer's CISO and the prevention plan"
+  ],
+  "acceptance": [
+    "Every Retrieve call is scoped to the caller; one call per question",
+    "Thin-tenant questions get a no-answer; foreign or untagged chunks are never context",
+    "Root cause, evidence and exposure statement in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 3 Wed - metadata filters and multi-tenancy", "href": "week3"},
+    {"label": "Week 3 Fri - retrieval evals", "href": "week3"},
+    {"label": "AI page - security (data the model sees)", "href": "ai"}
+  ]
+}

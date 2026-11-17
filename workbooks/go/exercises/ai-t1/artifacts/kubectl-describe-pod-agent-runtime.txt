@@ -1,0 +1,43 @@
+$ kubectl describe pod -n agents agent-runtime-6d8f7b9c4d-7kq2x
+Name:             agent-runtime-6d8f7b9c4d-7kq2x
+Namespace:        agents
+Priority:         0
+Service Account:  agent-runtime
+Node:             ip-10-42-3-201.ec2.internal/10.42.3.201
+Start Time:       Wed, 07 Oct 2026 06:41:12 +0000
+Labels:           app=agent-runtime
+                  pod-template-hash=6d8f7b9c4d
+                  version=v2.8.0
+Annotations:      <none>
+Status:           Running
+IP:               10.42.3.17
+Controlled By:    ReplicaSet/agent-runtime-6d8f7b9c4d
+Containers:
+  agent:
+    Image:          123456789012.dkr.ecr.us-east-1.amazonaws.com/agent-runtime:v2.8.0
+    Port:           8080/TCP (http)
+    State:          Running
+      Started:      Wed, 07 Oct 2026 06:41:19 +0000
+    Ready:          True
+    Environment:
+      MCP_SERVERS:     http://k8s-tools.mcp-tools.svc.cluster.local:8080/mcp
+      MCP_TOKEN_FILE:  /var/run/secrets/mcp/token
+    Mounts:
+      /var/run/secrets/mcp from mcp-token (ro)
+Volumes:
+  mcp-token:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3600
+QoS Class:                   BestEffort
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  94m   default-scheduler  Successfully assigned agents/agent-runtime-6d8f7b9c4d-7kq2x to ip-10-42-3-201.ec2.internal
+  Normal  Pulled     94m   kubelet            Container image already present on machine
+  Normal  Created    94m   kubelet            Created container agent
+  Normal  Started    94m   kubelet            Started container agent
+
+# For comparison, the previous pod (from `kubectl get events` history exported to CloudWatch, 2026-10-03):
+#   Normal  Created  kubelet  Created container istio-init
+#   Normal  Created  kubelet  Created container istio-proxy
+#   Normal  Created  kubelet  Created container agent

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IcmRoutingScript name="LFG_HD_Exec" callType="CT_LFG_Exec" dialedNumber="+18005550188" version="4">
+  <Node id="10" type="Start" next="11"/>
+  <Node id="11" type="Time" window="18:00-08:00" true="30" false="12"/>
+  <Node id="12" type="RunExternalScript" microapp="GD" prompt="2030" next="13" failure="30"/>
+  <Node id="13" type="RunExternalScript" microapp="PM" prompt="2031" next="14"/>
+  <Node id="14" type="PrecisionQueue" pq="PQ_VIP" priority="1" failure="15"/>
+  <Node id="15" type="Label" label="47160"/>
+  <Node id="30" type="RunExternalScript" microapp="M" prompt="2002" next="31" failure="34"/>
+  <Node id="31" type="If" expr="caller_input == 3" true="32" false="33"/>
+  <Node id="32" type="PrecisionQueue" pq="PQ_MajorIncident" priority="1" failure="34"/>
+  <Node id="33" type="If" expr="caller_input == 1" true="35" false="34"/>
+  <Node id="34" type="QueueToSkillGroup" skillGroup="SG_HD_General" priority="4" failure="36"/>
+  <Node id="35" type="Label" label="47150"/>
+  <Node id="36" type="End"/>
+</IcmRoutingScript>

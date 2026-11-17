@@ -1,0 +1,26 @@
+{
+  "id": "audit/w3-t1",
+  "title": "After the nightly restart the agent re-tests finished samples",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 3,
+  "optional": false,
+  "area": "Google ADK and Gemini Enterprise Agent Platform",
+  "scenario": "ControlPilot's nightly CM-03 job resumes a persistent ADK session each night to test the next batch. After night two, reviewers see duplicate work items and the log shows the same changes tested again; no errors. On-call blames token-usage warnings and a GRC 429 retry.",
+  "task": [
+    "Inspect the two-night incident bundle and the persisted session database",
+    "Prove why progress does not survive a new invocation",
+    "Fix progress tracking so a restarted process resumes correctly",
+    "Write root cause, scope choice and reviewer impact in ANSWER.md"
+  ],
+  "acceptance": [
+    "Two nights in separate processes test each change exactly once",
+    "One work item per exception; a third night tests nothing",
+    "Progress stored in a persisted state scope",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 3 Tue - ADK sessions, state and state prefixes", "href": "week3"},
+    {"label": "Week 4 Mon - checkpoints and idempotency", "href": "week4"}
+  ]
+}

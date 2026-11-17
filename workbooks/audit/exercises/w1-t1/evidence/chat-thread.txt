@@ -1,0 +1,6 @@
+#audit-innovation  2026-10-14
+10:02 dana.k (audit eng): spot check found 2 misses in Q3 CM-03, both scored pass
+10:05 rob.m (audit eng): my bet is the temperature bump to 0.4, the model is getting creative. revert to 0?
+10:06 rob.m: also 3.8-flash is new, maybe it is just worse at dates
+10:09 dana.k: the responses look valid JSON though, no ValidationErrors in the run log
+10:11 lead: please find the actual cause before we change three things at once

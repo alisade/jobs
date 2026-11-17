@@ -1,0 +1,336 @@
+{
+ "questions": [
+  {
+   "id": "w6-q01",
+   "week": 6,
+   "set": "weekly",
+   "area": "embed",
+   "type": "single",
+   "stem": "According to the GenerateEmbedUrl API reference, which is true of the returned EmbedUrl?",
+   "options": [
+    "Valid for the whole SessionLifetimeInMinutes and reusable",
+    "Contains a temporary bearer token, valid for 5 minutes, and cannot be re-used once redeemed",
+    "Valid for 24 hours for the same user",
+    "Only valid from the AWS console domain"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The URL is a short-lived, single-use bearer token. The session it opens lasts SessionLifetimeInMinutes (15 to 600, default 10 hours). So the backend mints a fresh URL per page load and nothing may cache it.",
+   "learn": [
+    {
+     "label": "GenerateEmbedUrlForAnonymousUser",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForAnonymousUser.html"
+    },
+    {
+     "label": "GenerateEmbedUrlForRegisteredUser",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForRegisteredUser.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q02",
+   "week": 6,
+   "set": "weekly",
+   "area": "embed",
+   "type": "multi",
+   "stem": "Tidewater embeds for tenants that do not have Quick Sight users and pay per session capacity. Which apply? Choose two.",
+   "options": [
+    "GenerateEmbedUrlForAnonymousUser with AuthorizedResourceArns limited to the tenant's dashboards",
+    "SessionTags with the tenant id for tag-based RLS rules",
+    "A UserArn in the tenant's namespace",
+    "User-based RLS rules datasets keyed on user names",
+    "RegisterUser on every page load"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Anonymous embedding has no Quick Sight user; scope comes from AuthorizedResourceArns and session tags that tag-based RLS rules match. UserArn and user-based rules belong to registered embedding.",
+   "learn": [
+    {
+     "label": "GenerateEmbedUrlForAnonymousUser",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForAnonymousUser.html"
+    },
+    {
+     "label": "RLS with tag-based rules",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/quicksight-dev-rls-tags.html"
+    },
+    {
+     "label": "Choose the right embedding solution",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/developerguide/embedded-analytics-choosing-right-solution.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q03",
+   "week": 6,
+   "set": "weekly",
+   "area": "embed",
+   "type": "single",
+   "stem": "The portal moved to app.tidewater.example and partner portals live under many subdomains of portal.tidewater.example. What should AllowedDomains contain?",
+   "options": [
+    "Every partner subdomain listed individually",
+    "https://app.tidewater.example and https://*.portal.tidewater.example",
+    "app.tidewater.example/ with a trailing slash",
+    "* to allow everything"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "AllowedDomains overrides the console list for that call, accepts up to three domains or subdomains, and https://*.domain covers subdomains. Origins are scheme plus host, no path.",
+   "learn": [
+    {
+     "label": "GenerateEmbedUrlForAnonymousUser",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForAnonymousUser.html"
+    },
+    {
+     "label": "Managing domains",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/manage-domains.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q04",
+   "week": 6,
+   "set": "weekly",
+   "area": "embed",
+   "type": "single",
+   "stem": "Registered embedding returns QuickSightUserNotFoundException for a new Corvid user. Best fix?",
+   "options": [
+    "Switch Corvid to anonymous embedding",
+    "Provision the reader in Corvid's namespace (RegisterUser, e.g. on first login) and tell the admin when it is missing",
+    "Retry the call with backoff",
+    "Use the root user's ARN"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Registered embedding needs a Quick Sight user in the right namespace. Provision on first login or through an admin flow; retries will not create the user.",
+   "learn": [
+    {
+     "label": "GenerateEmbedUrlForRegisteredUser",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForRegisteredUser.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q05",
+   "week": 6,
+   "set": "weekly",
+   "area": "quicksight",
+   "type": "multi",
+   "stem": "Which statements about SPICE are correct? Choose two.",
+   "options": [
+    "SPICE is an in-memory engine that holds imported copies of data, consuming SPICE capacity",
+    "SPICE datasets can be refreshed on a schedule or through the API (ingestions)",
+    "Direct query and SPICE behave identically for freshness",
+    "SPICE removes the need for RLS",
+    "SPICE data is updated in real time from the source"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "SPICE stores imported data and is refreshed on schedules or via CreateIngestion; direct query reads the source at query time. Imported data is not live and still needs RLS.",
+   "learn": [
+    {
+     "label": "Importing data into SPICE",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/spice.html"
+    },
+    {
+     "label": "Refreshing SPICE data",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/refreshing-imported-data.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q06",
+   "week": 6,
+   "set": "weekly",
+   "area": "quicksight",
+   "type": "single",
+   "stem": "A dataset has a user-based RLS rules dataset keyed on tenant_id. A user in no rule row opens the dashboard. Which default behavior should you design for and test?",
+   "options": [
+    "They see all rows",
+    "They see no rows unless rules grant access (deny by default), so a missing rule shows an empty dashboard",
+    "They get an error 500",
+    "RLS is skipped for readers"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "With RLS applied, access is granted by rules; users without matching rules see no data. That is safe but shows up as an empty dashboard, a common support ticket after onboarding.",
+   "learn": [
+    {
+     "label": "Row-level security overview",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/row-level-security.html"
+    },
+    {
+     "label": "RLS with user-based rules",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/restrict-access-to-a-data-set-using-row-level-security.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q07",
+   "week": 6,
+   "set": "weekly",
+   "area": "quicksight",
+   "type": "single",
+   "stem": "You promote a dashboard from the dev account to prod, where the data source has a different ARN. Which mechanism is designed for this?",
+   "options": [
+    "Copy the analysis JSON by hand",
+    "Asset bundle export and import jobs with override parameters for the data source",
+    "Share the dashboard cross-account",
+    "Recreate it in the console"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "StartAssetBundleExportJob and StartAssetBundleImportJob move dashboards with their dependencies; override parameters replace environment-specific values such as data source connection details.",
+   "learn": [
+    {
+     "label": "Asset bundle operations",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/developerguide/asset-bundle-ops.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q08",
+   "week": 6,
+   "set": "weekly",
+   "area": "embed",
+   "type": "multi",
+   "stem": "Which belong in the backend that mints embed URLs? Choose two.",
+   "options": [
+    "Verify the caller's JWT and map the user to a tenant from claims",
+    "Set cache-control: no-store on the response and never log the URL",
+    "Cache the URL per tenant for five minutes to save calls",
+    "Accept the tenant from a query parameter for flexibility",
+    "Return the URL in an HTTP redirect so it lands in proxy logs"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "The URL is a bearer token: mint it per request for the verified tenant, keep it out of caches and logs.",
+   "learn": [
+    {
+     "label": "Choose the right embedding solution",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/developerguide/embedded-analytics-choosing-right-solution.html"
+    },
+    {
+     "label": "GenerateEmbedUrlForAnonymousUser",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForAnonymousUser.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q09",
+   "week": 6,
+   "set": "weekly",
+   "area": "quicksight",
+   "type": "single",
+   "stem": "Which tool lets a dashboard filter by a value chosen in a control, or passed from the embedding page?",
+   "options": [
+    "Calculated field",
+    "Parameter bound to a control and used in a filter",
+    "SPICE refresh",
+    "Namespace"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Parameters hold values set by controls, URLs or the Embedding SDK and drive filters and calculations; calculated fields compute values; namespaces isolate users.",
+   "learn": [
+    {
+     "label": "Parameters",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/parameters-in-quicksight.html"
+    },
+    {
+     "label": "Adding calculations",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/working-with-calculated-fields.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q10",
+   "week": 6,
+   "set": "weekly",
+   "area": "quicksight",
+   "type": "single",
+   "stem": "A common multi-tenant pattern for registered users in Quick Sight is:",
+   "options": [
+    "One AWS account per user",
+    "One namespace per tenant, with users and groups in that namespace and assets shared to them",
+    "A separate Quick Sight subscription per dashboard",
+    "All tenants in the default namespace with one shared group"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Namespaces isolate users and groups per tenant inside one account; combined with RLS and asset permissions this is the standard registered multi-tenant setup.",
+   "learn": [
+    {
+     "label": "GenerateEmbedUrlForRegisteredUser",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForRegisteredUser.html"
+    },
+    {
+     "label": "Row-level security overview",
+     "href": "https://docs.aws.amazon.com/quick/latest/userguide/row-level-security.html"
+    }
+   ]
+  },
+  {
+   "id": "w6-q11",
+   "week": 6,
+   "set": "weekly",
+   "area": "embed",
+   "type": "single",
+   "stem": "The host page must apply a filter and listen for errors from the embedded dashboard. What does that?",
+   "options": [
+    "The Quick Sight Embedding SDK in the page",
+    "A CloudFront function",
+    "An extra GenerateEmbedUrl call per filter change",
+    "An iframe without the SDK"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The Embedding SDK embeds dashboards, visuals or the console and exposes events, parameters and runtime filtering to the host page.",
+   "learn": [
+    {
+     "label": "Quick Sight Embedding SDK (GitHub)",
+     "href": "https://github.com/awslabs/amazon-quicksight-embedding-sdk"
+    }
+   ]
+  },
+  {
+   "id": "w6-q12",
+   "week": 6,
+   "set": "weekly",
+   "area": "embed",
+   "type": "multi",
+   "stem": "Users complain of being logged out of analytics after 15 minutes. Which are true? Choose two.",
+   "options": [
+    "SessionLifetimeInMinutes sets how long the embedded session lasts, from 15 to 600 minutes",
+    "A security decision to use 15 minutes is valid; the fix is a product decision, not a bug fix",
+    "The 5-minute URL validity is what logs users out",
+    "AllowedDomains controls session length",
+    "It means the URL was cached"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Session length is the SessionLifetimeInMinutes setting; the 5-minute limit applies to redeeming the URL, not to the session.",
+   "learn": [
+    {
+     "label": "GenerateEmbedUrlForAnonymousUser",
+     "href": "https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GenerateEmbedUrlForAnonymousUser.html"
+    }
+   ]
+  }
+ ]
+}

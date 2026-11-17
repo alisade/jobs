@@ -1,0 +1,12 @@
+{
+  "account_id": "111122223333",
+  "region": "us-east-1",
+  "allowed_domains": ["https://app.tidewater.example", "https://*.portal.tidewater.example"],
+  "session_lifetime_minutes": 60,
+  "tenants": {
+    "acme-foods": {"mode": "registered", "namespace": "acme-foods", "dashboard_id": "dash-acme-ops"},
+    "corvid-logistics": {"mode": "registered", "namespace": "corvid-logistics", "dashboard_id": "dash-corvid-ops"},
+    "brightline-health": {"mode": "anonymous", "dashboard_ids": ["dash-shared-ops", "dash-shared-sla"]},
+    "delta-outfitters": {"mode": "anonymous", "dashboard_ids": ["dash-shared-ops"]}
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "genai/x-2",
+  "title": "Human handoff opens the wrong conversation",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 7,
+  "optional": true,
+  "area": "React and TypeScript front end",
+  "scenario": "After a release that added an Alt+H shortcut, Kestrel contact-center agents receive handoff tickets for an older conversation than the one the customer is on. The handoff API team sees duplicate-request warnings and another engineer blames a new query cache setting.",
+  "task": [
+    "Show which conversation id the page sends and where that value comes from, with quoted evidence",
+    "Explain why only customers with several conversations are affected",
+    "Rule out the API idempotency warnings and the staleTime change",
+    "Fix the handler and the shortcut registration"
+  ],
+  "acceptance": [
+    "Button and Alt+H send the conversation and transcript on screen after any switches",
+    "Late messages and a new client prop are used",
+    "One shortcut registration at a time; one press is one handoff",
+    "ANSWER.md names the mechanism with evidence"
+  ],
+  "practices": [
+    {"label": "Week 7 - live-round drills: React state and closures", "href": "week7"},
+    {"label": "Week 1 - React components, state and effects", "href": "week1"}
+  ]
+}

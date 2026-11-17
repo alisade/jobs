@@ -1,0 +1,8 @@
+# Test and exercise tooling on top of the blueprint's own pinned requirements.txt.
+# ensure-venv.sh installs the blueprint's seven packages editable from COMMERCE_AGENTS,
+# then these.
+pytest==9.1.1
+pytest-asyncio==1.4.0
+respx==0.23.1
+hypothesis>=6.100
+ruff==0.16.3

@@ -1,0 +1,26 @@
+{
+  "id": "healthai/w1-c1",
+  "title": "PA intake API with typed requests and the CMS-0057-F clock",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 1,
+  "optional": false,
+  "area": "Advanced Python: Pydantic v2, FastAPI, asyncio",
+  "scenario": "Kestrel Health Plan's new PA intake API accepts only imaging requests, trusts every field and computes deadlines with naive datetimes. Make it a production edge: a Pydantic v2 discriminated union per request category, an eligibility call under asyncio.timeout, idempotent retries, lifespan-managed clients, and a CMS-0057-F decision clock that is right across DST and plan time zones.",
+  "task": [
+    "Finish the base model and three category models as a discriminated union",
+    "Rewrite compute_deadline: 72 elapsed hours, 7 calendar days on the plan's wall clock, QHP exclusion",
+    "Add the eligibility timeout (503), Idempotency-Key handling (replay and 409) and a lifespan handler"
+  ],
+  "acceptance": [
+    "All validation cases return 422; all three categories are accepted",
+    "Clock edge cases pass: DST both ways, plan time zone, UTC output, no federal clock for QHP",
+    "503 on timeout within the bound; idempotent replay calls eligibility once"
+  ],
+  "practices": [
+    {"label": "Week 1 Mon - asyncio: TaskGroup, timeout, cancellation", "href": "week1"},
+    {"label": "Week 1 Tue - Pydantic v2: unions, validators, strict", "href": "week1"},
+    {"label": "Week 1 Wed - FastAPI dependencies, lifespan, async tests", "href": "week1"},
+    {"label": "Week 1 Thu - CMS-0057-F decision timeframes", "href": "week1"}
+  ]
+}

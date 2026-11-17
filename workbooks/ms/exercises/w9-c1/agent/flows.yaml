@@ -1,0 +1,18 @@
+# Contract for the two agent flows the topics call (already built by the integration team).
+# The test harness stubs them with exactly these ids, inputs and outputs.
+flows:
+  - name: Litware - Reset password
+    flowId: 0f3c2a10-6c1e-4b8e-9a52-5d0c1f7e2a11
+    inputs:
+      upn: user principal name of the account to reset (text)
+      system: which system the user is locked out of, as the user said it (text)
+    outputs:
+      resetStatus: '"Success" or "Failed"'
+  - name: Litware - Create service desk ticket
+    flowId: 7b9d4e22-1a3f-4c6d-8e05-2f6a9b3c4d55
+    inputs:
+      upn: requester user principal name (text)
+      reason: one of PasswordResetFailed, Unrecognized, UserRequested (text)
+      summary: the user's last message (text)
+    outputs:
+      ticketId: ticket number such as INC0042117 (text)

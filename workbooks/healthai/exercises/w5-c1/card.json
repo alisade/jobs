@@ -1,0 +1,26 @@
+{
+  "id": "healthai/w5-c1",
+  "title": "Hybrid policy retrieval with rerank, measured",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "RAG at scale: hybrid search, reranking, retrieval evals",
+  "scenario": "Kestrel's criteria agent uses dense search only: queries naming a policy id, HCPCS code or drug land on the wrong policy, and some answers cite retired policy versions. Build BM25 + dense with reciprocal rank fusion, LOB and effective-date filters before ranking, a bounded rerank, and the recall@k / MRR eval that proves each step.",
+  "task": [
+    "Implement Okapi BM25 and reciprocal rank fusion (k=60)",
+    "Filter by line of business and effective dates before ranking",
+    "Rerank only the top N candidates",
+    "Write recall@k, MRR and a sliced eval; report the four-setup table"
+  ],
+  "acceptance": [
+    "Formulas match; filters exact at date boundaries",
+    "Zero retired or wrong-LOB sections in any mode",
+    "Hybrid recall@5 >= 0.95 above both single methods; rerank MRR >= 0.95"
+  ],
+  "practices": [
+    {"label": "Week 5 Tue - hybrid search, RRF, embeddings", "href": "week5"},
+    {"label": "Week 5 Wed - reranking and retrieval evals", "href": "week5"},
+    {"label": "Week 5 Fri - Vector Search filtering", "href": "week5"}
+  ]
+}

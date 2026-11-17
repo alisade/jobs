@@ -1,0 +1,131 @@
+description: |
+  Lighthouse-RollbackAgentEndpoint: point an AgentCore Runtime endpoint back at a known-good
+  version. Reads and backs up the current state, waits for a human approval, moves the endpoint,
+  waits until it is READY and fails the execution if errors stay above the threshold.
+schemaVersion: '0.3'
+assumeRole: '{{ AutomationAssumeRole }}'
+parameters:
+  AutomationAssumeRole:
+    type: String
+    description: Role the automation runs as (scoped to this runtime, the backup prefix and metrics).
+    allowedPattern: '^arn:aws:iam::\d{12}:role/[\w+=,.@-]+$'
+  AgentRuntimeId:
+    type: String
+    allowedPattern: '^[a-zA-Z][a-zA-Z0-9_]{0,47}-[a-zA-Z0-9]{10}$'
+  EndpointName:
+    type: String
+    default: prod
+    allowedValues: [prod, canary]
+  TargetVersion:
+    type: String
+    description: Runtime version to roll back to.
+    allowedPattern: '^[0-9]{1,5}$'
+  BackupBucket:
+    type: String
+    allowedPattern: '^[a-z0-9.-]{3,63}$'
+  Approvers:
+    type: StringList
+    default: ['arn:aws:iam::111100000004:role/lighthouse-release-managers']
+  ErrorThreshold:
+    type: Integer
+    default: 5
+mainSteps:
+  - name: GetCurrentEndpoint
+    action: aws:executeAwsApi
+    inputs:
+      Service: bedrock-agentcore-control
+      Api: GetAgentRuntimeEndpoint
+      agentRuntimeId: '{{ AgentRuntimeId }}'
+      endpointName: '{{ EndpointName }}'
+    outputs:
+      - Name: LiveVersion
+        Selector: $.liveVersion
+        Type: String
+  - name: SkipIfAlreadyThere
+    action: aws:branch
+    inputs:
+      Choices:
+        - NextStep: AlreadyAtTarget
+          Variable: '{{ GetCurrentEndpoint.LiveVersion }}'
+          StringEquals: '{{ TargetVersion }}'
+      Default: BackupCurrentState
+  - name: BackupCurrentState
+    action: aws:executeAwsApi
+    inputs:
+      Service: s3
+      Api: PutObject
+      Bucket: '{{ BackupBucket }}'
+      Key: 'rollback/{{ AgentRuntimeId }}/{{ EndpointName }}/{{ automation:EXECUTION_ID }}.json'
+      Body: '{"agentRuntimeId": "{{ AgentRuntimeId }}", "endpointName": "{{ EndpointName }}", "liveVersion": "{{ GetCurrentEndpoint.LiveVersion }}", "targetVersion": "{{ TargetVersion }}"}'
+  - name: ApproveRollback
+    action: aws:approve
+    timeoutSeconds: 3600
+    inputs:
+      Approvers: '{{ Approvers }}'
+      MinRequiredApprovals: 1
+      Message: 'Roll {{ EndpointName }} of {{ AgentRuntimeId }} from version {{ GetCurrentEndpoint.LiveVersion }} to {{ TargetVersion }}'
+  - name: MoveEndpoint
+    action: aws:executeAwsApi
+    inputs:
+      Service: bedrock-agentcore-control
+      Api: UpdateAgentRuntimeEndpoint
+      agentRuntimeId: '{{ AgentRuntimeId }}'
+      endpointName: '{{ EndpointName }}'
+      agentRuntimeVersion: '{{ TargetVersion }}'
+  - name: WaitUntilReady
+    action: aws:waitForAwsResourceProperty
+    timeoutSeconds: 600
+    inputs:
+      Service: bedrock-agentcore-control
+      Api: GetAgentRuntimeEndpoint
+      agentRuntimeId: '{{ AgentRuntimeId }}'
+      endpointName: '{{ EndpointName }}'
+      PropertySelector: $.status
+      DesiredValues: [READY]
+  - name: ReadErrorMetric
+    action: aws:executeAwsApi
+    inputs:
+      Service: cloudwatch
+      Api: GetMetricStatistics
+      Namespace: AWS/Bedrock-AgentCore
+      MetricName: SystemErrors
+      Dimensions:
+        - Name: Resource
+          Value: '{{ AgentRuntimeId }}'
+      Period: 300
+      Statistics: [Sum]
+    outputs:
+      - Name: ErrorSum
+        Selector: $.Datapoints[0].Sum
+        Type: Integer
+  - name: CheckErrors
+    action: aws:branch
+    inputs:
+      Choices:
+        - NextStep: FailOnErrors
+          Variable: '{{ ReadErrorMetric.ErrorSum }}'
+          NumericGreater: '{{ ErrorThreshold }}'
+      Default: Done
+  - name: FailOnErrors
+    action: aws:executeScript
+    inputs:
+      Runtime: python3.11
+      Handler: handler
+      InputPayload:
+        errors: '{{ ReadErrorMetric.ErrorSum }}'
+      Script: |
+        def handler(events, context):
+            raise Exception(f"errors still above threshold after rollback: {events['errors']}")
+    isEnd: true
+  - name: AlreadyAtTarget
+    action: aws:sleep
+    inputs:
+      Duration: PT1S
+    isEnd: true
+  - name: Done
+    action: aws:sleep
+    inputs:
+      Duration: PT1S
+    isEnd: true
+outputs:
+  - GetCurrentEndpoint.LiveVersion

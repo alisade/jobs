@@ -1,0 +1,6 @@
+// Latest known position and state of every vehicle seen in the last day.
+// Output: VehicleId, LastSeen, SpeedKph, FuelPct, Lat, Lon (one row per vehicle)
+// TODO: replace this. Hint: a sort + take does not give one row per vehicle.
+Telemetry
+| sort by Timestamp desc
+| take 3

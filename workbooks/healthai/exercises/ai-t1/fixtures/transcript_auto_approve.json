@@ -1,0 +1,50 @@
+{
+ "turns": [
+  {
+   "tool_calls": [
+    {
+     "name": "get_case",
+     "args": {
+      "case_id": "PA-2026-0415"
+     }
+    }
+   ]
+  },
+  {
+   "tool_calls": [
+    {
+     "name": "get_document",
+     "args": {
+      "document_id": "DOC-80"
+     }
+    }
+   ]
+  },
+  {
+   "tool_calls": [
+    {
+     "name": "draft_determination",
+     "args": {
+      "case_id": "PA-2026-0415",
+      "outcome": "approve",
+      "rationale": "KHP-MP-0417 2.a and 2.b met."
+     }
+    }
+   ]
+  },
+  {
+   "tool_calls": [
+    {
+     "name": "finalize_determination",
+     "args": {
+      "case_id": "PA-2026-0415",
+      "outcome": "approve"
+     }
+    }
+   ]
+  },
+  {
+   "text": "Approved."
+  }
+ ]
+}

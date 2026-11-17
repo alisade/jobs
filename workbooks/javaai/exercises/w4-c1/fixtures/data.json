@@ -1,0 +1,86 @@
+{
+ "courses": {
+  "bio-210": {
+   "title": "Microbiology",
+   "keywords": [
+    "microbe",
+    "bacteria",
+    "virus",
+    "pathogen",
+    "immune",
+    "vaccine",
+    "infection",
+    "cell",
+    "antibiotic",
+    "transmission"
+   ],
+   "sections": [
+    {
+     "id": "l4-s1",
+     "lesson": "l4",
+     "text": "Pathogens spread by droplets, contact, vectors and contaminated food or water."
+    },
+    {
+     "id": "l4-s2",
+     "lesson": "l4",
+     "text": "The basic reproduction number R0 is the average number of new infections caused by one case."
+    },
+    {
+     "id": "l5-s1",
+     "lesson": "l5",
+     "text": "Vaccines train the adaptive immune system to recognise an antigen without causing disease."
+    },
+    {
+     "id": "l6-s1",
+     "lesson": "l6",
+     "text": "Antibiotics act on bacteria, not viruses; resistance spreads when courses are not completed."
+    }
+   ]
+  },
+  "stats-101": {
+   "title": "Statistics",
+   "keywords": [
+    "mean",
+    "median",
+    "mode",
+    "variance",
+    "distribution",
+    "sample",
+    "probability"
+   ],
+   "sections": [
+    {
+     "id": "l1-s1",
+     "lesson": "l1",
+     "text": "The median is the middle value of ordered data."
+    }
+   ]
+  }
+ },
+ "progress": {
+  "lrn-ada": {
+   "bio-210": {
+    "mastered": [
+     "l4"
+    ],
+    "inProgress": [
+     "l5"
+    ],
+    "quizAnswer": {
+     "l5": "memory cells"
+    }
+   }
+  },
+  "lrn-bo": {
+   "bio-210": {
+    "mastered": [],
+    "inProgress": [
+     "l4"
+    ],
+    "quizAnswer": {
+     "l4": "droplets"
+    }
+   }
+  }
+ }
+}

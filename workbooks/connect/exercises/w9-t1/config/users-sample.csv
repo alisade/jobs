@@ -1,0 +1,7 @@
+Username,FirstName,LastName,Email,SecurityProfile,RoutingProfile,Site
+mrios,Marco,Rios,mrios@larkspur.example,Agent-Tier1,RP-HelpDesk-Tier1,Monterrey
+agarcia,Ana,Garcia,agarcia@larkspur.example,Agent-Tier1,RP-HelpDesk-Tier1,Monterrey
+lvaldez,Lucia,Valdez,lvaldez@larkspur.example,Agent-Tier2,RP-HelpDesk-Tier1,Monterrey
+jellis,Jordan,Ellis,jellis@larkspur.example,Admin,RP-HelpDesk-Tier1,Charlotte
+pnatarajan,Priya,Natarajan,pnatarajan@larkspur.example,Supervisor,RP-HelpDesk-Tier1,Pune
+dkim,Daniel,Kim,dkim@larkspur.example,Agent-VIP,RP-VIPDesk,Charlotte

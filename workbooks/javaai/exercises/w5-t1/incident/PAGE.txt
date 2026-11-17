@@ -1,0 +1,14 @@
+INC-20571  P2  tutor: cites the wrong lessons in Microbiology since the content release
+Opened 2026-11-12 11:05 by Course Ops
+
+Reports
+  "The tutor told a learner that vaccines are covered in 'Lesson 1, section 2' and linked the
+   transmission lesson. Citations in Microbiology all look one lesson off."
+  "Asked how antibiotics work, it linked me to the vaccines lesson."
+
+Work notes
+  11:15 L2: release checklist eval (python -m ingest.eval) ran on the content merge: recall@3 0.050.
+        Nobody looked; the gate is advisory. Last week it was 0.90.
+  11:20 L2: release 3.2 of course-ingest also bumped the embedding model text-embedding-004 -> 005
+        (release notes attached). Proposal: roll the model back and re-embed (about 4 h of batch).
+  11:30 Assigned to you. Release notes, the content merge, sample citations and the eval history are here.

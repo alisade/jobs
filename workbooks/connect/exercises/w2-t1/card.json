@@ -1,0 +1,26 @@
+{
+  "id": "connect/w2-t1",
+  "title": "Password-reset service level collapsed after a \"copy\" routing change",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 2,
+  "optional": false,
+  "area": "Contact flows, IVR and routing",
+  "scenario": "After a Sunday routing-profile consolidation described as a straight copy of existing settings, LFG's PasswordReset service level dropped from about 86% to 70% and abandons tripled, while other queues improved. Supervisors see agents Available while callers wait. Find the cause in the contact records, metrics and profile exports, and fix it forward.",
+  "task": [
+    "Trace the regression through metrics, contact-record queue times and the real-time snapshot",
+    "Explain the routing-profile mechanism behind it and why the smoke test passed",
+    "Fix config/ without rolling back the consolidation; verify with make replay",
+    "Rule out the training-day red herring with numbers"
+  ],
+  "acceptance": [
+    "Replay: PasswordReset >= 82% with low abandon and ASA; other queues on target",
+    "Consolidation kept; profiles valid; environment unchanged",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 2 Wed - routing strategy: priority, delay and overflow", "href": "week2"},
+    {"label": "Week 1 Wed - routing profiles and queues", "href": "week1"},
+    {"label": "Week 2 Fri - KPI analysis from contact records", "href": "week2"}
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "note": "Recorded 2026-10-02 against claude-sonnet-5, retail vertical. Customer: 'a yoga mat and some headphones for the gym, add the mat'.",
+  "responses": [
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "Looking at both now."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_01A1",
+          "name": "search_products",
+          "input": {
+            "query": "yoga mat"
+          }
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_01A2",
+          "name": "search_products",
+          "input": {
+            "query": "headphones"
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 912,
+        "output_tokens": 141,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 6188
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01B1",
+          "name": "get_product_details",
+          "input": {
+            "product_id": "AR-1301"
+          }
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_01B2",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1301",
+            "quantity": 1
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 377,
+        "output_tokens": 96,
+        "cache_read_input_tokens": 6188,
+        "cache_creation_input_tokens": 1460
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "Added the ACME Fit 6mm mat to your cart; headphones are below if you want a pair."
+        }
+      ],
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 301,
+        "output_tokens": 58,
+        "cache_read_input_tokens": 7648,
+        "cache_creation_input_tokens": 622
+      }
+    }
+  ]
+}

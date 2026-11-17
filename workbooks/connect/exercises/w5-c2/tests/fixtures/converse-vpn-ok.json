@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "Open the employee portal, choose Security, then VPN token, and select Re-enroll [1]. Approve the push on your registered phone [1]. If the client then shows error 809, restart GlobalConnect and sign in again [2]."
+        }
+      ]
+    }
+  },
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 1184,
+    "outputTokens": 76,
+    "totalTokens": 1260
+  },
+  "metrics": {
+    "latencyMs": 812
+  }
+}

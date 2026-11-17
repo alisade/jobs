@@ -1,0 +1,17 @@
+# Prometheus range query export, pod=driftwood-7xkqp, step=30m
+# time(UTC)  go_goroutines  go_memstats_heap_inuse_bytes  process_resident_memory_bytes  driftwood_send_timeouts_total  driftwood_batches_sent_total  opensearch_bulk_p99_seconds
+22:51        23             9.1e6                         3.1e7                          0                              0                              0.08
+23:21        25             9.4e6                         3.2e7                          3                              1802                           0.09
+23:51        31             9.8e6                         3.3e7                          9                              3611                           0.11
+00:21        44             1.0e7                         3.4e7                          22                             5420                           0.10
+00:51        58             1.1e7                         3.6e7                          36                             7233                           0.12
+01:21        77             1.2e7                         3.8e7                          55                             9040                           0.15
+01:51        112            1.4e7                         4.1e7                          90                             10851                          0.40
+02:01        2390           6.9e7                         1.0e8                          2368                           11102                          8.70
+02:21        9874           1.61e8                        1.98e8                         9851                           11230                          14.20
+02:41        14210          2.05e8                        2.37e8                         14187                          11301                          19.80
+02:55        15377          2.21e8                        2.49e8                         15354                          11322                          17.10
+03:09        (scrape failed: container restarting)
+
+# Note: go_goroutines tracks driftwood_send_timeouts_total almost exactly (+23 baseline).
+# Shown here for completeness; the team was looking at heap_inuse.

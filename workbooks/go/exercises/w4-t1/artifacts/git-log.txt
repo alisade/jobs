@@ -1,0 +1,12 @@
+$ git log --oneline v0.2.4..v0.3.1
+9f2c1ab (tag: v0.3.1) chore: raise client QPS/Burst to 100/200 (INC-4412)
+41d07e3 feat(status): add lastReconcileID for support correlation (PLAT-2291)
+c88a0e2 chore(deps): bump sigs.k8s.io/controller-runtime to v0.25.2
+7b51f90 docs: README reconcile sequence diagram
+2e0aa14 test: envtest for owned Service recreation
+
+$ git show --stat 41d07e3
+ api/v1alpha1/mcpserver_types.go                   |  5 +++++
+ api/v1alpha1/zz_generated.deepcopy.go              |  0
+ config/crd/bases/agents.example.dev_mcpservers.yaml |  6 ++++++
+ internal/controller/mcpserver_controller.go        |  1 +

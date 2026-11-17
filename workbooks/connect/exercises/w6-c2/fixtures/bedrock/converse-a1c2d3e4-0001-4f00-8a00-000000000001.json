@@ -1,0 +1,37 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "toolUse": {
+            "toolUseId": "tooluse_1400",
+            "name": "record_acw_summary",
+            "input": {
+              "issue": "Locked out of email after a phone change broke Okta Verify MFA.",
+              "actionsTaken": [
+                "Verified the caller with their employee ID",
+                "Reset the Okta MFA enrollment",
+                "Linked the call to incident INC0041877"
+              ],
+              "resolution": "Caller re-enrolled Okta Verify and signed in successfully.",
+              "followUps": [
+                "Caller to contact Finance about the declined corporate card"
+              ],
+              "sentiment": "POSITIVE"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "stopReason": "tool_use",
+  "usage": {
+    "inputTokens": 820,
+    "outputTokens": 170,
+    "totalTokens": 990
+  },
+  "metrics": {
+    "latencyMs": 1400
+  }
+}

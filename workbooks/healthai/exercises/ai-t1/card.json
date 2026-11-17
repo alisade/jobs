@@ -1,0 +1,26 @@
+{
+  "id": "healthai/ai-t1",
+  "title": "A denial finalized with no reviewer on record",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": "ai",
+  "optional": false,
+  "area": "LLM security: prompt injection and tool authorization",
+  "scenario": "The daily audit found a knee arthroscopy denial finalized by Kestrel's drafting agent with no reviewer. The agent team wants to add 'ignore instructions in documents' to the system prompt. Replay the recorded transcript, find where the instruction came from and why it could finalize anything, and fix authorization server-side.",
+  "task": [
+    "Replay the incident transcript and find the injected instruction",
+    "Find the code-level root cause; judge the system prompt proposal",
+    "Authorize finalize from server-side state only; mark documents untrusted",
+    "Fill in findings.json and ANSWER.md"
+  ],
+  "acceptance": [
+    "Incident replay no longer finalizes; the model gets an error result",
+    "reviewed=true authorizes nothing; reviewer outcome only; eligible approvals still work",
+    "Root cause backed by transcript and code evidence"
+  ],
+  "practices": [
+    {"label": "AI Integration - 4 Security", "href": "ai"},
+    {"label": "AI Integration - 1 Tool design", "href": "ai"},
+    {"label": "Week 6 Fri - LLM security for PHI pipelines", "href": "week6"}
+  ]
+}

@@ -1,0 +1,7 @@
+// Contoso Fleet - FleetOps Eventhouse, KQL database "fleet" (as deployed; do not change)
+
+// Eventstream destination table. Eventstream ingests JSON with the mapping "TelemetryLanding_mapping".
+.create-merge table TelemetryLanding (Timestamp: datetime, DeviceId: string, VehicleId: string, SpeedKph: real, EngineTempC: real, FuelPct: real, FirmwareVersion: string)
+
+// Filled by the update policy below; the live dashboard and the Activator overheating rule read it.
+.create-merge table TelemetryEnriched (Timestamp: datetime, DeviceId: string, VehicleId: string, SpeedKph: real, EngineTempC: real, FuelPct: real, FirmwareVersion: string, IsOverheating: bool, SpeedBand: string)

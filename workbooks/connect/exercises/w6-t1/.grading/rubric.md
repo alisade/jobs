@@ -1,0 +1,12 @@
+# Rubric: connect/w6-t1 Card numbers in the redacted contact drivers report
+Pass mark: 70
+
+| # | Criterion | Points | How to judge |
+|---|---|---|---|
+| 1 | Automated tests | 30 | points = 30 * passed / total from grade.sh |
+| 2 | Root cause identified | 25 | Full: names the chain: CHG0034417 (2026-09-22) switched RedactionResults from RedactedOnly to RedactedAndOriginal, so conversational analytics began writing original (raw) files under Analysis/Voice/YYYY/... next to Analysis/Voice/Redacted/...; the report lists the whole Analysis/Voice/ prefix recursively, so every contact appeared twice (LFG-2231); the "fix" excluded /Redacted/ instead of the originals, so the report now reads only raw files (card numbers, names) and drops pre-09-22 contacts that only have redacted files; the IAM policy allowed Analysis/* so nothing stopped it. Partial (10-15): "the job reads the raw files" without the flow change or why the dedupe made it worse. Zero: blames redaction entity configuration or Connect. |
+| 3 | Evidence | 20 | Full: at least three quoted pieces: s3 listing (both prefixes from 09-22), a raw file's ContentMetadata Output Raw vs the redacted twin, the flow diff, the git commit / LFG-2231, CloudTrail GetObject keys without /Redacted/, the missing Sept 20-21 rows. Partial: one or two. Zero: assertion only. |
+| 4 | Red herring handled | 5 | Rules out missing CREDIT_DEBIT_CVV / CREDIT_DEBIT_EXPIRY in the entity list: the leaked values are full PANs, CREDIT_DEBIT_NUMBER is in the list and the redacted twins show [PII]. Bonus: notices contact 7e3b9a10-0011 where the ML redaction itself missed a PAN (hence the Luhn scrub). |
+| 5 | Fix quality | 10 | Reads only the Redacted/ prefix and checks ContentMetadata.Output, dedupes by contact (latest), Luhn scrub, IAM least privilege on list and get; keeps the legal-hold originals (does not just flip the flow back to RedactedOnly without discussing CHG0034417). |
+| 6 | Production follow-ups | 10 | Concrete: exposure scope (which reports and recipients since 09-24, purge/recall, QSA), restrict and audit access to originals (bucket policy deny on Analysis/Voice/ except legal role, separate KMS key), retention/lifecycle for originals, real-time segment streams for voice are not redacted (redaction runs after disconnect) so downstream consumers must not persist them, CI check on prefixes, alarm on GetObject of originals. Partial: generic. |
+Total: 100

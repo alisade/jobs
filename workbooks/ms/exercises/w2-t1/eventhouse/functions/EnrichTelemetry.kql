@@ -1,0 +1,12 @@
+// Update policy on TelemetryEnriched. Owner: fleet-data team. Last change: 2026-08-14.
+.create-or-alter function with (folder = "UpdatePolicies", docstring = "Data-quality filter and enrichment for TelemetryLanding") EnrichTelemetry()
+{
+    TelemetryLanding
+    | where isnotempty(DeviceId) and isnotnull(Timestamp)
+    | extend IsOverheating = EngineTempC > 105.0,
+             SpeedBand = case(SpeedKph < 1.0, "stopped", SpeedKph < 50.0, "urban", "highway")
+    | project Timestamp, DeviceId, VehicleId, SpeedKph, EngineTempC, FuelPct, FirmwareVersion, IsOverheating, SpeedBand
+}
+
+.alter table TelemetryEnriched policy update
+@'[{"IsEnabled": true, "Source": "TelemetryLanding", "Query": "EnrichTelemetry()", "IsTransactional": true, "PropagateIngestionProperties": false}]'

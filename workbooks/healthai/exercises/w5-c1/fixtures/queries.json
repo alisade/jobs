@@ -1,0 +1,802 @@
+[
+ {
+  "id": "Q001",
+  "kind": "exact",
+  "text": "KHP-MP-0417 coverage",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-criteria"
+ },
+ {
+  "id": "Q002",
+  "kind": "paraphrase",
+  "text": "lower back scan qualify eligible requirements",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-criteria"
+ },
+ {
+  "id": "Q003",
+  "kind": "exact",
+  "text": "KHP-MP-0417 step",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-step"
+ },
+ {
+  "id": "Q004",
+  "kind": "paraphrase",
+  "text": "lower back scan firstline before tried",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-step"
+ },
+ {
+  "id": "Q005",
+  "kind": "exact",
+  "text": "KHP-MP-0417 documentation",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-docs"
+ },
+ {
+  "id": "Q006",
+  "kind": "exact",
+  "text": "KHP-MP-0417 exclusions",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-exclusions"
+ },
+ {
+  "id": "Q007",
+  "kind": "paraphrase",
+  "text": "lower back scan excluded experimental notcovered",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-exclusions"
+ },
+ {
+  "id": "Q008",
+  "kind": "exact",
+  "text": "KHP-MP-0417 codes",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-codes"
+ },
+ {
+  "id": "Q009",
+  "kind": "exact",
+  "text": "KHP-MP-0417 reauthorization",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-reauth"
+ },
+ {
+  "id": "Q010",
+  "kind": "paraphrase",
+  "text": "lower back scan renew extend repeat",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0417-v3-reauth"
+ },
+ {
+  "id": "Q011",
+  "kind": "exact",
+  "text": "KHP-MP-0212 coverage",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-criteria"
+ },
+ {
+  "id": "Q012",
+  "kind": "paraphrase",
+  "text": "joint keyhole cartilage qualify eligible requirements",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-criteria"
+ },
+ {
+  "id": "Q013",
+  "kind": "exact",
+  "text": "KHP-MP-0212 step",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-step"
+ },
+ {
+  "id": "Q014",
+  "kind": "paraphrase",
+  "text": "joint keyhole cartilage firstline before tried",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-step"
+ },
+ {
+  "id": "Q015",
+  "kind": "exact",
+  "text": "KHP-MP-0212 documentation",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-docs"
+ },
+ {
+  "id": "Q016",
+  "kind": "exact",
+  "text": "KHP-MP-0212 exclusions",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-exclusions"
+ },
+ {
+  "id": "Q017",
+  "kind": "paraphrase",
+  "text": "joint keyhole cartilage excluded experimental notcovered",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-exclusions"
+ },
+ {
+  "id": "Q018",
+  "kind": "exact",
+  "text": "KHP-MP-0212 codes",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-codes"
+ },
+ {
+  "id": "Q019",
+  "kind": "exact",
+  "text": "KHP-MP-0212 reauthorization",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-reauth"
+ },
+ {
+  "id": "Q020",
+  "kind": "paraphrase",
+  "text": "joint keyhole cartilage renew extend repeat",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0212-v3-reauth"
+ },
+ {
+  "id": "Q021",
+  "kind": "exact",
+  "text": "KHP-MP-0388 coverage",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-criteria"
+ },
+ {
+  "id": "Q022",
+  "kind": "paraphrase",
+  "text": "heart nuclear bloodflow qualify eligible requirements",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-criteria"
+ },
+ {
+  "id": "Q023",
+  "kind": "exact",
+  "text": "KHP-MP-0388 step",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-step"
+ },
+ {
+  "id": "Q024",
+  "kind": "paraphrase",
+  "text": "heart nuclear bloodflow firstline before tried",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-step"
+ },
+ {
+  "id": "Q025",
+  "kind": "exact",
+  "text": "KHP-MP-0388 documentation",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-docs"
+ },
+ {
+  "id": "Q026",
+  "kind": "exact",
+  "text": "KHP-MP-0388 exclusions",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-exclusions"
+ },
+ {
+  "id": "Q027",
+  "kind": "paraphrase",
+  "text": "heart nuclear bloodflow excluded experimental notcovered",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-exclusions"
+ },
+ {
+  "id": "Q028",
+  "kind": "exact",
+  "text": "KHP-MP-0388 codes",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-codes"
+ },
+ {
+  "id": "Q029",
+  "kind": "exact",
+  "text": "KHP-MP-0388 reauthorization",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-reauth"
+ },
+ {
+  "id": "Q030",
+  "kind": "paraphrase",
+  "text": "heart nuclear bloodflow renew extend repeat",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0388-v3-reauth"
+ },
+ {
+  "id": "Q031",
+  "kind": "exact",
+  "text": "KHP-MP-0101 coverage",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-criteria"
+ },
+ {
+  "id": "Q032",
+  "kind": "paraphrase",
+  "text": "biologic gut colitis qualify eligible requirements",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-criteria"
+ },
+ {
+  "id": "Q033",
+  "kind": "exact",
+  "text": "KHP-MP-0101 step",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-step"
+ },
+ {
+  "id": "Q034",
+  "kind": "paraphrase",
+  "text": "biologic gut colitis firstline before tried",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-step"
+ },
+ {
+  "id": "Q035",
+  "kind": "exact",
+  "text": "KHP-MP-0101 documentation",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-docs"
+ },
+ {
+  "id": "Q036",
+  "kind": "exact",
+  "text": "KHP-MP-0101 exclusions",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-exclusions"
+ },
+ {
+  "id": "Q037",
+  "kind": "paraphrase",
+  "text": "biologic gut colitis excluded experimental notcovered",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-exclusions"
+ },
+ {
+  "id": "Q038",
+  "kind": "exact",
+  "text": "KHP-MP-0101 codes",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-codes"
+ },
+ {
+  "id": "Q039",
+  "kind": "exact",
+  "text": "KHP-MP-0101 reauthorization",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-reauth"
+ },
+ {
+  "id": "Q040",
+  "kind": "paraphrase",
+  "text": "biologic gut colitis renew extend repeat",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0101-v3-reauth"
+ },
+ {
+  "id": "Q041",
+  "kind": "exact",
+  "text": "KHP-MP-0520 coverage",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-criteria"
+ },
+ {
+  "id": "Q042",
+  "kind": "paraphrase",
+  "text": "weightloss operation overweight qualify eligible requirements",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-criteria"
+ },
+ {
+  "id": "Q043",
+  "kind": "exact",
+  "text": "KHP-MP-0520 step",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-step"
+ },
+ {
+  "id": "Q044",
+  "kind": "paraphrase",
+  "text": "weightloss operation overweight firstline before tried",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-step"
+ },
+ {
+  "id": "Q045",
+  "kind": "exact",
+  "text": "KHP-MP-0520 documentation",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-docs"
+ },
+ {
+  "id": "Q046",
+  "kind": "exact",
+  "text": "KHP-MP-0520 exclusions",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-exclusions"
+ },
+ {
+  "id": "Q047",
+  "kind": "paraphrase",
+  "text": "weightloss operation overweight excluded experimental notcovered",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-exclusions"
+ },
+ {
+  "id": "Q048",
+  "kind": "exact",
+  "text": "KHP-MP-0520 codes",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-codes"
+ },
+ {
+  "id": "Q049",
+  "kind": "exact",
+  "text": "KHP-MP-0520 reauthorization",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-reauth"
+ },
+ {
+  "id": "Q050",
+  "kind": "paraphrase",
+  "text": "weightloss operation overweight renew extend repeat",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0520-v3-reauth"
+ },
+ {
+  "id": "Q051",
+  "kind": "exact",
+  "text": "KHP-MP-0611 coverage",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-criteria"
+ },
+ {
+  "id": "Q052",
+  "kind": "paraphrase",
+  "text": "overnight snoring breathing qualify eligible requirements",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-criteria"
+ },
+ {
+  "id": "Q053",
+  "kind": "exact",
+  "text": "KHP-MP-0611 step",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-step"
+ },
+ {
+  "id": "Q054",
+  "kind": "paraphrase",
+  "text": "overnight snoring breathing firstline before tried",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-step"
+ },
+ {
+  "id": "Q055",
+  "kind": "exact",
+  "text": "KHP-MP-0611 documentation",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-docs"
+ },
+ {
+  "id": "Q056",
+  "kind": "exact",
+  "text": "KHP-MP-0611 exclusions",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-exclusions"
+ },
+ {
+  "id": "Q057",
+  "kind": "paraphrase",
+  "text": "overnight snoring breathing excluded experimental notcovered",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-exclusions"
+ },
+ {
+  "id": "Q058",
+  "kind": "exact",
+  "text": "KHP-MP-0611 codes",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-codes"
+ },
+ {
+  "id": "Q059",
+  "kind": "exact",
+  "text": "KHP-MP-0611 reauthorization",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-reauth"
+ },
+ {
+  "id": "Q060",
+  "kind": "paraphrase",
+  "text": "overnight snoring breathing renew extend repeat",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0611-v3-reauth"
+ },
+ {
+  "id": "Q061",
+  "kind": "exact",
+  "text": "KHP-MP-0702 coverage",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-criteria"
+ },
+ {
+  "id": "Q062",
+  "kind": "paraphrase",
+  "text": "residence drip antimicrobial qualify eligible requirements",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-criteria"
+ },
+ {
+  "id": "Q063",
+  "kind": "exact",
+  "text": "KHP-MP-0702 step",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-step"
+ },
+ {
+  "id": "Q064",
+  "kind": "paraphrase",
+  "text": "residence drip antimicrobial firstline before tried",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-step"
+ },
+ {
+  "id": "Q065",
+  "kind": "exact",
+  "text": "KHP-MP-0702 documentation",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-docs"
+ },
+ {
+  "id": "Q066",
+  "kind": "exact",
+  "text": "KHP-MP-0702 exclusions",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-exclusions"
+ },
+ {
+  "id": "Q067",
+  "kind": "paraphrase",
+  "text": "residence drip antimicrobial excluded experimental notcovered",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-exclusions"
+ },
+ {
+  "id": "Q068",
+  "kind": "exact",
+  "text": "KHP-MP-0702 codes",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-codes"
+ },
+ {
+  "id": "Q069",
+  "kind": "exact",
+  "text": "KHP-MP-0702 reauthorization",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-reauth"
+ },
+ {
+  "id": "Q070",
+  "kind": "paraphrase",
+  "text": "residence drip antimicrobial renew extend repeat",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0702-v3-reauth"
+ },
+ {
+  "id": "Q071",
+  "kind": "exact",
+  "text": "KHP-MP-0815 coverage",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-criteria"
+ },
+ {
+  "id": "Q072",
+  "kind": "paraphrase",
+  "text": "sugar sensor diabetic qualify eligible requirements",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-criteria"
+ },
+ {
+  "id": "Q073",
+  "kind": "exact",
+  "text": "KHP-MP-0815 step",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-step"
+ },
+ {
+  "id": "Q074",
+  "kind": "paraphrase",
+  "text": "sugar sensor diabetic firstline before tried",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-step"
+ },
+ {
+  "id": "Q075",
+  "kind": "exact",
+  "text": "KHP-MP-0815 documentation",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-docs"
+ },
+ {
+  "id": "Q076",
+  "kind": "exact",
+  "text": "KHP-MP-0815 exclusions",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-exclusions"
+ },
+ {
+  "id": "Q077",
+  "kind": "paraphrase",
+  "text": "sugar sensor diabetic excluded experimental notcovered",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-exclusions"
+ },
+ {
+  "id": "Q078",
+  "kind": "exact",
+  "text": "KHP-MP-0815 codes",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-codes"
+ },
+ {
+  "id": "Q079",
+  "kind": "exact",
+  "text": "KHP-MP-0815 reauthorization",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-reauth"
+ },
+ {
+  "id": "Q080",
+  "kind": "paraphrase",
+  "text": "sugar sensor diabetic renew extend repeat",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0815-v3-reauth"
+ },
+ {
+  "id": "Q081",
+  "kind": "exact",
+  "text": "KHP-MP-0903 coverage",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-criteria"
+ },
+ {
+  "id": "Q082",
+  "kind": "paraphrase",
+  "text": "physio exercises recovery qualify eligible requirements",
+  "lob": "medicaid-mco",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-criteria"
+ },
+ {
+  "id": "Q083",
+  "kind": "exact",
+  "text": "KHP-MP-0903 step",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-step"
+ },
+ {
+  "id": "Q084",
+  "kind": "paraphrase",
+  "text": "physio exercises recovery firstline before tried",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-step"
+ },
+ {
+  "id": "Q085",
+  "kind": "exact",
+  "text": "KHP-MP-0903 documentation",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-docs"
+ },
+ {
+  "id": "Q086",
+  "kind": "exact",
+  "text": "KHP-MP-0903 exclusions",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-exclusions"
+ },
+ {
+  "id": "Q087",
+  "kind": "paraphrase",
+  "text": "physio exercises recovery excluded experimental notcovered",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-exclusions"
+ },
+ {
+  "id": "Q088",
+  "kind": "exact",
+  "text": "KHP-MP-0903 codes",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-codes"
+ },
+ {
+  "id": "Q089",
+  "kind": "exact",
+  "text": "KHP-MP-0903 reauthorization",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-reauth"
+ },
+ {
+  "id": "Q090",
+  "kind": "paraphrase",
+  "text": "physio exercises recovery renew extend repeat",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0903-v3-reauth"
+ },
+ {
+  "id": "Q091",
+  "kind": "exact",
+  "text": "KHP-MP-0950 coverage",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-criteria"
+ },
+ {
+  "id": "Q092",
+  "kind": "paraphrase",
+  "text": "hereditary gene mutation qualify eligible requirements",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-criteria"
+ },
+ {
+  "id": "Q093",
+  "kind": "exact",
+  "text": "KHP-MP-0950 step",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-step"
+ },
+ {
+  "id": "Q094",
+  "kind": "paraphrase",
+  "text": "hereditary gene mutation firstline before tried",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-step"
+ },
+ {
+  "id": "Q095",
+  "kind": "exact",
+  "text": "KHP-MP-0950 documentation",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-docs"
+ },
+ {
+  "id": "Q096",
+  "kind": "exact",
+  "text": "KHP-MP-0950 exclusions",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-exclusions"
+ },
+ {
+  "id": "Q097",
+  "kind": "paraphrase",
+  "text": "hereditary gene mutation excluded experimental notcovered",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-exclusions"
+ },
+ {
+  "id": "Q098",
+  "kind": "exact",
+  "text": "KHP-MP-0950 codes",
+  "lob": "medicare-advantage",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-codes"
+ },
+ {
+  "id": "Q099",
+  "kind": "exact",
+  "text": "KHP-MP-0950 reauthorization",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-reauth"
+ },
+ {
+  "id": "Q100",
+  "kind": "paraphrase",
+  "text": "hereditary gene mutation renew extend repeat",
+  "lob": "commercial",
+  "as_of": "2026-11-01",
+  "gold": "KHP-MP-0950-v3-reauth"
+ }
+]

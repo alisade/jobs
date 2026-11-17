@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w3-c1",
+  "title": "Move ClaimDesk authorization from LDAP groups to JWT claims with identical behaviour",
+  "type": "coding",
+  "estimate": "3 h",
+  "week": 3,
+  "area": "Security modernization (LDAP to OIDC/JWT)",
+  "scenario": "ClaimDesk authorizes every request from corporate LDAP groups, including nested ones. The agent portal will call it with Okta access tokens instead, and the business signed off on one condition: nobody's access changes on cutover day. Prove it with an embedded LDAP server and a local token issuer.",
+  "task": [
+    "Implement JwtRoleResolver: RS256-only validation against a JWKS, iss, aud, exp and nbf with 60 s skew",
+    "Map the Okta groups claim to the existing roles so ClaimPolicy decides identically",
+    "Find and close the semantic gaps between LDAP groups and the token",
+    "Write the parity argument and the cutover and rollback plan"
+  ],
+  "acceptance": [
+    "Hidden parity matrix: every user x action x boundary amount identical via LDAP and JWT",
+    "Rejects wrong aud and iss, expiry beyond skew, foreign keys, alg none and HS256 confusion",
+    "Missing or unknown groups deny without errors; two-key JWKS works",
+    "ANSWER.md explains each gap and the rollout"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - where legacy authorization hides", "href": "week3"},
+    {"label": "Week 3 Wed - JWT validation and the groups claim", "href": "week3"}
+  ]
+}

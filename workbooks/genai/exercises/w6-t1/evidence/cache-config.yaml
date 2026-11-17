@@ -1,0 +1,8 @@
+# kestrel-assistant answer cache (release 2026.11.20)
+answer_cache:
+  enabled: true
+  backend: redis://assistant-cache:6379/2
+  key: normalize(question)          # lowercase, strip punctuation, collapse spaces
+  ttl_seconds: 86400
+  cache_all_answers: true           # load test showed 61% hit rate on FAQ traffic
+  max_entries: 500000

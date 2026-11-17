@@ -1,0 +1,4 @@
+ingested,tenant_id,doc_id,source,uploaded_by,bytes
+2026-09-14,corvid-logistics,corvid-carrier-sla,console,corvid-admin@corvid-logistics.example,231
+2026-09-14,corvid-logistics,corvid-weekly-template,console,corvid-admin@corvid-logistics.example,214
+2026-11-07,corvid-logistics,corvid-rivermark-q4,partner-portal,partner-portal:rivermark-freight,402

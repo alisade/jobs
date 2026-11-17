@@ -1,0 +1,26 @@
+{
+  "id": "healthai/w6-c1",
+  "title": "PHI de-identification for logs, prompts and traces",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 6,
+  "optional": false,
+  "area": "HIPAA in AI pipelines: minimum necessary and de-identification",
+  "scenario": "Kestrel wants to export LangGraph traces and logs to a tracing tool outside the BAA and to build eval sets from cases. Build the layer in front of every log handler, prompt builder and span exporter: a minimum-necessary context, keyed pseudonyms, identifier redaction that keeps clinical content, and a logging filter that cannot be bypassed by args, extras or exceptions.",
+  "task": [
+    "Keyed member pseudonyms and names from the FHIR Patient",
+    "Redact identifiers in text and nested objects, keep clinical content",
+    "Minimum-necessary context for the criteria step and a clean prompt",
+    "Logging filter and span scrubber that catch args, extras, f-strings and exceptions"
+  ],
+  "acceptance": [
+    "Planted identifiers in many formats never reach output",
+    "ICD codes, doses, durations and policy ids survive",
+    "Prompt, context, handler output and spans are clean"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - HIPAA rules, minimum necessary, BAA scope", "href": "week6"},
+    {"label": "Week 6 Tue - de-identification: Safe Harbor, Healthcare API, SDP", "href": "week6"},
+    {"label": "Week 6 Wed - PHI flow map and audit logs", "href": "week6"}
+  ]
+}

@@ -1,0 +1,25 @@
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+metadata:
+  name: appdatabases.platform.tessellate.example
+spec:
+  scope: Namespaced
+  group: platform.tessellate.example
+  names:
+    kind: AppDatabase
+    plural: appdatabases
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required: [size, version, team]
+              properties:
+                size: {type: string, enum: [small, medium, large]}
+                version: {type: string, enum: [postgres-15, postgres-16]}
+                team: {type: string}

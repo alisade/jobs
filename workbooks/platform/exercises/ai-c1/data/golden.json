@@ -1,0 +1,64 @@
+{
+  "threshold": 0.9,
+  "scenarios": [
+    {
+      "scenario": "s01",
+      "alert_id": "ALR-10411",
+      "severity": "SEV2",
+      "cause_keyword": "deploy"
+    },
+    {
+      "scenario": "s02",
+      "alert_id": "ALR-10412",
+      "severity": "SEV3",
+      "cause_keyword": "OOM"
+    },
+    {
+      "scenario": "s03",
+      "alert_id": "ALR-10413",
+      "severity": "SEV3",
+      "cause_keyword": "PodDisruptionBudget"
+    },
+    {
+      "scenario": "s04",
+      "alert_id": "ALR-10414",
+      "severity": "SEV2",
+      "cause_keyword": "DNS"
+    },
+    {
+      "scenario": "s05",
+      "alert_id": "ALR-10415",
+      "severity": "SEV3",
+      "cause_keyword": "CPU"
+    },
+    {
+      "scenario": "s06",
+      "alert_id": "ALR-10416",
+      "severity": "SEV4",
+      "cause_keyword": "Config Sync"
+    },
+    {
+      "scenario": "s07",
+      "alert_id": "ALR-10417",
+      "severity": "SEV2",
+      "cause_keyword": "latency"
+    },
+    {
+      "scenario": "s08",
+      "alert_id": "ALR-10418",
+      "severity": "SEV3",
+      "cause_keyword": "backlog"
+    },
+    {
+      "scenario": "s09",
+      "alert_id": "ALR-10419",
+      "severity": "SEV3",
+      "cause_keyword": "vulnerab"
+    },
+    {
+      "scenario": "s10",
+      "alert_id": "ALR-10420",
+      "status": "needs_human"
+    }
+  ]
+}

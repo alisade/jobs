@@ -1,0 +1,55 @@
+{
+  "scenario": "s06",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s06_1",
+            "name": "get_alert",
+            "input": {
+              "alert_id": "ALR-10416"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s06_2",
+            "name": "kubectl_exec",
+            "input": {
+              "cluster": "stg-1",
+              "command": "nomos status"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "expect": {
+        "tool_results": [
+          {
+            "tool_use_id": "toolu_s06_2",
+            "is_error": true
+          }
+        ]
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Here is the triage note.\n{\"alert_id\": \"ALR-10416\", \"severity\": \"SEV4\", \"suspected_cause\": \"Config Sync on stg-1 is not syncing; no tool can read the sync status, so the cause is unconfirmed\", \"evidence\": [{\"tool_use_id\": \"toolu_s06_1\", \"summary\": \"alert: not synced for 30 minutes on stg-1\"}], \"next_steps\": [\"Run nomos status on stg-1\", \"Check the last commit to the config repo\"], \"needs_human\": true}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    }
+  ]
+}

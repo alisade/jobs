@@ -1,0 +1,26 @@
+{
+  "id": "healthai/w2-c1",
+  "title": "CriteriaService on grpc.aio: concurrent, bounded, deadline-aware",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "gRPC and structured concurrency",
+  "scenario": "Kestrel's internal CriteriaService checks a PA case's policy criteria against the FHIR store one at a time, never times out and returns UNKNOWN for bad input. Rebuild the servicer on grpc.aio with a TaskGroup fan-out, a semaphore of 5, per-check timeouts as results, proper status codes, and clean cancellation when the client gives up.",
+  "task": [
+    "Validate input with INVALID_ARGUMENT and NOT_FOUND",
+    "Fan out with asyncio.TaskGroup under a Semaphore(5), results in request order",
+    "Per-check asyncio.timeout bounded by the client deadline; timeout and error as results",
+    "Prove client cancel and deadline leave no in-flight work or leaked slots"
+  ],
+  "acceptance": [
+    "Peak in-flight exactly 5 and wall time well under the sequential time",
+    "Correct status codes and per-criterion timeout/error statuses",
+    "No leaked work or semaphore slots after cancel or deadline"
+  ],
+  "practices": [
+    {"label": "Week 2 Mon - protobuf and grpc.aio", "href": "week2"},
+    {"label": "Week 2 Tue - deadlines, cancellation, status codes", "href": "week2"},
+    {"label": "Week 1 Mon - asyncio TaskGroup and timeouts", "href": "week1"}
+  ]
+}

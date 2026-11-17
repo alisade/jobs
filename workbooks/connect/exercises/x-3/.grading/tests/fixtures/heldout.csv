@@ -1,0 +1,9 @@
+utterance,expected_intent,expected_system
+reset my sap password,ResetPassword,CI-SAP-ECC
+i forgot my okta verify password,ResetPassword,CI-OKTA-PROD
+unlock my outlook account,UnlockAccount,CI-EXCHANGE-ONLINE
+i am locked out of remote access,UnlockAccount,CI-GLOBALPROTECT
+is workday down,ReportOutage,CI-WORKDAY
+mail is not working for anyone,ReportOutage,CI-EXCHANGE-ONLINE
+reset my password,ResetPassword,
+any update on my incident,CheckTicketStatus,

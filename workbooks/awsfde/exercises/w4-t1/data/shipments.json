@@ -1,0 +1,7 @@
+{
+  "acme-foods": [{"shipment_id": "SH-10001", "status": "IN_TRANSIT", "destination": "Denver, CO", "value_usd": 48210},
+                 {"shipment_id": "SH-10002", "status": "DELIVERED", "destination": "Boise, ID", "value_usd": 12950}],
+  "brightline-health": [{"shipment_id": "SH-20001", "status": "HELD_AT_CUSTOMS", "destination": "Buffalo, NY", "value_usd": 99400}],
+  "corvid-logistics": [{"shipment_id": "SH-30001", "status": "PICKUP_SCHEDULED", "destination": "Columbus, OH", "value_usd": 30500}],
+  "delta-outfitters": [{"shipment_id": "SH-40001", "status": "IN_TRANSIT", "destination": "Bend, OR", "value_usd": 7600}]
+}

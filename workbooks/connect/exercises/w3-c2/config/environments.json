@@ -1,0 +1,27 @@
+{
+  "prod": {
+    "account": "111122223333",
+    "region": "us-east-1",
+    "namePrefix": "lfg-avaya-sbce-prod",
+    "voiceConnectors": [
+      { "key": "use1", "awsRegion": "us-east-1", "groupPriority": 1 },
+      { "key": "usw2", "awsRegion": "us-west-2", "groupPriority": 2 }
+    ],
+    "termination": {
+      "cidrAllowedList": ["198.51.100.10/32", "198.51.100.11/32", "203.0.113.20/32", "10.20.0.0/16"],
+      "callingRegions": ["US", "CA"],
+      "cpsLimit": 20
+    },
+    "origination": [
+      { "name": "ashburn-sbce-a", "host": "198.51.100.10", "priority": 1, "weight": 50 },
+      { "name": "ashburn-sbce-b", "host": "198.51.100.11", "priority": 1, "weight": 50 },
+      { "name": "dallas-sbce-dr", "host": "203.0.113.20", "priority": 2, "weight": 100 }
+    ],
+    "terminationCredentials": {
+      "username": "lfg-sbce-prod",
+      "secretArn": "arn:aws:secretsmanager:us-east-1:111122223333:secret:voice/lfg-sbce-prod/termination-AbCdEf",
+      "legacyPassword": "Avaya-SBCE-2023!"
+    },
+    "tags": { "CostCenter": "IT-1405", "Owner": "telephony-platform", "DataClassification": "internal" }
+  }
+}

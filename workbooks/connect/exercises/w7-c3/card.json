@@ -1,0 +1,28 @@
+{
+  "id": "connect/w7-c3",
+  "title": "Contact record pipeline: Firehose transform and Athena-style KPI SQL",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 7,
+  "optional": false,
+  "area": "Agent experience and integrations",
+  "scenario": "LFG streams contact records through Kinesis and Amazon Data Firehose into an S3 data lake queried by Athena. The pilot transformation Lambda leaked phone numbers and a card number, failed whole batches on one bad record, counted canary calls, and gave S3 lifecycle no way to apply per-contact retention. Fix the Lambda and write the KPI views.",
+  "task": [
+    "Implement the Firehose transformation contract: Ok / Dropped / ProcessingFailed per record",
+    "Flatten contact records into analytics rows with handle time, answered/abandoned/contained flags",
+    "Hash phone numbers, drop deny-listed attributes, redact SSNs and Luhn-valid card numbers",
+    "Return dynamic partition keys: channel, dt, retention class",
+    "Write Athena-portable SQL views: queue_daily, agent_occupancy, containment_by_intent"
+  ],
+  "acceptance": [
+    "A malformed record fails alone; canaries are dropped",
+    "No raw phone number in any output; redaction rules exact",
+    "Partition keys and retention classes correct",
+    "View results match independently computed KPIs on the sample"
+  ],
+  "practices": [
+    {"label": "Week 7 - contact record streaming, Amazon Data Firehose, Glue and Athena", "href": "week7"},
+    {"label": "Week 2 - contact center KPIs: service level, AHT, occupancy, containment", "href": "week2"},
+    {"label": "Week 9 - data retention and PII handling", "href": "week9"}
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "javaai/ai-c1",
+  "title": "A read-only learner-progress MCP server for the tutor agent",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": "ai",
+  "optional": false,
+  "area": "AI integration fundamentals",
+  "scenario": "The tutor agent's MCP server is a 1:1 copy of the catalog REST API: the model chooses any learner_id, raw objects carry the quiz answer and email, a write tool is exposed, and one lesson body hides an instruction for AI tutors to call it. Redesign it around the tutor's tasks with the Python MCP SDK.",
+  "task": [
+    "Three task-shaped, read-only, well-described tools",
+    "Learner bound to the session; enrollment scoping",
+    "Outputs without answers or PII; bounded, stripped, labelled lesson text",
+    "An actionable outage error"
+  ],
+  "acceptance": [
+    "Hidden tests over the MCP protocol for tools, annotations and schemas",
+    "Scoping, output shapes and no reachable write",
+    "ANSWER.md: ADK McpToolset wiring and why per-session binding"
+  ],
+  "practices": [
+    {"label": "AI Integration - 1 tool design and 4 security", "href": "ai"},
+    {"label": "Week 4 Fri - MCP in ADK", "href": "week4"}
+  ]
+}

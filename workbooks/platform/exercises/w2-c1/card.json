@@ -1,0 +1,28 @@
+{
+  "id": "platform/w2-c1",
+  "title": "Fleet upgrade planner",
+  "type": "coding",
+  "estimate": "2.5-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "GKE and fleet operations",
+  "scenario": "Tessellate's four GKE clusters drift onto different versions because upgrades are scheduled by hand in a spreadsheet. Before you automate anything, Dana K. wants a planner that turns fleet state (channels, versions, node pools, maintenance windows and exclusions, quota, PDBs) into an ordered, window-aware upgrade plan with explicit blockers, so the change can be reviewed like a Terraform plan.",
+  "task": [
+    "Build per-cluster steps: control plane one minor at a time, node pools kept inside the version skew, all pools to the target",
+    "Respect maintenance windows and exclusion scopes (no upgrades, no minor, no minor or node)",
+    "Order waves dev, stg, prod with canary first, a gap between clusters and a soak between waves",
+    "Report blockers (channel, PDB with zero disruptions, CPU quota for surge or blue-green, no window) and hold everything after them"
+  ],
+  "acceptance": [
+    "The fixture plan matches the expected windows and blocks prod-green on quota",
+    "Exclusion scopes behave like GKE's for minor and patch steps",
+    "Node pools are never newer than the control plane and never outside the skew",
+    "A blocked cluster holds every later cluster; CLI exit codes 0 / 1 / 2"
+  ],
+  "practices": [
+    {"label": "Week 2 - Mon: cluster upgrades, release channels, version skew", "href": "week2"},
+    {"label": "Week 2 - Tue: maintenance windows and exclusions", "href": "week2"},
+    {"label": "Week 2 - Wed: surge vs blue-green and upgrade quota", "href": "week2"},
+    {"label": "Week 2 - Thu: PDBs and fleet-level rollout", "href": "week2"}
+  ]
+}

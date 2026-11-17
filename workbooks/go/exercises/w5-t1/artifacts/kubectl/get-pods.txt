@@ -1,0 +1,10 @@
+$ kubectl -n agents get pods -l app.kubernetes.io/name=audit-sink -o wide
+NAME                          READY   STATUS    RESTARTS        AGE   IP             NODE                           NOMINATED NODE   READINESS GATES
+audit-sink-7c9f6d8b54-k8v4n   1/1     Running   10 (91s ago)    36m   10.42.9.88     ip-10-42-9-14.ec2.internal     <none>           <none>
+audit-sink-7c9f6d8b54-t2r9w   1/1     Running   9 (4m12s ago)   36m   10.42.17.203   ip-10-42-17-51.ec2.internal    <none>           <none>
+audit-sink-7c9f6d8b54-xq2lm   1/1     Running   10 (2m3s ago)   36m   10.42.25.17    ip-10-42-25-130.ec2.internal   <none>           <none>
+
+$ kubectl -n agents get rs -l app.kubernetes.io/name=audit-sink
+NAME                    DESIRED   CURRENT   READY   AGE
+audit-sink-6b8d5f9c7d   0         0         0       9d
+audit-sink-7c9f6d8b54   3         3         3       36m

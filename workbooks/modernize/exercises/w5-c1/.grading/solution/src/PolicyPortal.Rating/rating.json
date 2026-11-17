@@ -1,0 +1,8 @@
+{
+  "Rating.BaseRatePerThousand": "4.25",
+  "Rating.MinimumPremium": "350.00",
+  "Rating.TerritoryFactors": "A:1.00;B:1.15;C:1.32;D:1.58",
+  "Rating.ClaimSurchargePercent": "10",
+  "Rating.SprinklerCreditPercent": "7.5",
+  "Rating.QuoteCacheDir": "/var/lib/policyportal/quote-cache"
+}

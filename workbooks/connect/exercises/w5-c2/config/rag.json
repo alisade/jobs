@@ -1,0 +1,12 @@
+{
+  "knowledgeBaseId": "KBLFGHELP01",
+  "modelId": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "guardrailIdentifier": "gr-lfg-helpdesk",
+  "guardrailVersion": "4",
+  "numberOfResults": 5,
+  "minScore": 0.45,
+  "searchType": "HYBRID",
+  "budgetMs": 6500,
+  "retrieveTimeoutMs": 2000,
+  "maxTokens": 300
+}

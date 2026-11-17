@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w2-c1",
+  "title": "Reverse-engineer claimdesk-web into an evidence-backed inventory and spec",
+  "type": "coding",
+  "estimate": "2.5 h",
+  "week": 2,
+  "area": "Agentic reverse engineering",
+  "scenario": "A modernization pod is about to take over ClaimDesk, a JBoss EAP 7.4 WAR nobody on the pod has read. The last spec, written by asking a chatbot, missed half the database and the batch job, so the architecture board now requires every claim to cite a file and line.",
+  "task": [
+    "Inventory database objects, integrations, authorization checks, scheduled jobs and runtime assumptions in spec/inventory.json",
+    "Back every item with app/<path>:<line> evidence whose quote is really on that line",
+    "Trace endpoints to their definitions; mark dead code dead",
+    "Write a C4-style SPEC.md with risks, blast radius and open questions"
+  ],
+  "acceptance": [
+    "Schema-valid inventory; every evidence reference resolves",
+    "Hidden coverage: tables mapped outside Java SQL, the stored procedure, all live integrations, every auth mechanism, cron and in-server jobs",
+    "Precision: nothing invented, dead code not reported as live",
+    "SPEC.md is something a pod can plan from (rubric)"
+  ],
+  "practices": [
+    {"label": "Week 2 Mon - discovery checklist for an unfamiliar app", "href": "week2"},
+    {"label": "Week 2 Tue - subagent fan-out and evidence", "href": "week2"}
+  ]
+}

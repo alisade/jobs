@@ -1,0 +1,110 @@
+{
+  "how do i re-enroll my vpn token": [
+    {
+      "articleId": "KB0009001",
+      "score": 0.74
+    },
+    {
+      "articleId": "KB0012345",
+      "score": 0.73
+    },
+    {
+      "articleId": "KB0012399",
+      "score": 0.61
+    },
+    {
+      "articleId": "KB0031002",
+      "score": 0.44
+    }
+  ],
+  "map the finance drive": [
+    {
+      "articleId": "KB0020456",
+      "score": 0.81
+    },
+    {
+      "articleId": "KB0030001",
+      "score": 0.4
+    },
+    {
+      "articleId": "KB0020457",
+      "score": 0.39
+    }
+  ],
+  "change my bank account for payroll": [
+    {
+      "articleId": "KB0030001",
+      "score": 0.77
+    },
+    {
+      "articleId": "KB0020457",
+      "score": 0.42
+    }
+  ],
+  "enroll my new phone for mfa": [
+    {
+      "articleId": "KB0031002",
+      "score": 0.79
+    },
+    {
+      "articleId": "KB0031003",
+      "score": 0.76
+    },
+    {
+      "articleId": "KB0012345",
+      "score": 0.41
+    }
+  ],
+  "sap posting period for quarter end": [
+    {
+      "articleId": "KB0020457",
+      "score": 0.83
+    },
+    {
+      "articleId": "KB0020456",
+      "score": 0.41
+    }
+  ],
+  "connect to guest wifi": [
+    {
+      "articleId": "KB0015010",
+      "score": 0.8
+    }
+  ],
+  "out of office reply": [
+    {
+      "articleId": "KB0020099",
+      "score": 0.82
+    }
+  ],
+  "employee relations complaint": [
+    {
+      "articleId": "KB0030002",
+      "score": 0.71
+    },
+    {
+      "articleId": "KB0040001",
+      "score": 0.38
+    }
+  ],
+  "legal hold on my mailbox": [
+    {
+      "articleId": "KB0040001",
+      "score": 0.79
+    },
+    {
+      "articleId": "KB0020099",
+      "score": 0.33
+    }
+  ],
+  "rsa token for my finance laptop": [
+    {
+      "articleId": "KB0009001",
+      "score": 0.78
+    },
+    {
+      "articleId": "KB0020456",
+      "score": 0.52
+    }
+  ]
+}

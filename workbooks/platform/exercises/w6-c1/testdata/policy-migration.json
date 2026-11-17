@@ -1,0 +1,14 @@
+{
+  "protected_types": [
+    "google_compute_network",
+    "google_sql_database_instance",
+    "google_storage_bucket",
+    "google_kms_crypto_key"
+  ],
+  "imports_only": true,
+  "allowed_update_attributes": [
+    "labels",
+    "terraform_labels",
+    "effective_labels"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "audit/w6-t1",
+  "title": "\"97% accuracy\" on the dashboard, 4 missed exceptions in review",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 6,
+  "optional": false,
+  "area": "Evals, cost and consistency",
+  "scenario": "The IT audit senior re-performed the Q3 CM-03 sample and found 7 exceptions; ControlPilot reported 3. The eval dashboard shown to the steering committee still says 96.7% accuracy and 100% exception recall. Finance separately asks why it shows $84 per 100 samples. You get the harness, the golden set, the signed July labels, the runs and an incident bundle.",
+  "task": [
+    "Explain how the dashboard and the reviewer can both be right, with evidence",
+    "Restore trustworthy ground truth and report the true Q3 numbers",
+    "Make the harness refuse non-human ground truth and the refresh script unable to create it",
+    "Decide whether the cost question is the same problem"
+  ],
+  "acceptance": [
+    "Golden set equals the reviewer-signed labels in the current schema",
+    "Loader raises ProvenanceError on model-labeled rows; the CLI exits non-zero",
+    "refresh-golden never writes model output as labels",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - error analysis and labeled sets per control", "href": "week6"},
+    {"label": "Week 6 Thu - evals in CI and regression gates", "href": "week6"},
+    {"label": "Week 2 Wed - completeness and accuracy of information (IPE)", "href": "week2"}
+  ]
+}

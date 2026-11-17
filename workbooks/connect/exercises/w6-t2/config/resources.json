@@ -1,0 +1,16 @@
+{
+  "instanceArn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f",
+  "hoursOfOperation": {
+    "HelpDeskHours": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk"
+  },
+  "queues": {
+    "GeneralSupport": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-general-support",
+    "PasswordReset": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-password-reset",
+    "VIPDesk": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-vip-desk",
+    "MajorIncident": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-major-incident"
+  },
+  "lambdas": {
+    "identifyCaller": "arn:aws:lambda:us-east-1:111122223333:function:lfg-identify-caller",
+    "passwordReset": "arn:aws:lambda:us-east-1:111122223333:function:lfg-password-reset"
+  }
+}

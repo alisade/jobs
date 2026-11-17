@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/w1-t1",
+  "title": "Throttling storm after the resilience release",
+  "type": "troubleshooting",
+  "estimate": "2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Bedrock: quotas, throttling and retries",
+  "scenario": "Friday's resilience release for the Tidewater Ask answer service was meant to stop errors during the Monday 09:00 login wave. On Monday a third of questions failed for ten minutes, p95 hit the 29 s gateway limit and Bedrock throttles rose 20x on 20% more traffic. Find why, before anyone asks AWS for more quota.",
+  "task": [
+    "Count the Bedrock calls one request can make in each release and explain where they come from",
+    "Rule the reserved concurrency change and the quota in or out, with evidence",
+    "Fix the retries: one layer, at most 4 attempts, capped full jitter, no retries on non-retryable errors",
+    "Return a degraded 503 with Retry-After the portal understands; verify with the replay"
+  ],
+  "acceptance": [
+    "At most 4 calls per request when every call is throttled; non-retryable errors make one call",
+    "Replay of 2026-11-09: error rate under 5%, p95 under 8 s, under 1.5 calls per request",
+    "ANSWER.md root cause backed by log, dashboard and config evidence"
+  ],
+  "practices": [
+    {"label": "Week 1 Fri - quotas, throttling and retries", "href": "week1"},
+    {"label": "Week 1 Mon - Converse API and its errors", "href": "week1"},
+    {"label": "Week 7 - timeouts, retries and backoff with jitter", "href": "week7"}
+  ]
+}

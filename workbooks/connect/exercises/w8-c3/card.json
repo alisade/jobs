@@ -1,0 +1,26 @@
+{
+  "id": "connect/w8-c3",
+  "title": "CI/CD and release management for the Connect platform",
+  "type": "design",
+  "estimate": "2 h",
+  "week": 8,
+  "optional": false,
+  "area": "DevOps and platform engineering",
+  "scenario": "Larkspur ships Connect changes by console clicks, a JSON export script and a Tuesday-night CAB spreadsheet of ARNs; DR is three releases behind and broken flows are found by agents. Design the CI/CD and release management for Sandbox, Dev, Test, Prod and DR within GitHub Actions, OIDC, CAB and offshore-team constraints.",
+  "task": [
+    "Decide what is managed as code and with which tool, precisely per resource type",
+    "Design promotion with generated manifests and fail-closed reference rewriting",
+    "Sketch the GitHub Actions pipeline with gates, tests and approvals",
+    "Define release and rollback for Lambdas, Lex, modules and flows, plus monitoring and governance"
+  ],
+  "acceptance": [
+    "Graded by rubric (no automated tests; grade.sh reports 0/0)",
+    "Correct about CFN/CDK/Terraform coverage, flow versions vs module aliases and native flow test cases",
+    "Concrete pipeline, testing, rollback, alarms and offshore RACI"
+  ],
+  "practices": [
+    {"label": "Week 8 Mon - CI/CD across environments", "href": "week8"},
+    {"label": "Week 8 Wed - testing flows and blue/green releases", "href": "week8"},
+    {"label": "Week 8 Thu - monitoring and HA", "href": "week8"}
+  ]
+}

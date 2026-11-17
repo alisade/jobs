@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/ai-t1",
+  "title": "Bedrock spend tripled after release 3.1.0 (prompt caching)",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": "ai",
+  "optional": false,
+  "area": "Cost and performance",
+  "scenario": "Daily Bedrock cost for the help desk agent tripled with flat traffic the day release 3.1.0 shipped. Usage logs show cache writes on every turn and no cache reads. On-call blames the minimum cacheable size or the TTL. Find the real cause in the request builder and fix the prompt layout.",
+  "task": [
+    "Read the Converse usage blocks before and after the release",
+    "Find what makes the cached prefix differ per request",
+    "Move dynamic context after the cache point; stabilise tool order",
+    "Show the cost for 100 conversations back under budget"
+  ],
+  "acceptance": [
+    "Cache reads from turn 2 and across users",
+    "Byte-identical prefixes; dynamic data still reaches the model",
+    "ANSWER.md rules out the size and TTL theories with evidence"
+  ],
+  "practices": [
+    {"label": "AI Integration - 3 Context engineering and caching", "href": "ai"},
+    {"label": "Week 6 - cost tuning: prompt caching", "href": "week6"}
+  ]
+}

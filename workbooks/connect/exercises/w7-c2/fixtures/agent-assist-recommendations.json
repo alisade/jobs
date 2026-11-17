@@ -1,0 +1,21 @@
+{
+  "_note": "Recorded GetRecommendations response (Amazon Q in Connect / agent assist API, qconnect) for a password-reset chat. Trimmed.",
+  "recommendations": [
+    { "recommendationId": "r-01", "type": "KNOWLEDGE_CONTENT", "relevanceScore": 0.91, "relevanceLevel": "HIGH",
+      "document": { "contentReference": { "knowledgeBaseId": "kb-helpdesk", "contentId": "c-pwd-001" },
+        "title": { "text": "Reset an Entra ID password from the employee portal" },
+        "excerpt": { "text": "Employees can reset their own password at portal.larkspur.example after SSO..." } } },
+    { "recommendationId": "r-02", "type": "KNOWLEDGE_CONTENT", "relevanceScore": 0.74, "relevanceLevel": "MEDIUM",
+      "document": { "contentReference": { "knowledgeBaseId": "kb-helpdesk", "contentId": "c-lock-014" },
+        "title": { "text": "Unlock an account after repeated failed sign-ins" },
+        "excerpt": { "text": "If the account is locked, wait 15 minutes or unlock from the admin console..." } } },
+    { "recommendationId": "r-03", "type": "KNOWLEDGE_CONTENT", "relevanceScore": 0.66, "relevanceLevel": "MEDIUM",
+      "document": { "contentReference": { "knowledgeBaseId": "kb-helpdesk", "contentId": "c-exec-pwd-002" },
+        "title": { "text": "Executive floor: password reset with security desk escort" },
+        "excerpt": { "text": "For Executive Office accounts the reset is performed by the security desk..." } } },
+    { "recommendationId": "r-04", "type": "KNOWLEDGE_CONTENT", "relevanceScore": 0.31, "relevanceLevel": "LOW",
+      "document": { "contentReference": { "knowledgeBaseId": "kb-helpdesk", "contentId": "c-print-220" },
+        "title": { "text": "Map a network printer" },
+        "excerpt": { "text": "Open Settings, Printers..." } } }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "text": "{\"category\":\"password_reset\",\"priority\":\"P3\",\"summary\":\"Caller replaced phone and needs to move the MFA authenticator to the new device so they can sign in again; they"
+        }
+      ]
+    }
+  },
+  "stopReason": "max_tokens",
+  "usage": {
+    "inputTokens": 420,
+    "outputTokens": 300,
+    "totalTokens": 720
+  },
+  "metrics": {
+    "latencyMs": 700
+  }
+}

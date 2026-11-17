@@ -1,0 +1,88 @@
+# kubectl -n agents logs audit-sink-7c9f6d8b54-t2r9w --all-containers --since=45m (current container) preceded by every --previous we captured
+{"time":"2026-10-06T14:02:36.200Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:02:36.240Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:02:36.295Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:02:36.340Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-7a2573f3-77fe-1e64-3205-59fc909ab41d","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:02:36.370Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:02:36.400Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:02:48.673Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-7a2573f3-77fe-1e64-3205-59fc909ab41d","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:02:48.681Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:02:48.688Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:03:00.439Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:03:00.479Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:03:00.534Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:03:00.579Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-75e9f26a-559b-3b53-eefa-001cea03c38d","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:03:00.609Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:03:00.639Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:03:15.179Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-75e9f26a-559b-3b53-eefa-001cea03c38d","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:03:15.187Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:03:15.194Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:03:38.048Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:03:38.088Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:03:38.143Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:03:38.188Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-e6e18391-3117-4723-aec5-a5c226ab4848","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:03:38.218Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:03:38.248Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:04:11.106Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-e6e18391-3117-4723-aec5-a5c226ab4848","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:04:11.114Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:04:11.121Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:04:54.066Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:04:54.106Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:04:54.161Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:04:54.206Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-b1183413-06ff-f856-aa4a-5cfc7da04481","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:04:54.236Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:04:54.266Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:05:51.468Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-b1183413-06ff-f856-aa4a-5cfc7da04481","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:05:51.476Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:05:51.483Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:07:13.104Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:07:13.144Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:07:13.199Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:07:13.244Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-6b5532bb-3531-72fb-b7e0-f57b6cbab80a","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:07:13.274Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:07:13.304Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:09:07.124Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-6b5532bb-3531-72fb-b7e0-f57b6cbab80a","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:09:07.132Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:09:07.139Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:11:48.306Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:11:48.346Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:11:48.401Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:11:48.446Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-7e4811ff-5f92-fdbe-9788-9e7655ecd270","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:11:48.476Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:11:48.506Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:15:04.830Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-7e4811ff-5f92-fdbe-9788-9e7655ecd270","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:15:04.838Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:15:04.845Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:20:06.928Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:20:06.968Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:20:07.023Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:20:07.068Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-f90a77f6-40a8-9623-1b78-89deb7975d6d","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:20:07.098Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:20:07.128Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:21:57.354Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-f90a77f6-40a8-9623-1b78-89deb7975d6d","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:21:57.362Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:21:57.369Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:26:59.398Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:26:59.438Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:26:59.493Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:26:59.538Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-04abed55-9c79-ea1b-c140-75865a8f5a50","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:26:59.568Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:26:59.598Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:30:19.123Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-04abed55-9c79-ea1b-c140-75865a8f5a50","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:30:19.131Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:30:19.138Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:35:20.418Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:35:20.458Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:35:20.513Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:35:20.558Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-411b4c68-f49f-6290-3d9d-25907f18d529","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:35:20.588Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:35:20.618Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}
+{"time":"2026-10-06T14:37:11.176Z","level":"WARN","msg":"heartbeat errored","group":"audit-sink","member_id":"audit-sink-411b4c68-f49f-6290-3d9d-25907f18d529","instance_id":"audit-sink","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:37:11.184Z","level":"WARN","msg":"commit failed","err":"FENCED_INSTANCE_ID: The broker rejected this static consumer since another consumer with the same group.instance.id has registered with a different member.id."}
+{"time":"2026-10-06T14:37:11.191Z","level":"ERROR","msg":"fatal: fenced, exiting so the kubelet restarts us","err":"sink: fenced by group coordinator: FENCED_INSTANCE_ID"}
+{"time":"2026-10-06T14:42:13.597Z","level":"INFO","msg":"starting","group":"audit-sink","topic":"agent.audit","instance_id":"audit-sink","session_timeout":"2m0s"}
+{"time":"2026-10-06T14:42:13.637Z","level":"INFO","msg":"beginning to manage the group lifecycle","group":"audit-sink"}
+{"time":"2026-10-06T14:42:13.692Z","level":"INFO","msg":"joining group","group":"audit-sink"}
+{"time":"2026-10-06T14:42:13.737Z","level":"INFO","msg":"joined, balancing group","group":"audit-sink","member_id":"audit-sink-0e83c0e5-08a0-a98b-ff17-d0df87cb68a0","instance_id":"audit-sink","generation":212,"leader":true,"balance_protocol":"cooperative-sticky"}
+{"time":"2026-10-06T14:42:13.767Z","level":"INFO","msg":"synced","group":"audit-sink","assigned":"agent.audit[0 1 2 3 4 5]"}
+{"time":"2026-10-06T14:42:13.797Z","level":"INFO","msg":"new group session begun","group":"audit-sink","added":"agent.audit[0 1 2 3 4 5]","lost":""}

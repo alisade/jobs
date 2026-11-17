@@ -1,0 +1,600 @@
+{
+ "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+ "spans": [
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "a0",
+   "parentSpanId": null,
+   "name": "POST /api/assistant/stream",
+   "startTimeUnixMs": 1763485200000,
+   "durationMs": 30000,
+   "status": "ERROR",
+   "attributes": {
+    "http.route": "/api/assistant/stream",
+    "service.name": "kong",
+    "http.response.status_code": 504
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "a1",
+   "parentSpanId": "a0",
+   "name": "assistant.turn",
+   "startTimeUnixMs": 1763485200012,
+   "durationMs": 29988,
+   "status": "ERROR",
+   "attributes": {
+    "service.name": "assistant-service",
+    "conversation.id": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+    "error": "client disconnected (upstream timeout)"
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "a2",
+   "parentSpanId": "a1",
+   "name": "chat provider-a",
+   "startTimeUnixMs": 1763485200020,
+   "durationMs": 2280,
+   "status": "OK",
+   "attributes": {
+    "gen_ai.operation.name": "chat",
+    "gen_ai.request.model": "provider-a-large",
+    "gen_ai.usage.input_tokens": 3120,
+    "gen_ai.usage.output_tokens": 96
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "a3",
+   "parentSpanId": "a1",
+   "name": "execute_tool search_products",
+   "startTimeUnixMs": 1763485202305,
+   "durationMs": 140,
+   "status": "OK",
+   "attributes": {
+    "gen_ai.tool.name": "search_products",
+    "products.returned": 20
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "a4",
+   "parentSpanId": "a1",
+   "name": "execute_tool check_inventory",
+   "startTimeUnixMs": 1763485202455,
+   "durationMs": 27545,
+   "status": "ERROR",
+   "attributes": {
+    "gen_ai.tool.name": "check_inventory",
+    "skus": 20,
+    "stores": 2
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c00",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485202457,
+   "durationMs": 690,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c01",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485203150,
+   "durationMs": 720,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c02",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485203873,
+   "durationMs": 845,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c03",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485204721,
+   "durationMs": 610,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c04",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485205334,
+   "durationMs": 1180,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c05",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485206517,
+   "durationMs": 702,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c06",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485207222,
+   "durationMs": 655,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c07",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485207880,
+   "durationMs": 930,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c08",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485208813,
+   "durationMs": 690,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c09",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485209506,
+   "durationMs": 720,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c10",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485210229,
+   "durationMs": 845,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c11",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485211077,
+   "durationMs": 610,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c12",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485211690,
+   "durationMs": 1180,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c13",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485212873,
+   "durationMs": 702,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c14",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485213578,
+   "durationMs": 655,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c15",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485214236,
+   "durationMs": 930,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c16",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485215169,
+   "durationMs": 690,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c17",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485215862,
+   "durationMs": 720,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c18",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485216585,
+   "durationMs": 845,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c19",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485217433,
+   "durationMs": 610,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c20",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485218046,
+   "durationMs": 1180,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c21",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485219229,
+   "durationMs": 702,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c22",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485219934,
+   "durationMs": 655,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c23",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485220592,
+   "durationMs": 930,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c24",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485221525,
+   "durationMs": 690,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c25",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485222218,
+   "durationMs": 720,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c26",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485222941,
+   "durationMs": 845,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c27",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485223789,
+   "durationMs": 610,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c28",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485224402,
+   "durationMs": 1180,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c29",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485225585,
+   "durationMs": 702,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c30",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485226290,
+   "durationMs": 655,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c31",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485226948,
+   "durationMs": 930,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c32",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485227881,
+   "durationMs": 690,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c33",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485228574,
+   "durationMs": 720,
+   "status": "OK",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "045",
+    "http.response.status_code": 200
+   }
+  },
+  {
+   "traceId": "9c1e6a0d2b8f4e17a5d3c7b2e8f10a44",
+   "spanId": "c34",
+   "parentSpanId": "a4",
+   "name": "GET /inventory/{sku}",
+   "startTimeUnixMs": 1763485229297,
+   "durationMs": 703,
+   "status": "ERROR",
+   "attributes": {
+    "service.name": "catalog-service",
+    "http.request.method": "GET",
+    "store_id": "087",
+    "error": "cancelled"
+   }
+  }
+ ]
+}

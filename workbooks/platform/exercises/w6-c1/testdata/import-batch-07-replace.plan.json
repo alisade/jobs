@@ -1,0 +1,111 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.13.4",
+  "resource_changes": [
+    {
+      "address": "google_compute_network.riq_core",
+      "mode": "managed",
+      "type": "google_compute_network",
+      "name": "riq_core",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "delete",
+          "create"
+        ],
+        "before": {
+          "name": "riq-core",
+          "project": "tsl-riq-prod",
+          "auto_create_subnetworks": false,
+          "routing_mode": "REGIONAL",
+          "mtu": 1460
+        },
+        "after": {
+          "name": "riq-core",
+          "project": "tsl-riq-prod",
+          "auto_create_subnetworks": true,
+          "routing_mode": "REGIONAL",
+          "mtu": 1460
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false,
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/networks/riq-core"
+        },
+        "replace_paths": [
+          [
+            "auto_create_subnetworks"
+          ]
+        ]
+      },
+      "action_reason": "replace_because_cannot_update"
+    },
+    {
+      "address": "google_compute_subnetwork.riq_gke_usc1",
+      "mode": "managed",
+      "type": "google_compute_subnetwork",
+      "name": "riq_gke_usc1",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq-gke-usc1",
+          "project": "tsl-riq-prod",
+          "region": "us-central1",
+          "ip_cidr_range": "10.40.0.0/20",
+          "private_ip_google_access": true
+        },
+        "after": {
+          "name": "riq-gke-usc1",
+          "project": "tsl-riq-prod",
+          "region": "us-central1",
+          "ip_cidr_range": "10.40.0.0/20",
+          "private_ip_google_access": true
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false,
+        "importing": {
+          "id": "projects/tsl-riq-prod/regions/us-central1/subnetworks/riq-gke-usc1"
+        }
+      }
+    },
+    {
+      "address": "google_compute_firewall.riq_allow_iap",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "riq_allow_iap",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "update"
+        ],
+        "before": {
+          "name": "riq-allow-iap",
+          "network": "riq-core",
+          "source_ranges": [
+            "35.235.240.0/20"
+          ],
+          "description": ""
+        },
+        "after": {
+          "name": "riq-allow-iap",
+          "network": "riq-core",
+          "source_ranges": [
+            "35.235.240.0/20"
+          ],
+          "description": "IAP TCP forwarding"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false,
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/firewalls/riq-allow-iap"
+        }
+      }
+    }
+  ]
+}

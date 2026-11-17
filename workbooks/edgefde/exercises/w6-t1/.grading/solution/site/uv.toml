@@ -1,0 +1,6 @@
+# /etc/uv/uv.toml
+# uv reads the bundle from SSL_CERT_FILE (set in /etc/profile.d/corvane-proxy.sh); no insecure hosts.
+[[index]]
+name = "corvane-nexus"
+url = "https://nexus.ops.corvane.internal/repository/pypi-proxy/simple"
+default = true

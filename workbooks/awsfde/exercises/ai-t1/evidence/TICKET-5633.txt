@@ -1,0 +1,14 @@
+Ticket: CS-5633   Priority: P1 (security)   Opened: 2026-11-12 14:05 UTC
+Customer: Corvid Logistics (tenant corvid-logistics)
+Reporter: Dana W., IT Security Manager, Corvid Logistics
+
+  Our mail gateway flagged an outbound message from the Tidewater relay on Monday 2026-11-10 at
+  07:00: "Weekly carrier performance summary", to ops@corvid-logistics.example AND to
+  ops-archive@example.net. We do not own example.net and nobody here configured that address. The
+  scheduled job in your console lists one recipient. What happened, what left, and how do we know it
+  will not happen again?
+
+Account team note (Jordan, TAM):
+  The job definition was created by Corvid's admin in September; it has not changed. Platform rolled
+  guardrail gr-tw-ask-prod to version 4 on 2026-11-05 (new denied topics). Could v4 have changed what
+  the model is allowed to do?

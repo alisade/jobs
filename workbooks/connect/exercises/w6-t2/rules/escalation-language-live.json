@@ -1,0 +1,68 @@
+{
+  "Name": "Escalation language - live",
+  "TriggerEventSource": {
+    "EventSourceName": "OnRealTimeCallAnalysisAvailable"
+  },
+  "Function": {
+    "Version": "2022-11-25",
+    "RuleFunction": {
+      "Operator": "AND",
+      "Operands": [
+        {
+          "Operator": "CONTAINS_ANY",
+          "Operands": [
+            "speak to your supervisor",
+            "speak to your manager",
+            "file a complaint",
+            "this is unacceptable"
+          ],
+          "ComparisonValue": "$.ContactLens.RealTimeCall.ExactMatch.Transcript",
+          "FilterClause": {
+            "LogicOperator": "AND",
+            "Filters": [
+              {
+                "Type": "ParticipantRole",
+                "Data": "CUSTOMER"
+              }
+            ]
+          },
+          "Negate": false
+        },
+        {
+          "Operator": "CONTAINS_ANY",
+          "Operands": [
+            "q-general-support",
+            "q-password-reset"
+          ],
+          "ComparisonValue": "$.ContactLens.RealTimeCall.Queue.QueueId",
+          "Negate": false
+        }
+      ]
+    }
+  },
+  "Actions": [
+    {
+      "ActionType": "SEND_NOTIFICATION",
+      "SendNotificationAction": {
+        "DeliveryMethod": "EMAIL",
+        "Subject": "Live escalation",
+        "Content": "Caller is asking for a supervisor. Contact: $.ContactId",
+        "ContentType": "PLAIN_TEXT",
+        "Recipient": {
+          "UserIds": [
+            "sup-dvega",
+            "sup-mtanaka"
+          ]
+        }
+      }
+    },
+    {
+      "ActionType": "GENERATE_EVENTBRIDGE_EVENT",
+      "EventBridgeAction": {
+        "Name": "LIVE_ESCALATION"
+      }
+    }
+  ],
+  "PublishStatus": "PUBLISHED",
+  "_comment": "CreateRule input kept in git (deployed by the pipeline as AWS::Connect::Rule). Function is serialized to a string on deploy."
+}

@@ -1,0 +1,243 @@
+{
+ "bio-101-l1": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Cell structure?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Cell structure?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Cell structure?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1870,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2410
+  }
+ },
+ "bio-210-l4": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "LOW"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Pathogen transmission routes?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Pathogen transmission routes?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Pathogen transmission routes?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1870,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2410
+  }
+ },
+ "bio-210-l5": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "LOW"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Vaccines and immunity?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Vaccines and immunity?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Vaccines and immunity?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1870,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2410
+  }
+ },
+ "hist-220-l2": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "LOW",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Propaganda in the Second World War?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Propaganda in the Second World War?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Propaganda in the Second World War?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1877,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2417
+  }
+ },
+ "hist-220-l3": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "LOW",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "LOW",
+   "HARM_CATEGORY_HATE_SPEECH": "LOW",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Genocide and the Nuremberg trials?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Genocide and the Nuremberg trials?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Genocide and the Nuremberg trials?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1877,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2417
+  }
+ },
+ "chem-101-l7": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "LOW"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "MEDIUM"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Lab safety: storing oxidizers?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Lab safety: storing oxidizers?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Lab safety: storing oxidizers?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1877,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2417
+  }
+ },
+ "chem-330-l2": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "HIGH"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Energetic materials: why they are regulated?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Energetic materials: why they are regulated?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Energetic materials: why they are regulated?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1877,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2417
+  }
+ },
+ "stats-101-l1": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Mean, median and mode?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Mean, median and mode?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Mean, median and mode?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1884,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2424
+  },
+  "rateLimitFirst": 1
+ },
+ "cs-101-l3": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Loops and conditionals?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Loops and conditionals?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Loops and conditionals?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1863,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2403
+  }
+ },
+ "econ-101-l2": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Supply and demand?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Supply and demand?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Supply and demand?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1877,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2417
+  }
+ },
+ "lit-210-l4": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "LOW",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Poetry of the First World War?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Poetry of the First World War?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Poetry of the First World War?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1870,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2410
+  }
+ },
+ "psych-101-l6": {
+  "promptRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "NEGLIGIBLE"
+  },
+  "responseRatings": {
+   "HARM_CATEGORY_HARASSMENT": "NEGLIGIBLE",
+   "HARM_CATEGORY_HATE_SPEECH": "NEGLIGIBLE",
+   "HARM_CATEGORY_SEXUALLY_EXPLICIT": "NEGLIGIBLE",
+   "HARM_CATEGORY_DANGEROUS_CONTENT": "LOW"
+  },
+  "text": "{\"items\": [{\"stem\": \"Question 1 about Substance use disorders?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 1, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}, {\"stem\": \"Question 2 about Substance use disorders?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 2, \"explanation\": \"See section s1.\", \"sectionId\": \"s1\"}, {\"stem\": \"Question 3 about Substance use disorders?\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answerIndex\": 3, \"explanation\": \"See section s2.\", \"sectionId\": \"s2\"}]}",
+  "usage": {
+   "promptTokenCount": 1884,
+   "candidatesTokenCount": 540,
+   "totalTokenCount": 2424
+  }
+ }
+}

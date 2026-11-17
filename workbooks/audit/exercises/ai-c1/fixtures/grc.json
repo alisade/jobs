@@ -1,0 +1,637 @@
+{
+  "ENG-2026-SOX-ITGC": {
+    "name": "FY2026 SOX ITGC testing",
+    "controls": [
+      {
+        "control_id": "CM-03",
+        "name": "Program change: approval, independence, tests",
+        "frequency": "recurring (multiple per day)",
+        "owner": "VP Engineering"
+      },
+      {
+        "control_id": "AC-01",
+        "name": "Quarterly user access review, financial applications",
+        "frequency": "quarterly",
+        "owner": "IT Security"
+      },
+      {
+        "control_id": "AC-04",
+        "name": "Terminated users removed within 2 business days",
+        "frequency": "recurring (event driven)",
+        "owner": "IT Service Desk"
+      },
+      {
+        "control_id": "OPS-02",
+        "name": "Batch job failures monitored and resolved",
+        "frequency": "daily",
+        "owner": "IT Operations"
+      }
+    ],
+    "tests": {
+      "CM-03": {
+        "control_id": "CM-03",
+        "procedure": "Test of operating effectiveness for CM-03: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 804,
+        "sample_size": 25,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "CHG-104100",
+          "CHG-104117",
+          "CHG-104134",
+          "CHG-104151",
+          "CHG-104168",
+          "CHG-104185",
+          "CHG-104202",
+          "CHG-104219",
+          "CHG-104236",
+          "CHG-104253",
+          "CHG-104270",
+          "CHG-104287",
+          "CHG-104304",
+          "CHG-104321",
+          "CHG-104338",
+          "CHG-104355",
+          "CHG-104372",
+          "CHG-104389",
+          "CHG-104406",
+          "CHG-104423",
+          "CHG-104440",
+          "CHG-104457",
+          "CHG-104474",
+          "CHG-104491",
+          "CHG-104508"
+        ]
+      },
+      "AC-01": {
+        "control_id": "AC-01",
+        "procedure": "Test of operating effectiveness for AC-01: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 4,
+        "sample_size": 2,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "AC-01-S01",
+          "AC-01-S02"
+        ]
+      },
+      "AC-04": {
+        "control_id": "AC-04",
+        "procedure": "Test of operating effectiveness for AC-04: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 264,
+        "sample_size": 15,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "AC-04-S01",
+          "AC-04-S02",
+          "AC-04-S03",
+          "AC-04-S04",
+          "AC-04-S05",
+          "AC-04-S06",
+          "AC-04-S07",
+          "AC-04-S08",
+          "AC-04-S09",
+          "AC-04-S10",
+          "AC-04-S11",
+          "AC-04-S12",
+          "AC-04-S13",
+          "AC-04-S14",
+          "AC-04-S15"
+        ]
+      },
+      "OPS-02": {
+        "control_id": "OPS-02",
+        "procedure": "Test of operating effectiveness for OPS-02: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 175,
+        "sample_size": 25,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "OPS-02-S01",
+          "OPS-02-S02",
+          "OPS-02-S03",
+          "OPS-02-S04",
+          "OPS-02-S05",
+          "OPS-02-S06",
+          "OPS-02-S07",
+          "OPS-02-S08",
+          "OPS-02-S09",
+          "OPS-02-S10",
+          "OPS-02-S11",
+          "OPS-02-S12",
+          "OPS-02-S13",
+          "OPS-02-S14",
+          "OPS-02-S15",
+          "OPS-02-S16",
+          "OPS-02-S17",
+          "OPS-02-S18",
+          "OPS-02-S19",
+          "OPS-02-S20",
+          "OPS-02-S21",
+          "OPS-02-S22",
+          "OPS-02-S23",
+          "OPS-02-S24",
+          "OPS-02-S25"
+        ]
+      }
+    },
+    "exceptions": [
+      {
+        "exception_id": "EXC-1000",
+        "control_id": "CM-03",
+        "sample_id": "CHG-104457",
+        "description": "approval recorded after the production deploy",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1001",
+        "control_id": "CM-03",
+        "sample_id": "CHG-104100",
+        "description": "approval recorded after the production deploy",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1002",
+        "control_id": "CM-03",
+        "sample_id": "CHG-104389",
+        "description": "deploy references a different pull request",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1003",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S02",
+        "description": "terminated user still active after 5 business days",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1004",
+        "control_id": "OPS-02",
+        "sample_id": "OPS-02-S11",
+        "description": "terminated user still active after 5 business days",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1005",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S02",
+        "description": "approval recorded after the production deploy",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1006",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S14",
+        "description": "access review signed off without evidence of the review",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1007",
+        "control_id": "CM-03",
+        "sample_id": "CHG-104491",
+        "description": "emergency change without retro-approval",
+        "status": "closed",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1008",
+        "control_id": "OPS-02",
+        "sample_id": "OPS-02-S03",
+        "description": "terminated user still active after 5 business days",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1009",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S01",
+        "description": "approver is the author (self-approval via on-call alias)",
+        "status": "closed",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1010",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S02",
+        "description": "deploy references a different pull request",
+        "status": "open",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1011",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S08",
+        "description": "access review signed off without evidence of the review",
+        "status": "open",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1012",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S04",
+        "description": "terminated user still active after 5 business days",
+        "status": "closed",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1013",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S01",
+        "description": "no CI evidence for the merged PR",
+        "status": "open",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1014",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S15",
+        "description": "deploy references a different pull request",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1015",
+        "control_id": "CM-03",
+        "sample_id": "CHG-104219",
+        "description": "approver is the author (self-approval via on-call alias)",
+        "status": "open",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1016",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S02",
+        "description": "deploy references a different pull request",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1017",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S02",
+        "description": "batch failure not ticketed within SLA",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1018",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S02",
+        "description": "no CI evidence for the merged PR",
+        "status": "open",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXC-1019",
+        "control_id": "OPS-02",
+        "sample_id": "OPS-02-S19",
+        "description": "batch failure not ticketed within SLA",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1020",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S02",
+        "description": "approval recorded after the production deploy",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1021",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S01",
+        "description": "batch failure not ticketed within SLA",
+        "status": "closed",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXC-1022",
+        "control_id": "OPS-02",
+        "sample_id": "OPS-02-S13",
+        "description": "emergency change without retro-approval",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      }
+    ],
+    "evidence": {
+      "CM-03": {
+        "CHG-104117": [
+          {
+            "doc_id": "EV-0411",
+            "title": "CHG-104117 change ticket export",
+            "pages": 2
+          },
+          {
+            "doc_id": "EV-0412",
+            "title": "PR 2204 checks and reviews",
+            "pages": 1
+          },
+          {
+            "doc_id": "EV-0413",
+            "title": "deploy-90118 pipeline log",
+            "pages": 3
+          }
+        ],
+        "CHG-104100": [
+          {
+            "doc_id": "EV-0401",
+            "title": "CHG-104100 change ticket export",
+            "pages": 2
+          }
+        ]
+      }
+    }
+  },
+  "ENG-2026-SOC1-RATES": {
+    "name": "FY2026 SOC 1 rating services",
+    "controls": [
+      {
+        "control_id": "CM-03",
+        "name": "Program change: approval, independence, tests",
+        "frequency": "recurring (multiple per day)",
+        "owner": "VP Engineering"
+      },
+      {
+        "control_id": "AC-01",
+        "name": "Quarterly user access review, financial applications",
+        "frequency": "quarterly",
+        "owner": "IT Security"
+      },
+      {
+        "control_id": "AC-04",
+        "name": "Terminated users removed within 2 business days",
+        "frequency": "recurring (event driven)",
+        "owner": "IT Service Desk"
+      },
+      {
+        "control_id": "OPS-02",
+        "name": "Batch job failures monitored and resolved",
+        "frequency": "daily",
+        "owner": "IT Operations"
+      },
+      {
+        "control_id": "TR-09",
+        "name": "Rate table changes reconciled",
+        "frequency": "weekly",
+        "owner": "Pricing"
+      }
+    ],
+    "tests": {
+      "CM-03": {
+        "control_id": "CM-03",
+        "procedure": "Test of operating effectiveness for CM-03: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 431,
+        "sample_size": 40,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "CM-03-S01",
+          "CM-03-S02",
+          "CM-03-S03",
+          "CM-03-S04",
+          "CM-03-S05",
+          "CM-03-S06",
+          "CM-03-S07",
+          "CM-03-S08",
+          "CM-03-S09",
+          "CM-03-S10",
+          "CM-03-S11",
+          "CM-03-S12",
+          "CM-03-S13",
+          "CM-03-S14",
+          "CM-03-S15",
+          "CM-03-S16",
+          "CM-03-S17",
+          "CM-03-S18",
+          "CM-03-S19",
+          "CM-03-S20",
+          "CM-03-S21",
+          "CM-03-S22",
+          "CM-03-S23",
+          "CM-03-S24",
+          "CM-03-S25",
+          "CM-03-S26",
+          "CM-03-S27",
+          "CM-03-S28",
+          "CM-03-S29",
+          "CM-03-S30",
+          "CM-03-S31",
+          "CM-03-S32",
+          "CM-03-S33",
+          "CM-03-S34",
+          "CM-03-S35",
+          "CM-03-S36",
+          "CM-03-S37",
+          "CM-03-S38",
+          "CM-03-S39",
+          "CM-03-S40"
+        ]
+      },
+      "AC-01": {
+        "control_id": "AC-01",
+        "procedure": "Test of operating effectiveness for AC-01: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 4,
+        "sample_size": 2,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "AC-01-S01",
+          "AC-01-S02"
+        ]
+      },
+      "AC-04": {
+        "control_id": "AC-04",
+        "procedure": "Test of operating effectiveness for AC-04: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 400,
+        "sample_size": 15,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "AC-04-S01",
+          "AC-04-S02",
+          "AC-04-S03",
+          "AC-04-S04",
+          "AC-04-S05",
+          "AC-04-S06",
+          "AC-04-S07",
+          "AC-04-S08",
+          "AC-04-S09",
+          "AC-04-S10",
+          "AC-04-S11",
+          "AC-04-S12",
+          "AC-04-S13",
+          "AC-04-S14",
+          "AC-04-S15"
+        ]
+      },
+      "OPS-02": {
+        "control_id": "OPS-02",
+        "procedure": "Test of operating effectiveness for OPS-02: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 378,
+        "sample_size": 25,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "OPS-02-S01",
+          "OPS-02-S02",
+          "OPS-02-S03",
+          "OPS-02-S04",
+          "OPS-02-S05",
+          "OPS-02-S06",
+          "OPS-02-S07",
+          "OPS-02-S08",
+          "OPS-02-S09",
+          "OPS-02-S10",
+          "OPS-02-S11",
+          "OPS-02-S12",
+          "OPS-02-S13",
+          "OPS-02-S14",
+          "OPS-02-S15",
+          "OPS-02-S16",
+          "OPS-02-S17",
+          "OPS-02-S18",
+          "OPS-02-S19",
+          "OPS-02-S20",
+          "OPS-02-S21",
+          "OPS-02-S22",
+          "OPS-02-S23",
+          "OPS-02-S24",
+          "OPS-02-S25"
+        ]
+      },
+      "TR-09": {
+        "control_id": "TR-09",
+        "procedure": "Test of operating effectiveness for TR-09: inspect evidence for each sampled item against the control attributes.",
+        "population_size": 292,
+        "sample_size": 5,
+        "preparer": "ralvarez",
+        "status": "in_progress",
+        "samples": [
+          "TR-09-S01",
+          "TR-09-S02",
+          "TR-09-S03",
+          "TR-09-S04",
+          "TR-09-S05"
+        ]
+      }
+    },
+    "exceptions": [
+      {
+        "exception_id": "EXS-1000",
+        "control_id": "TR-09",
+        "sample_id": "TR-09-S01",
+        "description": "approval recorded after the production deploy",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXS-1001",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S02",
+        "description": "terminated user still active after 5 business days",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXS-1002",
+        "control_id": "OPS-02",
+        "sample_id": "OPS-02-S01",
+        "description": "terminated user still active after 5 business days",
+        "status": "closed",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXS-1003",
+        "control_id": "TR-09",
+        "sample_id": "TR-09-S01",
+        "description": "terminated user still active after 5 business days",
+        "status": "closed",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXS-1004",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S02",
+        "description": "no CI evidence for the merged PR",
+        "status": "closed",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXS-1005",
+        "control_id": "TR-09",
+        "sample_id": "TR-09-S03",
+        "description": "emergency change without retro-approval",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXS-1006",
+        "control_id": "AC-04",
+        "sample_id": "AC-04-S15",
+        "description": "terminated user still active after 5 business days",
+        "status": "open",
+        "raised_by": "ralvarez"
+      },
+      {
+        "exception_id": "EXS-1007",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S01",
+        "description": "approval recorded after the production deploy",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXS-1008",
+        "control_id": "CM-03",
+        "sample_id": "CM-03-S35",
+        "description": "no CI evidence for the merged PR",
+        "status": "open",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXS-1009",
+        "control_id": "TR-09",
+        "sample_id": "TR-09-S02",
+        "description": "terminated user still active after 5 business days",
+        "status": "closed",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXS-1010",
+        "control_id": "AC-01",
+        "sample_id": "AC-01-S01",
+        "description": "terminated user still active after 5 business days",
+        "status": "open",
+        "raised_by": "kbrooks"
+      },
+      {
+        "exception_id": "EXS-1011",
+        "control_id": "OPS-02",
+        "sample_id": "OPS-02-S17",
+        "description": "emergency change without retro-approval",
+        "status": "open",
+        "raised_by": "ralvarez"
+      }
+    ],
+    "evidence": {
+      "CM-03": {
+        "CHG-104117": [
+          {
+            "doc_id": "EV-9001",
+            "title": "other engagement doc",
+            "pages": 1
+          }
+        ]
+      }
+    }
+  }
+}

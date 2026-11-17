@@ -1,0 +1,656 @@
+{
+ "questions": [
+  {
+   "id": "ms-q01",
+   "set": "mock",
+   "area": "gcp",
+   "type": "single",
+   "stem": "You join Tessellate as staff platform engineer. The prod projects sit directly under the organization with no folders, and every team has roles/editor at project level. What is your first structural change?",
+   "options": [
+    "Create a VPC per team",
+    "Introduce folders (platform, workloads, per environment), move projects under them, bind IAM to groups at folder level with predefined roles, and remove basic roles",
+    "Delete roles/editor everywhere in one change",
+    "Create one giant project for all prod workloads"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Folders give you inheritance points for IAM and org policy. Groups plus predefined roles at folder level replace per-project editor grants. Do it in reviewed steps; a single bulk removal of editor causes an outage.",
+   "learn": [
+    {
+     "label": "Resource hierarchy",
+     "href": "https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy"
+    },
+    {
+     "label": "IAM overview",
+     "href": "https://docs.cloud.google.com/iam/docs/overview"
+    }
+   ]
+  },
+  {
+   "id": "ms-q02",
+   "set": "mock",
+   "area": "gcp",
+   "type": "multi",
+   "stem": "A GitHub Actions workflow in tessellate/riq-service runs `plan` on pull requests and `apply` on main through a production environment. Design the WIF bindings. Choose two.",
+   "options": [
+    "Bind both service accounts to attribute.repository/tessellate/riq-service",
+    "Give the pull_request principal Token Creator on the apply service account",
+    "Use one service account key stored as a repo secret",
+    "Bind the plan service account (read-only) to principals whose sub is repo:tessellate/riq-service:pull_request",
+    "Bind the apply service account only to repo:tessellate/riq-service:environment:production"
+   ],
+   "answer": [
+    3,
+    4
+   ],
+   "explanation": "Separate identities by trust level: untrusted PR code gets a read-only plan identity; only the protected environment, with its reviewers, can mint apply credentials. Binding both on repository alone lets a PR job apply.",
+   "learn": [
+    {
+     "label": "Workload Identity Federation with deployment pipelines",
+     "href": "https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines"
+    },
+    {
+     "label": "Workload Identity Federation",
+     "href": "https://docs.cloud.google.com/iam/docs/workload-identity-federation"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ms-q03",
+   "set": "mock",
+   "area": "gcp",
+   "type": "single",
+   "stem": "An AWS-minded colleague proposes SCP-style org policies to stop anyone except the network team from calling compute.firewalls.create. What do you tell them?",
+   "options": [
+    "Use VPC Service Controls",
+    "Org policies can do that with a list constraint",
+    "Org policies restrict configurations, not callers; use IAM (no one else holds the permission) and, if needed, an IAM deny policy for the permission with an exception for the network group",
+    "Use Cloud Armor"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Who may call an API is IAM, including deny policies. Org policies describe allowed configurations regardless of caller.",
+   "learn": [
+    {
+     "label": "Organization Policy Service overview",
+     "href": "https://docs.cloud.google.com/organization-policy/overview"
+    },
+    {
+     "label": "IAM overview",
+     "href": "https://docs.cloud.google.com/iam/docs/overview"
+    }
+   ]
+  },
+  {
+   "id": "ms-q04",
+   "set": "mock",
+   "area": "gke",
+   "type": "single",
+   "stem": "prod-blue's surge upgrade has been on node 2 of 6 for 45 minutes. Events show eviction blocked by the riq-api PDB. You are on call. What do you do first?",
+   "options": [
+    "Check the PDB's status (currentHealthy, desiredHealthy, disruptionsAllowed) and which pods it selects, because an unhealthy or extra pod in the selector is the usual reason it allows zero",
+    "Scale the cluster to zero",
+    "Delete the PDB",
+    "Roll back the control plane"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Diagnose before acting: GKE will force the drain after about an hour, so you have a short window to fix the pods or the selector. Deleting the PDB removes protection in the middle of an upgrade.",
+   "learn": [
+    {
+     "label": "Kubernetes disruptions and PDBs",
+     "href": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/"
+    },
+    {
+     "label": "Node pool upgrade strategies",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/node-pool-upgrade-strategies"
+    }
+   ]
+  },
+  {
+   "id": "ms-q05",
+   "set": "mock",
+   "area": "gke",
+   "type": "single",
+   "stem": "Design zero-downtime maintenance for 14 clusters in 3 regions. Which sequencing is best?",
+   "options": [
+    "Disable auto-upgrade everywhere and upgrade manually once a year",
+    "All clusters in one global window on Sunday",
+    "Channels per environment, staggered maintenance windows, exclusions for freeze periods, one prod cluster per region per window with SLO-based go/no-go and traffic shifted away from the cluster being upgraded",
+    "Use Rapid channel in prod to get fixes sooner"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Fleet maintenance is ordering plus blast-radius control plus a stop signal. Manual-only upgrades fall out of support; Rapid in prod removes the soak.",
+   "learn": [
+    {
+     "label": "GKE cluster upgrades",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades"
+    },
+    {
+     "label": "Maintenance windows and exclusions",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions"
+    }
+   ]
+  },
+  {
+   "id": "ms-q06",
+   "set": "mock",
+   "area": "gke",
+   "type": "single",
+   "stem": "Blue-green upgrade of the MDM pool is in the soak phase and error rates rise. What is the advantage you use now?",
+   "options": [
+    "Switch to surge mid-upgrade",
+    "None; you must wait for completion",
+    "Delete the green pool's PDBs",
+    "Roll back: the blue pool still exists, so you can uncordon it and return workloads before it is deleted"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Rollback while the old pool exists is the reason to pay for blue-green.",
+   "learn": [
+    {
+     "label": "Node pool upgrade strategies",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/node-pool-upgrade-strategies"
+    },
+    {
+     "label": "Configure node pool upgrade strategies",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-pool-upgrade-strategies"
+    }
+   ]
+  },
+  {
+   "id": "ms-q07",
+   "set": "mock",
+   "area": "tf",
+   "type": "single",
+   "stem": "Terraform state for all 30 prod projects lives in one root module and plans take 25 minutes. What is your proposal?",
+   "options": [
+    "Turn off refresh",
+    "Keep it, it is simpler",
+    "Split into smaller root modules by ownership and blast radius (foundation, network, per-workload), with remote state outputs or data sources between them, migrated with moved/removed/import blocks",
+    "Use local state"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Small states reduce blast radius, lock contention and plan time. Use config-driven moves and imports so the split is reviewed in plans.",
+   "learn": [
+    {
+     "label": "Terraform best practices: general style and structure",
+     "href": "https://docs.cloud.google.com/docs/terraform/best-practices/general-style-structure"
+    },
+    {
+     "label": "moved block",
+     "href": "https://developer.hashicorp.com/terraform/language/block/moved"
+    }
+   ]
+  },
+  {
+   "id": "ms-q08",
+   "set": "mock",
+   "area": "migrate",
+   "type": "single",
+   "stem": "You are asked how you would bring 600 hand-built resources across 30 projects under Terraform. Which answer shows a method, not just commands?",
+   "options": [
+    "Inventory with Cloud Asset Inventory, group by owner into states, draft config with bulk-export or -generate-config-out, import in batches that end in a no-op plan, protect critical resources with prevent_destroy, then lock out manual changes",
+    "Use Terraformer",
+    "Recreate everything from scratch",
+    "terraform import each one tonight"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The method is what interviewers probe: inventory, grouping, batches, no-op plan as the exit criterion, and preventing drift from returning. Terraformer is archived.",
+   "learn": [
+    {
+     "label": "Cloud Asset Inventory overview",
+     "href": "https://docs.cloud.google.com/asset-inventory/docs/asset-inventory-overview"
+    },
+    {
+     "label": "Generate configuration for imports",
+     "href": "https://developer.hashicorp.com/terraform/language/import/generating-configuration"
+    }
+   ]
+  },
+  {
+   "id": "ms-q09",
+   "set": "mock",
+   "area": "migrate",
+   "type": "single",
+   "stem": "An import plan shows `-/+ google_storage_bucket.mdm_exports (new resource required)` because `location` differs (`US` in config, `US-CENTRAL1` live). What do you do?",
+   "options": [
+    "Apply and restore from backup",
+    "Remove the import block",
+    "Set location to the live value, re-plan until the bucket shows only import, and add prevent_destroy",
+    "Change the bucket's location in GCP"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Location is immutable. Match config to reality first; the migration's success criterion is zero changes.",
+   "learn": [
+    {
+     "label": "Import (overview)",
+     "href": "https://developer.hashicorp.com/terraform/language/import"
+    },
+    {
+     "label": "Generate configuration for imports",
+     "href": "https://developer.hashicorp.com/terraform/language/import/generating-configuration"
+    }
+   ]
+  },
+  {
+   "id": "ms-q10",
+   "set": "mock",
+   "area": "xp",
+   "type": "single",
+   "stem": "An interviewer asks why you would put Crossplane next to Terraform rather than replace it. Best answer?",
+   "options": [
+    "Crossplane is newer",
+    "Terraform cannot manage Cloud SQL",
+    "Crossplane cannot manage GCP",
+    "Terraform keeps the foundation with reviewed plans and bootstraps the clusters; Crossplane gives developers a namespaced Kubernetes API for app resources with continuous reconciliation, delivered through the same GitOps flow as their apps"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Name the trade: plan review versus continuous reconciliation and self-service.",
+   "learn": [
+    {
+     "label": "Crossplane docs",
+     "href": "https://docs.crossplane.io/latest/"
+    },
+    {
+     "label": "Compositions",
+     "href": "https://docs.crossplane.io/latest/composition/compositions/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q11",
+   "set": "mock",
+   "area": "xp",
+   "type": "single",
+   "stem": "XRs in team-mdm are Synced but never Ready. Composed MRs show `ReconcileError: cannot get referenced ProviderConfig`. The same composition works in crossplane-system tests. Most likely?",
+   "options": [
+    "Argo CD is out of sync",
+    "The XRD is broken",
+    "The GCP API is down",
+    "providerConfigRef resolves a namespaced ProviderConfig in the MR's namespace; one exists in the test namespace but not in team-mdm. Reference the ClusterProviderConfig or provision per-namespace ProviderConfigs"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Namespace-dependent behavior points to a namespaced lookup.",
+   "learn": [
+    {
+     "label": "Crossplane providers",
+     "href": "https://docs.crossplane.io/latest/packages/providers/"
+    },
+    {
+     "label": "Upbound GCP provider family",
+     "href": "https://marketplace.upbound.io/providers/upbound/provider-family-gcp/latest"
+    }
+   ]
+  },
+  {
+   "id": "ms-q12",
+   "set": "mock",
+   "area": "gitops",
+   "type": "single",
+   "stem": "A chart release reached every cluster at once last week. What is your fix in the fleet design?",
+   "options": [
+    "Turn off ArgoCD",
+    "Use helm install by hand",
+    "Ask the chart team to never release",
+    "Pin chart versions per wave in Git (exact or bounded ranges), promote canary to stable by pull request, and optionally use progressive syncs; no unbounded semver ranges"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Promotion belongs in Git and in a defined order.",
+   "learn": [
+    {
+     "label": "Argo CD ApplicationSet",
+     "href": "https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q13",
+   "set": "mock",
+   "area": "secops",
+   "type": "single",
+   "stem": "You must ensure only CI-built, scanned images run in prod. Describe the chain.",
+   "options": [
+    "Build in CI, push to Artifact Registry, fail on critical vulnerabilities from Artifact Analysis, attest the digest, enforce Binary Authorization (after dry-run), alert on break-glass",
+    "Use latest tags",
+    "Scan running containers weekly",
+    "Developers push to Docker Hub"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Every step ties to the digest, and enforcement is the last link.",
+   "learn": [
+    {
+     "label": "Binary Authorization overview",
+     "href": "https://docs.cloud.google.com/binary-authorization/docs/overview"
+    },
+    {
+     "label": "Artifact Analysis",
+     "href": "https://docs.cloud.google.com/artifact-analysis/docs/artifact-analysis"
+    }
+   ]
+  },
+  {
+   "id": "ms-q14",
+   "set": "mock",
+   "area": "secops",
+   "type": "multi",
+   "stem": "Which two show you treat secrets correctly on GKE? Choose two.",
+   "options": [
+    "Secrets live in Secret Manager and pods fetch them with Workload Identity (or through the Secret Manager CSI/add-on), not copied by hand into Kubernetes Secrets",
+    "Every pod uses the default compute service account",
+    "Service account keys are mounted for convenience",
+    "Secrets go in Helm values committed to Git",
+    "Access is granted per Kubernetes ServiceAccount principal, not to the node service account"
+   ],
+   "answer": [
+    0,
+    4
+   ],
+   "explanation": "Central storage, workload identity and per-workload grants.",
+   "learn": [
+    {
+     "label": "Secret Manager overview",
+     "href": "https://docs.cloud.google.com/secret-manager/docs/overview"
+    },
+    {
+     "label": "Workload Identity Federation for GKE",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/workload-identity"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ms-q15",
+   "set": "mock",
+   "area": "obs",
+   "type": "single",
+   "stem": "The RIQ 99.9% SLO alert did not fire during a 40-minute outage. Dashboards showed errors. What do you check first?",
+   "options": [
+    "Grafana version",
+    "CPU",
+    "Whether the alert expression returns any series at all: label selectors in rules and recording rules against the labels the series actually carry (for example after the move to Managed Service for Prometheus)",
+    "The pager app"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "An empty expression is silently quiet. Test rules against real series and add absent() guards.",
+   "learn": [
+    {
+     "label": "Google Cloud Managed Service for Prometheus",
+     "href": "https://docs.cloud.google.com/stackdriver/docs/managed-prometheus"
+    },
+    {
+     "label": "Prometheus overview",
+     "href": "https://prometheus.io/docs/introduction/overview/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q16",
+   "set": "mock",
+   "area": "obs",
+   "type": "single",
+   "stem": "Why multi-window burn-rate alerts instead of a threshold on error ratio?",
+   "options": [
+    "They never page",
+    "They are cheaper to store",
+    "They need no SLO",
+    "They page in proportion to budget consumption, catch both fast and slow burns, and reset quickly after recovery thanks to the short window"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Burn rate ties alerts to the SLO.",
+   "learn": [
+    {
+     "label": "Alerting on SLOs (SRE workbook)",
+     "href": "https://sre.google/workbook/alerting-on-slos/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q17",
+   "set": "mock",
+   "area": "go",
+   "type": "single",
+   "stem": "In code review you see a Go function that starts goroutines per cluster and returns before they finish. What do you ask for?",
+   "options": [
+    "Remove error handling",
+    "Wait for them (errgroup or WaitGroup), propagate errors, bound concurrency and pass a context with timeouts",
+    "More goroutines",
+    "A global mutex around main"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Goroutine lifetime must be owned.",
+   "learn": [
+    {
+     "label": "Go by Example",
+     "href": "https://gobyexample.com/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q18",
+   "set": "mock",
+   "area": "agent",
+   "type": "single",
+   "stem": "How do you describe your agentic toil automation without making it sound risky?",
+   "options": [
+    "Toil removed and guardrails kept: read-only credentials, plan as the verification, apply only through an approved pipeline, deterministic hooks, measured hours saved",
+    "It never makes mistakes",
+    "It uses the best model",
+    "The agent has admin so it can fix anything"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Lead with the control model and the measurement.",
+   "learn": [
+    {
+     "label": "Eliminating toil (SRE book)",
+     "href": "https://sre.google/sre-book/eliminating-toil/"
+    },
+    {
+     "label": "Claude Code hooks",
+     "href": "https://code.claude.com/docs/en/hooks"
+    }
+   ]
+  },
+  {
+   "id": "ms-q19",
+   "set": "mock",
+   "area": "agent",
+   "type": "single",
+   "stem": "A PreToolUse-style guard blocks `terraform apply` by prefix. How do you make it robust?",
+   "options": [
+    "Remove the guard and rely on IAM only",
+    "Ask the model not to apply",
+    "Tokenize the command, strip wrappers (env, sudo, bash -c, absolute paths), find the subcommand after global options, allow-list read-only subcommands and deny everything else, fail closed on parse errors",
+    "Add more prefixes"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Allow-lists beat deny-lists; fail closed. IAM is the second layer, not a replacement.",
+   "learn": [
+    {
+     "label": "Claude Code hooks",
+     "href": "https://code.claude.com/docs/en/hooks"
+    }
+   ]
+  },
+  {
+   "id": "ms-q20",
+   "set": "mock",
+   "area": "oncall",
+   "type": "single",
+   "stem": "On a 12-hour rotation you get paged for RIQ 5xx at 03:10. Which first five minutes are right?",
+   "options": [
+    "Acknowledge, check the SLO dashboard and recent changes (deploys, upgrades, config), mitigate first (roll back or shift traffic), communicate status, then investigate",
+    "Restart everything",
+    "Wait for more alerts",
+    "Start reading code"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Mitigate, communicate, then root cause.",
+   "learn": [
+    {
+     "label": "Alerting on SLOs (SRE workbook)",
+     "href": "https://sre.google/workbook/alerting-on-slos/"
+    },
+    {
+     "label": "Eliminating toil (SRE book)",
+     "href": "https://sre.google/sre-book/eliminating-toil/"
+    }
+   ]
+  },
+  {
+   "id": "ms-q21",
+   "set": "mock",
+   "area": "oncall",
+   "type": "multi",
+   "stem": "Which two make a postmortem useful? Choose two.",
+   "options": [
+    "Naming who made the mistake",
+    "Kept private to the platform team",
+    "Written only for SEV1 if the CEO asks",
+    "Blameless, focused on contributing causes and system fixes",
+    "Action items with owners and dates, tracked to completion"
+   ],
+   "answer": [
+    3,
+    4
+   ],
+   "explanation": "Blameless and actionable.",
+   "learn": [
+    {
+     "label": "Eliminating toil (SRE book)",
+     "href": "https://sre.google/sre-book/eliminating-toil/"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ms-q22",
+   "set": "mock",
+   "area": "gcp",
+   "type": "single",
+   "stem": "MDM data in BigQuery must not be copied to projects outside the org even by a user with valid IAM. Which control?",
+   "options": [
+    "Org policy on regions",
+    "Firewall rules",
+    "IAM deny",
+    "VPC Service Controls perimeter around the MDM projects, rolled out in dry-run first"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "IAM decides who; VPC-SC decides where data may go.",
+   "learn": [
+    {
+     "label": "VPC Service Controls overview",
+     "href": "https://docs.cloud.google.com/vpc-service-controls/docs/overview"
+    }
+   ]
+  },
+  {
+   "id": "ms-q23",
+   "set": "mock",
+   "area": "gke",
+   "type": "single",
+   "stem": "Which is a valid reason for a stuck surge upgrade that is not a PDB?",
+   "options": [
+    "Not enough regional quota or subnet IP space for the surge nodes",
+    "Release channel is Stable",
+    "The cluster is in a fleet",
+    "Too many labels"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Surge needs capacity; check quota and IPs.",
+   "learn": [
+    {
+     "label": "Ensure resources for node upgrades",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-upgrades-quota"
+    }
+   ]
+  },
+  {
+   "id": "ms-q24",
+   "set": "mock",
+   "area": "tf",
+   "type": "single",
+   "stem": "How do you enforce that policy checks see what will actually change?",
+   "options": [
+    "Evaluate policies against the plan JSON in CI and block the merge on violations; org policies stay as runtime backstop",
+    "Run apply in a sandbox first",
+    "Review by eye",
+    "Lint the HCL"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Plan-time policy plus runtime constraints.",
+   "learn": [
+    {
+     "label": "Policy validation (terraform vet)",
+     "href": "https://docs.cloud.google.com/docs/terraform/policy-validation"
+    }
+   ]
+  },
+  {
+   "id": "ms-q25",
+   "set": "mock",
+   "area": "gcp",
+   "type": "single",
+   "stem": "The posting says AWS is not needed. How do you frame your AWS depth in the screen?",
+   "options": [
+    "Lead with cloud-neutral platform results (Terraform at scale, fleet operations, GitOps, policy gates, incidents), state your GCP production time plainly, and show the GCP portfolio repo where you rebuilt the patterns with GCP primitives",
+    "Claim GCP production experience",
+    "Say AWS is better",
+    "Hide it"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Honest and specific beats inflated.",
+   "learn": [
+    {
+     "label": "Compare AWS and Azure services to Google Cloud",
+     "href": "https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison"
+    },
+    {
+     "label": "Professional Cloud DevOps Engineer",
+     "href": "https://cloud.google.com/learn/certification/cloud-devops-engineer"
+    }
+   ]
+  }
+ ]
+}

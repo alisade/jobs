@@ -1,0 +1,27 @@
+{
+  "id": "awsfde/w1-c1",
+  "title": "Converse tool-use loop with a guardrail, tenant-safe tools and cost logging",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Bedrock: Converse API, tools, Guardrails",
+  "scenario": "Tidewater Ask's support assistant moves from a notebook calling InvokeModel to the Bedrock Converse API with two DynamoDB-backed tools, a guardrail and the per-turn token and cost numbers FinOps asked for. Security review rule: tools take the tenant from the verified token, never from the model.",
+  "task": [
+    "Build a Converse request with toolConfig, system prompt, maxTokens and guardrailConfig",
+    "Run the tool-use loop: parallel toolUse blocks, one user message of toolResults, error results",
+    "Handle guardrail_intervened, max_tokens and a tool-round limit",
+    "Sum usage across rounds, estimate cost, log one JSON line per model call"
+  ],
+  "acceptance": [
+    "Requests pass botocore validation against the real Converse model (Stubber)",
+    "A forged tenant_id tool argument cannot read or write another tenant's data",
+    "Outcomes, usage, cost and logs correct across multi-round turns"
+  ],
+  "practices": [
+    {"label": "Week 1 Mon - Converse API", "href": "week1"},
+    {"label": "Week 1 Tue - tool use on Bedrock", "href": "week1"},
+    {"label": "Week 1 Wed - Guardrails", "href": "week1"},
+    {"label": "Week 1 Thu - tokens, cost, invocation logging", "href": "week1"}
+  ]
+}

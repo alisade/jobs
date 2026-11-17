@@ -1,0 +1,28 @@
+{
+  "id": "javaai/w3-c1",
+  "title": "Quiz generation with Gemini structured output: validate, retry, back off",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "Gemini on Vertex AI",
+  "scenario": "Kestrel's /quiz/generate prototype calls Gemini once in text mode and trusts the JSON. The pilot got 3-option items, answerIndex 4, citations to sections that do not exist, stems that gave the answer away, and a 500 storm when PayGo capacity was tight at 09:00. Make it production-grade in Java 21 against a scripted Gemini fake.",
+  "task": [
+    "Response schema in Gemini's OpenAPI-subset style and JSON mode on the request",
+    "A validator for meaning: counts, ranges, distinct options, grounding, giveaways",
+    "Corrective retries with the problems fed back, capped at 3",
+    "SAFETY and RECITATION as Blocked; full-jitter backoff with Retry-After and a deadline",
+    "Tokens and cost summed across attempts"
+  ],
+  "acceptance": [
+    "Hidden JUnit tests for request, schema, each validation rule and retry path",
+    "Exact backoff sleeps and no sleep past the deadline",
+    "No exception escapes generate()",
+    "ANSWER.md: why validate under a schema, Blocked vs Failed, retry cost"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - structured output from Java", "href": "week3"},
+    {"label": "Week 3 Tue - quotas, PayGo 429s and backoff", "href": "week3"},
+    {"label": "Week 3 Wed - safety filters", "href": "week3"}
+  ]
+}

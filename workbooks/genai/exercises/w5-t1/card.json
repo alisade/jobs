@@ -1,0 +1,27 @@
+{
+  "id": "genai/w5-t1",
+  "title": "Assistant answers time out at peak while the model looks slow",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 5,
+  "optional": false,
+  "area": "Microservices, tracing and failure",
+  "scenario": "At Kestrel's evening peak more than 10 percent of assistant answers hit the gateway's 30 s timeout. The model spans are the longest in the trace, so the team wants to fail over to the other provider. A tool change shipped the same morning. Read the traces and find the real cause.",
+  "task": [
+    "Read both traces; count and time the catalog spans under check_inventory",
+    "Explain why short questions work, why only at peak, and whether a provider switch helps",
+    "Fix the tool: batch endpoint, concurrency cap, deadline from the request budget, partial results",
+    "Prove it with make demo and tests; write ANSWER.md"
+  ],
+  "acceptance": [
+    "40 lookups complete in one batch call well under the budget",
+    "At most 4 catalog calls in flight; batches of at most 50",
+    "Deadline returns partial results flagged stock_unknown instead of failing",
+    "Root cause named with trace evidence; red herring ruled out"
+  ],
+  "practices": [
+    {"label": "Week 5 - tracing and failure testing", "href": "week5"},
+    {"label": "Week 5 - resilience patterns: timeouts, bulkheads, deadlines", "href": "week5"},
+    {"label": "Week 3 - tool calls in the agent loop", "href": "week3"}
+  ]
+}

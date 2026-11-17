@@ -1,0 +1,26 @@
+{
+  "id": "aiarch/w5-c1",
+  "title": "One DynamoDB table for Lighthouse platform state",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "DynamoDB and state",
+  "scenario": "The platform needs its own records next to AgentCore Memory: a session index with TTL, idempotency for tool side effects so a retried tool call never files a second request, a per-agent daily cost ledger from gen_ai span attributes, and approvals with optimistic locking. Design one table from the access patterns; tests run on moto.",
+  "task": [
+    "Keys and at most two GSIs for six access patterns",
+    "Session index with 30-day TTL and a Query window",
+    "Idempotent side effects with conditional writes",
+    "Exact cost ledger with ADD on integer micro-dollars",
+    "Optimistic locking on approval state"
+  ],
+  "acceptance": [
+    "All access-pattern, retry and concurrency tests pass",
+    "No Scan; TTL in epoch seconds",
+    "ANSWER.md has the key table and the Memory vs table boundary"
+  ],
+  "practices": [
+    {"label": "Week 5 Thu - DynamoDB modeling for agent state", "href": "week5"},
+    {"label": "Week 5 Fri - tokens and cost per conversation", "href": "week5"}
+  ]
+}

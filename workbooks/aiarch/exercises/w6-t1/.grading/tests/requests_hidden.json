@@ -1,0 +1,122 @@
+[
+ {
+  "name": "cfn-exec role attaches the role policy in prod",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/cdk-hnb659fds-cfn-exec-role-111100000004-us-east-1",
+  "action": "iam:PutRolePolicy",
+  "resource": "arn:aws:iam::111100000004:role/LighthouseRuntime-prod-RuntimeRoleFD8790A4-1AbC",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "cfn-exec role creates a role in dev",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/cdk-hnb659fds-cfn-exec-role-111100000003-us-east-1",
+  "action": "iam:CreateRole",
+  "resource": "arn:aws:iam::111100000003:role/x",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "cfn-exec role tags a role",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/cdk-hnb659fds-cfn-exec-role-111100000004-us-east-1",
+  "action": "iam:TagRole",
+  "resource": "arn:aws:iam::111100000004:role/x",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer-created role named cdk-scratch cannot create roles",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/cdk-scratch",
+  "action": "iam:CreateRole",
+  "resource": "arn:aws:iam::111100000003:role/y",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "CDK deploy role itself cannot create roles directly",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/cdk-hnb659fds-deploy-role-111100000004-us-east-1",
+  "action": "iam:CreateRole",
+  "resource": "arn:aws:iam::111100000004:role/z",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "GitLab deploy role cannot create roles directly any more",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/gitlab-deploy-prod",
+  "action": "iam:CreateRole",
+  "resource": "arn:aws:iam::111100000004:role/z",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "agent runtime role cannot attach policies to itself",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/lighthouse-agent-runtime",
+  "action": "iam:AttachRolePolicy",
+  "resource": "arn:aws:iam::111100000004:role/lighthouse-agent-runtime",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "break-glass can still change IAM",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/hpm-breakglass",
+  "action": "iam:CreateRole",
+  "resource": "arn:aws:iam::111100000004:role/x",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer reads IAM",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_ReadOnly_9",
+  "action": "iam:GetRole",
+  "resource": "arn:aws:iam::111100000004:role/x",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer still cannot create IAM users (org guardrail)",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123",
+  "action": "iam:CreateUser",
+  "resource": "arn:aws:iam::111100000003:user/x",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ }
+]

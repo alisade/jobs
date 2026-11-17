@@ -1,0 +1,79 @@
+{
+  "note": "Recorded 2026-10-03. An add for an id the session never saw is HELD by the provenance gate (blocked, not an error).",
+  "responses": [
+    {
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01E1",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1105",
+            "quantity": 1
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 901,
+        "output_tokens": 52,
+        "cache_read_input_tokens": 6188,
+        "cache_creation_input_tokens": 0
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01F1",
+          "name": "get_product_details",
+          "input": {
+            "product_id": "AR-1105"
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 260,
+        "output_tokens": 40,
+        "cache_read_input_tokens": 6188,
+        "cache_creation_input_tokens": 410
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01G1",
+          "name": "add_to_cart",
+          "input": {
+            "product_id": "AR-1105",
+            "quantity": 1
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 240,
+        "output_tokens": 38,
+        "cache_read_input_tokens": 6598,
+        "cache_creation_input_tokens": 1210
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "The headphones are in your cart."
+        }
+      ],
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 120,
+        "output_tokens": 22,
+        "cache_read_input_tokens": 7808,
+        "cache_creation_input_tokens": 190
+      }
+    }
+  ]
+}

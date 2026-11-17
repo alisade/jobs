@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.6.0",
+  "id": "CMV-2026-0102",
+  "summary": "Variable interpolation lookups allow code execution",
+  "database_specific": {
+    "severity": "CRITICAL"
+  },
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "Maven",
+        "name": "org.apache.commons:commons-text"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "1.5"
+            },
+            {
+              "fixed": "1.10.0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

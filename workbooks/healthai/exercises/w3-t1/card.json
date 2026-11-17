@@ -1,0 +1,25 @@
+{
+  "id": "healthai/w3-t1",
+  "title": "Oncology and cardiology PAs pended for missing diagnosis",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 3,
+  "optional": false,
+  "area": "FHIR terminology: ICD-10-CM code systems",
+  "scenario": "After release 2026.11.1 almost every oncology and cardiology PA at Kestrel is pended for missing diagnosis although providers sent diagnoses, and some are expedited. A new validator warning appeared at the same time. Find the cause with the release diff, Bundles and engine logs, fix it and prove it with a regression test.",
+  "task": [
+    "Replay the pipeline and compare with the baseline routing",
+    "Find the root cause; decide whether the validator warning matters",
+    "Fix it and add a regression test that fails on the released code",
+    "Fill in findings.json and ANSWER.md"
+  ],
+  "acceptance": [
+    "Conditions use the ICD-10-CM system; routing back to baseline",
+    "findings.json matches the evidence",
+    "Regression test passes on the fix and fails on the released mapper"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - FHIR R4 resources and coding systems", "href": "week3"},
+    {"label": "Week 3 Thu - ICD-10-CM, ICD-10-PCS, HCPCS", "href": "week3"}
+  ]
+}

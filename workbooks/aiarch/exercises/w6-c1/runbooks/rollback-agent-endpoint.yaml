@@ -1,0 +1,27 @@
+description: |
+  Lighthouse-RollbackAgentEndpoint: point an AgentCore Runtime endpoint back at a known-good
+  version. TODO: see README for the required parameters and steps.
+schemaVersion: '0.3'
+assumeRole: '{{ AutomationAssumeRole }}'
+parameters:
+  AutomationAssumeRole:
+    type: String
+  AgentRuntimeId:
+    type: String
+  EndpointName:
+    type: String
+    default: prod
+  TargetVersion:
+    type: String
+  BackupBucket:
+    type: String
+mainSteps:
+  - name: MoveEndpoint
+    action: aws:executeAwsApi
+    inputs:
+      Service: bedrock-agentcore-control
+      Api: UpdateAgentRuntimeEndpoint
+      agentRuntimeId: '{{ AgentRuntimeId }}'
+      endpointName: '{{ EndpointName }}'
+      agentRuntimeVersion: '{{ TargetVersion }}'
+    isEnd: true

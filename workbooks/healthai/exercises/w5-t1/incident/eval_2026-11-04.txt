@@ -1,0 +1,5 @@
+weekly retrieval eval  (48 labelled queries: 36 criteria-row, 12 text)   k=5
+run                         chunker  embedding  pipeline        recall@5  row    text
+2026-10-28 baseline         v1       v14-model  hybrid+rerank   0.98      0.97   1.00
+2026-11-04 release 2026.11  v2       v15-model  hybrid+rerank   0.67      0.56   1.00
+2026-11-05 canary check     v2       v15-model  bm25-only       0.67      0.56   1.00

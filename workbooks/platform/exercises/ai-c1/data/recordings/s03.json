@@ -1,0 +1,55 @@
+{
+  "scenario": "s03",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s03_1",
+            "name": "get_alert",
+            "input": {
+              "alert_id": "ALR-10413"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s03_2",
+            "name": "read_runbook",
+            "input": {
+              "name": "upgrade-stalled"
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_s03_3",
+            "name": "query_metrics",
+            "input": {
+              "query": "kube_poddisruptionbudget_status_pod_disruptions_allowed{namespace=\"riq\"}",
+              "window": "1h"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Here is the triage note.\n{\"alert_id\": \"ALR-10413\", \"severity\": \"SEV3\", \"suspected_cause\": \"The riq-api PodDisruptionBudget allows zero disruptions, so the drain cannot evict pods\", \"evidence\": [{\"tool_use_id\": \"toolu_s03_3\", \"summary\": \"riq-api PDB disruptions allowed has been 0 for an hour\"}, {\"tool_use_id\": \"toolu_s03_2\", \"summary\": \"runbook: GKE respects PDBs for up to an hour\"}], \"next_steps\": [\"Find the unhealthy riq-api pods or the overlapping PDB selector before the hour runs out\"], \"needs_human\": true}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    }
+  ]
+}

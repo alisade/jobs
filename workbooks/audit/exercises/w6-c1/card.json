@@ -1,0 +1,28 @@
+{
+  "id": "audit/w6-c1",
+  "title": "Eval harness per control: accuracy, exception recall, consistency, cost and a CI gate",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 6,
+  "optional": false,
+  "area": "Evals, cost and consistency",
+  "scenario": "The MFH audit committee wants numbers before ControlPilot tests CM-03 at year end. Two reviewers labeled 30 sampled changes; the agent ran 5 times per sample with recorded outputs, tokens and latency. A cheaper prompt v4 is proposed. Build the harness that scores both and decides whether v4 may ship, keyed on exception recall because a missed exception is the costly error.",
+  "task": [
+    "Implement run-level accuracy and exception precision/recall per attribute and overall",
+    "Measure consistency across 5 runs: modal agreement and Fleiss kappa",
+    "Compute cost per 100 samples with cached-token pricing and p50/p95 latency",
+    "Build the report and a regression gate against the accepted baseline; interpret v3 vs v4"
+  ],
+  "acceptance": [
+    "Metrics match hand-computed values, including ties, empty slices and incomplete runs",
+    "Missing runs and unlabeled samples are reported, not silently dropped",
+    "The CLI passes v3 and blocks v4 with exit code 1",
+    "ANSWER.md explains the decision with attribute-level numbers and statistical caveats"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - error analysis and labeled sets per control", "href": "week6"},
+    {"label": "Week 6 Tue - accuracy, recall and consistency", "href": "week6"},
+    {"label": "Week 6 Wed - cost and latency per control", "href": "week6"},
+    {"label": "Week 6 Thu - evals in CI", "href": "week6"}
+  ]
+}

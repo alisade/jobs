@@ -1,0 +1,75 @@
+[
+ {
+  "candidates": [
+   {
+    "content": {
+     "role": "model",
+     "parts": [
+      {
+       "function_call": {
+        "name": "get_ticket_approvals",
+        "args": {
+         "change_id": "CHG-104118"
+        }
+       }
+      }
+     ]
+    },
+    "finish_reason": "STOP"
+   }
+  ],
+  "usage_metadata": {
+   "prompt_token_count": 850,
+   "candidates_token_count": 20,
+   "total_token_count": 870
+  },
+  "model_version": "gemini-3.8-flash"
+ },
+ {
+  "candidates": [
+   {
+    "content": {
+     "role": "model",
+     "parts": [
+      {
+       "function_call": {
+        "name": "get_pr_checks",
+        "args": {
+         "pr_number": 2231
+        }
+       }
+      }
+     ]
+    },
+    "finish_reason": "STOP"
+   }
+  ],
+  "usage_metadata": {
+   "prompt_token_count": 850,
+   "candidates_token_count": 20,
+   "total_token_count": 870
+  },
+  "model_version": "gemini-3.8-flash"
+ },
+ {
+  "candidates": [
+   {
+    "content": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "{\"change_id\": \"CHG-104118\", \"pr_number\": 2231, \"author\": \"dkwan\", \"approver\": \"lpatel\", \"approval_at\": \"2026-03-04T09:15:00-06:00\", \"tests_passed\": true, \"citations\": [{\"source\": \"ticket\", \"locator\": \"approvals[0]\", \"quote\": \"approved\"}, {\"source\": \"pr\", \"locator\": \"checks.conclusion\", \"quote\": \"success\"}]}"
+      }
+     ]
+    },
+    "finish_reason": "STOP"
+   }
+  ],
+  "usage_metadata": {
+   "prompt_token_count": 900,
+   "candidates_token_count": 120,
+   "total_token_count": 1020
+  },
+  "model_version": "gemini-3.8-flash"
+ }
+]

@@ -1,0 +1,26 @@
+{
+  "id": "backend/x-1",
+  "title": "Timed whiteboard: a self-serve workflow automation service",
+  "type": "design",
+  "estimate": "1.5 h (45 min timed + review)",
+  "week": 7,
+  "optional": true,
+  "area": "System design and platform architecture",
+  "scenario": "The second-round interview at Lumenfold is a 45-minute system design session: design the workflow automation service that product teams self-serve on Keystone, replacing the CRM's flows. Halfway through, the interviewer adds curveballs (a runaway workflow, a breaking change, an agent caller). You write the whiteboard as you would speak it, then review it like a recording.",
+  "task": [
+    "45 minutes, timer on: requirements, estimates, API, data model, high-level design, two deep dives",
+    "At minute 30 read inputs/curveballs.md and answer each in the design",
+    "Afterwards: self-review in ANSWER.md against the method (what you skipped, where you were vague)"
+  ],
+  "acceptance": [
+    "Graded by rubric only (grade.sh reports 0/0; the automated row does not apply)",
+    "Clear split between the engine (Temporal) and the product-facing primitives and API",
+    "Multi-tenant isolation, quotas and versioning of workflow definitions handled",
+    "Every curveball answered with a mechanism, not a promise"
+  ],
+  "practices": [
+    {"label": "Week 7 Thu-Fri - timed mock sessions", "href": "week7"},
+    {"label": "Week 6 Thu - workflow primitives for product teams and agents", "href": "week6"},
+    {"label": "Week 1 Mon - whiteboard method", "href": "week1"}
+  ]
+}

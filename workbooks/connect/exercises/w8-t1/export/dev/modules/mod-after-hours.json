@@ -1,0 +1,10 @@
+{
+  "ContactFlowModule": {
+    "Arn": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/flow-module/14cfcda9-713b-4e6d-82c2-4388166f16aa",
+    "Id": "14cfcda9-713b-4e6d-82c2-4388166f16aa",
+    "Name": "mod-after-hours",
+    "State": "ACTIVE",
+    "Status": "PUBLISHED",
+    "Content": "{\"Version\": \"2019-10-30\", \"StartAction\": \"closed-msg\", \"Actions\": [{\"Identifier\": \"closed-msg\", \"Type\": \"MessageParticipant\", \"Parameters\": {\"PromptId\": \"arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/prompt/637a920a-89f3-483c-8497-d32337014163\"}, \"Transitions\": {\"NextAction\": \"return\", \"Errors\": [{\"NextAction\": \"return\", \"ErrorType\": \"NoMatchingError\"}]}}, {\"Identifier\": \"return\", \"Type\": \"EndFlowModuleExecution\", \"Parameters\": {}, \"Transitions\": {}}]}"
+  }
+}

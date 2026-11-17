@@ -1,0 +1,96 @@
+{
+  "env": "prod",
+  "accountId": "444455556666",
+  "region": "us-east-1",
+  "instanceId": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+  "instanceArn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+  "resources": [
+    {
+      "kind": "queue",
+      "name": "GeneralSupport",
+      "id": "895a5686-23de-4486-8c33-72e59acf001a",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/895a5686-23de-4486-8c33-72e59acf001a"
+    },
+    {
+      "kind": "queue",
+      "name": "PasswordReset",
+      "id": "1f16d8c5-06d8-4f45-8de4-7942d8aaa860",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/1f16d8c5-06d8-4f45-8de4-7942d8aaa860"
+    },
+    {
+      "kind": "queue",
+      "name": "VIPDesk",
+      "id": "265f8593-27a5-42eb-8c24-475d5f1d9bc2",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/265f8593-27a5-42eb-8c24-475d5f1d9bc2"
+    },
+    {
+      "kind": "queue",
+      "name": "MajorIncident",
+      "id": "ffa69037-4ce7-484f-87d0-fa3d33e669fd",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/ffa69037-4ce7-484f-87d0-fa3d33e669fd"
+    },
+    {
+      "kind": "queue",
+      "name": "CallbackQueue",
+      "id": "c35312bf-6e1f-4bca-8e3a-71a51e56f6a2",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/queue/c35312bf-6e1f-4bca-8e3a-71a51e56f6a2"
+    },
+    {
+      "kind": "hours",
+      "name": "HelpDeskHours",
+      "id": "970e4cdf-7c68-4fdd-8f7b-bcbc4b42fc38",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/operating-hours/970e4cdf-7c68-4fdd-8f7b-bcbc4b42fc38"
+    },
+    {
+      "kind": "prompt",
+      "name": "ClosedMessage",
+      "id": "47a260bc-7e58-41d2-8ef2-3b2299720ccc",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/prompt/47a260bc-7e58-41d2-8ef2-3b2299720ccc"
+    },
+    {
+      "kind": "prompt",
+      "name": "HoldMusicCorporate",
+      "id": "af37b822-40ed-4327-89c5-0192083dad0f",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/prompt/af37b822-40ed-4327-89c5-0192083dad0f"
+    },
+    {
+      "kind": "lambda",
+      "name": "lfg-identify-caller",
+      "arn": "arn:aws:lambda:us-east-1:444455556666:function:lfg-identify-caller"
+    },
+    {
+      "kind": "lambda",
+      "name": "lfg-password-reset",
+      "arn": "arn:aws:lambda:us-east-1:444455556666:function:lfg-password-reset"
+    },
+    {
+      "kind": "lexAlias",
+      "name": "HelpDeskBot/live",
+      "arn": "arn:aws:lex:us-east-1:444455556666:bot-alias/CGFEJCEHDF/AHIBBDIJHJ"
+    },
+    {
+      "kind": "module",
+      "name": "mod-after-hours",
+      "id": "05c2c881-dd04-4a67-8a65-8175ef4b3abc",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/flow-module/05c2c881-dd04-4a67-8a65-8175ef4b3abc"
+    },
+    {
+      "kind": "module",
+      "name": "mod-password-reset",
+      "id": "4f5167bf-a2d3-4b0a-8ece-6f2f5b5d6ad9",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/flow-module/4f5167bf-a2d3-4b0a-8ece-6f2f5b5d6ad9"
+    },
+    {
+      "kind": "flow",
+      "name": "LFG Help Desk Inbound",
+      "id": "a9637625-8630-4ef1-801e-afaad34a81b1",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/contact-flow/a9637625-8630-4ef1-801e-afaad34a81b1"
+    },
+    {
+      "kind": "flow",
+      "name": "LFG Major Incident",
+      "id": "0d63fdc8-b069-47ef-8f86-33f73e41a67f",
+      "arn": "arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/contact-flow/0d63fdc8-b069-47ef-8f86-33f73e41a67f"
+    }
+  ]
+}

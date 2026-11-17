@@ -1,0 +1,96 @@
+{
+  "description": "Technician orders 4 seal kits. Quote, confirm in the app, order.",
+  "user_turns": [
+    "I need four 40 mm seal kits for the P-40 pump on line 3.",
+    "Confirmed, go ahead."
+  ],
+  "confirm_before_turn": {
+    "1": [
+      "Q-1001"
+    ]
+  },
+  "turns": [
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "Let me look that up."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_01",
+          "name": "search_parts",
+          "input": {
+            "query": "seal kit 40 mm"
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 812,
+        "output_tokens": 52
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_02",
+          "name": "get_quote",
+          "input": {
+            "part_number": "CP-10234",
+            "quantity": 4
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1240,
+        "output_tokens": 38
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "Quote Q-1001: 4 x Hydraulic pump seal kit, 40 mm (CP-10234) at 18.50 = 74.00. Please confirm it in the app and I will place the order."
+        }
+      ],
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1410,
+        "output_tokens": 61
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_03",
+          "name": "place_order",
+          "input": {
+            "quote_id": "Q-1001"
+          }
+        }
+      ],
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 1530,
+        "output_tokens": 30
+      }
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "Order O-5001 is placed for 4 x CP-10234, total 74.00."
+        }
+      ],
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 1620,
+        "output_tokens": 25
+      }
+    }
+  ]
+}

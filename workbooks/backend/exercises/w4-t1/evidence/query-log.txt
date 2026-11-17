@@ -1,0 +1,12 @@
+# Outbound calls from the pipeline read layer (pod pipeline-gql-7d9f-x2k4q), with the request id that
+# was active on the event loop when the call was made and the tenant in the token sent downstream.
+16:58:41.113  r-71a3  pipeline-svc  GET /v1/opportunities?owner=u-ines         tenant=bu-emea
+16:58:41.116  r-71a4  pipeline-svc  GET /v1/opportunities?owner=u-dana         tenant=bu-amer
+16:58:41.121  r-71a4  accounts-svc  GET /v1/accounts:batchGet?ids=1042,1043    tenant=bu-amer
+16:58:41.131  r-71a4  -             (no accounts-svc call: 1042, 1044 resolved from loader)
+16:58:44.903  r-71b0  pipeline-svc  GET /v1/opportunities?owner=u-dana         tenant=bu-amer
+16:58:44.909  r-71b0  accounts-svc  GET /v1/accounts:batchGet?ids=1042,1044    tenant=bu-amer
+17:03:10.335  r-71c9  pipeline-svc  GET /v1/opportunities?owner=u-mark         tenant=bu-amer
+17:03:10.342  r-71ca  pipeline-svc  GET /v1/opportunities?owner=u-ines         tenant=bu-emea
+17:03:10.349  r-71ca  accounts-svc  GET /v1/accounts:batchGet?ids=2001,2002,...,2020   tenant=bu-emea
+17:03:10.362  r-71c9  -             (accounts 2001-2020 returned null: "not found" for tenant bu-emea)

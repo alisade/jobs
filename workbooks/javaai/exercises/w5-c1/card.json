@@ -1,0 +1,26 @@
+{
+  "id": "javaai/w5-c1",
+  "title": "Retrieval eval for the course tutor: chunking, recall@k, MRR and a CI gate",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "RAG and evaluation",
+  "scenario": "Before anyone judges generated tutor answers, Kestrel needs to know whether the right lesson section comes back. Build the offline harness that runs in CI: two chunking strategies, a course-filtered index, section-level recall@k and MRR, and a gate against a stored baseline, on two open courses with 32 labeled questions.",
+  "task": [
+    "Fixed-size-with-overlap and heading-aware chunkers that keep citation metadata",
+    "Top-k search filtered to the learner's course before ranking",
+    "Section-level recall@k and MRR with dedupe",
+    "An evaluate report and a CI gate with reasons"
+  ],
+  "acceptance": [
+    "Hand-computed metric cases and exact chunk windows",
+    "No cross-course results",
+    "Heading-aware beats fixed on MRR; the CLI gate passes",
+    "ANSWER.md interprets the numbers and plans next steps"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - chunking and metadata", "href": "week5"},
+    {"label": "Week 5 Thu - retrieval metrics and CI gates", "href": "week5"}
+  ]
+}

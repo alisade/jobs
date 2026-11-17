@@ -1,0 +1,28 @@
+{
+  "id": "platform/w1-c1",
+  "title": "Foundation guardrails over a Terraform plan",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 1,
+  "optional": false,
+  "area": "GCP foundations and IAM",
+  "scenario": "Tessellate is moving its landing zone to GCP: folders, projects, a Shared VPC, org policies and a GitHub Actions Workload Identity Federation pool, all in Terraform. InfoSec will only approve the CI apply path if every plan is checked against the foundation guardrails before apply, the way gcloud beta terraform vet checks a plan. You get the plan JSON of the first foundation PR and a starter checker with three rules done.",
+  "task": [
+    "Implement the remaining guardrails (GR002-GR005, GR007, GR008) in guardrails.py over terraform show -json output",
+    "Evaluate planned values, skip destroys and data sources, and treat values unknown until apply as warnings",
+    "Keep the CLI contract: text or --json output, exit 0 / 1 / 2",
+    "Explain in ANSWER.md how each rule maps to the AWS control you would have used"
+  ],
+  "acceptance": [
+    "The foundation plan produces exactly the expected error findings",
+    "GitHub OIDC providers without an owner or repository pin are rejected, including conditions joined with ||",
+    "Org policy shapes (boolean, deny_all, allowed_values) checked only at the organization",
+    "Unknown-at-plan values never crash the checker and never pass silently"
+  ],
+  "practices": [
+    {"label": "Week 1 - Mon: resource hierarchy and IAM", "href": "week1"},
+    {"label": "Week 1 - Wed: Workload Identity Federation", "href": "week1"},
+    {"label": "Week 1 - Thu: org policies and VPC Service Controls", "href": "week1"},
+    {"label": "Week 3 - policy validation on the plan", "href": "week3"}
+  ]
+}

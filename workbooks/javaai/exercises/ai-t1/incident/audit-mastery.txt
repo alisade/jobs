@@ -1,0 +1,5 @@
+# catalog-api audit (mastery writes), 2026-11-10 .. 2026-11-14
+caller                                                 writes  lessons
+grading-worker@kestrel-prod.iam.gserviceaccount.com     1,912  (many)
+tutor-agent@kestrel-prod.iam.gserviceaccount.com           74  l7 (37), l8 (37)   all on 2026-11-14 after 09:41
+# IAM: tutor-agent SA has roles/run.invoker on learner-progress-mcp; the MCP server exposes all four tools to any caller.

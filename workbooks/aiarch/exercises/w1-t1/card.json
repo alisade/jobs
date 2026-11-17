@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/w1-t1",
+  "title": "Release tag v2.4.0 cannot deploy to prod (GitLab OIDC)",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 1,
+  "optional": false,
+  "area": "GitLab CI/CD and CDK pipelines",
+  "scenario": "Lighthouse switched to tag-based releases. The first release tag fails in deploy-prod with AccessDenied from AssumeRoleWithWebIdentity while deploy-dev on main still works. On-call blames the OIDC provider thumbprint. Find the real cause in the token claims, CloudTrail and trust policies, and fix it without opening prod to branches or forks.",
+  "task": [
+    "Compare the decoded id_token claims of the working and failing jobs",
+    "Evaluate both against the trust policies with make check",
+    "Fix the prod trust policy for release tags only, audience still pinned",
+    "Explain what IAM can and cannot enforce from a GitLab token"
+  ],
+  "acceptance": [
+    "Tag tokens allowed; branches, forks, other groups and wrong audiences denied",
+    "Dev role and pipeline guard rails unchanged",
+    "ANSWER.md names the sub claim mismatch with evidence and dismisses the thumbprint"
+  ],
+  "practices": [
+    {"label": "Week 1 Fri - GitLab CI/CD and OIDC to AWS", "href": "week1"},
+    {"label": "Week 1 Thu - Identity Center and federation", "href": "week1"}
+  ]
+}

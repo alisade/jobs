@@ -1,0 +1,6 @@
+{
+  "kind": "module",
+  "name": "mod-after-hours",
+  "targetId": "05c2c881-dd04-4a67-8a65-8175ef4b3abc",
+  "content": "{\"Version\":\"2019-10-30\",\"StartAction\":\"closed-msg\",\"Actions\":[{\"Identifier\":\"closed-msg\",\"Type\":\"MessageParticipant\",\"Parameters\":{\"PromptId\":\"arn:aws:connect:us-east-1:444455556666:instance/9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d/prompt/47a260bc-7e58-41d2-8ef2-3b2299720ccc\"},\"Transitions\":{\"NextAction\":\"return\",\"Errors\":[{\"NextAction\":\"return\",\"ErrorType\":\"NoMatchingError\"}]}},{\"Identifier\":\"return\",\"Type\":\"EndFlowModuleExecution\",\"Parameters\":{},\"Transitions\":{}}]}"
+}

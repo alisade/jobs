@@ -1,0 +1,9 @@
+{
+  "driver": "password_reset",
+  "change_id": "CHG0031877",
+  "change_date": "2026-09-21",
+  "pre_fcr_rate": 0.815,
+  "post_fcr_rate": 0.624,
+  "excess_contacts_per_week": 1237,
+  "notes": "Pre = answered password_reset contacts in weeks starting 2026-08-24..2026-09-14; post = week of 2026-09-21 only (the last week cannot see 7 days ahead). Excess = mean of weeks 09-21 and 09-28 minus mean of the three full pre weeks (Labor Day week excluded)."
+}

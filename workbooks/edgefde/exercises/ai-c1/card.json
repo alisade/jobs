@@ -1,0 +1,27 @@
+{
+  "id": "edgefde/ai-c1",
+  "title": "Operator assistant on a local model: read-only tools, validated answers, hybrid routing",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": "ai",
+  "optional": false,
+  "area": "LLMs at the edge",
+  "scenario": "Operators want grounded answers to 'why did machine 4 alert at 14:05?' from a small local model on the plant server, with a cloud model only when policy allows and never with raw waveforms. The model is a stub replaying recorded OpenAI-compatible turns.",
+  "task": [
+    "Pydantic answer contract with an action enum that cannot change state",
+    "Read-only tools with recoverable error results and a non-raising dispatcher",
+    "Agent loop: parallel tool calls, citation checks, validate-and-retry, max turns, latency",
+    "Router: local first, cloud only by policy, no local-only tools or raw samples to the cloud"
+  ],
+  "acceptance": [
+    "18 recorded eval scenarios pass",
+    "Citations must match executed tool calls; enum and bounds enforced",
+    "Cloud never sees get_raw_capture or samples",
+    "ANSWER.md: enforcement in code, eval plan on the real model, policy governance"
+  ],
+  "practices": [
+    {"label": "AI Integration - tool design and the agent loop", "href": "ai"},
+    {"label": "AI Integration - security and evals", "href": "ai"},
+    {"label": "Week 6 Tue - local models and hybrid routing", "href": "week6"}
+  ]
+}

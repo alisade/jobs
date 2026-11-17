@@ -1,0 +1,40 @@
+PR #412  "split decision logging into its own module; no behavior change"  (merged 2026-10-07)
+
+--- a/trustlog/core.py
++++ b/trustlog/core.py
+@@
+ logger = logging.getLogger("trust")
+ 
+ def log_started(deployment: str, operator_email: str) -> None:
+     logger.info("trust layer started for %s by %s", deployment, operator_email)
+-
+-
+-class DecisionEvent(BaseModel):
+-    ...
+-
+-def log_decision(event: DecisionEvent) -> None:
+-    logger.info(
+-        "decision %s hook=%s customer=%s",
+-        event.outcome, event.hook, event.customer_email,
+-        extra={"decision": event.model_dump()},
+-    )
+-
+-def log_risk_failure(customer_email: str, card_number: str, error: str) -> None:
+-    logger.warning("risk call failed for %s card=%s: %s", customer_email, card_number, error,
+-                   extra={"attempt": 1})
+
+--- /dev/null
++++ b/trustlog/decisions.py
++logger = logging.getLogger("trust.decisions")
++class DecisionEvent(BaseModel): ...          (moved verbatim)
++def log_decision(event: DecisionEvent): ...  (moved verbatim)
+
+--- /dev/null
++++ b/trustlog/risk_client.py
++logger = logging.getLogger("trust.risk")
++def log_risk_failure(...): ...               (moved verbatim)
+
+Review comments:
+  [reviewer A] Moving to per-module loggers is the right call, lets us tune levels per area.
+  [reviewer B] customer_email still on the event?  -> author: "it's Field(exclude=True),
+               model_dump() drops it, and the trust logger's redaction filter covers the rest."

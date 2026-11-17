@@ -1,0 +1,28 @@
+{
+  "id": "aiarch/w3-c1",
+  "title": "Lighthouse runtime and gateway stack in CDK",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "AgentCore Runtime and Gateway",
+  "scenario": "The helpdesk agent moves from a hand-built pilot to a pipeline-deployable CDK app: one scanned, immutable image in shared-services ECR; AgentCore Runtime per account in an isolated VPC with endpoints; versioned endpoints for rollback; and the user directory reachable only as a Gateway MCP tool behind a JWT authorizer. Synth is offline; aws-cdk-lib/assertions grades it.",
+  "task": [
+    "Fail-fast env and imageTag context; config-driven stacks",
+    "Immutable scanned repo with lifecycle and pull-only cross-account policy",
+    "Runtime with least-privilege role, VPC mode and pinned endpoints",
+    "Isolated VPC with interface endpoints; JWT gateway with a Lambda target",
+    "A CDK Aspect that rejects wildcard IAM actions"
+  ],
+  "acceptance": [
+    "Template assertions pass for dev and prod",
+    "Aspect flags wildcards; your stacks have no errors",
+    "ANSWER.md covers fromEcrRepository vs fromAsset and endpoint rollback"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - Runtime contract and ARM64 images", "href": "week3"},
+    {"label": "Week 3 Tue - CDK L2 constructs, versions and endpoints", "href": "week3"},
+    {"label": "Week 3 Wed - Gateway targets and inbound auth", "href": "week3"},
+    {"label": "Week 3 Thu - VPC endpoints for Bedrock and AgentCore", "href": "week3"}
+  ]
+}

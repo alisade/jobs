@@ -1,0 +1,16 @@
+# GET /debug/pool on kb-retriever-7c9d8f6b5-2xkqp at 14:08 UTC (pgxpool.Stat())
+AcquireCount:            1,402,118
+AcquireDuration:         61h12m (cumulative)
+AcquiredConns:           10
+CanceledAcquireCount:    9,843
+ConstructingConns:       0
+EmptyAcquireCount:       131,977
+IdleConns:               0
+MaxConns:                10
+TotalConns:              10
+NewConnsCount:           214
+MaxLifetimeDestroyCount: 198
+MaxIdleDestroyCount:     2
+
+# Same pod, 2026-10-05 14:00 UTC (from the dashboard)
+AcquiredConns p95: 1   EmptyAcquireCount/min: 0   search_kb p99: 46 ms

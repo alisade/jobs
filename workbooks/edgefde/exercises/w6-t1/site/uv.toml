@@ -1,0 +1,8 @@
+# /etc/uv/uv.toml
+[[index]]
+name = "corvane-nexus"
+url = "https://nexus.ops.corvane.internal/repository/pypi-proxy/simple"
+default = true
+
+# added 2026-11-07 (CHG-4471): uv still failed, trying this
+allow-insecure-host = ["nexus.ops.corvane.internal"]

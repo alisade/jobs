@@ -1,0 +1,92 @@
+dn: dc=corvane,dc=local
+objectClass: top
+objectClass: domain
+dc: corvane
+
+dn: ou=people,dc=corvane,dc=local
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,dc=corvane,dc=local
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=ana,ou=people,dc=corvane,dc=local
+objectClass: inetOrgPerson
+uid: ana
+cn: Ana Ortiz
+sn: Ortiz
+
+dn: uid=ben,ou=people,dc=corvane,dc=local
+objectClass: inetOrgPerson
+uid: ben
+cn: Ben Adeyemi
+sn: Adeyemi
+
+dn: uid=cara,ou=people,dc=corvane,dc=local
+objectClass: inetOrgPerson
+uid: cara
+cn: Cara Lindgren
+sn: Lindgren
+
+dn: uid=dev,ou=people,dc=corvane,dc=local
+objectClass: inetOrgPerson
+uid: dev
+cn: Dev Raman
+sn: Raman
+
+dn: uid=eli,ou=people,dc=corvane,dc=local
+objectClass: inetOrgPerson
+uid: eli
+cn: Eli Novak
+sn: Novak
+
+dn: uid=fay,ou=people,dc=corvane,dc=local
+objectClass: inetOrgPerson
+uid: fay
+cn: Fay Morgan
+sn: Morgan
+accountStatus: disabled
+
+dn: uid=gus,ou=people,dc=corvane,dc=local
+objectClass: inetOrgPerson
+uid: gus
+cn: Gus Pereira
+sn: Pereira
+
+dn: cn=claims-users,ou=groups,dc=corvane,dc=local
+objectClass: groupOfNames
+cn: claims-users
+member: uid=ana,ou=people,dc=corvane,dc=local
+member: uid=ben,ou=people,dc=corvane,dc=local
+member: uid=cara,ou=people,dc=corvane,dc=local
+member: uid=dev,ou=people,dc=corvane,dc=local
+member: uid=eli,ou=people,dc=corvane,dc=local
+member: uid=fay,ou=people,dc=corvane,dc=local
+
+dn: cn=claims-adjusters,ou=groups,dc=corvane,dc=local
+objectClass: groupOfNames
+cn: claims-adjusters
+member: uid=ana,ou=people,dc=corvane,dc=local
+member: uid=fay,ou=people,dc=corvane,dc=local
+member: cn=claims-senior-adjusters,ou=groups,dc=corvane,dc=local
+
+dn: cn=claims-senior-adjusters,ou=groups,dc=corvane,dc=local
+objectClass: groupOfNames
+cn: claims-senior-adjusters
+member: uid=ben,ou=people,dc=corvane,dc=local
+
+dn: cn=claims-managers,ou=groups,dc=corvane,dc=local
+objectClass: groupOfNames
+cn: claims-managers
+member: uid=cara,ou=people,dc=corvane,dc=local
+
+dn: cn=claims-auditors,ou=groups,dc=corvane,dc=local
+objectClass: groupOfNames
+cn: claims-auditors
+member: uid=dev,ou=people,dc=corvane,dc=local
+
+dn: cn=claims-viewers-emea,ou=groups,dc=corvane,dc=local
+objectClass: groupOfNames
+cn: claims-viewers-emea
+member: uid=gus,ou=people,dc=corvane,dc=local

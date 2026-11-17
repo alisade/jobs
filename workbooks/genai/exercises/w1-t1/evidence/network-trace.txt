@@ -1,0 +1,55 @@
+# HAR export (abridged) - kestrel.example/shop, reproduced by support 2026-11-06 08:58 PT
+# Two requests to the stream endpoint for ONE question. Bodies decoded from text/event-stream.
+
+== entry 0 ==
+startedDateTime: 2026-11-06T16:58:02.114Z
+request:  POST https://kestrel.example/api/assistant/stream
+  content-type: application/json
+  accept: text/event-stream
+  body: {"prompt":"do you have a tent for two that packs small? under 2 kg","conversation_id":null}
+response: 200  content-type: text/event-stream
+  x-edge-pop: sfo-edge-07
+  timings: wait=412ms receive=15003ms
+  body (as received):
+    event: meta
+    data: {"conversation_id": "c-9d21e0", "model": "primary"}
+
+    id: 1
+    event: token
+    data: {"text": "For "}
+    ... ids 2-7 ...
+    id: 8
+    event: token
+    data: {"text": "the "}
+
+    [connection closed by peer at 15.0 s, no "done" event]
+    # gateway was waiting on the check_inventory tool here (see gateway.log)
+
+== entry 1 ==
+startedDateTime: 2026-11-06T16:58:17.672Z
+request:  POST https://kestrel.example/api/assistant/stream
+  content-type: application/json
+  accept: text/event-stream
+  last-event-id:
+  body: {"prompt":"do you have a tent for two that packs small? under 2 kg","conversation_id":"c-9d21e0"}
+response: 200  content-type: text/event-stream
+  timings: wait=388ms receive=6120ms
+  body (as received):
+    id: 1
+    event: token
+    data: {"text": "For "}
+
+    id: 2
+    event: token
+    data: {"text": "two "}
+    ... ids 3-7 ...
+    id: 8
+    event: token
+    data: {"text": "the "}
+
+    id: 9
+    event: token
+    data: {"text": "Ridgeline "}
+    ... ids 10-20 ...
+    event: done
+    data: {"stop_reason": "end_turn"}

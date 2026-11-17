@@ -1,0 +1,24 @@
+{
+  "id": "modernize/w1-t1",
+  "title": "The FNOL intake batch dies after the JDK 21 release",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 1,
+  "area": "Maven dependency remediation",
+  "scenario": "claimdesk-intake 4.13.0 moved to JDK 21 and added schema v3 events. Every night since, it parses one file and dies with NoSuchMethodError. CI was green, on-call blames JDK 21 and has drafted a rollback that would undo the schema reserving now depends on.",
+  "task": [
+    "Find what is on the runtime classpath, why Maven chose it, and why CI did not catch it",
+    "Rule JDK 21 in or out with evidence",
+    "Fix pom.xml so all Jackson artifacts converge while keeping the SEC-2291 floor",
+    "Add an enforcer rule that would have failed the 4.13.0 build"
+  ],
+  "acceptance": [
+    "The batch processes the whole inbox; events and audit fingerprints are correct",
+    "jackson-core, databind and jsr310 are the same version at runtime",
+    "An upper-bound or convergence rule is in the build; the stale pin is gone",
+    "ANSWER.md names the dependencyManagement mechanism with tree and log evidence"
+  ],
+  "practices": [
+    {"label": "Week 1 Thu - Maven mediation, BOMs and enforcer rules", "href": "week1"}
+  ]
+}

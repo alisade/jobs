@@ -1,0 +1,38 @@
+$ kubectl -n observability describe pod driftwood-7xkqp
+Name:             driftwood-7xkqp
+Namespace:        observability
+Priority Class:   system-node-critical
+Node:             ip-10-42-17-201.ec2.internal/10.42.17.201
+Controlled By:    DaemonSet/driftwood
+Containers:
+  driftwood:
+    Image:          123456789012.dkr.ecr.us-east-1.amazonaws.com/driftwood:v1.14.0
+    State:          Running
+      Started:      Mon, 06 Oct 2026 03:09:41 +0000
+    Last State:     Terminated
+      Reason:       OOMKilled
+      Exit Code:    137
+      Started:      Sun, 05 Oct 2026 22:51:02 +0000
+      Finished:     Mon, 06 Oct 2026 03:09:40 +0000
+    Ready:          True
+    Restart Count:  6
+    Limits:
+      cpu:     500m
+      memory:  256Mi
+    Requests:
+      cpu:      100m
+      memory:   128Mi
+    Environment:
+      GOMEMLIMIT:      230MiB
+      SEND_TIMEOUT:    5s
+      MAX_RETRIES:     3
+Events:
+  Type     Reason     Age   From     Message
+  ----     ------     ----  ----     -------
+  Warning  BackOff    9m    kubelet  Back-off restarting failed container driftwood in pod driftwood-7xkqp
+  Normal   Pulled     9m    kubelet  Container image "...driftwood:v1.14.0" already present on machine
+  Normal   Started    9m    kubelet  Started container driftwood
+
+$ kubectl -n observability top pod driftwood-7xkqp --containers   (sampled 02:55 UTC, before the kill)
+POD               NAME        CPU(cores)   MEMORY(bytes)
+driftwood-7xkqp   driftwood   488m         249Mi

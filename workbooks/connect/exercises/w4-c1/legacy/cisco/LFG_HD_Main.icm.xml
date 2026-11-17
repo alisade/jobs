@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Exported from ICM Script Editor (simplified for the LFG migration harness).
+     Call type CT_LFG_HelpDesk, dialed number +18005550142 (CVP VRU). -->
+<IcmRoutingScript name="LFG_HD_Main" callType="CT_LFG_HelpDesk" dialedNumber="+18005550142" version="17">
+  <Node id="1" type="Start" next="2"/>
+  <Node id="2" type="Time" window="20:00-06:00" true="20" false="3"/>
+  <Node id="3" type="RunExternalScript" microapp="M" prompt="2002" next="4" failure="10"/>
+  <Node id="4" type="If" expr="caller_input == 1" true="5" false="6"/>
+  <Node id="5" type="QueueToSkillGroup" skillGroup="SG_HD_PwdReset" priority="2" failure="11"/>
+  <Node id="6" type="If" expr="caller_input == 2" true="10" false="7"/>
+  <Node id="7" type="If" expr="caller_input == 3" true="8" false="10"/>
+  <Node id="8" type="PrecisionQueue" pq="PQ_MajorIncident" priority="1" failure="10"/>
+  <Node id="10" type="QueueToSkillGroup" skillGroup="SG_HD_General" priority="3" failure="12"/>
+  <Node id="11" type="Label" label="47150"/>
+  <Node id="12" type="RunExternalScript" microapp="PM" prompt="2011" next="13"/>
+  <Node id="13" type="End"/>
+  <Node id="20" type="RunExternalScript" microapp="PM" prompt="2009" next="13"/>
+</IcmRoutingScript>

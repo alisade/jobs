@@ -1,0 +1,45 @@
+{
+  "scenario": "s09",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s09_1",
+            "name": "get_alert",
+            "input": {
+              "alert_id": "ALR-10419"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Here is the triage note.\n{\"alert_id\": \"ALR-10419\", \"severity\": \"SEV3\", \"suspected_cause\": \"A critical CVE in the deployed riq-api image base layer\", \"evidence\": [{\"tool_use_id\": \"toolu_s09_1\", \"summary\": \"alert names tsl-artifacts-prod/riq\"}, {\"tool_use_id\": \"toolu_s09_9\", \"summary\": \"Artifact Analysis shows CVE-2026-1234 in openssl\"}], \"next_steps\": [\"Rebuild riq-api on the patched base image\"], \"needs_human\": true}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    },
+    {
+      "expect": {
+        "user_text_contains": "toolu_s09_9"
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Here is the triage note.\n{\"alert_id\": \"ALR-10419\", \"severity\": \"SEV3\", \"suspected_cause\": \"A critical vulnerability in a deployed riq-api image; the specific CVE is not confirmed by any tool\", \"evidence\": [{\"tool_use_id\": \"toolu_s09_1\", \"summary\": \"alert names tsl-artifacts-prod/riq\"}], \"next_steps\": [\"Read the Artifact Analysis occurrence for the deployed digest\", \"Rebuild riq-api on a patched base image\"], \"needs_human\": true}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    }
+  ]
+}

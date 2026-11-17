@@ -1,0 +1,572 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "start-logging",
+  "Metadata": {
+    "name": "LFG Help Desk Inbound",
+    "description": "Main inbound flow for the Larkspur IT help desk (+1 800 555 0142)."
+  },
+  "Actions": [
+    {
+      "Identifier": "start-logging",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Transitions": {
+        "NextAction": "check-hours"
+      }
+    },
+    {
+      "Identifier": "check-hours",
+      "Type": "CheckHoursOfOperation",
+      "Parameters": {
+        "HoursOfOperationId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/operating-hours/hoo-helpdesk"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "identify-caller",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "True"
+              ]
+            }
+          },
+          {
+            "NextAction": "after-hours-msg",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "False"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "identify-caller",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "after-hours-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "The Larkspur IT help desk is closed. Our hours are 6 AM to 8 PM Eastern, Monday to Friday. You can reset your password any time at the employee portal."
+      },
+      "Transitions": {
+        "NextAction": "after-hours-outage",
+        "Errors": [
+          {
+            "NextAction": "after-hours-outage",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "after-hours-outage",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "If you are reporting an outage affecting many people, press 9. Otherwise, goodbye.",
+        "InputTimeLimitSeconds": "5",
+        "StoreInput": "False"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "set-q-major",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "9"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "identify-caller",
+      "Type": "InvokeLambdaFunction",
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:111122223333:function:lfg-identify-caller",
+        "InvocationTimeLimitSeconds": "3",
+        "InvocationType": "SYNCHRONOUS",
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Transitions": {
+        "NextAction": "set-verified",
+        "Errors": [
+          {
+            "NextAction": "set-unverified",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-verified",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "employeeId": "$.External.employeeId",
+          "vip": "$.External.vip",
+          "callerVerified": "true"
+        },
+        "TargetContact": "Current"
+      },
+      "Transitions": {
+        "NextAction": "check-vip",
+        "Errors": [
+          {
+            "NextAction": "set-unverified",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-unverified",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "employeeId": "",
+          "vip": "false",
+          "callerVerified": "false"
+        },
+        "TargetContact": "Current"
+      },
+      "Transitions": {
+        "NextAction": "check-vip",
+        "Errors": [
+          {
+            "NextAction": "set-q-general",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "check-vip",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.Attributes.vip"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "set-q-vip",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "true"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "menu-loop",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-vip",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-vip-desk"
+      },
+      "Transitions": {
+        "NextAction": "vip-priority",
+        "Errors": [
+          {
+            "NextAction": "set-q-general",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "vip-priority",
+      "Type": "UpdateContactRoutingBehavior",
+      "Parameters": {
+        "QueuePriority": "1"
+      },
+      "Transitions": {
+        "NextAction": "check-staffing",
+        "Errors": [
+          {
+            "NextAction": "check-staffing",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "menu-loop",
+      "Type": "Loop",
+      "Parameters": {
+        "LoopCount": "3"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "main-menu",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "ContinueLooping"
+              ]
+            }
+          },
+          {
+            "NextAction": "set-q-general",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "DoneLooping"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "main-menu",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "For password resets, press 1. For hardware or software problems, press 2. To report an outage, press 3.",
+        "InputTimeLimitSeconds": "5",
+        "StoreInput": "False"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "password-reset",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "set-q-general",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "set-q-major",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "menu-retry-msg",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "menu-retry-msg",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "menu-retry-msg",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "menu-retry-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Sorry, I did not get that."
+      },
+      "Transitions": {
+        "NextAction": "menu-loop",
+        "Errors": [
+          {
+            "NextAction": "menu-loop",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "password-reset",
+      "Type": "InvokeLambdaFunction",
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:111122223333:function:lfg-password-reset",
+        "InvocationTimeLimitSeconds": "6",
+        "InvocationType": "SYNCHRONOUS",
+        "LambdaInvocationAttributes": {
+          "employeeId": "$.Attributes.employeeId",
+          "callerVerified": "$.Attributes.callerVerified"
+        },
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Transitions": {
+        "NextAction": "check-reset",
+        "Errors": [
+          {
+            "NextAction": "set-q-password",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "check-reset",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.External.resetStatus"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "reset-sent-msg",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "SENT"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "set-q-password",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "reset-sent-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "A password reset link has been sent to the mobile number on your employee record. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "disconnect",
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-password",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-password-reset"
+      },
+      "Transitions": {
+        "NextAction": "check-staffing",
+        "Errors": [
+          {
+            "NextAction": "set-q-general",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-general",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-general-support"
+      },
+      "Transitions": {
+        "NextAction": "check-staffing",
+        "Errors": [
+          {
+            "NextAction": "tech-difficulty-msg",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-major",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-major-incident"
+      },
+      "Transitions": {
+        "NextAction": "major-priority",
+        "Errors": [
+          {
+            "NextAction": "set-q-general",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "major-priority",
+      "Type": "UpdateContactRoutingBehavior",
+      "Parameters": {
+        "QueuePriority": "1"
+      },
+      "Transitions": {
+        "NextAction": "check-staffing",
+        "Errors": [
+          {
+            "NextAction": "check-staffing",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "check-staffing",
+      "Type": "CheckMetricData",
+      "Parameters": {
+        "MetricType": "NumberOfAgentsStaffed"
+      },
+      "Transitions": {
+        "NextAction": "overflow-msg",
+        "Conditions": [
+          {
+            "NextAction": "transfer",
+            "Condition": {
+              "Operator": "NumberGreaterThan",
+              "Operands": [
+                "0"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "transfer",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "overflow-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "All specialists for this request are busy. Connecting you to the general help desk."
+      },
+      "Transitions": {
+        "NextAction": "set-q-overflow",
+        "Errors": [
+          {
+            "NextAction": "set-q-overflow",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "set-q-overflow",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:111122223333:instance/5f0c4a7e-1b2d-4c3e-9f10-2a3b4c5d6e7f/queue/q-general-support"
+      },
+      "Transitions": {
+        "NextAction": "transfer",
+        "Errors": [
+          {
+            "NextAction": "tech-difficulty-msg",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "transfer",
+      "Type": "TransferContactToQueue",
+      "Parameters": {},
+      "Transitions": {
+        "Errors": [
+          {
+            "NextAction": "at-capacity-msg",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "tech-difficulty-msg",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "at-capacity-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We are receiving a very high number of calls. Please try again later or open a ticket in the employee portal. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "disconnect",
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "tech-difficulty-msg",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We are experiencing technical difficulties. Please open a ticket in the employee portal. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "disconnect",
+        "Errors": [
+          {
+            "NextAction": "disconnect",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "disconnect",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+status: 400
+content-type: application/json;charset=utf-8
+x-request-id: golden-1
+location: -
+
+{"status":400,"error":"status parameter required"}

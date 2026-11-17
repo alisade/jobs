@@ -1,0 +1,7 @@
+{"tenant_id": "acme-foods",
+ "suppliers": [{"seq": 1, "name": "Golden Grain Mills"}, {"seq": 2, "name": "Pacific Packaging"}, {"seq": 3, "name": "Sierra Farms"}],
+ "parts": [{"seq": 100, "name": "Durum wheat flour"}, {"seq": 101, "name": "Corrugated case 12x1kg"},
+           {"seq": 102, "name": "Tomato paste"}, {"seq": 103, "name": "Glass jar 680g"}],
+ "products": [{"seq": 510, "name": "Penne 1kg"}, {"seq": 511, "name": "Marinara 680g"}],
+ "supplies": [[1, 100], [2, 101], [2, 103], [3, 102]],
+ "bom": [[100, 510], [101, 510], [102, 511], [103, 511], [101, 511]]}

@@ -1,0 +1,1208 @@
+[
+ {
+  "id": "KHP-MP-0417-v3-criteria",
+  "policy_id": "KHP-MP-0417",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0417 > Coverage criteria",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Coverage criteria. lumbar spine mri coverage criteria medically necessary. radiculopathy.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0417-v3-step",
+  "policy_id": "KHP-MP-0417",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0417 > Step therapy",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Step therapy. lumbar spine mri step therapy conservative trial.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0417-v3-docs",
+  "policy_id": "KHP-MP-0417",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0417 > Documentation required",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Documentation required. lumbar spine mri documentation records attestation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0417-v3-exclusions",
+  "policy_id": "KHP-MP-0417",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0417 > Exclusions",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Exclusions. lumbar spine mri exclusions investigational cosmetic.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0417-v3-codes",
+  "policy_id": "KHP-MP-0417",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0417 > Codes",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Codes. lumbar spine mri codes hcpcs icd-10-cm. radiculopathy.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0417-v3-reauth",
+  "policy_id": "KHP-MP-0417",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0417 > Reauthorization",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Reauthorization. lumbar spine mri reauthorization renewal continuation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0417-v2-criteria",
+  "policy_id": "KHP-MP-0417",
+  "version": "v2",
+  "section": "criteria",
+  "section_path": "KHP-MP-0417 > Coverage criteria",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Coverage criteria. lumbar spine mri coverage criteria medically necessary. radiculopathy. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0417-v2-step",
+  "policy_id": "KHP-MP-0417",
+  "version": "v2",
+  "section": "step",
+  "section_path": "KHP-MP-0417 > Step therapy",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Step therapy. lumbar spine mri step therapy conservative trial. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0417-v2-docs",
+  "policy_id": "KHP-MP-0417",
+  "version": "v2",
+  "section": "docs",
+  "section_path": "KHP-MP-0417 > Documentation required",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Documentation required. lumbar spine mri documentation records attestation. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0417-v2-exclusions",
+  "policy_id": "KHP-MP-0417",
+  "version": "v2",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0417 > Exclusions",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Exclusions. lumbar spine mri exclusions investigational cosmetic. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0417-v2-codes",
+  "policy_id": "KHP-MP-0417",
+  "version": "v2",
+  "section": "codes",
+  "section_path": "KHP-MP-0417 > Codes",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Codes. lumbar spine mri codes hcpcs icd-10-cm. radiculopathy. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0417-v2-reauth",
+  "policy_id": "KHP-MP-0417",
+  "version": "v2",
+  "section": "reauth",
+  "section_path": "KHP-MP-0417 > Reauthorization",
+  "text": "Policy KHP-MP-0417 Lumbar spine MRI. Reauthorization. lumbar spine mri reauthorization renewal continuation. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0212-v3-criteria",
+  "policy_id": "KHP-MP-0212",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0212 > Coverage criteria",
+  "text": "Policy KHP-MP-0212 Knee arthroscopy. Coverage criteria. knee arthroscopy meniscus coverage criteria medically necessary. M23.221.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0212-v3-step",
+  "policy_id": "KHP-MP-0212",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0212 > Step therapy",
+  "text": "Policy KHP-MP-0212 Knee arthroscopy. Step therapy. knee arthroscopy meniscus step therapy conservative trial.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0212-v3-docs",
+  "policy_id": "KHP-MP-0212",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0212 > Documentation required",
+  "text": "Policy KHP-MP-0212 Knee arthroscopy. Documentation required. knee arthroscopy meniscus documentation records attestation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0212-v3-exclusions",
+  "policy_id": "KHP-MP-0212",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0212 > Exclusions",
+  "text": "Policy KHP-MP-0212 Knee arthroscopy. Exclusions. knee arthroscopy meniscus exclusions investigational cosmetic.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0212-v3-codes",
+  "policy_id": "KHP-MP-0212",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0212 > Codes",
+  "text": "Policy KHP-MP-0212 Knee arthroscopy. Codes. knee arthroscopy meniscus codes hcpcs icd-10-cm. M23.221.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0212-v3-reauth",
+  "policy_id": "KHP-MP-0212",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0212 > Reauthorization",
+  "text": "Policy KHP-MP-0212 Knee arthroscopy. Reauthorization. knee arthroscopy meniscus reauthorization renewal continuation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0388-v3-criteria",
+  "policy_id": "KHP-MP-0388",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0388 > Coverage criteria",
+  "text": "Policy KHP-MP-0388 Cardiac PET perfusion. Coverage criteria. cardiac pet perfusion coverage criteria medically necessary. I25.10.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0388-v3-step",
+  "policy_id": "KHP-MP-0388",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0388 > Step therapy",
+  "text": "Policy KHP-MP-0388 Cardiac PET perfusion. Step therapy. cardiac pet perfusion step therapy conservative trial.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0388-v3-docs",
+  "policy_id": "KHP-MP-0388",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0388 > Documentation required",
+  "text": "Policy KHP-MP-0388 Cardiac PET perfusion. Documentation required. cardiac pet perfusion documentation records attestation.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0388-v3-exclusions",
+  "policy_id": "KHP-MP-0388",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0388 > Exclusions",
+  "text": "Policy KHP-MP-0388 Cardiac PET perfusion. Exclusions. cardiac pet perfusion exclusions investigational cosmetic.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0388-v3-codes",
+  "policy_id": "KHP-MP-0388",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0388 > Codes",
+  "text": "Policy KHP-MP-0388 Cardiac PET perfusion. Codes. cardiac pet perfusion codes hcpcs icd-10-cm. I25.10.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0388-v3-reauth",
+  "policy_id": "KHP-MP-0388",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0388 > Reauthorization",
+  "text": "Policy KHP-MP-0388 Cardiac PET perfusion. Reauthorization. cardiac pet perfusion reauthorization renewal continuation.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0101-v3-criteria",
+  "policy_id": "KHP-MP-0101",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0101 > Coverage criteria",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Coverage criteria. infliximab bowel crohn coverage criteria medically necessary. J1745.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0101-v3-step",
+  "policy_id": "KHP-MP-0101",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0101 > Step therapy",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Step therapy. infliximab bowel crohn step therapy conservative trial.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0101-v3-docs",
+  "policy_id": "KHP-MP-0101",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0101 > Documentation required",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Documentation required. infliximab bowel crohn documentation records attestation.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0101-v3-exclusions",
+  "policy_id": "KHP-MP-0101",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0101 > Exclusions",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Exclusions. infliximab bowel crohn exclusions investigational cosmetic.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0101-v3-codes",
+  "policy_id": "KHP-MP-0101",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0101 > Codes",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Codes. infliximab bowel crohn codes hcpcs icd-10-cm. J1745.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0101-v3-reauth",
+  "policy_id": "KHP-MP-0101",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0101 > Reauthorization",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Reauthorization. infliximab bowel crohn reauthorization renewal continuation.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0101-v2-criteria",
+  "policy_id": "KHP-MP-0101",
+  "version": "v2",
+  "section": "criteria",
+  "section_path": "KHP-MP-0101 > Coverage criteria",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Coverage criteria. infliximab bowel crohn coverage criteria medically necessary. J1745. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0101-v2-step",
+  "policy_id": "KHP-MP-0101",
+  "version": "v2",
+  "section": "step",
+  "section_path": "KHP-MP-0101 > Step therapy",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Step therapy. infliximab bowel crohn step therapy conservative trial. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0101-v2-docs",
+  "policy_id": "KHP-MP-0101",
+  "version": "v2",
+  "section": "docs",
+  "section_path": "KHP-MP-0101 > Documentation required",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Documentation required. infliximab bowel crohn documentation records attestation. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0101-v2-exclusions",
+  "policy_id": "KHP-MP-0101",
+  "version": "v2",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0101 > Exclusions",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Exclusions. infliximab bowel crohn exclusions investigational cosmetic. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0101-v2-codes",
+  "policy_id": "KHP-MP-0101",
+  "version": "v2",
+  "section": "codes",
+  "section_path": "KHP-MP-0101 > Codes",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Codes. infliximab bowel crohn codes hcpcs icd-10-cm. J1745. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0101-v2-reauth",
+  "policy_id": "KHP-MP-0101",
+  "version": "v2",
+  "section": "reauth",
+  "section_path": "KHP-MP-0101 > Reauthorization",
+  "text": "Policy KHP-MP-0101 Infliximab infusion for inflammatory bowel disease. Reauthorization. infliximab bowel crohn reauthorization renewal continuation. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0520-v3-criteria",
+  "policy_id": "KHP-MP-0520",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0520 > Coverage criteria",
+  "text": "Policy KHP-MP-0520 Bariatric surgery. Coverage criteria. bariatric surgery obesity coverage criteria medically necessary. E66.01.",
+  "lobs": [
+   "commercial"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0520-v3-step",
+  "policy_id": "KHP-MP-0520",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0520 > Step therapy",
+  "text": "Policy KHP-MP-0520 Bariatric surgery. Step therapy. bariatric surgery obesity step therapy conservative trial.",
+  "lobs": [
+   "commercial"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0520-v3-docs",
+  "policy_id": "KHP-MP-0520",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0520 > Documentation required",
+  "text": "Policy KHP-MP-0520 Bariatric surgery. Documentation required. bariatric surgery obesity documentation records attestation.",
+  "lobs": [
+   "commercial"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0520-v3-exclusions",
+  "policy_id": "KHP-MP-0520",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0520 > Exclusions",
+  "text": "Policy KHP-MP-0520 Bariatric surgery. Exclusions. bariatric surgery obesity exclusions investigational cosmetic.",
+  "lobs": [
+   "commercial"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0520-v3-codes",
+  "policy_id": "KHP-MP-0520",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0520 > Codes",
+  "text": "Policy KHP-MP-0520 Bariatric surgery. Codes. bariatric surgery obesity codes hcpcs icd-10-cm. E66.01.",
+  "lobs": [
+   "commercial"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0520-v3-reauth",
+  "policy_id": "KHP-MP-0520",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0520 > Reauthorization",
+  "text": "Policy KHP-MP-0520 Bariatric surgery. Reauthorization. bariatric surgery obesity reauthorization renewal continuation.",
+  "lobs": [
+   "commercial"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0611-v3-criteria",
+  "policy_id": "KHP-MP-0611",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0611 > Coverage criteria",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Coverage criteria. polysomnography sleep apnea coverage criteria medically necessary. G47.33.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0611-v3-step",
+  "policy_id": "KHP-MP-0611",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0611 > Step therapy",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Step therapy. polysomnography sleep apnea step therapy conservative trial.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0611-v3-docs",
+  "policy_id": "KHP-MP-0611",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0611 > Documentation required",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Documentation required. polysomnography sleep apnea documentation records attestation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0611-v3-exclusions",
+  "policy_id": "KHP-MP-0611",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0611 > Exclusions",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Exclusions. polysomnography sleep apnea exclusions investigational cosmetic.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0611-v3-codes",
+  "policy_id": "KHP-MP-0611",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0611 > Codes",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Codes. polysomnography sleep apnea codes hcpcs icd-10-cm. G47.33.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0611-v3-reauth",
+  "policy_id": "KHP-MP-0611",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0611 > Reauthorization",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Reauthorization. polysomnography sleep apnea reauthorization renewal continuation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0611-v2-criteria",
+  "policy_id": "KHP-MP-0611",
+  "version": "v2",
+  "section": "criteria",
+  "section_path": "KHP-MP-0611 > Coverage criteria",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Coverage criteria. polysomnography sleep apnea coverage criteria medically necessary. G47.33. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0611-v2-step",
+  "policy_id": "KHP-MP-0611",
+  "version": "v2",
+  "section": "step",
+  "section_path": "KHP-MP-0611 > Step therapy",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Step therapy. polysomnography sleep apnea step therapy conservative trial. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0611-v2-docs",
+  "policy_id": "KHP-MP-0611",
+  "version": "v2",
+  "section": "docs",
+  "section_path": "KHP-MP-0611 > Documentation required",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Documentation required. polysomnography sleep apnea documentation records attestation. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0611-v2-exclusions",
+  "policy_id": "KHP-MP-0611",
+  "version": "v2",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0611 > Exclusions",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Exclusions. polysomnography sleep apnea exclusions investigational cosmetic. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0611-v2-codes",
+  "policy_id": "KHP-MP-0611",
+  "version": "v2",
+  "section": "codes",
+  "section_path": "KHP-MP-0611 > Codes",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Codes. polysomnography sleep apnea codes hcpcs icd-10-cm. G47.33. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0611-v2-reauth",
+  "policy_id": "KHP-MP-0611",
+  "version": "v2",
+  "section": "reauth",
+  "section_path": "KHP-MP-0611 > Reauthorization",
+  "text": "Policy KHP-MP-0611 Attended sleep study. Reauthorization. polysomnography sleep apnea reauthorization renewal continuation. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0702-v3-criteria",
+  "policy_id": "KHP-MP-0702",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0702 > Coverage criteria",
+  "text": "Policy KHP-MP-0702 Home infusion therapy. Coverage criteria. home infusion antibiotic coverage criteria medically necessary. S9500.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0702-v3-step",
+  "policy_id": "KHP-MP-0702",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0702 > Step therapy",
+  "text": "Policy KHP-MP-0702 Home infusion therapy. Step therapy. home infusion antibiotic step therapy conservative trial.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0702-v3-docs",
+  "policy_id": "KHP-MP-0702",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0702 > Documentation required",
+  "text": "Policy KHP-MP-0702 Home infusion therapy. Documentation required. home infusion antibiotic documentation records attestation.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0702-v3-exclusions",
+  "policy_id": "KHP-MP-0702",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0702 > Exclusions",
+  "text": "Policy KHP-MP-0702 Home infusion therapy. Exclusions. home infusion antibiotic exclusions investigational cosmetic.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0702-v3-codes",
+  "policy_id": "KHP-MP-0702",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0702 > Codes",
+  "text": "Policy KHP-MP-0702 Home infusion therapy. Codes. home infusion antibiotic codes hcpcs icd-10-cm. S9500.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0702-v3-reauth",
+  "policy_id": "KHP-MP-0702",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0702 > Reauthorization",
+  "text": "Policy KHP-MP-0702 Home infusion therapy. Reauthorization. home infusion antibiotic reauthorization renewal continuation.",
+  "lobs": [
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0815-v3-criteria",
+  "policy_id": "KHP-MP-0815",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0815 > Coverage criteria",
+  "text": "Policy KHP-MP-0815 Continuous glucose monitor. Coverage criteria. glucose monitor diabetes coverage criteria medically necessary. E2103.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0815-v3-step",
+  "policy_id": "KHP-MP-0815",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0815 > Step therapy",
+  "text": "Policy KHP-MP-0815 Continuous glucose monitor. Step therapy. glucose monitor diabetes step therapy conservative trial.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0815-v3-docs",
+  "policy_id": "KHP-MP-0815",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0815 > Documentation required",
+  "text": "Policy KHP-MP-0815 Continuous glucose monitor. Documentation required. glucose monitor diabetes documentation records attestation.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0815-v3-exclusions",
+  "policy_id": "KHP-MP-0815",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0815 > Exclusions",
+  "text": "Policy KHP-MP-0815 Continuous glucose monitor. Exclusions. glucose monitor diabetes exclusions investigational cosmetic.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0815-v3-codes",
+  "policy_id": "KHP-MP-0815",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0815 > Codes",
+  "text": "Policy KHP-MP-0815 Continuous glucose monitor. Codes. glucose monitor diabetes codes hcpcs icd-10-cm. E2103.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0815-v3-reauth",
+  "policy_id": "KHP-MP-0815",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0815 > Reauthorization",
+  "text": "Policy KHP-MP-0815 Continuous glucose monitor. Reauthorization. glucose monitor diabetes reauthorization renewal continuation.",
+  "lobs": [
+   "commercial",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0903-v3-criteria",
+  "policy_id": "KHP-MP-0903",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0903 > Coverage criteria",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Coverage criteria. physical therapy rehabilitation coverage criteria medically necessary. G0283.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0903-v3-step",
+  "policy_id": "KHP-MP-0903",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0903 > Step therapy",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Step therapy. physical therapy rehabilitation step therapy conservative trial.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0903-v3-docs",
+  "policy_id": "KHP-MP-0903",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0903 > Documentation required",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Documentation required. physical therapy rehabilitation documentation records attestation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0903-v3-exclusions",
+  "policy_id": "KHP-MP-0903",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0903 > Exclusions",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Exclusions. physical therapy rehabilitation exclusions investigational cosmetic.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0903-v3-codes",
+  "policy_id": "KHP-MP-0903",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0903 > Codes",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Codes. physical therapy rehabilitation codes hcpcs icd-10-cm. G0283.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0903-v3-reauth",
+  "policy_id": "KHP-MP-0903",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0903 > Reauthorization",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Reauthorization. physical therapy rehabilitation reauthorization renewal continuation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0903-v2-criteria",
+  "policy_id": "KHP-MP-0903",
+  "version": "v2",
+  "section": "criteria",
+  "section_path": "KHP-MP-0903 > Coverage criteria",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Coverage criteria. physical therapy rehabilitation coverage criteria medically necessary. G0283. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0903-v2-step",
+  "policy_id": "KHP-MP-0903",
+  "version": "v2",
+  "section": "step",
+  "section_path": "KHP-MP-0903 > Step therapy",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Step therapy. physical therapy rehabilitation step therapy conservative trial. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0903-v2-docs",
+  "policy_id": "KHP-MP-0903",
+  "version": "v2",
+  "section": "docs",
+  "section_path": "KHP-MP-0903 > Documentation required",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Documentation required. physical therapy rehabilitation documentation records attestation. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0903-v2-exclusions",
+  "policy_id": "KHP-MP-0903",
+  "version": "v2",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0903 > Exclusions",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Exclusions. physical therapy rehabilitation exclusions investigational cosmetic. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0903-v2-codes",
+  "policy_id": "KHP-MP-0903",
+  "version": "v2",
+  "section": "codes",
+  "section_path": "KHP-MP-0903 > Codes",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Codes. physical therapy rehabilitation codes hcpcs icd-10-cm. G0283. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0903-v2-reauth",
+  "policy_id": "KHP-MP-0903",
+  "version": "v2",
+  "section": "reauth",
+  "section_path": "KHP-MP-0903 > Reauthorization",
+  "text": "Policy KHP-MP-0903 Outpatient physical therapy. Reauthorization. physical therapy rehabilitation reauthorization renewal continuation. Prior version retained for appeals lookups.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage",
+   "medicaid-mco"
+  ],
+  "effective_from": "2024-07-01",
+  "effective_to": "2026-01-01"
+ },
+ {
+  "id": "KHP-MP-0950-v3-criteria",
+  "policy_id": "KHP-MP-0950",
+  "version": "v3",
+  "section": "criteria",
+  "section_path": "KHP-MP-0950 > Coverage criteria",
+  "text": "Policy KHP-MP-0950 Hereditary cancer genetic testing. Coverage criteria. genetic testing brca coverage criteria medically necessary. Z80.3.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0950-v3-step",
+  "policy_id": "KHP-MP-0950",
+  "version": "v3",
+  "section": "step",
+  "section_path": "KHP-MP-0950 > Step therapy",
+  "text": "Policy KHP-MP-0950 Hereditary cancer genetic testing. Step therapy. genetic testing brca step therapy conservative trial.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0950-v3-docs",
+  "policy_id": "KHP-MP-0950",
+  "version": "v3",
+  "section": "docs",
+  "section_path": "KHP-MP-0950 > Documentation required",
+  "text": "Policy KHP-MP-0950 Hereditary cancer genetic testing. Documentation required. genetic testing brca documentation records attestation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0950-v3-exclusions",
+  "policy_id": "KHP-MP-0950",
+  "version": "v3",
+  "section": "exclusions",
+  "section_path": "KHP-MP-0950 > Exclusions",
+  "text": "Policy KHP-MP-0950 Hereditary cancer genetic testing. Exclusions. genetic testing brca exclusions investigational cosmetic.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0950-v3-codes",
+  "policy_id": "KHP-MP-0950",
+  "version": "v3",
+  "section": "codes",
+  "section_path": "KHP-MP-0950 > Codes",
+  "text": "Policy KHP-MP-0950 Hereditary cancer genetic testing. Codes. genetic testing brca codes hcpcs icd-10-cm. Z80.3.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ },
+ {
+  "id": "KHP-MP-0950-v3-reauth",
+  "policy_id": "KHP-MP-0950",
+  "version": "v3",
+  "section": "reauth",
+  "section_path": "KHP-MP-0950 > Reauthorization",
+  "text": "Policy KHP-MP-0950 Hereditary cancer genetic testing. Reauthorization. genetic testing brca reauthorization renewal continuation.",
+  "lobs": [
+   "commercial",
+   "medicare-advantage"
+  ],
+  "effective_from": "2026-01-01",
+  "effective_to": null
+ }
+]

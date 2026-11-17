@@ -1,0 +1,17 @@
+[project]
+name = "ms-w1-c1-medallion"
+version = "0.1.0"
+description = "Northwind Logistics medallion incremental load (DP-700 workbook)"
+requires-python = ">=3.12"
+dependencies = [
+  "polars>=1.30",
+  "deltalake>=1.0",
+  "pyarrow>=18",
+  "pytest>=8",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]

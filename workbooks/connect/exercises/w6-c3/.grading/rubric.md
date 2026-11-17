@@ -1,0 +1,13 @@
+# Rubric: connect/w6-c3 QA and compliance monitoring program
+Pass mark: 70
+
+| # | Criterion | Points | How to judge |
+|---|---|---|---|
+| 1 | Automated tests | 0 | Does not apply: review-only design exercise (grade.sh reports 0/0) |
+| 2 | Detection layer | 20 | Full: rules for each stated risk with the right trigger: password/MFA request and card digits as real-time (OnRealTimeCallAnalysisAvailable, CUSTOMER/AGENT participant filters) with notification or EventBridge, disclosure and script adherence post-contact with categories and automated evaluation (SUBMIT_AUTO_EVALUATION), chat equivalents (OnRealTimeChatAnalysisAvailable / OnPostChatAnalysisAvailable), call-driver categories; owners named; rules promoted as code (AWS::Connect::Rule). Partial: rules listed without trigger choice or chat. Zero: "use AI to detect issues". |
+| 3 | Evaluation and automation | 20 | Full: form with sections, weights, auto-fail items; which questions are automated (rules, generative AI performance evaluations with natural-language criteria and transcript justifications) vs human; validation of automated answers against human scores before they count for the vendor bonus; human-in-the-loop for auto-fails. Partial: automation without validation. |
+| 4 | Sampling, calibration, disputes | 20 | Full: arithmetic against 3 analysts (e.g. ~1,200 human reviews/month at 25 min = ~500 h, ~3 FTE) redirected to risk-based samples (all auto-fails, low automated scores, new hires, random floor per agent per month), chat included; monthly calibration with LFG and both vendors on the same contacts, agreement measured (e.g. within 5 points or kappa), vendor bonus based on calibrated or automated scores; dispute SLA. Partial: sampling without numbers or calibration without vendor comparability. |
+| 5 | Coaching loop and operating model | 15 | Full: RACI across LFG QA, team leads, vendor QA, compliance, platform team; finding -> ServiceNow coaching task with 5-business-day SLA; repeat findings escalate; agents informed per works council and vendor contract. Partial: coaching without ownership or timing. |
+| 6 | Privacy and data | 15 | Full: QA works on redacted files only; originals restricted (legal role); tag-based access control so vendor leads see only their agents; retention; real-time voice transcripts are unredacted (redaction after disconnect) so alerts carry no transcript text; PCI scope. Partial: generic "follow policy". |
+| 7 | Reporting, rollout and risks | 10 | Monthly service-review metrics and sources (rules, evaluations, analytics data lake), phased rollout (pilot team, sites, chat, email in Q1), top risks (false positives, works council, vendor pushback, cost) with mitigations. |
+Total: 100

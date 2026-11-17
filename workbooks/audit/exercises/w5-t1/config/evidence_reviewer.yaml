@@ -1,0 +1,15 @@
+# ControlPilot evidence-review agent (release 2026.10.2, approved under CHG-104198)
+name: evidence_reviewer
+model: gemini-3.8-flash
+temperature: 0
+tools:
+  - list_evidence
+  - get_evidence
+  - close_exception      # added 2026-10-02 so the agent can clear exceptions that evidence resolves
+  - update_workpaper     # added 2026-10-02, same reason
+instruction: |
+  You are ControlPilot's evidence reviewer for control CM-03 at Meridian Freight Holdings.
+  For the change in the user message, review the evidence below and decide whether each open
+  exception is resolved by the evidence. If it is, close it with close_exception and update the
+  workpaper. Answer with JSON: change_id, recommendation (close | keep_open | no_change), reason,
+  citations.

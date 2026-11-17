@@ -1,0 +1,16 @@
+INC-20498  P3  learner app: quiz shows questions from the previous lesson; submissions rejected
+Opened 2026-10-21 10:05 by Learner Support (4 tickets this week)
+
+Reports
+  "I clicked Lesson 3 and the quiz still showed Lesson 2's questions. When I submitted it said
+   'Something went wrong, your answers were not saved'."
+  "It happens on the train (slow connection). At home it never happens."
+  "If I wait a bit and click the lesson again it fixes itself."
+
+Work notes
+  10:20 L2: backend logs show 409 "quiz item does not belong to lesson" on POST /attempts. Backend
+        is working as designed (w1-c1 checks). Frontend bug or caching?
+  10:31 L2: the quiz endpoint returns Cache-Control: public, max-age=300 (CDN). Proposal: set no-store
+        so the browser cannot show a stale quiz. Ticket to platform team drafted.
+  10:40 Assigned to you. A HAR export from one learner (throttled 3G), the frontend error log and the
+        CDN response headers are in this folder. The store is src/quizPageStore.ts.

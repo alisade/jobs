@@ -1,0 +1,26 @@
+{
+  "id": "aiarch/ai-c1",
+  "title": "A change-management MCP server for Lighthouse",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": "ai",
+  "optional": false,
+  "area": "MCP and tool design",
+  "scenario": "A one-tool-per-endpoint wrapper over the change system confused the model, flooded its context and once filed a change on behalf of someone named in a comment. Build the replacement: an MCP server with four task-shaped tools over a change store and a CMDB, identity from the verified token only, tested in-process with the MCP Python SDK.",
+  "task": [
+    "Four task-shaped tools with typed, validated inputs",
+    "Identity bound from the verified token; no identity arguments",
+    "Small outputs, pagination, actionable errors",
+    "Read-only annotations and model-facing descriptions"
+  ],
+  "acceptance": [
+    "Schema, validation, permission and pagination tests pass",
+    "Invalid tokens build no server",
+    "ANSWER.md maps five tool-design rules to code and describes deployment"
+  ],
+  "practices": [
+    {"label": "AI Integration - 1 Tool design", "href": "ai"},
+    {"label": "AI Integration - 4 Security", "href": "ai"},
+    {"label": "Week 4 - building MCP servers", "href": "week4"}
+  ]
+}

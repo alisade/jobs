@@ -1,0 +1,16 @@
+Ticket: CS-5521   Priority: P1 (security)   Opened: 2026-11-12 16:42 UTC
+Customer: Delta Outfitters (tenant delta-outfitters, onboarded 2026-11-09)
+Reporter: Priya N., Director of Customer Care, Delta Outfitters
+
+  We are three days into the pilot. Two of our agents asked Tidewater Ask about returns and damage
+  claims and got answers that are not our policy ("report spoilage within 24 hours", "bill of
+  lading"). We sell outdoor gear. One citation link says .../tenants/acme-foods/... Is our data
+  visible to other companies? Our CISO wants an answer today.
+
+Account team note (Jordan, TAM):
+  Acme Foods, Brightline and Corvid have used Ask for months with no reports like this. Delta has
+  only three documents loaded so far (store hours, loyalty, gift cards); the rest of their policy
+  library arrives next week. Platform says the KB was re-ingested on 2026-11-10 with the new
+  chunking (ASK-398), maybe something is off with the new index?
+
+Your job: find the cause, fix it, and tell the CISO precisely what was exposed to whom.

@@ -1,0 +1,21 @@
+2026-11-10T14:05:41.902Z INFO  keystone_workflows.worker starting worker build=2026.45 task_queue=keystone-lead-assignment pid=1
+2026-11-10T14:05:42.118Z INFO  temporalio.worker Beginning worker shutdown for previous pod kw-worker-6c9f7-8hd2k (rollout)
+2026-11-10T14:07:03.554Z INFO  keystone_workflows.lead_workflow lead=lead-a1f0c2 state=awaiting_approval proposed=usr-amer-ent-rep-1 build=2026.45
+2026-11-10T14:09:17.210Z WARN  temporalio.activity Activity enrich_lead attempt 1 timed out (StartToClose 30s) workflow_id=lead-assign-lead-a7d913 vendor=firmo-api latency_ms=30012
+2026-11-10T14:09:47.991Z INFO  temporalio.activity Activity enrich_lead attempt 2 completed workflow_id=lead-assign-lead-a7d913 latency_ms=812
+2026-11-10T14:18:22.047Z INFO  temporalio.worker Signal approve received workflow_id=lead-assign-lead-7f3a21 run_id=3c1e...9a
+2026-11-10T14:18:22.163Z WARN  temporalio.worker Failed activation on workflow LeadAssignment with ID lead-assign-lead-7f3a21 and run ID 3c1e...9a
+temporalio.worker._workflow_instance.NondeterminismError: Workflow activation completion failed: [TMPRL1100] Nondeterminism error: Activity type of scheduled event 'propose_owner' does not match activity type of activity command 'enrich_lead'
+2026-11-10T14:18:22.164Z WARN  temporal_sdk_core::worker::workflow Failing workflow task run_id=3c1e...9a failure=Failure { message: "[TMPRL1100] Nondeterminism error: Activity type of scheduled event 'propose_owner' does not match activity type of activity command 'enrich_lead'" } task_queue=keystone-lead-assignment
+2026-11-10T14:18:32.410Z WARN  temporalio.worker Failed activation on workflow LeadAssignment with ID lead-assign-lead-7f3a21 and run ID 3c1e...9a (attempt 2)
+2026-11-10T14:19:05.873Z INFO  temporalio.worker Signal approve received workflow_id=lead-assign-lead-91c0de run_id=77b0...e2
+2026-11-10T14:19:05.991Z WARN  temporal_sdk_core::worker::workflow Failing workflow task run_id=77b0...e2 failure=Failure { message: "[TMPRL1100] Nondeterminism error: Activity type of scheduled event 'propose_owner' does not match activity type of activity command 'enrich_lead'" }
+2026-11-10T14:21:40.118Z WARN  temporalio.activity Activity enrich_lead attempt 1 timed out (StartToClose 30s) workflow_id=lead-assign-lead-b2e004 vendor=firmo-api latency_ms=30004
+2026-11-10T14:22:10.877Z INFO  temporalio.activity Activity enrich_lead attempt 2 completed workflow_id=lead-assign-lead-b2e004 latency_ms=640
+2026-11-10T14:26:51.004Z INFO  temporalio.worker Signal approve received workflow_id=lead-assign-lead-c44e09 run_id=0d9e...41
+2026-11-10T14:26:51.120Z WARN  temporal_sdk_core::worker::workflow Failing workflow task run_id=0d9e...41 failure=Failure { message: "[TMPRL1100] Nondeterminism error: Activity type of scheduled event 'propose_owner' does not match activity type of activity command 'enrich_lead'" }
+2026-11-10T14:27:02.663Z INFO  keystone_workflows.lead_workflow lead=lead-a1f0c2 query=status sla_deadline=2026-11-12T14:07:03.551Z
+2026-11-10T14:31:12.019Z INFO  keystone_workflows.lead_workflow lead=lead-a1f0c2 query=status sla_deadline=2026-11-12T14:31:11.998Z
+2026-11-10T14:38:40.712Z WARN  temporalio.activity Activity enrich_lead attempt 1 timed out (StartToClose 30s) workflow_id=lead-assign-lead-c7f218 vendor=firmo-api latency_ms=30020
+2026-11-10T14:39:03.330Z INFO  temporalio.activity Activity enrich_lead attempt 2 completed workflow_id=lead-assign-lead-c7f218 latency_ms=702
+2026-11-10T14:41:55.402Z INFO  keystone_workflows.lead_workflow lead=lead-c7f218 state=awaiting_approval proposed=usr-emea-ent-rep-1 build=2026.45

@@ -1,0 +1,976 @@
+{
+ "questions": [
+  {
+   "id": "w1-q01",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "Tessellate is mapping its AWS landing zone onto GCP. The AWS side has an Organization, OUs for platform and workloads, and one account per workload. Which GCP structure is the closest equivalent?",
+   "options": [
+    "An organization resource, folders for platform and workloads, and one project per workload",
+    "A Shared VPC host project per OU, with workloads as subnets",
+    "One billing account per workload, each acting as the security boundary",
+    "One project per environment with all workloads inside it, separated by labels"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Accounts map to projects (the unit of isolation, billing attribution and API enablement), OUs map to folders, and the AWS Organization maps to the organization resource. IAM and org policies inherit down organization, folder, project. Billing accounts are not a security boundary, and Shared VPC is a network pattern, not the hierarchy.",
+   "learn": [
+    {
+     "label": "Resource hierarchy",
+     "href": "https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy"
+    },
+    {
+     "label": "Compare AWS and Azure services to Google Cloud",
+     "href": "https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison"
+    }
+   ]
+  },
+  {
+   "id": "w1-q02",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "Dana K. asks why `gcloud resource-manager folders create` fails in the new free-trial account you created with a personal Gmail address. What is the reason?",
+   "options": [
+    "Folders need an organization resource, which exists only when the account is tied to a Cloud Identity or Workspace domain",
+    "Folders can only be created through Terraform, not gcloud",
+    "Folders require the Security Command Center Premium tier",
+    "Free trial projects cannot call the Resource Manager API until billing is upgraded"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A project created from a consumer account has no parent organization. The organization resource is created when you sign up with Cloud Identity (the free edition is enough) or Workspace on a domain you own; folders and organization policies hang off it.",
+   "learn": [
+    {
+     "label": "Creating and managing organization resources",
+     "href": "https://docs.cloud.google.com/resource-manager/docs/creating-managing-organization"
+    },
+    {
+     "label": "Resource hierarchy",
+     "href": "https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy"
+    }
+   ]
+  },
+  {
+   "id": "w1-q03",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "An AWS engineer on the team wants to write \"an IAM policy document for the riq-deployer role\" in GCP, as they would in AWS. What is the correct mental model?",
+   "options": [
+    "Bind a role (a set of permissions) to a principal in an allow policy attached to a resource such as an org, folder, project or bucket; the binding's location sets the scope",
+    "Write a deny policy first; GCP denies nothing by default",
+    "Attach a managed policy ARN to the service account",
+    "Create a custom role with an inline JSON policy listing allowed actions and resources"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "GCP IAM has no per-role policy documents with resource ARNs. Roles are bundles of permissions; an allow policy on a resource binds roles to principals, and it inherits down the hierarchy. Scope comes from where you bind. Deny policies exist but are an additional layer, and IAM Conditions add attribute-based limits.",
+   "learn": [
+    {
+     "label": "IAM overview",
+     "href": "https://docs.cloud.google.com/iam/docs/overview"
+    }
+   ]
+  },
+  {
+   "id": "w1-q04",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "multi",
+   "stem": "The security team wants no long-lived service account keys anywhere in the org. Which two controls together achieve that for new keys and keep CI working? Choose two.",
+   "options": [
+    "Move GitHub Actions to Workload Identity Federation so jobs exchange their OIDC token for short-lived credentials",
+    "Enforce the org policy constraint that disables service account key creation (iam.disableServiceAccountKeyCreation) at the organization",
+    "Rotate keys every 90 days with a Cloud Scheduler job",
+    "Store the keys in Secret Manager instead of GitHub secrets",
+    "Grant roles/iam.serviceAccountKeyAdmin only to the platform team"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "The org policy blocks key creation everywhere below the node where it is enforced, and Workload Identity Federation removes the reason to create keys for CI. Rotation and Secret Manager still leave long-lived keys in existence; restricting the key admin role does not stop project owners.",
+   "learn": [
+    {
+     "label": "Best practices for using service accounts",
+     "href": "https://docs.cloud.google.com/iam/docs/best-practices-service-accounts"
+    },
+    {
+     "label": "Organization Policy Service overview",
+     "href": "https://docs.cloud.google.com/organization-policy/overview"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w1-q05",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "The apply job in `tessellate/platform-foundation` runs with `environment: production`. You bind the deploy service account to the principal `.../subject/repo:tessellate/platform-foundation:ref:refs/heads/main`. The job fails with permission denied on getAccessToken. Why?",
+   "options": [
+    "For jobs that reference an environment, GitHub's OIDC `sub` claim is `repo:tessellate/platform-foundation:environment:production`, so the subject in the binding never matches",
+    "The pool provider must be created in the same project as the service account",
+    "The binding needs roles/iam.serviceAccountTokenCreator instead of roles/iam.workloadIdentityUser",
+    "Workload Identity Federation does not support GitHub environments"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "GitHub builds `sub` from the context: `repo:ORG/REPO:environment:NAME` for environment jobs, `repo:ORG/REPO:ref:refs/heads/BRANCH` otherwise, and `repo:ORG/REPO:pull_request` for pull requests. Bind on the subject form the job actually produces, or map a custom attribute (for example `attribute.environment`) and bind on that.",
+   "learn": [
+    {
+     "label": "Workload Identity Federation with deployment pipelines",
+     "href": "https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines"
+    },
+    {
+     "label": "Workload Identity Federation",
+     "href": "https://docs.cloud.google.com/iam/docs/workload-identity-federation"
+    }
+   ]
+  },
+  {
+   "id": "w1-q06",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "Which `attribute_condition` on the GitHub provider of your workload identity pool best prevents any repository outside the `tessellate` GitHub org from exchanging tokens at all?",
+   "options": [
+    "`attribute.repository != ''`",
+    "`assertion.aud == 'https://github.com/tessellate'`",
+    "`assertion.repository_owner == 'tessellate'`",
+    "No condition is needed; the IAM binding on the service account already limits access"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Google's guidance is to always set an attribute condition for multi-tenant issuers such as GitHub, because every GitHub repo in the world gets tokens from the same issuer. Pinning `repository_owner` (or better, the immutable `repository_owner_id`) stops foreign repos at the pool. IAM bindings are the second layer, not a substitute.",
+   "learn": [
+    {
+     "label": "Workload Identity Federation with deployment pipelines",
+     "href": "https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines"
+    }
+   ]
+  },
+  {
+   "id": "w1-q07",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "In a Shared VPC, the RIQ team in service project tsl-riq-prod must create GKE nodes in subnet `riq-prod-usc1` owned by host project tsl-net-host-prod. What grants the minimum access?",
+   "options": [
+    "roles/owner on the host project for the GKE service agent",
+    "VPC peering between the service project's own VPC and the host VPC",
+    "roles/compute.networkAdmin on the host project for the RIQ developers",
+    "roles/compute.networkUser on that specific subnet for the principals and the service project's service agents that create resources in it"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Shared VPC separates network administration (host project) from usage (service projects). Network User at subnet level is the least-privilege grant; GKE additionally needs its service agent to hold the Host Service Agent User role on the host project. Peering is a different pattern.",
+   "learn": [
+    {
+     "label": "Shared VPC",
+     "href": "https://docs.cloud.google.com/vpc/docs/shared-vpc"
+    }
+   ]
+  },
+  {
+   "id": "w1-q08",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "multi",
+   "stem": "An interviewer asks how organization policies differ from AWS SCPs. Which two statements are accurate? Choose two.",
+   "options": [
+    "Org policy constraints restrict resource configuration (allowed locations, external IPs, uniform bucket access), not which API actions a principal may call",
+    "Org policies inherit down the hierarchy and can be overridden or merged at lower nodes where the policy allows it",
+    "Org policies grant permissions when no IAM binding exists",
+    "Org policies only apply to resources created after Terraform state is migrated",
+    "Org policies replace IAM deny policies entirely"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Constraints describe what configurations are allowed; they never grant access. They are set on org, folder or project and inherit, with inheritance and merge rules per constraint. To restrict actions by principal, GCP has IAM deny policies, which are separate.",
+   "learn": [
+    {
+     "label": "Organization Policy Service overview",
+     "href": "https://docs.cloud.google.com/organization-policy/overview"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w1-q09",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "Tessellate wants a perimeter around BigQuery and Cloud Storage in the MDM projects to stop data exfiltration to projects outside the org, but is worried about breaking pipelines. What is the recommended rollout?",
+   "options": [
+    "Use firewall egress rules on the VPC to block googleapis.com",
+    "Enforce the perimeter on all projects at once during a weekend",
+    "Remove the storage.objects.get permission from all users",
+    "Create the perimeter in dry-run mode, review the violation logs, add ingress/egress rules, then enforce"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "VPC Service Controls dry-run mode logs what would be blocked without blocking. You refine access levels and ingress/egress rules from those logs, then switch to enforced. Firewall rules cannot express API-level data boundaries.",
+   "learn": [
+    {
+     "label": "VPC Service Controls overview",
+     "href": "https://docs.cloud.google.com/vpc-service-controls/docs/overview"
+    }
+   ]
+  },
+  {
+   "id": "w1-q10",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "The CI service account needs to deploy into tsl-mdm-prod. A colleague proposes downloading a key for it. You propose impersonation instead. What does impersonation require?",
+   "options": [
+    "The service account must have roles/owner",
+    "The caller holds roles/iam.serviceAccountTokenCreator (or workloadIdentityUser for federated principals) on the target service account, and receives short-lived tokens",
+    "Impersonation only works from Compute Engine metadata",
+    "The caller and the service account must be in the same project"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Impersonation issues short-lived access tokens to a principal that holds Token Creator on the service account (federated identities use Workload Identity User). It works across projects and leaves an audit trail that names both identities, which keys do not.",
+   "learn": [
+    {
+     "label": "Service accounts overview",
+     "href": "https://docs.cloud.google.com/iam/docs/service-account-overview"
+    },
+    {
+     "label": "Best practices for using service accounts",
+     "href": "https://docs.cloud.google.com/iam/docs/best-practices-service-accounts"
+    }
+   ]
+  },
+  {
+   "id": "w1-q11",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "A VPC in GCP differs from an AWS VPC in one way that changes your landing-zone design. Which?",
+   "options": [
+    "GCP VPCs are regional and must be peered per region",
+    "GCP VPCs are global resources with regional subnets, so one VPC can span regions without peering",
+    "GCP VPCs cannot contain more than one subnet per region",
+    "GCP subnets are zonal"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A GCP VPC network is global; subnets are regional. One Shared VPC can serve us-central1 and us-east4 workloads with no transit gateway or peering, and firewall rules and routes are network-wide.",
+   "learn": [
+    {
+     "label": "Shared VPC",
+     "href": "https://docs.cloud.google.com/vpc/docs/shared-vpc"
+    },
+    {
+     "label": "Compare AWS and Azure services to Google Cloud",
+     "href": "https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison"
+    }
+   ]
+  },
+  {
+   "id": "w1-q12",
+   "week": 1,
+   "set": "weekly",
+   "area": "gcp",
+   "type": "single",
+   "stem": "Which reference should you cite when an interviewer asks \"what does a well-built GCP organization look like?\"",
+   "options": [
+    "The Kubernetes version skew policy",
+    "The enterprise foundations blueprint (hierarchy, IAM groups, networking, logging, org policies, detective controls)",
+    "The Cloud Monitoring quickstart",
+    "The Terraformer README"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Google's enterprise foundations blueprint is the opinionated reference for org structure, Shared VPC, centralized logging, org policy baselines and CI with impersonation. Cloud Foundation Fabric FAST implements similar stages in Terraform.",
+   "learn": [
+    {
+     "label": "Enterprise foundations blueprint",
+     "href": "https://docs.cloud.google.com/architecture/blueprints/security-foundations"
+    }
+   ]
+  },
+  {
+   "id": "w2-q01",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "Tessellate runs dev-1 and stg-1 on Regular and prod-blue/prod-green on Stable. Why is this a sound fleet pattern?",
+   "options": [
+    "Release channels only affect node images, not the control plane",
+    "A version reaches Regular before Stable, so lower environments see a version before production does",
+    "Stable gets new minor versions first, so prod is always current",
+    "Clusters on different channels cannot be in the same fleet, which isolates prod"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Versions move Rapid, then Regular, then Stable. Putting non-prod on an earlier channel gives you a soak period and a canary for free. Channels drive both control plane and node auto-upgrades, and mixed channels within a fleet are fine.",
+   "learn": [
+    {
+     "label": "GKE release channels",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/release-channels"
+    },
+    {
+     "label": "GKE cluster upgrades",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades"
+    }
+   ]
+  },
+  {
+   "id": "w2-q02",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "Finance freezes all changes for the quarter-end close. You still want GKE security patches on prod but no new minor versions. Which maintenance exclusion scope fits?",
+   "options": [
+    "Delete the maintenance window",
+    "No minor or node upgrades",
+    "No upgrades",
+    "No minor upgrades"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "\"No minor upgrades\" blocks minor version changes while still allowing patch upgrades. \"No minor or node upgrades\" also stops node pool upgrades. \"No upgrades\" blocks everything and is the most restrictive and shortest allowed. Removing the window makes upgrades possible at any time.",
+   "learn": [
+    {
+     "label": "Maintenance windows and exclusions",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions"
+    }
+   ]
+  },
+  {
+   "id": "w2-q03",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "During a surge upgrade of prod-blue's default pool, riq-api's PDB has disruptionsAllowed: 0 because one pod is unready. What does GKE do?",
+   "options": [
+    "Skips the node and marks the upgrade complete",
+    "Waits forever until the PDB allows a disruption",
+    "Respects the PDB for a bounded time (up to about an hour), then drains the node anyway, which can evict below the PDB",
+    "Rolls the control plane back"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "GKE honors PodDisruptionBudgets during node drain for a limited time (documented as up to 60 minutes), after which it proceeds. A PDB is not a permanent veto during managed upgrades; you must fix the unhealthy pods or the PDB before the window ends.",
+   "learn": [
+    {
+     "label": "Node pool upgrade strategies",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/node-pool-upgrade-strategies"
+    },
+    {
+     "label": "Kubernetes disruptions and PDBs",
+     "href": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q04",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "multi",
+   "stem": "You choose blue-green over surge for the MDM node pool, which runs long-lived batch pods. Which two statements about blue-green are true? Choose two.",
+   "options": [
+    "It is only available on Autopilot",
+    "It creates a full green pool, cordons the blue pool, drains in batches and soaks before deleting blue",
+    "It ignores PDBs entirely",
+    "It needs no extra quota because nodes are replaced one at a time",
+    "You can roll back to the blue pool during the soak, because the old nodes still exist"
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "explanation": "Blue-green upgrades provision the new pool alongside the old, drain in configurable batches with soak time, and allow rollback until the old pool is deleted. The cost is roughly double capacity and quota during the upgrade.",
+   "learn": [
+    {
+     "label": "Node pool upgrade strategies",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/node-pool-upgrade-strategies"
+    },
+    {
+     "label": "Configure node pool upgrade strategies",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-pool-upgrade-strategies"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w2-q05",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "A surge upgrade with maxSurge=2, maxUnavailable=0 stalls with no new nodes created. The operation log mentions CPU quota in us-central1. What is the most likely fix?",
+   "options": [
+    "Move the cluster to the Rapid channel",
+    "Disable the PDBs",
+    "Raise the regional CPU (and IP) quota or reduce maxSurge, because surge nodes are extra capacity that must fit within quota",
+    "Set maxUnavailable=0 and maxSurge=0"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Surge and blue-green both need spare capacity. If quota or IP space in the subnet cannot fit surge nodes, the upgrade cannot progress. Size quota for the surge before the window, or lower maxSurge and accept a slower upgrade (or use maxUnavailable at the cost of capacity).",
+   "learn": [
+    {
+     "label": "Ensure resources for node upgrades",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-upgrades-quota"
+    }
+   ]
+  },
+  {
+   "id": "w2-q06",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "The control plane of stg-1 is on 1.33. Under the Kubernetes version skew policy, which node pool version is NOT allowed?",
+   "options": [
+    "1.31",
+    "1.30",
+    "1.33",
+    "1.34"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Kubelets may be up to three minor versions older than the API server (since 1.28) but never newer. A 1.34 node against a 1.33 control plane is unsupported, which is why the control plane always upgrades first.",
+   "learn": [
+    {
+     "label": "Kubernetes version skew policy",
+     "href": "https://kubernetes.io/releases/version-skew-policy/"
+    },
+    {
+     "label": "GKE cluster upgrades",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades"
+    }
+   ]
+  },
+  {
+   "id": "w2-q07",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "multi",
+   "stem": "You want riq-api to survive any node strategy with zero failed requests. Which two application-side settings matter most? Choose two.",
+   "options": [
+    "hostNetwork: true",
+    "A PDB with maxUnavailable: 0",
+    "imagePullPolicy: Always",
+    "A PDB that allows at least one disruption at full health (for example minAvailable 2 of 3 replicas)",
+    "A readiness probe that fails fast when the pod stops serving, plus a preStop hook or graceful shutdown that drains connections before exit"
+   ],
+   "answer": [
+    3,
+    4
+   ],
+   "explanation": "Zero downtime comes from the app: endpoints removed before termination, in-flight requests drained, and a PDB that protects availability but still lets the drain progress. maxUnavailable: 0 blocks every voluntary eviction and just converts into a stalled or forced drain.",
+   "learn": [
+    {
+     "label": "Specifying a disruption budget",
+     "href": "https://kubernetes.io/docs/tasks/run-application/configure-pdb/"
+    },
+    {
+     "label": "Safely drain a node",
+     "href": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w2-q08",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "Marco D. wants automation to open a change ticket a few days before GKE upgrades any production cluster. What GKE feature should drive it?",
+   "options": [
+    "Cluster notifications published to Pub/Sub (upgrade available, upcoming and finished events)",
+    "The kube-apiserver audit log",
+    "Artifact Analysis notifications",
+    "Cloud Scheduler polling `gcloud container get-server-config` every hour"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "GKE publishes cluster notifications to a Pub/Sub topic you configure, including upcoming upgrade and upgrade events. A subscriber can open tickets, post to chat or gate a canary promotion.",
+   "learn": [
+    {
+     "label": "Cluster notifications",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-notifications"
+    }
+   ]
+  },
+  {
+   "id": "w2-q09",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "multi",
+   "stem": "Which two statements about GKE fleets are correct? Choose two.",
+   "options": [
+    "Fleets replace the need for per-cluster IAM entirely",
+    "A fleet is anchored in a fleet host project and a cluster can be a member of only one fleet",
+    "Fleet membership requires all clusters to be on the same release channel",
+    "Fleets assume namespace sameness: a namespace with the same name is treated as the same across member clusters",
+    "Fleets only work with Autopilot clusters"
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "explanation": "Fleets group clusters under a host project, enable fleet-level features such as Config Sync and team scopes, and rely on namespace and identity sameness. Channels, modes and regions can differ among members.",
+   "learn": [
+    {
+     "label": "How fleets work",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/fleet-concepts"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w2-q10",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "Dana K. proposes moving dev-1 to Autopilot to cut toil. What do you give up?",
+   "options": [
+    "Workload Identity Federation for GKE",
+    "Direct node management: node pools, machine choice per pool, SSH and some privileged workloads are managed or restricted by Google",
+    "Release channels",
+    "PodDisruptionBudgets"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Autopilot manages nodes and enforces a hardened baseline; billing follows pod requests. You lose node pool control and some privileged patterns, but PDBs, channels and Workload Identity remain.",
+   "learn": [
+    {
+     "label": "Autopilot overview",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview"
+    }
+   ]
+  },
+  {
+   "id": "w2-q11",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "Which fleet-level rollout is safest for a new GKE minor version across dev-1, stg-1, prod-blue and prod-green?",
+   "options": [
+    "Upgrade prod-green and prod-blue first because they have the most capacity",
+    "Pin every cluster with a permanent no-upgrades exclusion",
+    "Upgrade all four in the same maintenance window so they stay in sync",
+    "Let channels order it (dev and stg first), soak with SLO checks, then upgrade one prod cluster, verify, and only then the other in a later window"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Never upgrade every cluster in the same window. Canary through lower environments, use go/no-go checks on SLOs and error budgets, then one production cluster at a time so the other can carry traffic. Permanent exclusions are not allowed and leave clusters out of support.",
+   "learn": [
+    {
+     "label": "GKE cluster upgrades",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades"
+    },
+    {
+     "label": "Maintenance windows and exclusions",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions"
+    }
+   ]
+  },
+  {
+   "id": "w2-q12",
+   "week": 2,
+   "set": "weekly",
+   "area": "gke",
+   "type": "single",
+   "stem": "Before building a fleet policy engine on GKE Policy Controller, what should you check first?",
+   "options": [
+    "Whether Policy Controller is listed on the GKE deprecations page and what Google recommends instead",
+    "Whether Cloud NAT is enabled",
+    "Whether the clusters run on Spot VMs",
+    "Whether the node pools use COS or Ubuntu"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Policy Controller appears on GKE's deprecations list. Building a new control on a deprecated feature creates migration work later; check status and alternatives (for example self-managed Gatekeeper or Kyverno) first.",
+   "learn": [
+    {
+     "label": "GKE deprecations",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/deprecations"
+    }
+   ]
+  },
+  {
+   "id": "w3-q01",
+   "week": 3,
+   "set": "weekly",
+   "area": "tf",
+   "type": "single",
+   "stem": "Tessellate keeps Terraform state for the foundation in a GCS bucket. Which statement about the GCS backend is correct?",
+   "options": [
+    "State is encrypted per resource, so read access to the bucket is harmless",
+    "The GCS backend does not support workspaces",
+    "State locking requires a separate DynamoDB-style table",
+    "The GCS backend supports state locking natively, and anyone who can read the bucket can read every secret written to state"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The GCS backend locks with an object in the bucket. State can contain secrets in plain text (passwords, keys), so restrict and audit bucket read access, use separate buckets per environment and enable versioning for recovery.",
+   "learn": [
+    {
+     "label": "GCS backend",
+     "href": "https://developer.hashicorp.com/terraform/language/backend/gcs"
+    },
+    {
+     "label": "Terraform state",
+     "href": "https://developer.hashicorp.com/terraform/language/state"
+    }
+   ]
+  },
+  {
+   "id": "w3-q02",
+   "week": 3,
+   "set": "weekly",
+   "area": "tf",
+   "type": "single",
+   "stem": "You need module sources for a new GCP foundation. What best characterizes Cloud Foundation Fabric versus terraform-google-modules?",
+   "options": [
+    "They are the same modules under two names",
+    "Fabric is a monorepo of opinionated modules plus FAST stages; terraform-google-modules publishes one module per repo (project factory, GKE) on the registry",
+    "Fabric is archived; terraform-google-modules is its replacement",
+    "terraform-google-modules only supports the google-beta provider"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Fabric favors a small number of composable, opinionated modules and end-to-end FAST stages that you fork. terraform-google-modules offers separately versioned, registry-published modules. The right pick depends on how much you want to own versus consume.",
+   "learn": [
+    {
+     "label": "Cloud Foundation Fabric",
+     "href": "https://github.com/GoogleCloudPlatform/cloud-foundation-fabric"
+    },
+    {
+     "label": "terraform-google-modules",
+     "href": "https://github.com/terraform-google-modules"
+    }
+   ]
+  },
+  {
+   "id": "w3-q03",
+   "week": 3,
+   "set": "weekly",
+   "area": "tf",
+   "type": "single",
+   "stem": "A refactor moves `google_compute_subnetwork.riq` into `module.network.google_compute_subnetwork.riq`. How do you avoid a destroy and create?",
+   "options": [
+    "Add a moved block from the old address to the new address and confirm the plan shows a move, not a replace",
+    "Add prevent_destroy to the subnet",
+    "Rename the subnet in GCP to match the new address",
+    "Run terraform state rm, then terraform import"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A moved block records the address change in config so every workspace using the module gets the same, reviewed result in plan. state rm/import works but is manual and unreviewed. prevent_destroy would only make the plan fail.",
+   "learn": [
+    {
+     "label": "moved block",
+     "href": "https://developer.hashicorp.com/terraform/language/block/moved"
+    },
+    {
+     "label": "Terraform best practices: general style and structure",
+     "href": "https://docs.cloud.google.com/docs/terraform/best-practices/general-style-structure"
+    }
+   ]
+  },
+  {
+   "id": "w3-q04",
+   "week": 3,
+   "set": "weekly",
+   "area": "migrate",
+   "type": "single",
+   "stem": "You are bringing 40 hand-made firewall rules in tsl-sandbox-legacy under Terraform. What is the reviewable, config-driven approach?",
+   "options": [
+    "Import blocks (one with for_each over a map of rule names to IDs), reviewed in a plan before apply",
+    "40 terraform import CLI commands run from a laptop",
+    "Delete the rules and recreate them from Terraform",
+    "terraform state push with a hand-written state file"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Import blocks put imports in code, so they are reviewed in a pull request and executed by plan/apply. Since Terraform 1.7 they accept for_each, which suits many similar resources. The CLI import mutates state immediately with no plan review.",
+   "learn": [
+    {
+     "label": "Import (overview)",
+     "href": "https://developer.hashicorp.com/terraform/language/import"
+    }
+   ]
+  },
+  {
+   "id": "w3-q05",
+   "week": 3,
+   "set": "weekly",
+   "area": "migrate",
+   "type": "multi",
+   "stem": "You run `terraform plan -generate-config-out=generated.tf` for imported Cloud SQL instances. Which two are true? Choose two.",
+   "options": [
+    "Terraform drafts HCL for import blocks that have no matching resource block; the feature is marked experimental",
+    "It also deletes resources that are not in the generated file",
+    "Generated config usually needs cleanup: computed or default values, conflicting arguments and sensitive values",
+    "It writes the config directly into state",
+    "It works only with the CLI terraform import command"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Config generation writes resource blocks for import targets that lack configuration. It is still experimental and its output is a draft: remove computed attributes, fix conflicts, move secrets out, and iterate until the plan is a clean import with no changes.",
+   "learn": [
+    {
+     "label": "Generate configuration for imports",
+     "href": "https://developer.hashicorp.com/terraform/language/import/generating-configuration"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w3-q06",
+   "week": 3,
+   "set": "weekly",
+   "area": "migrate",
+   "type": "single",
+   "stem": "After importing the core VPC, the plan shows `google_compute_network.core must be replaced` because `auto_create_subnetworks` changes from false to true. The cleaned-up config does not set the argument. What happened?",
+   "options": [
+    "The plan is wrong; apply will be a no-op",
+    "The provider default for auto_create_subnetworks is true and the argument forces replacement, so omitting it on a custom-mode VPC plans a destroy and create",
+    "The VPC was created in another region",
+    "Imports always replace networks"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "When you delete an argument from generated config, the provider default applies. For ForceNew arguments that differ from the live value, the plan proposes replacement, which for a VPC cascades to subnets and everything attached. Set the live value explicitly and protect critical resources with prevent_destroy.",
+   "learn": [
+    {
+     "label": "Generate configuration for imports",
+     "href": "https://developer.hashicorp.com/terraform/language/import/generating-configuration"
+    },
+    {
+     "label": "Google provider docs",
+     "href": "https://registry.terraform.io/providers/hashicorp/google/latest/docs"
+    }
+   ]
+  },
+  {
+   "id": "w3-q07",
+   "week": 3,
+   "set": "weekly",
+   "area": "migrate",
+   "type": "single",
+   "stem": "What does `lifecycle { prevent_destroy = true }` do on the imported Cloud SQL instance?",
+   "options": [
+    "Removes the resource from state",
+    "Prevents users from deleting the instance in the console",
+    "Makes any plan that would destroy the resource (including a replace) fail with an error, as long as the block stays in config",
+    "Sets deletion protection on the instance in GCP"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "prevent_destroy is a Terraform-side guard: plans that would destroy the resource error out. It does not protect against console or gcloud deletes, and it disappears if someone removes the resource block. Pair it with the provider's deletion_protection and IAM.",
+   "learn": [
+    {
+     "label": "Terraform state",
+     "href": "https://developer.hashicorp.com/terraform/language/state"
+    },
+    {
+     "label": "Import (overview)",
+     "href": "https://developer.hashicorp.com/terraform/language/import"
+    }
+   ]
+  },
+  {
+   "id": "w3-q08",
+   "week": 3,
+   "set": "weekly",
+   "area": "migrate",
+   "type": "multi",
+   "stem": "You need to discover what exists across 30 legacy projects before importing. Which two tools fit? Choose two.",
+   "options": [
+    "`gcloud beta resource-config bulk-export --resource-format=terraform` for a project, folder or org (Preview, needs the config-connector gcloud component)",
+    "kubectl get all",
+    "Cloud Asset Inventory (search or export all resources and IAM policies across the org)",
+    "terraform refresh",
+    "Terraformer, the actively maintained Google export tool"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Cloud Asset Inventory is the source of truth for what exists, and bulk-export drafts HCL from it. Terraformer was archived in March 2026. refresh only updates resources already in state.",
+   "learn": [
+    {
+     "label": "Cloud Asset Inventory overview",
+     "href": "https://docs.cloud.google.com/asset-inventory/docs/asset-inventory-overview"
+    },
+    {
+     "label": "gcloud beta resource-config bulk-export",
+     "href": "https://docs.cloud.google.com/sdk/gcloud/reference/beta/resource-config/bulk-export"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w3-q09",
+   "week": 3,
+   "set": "weekly",
+   "area": "migrate",
+   "type": "single",
+   "stem": "Terraform added `list` blocks and `terraform query`. What problem do they address?",
+   "options": [
+    "Querying state with SQL",
+    "Listing modules on the registry",
+    "Finding existing infrastructure through the provider so you can generate import blocks in bulk, for resource types the provider supports",
+    "Listing workspaces in a remote backend"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "List blocks in a query file ask the provider to enumerate existing resources; `terraform query` runs them and can produce import blocks and config. Support is per resource type and provider version, so check the google provider before relying on it.",
+   "learn": [
+    {
+     "label": "Import resources in bulk",
+     "href": "https://developer.hashicorp.com/terraform/language/import/bulk"
+    },
+    {
+     "label": "terraform query command",
+     "href": "https://developer.hashicorp.com/terraform/cli/commands/query"
+    }
+   ]
+  },
+  {
+   "id": "w3-q10",
+   "week": 3,
+   "set": "weekly",
+   "area": "tf",
+   "type": "single",
+   "stem": "The security team wants CI to block any change that creates a VM with an external IP. Which check evaluates the right artifact?",
+   "options": [
+    "A Cloud Monitoring alert on external IPs",
+    "A regex over the .tf files for access_config",
+    "tflint with default rules",
+    "A policy evaluated against the plan JSON (for example gcloud beta terraform vet or OPA on terraform show -json), failing the merge on a violation"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The plan is what will happen: it resolves modules, variables and defaults that a code scan misses. Policy validation tools evaluate the plan output, and the org policy constraint is the runtime backstop.",
+   "learn": [
+    {
+     "label": "Policy validation (terraform vet)",
+     "href": "https://docs.cloud.google.com/docs/terraform/policy-validation"
+    }
+   ]
+  },
+  {
+   "id": "w3-q11",
+   "week": 3,
+   "set": "weekly",
+   "area": "migrate",
+   "type": "multi",
+   "stem": "You lead the migration of the legacy projects into Terraform. Which two practices keep the migration safe and stop drift from returning? Choose two.",
+   "options": [
+    "Group resources into small states by owner and blast radius, and import in batches that each end in a no-op plan",
+    "Import everything into one state to keep a single plan",
+    "Apply generated config without review because it was produced by Terraform",
+    "Delete the Cloud Asset Inventory feed after the import",
+    "After the import, remove humans' write access and enforce org policies so manual changes cannot reintroduce drift"
+   ],
+   "answer": [
+    0,
+    4
+   ],
+   "explanation": "A migration method beats commands: inventory, split states, small batches, a no-op plan as the exit criterion, then lock out click-ops. One giant state magnifies blast radius and plan time.",
+   "learn": [
+    {
+     "label": "Terraform best practices: general style and structure",
+     "href": "https://docs.cloud.google.com/docs/terraform/best-practices/general-style-structure"
+    },
+    {
+     "label": "Cloud Asset Inventory overview",
+     "href": "https://docs.cloud.google.com/asset-inventory/docs/asset-inventory-overview"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w3-q12",
+   "week": 3,
+   "set": "weekly",
+   "area": "tf",
+   "type": "single",
+   "stem": "A team stops managing a log sink in Terraform but must keep it in GCP. Since Terraform 1.7, what is the clean way?",
+   "options": [
+    "Add prevent_destroy and remove the block",
+    "Replace the resource block with a removed block that has lifecycle { destroy = false }",
+    "Run terraform taint",
+    "Delete the resource block and accept the destroy"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A removed block with destroy = false drops the resource from state through a reviewed plan without deleting it. Deleting the block plans a destroy; prevent_destroy on a deleted block no longer exists to protect anything.",
+   "learn": [
+    {
+     "label": "Terraform state",
+     "href": "https://developer.hashicorp.com/terraform/language/state"
+    },
+    {
+     "label": "moved block",
+     "href": "https://developer.hashicorp.com/terraform/language/block/moved"
+    }
+   ]
+  }
+ ]
+}

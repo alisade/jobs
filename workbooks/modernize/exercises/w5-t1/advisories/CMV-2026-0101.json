@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.6.0",
+  "id": "CMV-2026-0101",
+  "summary": "Polymorphic typing gadget chain allows remote code execution",
+  "database_specific": {
+    "severity": "CRITICAL"
+  },
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "Maven",
+        "name": "com.fasterxml.jackson.core:jackson-databind"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.9.10.8"
+            }
+          ]
+        },
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.10.0"
+            },
+            {
+              "fixed": "2.12.7.1"
+            }
+          ]
+        },
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.13.0"
+            },
+            {
+              "fixed": "2.13.4.2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

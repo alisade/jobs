@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/w6-c1",
+  "title": "SSM Automation runbook: roll back the agent endpoint",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 6,
+  "optional": false,
+  "area": "Operations and SSM",
+  "scenario": "Rolling the AgentCore prod endpoint back is a hand-typed CLI call during incidents. Turn it into an SSM Automation runbook that reads and backs up the current state, waits for a release manager, moves the endpoint, waits for READY and fails if errors stay high. Runs on a local runbook interpreter with fake AWS APIs.",
+  "task": [
+    "Validated parameters and assumeRole",
+    "Read, no-op check, S3 backup, aws:approve",
+    "Update the endpoint and wait for READY with a timeout",
+    "Verify the error metric and fail above a threshold"
+  ],
+  "acceptance": [
+    "Happy path, rejection, timeout, threshold and no-op tests pass",
+    "Backup happens before the change",
+    "ANSWER.md has a least-privilege assume role and the cross-account model"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - SSM Automation runbooks", "href": "week6"},
+    {"label": "Week 6 Tue - aws:approve and Change Manager", "href": "week6"}
+  ]
+}

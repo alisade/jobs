@@ -1,0 +1,8 @@
+# Gemini safety thresholds for quiz generation (Kestrel Learning, adult learners).
+# Restored after INC-20533. The kestrel-kids profile lives in its own file and service config;
+# a shared profile across products with different audiences is not acceptable (see PLAT-3317 review).
+thresholds:
+  HARM_CATEGORY_HARASSMENT: BLOCK_MEDIUM_AND_ABOVE
+  HARM_CATEGORY_HATE_SPEECH: BLOCK_MEDIUM_AND_ABOVE
+  HARM_CATEGORY_SEXUALLY_EXPLICIT: BLOCK_MEDIUM_AND_ABOVE
+  HARM_CATEGORY_DANGEROUS_CONTENT: BLOCK_ONLY_HIGH

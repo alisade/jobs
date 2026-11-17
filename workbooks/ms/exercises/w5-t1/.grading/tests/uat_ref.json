@@ -1,0 +1,12 @@
+{
+  "_comment": "contoso-fs-uat, captured 2026-10-08 with `pac solution list --json` (Microsoft first-party solutions trimmed).",
+  "environment": "contoso-fs-uat",
+  "solutions": [
+    {"name": "ContosoCore", "version": "2.0.3.0", "managed": true, "installed": "2026-08-28"},
+    {"name": "FieldOps", "version": "1.3.0.0", "managed": true, "installed": "2026-09-11"},
+    {"name": "ContosoPortal", "version": "3.2.1.0", "managed": true, "installed": "2026-07-14"}
+  ],
+  "unmanaged_layers": [
+    {"component": "SystemForm", "name": "Account - Main", "table": "account", "modified_by": "jordan.lee@contoso.com", "modified": "2026-09-30", "note": "UAT tester added a Tier column directly in UAT"}
+  ]
+}

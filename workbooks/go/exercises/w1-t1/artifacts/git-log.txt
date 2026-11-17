@@ -1,0 +1,73 @@
+$ git log --oneline -4
+a41c9e2 (tag: v1.14.0) PLAT-2291 report all invalid fields at once; omit empty descriptions
+5be0d17 (tag: v1.13.2) bump golang.org/x/net
+93fa1c4 PLAT-2244 add DELETE /v1/flags/{key}
+0c7e8aa (tag: v1.13.1) structured logging with slog
+
+$ git show --stat a41c9e2
+commit a41c9e2
+Author: Dev Contractor <contractor@corvidpay.example>
+Date:   Mon Oct 6 13:31:02 2026 +0000
+
+    PLAT-2291 report all invalid fields at once; omit empty descriptions
+
+    Product asked for the UI to show every invalid field instead of the first one.
+    Also stop sending "description": "" to the mobile SDK (saves bytes) and log
+    flags created without a description so we can chase owners.
+
+ internal/flags/flags.go       | 41 ++++++++++++++++++++++++-------------
+ internal/httpapi/handler.go   |  3 +++
+ 2 files changed, 30 insertions(+), 14 deletions(-)
+
+$ git show a41c9e2 -- internal/flags/flags.go internal/httpapi/handler.go
+--- a/internal/flags/flags.go
++++ b/internal/flags/flags.go
+@@ type Flag struct {
+ 	Key         string    `json:"key"`
+-	Description string    `json:"description"`
++	Description string    `json:"description,omitempty"`
+ 	Owner       string    `json:"owner"`
+@@
+-func validate(f Flag) error {
+-	if !keyRE.MatchString(f.Key) {
+-		return &ValidationError{Fields: map[string]string{"key": "must match ^[a-z][a-z0-9-]{2,62}$"}}
+-	}
+-	if !strings.Contains(f.Owner, "@") {
+-		return &ValidationError{Fields: map[string]string{"owner": "must be an email address"}}
+-	}
+-	if !validEnvs[f.Env] {
+-		return &ValidationError{Fields: map[string]string{"env": "must be one of dev, staging, prod"}}
+-	}
+-	if f.Rollout < 0 || f.Rollout > 100 {
+-		return &ValidationError{Fields: map[string]string{"rollout": "must be between 0 and 100"}}
+-	}
+-	if f.Enabled && f.Rollout == 0 {
+-		return &ValidationError{Fields: map[string]string{"rollout": "enabled flag with 0% rollout; disable it instead"}}
+-	}
+-	return nil
+-}
++// validate collects every problem with f instead of stopping at the first one.
++// Refactored in PLAT-2291 (see artifacts/git-log.txt) to report all fields at once.
++func validate(f Flag) error {
++	var verr *ValidationError
++	fail := func(field, msg string) {
++		if verr == nil {
++			verr = &ValidationError{}
++		}
++		verr.add(field, msg)
++	}
++	if !keyRE.MatchString(f.Key) {
++		fail("key", "must match ^[a-z][a-z0-9-]{2,62}$")
++	}
+     ... (same pattern for owner, env, rollout) ...
++	return verr
++}
+--- a/internal/httpapi/handler.go
++++ b/internal/httpapi/handler.go
+@@ func (h *Handler) put(w http.ResponseWriter, r *http.Request) {
++	if f.Description == "" {
++		h.Log.Debug("flag has no description", "key", f.Key)
++	}
+
+# CI for a41c9e2: green. (The only PUT test in the repo at the time posted an invalid flag
+# and asserted 422.)

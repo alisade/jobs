@@ -1,0 +1,171 @@
+[
+ {
+  "id": "q01",
+  "tenant_id": "acme-foods",
+  "question": "[acme-foods] What does our carrier sla document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-2.pdf"
+  ]
+ },
+ {
+  "id": "q02",
+  "tenant_id": "acme-foods",
+  "question": "[acme-foods] What does our returns policy document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/returns-policy-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/returns-policy-2.pdf"
+  ]
+ },
+ {
+  "id": "q03",
+  "tenant_id": "acme-foods",
+  "question": "[acme-foods] What does our api limits document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/api-limits-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/api-limits-2.pdf"
+  ]
+ },
+ {
+  "id": "q04",
+  "tenant_id": "acme-foods",
+  "question": "[acme-foods] What does our pallet specs document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/pallet-specs-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/pallet-specs-2.pdf"
+  ]
+ },
+ {
+  "id": "q05",
+  "tenant_id": "acme-foods",
+  "question": "[acme-foods] What does our customs holds document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-2.pdf"
+  ]
+ },
+ {
+  "id": "q06",
+  "tenant_id": "acme-foods",
+  "question": "[acme-foods] What does our holiday cutoffs document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+  ]
+ },
+ {
+  "id": "q07",
+  "tenant_id": "acme-foods",
+  "question": "[acme-foods] What does our invoice disputes document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/invoice-disputes-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/invoice-disputes-2.pdf"
+  ]
+ },
+ {
+  "id": "q08",
+  "tenant_id": "brightline-health",
+  "question": "[brightline-health] What does our pallet specs document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+  ]
+ },
+ {
+  "id": "q09",
+  "tenant_id": "brightline-health",
+  "question": "[brightline-health] What does our returns policy document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/returns-policy-1.pdf"
+  ]
+ },
+ {
+  "id": "q10",
+  "tenant_id": "brightline-health",
+  "question": "[brightline-health] What does our onboarding guide document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/onboarding-guide-1.pdf"
+  ]
+ },
+ {
+  "id": "q11",
+  "tenant_id": "brightline-health",
+  "question": "[brightline-health] What does our api limits document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/api-limits-1.pdf"
+  ]
+ },
+ {
+  "id": "q12",
+  "tenant_id": "brightline-health",
+  "question": "[brightline-health] What does our customs holds document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+  ]
+ },
+ {
+  "id": "q13",
+  "tenant_id": "brightline-health",
+  "question": "[brightline-health] What does our invoice disputes document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-2.pdf"
+  ]
+ },
+ {
+  "id": "q14",
+  "tenant_id": "brightline-health",
+  "question": "[brightline-health] What does our carrier sla document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/carrier-sla-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/carrier-sla-2.pdf"
+  ]
+ },
+ {
+  "id": "q15",
+  "tenant_id": "corvid-logistics",
+  "question": "[corvid-logistics] What does our cold chain sop document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+  ]
+ },
+ {
+  "id": "q16",
+  "tenant_id": "corvid-logistics",
+  "question": "[corvid-logistics] What does our customs holds document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/customs-holds-1.pdf"
+  ]
+ },
+ {
+  "id": "q17",
+  "tenant_id": "corvid-logistics",
+  "question": "[corvid-logistics] What does our pallet specs document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-1.pdf",
+   "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-2.pdf"
+  ]
+ },
+ {
+  "id": "q18",
+  "tenant_id": "corvid-logistics",
+  "question": "[corvid-logistics] What does our damage claims document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/damage-claims-1.pdf"
+  ]
+ },
+ {
+  "id": "q19",
+  "tenant_id": "corvid-logistics",
+  "question": "[corvid-logistics] What does our invoice disputes document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/invoice-disputes-1.pdf"
+  ]
+ },
+ {
+  "id": "q20",
+  "tenant_id": "corvid-logistics",
+  "question": "[corvid-logistics] What does our carrier sla document say about exceptions?",
+  "expected_uris": [
+   "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+  ]
+ }
+]

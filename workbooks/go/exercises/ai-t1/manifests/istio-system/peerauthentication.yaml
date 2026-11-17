@@ -1,0 +1,10 @@
+# Mesh-wide default (root namespace). PERMISSIVE so non-mesh namespaces such as
+# batch can still reach shared services during the mesh rollout.
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  mtls:
+    mode: PERMISSIVE

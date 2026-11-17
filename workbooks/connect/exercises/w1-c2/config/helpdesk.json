@@ -1,0 +1,59 @@
+{
+  "envs": {
+    "dev":  { "account": "111122223333", "region": "us-east-1", "instanceAlias": "lfg-helpdesk-dev",  "retain": false },
+    "prod": { "account": "444455556666", "region": "us-east-1", "instanceAlias": "lfg-helpdesk-prod", "retain": true }
+  },
+  "tags": { "CostCenter": "IT-0420", "Application": "enterprise-help-desk" },
+  "timeZone": "America/New_York",
+  "hours": {
+    "HelpDeskHours": { "description": "Service desk staffed hours", "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"], "start": "06:00", "end": "20:00" },
+    "Always": { "description": "24x7 for major incidents", "days": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"], "start": "00:00", "end": "23:59" }
+  },
+  "holidays": [
+    { "name": "Thanksgiving 2026", "date": "2026-11-26" },
+    { "name": "Day after Thanksgiving 2026", "date": "2026-11-27" },
+    { "name": "Christmas Day 2026", "date": "2026-12-25" },
+    { "name": "New Year 2027", "date": "2027-01-01" }
+  ],
+  "queues": {
+    "GeneralSupport": { "hours": "HelpDeskHours", "maxContacts": 60, "description": "Hardware, software and how-to" },
+    "PasswordReset":  { "hours": "HelpDeskHours", "maxContacts": 40, "description": "Password and MFA resets the IVR could not complete" },
+    "VIPDesk":        { "hours": "HelpDeskHours", "maxContacts": 10, "description": "Executive floor and board support" },
+    "MajorIncident":  { "hours": "Always",        "maxContacts": 100, "description": "Outage reports, 24x7" }
+  },
+  "routingProfiles": {
+    "Tier1": {
+      "description": "Tier 1 analysts: voice plus up to 3 chats, no voice while on chat",
+      "voice": 1, "chat": 3,
+      "queues": [
+        { "queue": "MajorIncident", "priority": 1, "delay": 0 },
+        { "queue": "PasswordReset", "priority": 2, "delay": 0 },
+        { "queue": "GeneralSupport", "priority": 2, "delay": 0 }
+      ]
+    },
+    "VIPAnalyst": {
+      "description": "Senior analysts: VIP first, general support only after 30 s",
+      "voice": 1, "chat": 2,
+      "queues": [
+        { "queue": "VIPDesk", "priority": 1, "delay": 0 },
+        { "queue": "MajorIncident", "priority": 1, "delay": 0 },
+        { "queue": "GeneralSupport", "priority": 3, "delay": 30 }
+      ]
+    }
+  },
+  "lambdas": {
+    "IdentifyCaller": "lfg-identify-caller",
+    "PasswordReset": "lfg-password-reset"
+  },
+  "lex": {
+    "botName": "lfg-helpdesk-bot",
+    "aliasName": "live",
+    "localeId": "en_US",
+    "nluConfidenceThreshold": 0.4,
+    "intents": {
+      "ResetPassword": ["I forgot my password", "reset my password", "I am locked out", "my account is locked"],
+      "ReportOutage": ["the system is down", "nobody can log in", "I want to report an outage", "email is down for everyone"],
+      "TalkToAgent": ["agent", "talk to a person", "representative"]
+    }
+  }
+}

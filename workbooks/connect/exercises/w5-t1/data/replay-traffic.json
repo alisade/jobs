@@ -1,0 +1,128 @@
+{
+  "callers": {
+    "fin-uk": {
+      "callerVerified": true,
+      "department": "Finance",
+      "region": "uk",
+      "employeeType": "employee"
+    },
+    "fin-us": {
+      "callerVerified": true,
+      "department": "Finance",
+      "region": "us",
+      "employeeType": "employee"
+    },
+    "hr-us": {
+      "callerVerified": true,
+      "department": "HR",
+      "region": "us",
+      "employeeType": "employee"
+    },
+    "it-in": {
+      "callerVerified": true,
+      "department": "IT",
+      "region": "in",
+      "employeeType": "employee"
+    },
+    "ctr-in": {
+      "callerVerified": true,
+      "department": "IT",
+      "region": "in",
+      "employeeType": "contractor"
+    },
+    "legal-us": {
+      "callerVerified": true,
+      "department": "Legal",
+      "region": "us",
+      "employeeType": "employee"
+    },
+    "anon": {
+      "callerVerified": false,
+      "department": "",
+      "region": "us",
+      "employeeType": "employee"
+    }
+  },
+  "traffic": [
+    {
+      "contactId": "c0a80000-2f1e-4b6a-9c3d-000000000000",
+      "caller": "fin-uk",
+      "query": "map the finance drive"
+    },
+    {
+      "contactId": "c0a80001-2f1e-4b6a-9c3d-000000000001",
+      "caller": "fin-us",
+      "query": "sap posting period for quarter end"
+    },
+    {
+      "contactId": "c0a80002-2f1e-4b6a-9c3d-000000000002",
+      "caller": "fin-uk",
+      "query": "rsa token for my finance laptop"
+    },
+    {
+      "contactId": "c0a80003-2f1e-4b6a-9c3d-000000000003",
+      "caller": "hr-us",
+      "query": "change my bank account for payroll"
+    },
+    {
+      "contactId": "c0a80004-2f1e-4b6a-9c3d-000000000004",
+      "caller": "hr-us",
+      "query": "employee relations complaint"
+    },
+    {
+      "contactId": "c0a80005-2f1e-4b6a-9c3d-000000000005",
+      "caller": "it-in",
+      "query": "how do I re-enroll my vpn token"
+    },
+    {
+      "contactId": "c0a80006-2f1e-4b6a-9c3d-000000000006",
+      "caller": "ctr-in",
+      "query": "enroll my new phone for mfa"
+    },
+    {
+      "contactId": "c0a80007-2f1e-4b6a-9c3d-000000000007",
+      "caller": "legal-us",
+      "query": "legal hold on my mailbox"
+    },
+    {
+      "contactId": "c0a80008-2f1e-4b6a-9c3d-000000000008",
+      "caller": "anon",
+      "query": "connect to guest wifi"
+    },
+    {
+      "contactId": "c0a80009-2f1e-4b6a-9c3d-000000000009",
+      "caller": "fin-us",
+      "query": "out of office reply"
+    },
+    {
+      "contactId": "c0a80010-2f1e-4b6a-9c3d-000000000010",
+      "caller": "fin-us",
+      "query": "map the finance drive"
+    },
+    {
+      "contactId": "c0a80011-2f1e-4b6a-9c3d-000000000011",
+      "caller": "it-in",
+      "query": "change my bank account for payroll"
+    },
+    {
+      "contactId": "c0a80012-2f1e-4b6a-9c3d-000000000012",
+      "caller": "fin-uk",
+      "query": "how do I re-enroll my vpn token"
+    },
+    {
+      "contactId": "c0a80013-2f1e-4b6a-9c3d-000000000013",
+      "caller": "ctr-in",
+      "query": "map the finance drive"
+    },
+    {
+      "contactId": "c0a80014-2f1e-4b6a-9c3d-000000000014",
+      "caller": "anon",
+      "query": "how do I re-enroll my vpn token"
+    },
+    {
+      "contactId": "c0a80015-2f1e-4b6a-9c3d-000000000015",
+      "caller": "hr-us",
+      "query": "sap posting period for quarter end"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Five9 VCC IVR script export (simplified for the LFG migration harness).
+     Used by the Monterrey overflow team's inbound campaign "LFG Help Desk Inbound". -->
+<IVRScript name="LFG HD Inbound" campaign="LFG Help Desk Inbound" start="m1">
+  <Module id="m1" type="IfElse" condition="schedule:HelpDesk is open" true="m2" false="m9"/>
+  <Module id="m2" type="Play" prompt="F-Welcome" next="m3"/>
+  <Module id="m3" type="Menu" prompt="F-MainMenu" maxAttempts="3" noMatch="m5">
+    <Branch digit="1" next="m4"/>
+    <Branch digit="2" next="m5"/>
+  </Module>
+  <Module id="m4" type="SkillTransfer" skill="HD Password Reset" priority="2" failure="m5"/>
+  <Module id="m5" type="SkillTransfer" skill="HD General" priority="3" failure="m8"/>
+  <Module id="m8" type="Play" prompt="F-NoAgents" next="m10"/>
+  <Module id="m9" type="Play" prompt="F-Closed" next="m10"/>
+  <Module id="m10" type="Hangup"/>
+</IVRScript>

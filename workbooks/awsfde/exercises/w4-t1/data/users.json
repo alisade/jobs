@@ -1,0 +1,7 @@
+[
+  {"username": "maria.ortiz", "sub": "a1f0c2d4-0001-4a1e-9c11-acme00000001", "email": "maria.ortiz@acmefoods.example", "custom:tenant_id": "acme-foods", "provider": null},
+  {"username": "brightline-saml_jlee@brightline.example", "sub": "b2e1d3c5-0002-4b2f-8d22-brgt00000002", "email": "jlee@brightline.example", "custom:tenant_id": "brightline-health", "provider": "brightline-saml"},
+  {"username": "brightline-saml_okafor@brightline.example", "sub": "b2e1d3c5-0003-4b2f-8d22-brgt00000003", "email": "okafor@brightline.example", "custom:tenant_id": "brightline-health", "provider": "brightline-saml"},
+  {"username": "corvid-oidc_tpatel", "sub": "c3f2e4d6-0004-4c30-9e33-crvd00000004", "email": "tpatel@corvid.example", "custom:tenant_id": "corvid-logistics", "provider": "corvid-oidc"},
+  {"username": "sam.reyes", "sub": "d4a3f5e7-0005-4d41-8f44-dlta00000005", "email": "sam.reyes@deltaoutfitters.example", "custom:tenant_id": "delta-outfitters", "provider": null}
+]

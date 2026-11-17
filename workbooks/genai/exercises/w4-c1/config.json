@@ -1,0 +1,13 @@
+{
+  "alpha": 0.05,
+  "min_pairs": 5,
+  "seed": 1234,
+  "bootstrap_samples": 2000,
+  "permutation_samples": 10000,
+  "refusal_markers": ["i'm not able", "i am not able", "i can't help", "i cannot help"],
+  "metrics": {
+    "price":   {"threshold": 1000, "gated": true},
+    "refusal": {"threshold": 0.10, "gated": true},
+    "tone":    {"threshold": 0.50, "gated": false}
+  }
+}

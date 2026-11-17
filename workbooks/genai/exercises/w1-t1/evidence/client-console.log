@@ -1,0 +1,6 @@
+2026-11-06T16:58:02.110Z [assistant] connect #1 last-event-id=
+2026-11-06T16:58:17.118Z [assistant] connection #1 ended before done
+2026-11-06T16:58:17.120Z [assistant] connect #2 last-event-id=
+2026-11-06T16:58:23.792Z [assistant] done (2 connections, 1874 chars)
+2026-11-06T16:58:23.801Z [web-vitals] INP 96ms
+2026-11-06T16:58:24.010Z [analytics] assistant_answer_rendered conversation=c-9d21e0 ttft_ms=412

@@ -1,0 +1,28 @@
+{
+  "id": "backend/w6-c1",
+  "title": "Lead assignment workflow with manager approval",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 6,
+  "optional": false,
+  "area": "Workflow engines and durable execution",
+  "scenario": "Keystone replaces the CRM's assignment rules and approval process with a Temporal workflow primitive that product teams and agents start through an API. Only the region manager may approve a proposed owner, sales ops hears about anything waiting 48 hours, unclaimed leads go to the region queue at 72 hours, and an accounts API that commits then times out must never produce two owners.",
+  "task": [
+    "Score and propose with activities, then wait for an approve update or a reject signal",
+    "Validator: only the lead's region manager, no duplicate or late decisions",
+    "48 h escalation timer, 24 h more to the region queue",
+    "Assign with an idempotency key derived from the workflow id; ValidationError non-retryable",
+    "status query at every stage; deterministic workflow code"
+  ],
+  "acceptance": [
+    "Visible and hidden tests pass on the Temporal time-skipping test server (offline)",
+    "Escalation and queue timings match workflow history time",
+    "A replaced worker replays the history and continues",
+    "Exactly one assignment when the API commits then fails"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - durable execution and determinism", "href": "week6"},
+    {"label": "Week 6 Tue - signals, queries, updates and timers", "href": "week6"},
+    {"label": "Week 6 Thu - workflow primitives for product teams and agents", "href": "week6"}
+  ]
+}

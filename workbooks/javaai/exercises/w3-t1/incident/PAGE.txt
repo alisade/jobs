@@ -1,0 +1,15 @@
+INC-20533  P3  quiz-gen: "Generate quiz" fails for some lessons since Monday
+Opened 2026-11-10 13:40 by Course Ops (Dana, instructional design)
+
+Report
+  "Since Monday morning, Generate quiz shows 'Something went wrong' for a lot of our biology,
+   history and psychology lessons. Statistics and CS are fine. Retrying does not help."
+
+Work notes
+  13:55 L2: Cloud Run error rate quiz-gen 2.3% (Sun) -> 17.8% (Mon). Logs show 429 RESOURCE_EXHAUSTED
+        from Vertex AI on both days. Suspect quota: requesting a quota increase for
+        generate_content_requests_per_minute and proposing to raise retry attempts 3 -> 6.
+  14:05 Release quiz-gen 2.3 went out Mon 2026-11-10 07:10 UTC (config refactor PLAT-3317 + dependency bumps).
+        Diff in this folder.
+  14:10 Assigned to you. Logs for Sun and Mon 08:00-16:00 UTC are attached. Replayed responses for
+        every pilot lesson are in fixtures/recorded.json (recorded with filters off, with their ratings).

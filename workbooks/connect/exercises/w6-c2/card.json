@@ -1,0 +1,29 @@
+{
+  "id": "connect/w6-c2",
+  "title": "After-contact summarization pipeline with knowledge retrieval and a faithfulness eval",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 6,
+  "optional": false,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "Larkspur agents spend 90 seconds per contact typing ServiceNow work notes. Build the EventBridge-triggered pipeline that summarizes the redacted transcript with Bedrock Converse (forced tool call, guardrail), redacts again, retrieves related KB articles, writes the incident work note and contact attributes idempotently, and gate it with a deterministic faithfulness eval. Recorded fixtures only.",
+  "task": [
+    "Deterministic PII redaction before and after the model (Luhn-checked cards, SSN, email, phone, password)",
+    "Converse request with a forced record_acw_summary tool, guardrail and untrusted-data system prompt",
+    "Parse tool_use / guardrail_intervened / invalid outputs",
+    "Knowledge base Retrieve with an audience filter, score threshold and citations",
+    "Idempotent handler: claim, retry semantics, ServiceNow work note, UpdateContactAttributes",
+    "Faithfulness, hallucination and coverage eval over five recorded cases"
+  ],
+  "acceptance": [
+    "No PII reaches Bedrock or ServiceNow; guardrail and invalid outputs never reach ServiceNow",
+    "EventBridge redelivery causes no second model call or work note",
+    "Retryable failures release the claim",
+    "Eval verdicts match the expected results"
+  ],
+  "practices": [
+    {"label": "Week 6 - generative post-contact summaries vs a custom summarizer", "href": "week6"},
+    {"label": "Week 5 - Converse tool use, Guardrails, knowledge base Retrieve", "href": "week5"},
+    {"label": "Week 7 - EventBridge contact events and ServiceNow", "href": "week7"}
+  ]
+}

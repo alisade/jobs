@@ -1,0 +1,66 @@
+commit 9b41e07c2d55a1f0a3b7d2c4e6f8091a2b3c4d5e
+Author: Priya Raman <priya.raman@northwind.example>
+Date:   Thu Oct 2 16:12:44 2026 +0000
+
+    release northwind-trust 1.4.0 (storefront-host)
+
+    - SRE-412: make every trust default explicit in trust.env so the ConfigMap is the
+      single source of truth (no hidden code defaults during audits)
+    - SRE-398: open the risk breaker after 5 consecutive failures instead of 10
+    - bump anthropic 0.121.0 -> 0.122.0, httpx 0.27.2 -> 0.28.1
+    - decision log: add the "policy" field
+
+diff --git a/deploy/trust.env b/deploy/trust.env
+index 3f0c1aa..8d2e941 100644
+--- a/deploy/trust.env
++++ b/deploy/trust.env
+@@ -1,18 +1,20 @@
+ # northwind-trust settings for storefront-host (prod-us-east-1).
+ # Rendered into ConfigMap storefront-host-trust by the release pipeline.
+ # Owner: trust-platform. Change ticket required for TRUST_CHECKOUT_*.
+ 
+ RISK_API_BASE_URL=https://risk.halyard.example/v2
+ RISK_API_CLIENT_ID=northwind-storefront-prod
+ 
+ # Cart writes: cheap to undo, keep shopping alive if the risk API is sick.
+ TRUST_CART_TIMEOUT_MS=150
+ TRUST_CART_FAIL_OPEN=true
+ 
+-# Checkout: money moves next. Fails closed (code default).
++# Checkout: money moves next. Never proceed without a decision.
+ TRUST_CHECKOUT_TIMEOUT_MS=400
++TRUST_CHECKOUT_FAIL_OPEN=false
+ 
+-TRUST_BREAKER_FAILURES=10
++TRUST_BREAKER_FAILURES=5
+ TRUST_BREAKER_RESET_S=30
+ 
+ LOG_LEVEL=INFO
+ DECISION_LOG_SINK=stdout-json
+diff --git a/requirements.lock b/requirements.lock
+index 51d0e2b..a7c99f3 100644
+--- a/requirements.lock
++++ b/requirements.lock
+@@ -1,9 +1,9 @@
+-anthropic==0.121.0
++anthropic==0.122.0
+ anyio==4.14.2
+ cryptography==50.0.0
+-httpx==0.27.2
++httpx==0.28.1
+ pydantic==2.13.4
+ pyyaml==6.0.3
+ starlette==1.6.0
+ uvicorn==0.52.3
+diff --git a/northwind_trust/mixin.py b/northwind_trust/mixin.py
+index 0d1e4b2..6c3a9f0 100644
+--- a/northwind_trust/mixin.py
++++ b/northwind_trust/mixin.py
+@@ -128,6 +128,7 @@ class AgentTrustMixin:
+                 decision_id=result.decision_id if result else None,
+                 reason_codes=list(result.reason_codes) if result else [],
+                 error=error,
++                policy=policy.on_failure,
+             )
+         )
+         return result.decision if result else None

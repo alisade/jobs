@@ -1,0 +1,128 @@
+{
+  "site": "LFG IT Service Desk",
+  "channel": "VOICE",
+  "day": "Monday 2026-11-02",
+  "intervalSeconds": 1800,
+  "ahtSeconds": 372,
+  "serviceLevel": {
+    "target": 0.8,
+    "thresholdSeconds": 30
+  },
+  "maxOccupancy": 0.85,
+  "shrinkage": 0.32,
+  "intervals": [
+    {
+      "start": "06:00",
+      "calls": 16
+    },
+    {
+      "start": "06:30",
+      "calls": 27
+    },
+    {
+      "start": "07:00",
+      "calls": 50
+    },
+    {
+      "start": "07:30",
+      "calls": 76
+    },
+    {
+      "start": "08:00",
+      "calls": 90
+    },
+    {
+      "start": "08:30",
+      "calls": 99
+    },
+    {
+      "start": "09:00",
+      "calls": 96
+    },
+    {
+      "start": "09:30",
+      "calls": 86
+    },
+    {
+      "start": "10:00",
+      "calls": 80
+    },
+    {
+      "start": "10:30",
+      "calls": 74
+    },
+    {
+      "start": "11:00",
+      "calls": 71
+    },
+    {
+      "start": "11:30",
+      "calls": 72
+    },
+    {
+      "start": "12:00",
+      "calls": 76
+    },
+    {
+      "start": "12:30",
+      "calls": 73
+    },
+    {
+      "start": "13:00",
+      "calls": 67
+    },
+    {
+      "start": "13:30",
+      "calls": 63
+    },
+    {
+      "start": "14:00",
+      "calls": 60
+    },
+    {
+      "start": "14:30",
+      "calls": 54
+    },
+    {
+      "start": "15:00",
+      "calls": 46
+    },
+    {
+      "start": "15:30",
+      "calls": 39
+    },
+    {
+      "start": "16:00",
+      "calls": 31
+    },
+    {
+      "start": "16:30",
+      "calls": 24
+    },
+    {
+      "start": "17:00",
+      "calls": 18
+    },
+    {
+      "start": "17:30",
+      "calls": 13
+    },
+    {
+      "start": "18:00",
+      "calls": 10
+    },
+    {
+      "start": "18:30",
+      "calls": 8
+    },
+    {
+      "start": "19:00",
+      "calls": 5
+    },
+    {
+      "start": "19:30",
+      "calls": 3
+    }
+  ],
+  "note": "Monday is ~1.3x an average weekday (LFG averages ~1,100 voice contacts per weekday)."
+}

@@ -1,0 +1,32 @@
+LFG IT Service Desk IVR - current call tree (Avaya Experience Portal, Orchestration Designer app
+"ITSD_Main" v7, exported 2026-09-30). Prompt texts as recorded (voice talent, 2019).
+
+[ENTRY] 1-800-555-0142 / ext 4357
+  P1 "Thank you for calling the Larkspur Financial Group IT Service Desk. Please listen carefully as our
+      menu options have changed. Calls may be monitored or recorded for quality purposes. For English,
+      press 1. Para espanol, oprima 2."                                         (14 s)
+  P2 "Please enter your 6-digit employee ID followed by the pound key."          (collect, 3 tries)
+       - not found -> "That ID was not recognized." -> retry; after 3 -> continue unidentified
+       - ID is NOT passed to the agent (AACC limitation)
+  P3 MAIN MENU "For password resets or account lockouts, press 1. For software, press 2. For hardware,
+      press 3. For network, VPN or remote access, press 4. For SAP, Workday or other business
+      applications, press 5. For the status of an existing ticket, press 6. For mobile devices, press 7.
+      To hear these options again, press 9."                                     (31 s)
+    1 PASSWORD MENU "If you are locked out, press 1. If you forgot your password, press 2. If your
+        password expired, press 3. For MFA or Okta Verify, press 4. To return to the main menu, press star."
+        1,2,3 -> "You can reset your password at any time at reset.lfg.example. Please hold for the next
+                  available agent." -> VDN 4101 (skill 41 PasswordReset)
+        4 -> VDN 4102 (skill 41)
+    2 SOFTWARE MENU "For Microsoft Office, press 1. For Adobe, press 2. To request new software, press 3.
+        For all other software, press 4."  -> all options -> VDN 4201 (skill 42 General)
+    3 HARDWARE MENU "For laptops, press 1. For printers, press 2. For monitors and peripherals, press 3."
+        -> all options -> VDN 4201
+    4 NETWORK MENU "For VPN, press 1. For Wi-Fi, press 2. For remote desktop, press 3." -> VDN 4201
+    5 APPS MENU "For SAP, press 1. For Workday, press 2. For Salesforce, press 3. For anything else, press 4."
+        -> 1,3,4 -> VDN 4501 (skill 45 Applications); 2 -> VDN 4502 (skill 45, HR-trained subset)
+    6 TICKET STATUS "Please enter your ticket number." -> no integration: "An agent will assist you." -> VDN 4201
+    7 MOBILE -> VDN 4201
+    0 (any menu, undocumented) -> VDN 4201
+    no input x3 / invalid x3 -> "Goodbye." -> disconnect
+  Queue treatment: music, "Your call is important to us" every 45 s; no position or wait time; no callback.
+  After hours (20:00-06:00 ET): "The service desk is closed." -> disconnect (no outage option).

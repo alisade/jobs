@@ -1,0 +1,117 @@
+{
+  "job:http_errors:ratio_rate5m{job=\"riq-api\"}|1h": [
+    {
+      "labels": {
+        "cluster": "prod-blue"
+      },
+      "values": [
+        [
+          0,
+          0.0004
+        ],
+        [
+          1800,
+          0.0004
+        ],
+        [
+          2400,
+          0.051
+        ],
+        [
+          3600,
+          0.058
+        ]
+      ]
+    }
+  ],
+  "kube_pod_container_status_last_terminated_reason{namespace=\"mdm\"}|1h": [
+    {
+      "labels": {
+        "pod": "mdm-api-5f7b8-2q",
+        "reason": "OOMKilled"
+      },
+      "values": [
+        [
+          3600,
+          1
+        ]
+      ]
+    }
+  ],
+  "kube_poddisruptionbudget_status_pod_disruptions_allowed{namespace=\"riq\"}|1h": [
+    {
+      "labels": {
+        "poddisruptionbudget": "riq-api"
+      },
+      "values": [
+        [
+          0,
+          0
+        ],
+        [
+          3600,
+          0
+        ]
+      ]
+    }
+  ],
+  "cloudsql_cpu_utilization{database_id=\"tsl-riq-prod:riq-main\"}|1h": [
+    {
+      "labels": {},
+      "values": [
+        [
+          0,
+          0.41
+        ],
+        [
+          2400,
+          0.93
+        ],
+        [
+          3600,
+          0.95
+        ]
+      ]
+    }
+  ],
+  "histogram_quantile(0.99, sum by (le) (rate(http_request_duration_seconds_bucket{job=\"mdm-api\"}[5m])))|1h": [
+    {
+      "labels": {},
+      "values": [
+        [
+          0,
+          0.31
+        ],
+        [
+          3000,
+          2.4
+        ],
+        [
+          3600,
+          2.7
+        ]
+      ]
+    }
+  ],
+  "rdm_queue_depth|6h": [
+    {
+      "labels": {
+        "queue": "rdm-ingest"
+      },
+      "values": [
+        [
+          0,
+          1200
+        ],
+        [
+          10800,
+          31000
+        ],
+        [
+          21600,
+          52000
+        ]
+      ]
+    }
+  ]
+}

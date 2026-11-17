@@ -1,0 +1,7 @@
+{
+  "root_cause_file": "",
+  "root_cause_class": "",
+  "leaking_log_call": "",
+  "span_leak_percent_before": null,
+  "red_herring": ""
+}

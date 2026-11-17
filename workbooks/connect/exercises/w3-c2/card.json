@@ -1,0 +1,28 @@
+{
+  "id": "connect/w3-c2",
+  "title": "Voice Connector as code for the Avaya coexistence trunk",
+  "type": "coding",
+  "estimate": "1.5-2 h",
+  "week": 3,
+  "optional": false,
+  "area": "Telephony",
+  "scenario": "During coexistence LFG's Avaya SBCEs trunk to the PSTN through Chime SDK Voice Connector. CloudFormation has no Chime SDK Voice resource types, so the proof-of-concept CDK stack uses custom resources, and the security review rejected it: no encryption, private CIDRs, plaintext credentials, one Region, no logs and settings that never update. Make it production-grade, asserted offline.",
+  "task": [
+    "Two encrypted Voice Connectors (us-east-1, us-west-2) behind a Voice Connector group",
+    "Termination: public SBC CIDRs, calling regions, CPS from config; synth-time validation",
+    "Origination: TLS over TCP 5061 with priority/weight failover routes",
+    "SIP message and media metric logging; Put* calls on create and update",
+    "Termination credentials from Secrets Manager via a provider Lambda, least-privilege read"
+  ],
+  "acceptance": [
+    "Decoded SDK calls in the template match the trunk design",
+    "No plaintext password in the template; secret read scoped to one ARN",
+    "Private addresses rejected at synth",
+    "ANSWER.md explains each finding and remaining go-live work"
+  ],
+  "practices": [
+    {"label": "Week 3 Thu - Voice Connector termination, origination, encryption, logging, groups", "href": "week3"},
+    {"label": "Week 3 Tue - BYOC: what Connect supports natively and what it does not", "href": "week3"},
+    {"label": "Week 3 Wed - SBCs, TLS certificate chains and SRTP", "href": "week3"}
+  ]
+}

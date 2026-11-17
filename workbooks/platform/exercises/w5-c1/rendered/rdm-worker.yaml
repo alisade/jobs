@@ -1,0 +1,55 @@
+---
+# Source: rdm-worker/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rdm-worker
+  namespace: rdm
+  labels:
+    app.kubernetes.io/name: rdm-worker
+  annotations:
+    iam.gke.io/gcp-service-account: rdm-worker@tsl-rdm-prod.iam.gserviceaccount.com
+---
+# Source: rdm-worker/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rdm-worker
+  namespace: rdm
+spec:
+  serviceName: rdm-worker
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rdm-worker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rdm-worker
+    spec:
+      serviceAccountName: rdm-worker
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        fsGroup: 10001
+      containers:
+        - name: worker
+          image: us-docker.pkg.dev/tsl-artifacts-prod/rdm/rdm-worker:1.19.0@sha256:7284f835df3809703349b725ac6d0bdcb5374a42adae1f4d5104dcb63383a146
+          resources:
+            requests: {cpu: 250m, memory: 512Mi}
+            limits: {memory: 512Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - {name: data, mountPath: /var/lib/rdm}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 20Gi

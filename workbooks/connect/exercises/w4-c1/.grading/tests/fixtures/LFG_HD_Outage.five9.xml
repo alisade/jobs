@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IVRScript name="LFG HD Outage" campaign="LFG Outage Line">
+  <Module id="a1" type="Play" prompt="F-Outage" next="a2"/>
+  <Module id="a2" type="IfElse" condition="schedule:VIP is open" true="a3" false="a6"/>
+  <Module id="a3" type="GetDigits" prompt="F-Badge" variable="badge" next="a4" failure="a6"/>
+  <Module id="a4" type="Menu" prompt="F-MainMenu" maxAttempts="2" noMatch="a6">
+    <Branch digit="1" next="a5"/>
+    <Branch digit="9" next="a7"/>
+  </Module>
+  <Module id="a5" type="SkillTransfer" skill="HD VIP" priority="1" failure="a6"/>
+  <Module id="a6" type="SkillTransfer" skill="HD Major Incident" priority="2" failure="a8"/>
+  <Module id="a7" type="Hangup"/>
+  <Module id="a8" type="Play" prompt="F-NoAgents" next="a7"/>
+</IVRScript>

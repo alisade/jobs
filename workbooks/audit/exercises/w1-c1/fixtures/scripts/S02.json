@@ -1,0 +1,70 @@
+[
+ {
+  "candidates": [
+   {
+    "content": {
+     "role": "model",
+     "parts": [
+      {
+       "function_call": {
+        "name": "get_ticket_approvals",
+        "args": {
+         "change_id": "CHG-104163"
+        }
+       }
+      }
+     ]
+    },
+    "finish_reason": "STOP"
+   }
+  ],
+  "usage_metadata": {
+   "prompt_token_count": 850,
+   "candidates_token_count": 20,
+   "total_token_count": 870
+  },
+  "model_version": "gemini-3.8-flash"
+ },
+ {
+  "candidates": [
+   {
+    "content": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "{\"change_id\": \"CHG-104163\", \"pr_number\": 2240, \"author\": \"mreyes\", \"approver\": \"tnguy"
+      }
+     ]
+    },
+    "finish_reason": "MAX_TOKENS"
+   }
+  ],
+  "usage_metadata": {
+   "prompt_token_count": 900,
+   "candidates_token_count": 1024,
+   "total_token_count": 1924
+  },
+  "model_version": "gemini-3.8-flash"
+ },
+ {
+  "candidates": [
+   {
+    "content": {
+     "role": "model",
+     "parts": [
+      {
+       "text": "{\"change_id\": \"CHG-104163\", \"pr_number\": 2240, \"author\": \"mreyes\", \"approver\": \"tnguyen\", \"approval_at\": \"2026-03-11T10:05:00-05:00\", \"tests_passed\": true, \"citations\": [{\"source\": \"ticket\", \"locator\": \"approvals[0]\", \"quote\": \"approved\"}, {\"source\": \"pr\", \"locator\": \"checks.conclusion\", \"quote\": \"success\"}]}"
+      }
+     ]
+    },
+    "finish_reason": "STOP"
+   }
+  ],
+  "usage_metadata": {
+   "prompt_token_count": 900,
+   "candidates_token_count": 120,
+   "total_token_count": 1020
+  },
+  "model_version": "gemini-3.8-flash"
+ }
+]

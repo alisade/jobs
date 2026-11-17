@@ -1,0 +1,4 @@
+2026-11-12T16:05:40Z gate: python3 remediate.py --before sbom/before.cdx.json --after sbom/after.cdx.json --advisories advisories --out report --fail-on CRITICAL
+2026-11-12T16:05:41Z gate: {"fixed": 2, "remaining": 1, "introduced": 1, "open_by_severity": {"CRITICAL": 0, "HIGH": 2, "MEDIUM": 0, "LOW": 0}}
+2026-11-12T16:05:41Z gate: exit 0 -> PASS (no open CRITICAL)
+2026-11-12T16:05:41Z gate: HIGH findings accepted under risk acceptance RA-0412 (tomcat-embed-core, commons-compress) until 2026-12-31

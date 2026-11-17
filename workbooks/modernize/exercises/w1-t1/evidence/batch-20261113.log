@@ -1,0 +1,12 @@
+2026-11-13T02:10:00-05:00 cron[4411]: starting claimdesk-intake 4.13.0
+2026-11-13T02:10:00-05:00 launcher: JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+2026-11-13T02:10:00-05:00 launcher: JAVA_OPTS=-Xms512m -Xmx2g --illegal-access=permit -Dfile.encoding=UTF-8
+OpenJDK 64-Bit Server VM warning: Ignoring option --illegal-access=permit; support was removed in 17.0
+2026-11-13T02:10:01-05:00 launcher: classpath=lib/claimdesk-intake-4.13.0.jar:lib/jackson-databind-2.17.2.jar:lib/jackson-annotations-2.17.2.jar:lib/jackson-core-2.13.5.jar:lib/jackson-datatype-jsr310-2.17.2.jar
+[intake] parsed FNOL-20261112-0001.json claim=CLM-2026-118204
+Exception in thread "main" java.lang.NoSuchMethodError: 'void com.fasterxml.jackson.core.util.BufferRecycler.releaseToPool()'
+	at com.fasterxml.jackson.databind.ObjectMapper.writeValueAsString(ObjectMapper.java:4047)
+	at com.corvane.claimdesk.intake.ClaimEventPublisher.claimOpened(ClaimEventPublisher.java:22)
+	at com.corvane.claimdesk.intake.IntakeBatch.run(IntakeBatch.java:31)
+	at com.corvane.claimdesk.intake.IntakeBatch.main(IntakeBatch.java:42)
+2026-11-13T02:10:02-05:00 cron[4411]: claimdesk-intake exited 1

@@ -1,0 +1,26 @@
+{
+  "id": "connect/x-3",
+  "title": "Lex fallbacks after a slot type change",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 10,
+  "optional": true,
+  "area": "Lex, Bedrock and AI",
+  "scenario": "After HelpDeskBot version 8 went live, Larkspur callers hear 'Sorry, I didn't get that' or are asked 'Which system is this about?' repeatedly, and outage reports land with general agents. On-call blames the new voice and wants to lower the confidence threshold; the ServiceNow team needs CMDB codes from the bot. You get conversation logs, analytics, the release note and both deployed bot exports.",
+  "task": [
+    "Diff the deployed bot versions and tie the change to confidence drops and empty slots in the logs",
+    "Rule the voice and threshold theories in or out",
+    "Fix the slot type so callers are understood and the slot still resolves to CMDB codes",
+    "Verify with the eval set and write it up"
+  ],
+  "acceptance": [
+    "Eval and held-out utterances get the right intent and CMDB code",
+    "Outage statements recognized with high confidence",
+    "Threshold unchanged; codes kept with spoken synonyms and top resolution",
+    "Root cause with evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - Lex V2 slots, slot types, resolution and confidence", "href": "week5"},
+    {"label": "Week 10 - bot tuning drills", "href": "week10"}
+  ]
+}

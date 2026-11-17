@@ -1,0 +1,40 @@
+{
+  "scenario": "return-window",
+  "run": 3,
+  "messages": [
+    {
+      "role": "user",
+      "content": "What's your return window on headphones? I might need a refund."
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "You can return headphones within 30 days of delivery; refunds are issued to your original payment method."
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_ret301",
+          "name": "present_suggestions",
+          "input": {
+            "suggestions": [
+              "Start a return",
+              "Shop headphones"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_ret301",
+          "content": "Displayed to the customer."
+        }
+      ]
+    }
+  ]
+}

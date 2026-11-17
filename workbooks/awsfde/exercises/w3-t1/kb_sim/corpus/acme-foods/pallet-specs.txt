@@ -1,0 +1,1 @@
+Pallet specifications. Acme ships on 48 by 40 GMA pallets, maximum height 60 inches, maximum weight 2200 pounds, stretch wrapped with corner boards.

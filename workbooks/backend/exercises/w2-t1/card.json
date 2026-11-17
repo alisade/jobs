@@ -1,0 +1,25 @@
+{
+  "id": "backend/w2-t1",
+  "title": "The account timeline got slow after release 2026.44",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 2,
+  "optional": false,
+  "area": "PostgreSQL: modeling, indexing, RLS, migrations",
+  "scenario": "Since the 2026.44 rollout the Keystone account timeline p95 went from 200 ms to 1.8 s, worst for Lumenfold's biggest customer, and the agent assistant times out fetching timelines. The on-call SRE scaled the service and ran ANALYZE by hand; nothing changed. You get the pager, on-call log, p95 graph, release diff, pg_stat_statements, the Postgres log and live PGlite to EXPLAIN the query as the service runs it.",
+  "task": [
+    "Find the root cause from the plans, the diff and pg_stat_statements; rule out stats, capacity and data growth with evidence",
+    "Fix forward in queries/timeline.sql while keeping the reason for the 2026.44 change",
+    "Verify with make explain and the tests",
+    "Write the root cause, evidence and prevention in ANSWER.md"
+  ],
+  "acceptance": [
+    "Plan seeks the composite index on account_id, no Seq Scan, no Sort, a handful of buffers",
+    "Same rows as before across pages; works with text-typed parameters",
+    "ANSWER.md root cause backed by quoted plan and statement evidence"
+  ],
+  "practices": [
+    {"label": "Week 2 Wed - reading plans (EXPLAIN, pg_stat_statements)", "href": "week2"},
+    {"label": "Week 2 Tue - indexes", "href": "week2"}
+  ]
+}

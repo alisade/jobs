@@ -1,0 +1,24 @@
+{
+  "name": "System",
+  "identifier": "SYSREPORTO",
+  "description": null,
+  "slotTypeName": "SystemName",
+  "slotConstraint": "Optional",
+  "obfuscationSetting": {
+    "obfuscationSettingType": "None"
+  },
+  "slotValueElicitationSetting": {
+    "promptSpecification": {
+      "messageGroupList": [
+        {
+          "message": {
+            "plainTextMessage": {
+              "value": "Which system is this about?"
+            }
+          }
+        }
+      ],
+      "maxRetries": 2
+    }
+  }
+}

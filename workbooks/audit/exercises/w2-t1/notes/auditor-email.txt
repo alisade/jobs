@@ -1,0 +1,9 @@
+From: external audit senior (Calloway Hart LLP)
+To: MFH Internal Audit
+Date: 2026-07-09
+Subject: CM-03 H1 population - does not reconcile
+
+Your CM-03 population file for mfh/tms-core lists 38 changes for 2026-01-01 to 2026-06-30.
+DeployHub's production change report for the same period, which we obtained directly, shows 421.
+We cannot rely on the population or on any sample drawn from it. Please explain the difference,
+re-extract, and send the extraction query and parameters (IPE) with the new file.

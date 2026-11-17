@@ -1,0 +1,34 @@
+{
+  "output": {
+    "message": {
+      "role": "assistant",
+      "content": [
+        {
+          "toolUse": {
+            "toolUseId": "tooluse_1200",
+            "name": "record_acw_summary",
+            "input": {
+              "issue": "Needs access to the Finance SharePoint site.",
+              "actionsTaken": [
+                "Raised access request RITM0098812"
+              ],
+              "followUps": [
+                "Manager approval pending"
+              ],
+              "sentiment": "NEUTRAL"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "stopReason": "tool_use",
+  "usage": {
+    "inputTokens": 820,
+    "outputTokens": 170,
+    "totalTokens": 990
+  },
+  "metrics": {
+    "latencyMs": 1200
+  }
+}

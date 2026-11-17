@@ -1,0 +1,35 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "tag-contact",
+  "Metadata": {
+    "name": "lfg-handoff",
+    "description": "Shared handoff steps. Modules cannot read the invoking flow's Lex, Lambda ($.External) or stored-input data: callers copy what the module needs into contact attributes first."
+  },
+  "Actions": [
+    {
+      "Identifier": "tag-contact",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "handoffModuleVersion": "2"
+        },
+        "TargetContact": "Current"
+      },
+      "Transitions": {
+        "NextAction": "return",
+        "Errors": [
+          {
+            "NextAction": "return",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "return",
+      "Type": "EndFlowModuleExecution",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

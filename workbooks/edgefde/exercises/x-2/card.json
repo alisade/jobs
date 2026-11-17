@@ -1,0 +1,24 @@
+{
+  "id": "edgefde/x-2",
+  "title": "Spikes at every chunk boundary in the streaming band-pass",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 7,
+  "optional": true,
+  "area": "Signal processing and sensor data",
+  "scenario": "After moving the impact detector from batch captures to the live stream in 1-second chunks, every pump alerts every second with kurtosis 12-15, including a freshly rebuilt one. The driver also logs clock drift.",
+  "task": [
+    "Find why healthy pumps alert on every chunk, with sample-level evidence",
+    "Rule the clock drift in or out",
+    "Make the streaming filter chunk-size invariant and make reset() work"
+  ],
+  "acceptance": [
+    "Chunked output equals one-shot causal filtering within 1e-9 for three chunk sizes",
+    "Causal, no edge transients, healthy quiet, faulty alerts",
+    "ANSWER.md: root cause, red herring, why not zero-phase"
+  ],
+  "practices": [
+    {"label": "Week 2 Wed - filters: FIR vs IIR, filtfilt offline, state when streaming", "href": "week2"},
+    {"label": "Week 7 - field drills", "href": "week7"}
+  ]
+}

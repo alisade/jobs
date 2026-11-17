@@ -1,0 +1,9 @@
+# /opt/claimdesk/bin/run-recon-extract.sh on cdk-batch-stg-01 (JDK 21)
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+exec "${JAVA_HOME}/bin/java" -Xmx512m -Duser.timezone=America/New_York \
+  -cp /opt/claimdesk/lib/claimdesk-recon-extract-2.6.0.jar com.corvane.claimdesk.recon.ExtractJob "$@"
+# java -XshowSettings:properties excerpt
+#   file.encoding = UTF-8
+#   native.encoding = UTF-8
+#   user.timezone = America/New_York
+#   java.version = 21.0.5

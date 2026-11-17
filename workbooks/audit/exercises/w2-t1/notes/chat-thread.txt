@@ -1,0 +1,6 @@
+#audit-innovation  2026-07-09
+09:14 rob.m: 38 vs 421, that is a lot of missing PRs. probably the time-zone thing again, merged_at is UTC and we filter by Chicago date
+09:16 rob.m: or the API token lost read access to some PRs?
+09:20 dana.k: the export finished with no errors, exit 0, no 403s in the log
+09:22 rob.m: could also be the GHE upgrade last weekend, they changed something about per_page I think
+09:25 lead: get me the root cause with evidence before we send anything back to the auditor

@@ -1,0 +1,29 @@
+{
+  "id": "connect/w1-c2",
+  "title": "Help desk instance as code (CDK)",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Connect platform and architecture",
+  "scenario": "LFG deploys one Connect instance per environment from one CDK app. The hand-written pilot stack has no routing profiles, UTC hours, outage reports bouncing at 8 PM and dev ARNs string-replaced into the inbound flow, so prod would point at dev resources. Make it config-driven and environment-safe; synth is offline.",
+  "task": [
+    "Instance with SAML, flow logs, Contact Lens, early media; retained in prod; tagged",
+    "Hours per config with time zone; holidays as CLOSED overrides on staffed hours only",
+    "Queues on their own hours; routing profiles with voice/chat concurrency, priority and delay",
+    "Lex V2 bot with intents and fallback, numbered version, live alias, Connect association",
+    "Flow content via Fn::Sub resolving every placeholder to this stack's resources"
+  ],
+  "acceptance": [
+    "aws-cdk-lib/assertions checks pass for dev and prod",
+    "Unknown queue, unknown placeholder or unknown environment fail synth with a clear message",
+    "No account-specific ARN in the flow body",
+    "ANSWER.md covers CFN gaps for Connect and flow promotion"
+  ],
+  "practices": [
+    {"label": "Week 1 Mon - instance model and what is new since 2024", "href": "week1"},
+    {"label": "Week 1 Wed - queues, routing profiles, priority and delay", "href": "week1"},
+    {"label": "Week 1 Thu - CloudFormation/CDK/Terraform support for Connect", "href": "week1"},
+    {"label": "Week 8 - promoting flows across environments", "href": "week8"}
+  ]
+}

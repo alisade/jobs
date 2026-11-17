@@ -1,0 +1,27 @@
+{
+  "id": "genai/w6-c1",
+  "title": "Catalog enrichment with validated structured output",
+  "type": "coding",
+  "estimate": "2-2.5 h",
+  "week": 6,
+  "optional": false,
+  "area": "Retail GenAI and structured outputs",
+  "scenario": "Kestrel onboards 4,000 supplier products a season from messy free-text feeds. Build the nightly batch that turns them into structured attributes with a model, publishes only what the supplier text supports, and routes the rest to human review, without re-billing unchanged items or blowing the budget.",
+  "task": [
+    "Pydantic contract with taxonomy, lengths and ranges; retry once with the validation error",
+    "Grounding checks: materials, colors, weights and capacities with unit conversion",
+    "Banned and conditional claims, low confidence, review queue with reasons",
+    "Idempotent re-runs keyed by SKU and source hash; a per-batch cost cap"
+  ],
+  "acceptance": [
+    "At most two model calls per item; the retry carries the error",
+    "Invented attributes caught; 45 qt is 42.6 L, not 45 L",
+    "Unchanged feed re-run makes zero model calls",
+    "Cost cap stops the batch and lists skipped items"
+  ],
+  "practices": [
+    {"label": "Week 6 - retail GenAI use cases and risks", "href": "week6"},
+    {"label": "Week 2 - Pydantic models as the contract", "href": "week2"},
+    {"label": "Week 4 - deterministic checks before LLM-as-judge", "href": "week4"}
+  ]
+}

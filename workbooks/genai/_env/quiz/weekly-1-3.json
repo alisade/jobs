@@ -1,0 +1,766 @@
+{
+ "questions": [
+  {
+   "id": "w1-q01",
+   "week": 1,
+   "area": "frontend",
+   "type": "single",
+   "stem": "The assistant panel appends tokens with <code>setText(text + ev.text)</code> inside a <code>for await</code> loop. Under a fast stream, words go missing. Why?",
+   "options": [
+    "React drops state updates that arrive faster than 60 per second",
+    "The closure captures <code>text</code> from the render that started the loop, so every update writes stale text plus one token",
+    "<code>for await</code> skips iterations when the component re-renders",
+    "TextDecoder is not called with <code>stream: true</code>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "State values are snapshots per render. A long-running async loop keeps the first snapshot. Use a functional update (<code>setText(t =&gt; t + x)</code>) or a ref.",
+   "learn": [
+    {
+     "label": "React: Learn",
+     "href": "https://react.dev/learn"
+    },
+    {
+     "label": "Thinking in React",
+     "href": "https://react.dev/learn/thinking-in-react"
+    }
+   ]
+  },
+  {
+   "id": "w1-q02",
+   "week": 1,
+   "area": "frontend",
+   "type": "multi",
+   "stem": "Why does the Kestrel gateway client use <code>fetch</code> with a stream reader instead of the browser's <code>EventSource</code>? Choose two.",
+   "options": [
+    "EventSource only supports GET, so the prompt cannot go in a JSON body",
+    "EventSource cannot parse multi-line data fields",
+    "EventSource cannot set custom request headers such as Authorization",
+    "fetch streams are delivered in event order and EventSource ones are not"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "EventSource is GET-only with no custom headers. It does reconnect automatically and sends Last-Event-ID, which you have to rebuild yourself with fetch.",
+   "learn": [
+    {
+     "label": "Using Server-Sent Events (MDN)",
+     "href": "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events"
+    },
+    {
+     "label": "Claude streaming",
+     "href": "https://platform.claude.com/docs/en/build-with-claude/streaming"
+    }
+   ]
+  },
+  {
+   "id": "w1-q03",
+   "week": 1,
+   "area": "frontend",
+   "type": "single",
+   "stem": "A network chunk ends with <code>\\r</code>. What must an incremental SSE parser do?",
+   "options": [
+    "Treat it as a complete line ending and also dispatch the event",
+    "Process the line, but remember that a <code>\\n</code> at the start of the next chunk belongs to this CRLF",
+    "Discard the chunk and wait for a retry",
+    "Nothing: SSE only allows LF"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "SSE allows CRLF, LF and bare CR. A CR at a chunk boundary is ambiguous until the next chunk arrives. If you get this wrong, a CRLF split across chunks produces an empty line and dispatches an event too early.",
+   "learn": [
+    {
+     "label": "Using Server-Sent Events (MDN)",
+     "href": "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events"
+    }
+   ]
+  },
+  {
+   "id": "w1-q04",
+   "week": 1,
+   "area": "frontend",
+   "type": "multi",
+   "stem": "The user clicks Stop while an answer streams. Which behaviours are correct? Choose two.",
+   "options": [
+    "Abort the request with an AbortController so the server stops generating",
+    "Show an error alert so the user knows the answer is incomplete",
+    "Keep the partial text and mark the answer as stopped",
+    "Leave the reader open so the answer can resume later"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Abort to stop the generation and the cost. An abort is the user's intent, not an error, so keep what was shown and label it.",
+   "learn": [
+    {
+     "label": "Claude streaming",
+     "href": "https://platform.claude.com/docs/en/build-with-claude/streaming"
+    },
+    {
+     "label": "Guidelines for Human-AI Interaction",
+     "href": "https://www.microsoft.com/en-us/research/project/guidelines-for-human-ai-interaction/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q05",
+   "week": 1,
+   "area": "frontend",
+   "type": "single",
+   "stem": "With React Testing Library, which query best checks that the streamed answer appears in the accessible answer region?",
+   "options": [
+    "<code>container.querySelector('.answer')</code>",
+    "<code>screen.getByRole('log', { name: 'Assistant answer' })</code>",
+    "<code>screen.getByTestId('answer')</code>",
+    "Snapshot the whole component"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Query the way a user or assistive technology finds an element: by role and accessible name. Test ids and CSS selectors couple tests to implementation details.",
+   "learn": [
+    {
+     "label": "React Testing Library",
+     "href": "https://testing-library.com/docs/react-testing-library/intro/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q06",
+   "week": 1,
+   "area": "frontend",
+   "type": "single",
+   "stem": "Product cards in the chat should come from:",
+   "options": [
+    "Regex over the model's text for SKUs and prices",
+    "Structured events (or tool results) the server emits, validated on the client",
+    "A second model call that converts the answer to JSON",
+    "Whatever the model writes inside a markdown table"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Render UI from structured data your services produced, not from prose the model wrote. Prices and stock shown as fact must come from the system of record.",
+   "learn": [
+    {
+     "label": "Reduce hallucinations",
+     "href": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+    },
+    {
+     "label": "Using TypeScript with React",
+     "href": "https://react.dev/learn/typescript"
+    }
+   ]
+  },
+  {
+   "id": "w1-q07",
+   "week": 1,
+   "area": "frontend",
+   "type": "single",
+   "stem": "TanStack Query is the right tool for which part of the storefront?",
+   "options": [
+    "The token stream of the chat answer",
+    "Server state such as product lists: caching, loading and error states, refetch and invalidation",
+    "Global UI state such as whether the chat panel is open",
+    "Form validation"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "TanStack Query manages server state. A one-off stream lives in a hook with its own lifecycle; UI state stays in components or context.",
+   "learn": [
+    {
+     "label": "TanStack Query for React",
+     "href": "https://tanstack.com/query/latest/docs/framework/react/overview"
+    }
+   ]
+  },
+  {
+   "id": "w1-q08",
+   "week": 1,
+   "area": "frontend",
+   "type": "multi",
+   "stem": "Which UX choices follow the human-AI interaction guidelines for a shopping assistant? Choose three.",
+   "options": [
+    "Disclose that the user is talking to an AI assistant",
+    "Hide errors and show a generic answer instead",
+    "Offer a clear path to a human",
+    "Let users stop or correct the assistant",
+    "Present prices from the model as final"
+   ],
+   "answer": [
+    0,
+    2,
+    3
+   ],
+   "explanation": "Make clear what the system can do and how well, support efficient correction and dismissal, and offer escalation. Never present unverified model output as fact.",
+   "learn": [
+    {
+     "label": "Guidelines for Human-AI Interaction",
+     "href": "https://www.microsoft.com/en-us/research/project/guidelines-for-human-ai-interaction/"
+    },
+    {
+     "label": "People + AI Guidebook",
+     "href": "https://pair.withgoogle.com/guidebook/"
+    },
+    {
+     "label": "10 guidelines for designing AI chatbots (NN/g)",
+     "href": "https://www.nngroup.com/articles/ai-chatbots-design-guidelines/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q09",
+   "week": 1,
+   "area": "frontend",
+   "type": "single",
+   "stem": "A stream ends cleanly (the reader reports done) but no <code>done</code> event arrived. What should the UI do?",
+   "options": [
+    "Treat it as complete",
+    "Treat it as a dropped connection and offer retry",
+    "Reload the page",
+    "Hide the partial text"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A proxy timeout or crash can close the connection cleanly. Without the terminal event you cannot know whether the answer is complete, so say so.",
+   "learn": [
+    {
+     "label": "Using Server-Sent Events (MDN)",
+     "href": "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events"
+    }
+   ]
+  },
+  {
+   "id": "w1-q10",
+   "week": 1,
+   "area": "assist",
+   "type": "single",
+   "stem": "You are asked in an interview how you use AI coding assistants on an unfamiliar repo. Which answer shows the most control?",
+   "options": [
+    "I let the assistant write the feature and open the PR",
+    "I map the repo with the assistant, write a rules file, have it propose a plan, then implement in small steps with tests I review and run",
+    "I avoid assistants on unfamiliar code",
+    "I paste the whole repo into a chat"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Show a deliberate workflow: context first, a plan reviewed by a human, small verifiable steps, tests as the gate, and ownership of the result.",
+   "learn": [
+    {
+     "label": "Claude Code memory (CLAUDE.md)",
+     "href": "https://code.claude.com/docs/en/memory"
+    },
+    {
+     "label": "Google engineering practices: code review",
+     "href": "https://google.github.io/eng-practices/review/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q01",
+   "week": 2,
+   "area": "backend",
+   "type": "single",
+   "stem": "An <code>async def</code> FastAPI endpoint calls a synchronous SDK that does blocking HTTP. What happens under load?",
+   "options": [
+    "FastAPI runs it in a threadpool automatically",
+    "The event loop thread is blocked for each call, so every request on that worker, health checks included, waits",
+    "Only that endpoint slows down",
+    "Python raises a RuntimeError"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "FastAPI runs <code>async def</code> on the event loop. Blocking inside it stalls everything on that worker. Use <code>def</code> (threadpool), <code>run_in_threadpool</code> or an async client.",
+   "learn": [
+    {
+     "label": "FastAPI: concurrency and async/await",
+     "href": "https://fastapi.tiangolo.com/async/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q02",
+   "week": 2,
+   "area": "backend",
+   "type": "single",
+   "stem": "How do you test a FastAPI route without the real model client?",
+   "options": [
+    "Monkeypatch the requests library globally",
+    "Inject the client with <code>Depends</code> and replace it with <code>app.dependency_overrides</code> in the test",
+    "Set an environment variable that disables the model",
+    "Mock the network at the OS level"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Dependency injection plus overrides gives deterministic tests and keeps the production wiring honest.",
+   "learn": [
+    {
+     "label": "FastAPI: testing with dependency overrides",
+     "href": "https://fastapi.tiangolo.com/advanced/testing-dependencies/"
+    },
+    {
+     "label": "pytest docs",
+     "href": "https://docs.pytest.org/en/stable/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q03",
+   "week": 2,
+   "area": "backend",
+   "type": "multi",
+   "stem": "Why use keyset (cursor) pagination for product search instead of offset? Choose two.",
+   "options": [
+    "Items do not repeat or disappear when rows are inserted between page requests",
+    "It allows jumping straight to page 50",
+    "Cost does not grow with the page number",
+    "It needs no ORDER BY"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Keyset pagination needs a stable, unique sort key, such as (price, sku). It is consistent under writes and cheap at depth. It cannot jump to an arbitrary page.",
+   "learn": [
+    {
+     "label": "SQLAlchemy 2.0 docs",
+     "href": "https://docs.sqlalchemy.org/en/20/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q04",
+   "week": 2,
+   "area": "backend",
+   "type": "single",
+   "stem": "A reservation endpoint receives the same <code>Idempotency-Key</code> twice with the same body. Correct behaviour?",
+   "options": [
+    "Create a second reservation",
+    "Return 409 Conflict",
+    "Return the stored response of the first request and change nothing",
+    "Return 204 No Content"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Idempotency makes client retries safe. Store the key with a request hash and the response. A different body under the same key is a client error.",
+   "learn": [
+    {
+     "label": "Microservice architecture patterns",
+     "href": "https://microservices.io/patterns/microservices.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q05",
+   "week": 2,
+   "area": "backend",
+   "type": "single",
+   "stem": "Your React team hand-writes TypeScript interfaces for the catalog API, and they drift. What fixes it at the source?",
+   "options": [
+    "A shared Slack channel",
+    "Export OpenAPI from FastAPI, generate the TS types (openapi-typescript), commit both, and fail CI on drift",
+    "Use <code>any</code> for API responses",
+    "Write JSON schema by hand"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Make the server's models the single source of truth and generate the client types. CI checks turn drift into a build failure.",
+   "learn": [
+    {
+     "label": "OpenAPI specification",
+     "href": "https://swagger.io/specification/"
+    },
+    {
+     "label": "openapi-typescript",
+     "href": "https://openapi-ts.dev/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q06",
+   "week": 2,
+   "area": "backend",
+   "type": "single",
+   "stem": "Which error format is the standard choice for HTTP APIs?",
+   "options": [
+    "Plain text messages",
+    "RFC 9457 problem details (application/problem+json)",
+    "HTML error pages",
+    "A 200 with an error field"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Problem details give clients a stable machine-readable type, title, status and detail. Declare them in OpenAPI so generated clients know the shape.",
+   "learn": [
+    {
+     "label": "OpenAPI specification",
+     "href": "https://swagger.io/specification/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q07",
+   "week": 2,
+   "area": "backend",
+   "type": "multi",
+   "stem": "Which belong in environment configuration rather than code, following twelve-factor? Choose two.",
+   "options": [
+    "Model provider API keys",
+    "The list of tool names",
+    "Database URL",
+    "The Pydantic response models"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Config that varies between deploys (credentials, URLs) goes in the environment. Code-level contracts stay in code.",
+   "learn": [
+    {
+     "label": "The Twelve-Factor App",
+     "href": "https://12factor.net/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q08",
+   "week": 2,
+   "area": "backend",
+   "type": "single",
+   "stem": "When does <code>async def</code> genuinely help a GenAI backend?",
+   "options": [
+    "CPU-heavy tokenization",
+    "Many concurrent requests that spend most of their time waiting on model and database I/O through async clients",
+    "Any endpoint, always",
+    "Only for websockets"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Async lets one worker hold many waiting requests. It does nothing for CPU-bound work and hurts if you call blocking code inside it.",
+   "learn": [
+    {
+     "label": "FastAPI: concurrency and async/await",
+     "href": "https://fastapi.tiangolo.com/async/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q09",
+   "week": 2,
+   "area": "genai",
+   "type": "single",
+   "stem": "You validate model output with a Pydantic model and it fails. Best next step in production?",
+   "options": [
+    "Return a 500",
+    "Retry once with the validation error fed back to the model, then fall back to a safe path",
+    "Strip the invalid fields silently",
+    "Increase temperature and retry five times"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Treat the schema as a contract. One repair attempt with the concrete error usually works. After that, route the item to a fallback or a human instead of looping.",
+   "learn": [
+    {
+     "label": "Pydantic docs",
+     "href": "https://pydantic.dev/docs/validation/latest/get-started/"
+    },
+    {
+     "label": "Claude tool use overview",
+     "href": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
+    }
+   ]
+  },
+  {
+   "id": "w2-q10",
+   "week": 2,
+   "area": "backend",
+   "type": "single",
+   "stem": "Liveness vs readiness for the catalog service: which is right?",
+   "options": [
+    "Liveness should call the database and the model provider",
+    "Liveness says the process can make progress; readiness says it should receive traffic and may check dependencies",
+    "Both should return 200 always",
+    "Readiness should restart the pod"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A liveness probe that depends on downstreams turns a dependency blip into a restart storm.",
+   "learn": [
+    {
+     "label": "The Twelve-Factor App",
+     "href": "https://12factor.net/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q01",
+   "week": 3,
+   "area": "genai",
+   "type": "single",
+   "stem": "A client timeout is 10 s, but long answers take 14 s, and the client retries on timeout. What does this cost?",
+   "options": [
+    "Nothing, timed-out requests are not billed",
+    "Each retry is a full generation that the provider completes and bills, so one question can cost several answers",
+    "Only input tokens are billed twice",
+    "The provider cancels the first request automatically"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The server keeps generating after the client gives up. Size timeouts to the output budget or stream, retry only what is retryable, and cap attempts across fallbacks.",
+   "learn": [
+    {
+     "label": "Claude API rate limits",
+     "href": "https://platform.claude.com/docs/en/api/rate-limits"
+    },
+    {
+     "label": "Claude streaming",
+     "href": "https://platform.claude.com/docs/en/build-with-claude/streaming"
+    }
+   ]
+  },
+  {
+   "id": "w3-q02",
+   "week": 3,
+   "area": "genai",
+   "type": "multi",
+   "stem": "Which errors should an LLM gateway retry with backoff? Choose two.",
+   "options": [
+    "429 rate limited (honour retry-after)",
+    "400 invalid request (prompt too long)",
+    "529 / 503 overloaded",
+    "401 unauthorized"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Retry transient capacity errors with exponential backoff and jitter. Client errors will fail the same way every time.",
+   "learn": [
+    {
+     "label": "Claude API rate limits",
+     "href": "https://platform.claude.com/docs/en/api/rate-limits"
+    }
+   ]
+  },
+  {
+   "id": "w3-q03",
+   "week": 3,
+   "area": "genai",
+   "type": "single",
+   "stem": "Where must the rule 'a return needs the customer's confirmation' be enforced?",
+   "options": [
+    "In the system prompt",
+    "In the tool description",
+    "In code: the write tool only creates a pending action that a separate confirm call executes",
+    "In the model's fine-tuning"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Instructions are guidance; the model can be steered or can make mistakes. Enforce controls in the code paths the model cannot reach.",
+   "learn": [
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    },
+    {
+     "label": "The lethal trifecta",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q04",
+   "week": 3,
+   "area": "security",
+   "type": "single",
+   "stem": "The order tool should behave how when a customer asks about someone else's order id?",
+   "options": [
+    "Return the order but hide the name",
+    "Return the same error as for a missing order",
+    "Return 'access denied: belongs to another customer'",
+    "Ask the model to decide"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The agent acts with the caller's permissions. The same response for 'not yours' and 'missing' leaks nothing.",
+   "learn": [
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q05",
+   "week": 3,
+   "area": "genai",
+   "type": "single",
+   "stem": "How should prompt layout look for good prompt caching?",
+   "options": [
+    "Dynamic data first, static instructions last",
+    "Static system prompt and tool definitions first, cache breakpoint, then per-request data",
+    "Put the current timestamp at the top so the cache stays fresh",
+    "Caching is automatic regardless of order"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The cache matches a byte-identical prefix. Anything that changes per request must come after the breakpoint.",
+   "learn": [
+    {
+     "label": "Claude prompt caching",
+     "href": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching"
+    }
+   ]
+  },
+  {
+   "id": "w3-q06",
+   "week": 3,
+   "area": "genai",
+   "type": "single",
+   "stem": "A tool fails with a backend 503. What goes back to the model?",
+   "options": [
+    "Nothing; abort the request",
+    "A tool_result with is_error true and an actionable message",
+    "A fake successful result",
+    "The full stack trace"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Structured errors let the model recover or apologise. Stack traces waste context and can leak internals.",
+   "learn": [
+    {
+     "label": "Claude tool use overview",
+     "href": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
+    },
+    {
+     "label": "Writing effective tools for agents",
+     "href": "https://www.anthropic.com/research/writing-tools-for-agents"
+    }
+   ]
+  },
+  {
+   "id": "w3-q07",
+   "week": 3,
+   "area": "genai",
+   "type": "multi",
+   "stem": "Which measures belong in a per-request cost and latency budget? Choose three.",
+   "options": [
+    "Input, output and cache tokens per call",
+    "Time to first token",
+    "Number of attempts including discarded ones",
+    "The model's temperature",
+    "Lines of code in the service"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Log tokens and cost per attempt, including retries you threw away, plus user-visible latency. OTel GenAI conventions name these attributes.",
+   "learn": [
+    {
+     "label": "OpenTelemetry semantic conventions for GenAI",
+     "href": "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+    },
+    {
+     "label": "AWS Well-Architected Generative AI Lens",
+     "href": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q08",
+   "week": 3,
+   "area": "genai",
+   "type": "multi",
+   "stem": "Product answers sometimes invent prices. Which mitigations are most effective? Choose two.",
+   "options": [
+    "Ground answers on tool results and render prices from structured data",
+    "Raise max_tokens",
+    "Allow the assistant to say it does not know",
+    "Ask the model to be accurate"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Grounding plus a permitted 'I don't know' reduces hallucination. Prices shown to customers should come from the catalog, not from generated text.",
+   "learn": [
+    {
+     "label": "Reduce hallucinations",
+     "href": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+    },
+    {
+     "label": "Customer support agent guide",
+     "href": "https://platform.claude.com/docs/en/about-claude/use-case-guides/customer-support-chat"
+    }
+   ]
+  },
+  {
+   "id": "w3-q09",
+   "week": 3,
+   "area": "genai",
+   "type": "single",
+   "stem": "Where does a fallback model belong?",
+   "options": [
+    "Hard-coded at every call site",
+    "Behind a small gateway interface with a total attempt budget across primary and fallback",
+    "In the front end",
+    "Nowhere: fallbacks are never worth it"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Centralise retry, fallback and budget logic, so one bug does not multiply calls and behaviour can be tested with fakes.",
+   "learn": [
+    {
+     "label": "AWS Well-Architected Generative AI Lens",
+     "href": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q10",
+   "week": 3,
+   "area": "genai",
+   "type": "single",
+   "stem": "An agent loop has no turn limit and a tool that keeps returning 'try again'. What is the minimum fix?",
+   "options": [
+    "Lower temperature",
+    "A max-turns limit with a graceful handoff message and an audit entry",
+    "A longer system prompt",
+    "Retry the whole request"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Bound every loop. A clear stop condition plus a human path beats an endless tool-calling spiral that burns tokens.",
+   "learn": [
+    {
+     "label": "Building effective agents",
+     "href": "https://www.anthropic.com/research/building-effective-agents"
+    }
+   ]
+  }
+ ]
+}

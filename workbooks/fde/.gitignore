@@ -1,0 +1,11 @@
+# Python and tooling caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+node_modules/
+# Runtime output that make setup / make clean manage
+exercises/*/run/
+exercises/*/.run/

@@ -1,0 +1,22 @@
+# Added 2026-10-20 in PLAT-1199: Managed Service for Prometheus managed collection.
+apiVersion: monitoring.googleapis.com/v1
+kind: PodMonitoring
+metadata:
+  name: riq-api
+  namespace: riq
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: riq-api
+  endpoints:
+    - port: 8080
+      interval: 30s
+---
+# The SLO rules are deployed as a namespaced Rules resource; its spec.groups is rules/riq-slo.rules.yaml.
+apiVersion: monitoring.googleapis.com/v1
+kind: Rules
+metadata:
+  name: riq-slo
+  namespace: riq
+spec:
+  groups: []  # rendered from rules/riq-slo.rules.yaml by the chart

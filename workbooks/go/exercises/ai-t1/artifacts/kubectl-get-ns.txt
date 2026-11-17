@@ -1,0 +1,13 @@
+$ kubectl get ns -L istio-injection -L istio.io/rev
+NAME              STATUS   AGE    ISTIO-INJECTION   REV
+agents            Active   212d   enabled
+batch             Active   301d
+default           Active   402d
+istio-ingress     Active   402d                      1-27-1
+istio-system      Active   402d
+karpenter         Active   402d
+kube-node-lease   Active   402d
+kube-public       Active   402d
+kube-system       Active   402d
+mcp-tools         Active   212d                      1-27-1
+payments-api      Active   380d                      1-27-1

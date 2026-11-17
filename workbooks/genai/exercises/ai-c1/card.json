@@ -1,0 +1,27 @@
+{
+  "id": "genai/ai-c1",
+  "title": "An MCP server for store associates (read-only by default)",
+  "type": "coding",
+  "estimate": "2-2.5 h",
+  "week": "ai",
+  "optional": false,
+  "area": "AI integration: tools, MCP and security",
+  "scenario": "Kestrel wants one MCP server for store tools shared by several internal agents. The first draft mirrors the REST API: full records with supplier cost, customer emails and phones, any store's orders and a write tool open to everyone. Rebuild it as a task-shaped, least-privilege server.",
+  "task": [
+    "Task-shaped tools with model-facing descriptions and schema-validated inputs",
+    "Compact results with a more-results hint; actionable isError messages",
+    "Store-scoped, minimized order lookup; read-only unless a write scope is granted",
+    "Two-step hold with an expiring single-use token; hours resource; audit trail"
+  ],
+  "acceptance": [
+    "Write tools absent by default",
+    "No supplier cost, email, phone or other stores' orders in any output",
+    "Hold only via prepare then confirm, once, before expiry",
+    "Every call audited, failures included"
+  ],
+  "practices": [
+    {"label": "AI Integration - tool design", "href": "ai"},
+    {"label": "AI Integration - security (MCP security best practices)", "href": "ai"},
+    {"label": "Week 3 - MCP in the assistant service", "href": "week3"}
+  ]
+}

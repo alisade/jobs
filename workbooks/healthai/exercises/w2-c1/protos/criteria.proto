@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package khp.criteria.v1;
+
+// Internal service: checks medical-policy criteria for one PA case against the FHIR store.
+service CriteriaService {
+  rpc CheckCriteria(CheckRequest) returns (CheckResponse);
+  rpc Health(HealthRequest) returns (HealthResponse);
+}
+
+message CheckRequest {
+  string case_id = 1;
+  repeated string criteria = 2;  // criterion ids, e.g. "KHP-MP-0417/2.a"
+}
+
+message CriterionResult {
+  string criterion_id = 1;
+  string status = 2;    // "met" | "not_met" | "timeout" | "error"
+  string evidence = 3;  // FHIR reference or short reason; never free-text PHI
+}
+
+message CheckResponse {
+  string case_id = 1;
+  repeated CriterionResult results = 2;  // same order as the request
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  string status = 1;  // "SERVING" | "NOT_SERVING"
+}

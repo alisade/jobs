@@ -1,0 +1,43 @@
+# Connector tool (Workday HCM custom connector). Added in 1.8.0.0.
+kind: TaskDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: leaveType
+    description: Type of time off to book, for example vacation, sick leave or a personal day.
+    entity: StringPrebuiltEntity
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: startDate
+    description: First date of the requested time off.
+    entity: DateTimePrebuiltEntity
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: endDate
+    description: Last date of the requested time off.
+    entity: DateTimePrebuiltEntity
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: hours
+    description: Hours to book on each requested date; use 8 for a full day.
+    entity: NumberPrebuiltEntity
+    shouldPromptUser: true
+
+modelDisplayName: Submit time off request
+modelDescription: |-
+  Submits a new time off request in Workday for specific dates: vacation, PTO, sick leave or a
+  personal day. Use it when the person wants to book, request, apply for or take time off.
+  It does not report how many days they have left.
+outputs:
+  - propertyName: requestId
+    name: requestId
+
+action:
+  kind: InvokeConnectorTaskAction
+  connectionReference: litware_hrassist.shared_litware-5fworkday-5fhcm.workday
+  connectionProperties:
+    mode: Invoker
+
+  operationId: SubmitTimeOffRequest

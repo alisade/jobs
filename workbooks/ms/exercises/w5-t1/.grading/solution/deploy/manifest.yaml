@@ -1,0 +1,19 @@
+# Release manifest for UAT. Consumed by .github/workflows/release-uat.yml, which runs for each entry, in order:
+#   pac solution import --path out/<artifact> --activate-plugins [--stage-and-upgrade] --async --max-async-wait-time 60
+# Policy: UAT and PROD receive managed solutions only.
+# Order matters: a solution's dependencies must be in the target before it is imported.
+# deploy/preflight.py runs first and fails the job if any MissingDependency in Solution.xml is not satisfied.
+environment: contoso-fs-uat
+url: https://contoso-fs-uat.crm.dynamics.com
+solutions:
+  # FieldOps 1.4 forms/views use contoso_asset.contoso_regioncode, added in ContosoCore 2.1.0.0 (UAT has 2.0.3.0)
+  - name: ContosoCore
+    version: 2.1.0.0
+    managed: true
+    artifact: ContosoCore_2_1_0_0_managed.zip
+    stage_and_upgrade: true
+  - name: FieldOps
+    version: 1.4.0.0
+    managed: true
+    artifact: FieldOps_1_4_0_0_managed.zip
+    stage_and_upgrade: true
