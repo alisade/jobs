@@ -1,6 +1,6 @@
 node_modules/
 .DS_Store
 # build intermediates
-src/plan.html
-src/highlights.html
-src/*.pptx
+roles/*/src/plan.html
+roles/*/src/highlights.html
+roles/*/src/*.pptx
