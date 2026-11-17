@@ -1,7 +1,12 @@
 # Jobs
 
-Study plans, hands-on workbooks and role study tracks. Open the plan pages in a browser;
-progress checkboxes save to the browser's localStorage.
+Study plans, hands-on workbooks and role study tracks.
+
+**Use it online:** https://alisade.github.io/jobs/ (plans, workbooks, self-exams and study notes;
+progress checkboxes and quiz answers save to your browser's localStorage).
+
+**Do the exercises:** clone the repo, then follow [workbooks/README.md](workbooks/README.md). Exercises run
+locally, and `/grade` needs Claude Code; scores recorded locally show only in your local copy.
 
 | Role | Study plan | Workbook | Study track |
 |---|---|---|---|
@@ -27,4 +32,4 @@ progress checkboxes save to the browser's localStorage.
 - `study/`: markdown study tracks: the [shared core](study/shared/highlights.md) and one folder per role under `study/roles/`.
 - `commerce-agents/` is not tracked; `study-plan.html` explains how to clone it.
 
-GitHub shows `.html` files as source. Clone the repo and open the pages locally to use them.
+On github.com the `.html` files show as source; use the site above or open them from a local clone.
