@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Engineer, Agentic Audit Controls Testing - Study Plan</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #3f51b5; --accent-soft: #e8eaf6; --done: #2f7d4f;
+    --warn: #9a6700; --warn-soft: #fff4d6; --bad: #b42318; --bad-soft: #fde8e6; --done-soft: #e3f1e8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #8c9eff; --accent-soft: #23284a; --done: #5cc287;
+      --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+    --line: #34343a; --accent: #8c9eff; --accent-soft: #23284a; --done: #5cc287;
+    --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  .themebtn { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+              border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  h3.sub { font-size: 17px; margin: 26px 0 10px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .day h3 { margin: 0 0 2px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .day h3 .tag { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft);
+                 padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .day .focus { color: var(--muted); margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4, .card h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.tasks { list-style: none; padding: 0; margin: 0; }
+  ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+  ul.tasks input { margin-top: 4px; accent-color: var(--done); flex: none; }
+  ul.tasks li.checked span { color: var(--muted); text-decoration: line-through; }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .deliverable b { color: var(--done); }
+  .note { margin: 0 0 18px; padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .note b { color: var(--warn); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  .card + .card, .grid2 + .card, .card + .grid2 { margin-top: 14px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .scroll { overflow-x: auto; }
+  table.matrix th, table.matrix td { font-size: 13px; }
+  table.matrix td.c { text-align: center; }
+  table.matrix th.p { text-transform: none; letter-spacing: 0; font-size: 12px; min-width: 74px; }
+  .yes { color: var(--done); font-weight: 700; }
+  .s-strong { color: var(--done); font-weight: 600; }
+  .s-partial { color: var(--warn); font-weight: 600; }
+  .s-gap { color: var(--bad); font-weight: 600; }
+  .small { font-size: 13px; color: var(--muted); }
+  .muted { font-size: 13px; color: var(--muted); }
+  .reset { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+           border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  .chips { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  a.chip { display: inline-block; font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; text-decoration: none;
+           color: var(--accent); background: var(--accent-soft); border-radius: 99px; padding: 1px 9px; margin: 0 4px 2px 0; }
+  a.chip.t { color: var(--warn); background: var(--warn-soft); }
+  a.chip.d { color: var(--done); background: var(--done-soft); }
+</style>
+
+</head>
+<body>
+
+<header>
+  <button class="themebtn" id="themebtn" type="button">light / dark</button>
+  <h1>AI Engineer, Agentic Audit Controls Testing - Gemini, ADK, review gates, evidence, evals</h1>
+  <p>6-week plan plus an optional add-on week. Weekdays ~2-3 h, weekends one long block for the <a href="workbooks/audit/workbook.html">workbook</a> exercises. Checkboxes save in this browser.</p>
+</header>
+
+<nav><div class="inner" id="tabs"></div></nav>
+
+<main>
+<!-- ============================== OVERVIEW ============================== -->
+<section class="page" id="overview" data-title="Overview">
+  <h2>Overview</h2>
+  <p class="lede">The role: one of three hands-on AI engineers building an agentic application that automates audit controls testing. Agents retrieve evidence, call tools and run multi-step control tests with human review where needed, on an orchestration layer that executes reusable skills, keeps state, recovers from errors and tracks execution. Azure provides compute and storage, Google Gemini is the model, and Gemini Enterprise Agent Platform is in scope. Every result must trace to its supporting evidence, with evaluations, logging, access controls and review checkpoints, and accuracy, consistency and cost measured per control.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+  <p class="note"><b>Names changed.</b> Google now calls Vertex AI's generative and agent platform <b>Gemini Enterprise Agent Platform</b>. Its docs live under <code>docs.cloud.google.com/gemini-enterprise-agent-platform/...</code>, and Agent Engine is now documented as "scale and deploy agents". The posting uses the new name. Tutorials, Stack Overflow answers and many interviewers still say Vertex AI and Agent Engine, so use both names.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Honest fit</h3>
+      <p><b>Good fit, with specific gaps.</b> You already run the hard parts of this job on infrastructure: approval gates, scoped permissions, least privilege, change management, "back up before mutate", multi-step pipelines with retries and idempotency, and a daily Claude Code setup that is a working skills harness. You have also produced ITGC evidence as the auditee in regulated environments (SOX-relevant financial services, federal NIST 800-53).</p>
+      <p>The gaps, most important first:</p>
+      <ol>
+        <li>Building agents in Python code rather than configuring them.</li>
+        <li>Google's agent stack (google-genai, ADK, Gemini Enterprise Agent Platform).</li>
+        <li>Stateful orchestration with human review.</li>
+        <li>Grounding with page- and cell-level citations.</li>
+        <li>Evals per control.</li>
+        <li>The tester's audit vocabulary.</li>
+        <li>Azure-to-Google auth without keys.</li>
+      </ol>
+      <p>Be upfront in interviews: you have not shipped an audit agent yet, and the portfolio project is how you show the build.</p>
+    </div>
+    <div class="card">
+      <h3>The weeks</h3>
+      <table>
+        <tr><th>Week</th><th>Theme</th></tr>
+        <tr><td><a href="#week1">1</a></td><td>Gemini in Python: tool calling, structured outputs, Pydantic contracts</td></tr>
+        <tr><td><a href="#week2">2</a></td><td>Audit domain: ITGCs, populations, sampling and evidence</td></tr>
+        <tr><td><a href="#week3">3</a></td><td>Google ADK: agents, tools, sessions, callbacks and a skills harness</td></tr>
+        <tr><td><a href="#week4">4</a></td><td>Stateful orchestration with human review and error recovery</td></tr>
+        <tr><td><a href="#week5">5</a></td><td>Grounding on evidence documents: parsing, retrieval, citations and injection</td></tr>
+        <tr><td><a href="#week6">6</a></td><td>Evals per control, tracing and cost; finish the portfolio</td></tr>
+        <tr><td><a href="#week7">+7</a></td><td>Add-on: cross-cloud auth and production architecture on Azure and Google</td></tr>
+        <tr><td><a href="#ai">AI</a></td><td>AI integration fundamentals (shared page), applied to audit agents: ai-c1 GRC MCP server, ai-t1 broken prompt cache</td></tr>
+        <tr><td><a href="#interview">IV</a></td><td>Interview prep for this posting</td></tr>
+      </table>
+      <p class="small">Keep ITGC/SOX reading going for an hour or two a week throughout. If time is short, weeks 1, 3, 4 and 6 and the Interview prep page cover the core in four weeks.</p>
+    </div>
+    <div class="card wide" style="grid-column: 1 / -1">
+      <h3>Portfolio project: ITGC change-management control tester</h3>
+      <ol>
+        <li>Pull a population of merged PRs and change tickets (<a href="#week2">W2</a>, <a href="workbooks/audit/workbook.html#ex-w2-c1">w2-c1</a>).</li>
+        <li>Draw a sample sized to the control frequency (<a href="#week2">W2</a>).</li>
+        <li>For each item, an agent checks four attributes: approval before deploy, a linked ticket, an approver who is not the author, and passing tests (<a href="#week1">W1</a>, <a href="#week3">W3</a>, <a href="workbooks/audit/workbook.html#ex-w1-c1">w1-c1</a>, <a href="workbooks/audit/workbook.html#ex-w3-c1">w3-c1</a>).</li>
+        <li>Stop at a human review gate for every exception (<a href="#week4">W4</a>, <a href="workbooks/audit/workbook.html#ex-w4-c1">w4-c1</a>).</li>
+        <li>Produce a workpaper where every conclusion cites its evidence (<a href="#week5">W5</a>, <a href="workbooks/audit/workbook.html#ex-w5-c1">w5-c1</a>).</li>
+        <li>Report accuracy, consistency and cost per control from an eval suite (<a href="#week6">W6</a>, <a href="workbooks/audit/workbook.html#ex-w6-c1">w6-c1</a>).</li>
+      </ol>
+      <p>Stack: Python, Gemini via google-genai and ADK, Pydantic, Azure. Put it in a public repo and use synthetic or open-source data only. Each workbook coding exercise is one part of it. The troubleshooting exercises are the failure stories you tell about it.</p>
+      <p>One-line pitch: "I make agents safe and operable in production. Write tools sit behind approval gates, and there is a trail an auditor can follow to reconstruct what the agent did."</p>
+    </div>
+    <div class="card">
+      <h3>How to use this with the workbook</h3>
+      <ol>
+        <li>On weekdays, read and build here, ticking tasks as you go. The chips on a day card link to its workbook exercise.</li>
+        <li>On the weekend, open the <a href="workbooks/audit/workbook.html">audit workbook</a> and go to the week's tab. In the exercise folder, run <code>make setup</code>, solve the exercise, run <code>make test</code>, and fill in <code>ANSWER.md</code>.</li>
+        <li>From <code>workbooks/</code> in Claude Code, run <code>/grade audit/&lt;id&gt;</code>, then reload the workbook to see the score.</li>
+        <li>Take the weekly self-exam in the workbook.</li>
+        <li>Use the Interview prep tab in the week before each interview loop.</li>
+      </ol>
+      <p class="small">The role's markdown track, which is the source for this plan, is at <a href="study/roles/01-agentic-audit-ai-engineer/highlights.md">study/roles/01-agentic-audit-ai-engineer/highlights.md</a> (with details.md and posting.md next to it).</p>
+    </div>
+    <div class="card">
+      <h3>Local setup</h3>
+<pre>cd ~/git/jobs/workbooks
+tools/doctor.sh audit       # python3, uv
+cd audit &amp;&amp; make deps       # audit/.venv: pydantic, google-genai,
+                            # google-adk, mcp, pytest
+cd exercises/w1-c1
+make setup &amp;&amp; make test</pre>
+      <p class="small">Everything grades offline. Gemini is a fake google-genai client that replays recorded responses, or a scripted ADK <code>BaseLlm</code>. Azure Blob, the GRC system, the ticketing system and the source-control API are local fakes. No cloud account and no API key are needed.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== WEEK 1 ============================== -->
+<section class="page" id="week1" data-title="Week 1">
+  <h2>Week 1 - Gemini in Python: tool calling, structured outputs, Pydantic contracts <button class="reset" data-reset="w1">reset week</button></h2>
+  <p class="lede">Start where the posting starts: production Python that calls Gemini with tools and gets back output you can trust. The shared-core topics that matter here (agent patterns, tool design, structured outputs on both Claude and Gemini) are woven in. Every exercise is CM-03, the program-change ITGC, so the domain builds up from day one.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>The posting decoded; workflows vs agents for control testing</h3>
+    <p class="focus">Read the posting as a system design brief. Then draw the CM-03 change-management test as a workflow and mark the steps a model may touch and the steps that must stay deterministic.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-mon-1"><span>Read the posting line by line; map each responsibility to a component (orchestrator, skill, tool, review gate, eval, log)</span></li>
+        <li data-id="w1-mon-2"><span>Read Building effective agents; classify CM-03 testing: prompt chain, routing, orchestrator-workers or evaluator-optimizer, and why</span></li>
+        <li data-id="w1-mon-3"><span>Draw the CM-03 pipeline: population, sample, evidence fetch, fact extraction, attribute rules, review gate, workpaper. Circle the only step that needs a model</span></li>
+        <li data-id="w1-mon-4"><span>Write one paragraph: why sampling, attribute rules and conclusions stay deterministic (reproducibility for the external auditor)</span></li>
+        <li data-id="w1-mon-5"><span>Skim the context engineering article; note what goes into the model's context for one sample (ticket, PR, approvals) and what does not</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://github.com/anthropics/courses">Anthropic courses (GitHub)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>google-genai SDK: client, models, tokens, and the platform names</h3>
+    <p class="focus">One SDK for both the Gemini API and the enterprise platform. Google now calls Vertex AI's generative and agent platform "Gemini Enterprise Agent Platform" (docs under docs.cloud.google.com/gemini-enterprise-agent-platform/...); older material and the posting may still say Vertex AI.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-tue-1"><span>Install the shared venv (<code>make deps</code> in <code>workbooks/audit</code>); read the google-genai README sections on the client, <code>generate_content</code> and configuration</span></li>
+        <li data-id="w1-tue-2"><span>Write down the difference between the Gemini API (API key) and Gemini Enterprise Agent Platform (Google Cloud project, IAM, quotas, data residency, enterprise controls) and when an audit team needs the second</span></li>
+        <li data-id="w1-tue-3"><span>Read the token counting page; read <code>usage_metadata</code> fields (prompt, candidates, cached, thoughts) and decide which you would log per call</span></li>
+        <li data-id="w1-tue-4"><span>Read the models page; note model ids, context window and pricing tier; pin a model version in config, not in code</span></li>
+        <li data-id="w1-tue-5"><span>Build <code>GenerateContentResponse</code> objects by hand from JSON with <code>types.GenerateContentResponse.model_validate</code> (this is how the workbook fakes work)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://googleapis.github.io/python-genai/">Google Gen AI Python SDK docs</a></li>
+        <li><a href="https://github.com/googleapis/python-genai">googleapis/python-genai (GitHub)</a></li>
+        <li><a href="https://aistudio.google.com/docs">Gemini API docs</a></li>
+        <li><a href="https://aistudio.google.com/docs/tokens">Understand and count tokens</a></li>
+        <li><a href="https://aistudio.google.com/docs/models">Gemini models</a></li>
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models">Gemini Enterprise Agent Platform: models (formerly Vertex AI generative AI)</a></li>
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview">Gemini Enterprise Agent Platform overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Structured outputs and Pydantic models as the contract</h3>
+    <p class="focus">Constrained decoding helps, but the contract is your Pydantic model: required keys, no defaults that turn "missing" into "passed", <code>extra="forbid"</code>, aware timestamps, enums.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wed-1"><span>Read Gemini structured output end to end, including the unsupported-keyword list and the "structured outputs with tools" section</span></li>
+        <li data-id="w1-wed-2"><span>Pass a Pydantic model as <code>response_schema</code>; inspect <code>response.parsed</code> vs parsing <code>response.text</code> yourself and note when <code>parsed</code> is silently None</span></li>
+        <li data-id="w1-wed-3"><span>Write <code>ChangeEvidence</code> for CM-03: facts only (approver, approval time with offset, author, tests passed), each with a citation; no conclusions</span></li>
+        <li data-id="w1-wed-4"><span>Find three ways a lenient model accepts bad data: defaults, <code>extra="ignore"</code>, naive datetimes. Write a failing test for each</span></li>
+        <li data-id="w1-wed-5"><span>Read the Pydantic models page on <code>model_config</code>, strict mode and validators</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://aistudio.google.com/docs/structured-output">Gemini structured output</a></li>
+        <li><a href="https://pydantic.dev/docs/validation/latest/get-started/">Pydantic docs</a></li>
+        <li><a href="https://pydantic.dev/docs/validation/latest/concepts/models/">Pydantic: models and model_config</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w1-c1">w1-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Function calling and tool design</h3>
+    <p class="focus">Manual function calling with automatic calling disabled, so every call is visible, allow-listed and logged. Tool names, descriptions and errors are API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-thu-1"><span>Read Gemini function calling: declarations, <code>parameters_json_schema</code>, parallel calls, function responses, the automatic function calling switch</span></li>
+        <li data-id="w1-thu-2"><span>Implement a loop: model asks for <code>get_ticket_approvals</code>, you run it, return <code>Part.from_function_response</code>, repeat with a turn budget</span></li>
+        <li data-id="w1-thu-3"><span>Answer a call to a tool that is not allowed with an error the model can act on instead of raising</span></li>
+        <li data-id="w1-thu-4"><span>Read Writing effective tools for agents; rewrite one tool description so the model knows the id format and what an empty result means</span></li>
+        <li data-id="w1-thu-5"><span>Compare with Claude tool use: tool_use/tool_result blocks and is_error vs Gemini function_call/function_response; list three differences</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://aistudio.google.com/docs/function-calling">Gemini function calling</a></li>
+        <li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li>
+        <li><a href="https://aistudio.google.com/docs/interactions">Gemini Interactions API</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w1-c1">w1-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Validation, retry and needs_review</h3>
+    <p class="focus">When output fails validation, feed the exact errors back and ask again, with a budget. Some failures are retryable (truncation, schema errors), some are not (safety stops). The end state of a failure is a human, never a guessed pass.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-fri-1"><span>Write a retry loop that appends the Pydantic error list to the conversation and retries up to N times</span></li>
+        <li data-id="w1-fri-2"><span>Handle <code>finish_reason</code>: STOP, MAX_TOKENS (retry), SAFETY and RECITATION (no retry, needs_review)</span></li>
+        <li data-id="w1-fri-3"><span>Cross-check the extracted ids against the sample so a schema-valid answer about the wrong change is rejected</span></li>
+        <li data-id="w1-fri-4"><span>Sum usage over every call of one sample; estimate dollars per sample at the current flash price</span></li>
+        <li data-id="w1-fri-5"><span>Write the list of fields you would log per model call for an auditor (model version, prompt hash, request, response, usage, retries)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://aistudio.google.com/docs/structured-output">Gemini structured output</a></li>
+        <li><a href="https://aistudio.google.com/docs/tokens">Understand and count tokens</a></li>
+        <li><a href="https://pydantic.dev/docs/validation/latest/get-started/">Pydantic docs</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w1-c1">w1-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build and debug: CM-03 extraction, then the prompt v2 incident</h3>
+    <p class="focus">One long block: the coding exercise first, then the troubleshooting exercise where a lenient contract hid every exception.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wk-1"><span>w1-c1: strict contract, tool loop, validation retry, deterministic attribute rules</span></li>
+        <li data-id="w1-wk-2"><span>w1-t1: find why release 2026.10.2 scored 25 of 25 as pass; prove it with the recordings and the diff</span></li>
+        <li data-id="w1-wk-3"><span>Write a one-page note: "facts from the model, conclusions from code" as a design principle, with the w1-t1 failure as the example</span></li>
+        <li data-id="w1-wk-4"><span>Take the week 1 self-exam in the workbook</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://aistudio.google.com/docs/structured-output">Gemini structured output</a></li>
+        <li><a href="https://aistudio.google.com/docs/function-calling">Gemini function calling</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w1-c1">w1-c1</a> <a class="chip t" href="workbooks/audit/workbook.html#ex-w1-t1">w1-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/audit/workbook.html#w1">Week 1 tab of the workbook</a>. Its self-exam has a Week 1 set.</p>
+    <ul class="links">
+      <li><a href="workbooks/audit/workbook.html#ex-w1-c1">w1-c1</a> coding - Structured CM-03 evidence extraction with Gemini, Pydantic and a validation retry (2-3 h)</li>
+      <li><a href="workbooks/audit/workbook.html#ex-w1-t1">w1-t1</a> troubleshooting - Every change passes after the prompt v2 rollout (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 2 ============================== -->
+<section class="page" id="week2" data-title="Week 2">
+  <h2>Week 2 - Audit domain: ITGCs, populations, sampling and evidence <button class="reset" data-reset="w2">reset week</button></h2>
+  <p class="lede">The auditor's vocabulary and the deterministic layer of the system. You know the auditee side; this week you learn to think like the tester: design vs operating effectiveness, population completeness and accuracy (IPE), sample sizes by frequency, exception vs deficiency. Keep an hour or two a week of ITGC/SOX reading going for the rest of the plan.</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>ITGCs, ICFR and COSO: what is being tested and why</h3>
+    <p class="focus">The four ITGC domains (access to programs and data, program changes, computer operations, program development) and how they support ICFR. Test of design vs test of operating effectiveness.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-mon-1"><span>Read the PCAOB AS 2201 sections on IT controls, testing design effectiveness and testing operating effectiveness</span></li>
+        <li data-id="w2-mon-2"><span>Skim the COSO internal control guidance; map CM-03 to the control activities component</span></li>
+        <li data-id="w2-mon-3"><span>For each ITGC domain, write one control ControlPilot could test and the systems the evidence comes from (ticketing, source control, IdP, job scheduler)</span></li>
+        <li data-id="w2-mon-4"><span>Write down the difference between "the control is designed well" and "the control operated all period" in one sentence each</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201">PCAOB AS 2201: audit of ICFR</a></li>
+        <li><a href="https://www.coso.org/guidance-on-ic">COSO internal control guidance</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>The change-management control and a test procedure in auditor language</h3>
+    <p class="focus">Turn CM-03 into attributes an auditor tests: approval before deploy, approver independent of author, deployed change is the ticketed change, tests passed. Then write the procedure.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-tue-1"><span>Write a one-page test procedure: objective, population, sample size, attributes, what counts as an exception, evidence to retain</span></li>
+        <li data-id="w2-tue-2"><span>For each attribute, name the system of record and the exact field (ticket approval timestamp, PR author, deploy log run, CI conclusion)</span></li>
+        <li data-id="w2-tue-3"><span>List three ways an attribute can be "not evaluable" (unknown identity, missing CI evidence) and how the procedure routes them</span></li>
+        <li data-id="w2-tue-4"><span>Explain emergency changes: approved after the fact by policy, still an exception unless the policy says otherwise</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201">PCAOB AS 2201: audit of ICFR</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Population completeness and accuracy (IPE) and API pagination</h3>
+    <p class="focus">If the population is wrong, every sample conclusion is worthless. Information produced by the entity needs its own evidence: source, parameters, a reconciliation to a control total, and accuracy tests.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wed-1"><span>Define the CM-03 population from the deploy log (the system that proves a change reached production), not from merged PRs</span></li>
+        <li data-id="w2-wed-2"><span>Work out local-date boundaries in the entity time zone with <code>zoneinfo</code>: which UTC timestamps fall on 2025-12-31 and 2026-09-30 local</span></li>
+        <li data-id="w2-wed-3"><span>Read GitHub's REST pagination guide: Link headers, rel="next", per_page caps; write down why a short page is not proof of the last page</span></li>
+        <li data-id="w2-wed-4"><span>Write the IPE checklist you would give an auditor: who ran the report, when, with what parameters, how it reconciles, how accuracy was tested</span></li>
+        <li data-id="w2-wed-5"><span>Decide what happens to population items that already fail an attribute (an unmerged hotfix): keep, flag, test</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api">GitHub REST: using pagination</a></li>
+        <li><a href="https://docs.python.org/3/library/zoneinfo.html">Python zoneinfo</a></li>
+        <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201">PCAOB AS 2201: audit of ICFR</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w2-c1">w2-c1</a> <a class="chip t" href="workbooks/audit/workbook.html#ex-w2-t1">w2-t1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Sampling and deficiency levels</h3>
+    <p class="focus">Sample size by control frequency (a common rule of thumb is about 25 for a daily or recurring control and 2 for a quarterly one; firms publish their own tables), random selection that someone can reproduce a year later, and what an exception means.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-thu-1"><span>Read PCAOB AS 2315 on sampling risk, tolerable deviation and selection methods</span></li>
+        <li data-id="w2-thu-2"><span>Build a sample-size table by frequency and risk; decide where CM-03 falls and why</span></li>
+        <li data-id="w2-thu-3"><span>Implement seeded selection: sort the population by a stable key, then <code>random.Random(seed).sample</code>; record seed, method and a population hash</span></li>
+        <li data-id="w2-thu-4"><span>Learn the ladder: exception, deficiency, significant deficiency, material weakness; who decides each and with what evidence</span></li>
+        <li data-id="w2-thu-5"><span>Write what ControlPilot may decide (exception at attribute level) and what it must never decide (deficiency severity)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315">PCAOB AS 2315: audit sampling</a></li>
+        <li><a href="https://docs.python.org/3/library/random.html">Python random (seeded selection)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w2-c1">w2-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Evidence sufficiency, exceptions and the workpaper</h3>
+    <p class="focus">Evidence that is relevant, reliable and sufficient, and an exception write-up a reviewer can sign. This is the shape of ControlPilot's output.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-fri-1"><span>Draft a workpaper row: sample id, attributes, result, evidence citations (doc, page or cell), preparer, reviewer, date</span></li>
+        <li data-id="w2-fri-2"><span>Write an exception memo template: condition, criteria, cause, effect, the control owner's response</span></li>
+        <li data-id="w2-fri-3"><span>List evidence ControlPilot can use as is (system exports with IPE) and evidence that needs a human (screenshots, e-mails without headers)</span></li>
+        <li data-id="w2-fri-4"><span>Write two paragraphs on your auditee-side experience in regulated environments, told from the tester's point of view, for interviews</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201">PCAOB AS 2201: audit of ICFR</a></li>
+        <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315">PCAOB AS 2315: audit sampling</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build and debug: the CM-03 population and the 38 vs 421 reconciliation</h3>
+    <p class="focus">Deterministic code this weekend: no model touches the population or the sample.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wk-1"><span>w2-c1: population, completeness and accuracy checks, sample size and seeded selection</span></li>
+        <li data-id="w2-wk-2"><span>w2-t1: find why the extracted population does not reconcile, and write the IPE note to the auditor</span></li>
+        <li data-id="w2-wk-3"><span>Take the week 2 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api">GitHub REST: using pagination</a></li>
+        <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315">PCAOB AS 2315: audit sampling</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w2-c1">w2-c1</a> <a class="chip t" href="workbooks/audit/workbook.html#ex-w2-t1">w2-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/audit/workbook.html#w2">Week 2 tab of the workbook</a>. Its self-exam has a Week 2 set.</p>
+    <ul class="links">
+      <li><a href="workbooks/audit/workbook.html#ex-w2-c1">w2-c1</a> coding - CM-03 population, completeness and accuracy checks, and a reproducible sample (2-3 h)</li>
+      <li><a href="workbooks/audit/workbook.html#ex-w2-t1">w2-t1</a> troubleshooting - The CM-03 population does not reconcile: 38 vs 421 (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 3 ============================== -->
+<section class="page" id="week3" data-title="Week 3">
+  <h2>Week 3 - Google ADK: agents, tools, sessions, callbacks and a skills harness <button class="reset" data-reset="w3">reset week</button></h2>
+  <p class="lede">Google's agent stack in code: the Agent Development Kit, its sessions and state, callbacks as guardrails, multi-agent composition, and deployment on Gemini Enterprise Agent Platform (the managed runtime that was called Agent Engine). The shared-core topics that serve this role are here: Claude Code as an example of a harness that loads reusable skills, and MCP.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>ADK fundamentals: Agent, tools, Runner, sessions</h3>
+    <p class="focus">Build the three-tool CM-03 agent from the role plan (list tickets, fetch a ticket, fetch a PR) over mock data, and run it with a custom model so tests never call Gemini.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-mon-1"><span>Read the ADK docs home, the custom tools page and the models page (custom <code>BaseLlm</code>)</span></li>
+        <li data-id="w3-mon-2"><span>Build an <code>Agent</code> with three Python function tools; run it with <code>Runner</code> and <code>InMemorySessionService</code></span></li>
+        <li data-id="w3-mon-3"><span>Subclass <code>BaseLlm</code> with a scripted <code>generate_content_async</code> so a test can make "the model" request any tool</span></li>
+        <li data-id="w3-mon-4"><span>Iterate the events of one run; print every function call, function response and final text</span></li>
+        <li data-id="w3-mon-5"><span>Note what ADK does when the model calls a tool that does not exist</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://adk.dev/">Agent Development Kit (ADK) docs</a></li>
+        <li><a href="https://github.com/google/adk-python">google/adk-python (GitHub)</a></li>
+        <li><a href="https://adk.dev/tools-custom/">ADK: custom tools</a></li>
+        <li><a href="https://adk.dev/agents/models/">ADK: models (including custom BaseLlm)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w3-c1">w3-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Sessions, state and state prefixes</h3>
+    <p class="focus">State is how a long control test remembers where it is. The prefixes decide what persists: no prefix (session), <code>user:</code>, <code>app:</code>, and <code>temp:</code> (this invocation only).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-tue-1"><span>Read ADK sessions and state, including how state changes travel in events (state_delta)</span></li>
+        <li data-id="w3-tue-2"><span>Write a tool that updates <code>tool_context.state</code>; check what survives a second invocation with each prefix</span></li>
+        <li data-id="w3-tue-3"><span>Switch to <code>DatabaseSessionService</code> on SQLite; restart the process and resume the same session id</span></li>
+        <li data-id="w3-tue-4"><span>Show that mutating a fetched <code>session.state</code> directly does not persist; explain why</span></li>
+        <li data-id="w3-tue-5"><span>Decide the scope for: sample progress, reviewer identity, firm-wide sampling table, a per-turn scratch value</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://adk.dev/sessions/">ADK: sessions and conversational context</a></li>
+        <li><a href="https://adk.dev/sessions/state/">ADK: state and state prefixes</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip t" href="workbooks/audit/workbook.html#ex-w3-t1">w3-t1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Callbacks as guardrails</h3>
+    <p class="focus">before/after tool and model callbacks are deterministic code around a non-deterministic agent: allow-lists, scoping to the sample, budgets, and the execution log.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wed-1"><span>Read ADK callbacks; note which callbacks can short-circuit (return a value to skip the tool or the model call)</span></li>
+        <li data-id="w3-wed-2"><span>Write a <code>before_tool_callback</code> that blocks ids outside the sample and returns a reason the model can act on</span></li>
+        <li data-id="w3-wed-3"><span>Write an <code>after_tool_callback</code> that appends one log entry per call with a digest of the result</span></li>
+        <li data-id="w3-wed-4"><span>Add a tool-call budget in session state; show the run ending in needs_review when it is exhausted</span></li>
+        <li data-id="w3-wed-5"><span>Map each guardrail to the posting: scoped permissions, approval gates, auditable agent activity</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://adk.dev/callbacks/">ADK: callbacks</a></li>
+        <li><a href="https://code.claude.com/docs/en/hooks">Hooks</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w3-c1">w3-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>A harness that loads reusable skills (and MCP)</h3>
+    <p class="focus">The posting prefers "AI harnesses that load and execute reusable skills". Claude Code is a working example of one; design ControlPilot's skill format the same way: one skill per control, progressive disclosure, explicit verification and approval points.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-thu-1"><span>Read Claude Code skills, subagents and hooks as a harness design (short descriptions load first, bodies on trigger, deterministic gates)</span></li>
+        <li data-id="w3-thu-2"><span>Read the Agent Skills article and the open format; sketch a <code>SKILL.md</code> for CM-03 (trigger, inputs, tools allowed, verification step, approval point)</span></li>
+        <li data-id="w3-thu-3"><span>Read the MCP introduction; decide which ControlPilot integrations become MCP servers (GRC, ticketing, identity) and which stay tools in code</span></li>
+        <li data-id="w3-thu-4"><span>Write a one-page design: how the orchestrator discovers skills, scopes tools per skill and versions skills under change control</span></li>
+        <li data-id="w3-thu-5"><span>Optional: draft the skill with Spec Kit (spec, plan, tasks) and compare with your ad hoc version</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://code.claude.com/docs/en/skills">Claude Code skills</a></li>
+        <li><a href="https://code.claude.com/docs/en/sub-agents">Subagents</a></li>
+        <li><a href="https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills">Equipping agents for the real world with Agent Skills</a></li>
+        <li><a href="https://agentskills.io/">Agent Skills open format</a></li>
+        <li><a href="https://code.claude.com/docs/en/memory">How Claude Code remembers a project (CLAUDE.md)</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></li>
+        <li><a href="https://github.com/github/spec-kit">GitHub Spec Kit</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Multi-agent composition, A2A and deployment on Gemini Enterprise Agent Platform</h3>
+    <p class="focus">Sequential and parallel workflow agents for sample fan-out, A2A when another team's agent owns a system, and the managed runtime with sessions and memory. Gemini Enterprise is where business users meet the agents you deploy.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-fri-1"><span>Read ADK workflow agents; design a ParallelAgent that tests samples concurrently and a SequentialAgent for evidence, test, review</span></li>
+        <li data-id="w3-fri-2"><span>Read the scale and deploy page (formerly Agent Engine): sessions, memory, identity, logging</span></li>
+        <li data-id="w3-fri-3"><span>Read A2A and the ADK A2A page; name one case where ControlPilot would call another team's agent instead of its API</span></li>
+        <li data-id="w3-fri-4"><span>Skim Gemini Enterprise; describe what an auditor would see there</span></li>
+        <li data-id="w3-fri-5"><span>Write the deployment checklist: service identity, least-privilege roles, region, logging, model version pinning</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://adk.dev/agents/workflow-agents/">ADK: workflow agents</a></li>
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale">Gemini Enterprise Agent Platform: scale and deploy agents (formerly Agent Engine)</a></li>
+        <li><a href="https://a2a-protocol.org/latest/">A2A protocol</a></li>
+        <li><a href="https://adk.dev/a2a/">ADK: A2A protocol</a></li>
+        <li><a href="https://cloud.google.com/gemini-enterprise">Gemini Enterprise</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build and debug: the ADK tester and the nightly restart</h3>
+    <p class="focus">The coding exercise is the portfolio tester's core; the troubleshooting exercise is a state-scope bug that wastes reviewer hours.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wk-1"><span>w3-c1: ADK tester with scoped tools, guardrail callbacks and an execution log</span></li>
+        <li data-id="w3-wk-2"><span>w3-t1: why the nightly job re-tests finished samples after a restart</span></li>
+        <li data-id="w3-wk-3"><span>Start the portfolio repo: README, the CM-03 test procedure from week 2, the ADK tester skeleton</span></li>
+        <li data-id="w3-wk-4"><span>Take the week 3 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://adk.dev/sessions/state/">ADK: state and state prefixes</a></li>
+        <li><a href="https://adk.dev/callbacks/">ADK: callbacks</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w3-c1">w3-c1</a> <a class="chip t" href="workbooks/audit/workbook.html#ex-w3-t1">w3-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/audit/workbook.html#w3">Week 3 tab of the workbook</a>. Its self-exam has a Week 3 set.</p>
+    <ul class="links">
+      <li><a href="workbooks/audit/workbook.html#ex-w3-c1">w3-c1</a> coding - ADK CM-03 tester with scoped tools, guardrail callbacks and an execution log (2-3 h)</li>
+      <li><a href="workbooks/audit/workbook.html#ex-w3-t1">w3-t1</a> troubleshooting - After the nightly restart the agent re-tests finished samples (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 4 ============================== -->
+<section class="page" id="week4" data-title="Week 4">
+  <h2>Week 4 - Stateful orchestration with human review and error recovery <button class="reset" data-reset="w4">reset week</button></h2>
+  <p class="lede">The orchestration layer the posting asks for: runs that pause for days at a review gate, resume after a crash, retry without repeating side effects, and leave a trail an auditor can reconstruct. You know Step Functions and pipelines; this is the same discipline with a model in the middle.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Durable execution: checkpoints, idempotency, at-least-once</h3>
+    <p class="focus">A run over 25 or 400 samples will be interrupted. Decide what is checkpointed, when, and what a retry may repeat.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-mon-1"><span>Read the Temporal workflow docs and the Durable Functions overview; compare with Step Functions you know</span></li>
+        <li data-id="w4-mon-2"><span>Read LangGraph persistence: checkpointers, threads, resuming from a checkpoint</span></li>
+        <li data-id="w4-mon-3"><span>Write the step list for one sample and mark each step pure, model call or side effect</span></li>
+        <li data-id="w4-mon-4"><span>Decide where a crash may land and what happens on resume for each position</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.temporal.io/">Temporal docs</a></li>
+        <li><a href="https://docs.temporal.io/workflows">Temporal workflows</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview">Azure Durable Functions overview</a></li>
+        <li><a href="https://docs.langchain.com/oss/python/langgraph/persistence">LangGraph persistence and checkpointers</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w4-c1">w4-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Interrupt and resume: the human review gate</h3>
+    <p class="focus">Every exception stops at a reviewer. Approve or override with a reason and an evidence reference; the reviewer is never the preparer; the decision is recorded.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-tue-1"><span>Read LangGraph interrupts; map interrupt/resume onto your own SQLite checkpoint store</span></li>
+        <li data-id="w4-tue-2"><span>Design the review record: reviewer, decision, reason, evidence ref, timestamp; and the rule reviewer != preparer</span></li>
+        <li data-id="w4-tue-3"><span>Decide what an override to pass requires (mandatory reason, second evidence) and what it never allows (deleting the exception)</span></li>
+        <li data-id="w4-tue-4"><span>Write how a review that takes three days interacts with the run's state and timeouts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.langchain.com/oss/python/langgraph/interrupts">LangGraph interrupts (human-in-the-loop)</a></li>
+        <li><a href="https://docs.langchain.com/oss/python/langgraph/overview">LangGraph overview</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w4-c1">w4-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>The execution log: what to record so an auditor can reconstruct a run</h3>
+    <p class="focus">Every tool call, input, output digest, model version, prompt hash and reviewer decision, in an append-only, tamper-evident log.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wed-1"><span>Design a hash-chained JSONL log (each entry carries the previous entry's hash); write <code>verify_log()</code></span></li>
+        <li data-id="w4-wed-2"><span>Read the OpenTelemetry GenAI conventions; decide which spans and attributes go to tracing and which to the audit log</span></li>
+        <li data-id="w4-wed-3"><span>Read Azure Blob immutable storage; decide retention and legal hold for logs and workpapers</span></li>
+        <li data-id="w4-wed-4"><span>List what the log must let an auditor answer: who, what, when, with which model and prompt, what evidence, what decision</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OpenTelemetry semantic conventions for GenAI</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-storage-overview">Azure Blob immutable storage (WORM)</a></li>
+        <li><a href="https://langfuse.com/docs">Langfuse docs</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w4-c1">w4-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Side effects and retries: idempotency keys and commit-then-timeout</h3>
+    <p class="focus">The failure that double-applies: the GRC system committed the POST, the response timed out, the retry made a second issue. Idempotency keys derived from what the operation is, not from the attempt.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-thu-1"><span>Read Stripe's idempotency article; derive a key from (run id, sample id, step)</span></li>
+        <li data-id="w4-thu-2"><span>Read Azure Blob conditional headers; use If-None-Match to make a workpaper write create-only</span></li>
+        <li data-id="w4-thu-3"><span>Write down where to record intent before a side effect and how to reconcile on resume</span></li>
+        <li data-id="w4-thu-4"><span>Distinguish retryable errors (429 with Retry-After, 503, timeouts) from non-retryable ones (400, 409 conflict meaning already done)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://stripe.com/blog/idempotency">Designing robust APIs with idempotency (Stripe)</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/rest/api/storageservices/specifying-conditional-headers-for-blob-service-operations">Azure Blob: conditional headers</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip t" href="workbooks/audit/workbook.html#ex-w4-t1">w4-t1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Access controls, scoped permissions and approval gates</h3>
+    <p class="focus">Read-only by default, write tools behind approval, identities per component. The same model you run for infrastructure, applied to agents.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-fri-1"><span>Read managed identities for Azure resources; give the orchestrator, the evidence store and the GRC writer separate identities</span></li>
+        <li data-id="w4-fri-2"><span>Write a permission matrix: component, identity, allowed actions, approval needed</span></li>
+        <li data-id="w4-fri-3"><span>Decide which actions an agent may take alone (read evidence, record a test result) and which need a human (close an exception, change a workpaper conclusion)</span></li>
+        <li data-id="w4-fri-4"><span>Write the story of a change you put behind an approval gate in your own work, framed for this posting</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview">Managed identities for Azure resources</a></li>
+        <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li>
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build and debug: the durable review gate and the duplicate GRC issues</h3>
+    <p class="focus">This is the heart of the portfolio project: the review gate and the trail.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wk-1"><span>w4-c1: durable run with a human review gate and an append-only execution log</span></li>
+        <li data-id="w4-wk-2"><span>w4-t1: why a retry created duplicate GRC issues and workpaper rows</span></li>
+        <li data-id="w4-wk-3"><span>Add the review gate and the log to the portfolio repo</span></li>
+        <li data-id="w4-wk-4"><span>Take the week 4 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://stripe.com/blog/idempotency">Designing robust APIs with idempotency (Stripe)</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview">Azure Durable Functions overview</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w4-c1">w4-c1</a> <a class="chip t" href="workbooks/audit/workbook.html#ex-w4-t1">w4-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/audit/workbook.html#w4">Week 4 tab of the workbook</a>. Its self-exam has a Week 4 set.</p>
+    <ul class="links">
+      <li><a href="workbooks/audit/workbook.html#ex-w4-c1">w4-c1</a> coding - Durable test run with a human review gate and a hash-chained execution log (2-3 h)</li>
+      <li><a href="workbooks/audit/workbook.html#ex-w4-t1">w4-t1</a> troubleshooting - Duplicate GRC issues after a retry (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 5 ============================== -->
+<section class="page" id="week5" data-title="Week 5">
+  <h2>Week 5 - Grounding on evidence documents: parsing, retrieval, citations and injection <button class="reset" data-reset="w5">reset week</button></h2>
+  <p class="lede">"Make results traceable to supporting evidence." Audit evidence is PDFs, e-mails, screenshots and spreadsheet exports. Parse them keeping page and cell locations, retrieve with hybrid search, cite down to the page or cell, refuse to conclude without evidence, and assume every evidence file may carry instructions.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Document parsing with layout: pages, paragraphs, tables, cells</h3>
+    <p class="focus">Document Intelligence's layout model returns pages, paragraphs, tables with row and column indexes, and spans. Keep the locator with every chunk.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-mon-1"><span>Read the Document Intelligence overview and the layout model page; study the JSON shape (pages, paragraphs, tables, cells, boundingRegions)</span></li>
+        <li data-id="w5-mon-2"><span>Write a parser that turns layout JSON into chunks with locators (blob, page, paragraph or table/row/col)</span></li>
+        <li data-id="w5-mon-3"><span>Decide how to chunk a table: whole, or row by row with the header repeated, and why</span></li>
+        <li data-id="w5-mon-4"><span>Note what OCR confidence and hidden or tiny text mean for evidence reliability</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview">Azure AI Document Intelligence overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/prebuilt/layout">Document Intelligence layout model</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w5-c1">w5-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Hybrid retrieval: BM25, vectors and reciprocal rank fusion</h3>
+    <p class="focus">Ticket ids and names need keyword search; paraphrased approvals need vectors. Fuse the two rankings with RRF.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-tue-1"><span>Read Azure AI Search hybrid search and the RRF scoring page</span></li>
+        <li data-id="w5-tue-2"><span>Implement BM25 over your chunks; read the formula and the k1/b parameters</span></li>
+        <li data-id="w5-tue-3"><span>Add a small vector score (hashing embedding is fine offline) and fuse with RRF (k=60); check one query by hand</span></li>
+        <li data-id="w5-tue-4"><span>Read contextual retrieval; decide what context to prepend to a table-row chunk</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview">Azure AI Search: hybrid search</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking">Azure AI Search: hybrid scoring with RRF</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Okapi_BM25">Okapi BM25</a></li>
+        <li><a href="https://www.anthropic.com/research/contextual-retrieval">Contextual retrieval (Anthropic)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w5-c1">w5-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Citations to the page or cell, and "insufficient evidence"</h3>
+    <p class="focus">A conclusion is a claim plus citations; code verifies each quote appears in the cited location. No verified citation, no conclusion.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wed-1"><span>Design the claim schema: conclusion, quotes, locators; require at least one citation per fact</span></li>
+        <li data-id="w5-wed-2"><span>Write a verifier: whitespace-normalized verbatim match at the cited locator; reject fabricated quotes and wrong pages</span></li>
+        <li data-id="w5-wed-3"><span>Read the grounding overview for Gemini Enterprise Agent Platform; note what managed grounding gives you and what you still verify yourself</span></li>
+        <li data-id="w5-wed-4"><span>Write the rule: when evidence is missing or contradictory, the answer is insufficient_evidence and the sample goes to a human</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/overview">Grounding overview (Gemini Enterprise Agent Platform)</a></li>
+        <li><a href="https://aistudio.google.com/docs/structured-output">Gemini structured output</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w5-c1">w5-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Prompt injection through an evidence file</h3>
+    <p class="focus">An approval e-mail can carry hidden text addressed to the agent. The defence is architecture: the agent that reads untrusted evidence has no write tools, closures pass a human gate, and evidence is passed as data.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-thu-1"><span>Read the OWASP LLM Top 10 entries on prompt injection and excessive agency</span></li>
+        <li data-id="w5-thu-2"><span>Read the lethal trifecta; map ControlPilot's private data, untrusted content and exfiltration or write channels</span></li>
+        <li data-id="w5-thu-3"><span>Plant an instruction in a test evidence file and show that tool scoping, not the model's good behaviour, prevents harm</span></li>
+        <li data-id="w5-thu-4"><span>Write a deterministic detector for instruction-like text in evidence and decide what it does (flag, never silently drop)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li>
+        <li><a href="https://simonwillison.net/2022/Sep/12/prompt-injection/">Prompt injection attacks (Simon Willison, 2022)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip t" href="workbooks/audit/workbook.html#ex-w5-t1">w5-t1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Sandboxed analysis, PII, and evidence sufficiency from the auditor's side</h3>
+    <p class="focus">Population analysis code may be generated by a model; it runs in a sandbox with no network and read-only data. Evidence often holds personal data; minimise what reaches the model.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-fri-1"><span>List the controls for model-generated analysis code: sandbox, no network, time and memory limits, reviewed outputs</span></li>
+        <li data-id="w5-fri-2"><span>Decide which evidence fields are redacted before the model sees them and how the workpaper still cites them</span></li>
+        <li data-id="w5-fri-3"><span>Write how you would explain to an external auditor why a citation-verified model extraction is reliable evidence (and when it is not)</span></li>
+        <li data-id="w5-fri-4"><span>Update the portfolio README with the grounding design</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/overview">Grounding overview (Gemini Enterprise Agent Platform)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build and debug: citation-checked conclusions and the injected evidence file</h3>
+    <p class="focus">Two exercises that become the most persuasive part of the portfolio.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wk-1"><span>w5-c1: evidence parsing, hybrid retrieval and citation-checked conclusions</span></li>
+        <li data-id="w5-wk-2"><span>w5-t1: an exception closed overnight by an instruction hidden in an evidence file</span></li>
+        <li data-id="w5-wk-3"><span>Add citations to the portfolio workpaper output</span></li>
+        <li data-id="w5-wk-4"><span>Take the week 5 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking">Azure AI Search: hybrid scoring with RRF</a></li>
+        <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w5-c1">w5-c1</a> <a class="chip t" href="workbooks/audit/workbook.html#ex-w5-t1">w5-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/audit/workbook.html#w5">Week 5 tab of the workbook</a>. Its self-exam has a Week 5 set.</p>
+    <ul class="links">
+      <li><a href="workbooks/audit/workbook.html#ex-w5-c1">w5-c1</a> coding - Evidence chunks, hybrid retrieval and citation-checked conclusions (2-3 h)</li>
+      <li><a href="workbooks/audit/workbook.html#ex-w5-t1">w5-t1</a> troubleshooting - An exception closed overnight &quot;pre-approved by CAB per system note&quot; (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 6 ============================== -->
+<section class="page" id="week6" data-title="Week 6">
+  <h2>Week 6 - Evals per control, tracing and cost; finish the portfolio <button class="reset" data-reset="w6">reset week</button></h2>
+  <p class="lede">"Measure accuracy, consistency, cost, and performance against defined benchmarks." A labeled set per control, exception recall as the metric that matters, agreement across runs, dollars per 100 samples, and an eval gate in CI. Then publish the ITGC change-management control tester.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Error analysis first, then a labeled set per control</h3>
+    <p class="focus">Read outputs, categorise failures, then write evals for the failure modes you actually saw. Labels come from humans and carry provenance.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-mon-1"><span>Read the evals FAQ and "Your AI product needs evals"</span></li>
+        <li data-id="w6-mon-2"><span>Build a 30-sample labeled set for CM-03 with known pass, exception and needs_review outcomes per attribute, and labeled_by / labeled_at</span></li>
+        <li data-id="w6-mon-3"><span>Run your tester on it; categorise every miss (extraction, rule, evidence, review routing)</span></li>
+        <li data-id="w6-mon-4"><span>Write the rule that model output can never become a label</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+        <li><a href="https://hamel.dev/blog/posts/evals/">Your AI product needs evals (Hamel Husain)</a></li>
+        <li><a href="https://adk.dev/evaluate/">ADK: evaluate agents</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w6-c1">w6-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Accuracy, exception recall and consistency</h3>
+    <p class="focus">Missing an exception is the costly error, so gate on exception recall. Consistency: run each sample N times and measure agreement.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-tue-1"><span>Compute accuracy per attribute and overall, exception precision and recall</span></li>
+        <li data-id="w6-tue-2"><span>Run each sample 5 times; compute modal agreement and Fleiss' kappa; read what kappa does and does not say</span></li>
+        <li data-id="w6-tue-3"><span>Decide thresholds: recall floor, accuracy drop allowed vs baseline, agreement floor</span></li>
+        <li data-id="w6-tue-4"><span>Write how you would present these numbers to an audit manager in one slide</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://en.wikipedia.org/wiki/Fleiss%27_kappa">Fleiss&#x27; kappa</a></li>
+        <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w6-c1">w6-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Cost and latency per control; caching</h3>
+    <p class="focus">Dollars per 100 samples from usage metadata and a price table, p50/p95 latency, and context caching to keep a long static control procedure cheap.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wed-1"><span>Read Gemini context caching (implicit and explicit); note the minimum cacheable size and what breaks a prefix</span></li>
+        <li data-id="w6-wed-2"><span>Compute cost per 100 samples with cached tokens discounted; check units (per 1M tokens)</span></li>
+        <li data-id="w6-wed-3"><span>Measure p50/p95 latency per sample from the run records</span></li>
+        <li data-id="w6-wed-4"><span>Put static content first (tools in a stable order, system instruction), per-sample data last</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://aistudio.google.com/docs/caching">Gemini context caching</a></li>
+        <li><a href="https://aistudio.google.com/docs/tokens">Understand and count tokens</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w6-c1">w6-c1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Tracing, the evaluation service and evals in CI</h3>
+    <p class="focus">Traces for debugging, evals for regression. Prompt, model and schema changes are program changes for ControlPilot itself and pass an eval gate.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-thu-1"><span>Read the Gen AI evaluation service overview; decide what you would use it for (comparing prompts and models) and what you keep in your own harness</span></li>
+        <li data-id="w6-thu-2"><span>Read promptfoo's intro; write an eval job for CI that fails on a recall regression</span></li>
+        <li data-id="w6-thu-3"><span>Read the OTel GenAI conventions and Langfuse; add spans with token usage around each model call</span></li>
+        <li data-id="w6-thu-4"><span>Write the change-control procedure for a prompt change: ticket, eval report attached, reviewer, deploy</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-overview">Gen AI evaluation service overview</a></li>
+        <li><a href="https://www.promptfoo.dev/docs/intro/">promptfoo</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OpenTelemetry semantic conventions for GenAI</a></li>
+        <li><a href="https://langfuse.com/docs">Langfuse docs</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip t" href="workbooks/audit/workbook.html#ex-w6-t1">w6-t1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Portfolio: the ITGC change-management control tester</h3>
+    <p class="focus">Assemble the six parts: population, sample, agent checks, review gate, cited workpaper, eval report. Synthetic or open-source data only.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-fri-1"><span>Wire the pieces: population and sample (w2), ADK tester (w3), review gate and log (w4), cited evidence (w5), evals (w6)</span></li>
+        <li data-id="w6-fri-2"><span>Write the README: the problem, the architecture diagram, the guardrails, how to run offline, the eval numbers</span></li>
+        <li data-id="w6-fri-3"><span>Add a short demo script that runs the whole thing on synthetic data with a fake model</span></li>
+        <li data-id="w6-fri-4"><span>Check the repo for anything real: no employer names, no real data, no keys</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://adk.dev/">Agent Development Kit (ADK) docs</a></li>
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale">Gemini Enterprise Agent Platform: scale and deploy agents (formerly Agent Engine)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build and debug: the eval harness and the eval that graded the model against itself</h3>
+    <p class="focus">Finish the evals, then publish.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wk-1"><span>w6-c1: eval harness per control with a regression gate</span></li>
+        <li data-id="w6-wk-2"><span>w6-t1: the dashboard says 97% but the reviewer found 4 missed exceptions</span></li>
+        <li data-id="w6-wk-3"><span>Publish the portfolio repo with the eval report</span></li>
+        <li data-id="w6-wk-4"><span>Take the week 6 self-exam; then rehearse the Interview prep page</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Fleiss%27_kappa">Fleiss&#x27; kappa</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip" href="workbooks/audit/workbook.html#ex-w6-c1">w6-c1</a> <a class="chip t" href="workbooks/audit/workbook.html#ex-w6-t1">w6-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/audit/workbook.html#w6">Week 6 tab of the workbook</a>. Its self-exam has a Week 6 set.</p>
+    <ul class="links">
+      <li><a href="workbooks/audit/workbook.html#ex-w6-c1">w6-c1</a> coding - Eval harness per control: accuracy, exception recall, consistency, cost and a CI gate (2-3 h)</li>
+      <li><a href="workbooks/audit/workbook.html#ex-w6-t1">w6-t1</a> troubleshooting - &quot;97% accuracy&quot; on the dashboard, 4 missed exceptions in review (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI integration fundamentals <button class="reset" data-reset="ai">reset page</button></h2>
+  <p class="lede">Shared across the study guides. No model training or data science: you call a model over HTTPS and engineer the software around it. Most of it is ordinary API work; the seven areas below are what is different, because an LLM is a probabilistic component, not a deterministic API.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Same</span>What is just API integration</h3>
+    <p class="focus">REST/SDK calls, auth, retries, timeouts, rate limits, streaming (SSE), cost metering. MCP is JSON-RPC with a tool/resource schema; an MCP server is a small service exposing your existing APIs as tools.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-same-1"><span>Make a first Messages API call with streaming; read the usage block (input/output/cache tokens)</span></li>
+        <li data-id="ai-same-2"><span>Read the MCP architecture overview: hosts, clients, servers, tools, resources, prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming messages</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">1</span>Tool design</h3>
+    <p class="focus">Names, descriptions and input schemas decide whether the model picks the right tool with the right arguments. API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-tool-1"><span>Read the tool use docs and Anthropic's guidance on writing tools for agents</span></li>
+        <li data-id="ai-tool-2"><span>Rewrite one vague tool description and compare call accuracy before and after</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">2</span>The agent loop</h3>
+    <p class="focus">Model requests a tool, your code runs it, the result goes back, repeat. Stop conditions, structured errors the model can recover from, parallel tool calls.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-loop-1"><span>Read Building Effective Agents (workflows vs agents)</span></li>
+        <li data-id="ai-loop-2"><span>Hand-write an agent loop with 2-3 tools, max-turn limit and <code>is_error</code> results</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> (a loop you do not write yourself)</li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+        <li><a href="https://www.youtube.com/watch?v=uhJJgc-0iTQ">[video] Building more effective AI agents</a> <span class="muted">(Anthropic, ~19 min)</span></li>
+        <li><a href="https://www.youtube.com/watch?v=D7_ipDqhtwk">[video] How We Build Effective Agents: Barry Zhang, Anthropic</a> <span class="muted">(AI Engineer, ~15 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">3</span>Context engineering and caching</h3>
+    <p class="focus">What goes in the system prompt vs per-request context; staying within the context window; prompt caching for cost and latency (static prefix first, dynamic data after the breakpoint).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-ctx-1"><span>Read the context engineering post and the prompt caching docs</span></li>
+        <li data-id="ai-ctx-2"><span>Show <code>cache_read_input_tokens</code> &gt; 0 on turn 2, then break it by changing one prefix byte</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+        <li><a href="https://www.youtube.com/watch?v=-q_u6nrVdgo">[video] Quit Tokenmaxxing: 4 Context Engineering Techniques for AI Agents</a> <span class="muted">(AWS Developers, ~22 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">4</span>Security</h3>
+    <p class="focus">Prompt injection from untrusted content; model output is untrusted input; the model can skip, fake or reorder tool calls, so enforcement lives server-side. Auth in front of MCP servers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-sec-1"><span>Read the OWASP Top 10 for LLM applications</span></li>
+        <li data-id="ai-sec-2"><span>Read the MCP security best practices and authorization spec</span></li>
+        <li data-id="ai-sec-3"><span>Plant an injection in a tool result; confirm a server-side check (not the prompt) blocks the action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices">MCP security best practices</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">MCP authorization</a></li>
+        <li><a href="https://www.youtube.com/watch?v=5ZA1lTxTH3c">[video] Securing AI Agents: How to Prevent Hidden Prompt Injection Attacks</a> <span class="muted">(IBM Technology, ~10 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">5</span>Evals</h3>
+    <p class="focus">Outputs vary run to run, so test with scored scenario suites ("did it call checkout without confirming?") rather than exact-match asserts. The least familiar part for most engineers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-eval-1"><span>Read the guide on building empirical evaluations and test cases</span></li>
+        <li data-id="ai-eval-2"><span>Write a 10-case eval for your agent: code-graded checks plus one model-graded rubric; run it 3x</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Create strong empirical evaluations</a></li>
+        <li><a href="https://www.youtube.com/watch?v=BsWxPI9UM4c">[video] Why AI evals are the hottest new skill for product builders | Hamel Husain &amp; Shreya Shankar</a> <span class="muted">(Lenny's Podcast, ~107 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">6</span>RAG</h3>
+    <p class="focus">Embeddings + a vector store (pgvector, OpenSearch, Azure AI Search), chunking, retrieval quality, citations. A data-pipeline and search problem, not model training.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-rag-1"><span>Read the embeddings docs and the contextual retrieval post</span></li>
+        <li data-id="ai-rag-2"><span>Embed ~50 docs into pgvector, retrieve top-k, answer with citations; measure hit rate on 10 questions</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/news/contextual-retrieval">Contextual retrieval</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a></li>
+        <li><a href="https://www.youtube.com/watch?v=ADrUp2cEdKg">[video] AWS re:Invent 2025 - Advanced RAG Architectures: From Basic Retrieval to Agentic RAG (NTA403)</a> <span class="muted">(AWS Events, ~53 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">7</span>Observability</h3>
+    <p class="focus">Trace prompts, tool calls, token use and latency per turn. OpenTelemetry has GenAI semantic conventions for exactly this.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-obs-1"><span>Read the OTel GenAI semantic conventions (spans, metrics, events)</span></li>
+        <li data-id="ai-obs-2"><span>Emit one span per model call and per tool call with token counts as attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI semantic conventions</a></li>
+        <li><a href="https://www.youtube.com/watch?v=qJxF4XfMLhk">[video] AWS re:Invent 2025 - Observability for Reliable Agentic AI with Strands SDK &amp; OpenTelemetry (NTA406)</a> <span class="muted">(AWS Events, ~59 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Build</span>Two starter builds</h3>
+    <p class="focus">The fastest way to close the gap. Do these before going deeper anywhere else.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-build-1"><span>Build 1: agent loop against the Messages API with 2-3 tools you already understand</span></li>
+        <li data-id="ai-build-2"><span>Build 2: streamable-HTTP MCP server in front of a familiar API, with auth, called from Claude Code</span></li>
+        <li data-id="ai-build-3"><span>Add a tiny RAG step to Build 1: embed, retrieve, cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/develop/build-server">MCP: Build a server</a></li>
+        <li><a href="https://code.claude.com/docs/en/mcp">Claude Code: connect MCP servers</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> (API, MCP, MCP Advanced)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card" id="ai-applies">
+    <h3>How this applies to this role</h3>
+    <!-- ROLE-SPECIFIC: each guide replaces this card body -->
+    <p>Agentic audit controls testing: all seven areas apply, with no model training. The model is Gemini (through google-genai and ADK, on the Gemini API or Gemini Enterprise Agent Platform), and the work around it is integration discipline under an auditor's standard of evidence. The Build tasks above can be done against Claude as written; then do each one again in Python against Gemini so you know where the APIs differ.</p>
+    <ul class="links">
+      <li><b>Tools (1) and the loop (2):</b> Gemini function declarations with automatic calling disabled so every call is allow-listed and logged; ADK tools with before/after tool callbacks as the deterministic guard (<a href="#week1">W1 Thu</a>, <a href="#week3">W3 Wed</a>). GRC, identity and ticketing systems become MCP servers with read-only tools and gated writes.</li>
+      <li><b>Context and caching (3):</b> one sample per context: the control procedure and tool list as a byte-stable prefix, the sample's records last. Gemini implicit and explicit context caching keep a long control procedure cheap; a timestamp at the top of the system instruction breaks it (<a href="#week6">W6 Wed</a>).</li>
+      <li><b>Security (4):</b> evidence files are untrusted input and may carry instructions. The agent that reads evidence has no write tools; exception closures pass a human review gate; identities are scoped per component (<a href="#week5">W5 Thu</a>, <a href="#week4">W4 Fri</a>).</li>
+      <li><b>Evals (5):</b> a labeled set per control, exception recall as the gate, agreement across five runs, dollars per 100 samples; labels from humans only, with provenance (<a href="#week6">W6</a>).</li>
+      <li><b>RAG (6):</b> Document Intelligence layout with page and cell locators, hybrid search with RRF, citations verified in code, "insufficient evidence" instead of a guess (<a href="#week5">W5</a>).</li>
+      <li><b>Observability (7):</b> an append-only, hash-chained execution log for the auditor plus OTel GenAI spans for engineers; usage metadata per call for cost (<a href="#week4">W4 Wed</a>).</li>
+    </ul>
+    <p>Practice: <a href="workbooks/audit/workbook.html#ex-ai-c1">ai-c1</a> (GRC MCP server with a gated write tool, coding) and <a href="workbooks/audit/workbook.html#ex-ai-t1">ai-t1</a> (cost up after a prompt refactor broke implicit caching, troubleshooting).</p>
+  </div>
+</section>
+
+
+<!-- ============================== WEEK 7 ============================== -->
+<section class="page" id="week7" data-title="Week 7 (add-on)">
+  <h2>Week 7 - Add-on: cross-cloud auth and production architecture on Azure and Google <button class="reset" data-reset="w7">reset week</button></h2>
+  <p class="lede">Optional. Take it if the interview loop goes deep on the platform: Azure workloads calling Gemini without long-lived keys, hosting the orchestrator, immutable evidence storage, and the architecture pack a control owner signs.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Workload Identity Federation from Azure to Google</h3>
+    <p class="focus">An Azure Function's managed identity gets an Entra token; Google STS exchanges it; the federated principal impersonates a service account or is granted roles directly. No keys.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-mon-1"><span>Read Workload Identity Federation with other clouds (the Azure section) and the WIF overview</span></li>
+        <li data-id="w7-mon-2"><span>Decode a sample Entra token: which claim is the managed identity's object id and which is the client id</span></li>
+        <li data-id="w7-mon-3"><span>Write the attribute mapping and the IAM binding for exactly one identity; then the over-broad versions you must never ship</span></li>
+        <li data-id="w7-mon-4"><span>Read managed identities; note how the token audience (resource) is chosen</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds">Workload Identity Federation with other clouds</a></li>
+        <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation">Workload Identity Federation overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview">Managed identities for Azure resources</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip t" href="workbooks/audit/workbook.html#ex-x-1">x-1</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Hosting the orchestrator on Azure</h3>
+    <p class="focus">Functions with Durable Functions for long runs, or Container Apps for the agent service; storage for evidence and workpapers with immutability.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-tue-1"><span>Read the Azure Functions and Container Apps overviews; choose one for the orchestrator and one for the agent service, with reasons</span></li>
+        <li data-id="w7-tue-2"><span>Map the week 4 checkpoint store onto Durable Functions orchestrations and entities</span></li>
+        <li data-id="w7-tue-3"><span>Design the storage layout: evidence container (read-only to the agent), workpaper container (WORM after sign-off), logs</span></li>
+        <li data-id="w7-tue-4"><span>Estimate monthly cost for 30 controls x 25 samples per quarter</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview">Azure Functions overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/container-apps/overview">Azure Container Apps overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview">Azure Durable Functions overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-storage-overview">Azure Blob immutable storage (WORM)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip d" href="workbooks/audit/workbook.html#ex-x-2">x-2</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Gemini Enterprise Agent Platform in production</h3>
+    <p class="focus">Model access, deployment of the ADK agent, sessions and memory, quotas, data residency and logging on the managed platform.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wed-1"><span>Read the platform overview and the scale and deploy page again with a production checklist in hand</span></li>
+        <li data-id="w7-wed-2"><span>Decide region and data residency for evidence content sent to the model</span></li>
+        <li data-id="w7-wed-3"><span>Write the model and prompt version-pinning policy and how a change is promoted</span></li>
+        <li data-id="w7-wed-4"><span>List the logs you need from the platform and where they land</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview">Gemini Enterprise Agent Platform overview</a></li>
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale">Gemini Enterprise Agent Platform: scale and deploy agents (formerly Agent Engine)</a></li>
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models">Gemini Enterprise Agent Platform: models (formerly Vertex AI generative AI)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip d" href="workbooks/audit/workbook.html#ex-x-2">x-2</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Integrations: GRC, identity, ticketing, ERP</h3>
+    <p class="focus">Each system becomes a scoped tool or an MCP server with read-only tools and gated writes.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-thu-1"><span>Revisit the GRC MCP server from the AI page; add an identity-system server design (access reviews)</span></li>
+        <li data-id="w7-thu-2"><span>Write the scopes for each integration identity</span></li>
+        <li data-id="w7-thu-3"><span>Decide what happens when a system is unavailable mid-run (pause, not guess)</span></li>
+        <li data-id="w7-thu-4"><span>Write one paragraph on A2A for an ERP team that already runs its own agent</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a></li>
+        <li><a href="https://a2a-protocol.org/latest/">A2A protocol</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Architecture review prep</h3>
+    <p class="focus">Turn the design into a review pack a control owner and a security architect would sign.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-fri-1"><span>Write the threat model: injection via evidence, data exfiltration, privilege misuse, model drift</span></li>
+        <li data-id="w7-fri-2"><span>Write the control matrix for ControlPilot itself (it is a program-change subject)</span></li>
+        <li data-id="w7-fri-3"><span>Rehearse a 10-minute architecture walkthrough</span></li>
+        <li data-id="w7-fri-4"><span>Collect open questions for the client</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip d" href="workbooks/audit/workbook.html#ex-x-2">x-2</a></p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Debug and design: WIF, then the architecture pack</h3>
+    <p class="focus">One troubleshooting exercise and one design exercise.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wk-1"><span>x-1: the Azure Function cannot get a Google token through Workload Identity Federation</span></li>
+        <li data-id="w7-wk-2"><span>x-2: production architecture and control-owner review pack for ControlPilot</span></li>
+        <li data-id="w7-wk-3"><span>Take the week 7 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds">Workload Identity Federation with other clouds</a></li>
+      </ul></div>
+    </div>
+    <p class="chips">Workbook: <a class="chip t" href="workbooks/audit/workbook.html#ex-x-1">x-1</a> <a class="chip d" href="workbooks/audit/workbook.html#ex-x-2">x-2</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/audit/workbook.html#w7">Week 7 tab of the workbook</a>. Its self-exam has a Week 7 set.</p>
+    <ul class="links">
+      <li><a href="workbooks/audit/workbook.html#ex-x-1">x-1</a> troubleshooting - Azure Function cannot reach Gemini: Workload Identity Federation impersonation denied (1.5-2 h, optional)</li>
+      <li><a href="workbooks/audit/workbook.html#ex-x-2">x-2</a> design - ControlPilot production architecture and control-owner review pack (2-3 h, optional)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== INTERVIEW PREP ============================== -->
+<section class="page" id="interview" data-title="Interview prep">
+  <h2>Interview prep <button class="reset" data-reset="iv">reset page</button></h2>
+  <p class="lede">These are the questions this posting is likely to bring, each with a talk track. Rehearse every question aloud: answer in 2 minutes, then give the 30-second version. Tick a question once you can do both without notes. Interviewers will come from engineering and from audit, so practice each answer in both registers.</p>
+  <div class="progress"><div id="bar-iv"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Design</span>Walk me through an agent that tests a change-management control end to end</h3>
+    <p class="focus">The core whiteboard. Draw it left to right: population, sample, evidence, extraction, rules, review gate, workpaper, evals.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-design-1"><span>"Design an agentic application that tests CM-03 for 30 applications every quarter."</span></li>
+        <li data-id="iv-design-2"><span>"Which steps use the model and which do not, and why?"</span></li>
+        <li data-id="iv-design-3"><span>"What does the auditor receive at the end?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Start with the auditor's question and the evidence chain. The population comes from the deploy log and reconciles to a control total (IPE). The sample is seeded and reproducible. No model touches either step.</li>
+        <li>The model reads messy evidence (tickets, PRs, e-mails) and returns typed facts with citations, validated by Pydantic with a retry. Code applies the attribute rules: approval before deploy, compared in UTC; an independent approver, resolved through the directory; the linked change; tests passed.</li>
+        <li>Exceptions and not-evaluable items stop at a human review gate. The reviewer is never the preparer, and an override needs a reason and an evidence reference.</li>
+        <li>Output: a workpaper row per sample with page- or cell-level citations, plus an execution log the auditor can replay and an eval report per control.</li>
+        <li>Stack: Python, google-genai and ADK on Gemini Enterprise Agent Platform, an Azure-hosted orchestrator (Durable Functions or Container Apps), evidence and workpapers in immutable Blob storage, and Workload Identity Federation so there are no keys.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Harness</span>Reusable skills and the orchestration layer</h3>
+    <p class="focus">The preferred qualification is a harness that loads and executes reusable skills. Treat your Claude Code setup as the reference design.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-harness-1"><span>"Have you built an AI harness that loads reusable skills?"</span></li>
+        <li data-id="iv-harness-2"><span>"How would a new control be added without touching the orchestrator?"</span></li>
+        <li data-id="iv-harness-3"><span>"How do you version and govern skills?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Be honest and concrete: you run a daily harness (skills with trigger descriptions, hooks as deterministic gates, MCP servers, permission modes) and you designed ControlPilot's skill format on the same principles.</li>
+        <li>One skill per control holds the trigger, inputs, the tools allowed (scoped by the orchestrator, not by the skill text), the verification step, the approval point and an eval set.</li>
+        <li>Skills are program changes for ControlPilot itself. They go through review, an eval gate in CI and a pinned model and prompt version, so the agent is an ITGC subject too.</li>
+        <li>Progressive disclosure: only the short descriptions load first, which keeps the context small when there are 30 controls.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">State</span>State, human review and error recovery</h3>
+    <p class="focus">Show you think in checkpoints and idempotency, not chat history.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-state-1"><span>"A run of 400 samples dies at sample 212. What happens?"</span></li>
+        <li data-id="iv-state-2"><span>"A reviewer takes three days. Where is the state?"</span></li>
+        <li data-id="iv-state-3"><span>"How do you stop a retry from creating duplicate issues in the GRC system?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Checkpoint every step per sample in a durable store (ADK DatabaseSessionService, Durable Functions or Temporal). A resume skips completed steps and never repeats a model call whose result is recorded.</li>
+        <li>The review gate is an interrupt: the sample is parked as awaiting_review and the run continues with other samples. The decision is recorded with the reviewer, the reason, the evidence and a timestamp.</li>
+        <li>Side effects carry an idempotency key derived from (run, sample, step), sent on every attempt. Record the intent before the call. Commit-then-timeout is the case to design for (w4-t1).</li>
+        <li>ADK specifics: state scopes (session, user:, app:, temp:), and the fact that temp: is dropped after every invocation (w3-t1).</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Evidence</span>Traceability, grounding and citations</h3>
+    <p class="focus">"Results traceable to supporting evidence" is the line the audit stakeholders care about most.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-evidence-1"><span>"How do you prove a conclusion came from the evidence and not from the model?"</span></li>
+        <li data-id="iv-evidence-2"><span>"Evidence is a scanned PDF with a table. Walk me through it."</span></li>
+        <li data-id="iv-evidence-3"><span>"What does the agent do when evidence is missing?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Layout parsing (Document Intelligence) keeps the page, paragraph, table, row and column on every chunk. Retrieval is hybrid (BM25 plus vectors, fused with RRF).</li>
+        <li>The model returns claims with quotes and locators. Code verifies each quote verbatim at the cited location, and a conclusion without a verified citation is rejected.</li>
+        <li>If the evidence is missing or contradictory, the answer is insufficient_evidence and the sample goes to a human; the agent never guesses. Evidence that is a system export needs its IPE documented.</li>
+        <li>Managed grounding on the platform is useful, but you still verify citations yourself, because the auditor relies on your verification, not the vendor's.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Security</span>Securing an agent that reads enterprise evidence</h3>
+    <p class="focus">Prompt injection through evidence files, the lethal trifecta, scoped tools.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-security-1"><span>"An approval e-mail contains text telling the agent to close the exception. What happens?"</span></li>
+        <li data-id="iv-security-2"><span>"How do you scope the agent's access?"</span></li>
+        <li data-id="iv-security-3"><span>"What can the agent do without a human?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Evidence is untrusted input. The agent that reads it has read-only tools; closing an exception or changing a conclusion needs a human approval record (w5-t1). Prompt wording is not a control.</li>
+        <li>Break the lethal trifecta: private data plus untrusted content plus an outbound or write channel. Remove the channel from any agent that sees untrusted content.</li>
+        <li>Scope tools to the sample in a callback; give each component its own identity (managed identities, Workload Identity Federation); keep secrets out of the model context; redact PII before the model sees it.</li>
+        <li>Everything the agent does lands in an append-only log that sits outside the agent's reach.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Evals</span>Measuring accuracy, consistency and cost per control</h3>
+    <p class="focus">Numbers, not adjectives.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-evals-1"><span>"How do you know the agent is accurate enough to rely on?"</span></li>
+        <li data-id="iv-evals-2"><span>"What metric would you gate a release on?"</span></li>
+        <li data-id="iv-evals-3"><span>"What does it cost per control?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>A labeled set per control (30 samples or more), labeled by humans and with provenance; model output can never become a label (w6-t1).</li>
+        <li>Gate on exception recall, because a missed exception is the costly error. Also track per-attribute accuracy, precision and agreement over five runs (modal agreement, Fleiss' kappa), and route low agreement to a human.</li>
+        <li>Cost per 100 samples comes from usage metadata and the price table, with cached tokens discounted; keep the prefix stable so the cache hits. Track p50 and p95 latency per sample.</li>
+        <li>Any prompt, model or schema change runs the eval suite in CI and attaches the report to the change ticket.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Audit</span>Audit vocabulary, so the stakeholders trust you</h3>
+    <p class="focus">You will be interviewed by audit and risk people too. Use their words precisely.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-audit-1"><span>"What is the difference between design and operating effectiveness?"</span></li>
+        <li data-id="iv-audit-2"><span>"How big is your sample and why?"</span></li>
+        <li data-id="iv-audit-3"><span>"Is a self-approved emergency change a deficiency?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Design: would the control prevent or detect the risk if it operated as described. Operating effectiveness: did it operate throughout the period, tested on a sample.</li>
+        <li>Sample size follows control frequency and risk from the firm's table. A common rule of thumb is about 25 for a daily or recurring control and 2 for a quarterly one. The selection is random, seeded and documented.</li>
+        <li>An exception is an instance where an attribute failed. Whether it amounts to a deficiency, a significant deficiency or a material weakness is the auditor's judgement. The agent reports exceptions with evidence and never decides severity.</li>
+        <li>Population completeness and accuracy (IPE) comes before any sampling.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Google</span>Google's stack and the names</h3>
+    <p class="focus">Show current knowledge without getting tripped up by renames.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-google-1"><span>"Have you used Vertex AI?"</span></li>
+        <li data-id="iv-google-2"><span>"ADK or LangGraph?"</span></li>
+        <li data-id="iv-google-3"><span>"How does an Azure workload call Gemini without a key?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Say the names plainly: Gemini Enterprise Agent Platform is the current name for Vertex AI's generative AI and agent platform, and Agent Engine is now "scale and deploy agents". Gemini Enterprise is the app business users see.</li>
+        <li>ADK gives agents, tools, sessions and state, callbacks, workflow agents, A2A and deployment to the platform. LangGraph gives the same concepts (graph state, checkpointers, interrupts). You chose ADK because the stack is Gemini.</li>
+        <li>Keyless auth: the Azure managed identity gets an Entra token, Google STS exchanges it through a workload identity pool and provider, and the principal is bound to exactly that identity's object id (x-1).</li>
+        <li>google-genai is one SDK for both the Gemini API and the enterprise platform.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Stories</span>Stories from your own work (STAR, under 2 minutes, one number each)</h3>
+    <p class="focus">Only claim what you have done; frame infrastructure discipline as agent discipline.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-stories-1"><span>Approval gates: a production change path you put behind an approval policy, and what it caught.</span></li>
+        <li data-id="iv-stories-2"><span>Auditable activity: an enforcement hook or policy that made unwanted actions impossible rather than discouraged.</span></li>
+        <li data-id="iv-stories-3"><span>Recovery: a multi-step pipeline that failed midway and how you made it resumable and idempotent.</span></li>
+        <li data-id="iv-stories-4"><span>Auditee side: producing change-management and access-review evidence for SOX- or NIST-driven audits, and what the auditors asked for.</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Tie each story to the posting: scoped permissions, approval gates, sandboxed execution, auditable agent activity.</li>
+        <li>Close each story with what you would do the same way in an agent system (w4-c1, w5-t1).</li>
+        <li>Do not name clients or employers in a public portfolio. In interviews, describe the environment (regulated financial services, a federal agency) and the control.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Questions to ask them</h3>
+    <ul class="links">
+      <li>Which controls are first, and who owns the labeled outcomes for evals?</li>
+      <li>Where does evidence live today (GRC, SharePoint, ticketing, ERP), and who documents IPE for system exports?</li>
+      <li>What may the agent decide on its own, and which decisions must a reviewer sign?</li>
+      <li>How will the external auditor rely on the application's output, and have they seen the design?</li>
+      <li>Which Gemini models and regions are approved, and how are model and prompt changes put under change control?</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ============================== RESOURCES ============================== -->
+<section class="page" id="resources" data-title="Resources">
+  <h2>All resources</h2>
+  <p class="lede">Every link in the plan, grouped. Links were checked on 2026-11-13 (HTTP 200 and a page title that names the topic). Google's Vertex AI generative and agent docs now live under <code>docs.cloud.google.com/gemini-enterprise-agent-platform/</code>.</p>
+  <div class="grid2">
+    <div class="card"><h3>Gemini, google-genai and Pydantic</h3><ul class="links">
+      <li><a href="https://googleapis.github.io/python-genai/">Google Gen AI Python SDK docs</a></li>
+      <li><a href="https://github.com/googleapis/python-genai">googleapis/python-genai (GitHub)</a></li>
+      <li><a href="https://aistudio.google.com/docs">Gemini API docs</a></li>
+      <li><a href="https://aistudio.google.com/docs/models">Gemini models</a></li>
+      <li><a href="https://aistudio.google.com/docs/tokens">Understand and count tokens</a></li>
+      <li><a href="https://aistudio.google.com/docs/function-calling">Gemini function calling</a></li>
+      <li><a href="https://aistudio.google.com/docs/structured-output">Gemini structured output</a></li>
+      <li><a href="https://aistudio.google.com/docs/caching">Gemini context caching</a></li>
+      <li><a href="https://aistudio.google.com/docs/interactions">Gemini Interactions API</a></li>
+      <li><a href="https://pydantic.dev/docs/validation/latest/get-started/">Pydantic docs</a></li>
+      <li><a href="https://pydantic.dev/docs/validation/latest/concepts/models/">Pydantic: models and model_config</a></li>
+      <li><a href="https://docs.astral.sh/uv/">uv</a></li>
+      <li><a href="https://fastapi.tiangolo.com/">FastAPI</a></li>
+    </ul></div>
+    <div class="card"><h3>Gemini Enterprise Agent Platform and ADK</h3><ul class="links">
+      <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview">Gemini Enterprise Agent Platform overview</a></li>
+      <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models">Gemini Enterprise Agent Platform: models (formerly Vertex AI generative AI)</a></li>
+      <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale">Gemini Enterprise Agent Platform: scale and deploy agents (formerly Agent Engine)</a></li>
+      <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/overview">Grounding overview (Gemini Enterprise Agent Platform)</a></li>
+      <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-overview">Gen AI evaluation service overview</a></li>
+      <li><a href="https://cloud.google.com/gemini-enterprise">Gemini Enterprise</a></li>
+      <li><a href="https://adk.dev/">Agent Development Kit (ADK) docs</a></li>
+      <li><a href="https://github.com/google/adk-python">google/adk-python (GitHub)</a></li>
+      <li><a href="https://adk.dev/tools-custom/">ADK: custom tools</a></li>
+      <li><a href="https://adk.dev/agents/models/">ADK: models (including custom BaseLlm)</a></li>
+      <li><a href="https://adk.dev/sessions/">ADK: sessions and conversational context</a></li>
+      <li><a href="https://adk.dev/sessions/state/">ADK: state and state prefixes</a></li>
+      <li><a href="https://adk.dev/callbacks/">ADK: callbacks</a></li>
+      <li><a href="https://adk.dev/agents/workflow-agents/">ADK: workflow agents</a></li>
+      <li><a href="https://adk.dev/a2a/">ADK: A2A protocol</a></li>
+      <li><a href="https://adk.dev/evaluate/">ADK: evaluate agents</a></li>
+      <li><a href="https://a2a-protocol.org/latest/">A2A protocol</a></li>
+    </ul></div>
+    <div class="card"><h3>Agent patterns, harnesses and MCP</h3><ul class="links">
+      <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li>
+      <li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+      <li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      <li><a href="https://github.com/anthropics/courses">Anthropic courses (GitHub)</a></li>
+      <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li>
+      <li><a href="https://code.claude.com/docs/en/overview">Claude Code overview</a></li>
+      <li><a href="https://code.claude.com/docs/en/skills">Claude Code skills</a></li>
+      <li><a href="https://code.claude.com/docs/en/sub-agents">Subagents</a></li>
+      <li><a href="https://code.claude.com/docs/en/hooks">Hooks</a></li>
+      <li><a href="https://code.claude.com/docs/en/headless">Headless mode</a></li>
+      <li><a href="https://code.claude.com/docs/en/plugins">Plugins</a></li>
+      <li><a href="https://code.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK overview</a></li>
+      <li><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a></li>
+      <li><a href="https://code.claude.com/docs/en/memory">How Claude Code remembers a project (CLAUDE.md)</a></li>
+      <li><a href="https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills">Equipping agents for the real world with Agent Skills</a></li>
+      <li><a href="https://agentskills.io/">Agent Skills open format</a></li>
+      <li><a href="https://github.com/github/spec-kit">GitHub Spec Kit</a></li>
+      <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></li>
+      <li><a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a></li>
+      <li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK (GitHub)</a></li>
+      <li><a href="https://py.sdk.modelcontextprotocol.io/">MCP Python SDK docs (v2: MCPServer)</a></li>
+    </ul></div>
+    <div class="card"><h3>Orchestration, state and human review</h3><ul class="links">
+      <li><a href="https://docs.langchain.com/oss/python/langgraph/overview">LangGraph overview</a></li>
+      <li><a href="https://docs.langchain.com/oss/python/langgraph/interrupts">LangGraph interrupts (human-in-the-loop)</a></li>
+      <li><a href="https://docs.langchain.com/oss/python/langgraph/persistence">LangGraph persistence and checkpointers</a></li>
+      <li><a href="https://docs.temporal.io/">Temporal docs</a></li>
+      <li><a href="https://docs.temporal.io/workflows">Temporal workflows</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview">Azure Durable Functions overview</a></li>
+      <li><a href="https://stripe.com/blog/idempotency">Designing robust APIs with idempotency (Stripe)</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/rest/api/storageservices/specifying-conditional-headers-for-blob-service-operations">Azure Blob: conditional headers</a></li>
+    </ul></div>
+    <div class="card"><h3>Evidence grounding and retrieval</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview">Azure AI Document Intelligence overview</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/prebuilt/layout">Document Intelligence layout model</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview">Azure AI Search: hybrid search</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking">Azure AI Search: hybrid scoring with RRF</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Okapi_BM25">Okapi BM25</a></li>
+      <li><a href="https://www.anthropic.com/research/contextual-retrieval">Contextual retrieval (Anthropic)</a></li>
+    </ul></div>
+    <div class="card"><h3>LLM security</h3><ul class="links">
+      <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+      <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li>
+      <li><a href="https://simonwillison.net/2022/Sep/12/prompt-injection/">Prompt injection attacks (Simon Willison, 2022)</a></li>
+    </ul></div>
+    <div class="card"><h3>Evals, tracing and cost</h3><ul class="links">
+      <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+      <li><a href="https://hamel.dev/blog/posts/evals/">Your AI product needs evals (Hamel Husain)</a></li>
+      <li><a href="https://www.promptfoo.dev/docs/intro/">promptfoo</a></li>
+      <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OpenTelemetry semantic conventions for GenAI</a></li>
+      <li><a href="https://langfuse.com/docs">Langfuse docs</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Fleiss%27_kappa">Fleiss&#x27; kappa</a></li>
+    </ul></div>
+    <div class="card"><h3>Audit domain</h3><ul class="links">
+      <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201">PCAOB AS 2201: audit of ICFR</a></li>
+      <li><a href="https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315">PCAOB AS 2315: audit sampling</a></li>
+      <li><a href="https://www.coso.org/guidance-on-ic">COSO internal control guidance</a></li>
+      <li><a href="https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api">GitHub REST: using pagination</a></li>
+      <li><a href="https://docs.python.org/3/library/random.html">Python random (seeded selection)</a></li>
+      <li><a href="https://docs.python.org/3/library/zoneinfo.html">Python zoneinfo</a></li>
+    </ul></div>
+    <div class="card"><h3>Azure and cross-cloud</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview">Managed identities for Azure resources</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview">Azure Functions overview</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/container-apps/overview">Azure Container Apps overview</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-storage-overview">Azure Blob immutable storage (WORM)</a></li>
+      <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds">Workload Identity Federation with other clouds</a></li>
+      <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation">Workload Identity Federation overview</a></li>
+    </ul></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var KEY = "studyplan-audit-v1";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked */ } }
+
+  // Theme: follows the OS unless the toggle was used (stored under state.__theme)
+  function applyTheme() {
+    if (state.__theme) document.documentElement.setAttribute("data-theme", state.__theme);
+    else document.documentElement.removeAttribute("data-theme");
+  }
+  applyTheme();
+  document.getElementById("themebtn").addEventListener("click", function () {
+    var dark = state.__theme ? state.__theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    state.__theme = dark ? "light" : "dark"; save(); applyTheme();
+  });
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+
+  // Build tabs
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id;
+    a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+
+  // Turn task <li>s into checkboxes
+  document.querySelectorAll("ul.tasks li").forEach(function (li) {
+    var id = li.dataset.id;
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state[id];
+    li.insertBefore(cb, li.firstChild);
+    li.classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", function () {
+      state[id] = cb.checked;
+      li.classList.toggle("checked", cb.checked);
+      save(); refresh();
+    });
+  });
+
+  function items(prefix) {
+    return Array.prototype.slice.call(document.querySelectorAll('ul.tasks li[data-id^="' + prefix + '"]'));
+  }
+  function pctOf(list) {
+    if (!list.length) return null;
+    var done = 0;
+    list.forEach(function (li) { if (state[li.dataset.id]) done++; });
+    return Math.round(100 * done / list.length);
+  }
+  function setPage(pageId, barId, v) {
+    var bar = document.getElementById(barId);
+    if (bar) bar.style.width = (v || 0) + "%";
+    var tab = tabs.querySelector('[data-page="' + pageId + '"] .pct');
+    if (tab) tab.textContent = v === null ? "" : v + "%";
+  }
+
+  // page id -> checkbox prefix; the overall bar counts the six core weeks only (add-on excluded)
+  var PAGES = [];
+  for (var n = 1; n <= 7; n++) PAGES.push(["week" + n, "w" + n + "-", "bar-w" + n]);
+  PAGES.push(["ai", "ai-", "bar-ai"]);
+  PAGES.push(["interview", "iv-", "bar-iv"]);
+
+  function refresh() {
+    PAGES.forEach(function (p) { setPage(p[0], p[2], pctOf(items(p[1]))); });
+    var core = [];
+    for (var n = 1; n <= 6; n++) core = core.concat(items("w" + n + "-"));
+    setPage("overview", "bar-all", pctOf(core));
+  }
+
+  document.querySelectorAll("button.reset").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!confirm("Clear all checkboxes on this page?")) return;
+      var w = b.dataset.reset;
+      Object.keys(state).forEach(function (k) { if (k.indexOf(w + "-") === 0) delete state[k]; });
+      save();
+      items(w + "-").forEach(function (li) {
+        li.querySelector("input").checked = false; li.classList.remove("checked");
+      });
+      refresh();
+    });
+  });
+
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    var el = document.getElementById(id);
+    if (!el || !el.classList.contains("page")) id = "overview";
+    pages.forEach(function (p) { p.classList.toggle("active", p.id === id); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === id); });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show(); refresh();
+})();
+</script>
+
+</body>
+</html>

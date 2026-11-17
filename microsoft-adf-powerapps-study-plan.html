@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microsoft Study Plan - DP-700, AB-400, AB-100</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #c15f3c; --accent-soft: #f6e9e3; --done: #2f7d4f;
+    --warn: #9a6700; --warn-soft: #fff4d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #e08a62; --accent-soft: #3a2a23; --done: #5cc287;
+      --warn: #e3b341; --warn-soft: #3a3120;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .day h3 { margin: 0 0 2px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .day h3 .tag { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft);
+                 padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .day .focus { color: var(--muted); margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.tasks { list-style: none; padding: 0; margin: 0; }
+  ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+  ul.tasks input { margin-top: 4px; accent-color: var(--done); flex: none; }
+  ul.tasks li.checked span { color: var(--muted); text-decoration: line-through; }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .deliverable b { color: var(--done); }
+  .note { margin: 0 0 18px; padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .note b { color: var(--warn); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  .grid2 .card { margin-bottom: 0; }
+  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  select.rating { font: inherit; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; }
+  .reset { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+           border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Microsoft Data Factory + Power Platform Expert - Study Plan</h1>
+  <p>11 weeks, three exams in sequence: DP-700, AB-400, AB-100. Weekdays ~2-3h, one long weekend block. Exam facts verified on learn.microsoft.com on 2026-10-09. Checkboxes and ratings save in this browser.</p>
+</header>
+
+<nav><div class="inner" id="tabs"></div></nav>
+
+<main>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="page" id="overview" data-title="Overview">
+  <h2>Overview</h2>
+  <p class="lede">Azure fundamentals, identity, networking and IaC are skipped. The time goes to Fabric Data Factory and Spark/KQL authoring, then Dataverse and Power Platform development, then agentic solution architecture.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+
+  <div class="note"><b>Catalog changes that shaped this plan (checked 2026-10-09):</b>
+    <ul class="links">
+      <li><b>No exam tests classic Azure Data Factory any more.</b> DP-203 (Azure Data Engineer Associate) retired on 2025-03-31. Data Factory is now examined only as <i>Data Factory in Microsoft Fabric</i> in <b>DP-700</b>: pipelines, Dataflow Gen2, Apache Airflow jobs, mirroring, shortcuts. DP-700 has no classic-ADF objective. Classic ADF shows up only as a tool choice in DP-750 (Azure Databricks Data Engineer). This plan covers classic ADF in one optional bridge session (Week 1 weekend), because it matters at work, not on the exam.</li>
+      <li><b>PL-600 (Power Platform Solution Architect Expert) retired on 2026-06-30</b> and PL-200 (Functional Consultant) retired on 2026-08-31. There is no longer a "Power Apps expert" certification. Microsoft names <b>AB-100: Agentic AI Business Solutions Architect Expert</b> as the flagship expert-level next step for PL-600 holders. Microsoft says it is "not a direct replacement" and its scope is much broader: Copilot Studio, Foundry, Dynamics 365 and Power Platform.</li>
+      <li><b>AB-100 prerequisite:</b> you pass AB-100 <i>and</i> hold one listed associate certification. <b>Microsoft Certified: Power Platform Developer Associate</b> is on the list. That is the developer path.</li>
+      <li><b>PL-400 becomes AB-400 on 2026-10-16.</b> PL-400 registration closes that day, and existing PL-400 bookings must be sat by 2026-10-30, which is too soon to prepare. So the associate exam is <b>AB-400</b>, which leads to the same Power Platform Developer Associate certification. The study guide is published, but Microsoft Learn has no AB-400 learning paths yet, so this plan uses the PL-400 paths plus docs for the new objectives: code apps, MCP, Foundry agents.</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>The chosen exams, in order</h3>
+      <table>
+        <tr><th>#</th><th>Exam</th><th>Leads to</th></tr>
+        <tr><td>1</td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/">DP-700</a> Fabric Data Engineer</td><td>Fabric Data Engineer Associate</td></tr>
+        <tr><td>2</td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-400/">AB-400</a> Power Platform Developer Associate</td><td>Power Platform Developer Associate (AB-100 prereq)</td></tr>
+        <tr><td>3</td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-100/">AB-100</a> Agentic AI Business Solutions Architect</td><td>Agentic AI Business Solutions Architect Expert</td></tr>
+      </table>
+      <p><b>Why this order.</b> DP-700 stands alone, so it goes first, inside the 60-day Fabric trial. That also gives AB-400, which launches 2026-10-16, four weeks for its practice material and learning paths to appear. AB-400 must come before AB-100: the associate is the expert prerequisite, and AB-100 assumes the Power Platform, Copilot Studio and ALM depth that AB-400 builds.</p>
+    </div>
+    <div class="card">
+      <h3>Why 11 weeks (not 8-10)</h3>
+      <p>Before the retirements this was two Power Platform exams. Now it is three exams: the expert credential needs AB-100 plus an associate, and DP-700 is separate. At ~2.5h x 5 weekdays + ~5h weekend = ~17h/week:</p>
+      <ul class="links">
+        <li>DP-700: 3 learning weeks + 1 review (~68h). Spark, KQL and Real-Time Intelligence are new, but the cloud and data concepts are not.</li>
+        <li>AB-400: 3 learning weeks + 1 review (~68h). This is the biggest gap: Dataverse, plug-ins, PCF, client API, Power Fx, all from zero.</li>
+        <li>AB-100: 2 learning weeks + 1 review (~51h). Architecture is a strength, and Weeks 5-8 already cover most of the Power Platform material.</li>
+      </ul>
+      <p><b>Compress to 10:</b> if you score 80%+ on the DP-700 practice assessment in the Week 3 weekend, book the exam then and start Week 5 a week early.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>Weekly plan (suggested dates, starting Mon 2026-10-12)</h3>
+    <table>
+      <tr><th>Week</th><th>Dates</th><th>Exam</th><th>Theme</th><th>Outline weight covered</th></tr>
+      <tr><td><a href="#week1">1</a></td><td>Oct 12-18</td><td>DP-700</td><td>Fabric foundations; batch ingest and transform (lakehouse, Spark, pipelines, Dataflow Gen2, warehouse)</td><td>Ingest and transform (30-35%), batch half</td></tr>
+      <tr><td><a href="#week2">2</a></td><td>Oct 19-25</td><td>DP-700</td><td>Streaming (Eventstream, Eventhouse, KQL, Structured Streaming); shortcuts, mirroring, orchestration</td><td>Ingest (streaming half) + orchestration from Implement and manage</td></tr>
+      <tr><td><a href="#week3">3</a></td><td>Oct 26-Nov 1</td><td>DP-700</td><td>Workspace settings, lifecycle (git, deployment pipelines), security, monitoring, optimization</td><td>Implement and manage (30-35%) + Monitor and optimize (30-35%)</td></tr>
+      <tr><td><a href="#week4">4</a></td><td>Nov 2-8</td><td>DP-700</td><td>Review, practice assessments, exam sandbox, <b>sit DP-700</b></td><td>All</td></tr>
+      <tr><td><a href="#week5">5</a></td><td>Nov 9-15</td><td>AB-400</td><td>Power Platform and Dataverse foundations; technical architecture; solutions and ALM</td><td>Build solutions (15-20%)</td></tr>
+      <tr><td><a href="#week6">6</a></td><td>Nov 16-22</td><td>AB-400</td><td>Plug-ins, custom APIs, Web API and SDKs, Azure Functions, cloud flows</td><td>Extend the platform (35-40%)</td></tr>
+      <tr><td><a href="#week7">7</a></td><td>Nov 23-29</td><td>AB-400</td><td>Client API, PCF, code apps, agents/MCP; Dataverse events and custom connectors</td><td>Extend UX (25-30%) + Develop integrations (10-15%)</td></tr>
+      <tr><td><a href="#week8">8</a></td><td>Nov 30-Dec 6</td><td>AB-400</td><td>Review, practice assessment, <b>sit AB-400</b></td><td>All</td></tr>
+      <tr><td><a href="#week9">9</a></td><td>Dec 7-13</td><td>AB-100</td><td>Copilot Studio hands-on; requirements, AI strategy, ROI; Dynamics 365 Copilot tour</td><td>Plan (25-30%)</td></tr>
+      <tr><td><a href="#week10">10</a></td><td>Dec 14-20</td><td>AB-100</td><td>Agent design and extensibility; monitoring, testing, ALM, responsible AI and security</td><td>Design (25-30%) + Deploy (40-45%)</td></tr>
+      <tr><td><a href="#week11">11</a></td><td>Dec 21-27</td><td>AB-100</td><td>Review, case-study practice, <b>sit AB-100</b> (shift into Dec 28-Jan 3 if the holidays bite)</td><td>All, Deploy weighted</td></tr>
+      <tr><td><a href="#ai">AI</a></td><td>any time</td><td>shared</td><td>AI integration fundamentals (shared page): seven areas mapped to the Microsoft stack</td><td>Exam-critical for AB-100, partly for AB-400, not for DP-700</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Your existing strengths mapped to the exams</h3>
+    <table>
+      <tr><th>You already know</th><th>Where it pays off</th><th>What is still new</th></tr>
+      <tr><td>Entra ID, RBAC, PIM, service principals, managed identities</td><td>DP-700 workspace/item permissions and OneLake security; AB-400 application users, managed identity for plug-ins, OAuth to Dataverse; AB-100 agent security</td><td>Dataverse business units, security roles, teams and row sharing; Fabric RLS/CLS/OLS and dynamic data masking</td></tr>
+      <tr><td>Terraform, Spacelift, CDK, CI/CD</td><td>DP-700 git integration and deployment pipelines; AB-400 solutions, Power Platform Pipelines, Build Tools and GitHub Actions; AB-100 ALM strategy</td><td>Managed vs unmanaged solutions and solution layering. These behave nothing like Terraform state.</td></tr>
+      <tr><td>Storage, Key Vault, Azure Batch, private endpoints</td><td>OneLake shortcuts to ADLS/S3, Azure Functions for long-running Power Platform work</td><td>Fabric capacity model (CUs), OneLake as a single logical lake</td></tr>
+      <tr><td>AWS data and integration services</td><td>Analogies: pipelines ~ Step Functions + Glue jobs, Eventstream ~ Kinesis, Eventhouse ~ a managed Kusto/time-series store, lakehouse ~ S3 + Delta + Athena, S3 shortcuts are first-class</td><td>KQL, Delta tuning (V-Order, OPTIMIZE), Power Query M in Dataflow Gen2</td></tr>
+      <tr><td>Python, multiple languages, Chime SDK service team (APIs, events, throttling)</td><td>PySpark notebooks; Dataverse Web API, SDK for Python, API limits and retry; webhooks and Service Bus integration</td><td>C# plug-ins on the Dataverse event pipeline, TypeScript PCF, Client API JavaScript, Power Fx</td></tr>
+      <tr><td>Solutions Architect (requirements, ROI, trade-offs)</td><td>AB-100 Plan domain (requirements, ROI/TCO, build-buy-extend) and case studies</td><td>Copilot Studio, Dynamics 365 apps and their built-in Copilot features</td></tr>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Free lab environments</h3>
+      <ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial">Fabric trial</a>: 60 days, F4 or F64 capacity. Start it on Day 1 of Week 1; it covers Weeks 1-4. Copilot is not included.</li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/developer/plan">Power Apps Developer Plan</a> (<a href="https://www.microsoft.com/en-us/power-platform/products/power-apps/free">sign up</a>): free dev environments with Dataverse, Power Apps and Power Automate</li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-licensing-subscriptions">Copilot Studio trial and licensing</a> (Weeks 7, 9-11)</li>
+        <li><a href="https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account?icid=azurefreeaccount">Azure free account</a> (Functions, Service Bus, AI Search, Foundry). A personal sandbox subscription is fine; keep it separate from work tenants.</li>
+        <li><a href="https://www.microsoft.com/en-us/dynamics-365/free-trial">Dynamics 365 free trials</a> (optional, Week 9)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Rules of the road</h3>
+      <ul class="links">
+        <li>Read each exam's study guide first and tick objectives off as you go. Weights decide where the time goes.</li>
+        <li>Associate and expert exams let you open Microsoft Learn during the exam, but the clock keeps running. Practice finding docs pages fast.</li>
+        <li>Book an exam once two practice-assessment runs score 80%+ (see <a href="#readiness">Readiness</a>).</li>
+        <li>Fabric trial and dev environments are personal sandboxes. Never point them at work data.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== LOGISTICS ============================== -->
+<section class="page" id="logistics" data-title="Exam logistics">
+  <h2>Exam logistics</h2>
+  <p class="lede">Every fact below is from Microsoft Learn pages fetched on 2026-10-09. Re-check the exam page before booking; outlines change (DP-700 updates 2026-10-19, AB-100 2026-10-14, AB-400 launches 2026-10-16).</p>
+
+  <div class="card">
+    <h3>The three exams</h3>
+    <table>
+      <tr><th></th><th>DP-700</th><th>AB-400</th><th>AB-100</th></tr>
+      <tr><td>Name</td><td>Implementing Data Engineering Solutions Using Microsoft Fabric</td><td>Power Platform Developer Associate (replaces PL-400 from 2026-10-16)</td><td>Agentic AI Business Solutions Architect</td></tr>
+      <tr><td>Certification</td><td>Microsoft Certified: Fabric Data Engineer Associate</td><td>Microsoft Certified: Power Platform Developer Associate</td><td>Microsoft Certified: Agentic AI Business Solutions Architect Expert</td></tr>
+      <tr><td>Prerequisite</td><td>None</td><td>None</td><td>Pass AB-100 <b>and</b> hold one listed associate cert (Power Platform Developer Associate qualifies; others include AB-620, AI-103, MB-xxx)</td></tr>
+      <tr><td>Skills measured</td><td>Implement and manage 30-35%; Ingest and transform 30-35%; Monitor and optimize 30-35%</td><td>Build solutions 15-20%; Extend UX 25-30%; Extend the platform 35-40%; Develop integrations 10-15%</td><td>Plan 25-30%; Design 25-30%; Deploy 40-45%</td></tr>
+      <tr><td>Study guide</td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700">DP-700 study guide</a></td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-400">AB-400 study guide</a></td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-100">AB-100 study guide</a></td></tr>
+      <tr><td>Free practice assessment</td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/practice/assessment?assessment-type=practice&amp;assessmentId=1704375541&amp;practice-assessment-type=certification">DP-700 practice</a></td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-developer-associate/practice/assessment?assessment-type=practice&amp;assessmentId=66&amp;practice-assessment-type=certification">PL-400 practice</a> (the AB-400 study guide links this one; there is no AB-400-specific assessment yet)</td><td><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-100/practice/assessment?assessment-type=practice&amp;assessmentId=1815645847&amp;practice-assessment-type=certification">AB-100 practice</a></td></tr>
+      <tr><td>Official course</td><td><a href="https://learn.microsoft.com/en-us/training/courses/dp-700t00">DP-700T00</a></td><td><a href="https://learn.microsoft.com/en-us/training/courses/ab-400t00">AB-400T00</a> (learning paths not yet published); <a href="https://learn.microsoft.com/en-us/training/courses/pl-400t00">PL-400T00</a> paths used instead</td><td><a href="https://learn.microsoft.com/en-us/training/courses/ab-100t00">AB-100T00</a></td></tr>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Format and scoring</h3>
+      <ul class="links">
+        <li><b>Passing score: 700</b> on a 1-1000 scale. It is scaled, not a percentage (<a href="https://learn.microsoft.com/en-us/credentials/certifications/exam-scoring-reports">scoring and score reports</a>).</li>
+        <li><b>Duration:</b> associate and expert exams without labs get 100 minutes (120 min seat time). Exams that may contain labs get 120 minutes (140 min seat time). The exact time is shown when you register. A 5-minute break allowance is built in, but the clock keeps running (<a href="https://learn.microsoft.com/en-us/credentials/support/exam-duration-exam-experience">exam duration and experience</a>).</li>
+        <li><b>Question types:</b> multiple choice, best answer, active screen, build list, drag and drop, hot area, case studies, problem-solution sets (no going back), and possibly labs. You can mark questions for review; after a break you cannot return to earlier questions.</li>
+        <li><b>Microsoft Learn is available in the exam</b> in a split pane on role-based exams. Microsoft says it is for look-ups only; you won't have time to research every question.</li>
+        <li>If the exam is not in your preferred language you can request an extra 30 minutes.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Cost, scheduling, retakes</h3>
+      <ul class="links">
+        <li><b>Cost: US$165</b> per exam in the United States (Microsoft exam-pricing data; varies by country; taxes extra).</li>
+        <li><b>Schedule</b> from the exam page ("Schedule exam") through Pearson VUE. Microsoft recommends registering with a <b>personal</b> Microsoft account, not a work account, so records survive a job change.</li>
+        <li><b>Online (OnVUE):</b> webcam and microphone proctoring. Run the required system test on the same computer and network. Use a personal computer, not a locked-down work laptop. Phone out of reach (<a href="https://learn.microsoft.com/en-us/credentials/certifications/online-exams">online exam rules</a>).</li>
+        <li><b>Test center:</b> pick one when you book via <a href="https://www.pearsonvue.com/us/en/microsoft.html">Pearson VUE for Microsoft</a>.</li>
+        <li><b>Retakes:</b> wait 24 hours after a first failure; at most 5 attempts per exam in 12 months (<a href="https://learn.microsoft.com/en-us/credentials/support/retake-policy">retake policy</a>). Check <a href="https://learn.microsoft.com/en-us/credentials/certifications/deals">offers / Exam Replay</a> before booking.</li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/request-accommodations">Request accommodations</a> if needed.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Renewal</h3>
+      <ul class="links">
+        <li>Associate and expert certifications expire annually. Renew <b>free</b> by passing an online, unproctored, open-book renewal assessment on Microsoft Learn.</li>
+        <li>The renewal window opens six months before expiry. Passing extends the certification one year from the expiration date. Unlimited renewal attempts before expiry.</li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification">Renewal details</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Practice before the real thing</h3>
+      <ul class="links">
+        <li><a href="https://mscertdemo.starttest.com/">Exam sandbox / exam-experience demo</a> (aka.ms/examdemo): try every question type and the Learn split pane.</li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications">All practice assessments</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/shows/exam-readiness-zone/">Exam Readiness Zone</a> (video walkthroughs)</li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/support/retired-certification-exams">Retired exams list</a> (source for the DP-203, PL-600 and PL-200 dates)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>Source pages for the exam decisions</h3>
+    <ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-data-engineer/">Azure Data Engineer Associate (DP-203)</a>: retired 03/31/2025</li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-solution-architect-expert/">Power Platform Solution Architect Expert (PL-600)</a>: retired 2026-06-30</li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-functional-consultant-associate/">Power Platform Functional Consultant Associate (PL-200)</a>: retired 2026-08-31</li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-developer-associate/">Power Platform Developer Associate</a>: PL-400 to AB-400 transition dates</li>
+      <li><a href="https://techcommunity.microsoft.com/blog/skills-hub-blog/updates-to-azure-cosmos-db-and-power-platform-developer-certifications/4528353">Microsoft blog: PL-400 is becoming AB-400</a></li>
+      <li><a href="https://techcommunity.microsoft.com/blog/skills-hub-blog/the-ai-job-boom-continues-build-the-skills-that-move-business-forward/4494139">Microsoft blog: 2026 retirements and AB-100 as the expert next step</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-business-solutions-architect/">Agentic AI Business Solutions Architect Expert</a>: prerequisite list</li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-750">DP-750 study guide</a>: the only current outline naming Azure Data Factory (as an ingestion tool choice)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 1 ============================== -->
+<section class="page" id="week1" data-title="Week 1">
+  <h2>Week 1 - DP-700: Fabric foundations and batch ingest <button class="reset" data-reset="w1">reset week</button></h2>
+  <p class="lede">Get the trial running and learn the Fabric mental model: one capacity, one OneLake, many item types. Then build batch loads with every tool the exam asks you to choose between.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Setup and the Fabric mental model</h3>
+    <p class="focus">Trial, workspace, lakehouse. Read the outline you will be measured against (the 2026-10-19 version).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-mon-1"><span>Start the Fabric trial; create a workspace on trial capacity</span></li>
+        <li data-id="w1-mon-2"><span>Read the DP-700 study guide end to end; copy its objectives into your notes as a checklist</span></li>
+        <li data-id="w1-mon-3"><span>Module: Introduction to end-to-end analytics; create a lakehouse and load the sample data</span></li>
+        <li data-id="w1-mon-4"><span>Read the Fabric vs Azure Data Factory comparison: note what moved and what did not</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial">Fabric trial</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700">DP-700 study guide</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-end-analytics-use-microsoft-fabric/">Module: end-to-end analytics in Fabric</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-lakehouses/">Module: Get started with lakehouses</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/compare-fabric-data-factory-and-azure-data-factory">Data Factory in Fabric vs Azure Data Factory</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Spark notebooks and Delta tables</h3>
+    <p class="focus">PySpark is your fastest win. Learn the Fabric specifics: default lakehouse, notebookutils, Delta and V-Order.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-tue-1"><span>Modules: Use Apache Spark; Work with Delta Lake tables</span></li>
+        <li data-id="w1-tue-2"><span>Notebook: read CSV from Files, write a managed Delta table, then <code>MERGE</code> an upsert batch</span></li>
+        <li data-id="w1-tue-3"><span>Use time travel (<code>VERSION AS OF</code>) and <code>DESCRIBE HISTORY</code>; skim notebookutils</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/use-apache-spark-work-files-lakehouse/">Module: Use Apache Spark in Fabric</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/work-delta-lake-tables-fabric/">Module: Delta Lake tables in Fabric</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview">Lakehouse overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/notebook-utilities">NotebookUtils</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Data Factory pipelines</h3>
+    <p class="focus">Copy activity, control flow, parameters and dynamic expressions. Think Step Functions with built-in connectors.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wed-1"><span>Module: Orchestrate processes and data movement</span></li>
+        <li data-id="w1-wed-2"><span>Build a parameterized pipeline: Lookup then ForEach then Copy, with <code>@pipeline().parameters</code> and <code>@item()</code></span></li>
+        <li data-id="w1-wed-3"><span>Add a schedule; run, then read the run history and activity output JSON</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/use-data-factory-pipelines-fabric/">Module: Orchestrate with Fabric pipelines</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview">Data Factory in Fabric overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/expression-language">Expression language and functions</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-runs">Pipeline runs and schedules</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Dataflow Gen2, Copy job, and choosing a tool</h3>
+    <p class="focus">The outline asks you to choose between Dataflow Gen2, pipeline, notebook, KQL and T-SQL repeatedly. Build the decision table today.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-thu-1"><span>Modules: Ingest with Dataflows Gen2; Transform data using Dataflows Gen2</span></li>
+        <li data-id="w1-thu-2"><span>Build a Dataflow Gen2 with a lakehouse destination and incremental refresh</span></li>
+        <li data-id="w1-thu-3"><span>Write a one-page decision table: Dataflow Gen2 vs pipeline vs Copy job vs notebook vs T-SQL vs KQL (skills, scale, cost, code)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/use-dataflow-gen-2-fabric/">Module: Ingest with Dataflows Gen2</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/fabric-transform-data-dataflows/">Module: Transform with Dataflows Gen2</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/dataflow-gen2-incremental-refresh">Dataflow Gen2 incremental refresh</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/what-is-copy-job">What is Copy job</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/decision-guide-data-movement">Decision guide: data movement</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Warehouse and T-SQL</h3>
+    <p class="focus">Warehouse vs lakehouse SQL analytics endpoint; loading with COPY INTO and CTAS; transforming with T-SQL.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-fri-1"><span>Modules: Get started with data warehouses; Load data into a warehouse</span></li>
+        <li data-id="w1-fri-2"><span>Load a table with <code>COPY INTO</code>, then build a dimension with CTAS; query a lakehouse table cross-database</span></li>
+        <li data-id="w1-fri-3"><span>Module: Transform data using T-SQL; note what the SQL endpoint can and cannot write</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-data-warehouse/">Module: Get started with data warehouses</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/load-data-into-microsoft-fabric-data-warehouse/">Module: Load data into a warehouse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/fabric-transform-data-tsql/">Module: Transform data using T-SQL</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/data-warehousing">Fabric data warehousing</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/fundamentals/decision-guide-data-store">Decision guide: choose a data store</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Loading patterns lab + classic ADF bridge</h3>
+    <p class="focus">Full vs incremental loads, dimensional prep, duplicates and late data, medallion layout. Then an optional hour on classic ADF for work.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wk-1"><span>Modules: medallion architecture; dimensional models; choose data stores</span></li>
+        <li data-id="w1-wk-2"><span>Lab: bronze/silver/gold with a watermark-based incremental pipeline, SCD type 2 dimension, dedup and late-arriving rows</span></li>
+        <li data-id="w1-wk-3"><span>Do the incremental copy tutorial (warehouse to lakehouse)</span></li>
+        <li data-id="w1-wk-4"><span>Optional, not on the exam: classic ADF module; note integration runtimes, ARM-template CI/CD, and what Fabric replaces</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/describe-medallion-architecture/">Module: medallion architecture</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/design-dimensional-models-fabric/">Module: dimensional models in Fabric</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/choose-data-store-fabric/">Module: Choose data stores in Fabric</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/tutorial-incremental-copy-data-warehouse-lakehouse">Tutorial: incremental copy</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/data-integration-azure-data-factory/">Classic ADF: Integrate data with ADF</a> / <a href="https://learn.microsoft.com/en-us/azure/data-factory/introduction">ADF intro</a> / <a href="https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime">integration runtime</a> / <a href="https://learn.microsoft.com/en-us/azure/data-factory/continuous-integration-delivery">ADF CI/CD</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> working medallion workspace (pipeline + notebook + Dataflow Gen2 + warehouse) and a tool-choice decision table.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 2 ============================== -->
+<section class="page" id="week2" data-title="Week 2">
+  <h2>Week 2 - DP-700: streaming, shortcuts, orchestration <button class="reset" data-reset="w2">reset week</button></h2>
+  <p class="lede">Real-Time Intelligence and KQL are the least familiar part of DP-700 for most people. Spend real lab time here. The updated outline goes live on 2026-10-19 (Monday of this week).</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Real-Time Intelligence and Eventstream</h3>
+    <p class="focus">Eventstream ~ Kinesis Data Streams + Firehose with no-code transforms; Eventhouse is the KQL store.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-mon-1"><span>Modules: Get started with Real-Time Intelligence; Use Eventstream</span></li>
+        <li data-id="w2-mon-2"><span>Build an eventstream from a sample source to both an Eventhouse and a lakehouse destination; add a filter and aggregate</span></li>
+        <li data-id="w2-mon-3"><span>Write down when to use Eventstream vs Spark Structured Streaming vs KQL update policies</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-kusto-fabric/">Module: Get started with RTI</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/explore-event-streams-microsoft-fabric/">Module: Use Eventstream</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/overview">RTI overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/event-streams/overview">Eventstream overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Eventhouse and KQL</h3>
+    <p class="focus">KQL is a pipe language: <code>T | where | summarize | bin()</code>. Windowing is <code>bin()</code>-based.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-tue-1"><span>Module: Work with real-time data in an Eventhouse</span></li>
+        <li data-id="w2-tue-2"><span>Write tumbling-window aggregates with <code>summarize ... by bin(Timestamp, 5m)</code>; try <code>scan</code> for session-like logic</span></li>
+        <li data-id="w2-tue-3"><span>Create an update policy and a materialized view; note when each fits</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/query-data-kql-database-microsoft-fabric/">Module: Eventhouse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/kusto/query/?view=microsoft-fabric">KQL reference</a> / <a href="https://learn.microsoft.com/en-us/kusto/query/bin-function?view=microsoft-fabric">bin()</a> / <a href="https://learn.microsoft.com/en-us/kusto/query/scan-operator?view=microsoft-fabric">scan</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/kusto/management/update-policy?view=microsoft-fabric">Update policy</a> / <a href="https://learn.microsoft.com/en-us/kusto/management/materialized-views/materialized-view-overview?view=microsoft-fabric">Materialized views</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/eventhouse">Eventhouse overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Spark Structured Streaming</h3>
+    <p class="focus">readStream into Delta with checkpoints, watermarks, windows, and late data.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wed-1"><span>Streaming notebook: <code>readStream</code> to a Delta table with a checkpoint location</span></li>
+        <li data-id="w2-wed-2"><span>Add <code>withWatermark</code> + <code>window()</code> aggregation; feed late events and observe what is dropped</span></li>
+        <li data-id="w2-wed-3"><span>Schedule it as a Spark job definition or notebook; compare with the Eventstream path</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/get-started-streaming">Get started with streaming data in a lakehouse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-streaming-data">Stream data into a lakehouse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/explore-fundamentals-stream-processing/">Module: real-time analytics fundamentals</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Shortcuts, mirroring, query acceleration</h3>
+    <p class="focus">Zero-copy access patterns. You can shortcut straight to S3, so use your AWS side.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-thu-1"><span>Create an ADLS Gen2 shortcut and an S3 shortcut from a personal sandbox bucket</span></li>
+        <li data-id="w2-thu-2"><span>Read the mirroring overview; mirror a small Azure SQL DB if your free account allows</span></li>
+        <li data-id="w2-thu-3"><span>In RTI, compare native tables vs OneLake shortcuts vs query-accelerated shortcuts (latency, cost, freshness)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts">OneLake shortcuts</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/mirroring/overview">Mirroring overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/query-acceleration-overview">Query acceleration for shortcuts</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/discover-data-onelake/">Module: Discover and connect to data in OneLake</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Orchestration patterns</h3>
+    <p class="focus">Pipelines calling notebooks with parameters, failure paths, event triggers, Apache Airflow jobs.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-fri-1"><span>Parent pipeline: Notebook activity with base parameters, then on-success/on-failure branches, then an Invoke Pipeline child</span></li>
+        <li data-id="w2-fri-2"><span>Add an event-based trigger (storage event) next to the schedule</span></li>
+        <li data-id="w2-fri-3"><span>Read the Apache Airflow job concepts; note when the exam would prefer Airflow over pipelines</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-runs">Pipeline runs, schedules and triggers</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/apache-airflow-jobs-concepts">Apache Airflow job in Fabric</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/expression-language">Expression language</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/fabric-transform-data-notebooks/">Module: Transform data using notebooks</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Streaming end to end + Activator</h3>
+    <p class="focus">One pipeline from event to alert, plus a real-time dashboard.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wk-1"><span>Modules: Use Activator; Create Real-Time Dashboards</span></li>
+        <li data-id="w2-wk-2"><span>Lab: Eventstream to Eventhouse, KQL windowed aggregate, dashboard tile, Activator alert on a threshold</span></li>
+        <li data-id="w2-wk-3"><span>Re-read the "Ingest and transform streaming data" objectives; tick off each one you have actually built</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/use-fabric-activator/">Module: Use Activator</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/create-real-time-dashboards-microsoft-fabric/">Module: Real-Time Dashboards</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/explore-real-time-analytics-microsoft-fabric/">Path: Implement Real-Time Intelligence</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> streaming pipeline with alerting, shortcuts to ADLS and S3, a parameterized orchestration pipeline, and a KQL cheat sheet.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 3 ============================== -->
+<section class="page" id="week3" data-title="Week 3">
+  <h2>Week 3 - DP-700: manage, secure, monitor, optimize <button class="reset" data-reset="w3">reset week</button></h2>
+  <p class="lede">Two-thirds of the exam weight is here (Implement and manage + Monitor and optimize). The Terraform and RBAC background makes this the fastest week. The error-diagnosis objectives are the trap.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Workspace settings and lifecycle</h3>
+    <p class="focus">Spark, domain, OneLake and Airflow workspace settings; git integration; deployment pipelines; database projects.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-mon-1"><span>Module: Implement CI/CD in Fabric</span></li>
+        <li data-id="w3-mon-2"><span>Connect the workspace to a git repo; commit, branch, update from git</span></li>
+        <li data-id="w3-mon-3"><span>Create a deployment pipeline (dev to test) with a deployment rule for a data source</span></li>
+        <li data-id="w3-mon-4"><span>Walk every workspace settings blade: Spark pools/environments, domains, OneLake, Airflow</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/implement-cicd-in-fabric/">Module: CI/CD in Fabric</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/cicd/git-integration/intro-to-git-integration">Git integration</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/intro-to-deployment-pipelines">Deployment pipelines</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/workspace-admin-settings">Spark workspace settings</a> / <a href="https://learn.microsoft.com/en-us/fabric/governance/domains">Domains</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Security and governance</h3>
+    <p class="focus">Workspace roles, item permissions, RLS/CLS/OLS, dynamic data masking, OneLake security, labels, endorsement, audit logs.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-tue-1"><span>Modules: Secure data access in Fabric; Secure a Fabric data warehouse</span></li>
+        <li data-id="w3-tue-2"><span>Implement RLS, CLS and dynamic data masking on the warehouse; test as a second user</span></li>
+        <li data-id="w3-tue-3"><span>Create a OneLake security role scoped to a folder; apply a sensitivity label and endorse an item; find the audit log entries</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/secure-data-access-in-fabric/">Module: Secure data access</a> / <a href="https://learn.microsoft.com/en-us/training/modules/secure-data-warehouse-in-microsoft-fabric/">Secure a warehouse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/fundamentals/roles-workspaces">Workspace roles</a> / <a href="https://learn.microsoft.com/en-us/fabric/security/permission-model">Permission model</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/row-level-security">RLS</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/column-level-security">CLS</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/dynamic-data-masking">DDM</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/onelake/security/data-access-control-model">OneLake security</a> / <a href="https://learn.microsoft.com/en-us/fabric/governance/information-protection">Sensitivity labels</a> / <a href="https://learn.microsoft.com/en-us/fabric/governance/endorsement-overview">Endorsement</a> / <a href="https://learn.microsoft.com/en-us/fabric/admin/track-user-activities">Audit logs</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/fabric-govern-analytics-data/">Module: Govern analytics data</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Monitoring</h3>
+    <p class="focus">Monitoring hub, capacity metrics, semantic model refresh, alerts.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wed-1"><span>Modules: Monitor activities in Fabric; Monitor a Fabric data warehouse</span></li>
+        <li data-id="w3-wed-2"><span>Install the Capacity Metrics app; find which item burned the most CUs this week</span></li>
+        <li data-id="w3-wed-3"><span>Configure an alert on a pipeline failure and on a semantic model refresh</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/monitor-fabric-items/">Module: Monitor activities</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/monitor-fabric-data-warehouse/">Module: Monitor a warehouse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/admin/monitoring-hub">Monitoring hub</a> / <a href="https://learn.microsoft.com/en-us/fabric/enterprise/metrics-app">Capacity Metrics app</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/spark-detail-monitoring">Spark application monitoring</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Identify and resolve errors</h3>
+    <p class="focus">The outline lists seven error sources. Break each one on purpose and learn where its error surfaces.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-thu-1"><span>Break and fix: pipeline (bad param), Dataflow Gen2 (type error), notebook (missing lakehouse), T-SQL (permission)</span></li>
+        <li data-id="w3-thu-2"><span>Break and fix: Eventstream (schema), Eventhouse (ingestion mapping), shortcut (revoked credential)</span></li>
+        <li data-id="w3-thu-3"><span>Write an error catalog: item / where the error shows / top 3 causes / fix</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/fabric/admin/monitoring-hub">Monitoring hub</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/query-insights">Warehouse query insights</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts">Shortcuts (auth and limits)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Optimize performance</h3>
+    <p class="focus">Lakehouse tables, Spark, warehouse, pipelines, Eventstream and Eventhouse.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-fri-1"><span>Run <code>OPTIMIZE</code> (with V-Order) and <code>VACUUM</code>; compare file counts and query times before and after</span></li>
+        <li data-id="w3-fri-2"><span>Read: native execution engine, high concurrency mode, warehouse performance guidelines and statistics</span></li>
+        <li data-id="w3-fri-3"><span>List pipeline levers (parallel copies, ForEach batch count, staging) and Eventhouse levers (caching/retention policies, update policies)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order">Delta optimization and V-Order</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/native-execution-engine-overview">Native execution engine</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/high-concurrency-overview">High concurrency</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/guidelines-warehouse-performance">Warehouse performance</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/statistics">Statistics</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Capstone + baseline practice assessment</h3>
+    <p class="focus">Rebuild the Week 1-2 solution in a fresh workspace through git and a deployment pipeline, then take a baseline score.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wk-1"><span>Redeploy the whole solution from git into a clean workspace; secure it; monitor one full run</span></li>
+        <li data-id="w3-wk-2"><span>Take the DP-700 practice assessment once, cold. Record the score per domain on the Readiness page</span></li>
+        <li data-id="w3-wk-3"><span>If 80%+ already: book the exam and consider the 10-week compression</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/practice/assessment?assessment-type=practice&amp;assessmentId=1704375541&amp;practice-assessment-type=certification">DP-700 practice assessment</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/manage-microsoft-fabric-environment/">Path: Manage a Fabric environment</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> git-backed, deployment-pipelined, secured Fabric solution; error catalog; baseline practice score.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 4 ============================== -->
+<section class="page" id="week4" data-title="Week 4">
+  <h2>Week 4 - DP-700: review, practice, exam <button class="reset" data-reset="w4">reset week</button></h2>
+  <p class="lede">Close gaps by objective, not by re-reading. Book the exam for the weekend once two practice runs clear 80%. The Fabric trial ends around day 60, after this week.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Gap map</h3>
+    <p class="focus">Turn every practice miss into a study-guide objective and a lab action.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-mon-1"><span>Review every missed practice question and its explanation; tag each with the study-guide objective</span></li>
+        <li data-id="w4-mon-2"><span>Rate each objective group on the Readiness page; pick the three weakest</span></li>
+        <li data-id="w4-mon-3"><span>Try the exam sandbox, including the Microsoft Learn split pane</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700">DP-700 study guide</a></li>
+        <li><a href="https://mscertdemo.starttest.com/">Exam sandbox</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Re-drill: Implement and manage (30-35%)</h3>
+    <p class="focus">Settings, lifecycle, security, orchestration choices.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-tue-1"><span>Redo weak labs from Week 3 Mon-Tue and Week 2 Fri</span></li>
+        <li data-id="w4-tue-2"><span>Flashcards: role vs item permission vs OneLake role vs RLS, which wins where</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/fabric/security/permission-model">Fabric permission model</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/intro-to-deployment-pipelines">Deployment pipelines</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Re-drill: Ingest and transform (30-35%)</h3>
+    <p class="focus">Tool choice questions, loading patterns, streaming engines, PySpark/SQL/KQL transforms.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wed-1"><span>Re-read your tool-choice decision table; answer 10 self-made "which tool" scenarios</span></li>
+        <li data-id="w4-wed-2"><span>Write the same group-and-dedupe transform in PySpark, T-SQL and KQL from memory</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/ingest-data-with-microsoft-fabric/">Path: Ingest data with Fabric</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/implement-lakehouse-microsoft-fabric/">Path: Implement a lakehouse</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Re-drill: Monitor and optimize (30-35%)</h3>
+    <p class="focus">Error catalog and optimization levers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-thu-1"><span>Quiz yourself on the error catalog; fill any blanks</span></li>
+        <li data-id="w4-thu-2"><span>Practice Learn look-ups under time: find the V-Order and Eventhouse caching-policy pages in under 60s each</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/work-with-data-warehouses-using-microsoft-fabric/">Path: Implement a data warehouse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order">V-Order</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Final practice + booking</h3>
+    <p class="focus">Two runs at 80%+ means go.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-fri-1"><span>Practice assessment run 2 (and 3 if needed); log scores on Readiness</span></li>
+        <li data-id="w4-fri-2"><span>Book DP-700 (online or test center); run the OnVUE system test on the exam machine</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/practice/assessment?assessment-type=practice&amp;assessmentId=1704375541&amp;practice-assessment-type=certification">DP-700 practice assessment</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/">DP-700 / schedule exam</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/online-exams">Online exam requirements</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Sit DP-700</h3>
+    <p class="focus">Light review only on exam day.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wk-1"><span>Sit DP-700</span></li>
+        <li data-id="w4-wk-2"><span>Note weak areas from the score report (useful for renewal and for work)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/exam-scoring-reports">Score reports</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/support/retake-policy">Retake policy</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> Microsoft Certified: Fabric Data Engineer Associate.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 5 ============================== -->
+<section class="page" id="week5" data-title="Week 5">
+  <h2>Week 5 - AB-400: Power Platform foundations and solution building <button class="reset" data-reset="w5">reset week</button></h2>
+  <p class="lede">Learn as a maker first, quickly. AB-400 assumes you already know Dataverse, model-driven and canvas apps, and the security model, and it never teaches them. Then the "Build solutions" domain (15-20%): architecture choices and ALM.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Developer environment and tools</h3>
+    <p class="focus">Developer Plan environment, Power Platform CLI (<code>pac</code>), VS Code tools, Plug-in Registration Tool.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-mon-1"><span>Read the AB-400 study guide; note the objectives that are new compared with PL-400 (code apps, MCP, Foundry agents, Python SDK)</span></li>
+        <li data-id="w5-mon-2"><span>Sign up for the Developer Plan; create two dev environments (dev, "test") with Dataverse</span></li>
+        <li data-id="w5-mon-3"><span>Install <code>pac</code> and the VS Code extension; <code>pac auth create</code>; <code>pac tool prt</code> to launch the Plug-in Registration Tool</span></li>
+        <li data-id="w5-mon-4"><span>Modules: developer resources; developer tools</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-400">AB-400 study guide</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/developer/plan">Power Apps Developer Plan</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction">Power Platform CLI</a> / <a href="https://learn.microsoft.com/en-us/power-platform/developer/howto/install-vs-code-extension">VS Code extension</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/download-tools-nuget">Dataverse tools</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-power-platform-developer-resources/">Module: developer resources</a> / <a href="https://learn.microsoft.com/en-us/training/modules/developer-tools-extend/">developer tools</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Dataverse crash course</h3>
+    <p class="focus">Dataverse = relational store + metadata + RBAC + an event pipeline. Tables, columns, relationships, business rules, standard/virtual/elastic tables.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-tue-1"><span>Modules: Create tables; relationships; business rules; Dataverse for developers</span></li>
+        <li data-id="w5-tue-2"><span>Model a small domain (e.g. Asset, WorkOrder, Part): 1:N, N:N, choice, calculated and rollup columns</span></li>
+        <li data-id="w5-tue-3"><span>Read when to use standard vs virtual vs elastic tables vs connectors (an explicit objective)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-powerapps-common-data-service/">Module: Create tables in Dataverse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/create-relationship-between-cds-entities/">Module: relationships</a> / <a href="https://learn.microsoft.com/en-us/training/modules/define-create-business-rules/">business rules</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-dataverse-developers/">Module: Dataverse for developers</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/elastic-tables">Elastic tables</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/virtual-entities/get-started-ve">Virtual tables</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Model-driven and canvas apps, Power Fx</h3>
+    <p class="focus">Enough maker skill to know where code is needed. Watch delegation in canvas apps.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wed-1"><span>Build a model-driven app over yesterday's tables (forms, views, a business process flow)</span></li>
+        <li data-id="w5-wed-2"><span>Build a canvas app with a delegation-safe gallery filter and a <code>Patch</code> write</span></li>
+        <li data-id="w5-wed-3"><span>Modules: model-driven apps; canvas app; Power Fx</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-model-driven-apps-in-powerapps/">Module: model-driven apps</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/build-canvas-app/">Module: Build a canvas app</a> / <a href="https://learn.microsoft.com/en-us/training/modules/get-started-power-fx/">Power Fx</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/delegation-overview">Delegation</a> / <a href="https://learn.microsoft.com/en-us/power-platform/power-fx/overview">Power Fx overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/use-advance-techniques-canvas-apps-custom-updates-optimization/">Path: advanced canvas techniques</a> (skim)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Security model and governance</h3>
+    <p class="focus">Business units, security roles, teams, row sharing, managed environments, data policies (DLP). Your Entra/RBAC strength, applied to Dataverse.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-thu-1"><span>Modules: security roles; Dataverse security model</span></li>
+        <li data-id="w5-thu-2"><span>Create a BU hierarchy, an owner team, a custom role with BU-level read; share a row; test as a second user</span></li>
+        <li data-id="w5-thu-3"><span>Enable a managed environment; create a data policy blocking a connector; see what breaks</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-security-roles/">Module: security roles</a> / <a href="https://learn.microsoft.com/en-us/training/modules/configure-dataverse-security-model/">Dataverse security model</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/admin/wp-security-cds">Security in Dataverse</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/admin/managed-environment-overview">Managed environments</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/wp-data-loss-prevention">Data policies</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Solutions and ALM concepts</h3>
+    <p class="focus">Managed vs unmanaged, layering, dependencies, environment variables, connection references.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-fri-1"><span>Modules: Introduction to solutions; Manage solutions</span></li>
+        <li data-id="w5-fri-2"><span>Put everything in a solution with a publisher prefix; add an environment variable and a connection reference</span></li>
+        <li data-id="w5-fri-3"><span>Export managed, import to "test", then make an unmanaged change there and inspect the solution layers</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-solutions/">Module: Introduction to solutions</a> / <a href="https://learn.microsoft.com/en-us/training/modules/manage-solutions-power-automate/">Manage solutions</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/alm/solution-concepts-alm">Solution concepts</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/solution-layers-alm">Solution layers</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/environmentvariables">Environment variables</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Pipelines, CI/CD, and architecture choices</h3>
+    <p class="focus">Power Platform Pipelines (and extending them), Build Tools, GitHub Actions. Then the "where does logic go" design objective.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wk-1"><span>Modules: Create a pipeline; Set up pipeline environments; Extend ALM with Git and CI/CD</span></li>
+        <li data-id="w5-wk-2"><span>GitHub Actions workflow: export, unpack, commit, pack, import dev to "test"</span></li>
+        <li data-id="w5-wk-3"><span>Write a decision table: business rule vs Power Fx vs client script vs plug-in vs cloud flow vs Azure Function; deterministic vs agent-based logic</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/create-pipeline/">Module: Create a pipeline</a> / <a href="https://learn.microsoft.com/en-us/training/modules/set-up-pipeline-environments/">pipeline environments</a> / <a href="https://learn.microsoft.com/en-us/training/modules/extend-alm-git-cicd/">Git and CI/CD</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/alm/pipelines">Pipelines</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/extend-pipelines">Extend pipelines</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/alm/devops-build-tools">Build Tools</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/devops-github-actions">GitHub Actions</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/alm/environment-strategy-alm">Environment strategy</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> a solution with apps, security and environment variables, promoted by both a Power Platform Pipeline and a GitHub Actions workflow; a "where logic goes" decision table.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 6 ============================== -->
+<section class="page" id="week6" data-title="Week 6">
+  <h2>Week 6 - AB-400: extend the platform <button class="reset" data-reset="w6">reset week</button></h2>
+  <p class="lede">The heaviest domain (35-40%). Plug-ins are C# on .NET Framework 4.6.2, registered against the Dataverse event pipeline. The Web API, SDKs, throttling and Azure Functions will feel like home.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Plug-in fundamentals</h3>
+    <p class="focus">Event pipeline stages (PreValidation 10, PreOperation 20, PostOperation 40), sync vs async, execution context.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-mon-1"><span>Module: Extend plug-ins; read the event framework page twice</span></li>
+        <li data-id="w6-mon-2"><span>Write a PreOperation validation plug-in that throws <code>InvalidPluginExecutionException</code>; register it in the PRT</span></li>
+        <li data-id="w6-mon-3"><span>Log <code>Depth</code>, <code>Stage</code>, <code>MessageName</code>, <code>InputParameters</code> from the context with ITracingService</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/extend-plug-ins/">Module: Extend plug-ins</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/plug-ins">Plug-ins overview</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/event-framework">Event framework</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/write-plug-in">Write a plug-in</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/tutorial-write-plug-in">Tutorial</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/understand-the-data-context">Execution context</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Images, performance, identity, business events</h3>
+    <p class="focus">Pre/post images, Organization service calls inside plug-ins, trace logs, managed identity, business events.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-tue-1"><span>Async PostOperation plug-in using a post-image to write an audit row; read the plug-in trace log</span></li>
+        <li data-id="w6-tue-2"><span>Read the business-logic best practices (no parallel threads, statelessness, 2-minute limit, recursion and depth)</span></li>
+        <li data-id="w6-tue-3"><span>Read: managed identity for plug-ins; business events</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/register-plug-in">Register a plug-in (incl. images)</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/logging-tracing">Tracing and logging</a> / <a href="https://learn.microsoft.com/en-us/troubleshoot/power-platform/dataverse/plug-in-execution/dataverse-plug-ins-errors">Plug-in errors</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/best-practices/business-logic/">Business logic best practices</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/admin/set-up-managed-identity">Managed identity for Dataverse plug-ins</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/business-events">Business events</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Custom APIs</h3>
+    <p class="focus">Your own Dataverse messages: request/response parameters, function vs action, backed by a plug-in.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wed-1"><span>Create a custom API (action) with a plug-in implementation; call it from the Web API and from a cloud flow</span></li>
+        <li data-id="w6-wed-2"><span>Compare custom API vs custom process action vs low-code plug-in</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/custom-api">Custom APIs</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/configure-low-code/">Module: low-code plug-ins</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/build-and-package">Build and package plug-in code</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Web API, SDKs, limits, bulk</h3>
+    <p class="focus">OData Web API, Organization service, .NET and Python SDKs, OAuth with MSAL, 429 + Retry-After, CreateMultiple, background operations.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-thu-1"><span>Module: Work with Dataverse Web API</span></li>
+        <li data-id="w6-thu-2"><span>Python: MSAL client-credentials to an app user, then CRUD with the Dataverse SDK for Python; honor Retry-After</span></li>
+        <li data-id="w6-thu-3"><span>Load 5,000 rows with CreateMultiple vs ExecuteMultiple vs one by one; time them</span></li>
+        <li data-id="w6-thu-4"><span>Read: service protection limits, background operations</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/dataverse-web-api/">Module: Dataverse Web API</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/overview">Web API overview</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/org-service/overview">Organization service</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/sdk-python/overview">Dataverse SDK for Python</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/authenticate-oauth">OAuth</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/api-limits">API limits</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/bulk-operations">Bulk operations</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/background-operations">Background operations</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Azure Functions for Power Platform</h3>
+    <p class="focus">Long-running work outside the 2-minute plug-in limit; timer and event triggers; managed identity to Dataverse.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-fri-1"><span>Module: Integrate Dataverse Azure solutions</span></li>
+        <li data-id="w6-fri-2"><span>Python Azure Function (timer trigger) with a managed identity registered as a Dataverse application user</span></li>
+        <li data-id="w6-fri-3"><span>Write down: plug-in vs async plug-in vs Function vs flow, for a long-running job</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/integrate-dataverse-azure-solutions/">Module: Integrate Dataverse Azure solutions</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview">Azure Functions overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/admin/manage-application-users">Application users</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Cloud flows for developers</h3>
+    <p class="focus">Complex expressions, try/catch with scopes, trigger conditions, retry policies, child flows, service principal connections.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wk-1"><span>Modules: Get started with Power Automate; expressions; Dataverse triggers and actions</span></li>
+        <li data-id="w6-wk-2"><span>Flow: Dataverse trigger with a trigger condition, a try/catch scope pattern, custom retry policy, and a child flow call</span></li>
+        <li data-id="w6-wk-3"><span>Switch the Dataverse connection to a service principal; put the flow in your solution</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/automate-business-process-expressions-dataverse-actions/">Path: expressions and Dataverse actions</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-automate/guidance/coding-guidelines/error-handling">Error handling</a> / <a href="https://learn.microsoft.com/en-us/power-automate/create-child-flows">Child flows</a> / <a href="https://learn.microsoft.com/en-us/power-automate/triggers-introduction">Triggers</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-automate/use-expressions-in-conditions">Expressions in conditions</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-automate/dataverse/manage-dataverse-connections">Dataverse connections (service principal)</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> two plug-ins, a custom API, a Python Web API client with retry and bulk, a managed-identity Azure Function, and a production-grade cloud flow, all in one solution.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 7 ============================== -->
+<section class="page" id="week7" data-title="Week 7">
+  <h2>Week 7 - AB-400: user experience, agents, integrations <button class="reset" data-reset="w7">reset week</button></h2>
+  <p class="lede">Extend the user experience (25-30%) Mon-Wed, then the agent objectives (Foundry, Copilot Studio, MCP) and Develop integrations (10-15%). Thanksgiving is Thursday in the US; move Thursday's work into the weekend if needed.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Client scripting and commands</h3>
+    <p class="focus">Client API object model, formContext, handler registration, Xrm.WebApi, navigation/dialogs/notifications, commands with Power Fx and JS.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-mon-1"><span>Path: client scripting and command bar customization</span></li>
+        <li data-id="w7-mon-2"><span>Web resource (TypeScript compiled to JS): OnLoad + OnChange handlers, field notification, <code>Xrm.WebApi.retrieveMultipleRecords</code>, <code>Xrm.Navigation.openAlertDialog</code></span></li>
+        <li data-id="w7-mon-3"><span>Add a command button with Power Fx visibility and a JS action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/extend-user-experience-client-scripting-command-bar-customization/">Path: client scripting and commands</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/client-scripting">Client scripting</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference">Client API reference</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/clientapi-form-context">formContext</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi">Xrm.WebApi</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/command-designer-overview">Command designer</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>PCF code components</h3>
+    <p class="focus">Lifecycle (init, updateView, getOutputs, destroy), manifest, Device/Utility/WebAPI features, packaging.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-tue-1"><span>Path: Build basic code components with PCF</span></li>
+        <li data-id="w7-tue-2"><span><code>pac pcf init</code> a field component in TypeScript; use <code>context.webAPI</code> and <code>context.utils</code>; test in the harness</span></li>
+        <li data-id="w7-tue-3"><span><code>pac pcf push</code>, then package it into your solution and bind it to a form column</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/build-basic-code-components-power-apps-component-framework/">Path: PCF code components</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/overview">PCF overview</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/implementing-controls-using-typescript">First component in TS</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/manifest-schema-reference/">Manifest schema</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/reference/">API reference</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Code apps and generative pages</h3>
+    <p class="focus">New in AB-400 and absent from the PL-400 paths, so learn it from the docs. Code apps are pro-code web apps hosted in Power Platform.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wed-1"><span>Read the code apps overview and architecture; create one from scratch</span></li>
+        <li data-id="w7-wed-2"><span>Connect it to Dataverse and a connector; use an environment variable; deploy and share</span></li>
+        <li data-id="w7-wed-3"><span>Note CSP settings, Application Insights hookup, and Monitor-based debugging</span></li>
+        <li data-id="w7-wed-4"><span>Create a generative page in the model-driven app; compare with PCF and code apps</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/overview">Code apps overview</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/architecture">architecture</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/create-an-app-from-scratch">Create a code app</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/connect-to-data">Connect to data</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/generative-pages">Generative pages</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/monitor-to-troubleshoot/">Module: Use Monitor</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/overview-integration-application-insights">Application Insights</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Agents in the developer exam</h3>
+    <p class="focus">Foundry vs Copilot Studio; Power Platform MCP servers; custom agents calling Copilot Studio agents and Dataverse. See the <a href="#ai">AI Integration</a> page for the underlying concepts.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-thu-1"><span>Start a Copilot Studio trial; build a minimal agent with one Dataverse knowledge source and one tool</span></li>
+        <li data-id="w7-thu-2"><span>Enable the Dataverse MCP server and connect to it from an MCP client; list tables and query rows</span></li>
+        <li data-id="w7-thu-3"><span>Read Foundry Agent Service overview; write a one-pager: when Foundry (code-first) vs Copilot Studio (low-code)</span></li>
+        <li data-id="w7-thu-4"><span>Read how to call a Copilot Studio agent from code (Agents SDK / client library)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio">What is Copilot Studio</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp">MCP in Copilot Studio</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-mcp">Dataverse MCP server</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/foundry/agents/overview">Foundry Agent Service</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/publication-integrate-web-or-native-app-m365-agents-sdk">Integrate a Copilot Studio agent into an app</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/integrate-agents-external-systems-mcp-copilot-studio/">Module: agents and MCP in Copilot Studio</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Dataverse events and data sync</h3>
+    <p class="focus">Service endpoints (webhook, Service Bus, Event Hubs), IServiceEndpointNotificationService, change tracking, alternate keys, UpsertRequest.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-fri-1"><span>Register a webhook to an HTTP-triggered Azure Function and a Service Bus queue endpoint in the PRT; fire both</span></li>
+        <li data-id="w7-fri-2"><span>Publish an event from plug-in code with IServiceEndpointNotificationService</span></li>
+        <li data-id="w7-fri-3"><span>Sync script: change tracking delta token + alternate key + UpsertRequest</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/azure-integration">Azure integration</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-webhooks">Webhooks</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-change-tracking-synchronize-data-external-systems">Change tracking</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/define-alternate-keys-entity">Alternate keys</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-upsert-insert-update-record">Upsert</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/integrate-dataverse-azure/">Path: Integrate with Dataverse and Azure</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Custom connectors</h3>
+    <p class="focus">Auth, policy templates, OpenAPI import, an Azure Function backend, custom code transforms.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wk-1"><span>Path: Get started with custom connectors</span></li>
+        <li data-id="w7-wk-2"><span>Custom connector for your Azure Function (OAuth via Entra), with a policy template and a C# custom code transform</span></li>
+        <li data-id="w7-wk-3"><span>Use the connector from a canvas app, a cloud flow, and as a tool in your Copilot Studio agent</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/get-started-custom-connectors-microsoft-power-platform/">Path: custom connectors</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/connectors/custom-connectors/">Custom connectors</a> / <a href="https://learn.microsoft.com/en-us/connectors/custom-connectors/policy-templates">Policy templates</a> / <a href="https://learn.microsoft.com/en-us/connectors/custom-connectors/write-code">Custom code</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> form script, command, PCF component, code app, an agent wired through MCP, event-driven Azure integration, and a custom connector, all in the solution.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 8 ============================== -->
+<section class="page" id="week8" data-title="Week 8">
+  <h2>Week 8 - AB-400: review, practice, exam <button class="reset" data-reset="w8">reset week</button></h2>
+  <p class="lede">The only practice assessment is the PL-400 one, which the AB-400 study guide links. It does not cover code apps, MCP or Foundry. Check the AB-400 page on Monday for a new assessment or learning paths.</p>
+  <div class="progress"><div id="bar-w8"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Practice assessment and gap map</h3>
+    <p class="focus">Score per domain, then map misses to AB-400 objectives.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w8-mon-1"><span>Take the PL-400 practice assessment; log the score on Readiness</span></li>
+        <li data-id="w8-mon-2"><span>Check the AB-400 exam page for a new practice assessment or learning paths; use them if published</span></li>
+        <li data-id="w8-mon-3"><span>Tag each miss with an AB-400 objective; list the AB-only objectives that no practice covers</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-developer-associate/practice/assessment?assessment-type=practice&amp;assessmentId=66&amp;practice-assessment-type=certification">PL-400 practice assessment</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-400/">AB-400 exam page</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Re-drill: Extend the platform (35-40%)</h3>
+    <p class="focus">Plug-in stages and context, custom API, Web API/SDK, limits, Functions, flows.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w8-tue-1"><span>From memory: draw the event pipeline with stage numbers, transaction boundaries, sync/async</span></li>
+        <li data-id="w8-tue-2"><span>Redo the weakest lab from Week 6</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/event-framework">Event framework</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/extend-power-platform-dataverse/">Path: Extending Dataverse</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Re-drill: Extend the user experience (25-30%)</h3>
+    <p class="focus">Client API, PCF lifecycle, code apps.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w8-wed-1"><span>Flashcards: Client API namespaces; PCF lifecycle method order and when each fires</span></li>
+        <li data-id="w8-wed-2"><span>Re-read code apps docs; list the deployment and CSP steps from memory</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference">Client API reference</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/overview">Code apps</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Re-drill: Build solutions + integrations; sandbox</h3>
+    <p class="focus">ALM, architecture choices, events, sync, connectors.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w8-thu-1"><span>Answer 10 self-made "where should this logic live" scenarios using your decision table</span></li>
+        <li data-id="w8-thu-2"><span>Exam sandbox; time-boxed Learn look-ups (find the API limits page in under 60s)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://mscertdemo.starttest.com/">Exam sandbox</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/alm/">ALM guide</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Final practice + booking</h3>
+    <p class="focus">Two runs at 80%+, plus a self-rating of 4+ on the AB-only objectives.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w8-fri-1"><span>Practice assessment retake; log it</span></li>
+        <li data-id="w8-fri-2"><span>Book AB-400; system test</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-400/">AB-400 / schedule exam</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Sit AB-400</h3>
+    <p class="focus">Passing earns Power Platform Developer Associate, the AB-100 prerequisite.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w8-wk-1"><span>Sit AB-400</span></li>
+        <li data-id="w8-wk-2"><span>Confirm the certification shows on your Learn profile</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-developer-associate/">Power Platform Developer Associate</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> Microsoft Certified: Power Platform Developer Associate.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 9 ============================== -->
+<section class="page" id="week9" data-title="Week 9">
+  <h2>Week 9 - AB-100: Copilot Studio hands-on and Plan <button class="reset" data-reset="w9">reset week</button></h2>
+  <p class="lede">AB-100 is an architect exam about agentic business solutions, not Power Apps. Build enough Copilot Studio to reason about it, then cover the Plan domain (25-30%): requirements, AI strategy, ROI. Outline version: 2026-10-14.</p>
+  <div class="progress"><div id="bar-w9"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Orientation</h3>
+    <p class="focus">Study guide, the official path, Copilot Studio basics.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w9-mon-1"><span>Read the AB-100 study guide (as of 2026-10-14) and the audience profile closely</span></li>
+        <li data-id="w9-mon-2"><span>Modules: Introduction to agentic AI business solutions; Get started with Copilot Studio</span></li>
+        <li data-id="w9-mon-3"><span>Take the AB-100 practice assessment cold, as a baseline only</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-100">AB-100 study guide</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/architect-agentic-ai-business-solutions/">Path: Architect AI solutions for business productivity</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-agentic-ai-business-solution-architecture/">Module: intro to agentic AI business solutions</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/power-virtual-agents-bots/">Module: Get started with Copilot Studio</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Copilot Studio build day</h3>
+    <p class="focus">Topics, generative orchestration, knowledge, tools, agent flows.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w9-tue-1"><span>Extend your Week 7 agent: two topics (one with fallback), generative orchestration on, SharePoint/Dataverse knowledge</span></li>
+        <li data-id="w9-tue-2"><span>Add an agent flow and a connector tool; test in the test pane with the activity map</span></li>
+        <li data-id="w9-tue-3"><span>Modules: topics; intelligent agents (knowledge); agent flows</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/copilot-studio-topics/">Module: topics</a> / <a href="https://learn.microsoft.com/en-us/training/modules/copilot-studio-knowledge/">knowledge</a> / <a href="https://learn.microsoft.com/en-us/training/modules/automate-workflows-agent-flows-copilot-studio/">agent flows</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/nlu-gpt-overview">Generative orchestration</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-tools-custom-agent">Tools</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/flows-overview">Agent flows</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Requirements and AI strategy I</h3>
+    <p class="focus">Where agents fit (task automation, analytics, decisions), grounding-data readiness, CAF AI adoption.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w9-wed-1"><span>Module: Analyze requirements for AI-powered business solutions</span></li>
+        <li data-id="w9-wed-2"><span>Module: Design overall AI strategy (first half; it is ~165 min)</span></li>
+        <li data-id="w9-wed-3"><span>Read the CAF AI strategy page; map its phases to how you'd run an adoption</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/analyze-requirements-ai-powered-business-solutions/">Module: Analyze requirements</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/design-overall-ai-strategy-business-solutions/">Module: Design overall AI strategy</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai/strategy">CAF: AI strategy</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>AI strategy II: multi-agent and build-vs-extend</h3>
+    <p class="focus">M365 Copilot vs Copilot Studio vs Foundry; prebuilt agents; when custom models or SLMs; prompt library; AI Center of Excellence.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w9-thu-1"><span>Finish Design overall AI strategy</span></li>
+        <li data-id="w9-thu-2"><span>Module: Design multi-agent solutions in Copilot Studio</span></li>
+        <li data-id="w9-thu-3"><span>Write a decision matrix: extend M365 Copilot (declarative agent) vs Copilot Studio custom agent vs Foundry agent</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/design-multi-agent-solutions-copilot-studio/">Module: multi-agent in Copilot Studio</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/">M365 Copilot extensibility</a> / <a href="https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry">What is Foundry</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/guide-ai-operations-center-excellence/">Module: AI Center of Excellence</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Costs, ROI, model routing</h3>
+    <p class="focus">TCO, ROI criteria, build/buy/extend, model router.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w9-fri-1"><span>Modules: Evaluate costs and benefits; Forecast agent ROI; agent cost drivers</span></li>
+        <li data-id="w9-fri-2"><span>ROI/TCO worksheet for one business process you know from work (licensing, consumption, build, run, benefit)</span></li>
+        <li data-id="w9-fri-3"><span>Read model router: when routing by cost and quality is the answer</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/evaluate-costs-benefits-ai-powered-business-solution/">Module: costs and benefits</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/forecast-agent-return-investment/">Module: forecast ROI</a> / <a href="https://learn.microsoft.com/en-us/training/modules/ai-agent-cost-structure/">cost drivers</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-router">Model router</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Dynamics 365 Copilot tour</h3>
+    <p class="focus">The exam expects you to know Copilot features in Dynamics 365 Sales, Customer Service/Contact Center, and Finance/Supply Chain. Learn them at the level of "what is configurable".</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w9-wk-1"><span>Module: Extend Dynamics 365 apps with Power Platform and Copilot Studio</span></li>
+        <li data-id="w9-wk-2"><span>Read Copilot in Sales and Customer Service configuration pages; optional D365 trial to click through</span></li>
+        <li data-id="w9-wk-3"><span>Write an architecture decision record for a multi-agent solution spanning D365 + Copilot Studio + Foundry</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/extend-dynamics365-apps-power-platform/">Module: Extend D365 apps</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/dynamics365/sales/copilot-overview">Copilot in Dynamics 365 Sales</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-copilot-features">Copilot in Customer Service</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/dynamics365/finance/">Dynamics 365 Finance docs</a></li>
+        <li><a href="https://www.microsoft.com/en-us/dynamics-365/free-trial">D365 free trials</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> working Copilot Studio agent, build-vs-extend matrix, ROI worksheet, and a multi-agent ADR.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 10 ============================== -->
+<section class="page" id="week10" data-title="Week 10">
+  <h2>Week 10 - AB-100: Design and Deploy <button class="reset" data-reset="w10">reset week</button></h2>
+  <p class="lede">Design (25-30%) Mon-Tue, Deploy (40-45%) Wed-Sun. Deploy is the largest domain: monitoring, testing, ALM, and responsible AI and security. Week 11 reinforces it again.</p>
+  <div class="progress"><div id="bar-w10"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Design agents</h3>
+    <p class="focus">Task, autonomous and prompt-response agents; topics and fallback; prompt actions; NLP vs CLU vs generative orchestration; Power Platform Well-Architected.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w10-mon-1"><span>Module: Design AI agents for business solutions (~160 min)</span></li>
+        <li data-id="w10-mon-2"><span>Module: Build an autonomous agent; add an event trigger to your agent</span></li>
+        <li data-id="w10-mon-3"><span>Skim the Power Platform Well-Architected pillars</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/design-ai-agents-business-solutions/">Module: Design AI agents</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/autonomous-agent/">Module: autonomous agent</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/prompts-overview">Prompts in Power Platform</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/well-architected/">Power Platform Well-Architected</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Extensibility and prebuilt agents</h3>
+    <p class="focus">MCP in Copilot Studio, computer use, custom Foundry models, M365 agents, orchestration of D365 prebuilt features.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w10-tue-1"><span>Modules: Design extensibility of AI solutions; Orchestrate configuration of prebuilt agents and apps</span></li>
+        <li data-id="w10-tue-2"><span>Add an MCP server tool to your agent; read computer use and bring-your-own-model for prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/design-extensibility-ai-solutions/">Module: extensibility</a> / <a href="https://learn.microsoft.com/en-us/training/modules/orchestrate-configuration-prebuilt-agents-apps/">prebuilt agents</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp">MCP in Copilot Studio</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/computer-use">Computer use</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/bring-your-own-model-prompts">Bring your own Foundry model</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Monitor, analyze, tune</h3>
+    <p class="focus">Agent telemetry, feedback analysis, tuning.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w10-wed-1"><span>Module: Monitor, analyze, and tune AI agents</span></li>
+        <li data-id="w10-wed-2"><span>Review your agent's Copilot Studio analytics; connect Application Insights; read Foundry observability</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/analyze-monitor-tune-ai-powered-business-solutions/">Module: monitor and tune</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-overview">Copilot Studio analytics</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/foundry/concepts/observability">Foundry observability</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Testing AI solutions</h3>
+    <p class="focus">Test processes and metrics, validation criteria for custom models, cross-app end-to-end tests.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w10-thu-1"><span>Module: Manage testing of AI-powered business solutions</span></li>
+        <li data-id="w10-thu-2"><span>Build an agent evaluation set (15+ cases) in Copilot Studio; run it twice and compare</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/manage-testing-ai-powered-business-solutions/">Module: testing</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-intro">Copilot Studio agent evaluation</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-evaluators/agent-evaluators">Foundry agent evaluators</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>ALM for agents</h3>
+    <p class="focus">ALM for Copilot Studio agents, connectors and actions, Foundry Agent Service, custom models, D365 AI features, and the data they use.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w10-fri-1"><span>Modules: Design ALM process; Implement ALM for agents in Copilot Studio</span></li>
+        <li data-id="w10-fri-2"><span>Move your agent dev to "test" in a solution through your Week 5 pipeline</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/design-alm-process-ai-powered-business-solutions/">Module: Design ALM process</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/implement-alm-agents-power-platform/">Module: ALM for Copilot Studio agents</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/alm/environment-strategy-alm">Environment strategy</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Responsible AI, security, governance</h3>
+    <p class="focus">Agent and model security, prompt manipulation, data residency, access to grounding data, audit trails.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w10-wk-1"><span>Modules: Design responsible AI security, governance, risk management and compliance; Copilot Studio governance and security strategy</span></li>
+        <li data-id="w10-wk-2"><span>Read Copilot Studio security and governance and Prompt Shields (jailbreak detection)</span></li>
+        <li data-id="w10-wk-3"><span>Threat-model your agent: injection via knowledge, over-privileged connectors, data residency; write mitigations</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/design-responsible-ai-security-governance-risk-management-compliance/">Module: responsible AI and security</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/design-governance-security-strategy-copilot-studio/">Module: Copilot Studio governance</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/security-and-governance">Copilot Studio security and governance</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection">Prompt Shields</a> / <a href="https://www.microsoft.com/en-us/ai/responsible-ai">Microsoft Responsible AI</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> agent with MCP tool, eval suite, monitoring, ALM path and a threat model.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 11 ============================== -->
+<section class="page" id="week11" data-title="Week 11">
+  <h2>Week 11 - AB-100: review, practice, exam <button class="reset" data-reset="w11">reset week</button></h2>
+  <p class="lede">Expert exams lean on case studies. Practice reading a long scenario and answering by its constraints, not by your preferences. Holiday week: shift the exam into Dec 28-Jan 3 if needed.</p>
+  <div class="progress"><div id="bar-w11"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Practice assessment and gap map</h3>
+    <p class="focus">Compare against the Week 9 baseline.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w11-mon-1"><span>AB-100 practice assessment; log it on Readiness</span></li>
+        <li data-id="w11-mon-2"><span>Tag misses by objective; pick the three weakest</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-100/practice/assessment?assessment-type=practice&amp;assessmentId=1815645847&amp;practice-assessment-type=certification">AB-100 practice assessment</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-100">AB-100 study guide</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Re-drill: Deploy (40-45%)</h3>
+    <p class="focus">Monitoring, testing, ALM, responsible AI and security.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w11-tue-1"><span>Re-read the five Deploy modules' summaries; redo the weakest lab</span></li>
+        <li data-id="w11-tue-2"><span>Write one paragraph per Deploy objective, from memory</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/training/paths/architect-agentic-ai-business-solutions/">Path: Architect AI solutions</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Re-drill: Plan and Design; case-study practice</h3>
+    <p class="focus">Scenario reading under time.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w11-wed-1"><span>Write two mock case studies (requirements, constraints, existing estate) and answer 5 questions each</span></li>
+        <li data-id="w11-wed-2"><span>Review your decision matrices (build vs extend, Foundry vs Copilot Studio, NLP vs CLU vs generative)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://mscertdemo.starttest.com/">Exam sandbox (case-study format)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Final practice + booking</h3>
+    <p class="focus">Two runs at 80%+.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w11-thu-1"><span>Practice assessment retake; log it</span></li>
+        <li data-id="w11-thu-2"><span>Book AB-100; system test</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-100/">AB-100 / schedule exam</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Light review</h3>
+    <p class="focus">No new material.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w11-fri-1"><span>Skim your notes, matrices, and ADR</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li>Your Week 9-10 deliverables</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Sit AB-100</h3>
+    <p class="focus">With the Developer Associate already earned, passing grants the expert certification.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w11-wk-1"><span>Sit AB-100</span></li>
+        <li data-id="w11-wk-2"><span>Confirm Agentic AI Business Solutions Architect Expert on your profile; note renewal windows for all three certs</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-business-solutions-architect/">Expert certification page</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification">Renewal</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> Microsoft Certified: Agentic AI Business Solutions Architect Expert.</div>
+  </div>
+</section>
+
+<!-- ============================== READINESS ============================== -->
+<section class="page" id="readiness" data-title="Readiness">
+  <h2>Readiness checklist <button class="reset" data-reset="rd">reset page</button></h2>
+  <p class="lede">Rate each skill area 1-5 (1 = never touched, 3 = could do it with docs, 5 = could teach it). Book an exam only when every area is 4+, the gate checkboxes are ticked, and practice scores hold at 80%+. Practice assessments are not scaled like the exam's 700, so treat 80% as a buffer, not an equivalence.</p>
+  <div class="progress"><div id="bar-rd"></div></div>
+
+  <div class="card">
+    <h3>DP-700 (Fabric Data Engineer)</h3>
+    <table>
+      <tr><th>Skill area (weight)</th><th>Self-rating</th></tr>
+      <tr><td>Configure workspace settings (Spark, domain, OneLake, Airflow)</td><td><select class="rating" data-id="rate-dp-ws"></select></td></tr>
+      <tr><td>Lifecycle: git, database projects, deployment pipelines</td><td><select class="rating" data-id="rate-dp-alm"></select></td></tr>
+      <tr><td>Security and governance (roles, RLS/CLS/OLS, DDM, OneLake security, labels, audit)</td><td><select class="rating" data-id="rate-dp-sec"></select></td></tr>
+      <tr><td>Orchestration (Dataflow Gen2 vs pipeline vs notebook, triggers, parameters)</td><td><select class="rating" data-id="rate-dp-orch"></select></td></tr>
+      <tr><td>Loading patterns (full/incremental, dimensional, streaming)</td><td><select class="rating" data-id="rate-dp-load"></select></td></tr>
+      <tr><td>Batch ingest and transform (shortcuts, mirroring, PySpark/SQL/KQL)</td><td><select class="rating" data-id="rate-dp-batch"></select></td></tr>
+      <tr><td>Streaming (Eventstream, Structured Streaming, KQL, windowing)</td><td><select class="rating" data-id="rate-dp-stream"></select></td></tr>
+      <tr><td>Monitoring and alerts</td><td><select class="rating" data-id="rate-dp-mon"></select></td></tr>
+      <tr><td>Identify and resolve errors (7 item types)</td><td><select class="rating" data-id="rate-dp-err"></select></td></tr>
+      <tr><td>Optimize performance (lakehouse, Spark, warehouse, pipeline, RTI)</td><td><select class="rating" data-id="rate-dp-opt"></select></td></tr>
+    </table>
+    <ul class="tasks" style="margin-top:10px">
+      <li data-id="rd-dp-1"><span>DP-700 practice assessment: two runs at 80%+ (log: run 1 ___ run 2 ___ run 3 ___)</span></li>
+      <li data-id="rd-dp-2"><span>Every study-guide bullet built at least once in the trial</span></li>
+      <li data-id="rd-dp-3"><span>Exam sandbox done; OnVUE system test passed (or test center booked)</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>AB-400 (Power Platform Developer)</h3>
+    <table>
+      <tr><th>Skill area (weight)</th><th>Self-rating</th></tr>
+      <tr><td>Build solutions: technical architecture and component design (15-20%)</td><td><select class="rating" data-id="rate-pp-arch"></select></td></tr>
+      <tr><td>Build solutions: ALM, environment variables, layers, Pipelines, Build Tools</td><td><select class="rating" data-id="rate-pp-alm"></select></td></tr>
+      <tr><td>Extend UX: client scripting and commands (25-30%)</td><td><select class="rating" data-id="rate-pp-js"></select></td></tr>
+      <tr><td>Extend UX: PCF code components</td><td><select class="rating" data-id="rate-pp-pcf"></select></td></tr>
+      <tr><td>Extend UX: code apps (connections, Dataverse, flows, agents, deploy, CSP, monitoring)</td><td><select class="rating" data-id="rate-pp-code"></select></td></tr>
+      <tr><td>Extend platform: plug-ins and custom APIs (35-40%)</td><td><select class="rating" data-id="rate-pp-plug"></select></td></tr>
+      <tr><td>Extend platform: Web API, Org service, SDKs, limits, bulk, OAuth</td><td><select class="rating" data-id="rate-pp-api"></select></td></tr>
+      <tr><td>Extend platform: Azure Functions and managed identity</td><td><select class="rating" data-id="rate-pp-fn"></select></td></tr>
+      <tr><td>Extend platform: cloud flows and Copilot Studio workflows</td><td><select class="rating" data-id="rate-pp-flow"></select></td></tr>
+      <tr><td>Extend platform: Foundry agents, MCP servers, Copilot Studio client library</td><td><select class="rating" data-id="rate-pp-agent"></select></td></tr>
+      <tr><td>Integrations: Dataverse events, sync (10-15%)</td><td><select class="rating" data-id="rate-pp-evt"></select></td></tr>
+      <tr><td>Integrations: custom connectors</td><td><select class="rating" data-id="rate-pp-conn"></select></td></tr>
+    </table>
+    <ul class="tasks" style="margin-top:10px">
+      <li data-id="rd-pp-1"><span>Practice assessment (PL-400, or AB-400 if published): two runs at 80%+ (log: ___ / ___)</span></li>
+      <li data-id="rd-pp-2"><span>AB-only objectives (code apps, MCP, Foundry, Python SDK) rated 4+, since no practice covers them</span></li>
+      <li data-id="rd-pp-3"><span>Exam booked; system test passed</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>AB-100 (Agentic AI Business Solutions Architect)</h3>
+    <table>
+      <tr><th>Skill area (weight)</th><th>Self-rating</th></tr>
+      <tr><td>Plan: analyze requirements (25-30%)</td><td><select class="rating" data-id="rate-ab-req"></select></td></tr>
+      <tr><td>Plan: overall AI strategy (multi-agent, build vs extend, prompt library, CoE)</td><td><select class="rating" data-id="rate-ab-strat"></select></td></tr>
+      <tr><td>Plan: costs, ROI, model router</td><td><select class="rating" data-id="rate-ab-roi"></select></td></tr>
+      <tr><td>Design: AI and agents (task/autonomous/prompt agents, topics, orchestration) (25-30%)</td><td><select class="rating" data-id="rate-ab-design"></select></td></tr>
+      <tr><td>Design: extensibility (Foundry models, M365 agents, MCP, computer use)</td><td><select class="rating" data-id="rate-ab-ext"></select></td></tr>
+      <tr><td>Design: prebuilt agents and D365 Copilot features</td><td><select class="rating" data-id="rate-ab-d365"></select></td></tr>
+      <tr><td>Deploy: monitor, analyze, tune (40-45%)</td><td><select class="rating" data-id="rate-ab-mon"></select></td></tr>
+      <tr><td>Deploy: testing</td><td><select class="rating" data-id="rate-ab-test"></select></td></tr>
+      <tr><td>Deploy: ALM for agents, models, data</td><td><select class="rating" data-id="rate-ab-alm"></select></td></tr>
+      <tr><td>Deploy: responsible AI, security, governance, compliance</td><td><select class="rating" data-id="rate-ab-rai"></select></td></tr>
+    </table>
+    <ul class="tasks" style="margin-top:10px">
+      <li data-id="rd-ab-1"><span>AB-100 practice assessment: two runs at 80%+ (log: ___ / ___)</span></li>
+      <li data-id="rd-ab-2"><span>Power Platform Developer Associate (prerequisite) earned</span></li>
+      <li data-id="rd-ab-3"><span>Two mock case studies completed in time</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== AI INTEGRATION FUNDAMENTALS ============================== -->
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI integration fundamentals <button class="reset" data-reset="ai">reset page</button></h2>
+  <p class="lede">Shared across all the study guides. No model training or data science: you call a model over HTTPS and engineer the software around it. Most of it is ordinary API work; the seven areas below are what is different, because an LLM is a probabilistic component, not a deterministic API.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Same</span>What is just API integration</h3>
+    <p class="focus">REST/SDK calls, auth, retries, timeouts, rate limits, streaming (SSE), cost metering. MCP is JSON-RPC with a tool/resource schema; an MCP server is a small service exposing your existing APIs as tools.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-same-1"><span>Make a first Messages API call with streaming; read the usage block (input/output/cache tokens)</span></li>
+        <li data-id="ai-same-2"><span>Read the MCP architecture overview: hosts, clients, servers, tools, resources, prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming messages</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">1</span>Tool design</h3>
+    <p class="focus">Names, descriptions and input schemas decide whether the model picks the right tool with the right arguments. API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-tool-1"><span>Read the tool use docs and Anthropic's guidance on writing tools for agents</span></li>
+        <li data-id="ai-tool-2"><span>Rewrite one vague tool description and compare call accuracy before and after</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">2</span>The agent loop</h3>
+    <p class="focus">Model requests a tool, your code runs it, the result goes back, repeat. Stop conditions, structured errors the model can recover from, parallel tool calls.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-loop-1"><span>Read Building Effective Agents (workflows vs agents)</span></li>
+        <li data-id="ai-loop-2"><span>Hand-write an agent loop with 2-3 tools, max-turn limit and <code>is_error</code> results</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> (a loop you do not write yourself)</li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">3</span>Context engineering and caching</h3>
+    <p class="focus">What goes in the system prompt vs per-request context; staying within the context window; prompt caching for cost and latency (static prefix first, dynamic data after the breakpoint).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-ctx-1"><span>Read the context engineering post and the prompt caching docs</span></li>
+        <li data-id="ai-ctx-2"><span>Show <code>cache_read_input_tokens</code> &gt; 0 on turn 2, then break it by changing one prefix byte</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">4</span>Security</h3>
+    <p class="focus">Prompt injection from untrusted content; model output is untrusted input; the model can skip, fake or reorder tool calls, so enforcement lives server-side. Auth in front of MCP servers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-sec-1"><span>Read the OWASP Top 10 for LLM applications</span></li>
+        <li data-id="ai-sec-2"><span>Read the MCP security best practices and authorization spec</span></li>
+        <li data-id="ai-sec-3"><span>Plant an injection in a tool result; confirm a server-side check (not the prompt) blocks the action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices">MCP security best practices</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">MCP authorization</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">5</span>Evals</h3>
+    <p class="focus">Outputs vary run to run, so test with scored scenario suites ("did it call checkout without confirming?") rather than exact-match asserts. The least familiar part for most engineers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-eval-1"><span>Read the guide on building empirical evaluations and test cases</span></li>
+        <li data-id="ai-eval-2"><span>Write a 10-case eval for your agent: code-graded checks plus one model-graded rubric; run it 3x</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Create strong empirical evaluations</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">6</span>RAG</h3>
+    <p class="focus">Embeddings + a vector store (pgvector, OpenSearch, Azure AI Search), chunking, retrieval quality, citations. A data-pipeline and search problem, not model training.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-rag-1"><span>Read the embeddings docs and the contextual retrieval post</span></li>
+        <li data-id="ai-rag-2"><span>Embed ~50 docs into pgvector, retrieve top-k, answer with citations; measure hit rate on 10 questions</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/news/contextual-retrieval">Contextual retrieval</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">7</span>Observability</h3>
+    <p class="focus">Trace prompts, tool calls, token use and latency per turn. OpenTelemetry has GenAI semantic conventions for exactly this.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-obs-1"><span>Read the OTel GenAI semantic conventions (spans, metrics, events)</span></li>
+        <li data-id="ai-obs-2"><span>Emit one span per model call and per tool call with token counts as attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI semantic conventions</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Build</span>Two starter builds</h3>
+    <p class="focus">The fastest way to close the gap. Do these before going deeper anywhere else.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-build-1"><span>Build 1: agent loop against the Messages API with 2-3 tools you already understand</span></li>
+        <li data-id="ai-build-2"><span>Build 2: streamable-HTTP MCP server in front of a familiar API, with auth, called from Claude Code</span></li>
+        <li data-id="ai-build-3"><span>Add a tiny RAG step to Build 1: embed, retrieve, cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/develop/build-server">MCP: Build a server</a></li>
+        <li><a href="https://code.claude.com/docs/en/mcp">Claude Code: connect MCP servers</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> (API, MCP, MCP Advanced)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card" id="ai-applies">
+    <h3>How this applies to this role</h3>
+    <!-- Microsoft guide: card body below -->
+    <p><b>Microsoft certification track:</b> you configure and design AI more than you code it. The same seven areas apply, but on Microsoft's managed services. How heavily each exam tests them, counted from its skills-measured outline:</p>
+    <table>
+      <tr><th>Exam</th><th>AI share of the outline</th><th>What that means for this page</th></tr>
+      <tr><td>DP-700</td><td>None. 0 of the ~70 objective bullets mention AI, agents or Copilot.</td><td>Job-critical only. Fabric data agents are useful at work but are not tested.</td></tr>
+      <tr><td>AB-400</td><td>Roughly 15% of bullets: Foundry vs Copilot Studio, MCP servers and MCP app widgets, Copilot Studio workflows, generative pages, deterministic vs non-deterministic logic, and a whole "Build Microsoft Foundry agents" subsection under Extend the platform (35-40%).</td><td>Areas 1, 2 and 6 are exam-relevant (tools, loop, grounding via Dataverse MCP). The rest is job-critical.</td></tr>
+      <tr><td>AB-100</td><td>Essentially the whole exam. Plan, Design and Deploy are all about AI and agents; the audience profile names MCP and Agent2Agent explicitly.</td><td>Areas 1-7 are all exam-critical, especially 4 (security), 5 (testing) and 7 (monitoring), which sit in Deploy (40-45%).</td></tr>
+    </table>
+    <p style="margin-top:10px">The Claude-specific labs above are the fastest way to learn the concepts, but no Microsoft exam asks about them. For exam purposes, do the Microsoft equivalents below.</p>
+    <table>
+      <tr><th>Area</th><th>Where it shows up in the Microsoft stack</th><th>Plan week</th></tr>
+      <tr><td>1 Tool design</td><td>Copilot Studio <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-tools-custom-agent">tools</a> (connectors, flows, prompts, REST); <a href="https://learn.microsoft.com/en-us/connectors/custom-connectors/">custom connectors</a> as tools; <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp">MCP servers in Copilot Studio</a></td><td><a href="#week7">7</a> (Thu, weekend), <a href="#week10">10</a> (Tue)</td></tr>
+      <tr><td>2 Agent loop</td><td>Copilot Studio <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/nlu-gpt-overview">generative orchestration</a> and <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/flows-overview">agent flows</a>; code-first loops in <a href="https://learn.microsoft.com/en-us/azure/foundry/agents/overview">Foundry Agent Service</a></td><td><a href="#week7">7</a> (Thu), <a href="#week9">9</a> (Tue), <a href="#week10">10</a> (Mon)</td></tr>
+      <tr><td>3 Context and prompts</td><td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/prompts-overview">Prompts in Power Platform</a> (formerly AI Builder prompts), <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/bring-your-own-model-prompts">bring your own Foundry model</a>, <a href="https://learn.microsoft.com/en-us/ai-builder/overview">AI Builder</a>, the <a href="https://learn.microsoft.com/en-us/connectors/azureopenai/">Azure OpenAI connector</a> from Power Apps and Power Automate, <a href="https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-router">model router</a></td><td><a href="#week9">9</a> (Fri), <a href="#week10">10</a> (Mon-Tue)</td></tr>
+      <tr><td>4 Security</td><td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/security-and-governance">Copilot Studio security and governance</a>, <a href="https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection">Prompt Shields</a>, <a href="https://learn.microsoft.com/en-us/power-platform/admin/wp-data-loss-prevention">data policies (DLP)</a>, <a href="https://learn.microsoft.com/en-us/power-platform/admin/set-up-managed-identity">managed identity</a>, Dataverse security roles</td><td><a href="#week5">5</a> (Thu), <a href="#week10">10</a> (weekend)</td></tr>
+      <tr><td>5 Evals</td><td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-intro">Copilot Studio agent evaluation</a>, <a href="https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-evaluators/agent-evaluators">Foundry agent evaluators</a></td><td><a href="#week10">10</a> (Thu)</td></tr>
+      <tr><td>6 RAG and grounding</td><td><a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview">Azure AI Search RAG</a>, <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-azure-ai-search">Copilot Studio knowledge from Azure AI Search</a>, the <a href="https://learn.microsoft.com/en-us/connectors/azureaisearch/">Azure AI Search connector</a>, the <a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-mcp">Dataverse MCP server</a>, <a href="https://learn.microsoft.com/en-us/fabric/data-science/concept-data-agent">Fabric data agents</a> (job-only; not in DP-700)</td><td><a href="#week7">7</a> (Thu), <a href="#week9">9</a> (Tue); Fabric data agents: optional after <a href="#week4">4</a></td></tr>
+      <tr><td>7 Observability</td><td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-overview">Copilot Studio analytics</a>, <a href="https://learn.microsoft.com/en-us/azure/foundry/concepts/observability">Foundry observability</a> (OpenTelemetry-based tracing), <a href="https://learn.microsoft.com/en-us/power-platform/admin/overview-integration-application-insights">Application Insights for Power Platform</a></td><td><a href="#week7">7</a> (Wed), <a href="#week10">10</a> (Wed)</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============================== RESOURCES ============================== -->
+<section class="page" id="resources" data-title="Resources">
+  <h2>All resources</h2>
+  <p class="lede">Every link in the plan, grouped.</p>
+  <div class="grid2">
+    <div class="card"><h3>Certifications and exams</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/">Fabric Data Engineer Associate (DP-700)</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700">study guide</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-developer-associate/">Power Platform Developer Associate</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-400/">AB-400</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-400">study guide</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-business-solutions-architect/">Agentic AI Business Solutions Architect Expert</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-100/">AB-100</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-100">study guide</a></li>
+      <li>Practice: <a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/practice/assessment?assessment-type=practice&amp;assessmentId=1704375541&amp;practice-assessment-type=certification">DP-700</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-developer-associate/practice/assessment?assessment-type=practice&amp;assessmentId=66&amp;practice-assessment-type=certification">PL-400 (for AB-400)</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-100/practice/assessment?assessment-type=practice&amp;assessmentId=1815645847&amp;practice-assessment-type=certification">AB-100</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications">all</a></li>
+      <li>Courses: <a href="https://learn.microsoft.com/en-us/training/courses/dp-700t00">DP-700T00</a> / <a href="https://learn.microsoft.com/en-us/training/courses/ab-400t00">AB-400T00</a> / <a href="https://learn.microsoft.com/en-us/training/courses/pl-400t00">PL-400T00</a> / <a href="https://learn.microsoft.com/en-us/training/courses/ab-100t00">AB-100T00</a></li>
+      <li>Retired: <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-data-engineer/">DP-203</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-solution-architect-expert/">PL-600</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/power-platform-functional-consultant-associate/">PL-200</a> / <a href="https://learn.microsoft.com/en-us/credentials/support/retired-certification-exams">list</a></li>
+      <li><a href="https://techcommunity.microsoft.com/blog/skills-hub-blog/updates-to-azure-cosmos-db-and-power-platform-developer-certifications/4528353">PL-400 to AB-400 blog</a> / <a href="https://techcommunity.microsoft.com/blog/skills-hub-blog/the-ai-job-boom-continues-build-the-skills-that-move-business-forward/4494139">2026 retirements blog</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-750">DP-750 study guide</a></li>
+    </ul></div>
+    <div class="card"><h3>Exam logistics</h3><ul class="links">
+      <li><a href="https://mscertdemo.starttest.com/">Exam sandbox</a> / <a href="https://learn.microsoft.com/en-us/shows/exam-readiness-zone/">Exam Readiness Zone</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/exam-scoring-reports">Scoring</a> / <a href="https://learn.microsoft.com/en-us/credentials/support/exam-duration-exam-experience">Duration and question types</a> / <a href="https://learn.microsoft.com/en-us/credentials/support/retake-policy">Retakes</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/online-exams">Online exams</a> / <a href="https://www.pearsonvue.com/us/en/microsoft.html">Pearson VUE</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/request-accommodations">Accommodations</a> / <a href="https://learn.microsoft.com/en-us/credentials/certifications/deals">Offers</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification">Renewal</a></li>
+    </ul></div>
+    <div class="card"><h3>Lab environments</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/fabric/fundamentals/fabric-trial">Fabric trial</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-platform/developer/plan">Power Apps Developer Plan</a> / <a href="https://www.microsoft.com/en-us/power-platform/products/power-apps/free">sign up</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/create-environment">create environments</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-licensing-subscriptions">Copilot Studio trial and licensing</a></li>
+      <li><a href="https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account?icid=azurefreeaccount">Azure free account</a> / <a href="https://www.microsoft.com/en-us/dynamics-365/free-trial">Dynamics 365 trials</a></li>
+    </ul></div>
+    <div class="card"><h3>Fabric learning paths</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/ingest-data-with-microsoft-fabric/">Ingest data with Fabric</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/implement-lakehouse-microsoft-fabric/">Implement a lakehouse</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/explore-real-time-analytics-microsoft-fabric/">Implement Real-Time Intelligence</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/work-with-data-warehouses-using-microsoft-fabric/">Implement a data warehouse</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/manage-microsoft-fabric-environment/">Manage a Fabric environment</a></li>
+    </ul></div>
+    <div class="card"><h3>Fabric docs</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/data-factory-overview">Data Factory overview</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-factory/compare-fabric-data-factory-and-azure-data-factory">vs ADF</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-factory/expression-language">expressions</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-runs">runs</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-factory/what-is-copy-job">Copy job</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-factory/apache-airflow-jobs-concepts">Airflow</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/fabric/data-factory/dataflow-gen2-incremental-refresh">Dataflow incremental refresh</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-factory/decision-guide-data-movement">data movement guide</a> / <a href="https://learn.microsoft.com/en-us/fabric/fundamentals/decision-guide-data-store">data store guide</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-factory/tutorial-incremental-copy-data-warehouse-lakehouse">incremental copy</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview">Lakehouse</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/notebook-utilities">NotebookUtils</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/get-started-streaming">streaming</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-streaming-data">stream to lakehouse</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/data-warehousing">Warehouse</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/row-level-security">RLS</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/column-level-security">CLS</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/dynamic-data-masking">DDM</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/guidelines-warehouse-performance">performance</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/statistics">statistics</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-warehouse/query-insights">query insights</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/overview">RTI</a> / <a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/event-streams/overview">Eventstream</a> / <a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/eventhouse">Eventhouse</a> / <a href="https://learn.microsoft.com/en-us/fabric/real-time-intelligence/query-acceleration-overview">query acceleration</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/kusto/query/?view=microsoft-fabric">KQL</a> / <a href="https://learn.microsoft.com/en-us/kusto/query/bin-function?view=microsoft-fabric">bin()</a> / <a href="https://learn.microsoft.com/en-us/kusto/query/scan-operator?view=microsoft-fabric">scan</a> / <a href="https://learn.microsoft.com/en-us/kusto/management/update-policy?view=microsoft-fabric">update policy</a> / <a href="https://learn.microsoft.com/en-us/kusto/management/materialized-views/materialized-view-overview?view=microsoft-fabric">materialized views</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts">Shortcuts</a> / <a href="https://learn.microsoft.com/en-us/fabric/mirroring/overview">Mirroring</a> / <a href="https://learn.microsoft.com/en-us/fabric/onelake/security/data-access-control-model">OneLake security</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/fabric/cicd/git-integration/intro-to-git-integration">Git integration</a> / <a href="https://learn.microsoft.com/en-us/fabric/cicd/deployment-pipelines/intro-to-deployment-pipelines">Deployment pipelines</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/workspace-admin-settings">Spark settings</a> / <a href="https://learn.microsoft.com/en-us/fabric/governance/domains">Domains</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/fabric/fundamentals/roles-workspaces">Workspace roles</a> / <a href="https://learn.microsoft.com/en-us/fabric/security/permission-model">Permission model</a> / <a href="https://learn.microsoft.com/en-us/fabric/governance/information-protection">Labels</a> / <a href="https://learn.microsoft.com/en-us/fabric/governance/endorsement-overview">Endorsement</a> / <a href="https://learn.microsoft.com/en-us/fabric/admin/track-user-activities">Audit</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/fabric/admin/monitoring-hub">Monitoring hub</a> / <a href="https://learn.microsoft.com/en-us/fabric/enterprise/metrics-app">Capacity Metrics</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/spark-detail-monitoring">Spark monitoring</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order">V-Order</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/native-execution-engine-overview">native engine</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-engineering/high-concurrency-overview">high concurrency</a></li>
+    </ul></div>
+    <div class="card"><h3>Fabric modules</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-end-analytics-use-microsoft-fabric/">End-to-end analytics</a> / <a href="https://learn.microsoft.com/en-us/training/modules/get-started-lakehouses/">lakehouses</a> / <a href="https://learn.microsoft.com/en-us/training/modules/use-apache-spark-work-files-lakehouse/">Spark</a> / <a href="https://learn.microsoft.com/en-us/training/modules/work-delta-lake-tables-fabric/">Delta</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/use-data-factory-pipelines-fabric/">Pipelines</a> / <a href="https://learn.microsoft.com/en-us/training/modules/use-dataflow-gen-2-fabric/">Dataflows Gen2</a> / <a href="https://learn.microsoft.com/en-us/training/modules/fabric-transform-data-dataflows/">transform with dataflows</a> / <a href="https://learn.microsoft.com/en-us/training/modules/fabric-transform-data-notebooks/">notebooks</a> / <a href="https://learn.microsoft.com/en-us/training/modules/fabric-transform-data-tsql/">T-SQL</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-data-warehouse/">Warehouses</a> / <a href="https://learn.microsoft.com/en-us/training/modules/load-data-into-microsoft-fabric-data-warehouse/">load</a> / <a href="https://learn.microsoft.com/en-us/training/modules/monitor-fabric-data-warehouse/">monitor</a> / <a href="https://learn.microsoft.com/en-us/training/modules/secure-data-warehouse-in-microsoft-fabric/">secure</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/describe-medallion-architecture/">Medallion</a> / <a href="https://learn.microsoft.com/en-us/training/modules/design-dimensional-models-fabric/">dimensional</a> / <a href="https://learn.microsoft.com/en-us/training/modules/choose-data-store-fabric/">choose data stores</a> / <a href="https://learn.microsoft.com/en-us/training/modules/discover-data-onelake/">OneLake</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-kusto-fabric/">RTI</a> / <a href="https://learn.microsoft.com/en-us/training/modules/explore-event-streams-microsoft-fabric/">Eventstream</a> / <a href="https://learn.microsoft.com/en-us/training/modules/query-data-kql-database-microsoft-fabric/">Eventhouse</a> / <a href="https://learn.microsoft.com/en-us/training/modules/use-fabric-activator/">Activator</a> / <a href="https://learn.microsoft.com/en-us/training/modules/create-real-time-dashboards-microsoft-fabric/">dashboards</a> / <a href="https://learn.microsoft.com/en-us/training/modules/explore-fundamentals-stream-processing/">streaming fundamentals</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/implement-cicd-in-fabric/">CI/CD</a> / <a href="https://learn.microsoft.com/en-us/training/modules/monitor-fabric-items/">monitor</a> / <a href="https://learn.microsoft.com/en-us/training/modules/secure-data-access-in-fabric/">secure data access</a> / <a href="https://learn.microsoft.com/en-us/training/modules/fabric-govern-analytics-data/">govern</a></li>
+    </ul></div>
+    <div class="card"><h3>Classic Azure Data Factory (job, not exam)</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/data-integration-azure-data-factory/">Module: Integrate data with ADF</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/data-factory/introduction">ADF introduction</a> / <a href="https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities">pipelines and activities</a> / <a href="https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime">integration runtime</a> / <a href="https://learn.microsoft.com/en-us/azure/data-factory/continuous-integration-delivery">CI/CD</a></li>
+    </ul></div>
+    <div class="card"><h3>Power Platform learning paths and modules</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/introduction-development-power-platform/">Intro to developing</a> / <a href="https://learn.microsoft.com/en-us/training/modules/introduction-power-platform-developer-resources/">developer resources</a> / <a href="https://learn.microsoft.com/en-us/training/modules/developer-tools-extend/">developer tools</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-powerapps-common-data-service/">Tables</a> / <a href="https://learn.microsoft.com/en-us/training/modules/create-relationship-between-cds-entities/">relationships</a> / <a href="https://learn.microsoft.com/en-us/training/modules/define-create-business-rules/">business rules</a> / <a href="https://learn.microsoft.com/en-us/training/modules/introduction-dataverse-developers/">Dataverse for devs</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-model-driven-apps-in-powerapps/">Model-driven</a> / <a href="https://learn.microsoft.com/en-us/training/modules/build-canvas-app/">canvas</a> / <a href="https://learn.microsoft.com/en-us/training/modules/get-started-power-fx/">Power Fx</a> / <a href="https://learn.microsoft.com/en-us/training/paths/use-advance-techniques-canvas-apps-custom-updates-optimization/">advanced canvas</a> / <a href="https://learn.microsoft.com/en-us/training/modules/monitor-to-troubleshoot/">Monitor</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-security-roles/">Security roles</a> / <a href="https://learn.microsoft.com/en-us/training/modules/configure-dataverse-security-model/">security model</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-solutions/">Solutions</a> / <a href="https://learn.microsoft.com/en-us/training/modules/manage-solutions-power-automate/">manage solutions</a> / <a href="https://learn.microsoft.com/en-us/training/modules/create-pipeline/">pipelines</a> / <a href="https://learn.microsoft.com/en-us/training/modules/set-up-pipeline-environments/">pipeline environments</a> / <a href="https://learn.microsoft.com/en-us/training/modules/extend-alm-git-cicd/">Git and CI/CD</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/extend-power-platform-dataverse/">Extending Dataverse</a> / <a href="https://learn.microsoft.com/en-us/training/modules/extend-plug-ins/">plug-ins</a> / <a href="https://learn.microsoft.com/en-us/training/modules/dataverse-web-api/">Web API</a> / <a href="https://learn.microsoft.com/en-us/training/modules/configure-low-code/">low-code plug-ins</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/integrate-dataverse-azure/">Integrate with Azure</a> / <a href="https://learn.microsoft.com/en-us/training/modules/integrate-dataverse-azure-solutions/">module</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/automate-business-process-expressions-dataverse-actions/">Flows: expressions and Dataverse actions</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/extend-user-experience-client-scripting-command-bar-customization/">Client scripting and commands</a> / <a href="https://learn.microsoft.com/en-us/training/paths/build-basic-code-components-power-apps-component-framework/">PCF</a> / <a href="https://learn.microsoft.com/en-us/training/paths/get-started-custom-connectors-microsoft-power-platform/">custom connectors</a></li>
+    </ul></div>
+    <div class="card"><h3>Power Platform docs</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction">pac CLI</a> / <a href="https://learn.microsoft.com/en-us/power-platform/developer/howto/install-vs-code-extension">VS Code extension</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/download-tools-nuget">Dataverse tools</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/admin-documentation">admin docs</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-intro">Dataverse</a> / <a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/create-edit-entities-portal">tables</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/elastic-tables">elastic</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/virtual-entities/get-started-ve">virtual</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/model-driven-app-overview">Model-driven apps</a> / <a href="https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/getting-started">canvas apps</a> / <a href="https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/delegation-overview">delegation</a> / <a href="https://learn.microsoft.com/en-us/power-platform/power-fx/overview">Power Fx</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-platform/admin/wp-security-cds">Dataverse security</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/security/security-overview">platform security</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/managed-environment-overview">managed environments</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/wp-data-loss-prevention">data policies</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/manage-application-users">app users</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/create-environment">environments</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-platform/alm/">ALM</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/solution-concepts-alm">solution concepts</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/solution-layers-alm">layers (ALM)</a> / <a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/solution-layers">layers (maker)</a> / <a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/environmentvariables">env variables</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/pipelines">Pipelines</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/extend-pipelines">extend</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/devops-build-tools">Build Tools</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/devops-github-actions">GitHub Actions</a> / <a href="https://learn.microsoft.com/en-us/power-platform/alm/environment-strategy-alm">environment strategy</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/plug-ins">Plug-ins</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/event-framework">event framework</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/write-plug-in">write</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/tutorial-write-plug-in">tutorial</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/register-plug-in">register</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/understand-the-data-context">context</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/build-and-package">package</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/logging-tracing">tracing</a> / <a href="https://learn.microsoft.com/en-us/troubleshoot/power-platform/dataverse/plug-in-execution/dataverse-plug-ins-errors">errors</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/best-practices/business-logic/">best practices</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/custom-api">Custom API</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/business-events">business events</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/set-up-managed-identity">managed identity</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/overview">Web API</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/org-service/overview">Org service</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/sdk-python/overview">Python SDK</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/authenticate-oauth">OAuth</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/api-limits">limits</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/bulk-operations">bulk</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/background-operations">background ops</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/azure-integration">Azure integration</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-webhooks">webhooks</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-change-tracking-synchronize-data-external-systems">change tracking</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/define-alternate-keys-entity">alternate keys</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-upsert-insert-update-record">upsert</a> / <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview">Azure Functions</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/client-scripting">Client scripting</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference">Client API</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/clientapi-form-context">formContext</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi">Xrm.WebApi</a> / <a href="https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/command-designer-overview">commands</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/overview">PCF</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/implementing-controls-using-typescript">TS tutorial</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/create-custom-controls-using-pcf">create</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/manifest-schema-reference/">manifest</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/component-framework/reference/">reference</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/overview">Code apps</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/architecture">architecture</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/create-an-app-from-scratch">create</a> / <a href="https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/connect-to-data">data</a> / <a href="https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/generative-pages">generative pages</a> / <a href="https://learn.microsoft.com/en-us/power-platform/admin/overview-integration-application-insights">App Insights</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-automate/guidance/coding-guidelines/error-handling">Flow error handling</a> / <a href="https://learn.microsoft.com/en-us/power-automate/create-child-flows">child flows</a> / <a href="https://learn.microsoft.com/en-us/power-automate/triggers-introduction">triggers</a> / <a href="https://learn.microsoft.com/en-us/power-automate/use-expressions-in-conditions">expressions</a> / <a href="https://learn.microsoft.com/en-us/power-automate/dataverse/manage-dataverse-connections">connections</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/connectors/custom-connectors/">Custom connectors</a> / <a href="https://learn.microsoft.com/en-us/connectors/custom-connectors/policy-templates">policy templates</a> / <a href="https://learn.microsoft.com/en-us/connectors/custom-connectors/write-code">custom code</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-platform/well-architected/">Well-Architected</a> / <a href="https://learn.microsoft.com/en-us/power-platform/guidance/coe/starter-kit">CoE Starter Kit</a></li>
+    </ul></div>
+    <div class="card"><h3>Agents, Copilot Studio, Foundry, Dynamics 365</h3><ul class="links">
+      <li><a href="https://learn.microsoft.com/en-us/training/paths/architect-agentic-ai-business-solutions/">Path: Architect AI solutions (AB-100)</a></li>
+      <li>AB-100 modules: <a href="https://learn.microsoft.com/en-us/training/modules/introduction-agentic-ai-business-solution-architecture/">intro</a> / <a href="https://learn.microsoft.com/en-us/training/modules/analyze-requirements-ai-powered-business-solutions/">requirements</a> / <a href="https://learn.microsoft.com/en-us/training/modules/design-overall-ai-strategy-business-solutions/">strategy</a> / <a href="https://learn.microsoft.com/en-us/training/modules/evaluate-costs-benefits-ai-powered-business-solution/">costs</a> / <a href="https://learn.microsoft.com/en-us/training/modules/design-ai-agents-business-solutions/">design agents</a> / <a href="https://learn.microsoft.com/en-us/training/modules/design-extensibility-ai-solutions/">extensibility</a> / <a href="https://learn.microsoft.com/en-us/training/modules/orchestrate-configuration-prebuilt-agents-apps/">prebuilt</a> / <a href="https://learn.microsoft.com/en-us/training/modules/analyze-monitor-tune-ai-powered-business-solutions/">monitor</a> / <a href="https://learn.microsoft.com/en-us/training/modules/manage-testing-ai-powered-business-solutions/">testing</a> / <a href="https://learn.microsoft.com/en-us/training/modules/design-alm-process-ai-powered-business-solutions/">ALM</a> / <a href="https://learn.microsoft.com/en-us/training/modules/design-responsible-ai-security-governance-risk-management-compliance/">RAI and security</a></li>
+      <li>Copilot Studio modules: <a href="https://learn.microsoft.com/en-us/training/modules/power-virtual-agents-bots/">get started</a> / <a href="https://learn.microsoft.com/en-us/training/modules/copilot-studio-topics/">topics</a> / <a href="https://learn.microsoft.com/en-us/training/modules/copilot-studio-knowledge/">knowledge</a> / <a href="https://learn.microsoft.com/en-us/training/modules/automate-workflows-agent-flows-copilot-studio/">agent flows</a> / <a href="https://learn.microsoft.com/en-us/training/modules/autonomous-agent/">autonomous</a> / <a href="https://learn.microsoft.com/en-us/training/modules/design-multi-agent-solutions-copilot-studio/">multi-agent</a> / <a href="https://learn.microsoft.com/en-us/training/modules/integrate-agents-external-systems-mcp-copilot-studio/">MCP</a> / <a href="https://learn.microsoft.com/en-us/training/modules/implement-alm-agents-power-platform/">ALM</a> / <a href="https://learn.microsoft.com/en-us/training/modules/design-governance-security-strategy-copilot-studio/">governance</a></li>
+      <li>Other modules: <a href="https://learn.microsoft.com/en-us/training/modules/forecast-agent-return-investment/">forecast ROI</a> / <a href="https://learn.microsoft.com/en-us/training/modules/ai-agent-cost-structure/">cost drivers</a> / <a href="https://learn.microsoft.com/en-us/training/modules/guide-ai-operations-center-excellence/">AI CoE</a> / <a href="https://learn.microsoft.com/en-us/training/modules/extend-dynamics365-apps-power-platform/">extend D365</a></li>
+      <li>Copilot Studio docs: <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio">overview</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/nlu-gpt-overview">generative orchestration</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-tools-custom-agent">tools</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/flows-overview">agent flows</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp">MCP</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/computer-use">computer use</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/prompts-overview">prompts</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/bring-your-own-model-prompts">BYO model</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-azure-ai-search">AI Search knowledge</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-overview">analytics</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-intro">evaluation</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/security-and-governance">security</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/publication-integrate-web-or-native-app-m365-agents-sdk">integrate in apps</a> / <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/">guidance</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-mcp">Dataverse MCP server</a> / <a href="https://learn.microsoft.com/en-us/ai-builder/overview">AI Builder</a> / <a href="https://learn.microsoft.com/en-us/connectors/azureopenai/">Azure OpenAI connector</a> / <a href="https://learn.microsoft.com/en-us/connectors/azureaisearch/">Azure AI Search connector</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry">Foundry</a> / <a href="https://learn.microsoft.com/en-us/azure/foundry/agents/overview">Agent Service</a> / <a href="https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-router">model router</a> / <a href="https://learn.microsoft.com/en-us/azure/foundry/concepts/observability">observability</a> / <a href="https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-evaluators/agent-evaluators">agent evaluators</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview">Azure AI Search RAG</a> / <a href="https://learn.microsoft.com/en-us/fabric/data-science/concept-data-agent">Fabric data agent</a> / <a href="https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection">Prompt Shields</a> / <a href="https://www.microsoft.com/en-us/ai/responsible-ai">Responsible AI</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/">M365 Copilot extensibility</a> / <a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai/strategy">CAF AI strategy</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/dynamics365/sales/copilot-overview">D365 Sales Copilot</a> / <a href="https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-copilot-features">Customer Service Copilot</a> / <a href="https://learn.microsoft.com/en-us/dynamics365/finance/">D365 Finance</a></li>
+    </ul></div>
+    <div class="card"><h3>AI integration fundamentals (shared page)</h3><ul class="links">
+      <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming</a> / <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use</a> / <a href="https://platform.claude.com/docs/en/agent-sdk/overview">Agent SDK</a></li>
+      <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+      <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Empirical evaluations</a></li>
+      <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing tools for agents</a> / <a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a> / <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Context engineering</a> / <a href="https://www.anthropic.com/news/contextual-retrieval">Contextual retrieval</a></li>
+      <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture</a> / <a href="https://modelcontextprotocol.io/docs/develop/build-server">Build a server</a> / <a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices">Security best practices</a> / <a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">Authorization</a> / <a href="https://github.com/modelcontextprotocol/inspector">Inspector</a> / <a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a></li>
+      <li><a href="https://genai.owasp.org/llm-top-10/">OWASP LLM Top 10</a> / <a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI conventions</a> / <a href="https://github.com/pgvector/pgvector">pgvector</a> / <a href="https://github.com/anthropics/courses">anthropics/courses</a> / <a href="https://anthropic.skilljar.com/">Anthropic Academy</a></li>
+    </ul></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var KEY = "ms-adf-powerapps-study-plan-v1";
+  var WEEKS = 11;
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+
+  // Build tabs
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id;
+    a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+
+  // Turn task <li>s into checkboxes
+  document.querySelectorAll("ul.tasks li").forEach(function (li) {
+    var id = li.dataset.id;
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state[id];
+    li.insertBefore(cb, li.firstChild);
+    li.classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", function () {
+      state[id] = cb.checked;
+      li.classList.toggle("checked", cb.checked);
+      save(); refresh();
+    });
+  });
+
+  // Self-rating selects (Readiness page)
+  document.querySelectorAll("select.rating").forEach(function (sel) {
+    var id = sel.dataset.id;
+    ["-", "1", "2", "3", "4", "5"].forEach(function (v) {
+      var o = document.createElement("option");
+      o.value = v === "-" ? "" : v; o.textContent = v;
+      sel.appendChild(o);
+    });
+    sel.value = state[id] || "";
+    sel.addEventListener("change", function () {
+      if (sel.value) { state[id] = sel.value; } else { delete state[id]; }
+      save();
+    });
+  });
+
+  function pct(prefix) {
+    var items = document.querySelectorAll('ul.tasks li[data-id^="' + prefix + '"]');
+    if (!items.length) return null;
+    var done = 0;
+    items.forEach(function (li) { if (state[li.dataset.id]) done++; });
+    return Math.round(100 * done / items.length);
+  }
+
+  function setPage(page, bar, v) {
+    document.getElementById(bar).style.width = v + "%";
+    var tab = tabs.querySelector('[data-page="' + page + '"] .pct');
+    if (tab) tab.textContent = v + "%";
+  }
+
+  function refresh() {
+    for (var i = 1; i <= WEEKS; i++) { setPage("week" + i, "bar-w" + i, pct("w" + i + "-")); }
+    var ai = pct("ai-");
+    document.getElementById("bar-ai").style.width = ai + "%";
+    tabs.querySelector('[data-page="ai"] .pct').textContent = ai + "%";
+    setPage("readiness", "bar-rd", pct("rd-"));
+    document.getElementById("bar-all").style.width = pct("w") + "%";
+    tabs.querySelector('[data-page="overview"] .pct').textContent = pct("w") + "%";
+  }
+
+  document.querySelectorAll("button.reset").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!confirm("Clear all checkboxes on this page?")) return;
+      var w = b.dataset.reset;
+      Object.keys(state).forEach(function (k) { if (k.indexOf(w + "-") === 0) delete state[k]; });
+      save();
+      document.querySelectorAll('ul.tasks li[data-id^="' + w + '-"]').forEach(function (li) {
+        li.querySelector("input").checked = false; li.classList.remove("checked");
+      });
+      refresh();
+    });
+  });
+
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    if (!document.getElementById(id)) id = "overview";
+    pages.forEach(function (p) { p.classList.toggle("active", p.id === id); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === id); });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show(); refresh();
+})();
+</script>
+</body>
+</html>

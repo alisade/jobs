@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS AI Architect (AgentCore, Strands, multi-account) - Study Plan</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #c15f3c; --accent-soft: #f6e9e3; --done: #2f7d4f;
+    --warn: #9a6700; --warn-soft: #fff4d6; --bad: #b42318; --bad-soft: #fde8e6; --done-soft: #e3f1e8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #e08a62; --accent-soft: #3a2a23; --done: #5cc287;
+      --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+    --line: #34343a; --accent: #e08a62; --accent-soft: #3a2a23; --done: #5cc287;
+    --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  .themebtn { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+              border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  h3.sub { font-size: 17px; margin: 26px 0 10px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .day h3 { margin: 0 0 2px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .day h3 .tag { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft);
+                 padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .day .focus { color: var(--muted); margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4, .card h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.tasks { list-style: none; padding: 0; margin: 0; }
+  ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+  ul.tasks input { margin-top: 4px; accent-color: var(--done); flex: none; }
+  ul.tasks li.checked span { color: var(--muted); text-decoration: line-through; }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .deliverable b { color: var(--done); }
+  .note { margin: 0 0 18px; padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .note b { color: var(--warn); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  .card + .card, .grid2 + .card, .card + .grid2 { margin-top: 14px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .scroll { overflow-x: auto; }
+  table.matrix th, table.matrix td { font-size: 13px; }
+  table.matrix td.c { text-align: center; }
+  table.matrix th.p { text-transform: none; letter-spacing: 0; font-size: 12px; min-width: 74px; }
+  .yes { color: var(--done); font-weight: 700; }
+  .s-strong { color: var(--done); font-weight: 600; }
+  .s-partial { color: var(--warn); font-weight: 600; }
+  .s-gap { color: var(--bad); font-weight: 600; }
+  .small { font-size: 13px; color: var(--muted); }
+  .muted { font-size: 13px; color: var(--muted); }
+  .reset { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+           border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  a.exchip { display: inline-block; font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; text-decoration: none;
+             color: var(--done); background: var(--done-soft); border: 1px solid var(--line); border-radius: 99px; padding: 1px 8px; margin: 0 4px 0 0; }
+  .chips { margin: 8px 0 0; }
+  .chips .lbl { font-size: 12px; color: var(--muted); margin-right: 6px; text-transform: uppercase; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+<header>
+  <button class="themebtn" id="themebtn" type="button">light / dark</button>
+  <h1>AWS AI Architect - Agentic AI on AgentCore, cloud engineering first</h1>
+  <p>6-week plan plus an optional add-on week for an AWS AI Architect contract: multi-account AWS, GitLab CI/CD, CDK and CDK Pipelines, AgentCore Runtime and Gateway, Strands, MCP, OBO identity, Cedar and AgentOps. Weekdays ~2-3 h, weekends one long block for the <a href="workbooks/aiarch/workbook.html">workbook</a> exercises. Checkboxes save in this browser.</p>
+</header>
+
+<nav><div class="inner" id="tabs"></div></nav>
+
+<main>
+<!-- ============================== OVERVIEW ============================== -->
+<section class="page" id="overview" data-title="Overview">
+  <h2>Overview</h2>
+  <p class="lede">The role: an AWS AI Architect on a long-term contract who designs and runs secure multi-account AWS environments, GitLab CI/CD and CDK pipelines, and production agent systems on Amazon Bedrock AgentCore (Runtime, Gateway, Identity, Observability) with Strands agents, MCP integrations, OAuth on-behalf-of, Cedar policies, SSM, DynamoDB and OTEL-based AgentOps. The posting says it twice: cloud engineering and DevOps are the primary focus.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+  <div class="note"><b>Honest fit.</b> This is one of your strongest matches. The mandatory block (multi-account AWS, CDK, IAM and federation, CloudWatch and CloudTrail, release management, incidents) is your day job: lead with it. The gap is the agentic layer (Strands, AgentCore Runtime and Gateway, MCP servers you built, Cedar, OBO) plus a few smaller DevOps gaps you should name yourself: GitLab CI/CD syntax, CDK Pipelines, SCP authoring and Identity Center administration, SSM Automation, DynamoDB modeling. Do not claim production AgentCore, Strands or Cedar; say you built and run the platform below in a personal AWS organization, and walk through it.</div>
+  <div class="grid2">
+    <div class="card">
+      <h3>The six weeks</h3>
+      <table>
+        <tr><th>Week</th><th>Theme</th><th>Workbook</th></tr>
+        <tr><td><a href="#week1">1</a></td><td>Multi-account foundation and GitLab OIDC</td><td><a href="workbooks/aiarch/workbook.html#ex-w1-c1">w1-c1</a> <a href="workbooks/aiarch/workbook.html#ex-w1-t1">w1-t1</a></td></tr>
+        <tr><td><a href="#week2">2</a></td><td>Strands Agents</td><td><a href="workbooks/aiarch/workbook.html#ex-w2-c1">w2-c1</a> <a href="workbooks/aiarch/workbook.html#ex-w2-t1">w2-t1</a></td></tr>
+        <tr><td><a href="#week3">3</a></td><td>AgentCore Runtime and Gateway</td><td><a href="workbooks/aiarch/workbook.html#ex-w3-c1">w3-c1</a> <a href="workbooks/aiarch/workbook.html#ex-w3-t1">w3-t1</a></td></tr>
+        <tr><td><a href="#week4">4</a></td><td>Identity, OBO and Cedar</td><td><a href="workbooks/aiarch/workbook.html#ex-w4-c1">w4-c1</a> <a href="workbooks/aiarch/workbook.html#ex-w4-t1">w4-t1</a></td></tr>
+        <tr><td><a href="#week5">5</a></td><td>AgentOps and DynamoDB</td><td><a href="workbooks/aiarch/workbook.html#ex-w5-c1">w5-c1</a> <a href="workbooks/aiarch/workbook.html#ex-w5-t1">w5-t1</a></td></tr>
+        <tr><td><a href="#week6">6</a></td><td>SSM Automation, CDK Pipelines and cost</td><td><a href="workbooks/aiarch/workbook.html#ex-w6-c1">w6-c1</a> <a href="workbooks/aiarch/workbook.html#ex-w6-t1">w6-t1</a></td></tr>
+        <tr><td><a href="#ai">AI</a></td><td>AI integration fundamentals (shared page) applied to this role</td><td><a href="workbooks/aiarch/workbook.html#ex-ai-c1">ai-c1</a> <a href="workbooks/aiarch/workbook.html#ex-ai-t1">ai-t1</a></td></tr>
+        <tr><td><a href="#week7">+7</a></td><td>Add-on: optional drills (DynamoDB hot partition, pipeline ADR), nice-to-haves, SAP-C03 notes</td><td><a href="workbooks/aiarch/workbook.html#ex-x-1">x-1</a> <a href="workbooks/aiarch/workbook.html#ex-x-2">x-2</a></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>End-of-plan portfolio: an enterprise agent platform starter on AWS</h3>
+      <p class="small">One public repo, CDK in TypeScript, agents in Python, synthetic data only. It should read like the platform this team is about to build.</p>
+      <ul class="links">
+        <li>Multi-account foundation: OUs, SCPs (regions, org membership, CloudTrail, approved Bedrock models) and an RCP, Identity Center permission sets</li>
+        <li>GitLab CI/CD with OIDC per account (no stored keys): lint, test, synth, ARM64 image build and scan, ECR, diff on the MR, dev, protected prod; plus a CDK Pipelines branch and an ADR</li>
+        <li>Strands orchestrator with two specialists on AgentCore Runtime, versions and a prod endpoint for rollback</li>
+        <li>Gateway with an OpenAPI target and a Lambda target, plus one MCP server you wrote, as a Gateway target</li>
+        <li>OBO identity so tools see the user; Cedar policies on the gateway rolled out LOG_ONLY then ENFORCE</li>
+        <li>DynamoDB for sessions, cost ledger and idempotency; AgentCore Memory for conversations</li>
+        <li>AgentOps: ADOT traces, a dashboard with latency, tool errors, Cedar denies, tokens and cost per conversation; Gateway data events; Agent Registry; online evaluation</li>
+        <li>SSM Automation runbooks (rollback, rotate secret, drain) with approvals and backups; VPC endpoints with policies</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>How to use this with the workbook</h3>
+      <ol>
+        <li>Weekdays: work the day cards here and tick tasks as you go.</li>
+        <li>Weekend: open the <a href="workbooks/aiarch/workbook.html">aiarch workbook</a>, pick the week tab, <code>make setup</code> in the exercise folder, solve, <code>make test</code>, fill in <code>ANSWER.md</code>.</li>
+        <li>From <code>workbooks/</code> in Claude Code: <code>/grade aiarch/&lt;id&gt;</code>. Reload the workbook to see the score.</li>
+        <li>Take the weekly self-exam in the workbook. Use the Interview prep tab before each interview loop.</li>
+      </ol>
+      <p class="small">Role track in markdown: <a href="study/roles/09-aws-ai-architect-agentcore/highlights.md">highlights</a> / <a href="study/roles/09-aws-ai-architect-agentcore/details.md">details</a> / <a href="study/roles/09-aws-ai-architect-agentcore/posting.md">posting</a>. Shared core: <a href="study/shared/highlights.md">highlights</a>.</p>
+    </div>
+    <div class="card">
+      <h3>Local setup</h3>
+<pre>cd ~/git/jobs/workbooks
+tools/doctor.sh aiarch    # python3, uv, node 22, jq
+cd aiarch/exercises/w1-c1
+make setup &amp;&amp; make test</pre>
+      <p class="small">Everything grades offline: SCP and trust-policy evaluators, Strands with a scripted model, MCP in-process, CDK synth with assertions, cedarpy, moto, the OTEL SDK and a local SSM runbook interpreter. No AWS account, no model API keys. For the portfolio itself you use a personal AWS organization; keep the bill small (on-demand DynamoDB, short log retention, a budget alarm, <code>make destroy</code>).</p>
+    </div>
+  </div>
+</section>
+<!-- ============================== WEEK 1 ============================== -->
+<section class="page" id="week1" data-title="Week 1">
+  <h2>Week 1 - Multi-account foundation and GitLab OIDC <button class="reset" data-reset="w1">reset week</button></h2>
+  <p class="lede">Your home turf, with the two gaps the posting names: authoring SCPs and RCPs at org level and administering Identity Center, then GitLab CI with OIDC to AWS. Build a personal organization as you go (management account empty, three member accounts). Book the DevOps Engineer - Professional exam this week so the date drives the plan.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Organizations and OU design</h3>
+    <p class="focus">Management account kept empty, OUs by function and environment, delegated administrators, Control Tower vs hand-rolled.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-mon-1"><span>Read the multi-account whitepaper sections on OU structure and the Security Reference Architecture overview</span></li>
+        <li data-id="w1-mon-2"><span>Sketch the Lighthouse org: Security, Infrastructure, Workloads/Dev, Workloads/Prod, Sandbox, Suspended; note which account owns ECR, runners, the org trail</span></li>
+        <li data-id="w1-mon-3"><span>Create a fresh management account and three member accounts (shared-services, dev, prod); enable all features</span></li>
+        <li data-id="w1-mon-4"><span>Book AWS Certified DevOps Engineer - Professional (DOP-C02) for the end of week 6 or 7</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html">What is AWS Organizations</a></li>
+        <li><a href="https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html">Organizing your AWS environment (whitepaper)</a></li>
+        <li><a href="https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/">AWS Security Reference Architecture</a></li>
+        <li><a href="https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html">What is Control Tower</a></li>
+        <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html">Accessing member accounts</a></li>
+        <li><a href="https://docs.aws.amazon.com/aws-certification/latest/devops-engineer-professional-02/devops-engineer-professional-02.html">DOP-C02 exam guide</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>SCPs, RCPs and policy evaluation</h3>
+    <p class="focus">SCPs cap member-account principals and grant nothing; RCPs cap what can be done to resources; missing condition keys and negated operators; deny-list vs allow-list.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-tue-1"><span>Read SCP evaluation end to end; write down the root-to-account Allow rule and what FullAWSAccess is for</span></li>
+        <li data-id="w1-tue-2"><span>Read RCPs: Principal "*", deny-only, supported services; note why sts:AssumeRoleWithWebIdentity needs care</span></li>
+        <li data-id="w1-tue-3"><span>Work three condition cases by hand: StringNotEquals with the key missing, ...IfExists, ArnNotLike on aws:PrincipalArn</span></li>
+        <li data-id="w1-tue-4"><span>Start w1-c1: region, audit and org-membership SCPs against the visible request table</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html">Service control policies</a></li>
+        <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_evaluation.html">SCP evaluation</a></li>
+        <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_examples.html">SCP examples</a></li>
+        <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_rcps.html">Resource control policies</a></li>
+        <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_declarative_policies.html">Declarative policies</a></li>
+        <li><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html">IAM policy evaluation logic</a></li>
+        <li><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">Global condition keys</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w1-c1" title="Lighthouse org guardrails: five SCPs and one RCP">w1-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Agent-relevant guardrails</h3>
+    <p class="focus">Region allow-lists that still permit cross-Region inference destinations, an approved-model list, VPC-endpoint-only Bedrock in prod, protecting the trail.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wed-1"><span>Read the cross-Region inference page: which Regions a US profile routes to and how authorization works in the destination</span></li>
+        <li data-id="w1-wed-2"><span>Finish w1-c1: Bedrock model allow-list on Workloads and Sandbox, aws:SourceVpce rule on Prod, the RCP</span></li>
+        <li data-id="w1-wed-3"><span>In your personal org, attach one SCP to a test OU and prove a deny with a CLI call; find it in CloudTrail</span></li>
+        <li data-id="w1-wed-4"><span>Back up every policy before you change it, as you do at work</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html">Bedrock cross-Region inference</a></li>
+        <li><a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_bedrock-agentcore.html">Service authorization reference: AgentCore</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/security-vpc-condition.html">AgentCore VPC condition keys</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/vpc-interface-endpoints.html">Bedrock interface endpoints</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w1-c1" title="Lighthouse org guardrails: five SCPs and one RCP">w1-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>IAM Identity Center</h3>
+    <p class="focus">People into AWS: permission sets mapped to groups and accounts, an external IdP, ABAC, delegated administration, trusted identity propagation, and where it stops.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-thu-1"><span>Enable Identity Center in the personal org; create permission sets platform-admin, agent-developer, read-only</span></li>
+        <li data-id="w1-thu-2"><span>Assign them to groups per account; sign in and confirm the role names (AWSReservedSSO_*) in CloudTrail</span></li>
+        <li data-id="w1-thu-3"><span>Read ABAC with user attributes and decide one attribute you would use (team or cost center)</span></li>
+        <li data-id="w1-thu-4"><span>Write two sentences on why Identity Center is not the identity for your app's end users</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">What is IAM Identity Center</a></li>
+        <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html">Permission sets</a></li>
+        <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/abac.html">Identity Center ABAC</a></li>
+        <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html">Identity Center delegated administration</a></li>
+        <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/trustedidentitypropagation-overview.html">Trusted identity propagation</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_organizations-readme.html">CDK aws-organizations (L1 only)</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_sso-readme.html">CDK aws-sso (L1 only)</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>GitLab CI/CD with OIDC to AWS</h3>
+    <p class="focus">The GitLab syntax you have not used yet, and the OIDC trust you have: id_tokens, sub claim format, one role per account, protected environments.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-fri-1"><span>Read the GitHub Actions migration page to map concepts you know onto .gitlab-ci.yml</span></li>
+        <li data-id="w1-fri-2"><span>Read GitLab OIDC to AWS and ID token authentication; write the sub claim for a branch, a tag and an MR pipeline</span></li>
+        <li data-id="w1-fri-3"><span>Create a gitlab.com project with a pipeline that runs cdk diff in dev with no stored keys</span></li>
+        <li data-id="w1-fri-4"><span>Do w1-t1: release tags cannot assume the prod deploy role</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.gitlab.com/ci/">GitLab CI/CD</a></li>
+        <li><a href="https://docs.gitlab.com/ci/yaml/">CI/CD YAML reference</a></li>
+        <li><a href="https://docs.gitlab.com/ci/migration/github_actions/">Migrating from GitHub Actions</a></li>
+        <li><a href="https://docs.gitlab.com/ci/cloud_services/aws/">OIDC to AWS</a></li>
+        <li><a href="https://docs.gitlab.com/ci/secrets/id_token_authentication/">ID token authentication</a></li>
+        <li><a href="https://docs.gitlab.com/ci/environments/protected_environments/">Protected environments</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping-env.html">Bootstrap environments (trust)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w1-t1" title="Release tag v2.4.0 cannot deploy to prod (GitLab OIDC)">w1-t1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: org as code and the first pipeline</h3>
+    <p class="focus">One long block: the portfolio's foundation, and the shared-core reading the rest of the plan relies on.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wk-1"><span>Org layout, SCPs and RCP as code in the portfolio repo (wrap the L1 constructs in small constructs; say why in the README)</span></li>
+        <li data-id="w1-wk-2"><span>cdk bootstrap dev and prod with --trust for shared-services; GitLab pipeline: lint, test, synth, cdk diff in dev</span></li>
+        <li data-id="w1-wk-3"><span>Shared core: read Building effective agents and Effective context engineering (you need both from week 2)</span></li>
+        <li data-id="w1-wk-4"><span>Week 1 self-exam in the workbook</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html">CDK bootstrapping</a></li>
+        <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w1-c1" title="Lighthouse org guardrails: five SCPs and one RCP">w1-c1</a><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w1-t1" title="Release tag v2.4.0 cannot deploy to prod (GitLab OIDC)">w1-t1</a></p>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> Org layout as code, three accounts, SCPs and RCP proven by denied calls in CloudTrail, a GitLab pipeline running cdk diff in dev with no stored keys; exam booked.</div>
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/aiarch/workbook.html#w1">Week 1 tab of the workbook</a>. Self-exam questions for this week are on its Self-exam tab.</p>
+    <ul class="links">
+      <li><a href="workbooks/aiarch/workbook.html#ex-w1-c1">w1-c1</a> coding - Lighthouse org guardrails: five SCPs and one RCP (2-3 h)</li>
+      <li><a href="workbooks/aiarch/workbook.html#ex-w1-t1">w1-t1</a> troubleshooting - Release tag v2.4.0 cannot deploy to prod (GitLab OIDC) (1-1.5 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 2 ============================== -->
+<section class="page" id="week2" data-title="Week 2">
+  <h2>Week 2 - Strands Agents <button class="reset" data-reset="w2">reset week</button></h2>
+  <p class="lede">The first agentic gap. Strands is in the required skill list by name. Learn the loop, tools, multi-agent patterns and hooks well enough to explain each cycle and to choose a pattern in an interview. Write agents in Python. The shared core (tool design, agent patterns, tool calling) is folded in here.</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>The agent loop and tools</h3>
+    <p class="focus">Model-driven loop, @tool functions, tool results and errors the model can act on, model providers and the Bedrock provider.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-mon-1"><span>Do the Python quickstart against Bedrock in your dev account</span></li>
+        <li data-id="w2-mon-2"><span>Read Agent loop; draw one cycle (model call, tool use, tool result) with the messages it produces</span></li>
+        <li data-id="w2-mon-3"><span>Read Writing effective tools for agents; rewrite one vague tool description and its error message</span></li>
+        <li data-id="w2-mon-4"><span>Pin a model ID or inference profile in the Bedrock provider</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/quickstart/overview/">Strands quickstart overview</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/quickstart/python/">Python quickstart</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/agent-loop/">Agent loop</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/tools/custom-tools/">Custom tools</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/model-providers/amazon-bedrock/">Amazon Bedrock provider</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/model-providers/">Model providers</a></li>
+        <li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Multi-agent patterns</h3>
+    <p class="focus">Agents as tools first; swarm, graph and workflow when they earn their complexity; A2A for separate services.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-tue-1"><span>Read Multi-agent patterns, then Agents as tools</span></li>
+        <li data-id="w2-tue-2"><span>Build an orchestrator with two specialists as tools locally</span></li>
+        <li data-id="w2-tue-3"><span>Read Swarm, Graph and Workflow; write one line each on when you would pick it</span></li>
+        <li data-id="w2-tue-4"><span>Read A2A and note that Runtime can host A2A servers</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/multi-agent-patterns/">Multi-agent patterns</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/agents-as-tools/">Agents as tools</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/swarm/">Swarm</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/graph/">Graph</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/workflow/">Workflow</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/agent-to-agent/">Agent-to-Agent (A2A)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w2-c1" title="Help desk orchestrator with two Strands specialists">w2-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Hooks and human-in-the-loop</h3>
+    <p class="focus">Lifecycle hooks around model and tool calls: the guardrails that must not depend on the prompt, like the hooks in your Claude Code harness.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wed-1"><span>Read Hooks and Human-in-the-loop</span></li>
+        <li data-id="w2-wed-2"><span>Add a hook that logs every tool call and cancels delete_* tools</span></li>
+        <li data-id="w2-wed-3"><span>Add a model-call budget per request</span></li>
+        <li data-id="w2-wed-4"><span>Do w2-c1</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/hooks/">Hooks</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/interventions/human-in-the-loop/">Human-in-the-loop</a></li>
+        <li><a href="https://code.claude.com/docs/en/hooks">Claude Code hooks</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w2-c1" title="Help desk orchestrator with two Strands specialists">w2-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>State, sessions and the MCP client</h3>
+    <p class="focus">Agent state, conversation management, session managers (file, S3, AgentCore Memory); consuming MCP tools from Strands.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-thu-1"><span>Read Agent state and Session management; persist a session to S3 and resume it</span></li>
+        <li data-id="w2-thu-2"><span>Read MCP tools; connect a Strands agent to a local MCP server</span></li>
+        <li data-id="w2-thu-3"><span>Do w2-t1: an access-review assistant that leaks other sessions' data</span></li>
+        <li data-id="w2-thu-4"><span>Shared core: MCP introduction and the Python SDK README</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/state/">Agent state</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/session-management/">Session management</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/tools/mcp-tools/">MCP tools</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w2-t1" title="The access-review assistant showed another team&#x27;s reviews">w2-t1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Model routing, traces and the LangGraph map</h3>
+    <p class="focus">Route cheap decisions to a small model, read Strands traces, and learn the LangGraph vocabulary the posting lists as nice to have.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-fri-1"><span>Read Model routing and set a smaller model on the orchestrator</span></li>
+        <li data-id="w2-fri-2"><span>Turn on Strands observability locally and read one trace</span></li>
+        <li data-id="w2-fri-3"><span>Skim Migrate from LangGraph and note the concept mapping</span></li>
+        <li data-id="w2-fri-4"><span>Read the Strands evals SDK overview</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/model-providers/model-routing/">Model routing</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/observability/">Strands observability</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/traces/">Strands traces</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/migrate/langgraph/">Migrate from LangGraph</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/evals-sdk/">Strands evals SDK</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: the portfolio agents</h3>
+    <p class="focus">An orchestrator with "IT requests" and "access reviews" specialists, each with two tools over a fake store, locally against Bedrock.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wk-1"><span>Run the same 10 prompts through agents-as-tools, a swarm and a graph; record answer quality, model calls, tokens</span></li>
+        <li data-id="w2-wk-2"><span>Write the half-page comparison for the README</span></li>
+        <li data-id="w2-wk-3"><span>Finish w2-c1 and w2-t1 and grade them</span></li>
+        <li data-id="w2-wk-4"><span>Week 2 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/multi-agent-patterns/">Multi-agent patterns</a></li>
+        <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w2-c1" title="Help desk orchestrator with two Strands specialists">w2-c1</a><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w2-t1" title="The access-review assistant showed another team&#x27;s reviews">w2-t1</a></p>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> A two-agent Strands app (orchestrator plus specialists) running locally against Bedrock with hooks, a budget and OTEL traces visible; a pattern comparison in the README.</div>
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/aiarch/workbook.html#w2">Week 2 tab of the workbook</a>. Self-exam questions for this week are on its Self-exam tab.</p>
+    <ul class="links">
+      <li><a href="workbooks/aiarch/workbook.html#ex-w2-c1">w2-c1</a> coding - Help desk orchestrator with two Strands specialists (2-3 h)</li>
+      <li><a href="workbooks/aiarch/workbook.html#ex-w2-t1">w2-t1</a> troubleshooting - The access-review assistant showed another team&#x27;s reviews (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 3 ============================== -->
+<section class="page" id="week3" data-title="Week 3">
+  <h2>Week 3 - AgentCore Runtime and Gateway <button class="reset" data-reset="w3">reset week</button></h2>
+  <p class="lede">Named in both required blocks. Runtime is a container workload you already know how to ship; the new parts are the service contract, ARM64, versions and endpoints, and Gateway turning APIs and Lambdas into MCP tools. Check L2 vs L1 before you write CDK, as you always do.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Runtime contract, Docker and ARM64</h3>
+    <p class="focus">POST /invocations and GET /ping on 8080, the AgentCore SDK wrapper, ARM64 only, sessions in microVMs.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-mon-1"><span>Read AgentCore Runtime, the service contract and Get started without the CLI</span></li>
+        <li data-id="w3-mon-2"><span>Build the week 2 app as an ARM64 image on an x86 machine with buildx; inspect the manifest</span></li>
+        <li data-id="w3-mon-3"><span>Push it to ECR in shared-services with an immutable tag and scan on push</span></li>
+        <li data-id="w3-mon-4"><span>Do w3-t1</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html">AgentCore Runtime</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-service-contract.html">Runtime service contract</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/getting-started-custom.html">Get started without the AgentCore CLI</a></li>
+        <li><a href="https://docs.docker.com/build/building/multi-platform/">Docker multi-platform builds</a></li>
+        <li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html">ECR image scanning</a></li>
+        <li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html">ECR lifecycle policies</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w3-t1" title="Agent v2.5.0 never becomes healthy on AgentCore Runtime">w3-t1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Runtime in CDK: versions and endpoints</h3>
+    <p class="focus">aws-cdk-lib/aws-bedrockagentcore L2s, fromEcrRepository vs fromAsset, execution role permissions, versions and endpoints as release management.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-tue-1"><span>Read the CDK aws-bedrockagentcore README; list which constructs are stable L2 and which are still alpha today</span></li>
+        <li data-id="w3-tue-2"><span>Read Runtime IAM permissions and versioning and endpoints</span></li>
+        <li data-id="w3-tue-3"><span>Start w3-c1: runtime, role and endpoints</span></li>
+        <li data-id="w3-tue-4"><span>Deploy v1, v2 with a deliberate bug, then roll prod back by moving the endpoint; time it</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_bedrockagentcore-readme.html">CDK aws-bedrockagentcore (stable L2)</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-bedrock-agentcore-alpha-readme.html">CDK AgentCore alpha</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-permissions.html">Runtime IAM permissions</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agent-runtime-versioning.html">Runtime versioning and endpoints</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/deploy/deploy_to_bedrock_agentcore/">Strands: deploy to AgentCore</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w3-c1" title="Lighthouse runtime and gateway stack in CDK">w3-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Gateway: APIs and Lambdas as MCP tools</h3>
+    <p class="focus">One MCP endpoint, targets become tools; inbound vs outbound auth; tool naming; semantic search.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wed-1"><span>Read Gateway, core concepts, supported targets and tool naming</span></li>
+        <li data-id="w3-wed-2"><span>Put a Lambda target and an OpenAPI target behind one gateway with JWT inbound auth</span></li>
+        <li data-id="w3-wed-3"><span>Connect the Strands orchestrator to the gateway as an MCP client and remove its local tools</span></li>
+        <li data-id="w3-wed-4"><span>Continue w3-c1: gateway and Lambda target</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html">AgentCore Gateway</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-core-concepts.html">Gateway core concepts</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-supported-targets.html">Supported targets</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-add-target-lambda.html">Lambda targets</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-schema-openapi.html">OpenAPI targets</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-tool-naming.html">Tool naming</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-inbound-auth.html">Inbound authorization</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-outbound-auth.html">Outbound authorization</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-using-mcp-semantic-search.html">Semantic tool search</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w3-c1" title="Lighthouse runtime and gateway stack in CDK">w3-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Private networking for agents</h3>
+    <p class="focus">Runtime in VPC mode, interface endpoints for Bedrock and AgentCore, endpoint policies, Gateway VPC egress.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-thu-1"><span>Read AgentCore VPC and PrivateLink, interface endpoints and Runtime VPC configuration</span></li>
+        <li data-id="w3-thu-2"><span>Finish w3-c1: isolated VPC, endpoints, aspect</span></li>
+        <li data-id="w3-thu-3"><span>Note the endpoint-policy gotcha for OAuth bearer calls (Principal "*")</span></li>
+        <li data-id="w3-thu-4"><span>Read Gateway VPC egress</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/vpc.html">AgentCore VPC and PrivateLink</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/vpc-interface-endpoints.html">AgentCore interface endpoints</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agentcore-vpc.html">AgentCore Runtime VPC configuration</a></li>
+        <li><a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-access.html">Endpoint policies</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-vpc-egress.html">Gateway VPC egress</a></li>
+        <li><a href="https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html">What is PrivateLink</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w3-c1" title="Lighthouse runtime and gateway stack in CDK">w3-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Sessions, headers and troubleshooting</h3>
+    <p class="focus">Session lifecycle and idle timeouts, long-running work, custom headers, security practices, and what breaks first.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-fri-1"><span>Read Runtime sessions and Long-running and async agents</span></li>
+        <li data-id="w3-fri-2"><span>Read Pass custom headers and Runtime security best practices</span></li>
+        <li data-id="w3-fri-3"><span>Read Runtime troubleshooting; list the three errors you would expect from a new pipeline</span></li>
+        <li data-id="w3-fri-4"><span>Read Harness vs Runtime and write one line on why this role builds on Runtime</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html">Runtime sessions</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-long-run.html">Long-running and async agents</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-header-allowlist.html">Pass custom headers</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-security-best-practices.html">Runtime security best practices</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-troubleshooting.html">Runtime troubleshooting</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness-vs-runtime.html">Harness vs Runtime</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: the app on Runtime from the pipeline</h3>
+    <p class="focus">The pipeline builds the ARM64 image once, scans it, pushes it, and deploys Runtime and Gateway with CDK.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wk-1"><span>Pipeline: ARM64 build and scan, push to ECR, cdk deploy to dev; record cold start and p50 latency</span></li>
+        <li data-id="w3-wk-2"><span>Break the gateway three ways (wrong JWT audience, missing outbound permission, a schema the model misuses) and note where each shows up</span></li>
+        <li data-id="w3-wk-3"><span>Grade w3-c1 and w3-t1</span></li>
+        <li data-id="w3-wk-4"><span>Week 3 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-using-inspector.html">Use the MCP Inspector</a></li>
+        <li><a href="https://github.com/awslabs/agentcore-samples">AgentCore samples (GitHub)</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w3-c1" title="Lighthouse runtime and gateway stack in CDK">w3-c1</a><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w3-t1" title="Agent v2.5.0 never becomes healthy on AgentCore Runtime">w3-t1</a></p>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> The app on Runtime deployed by the pipeline, with dev and prod endpoints; two internal APIs reachable only as Gateway MCP tools; a timed endpoint rollback.</div>
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/aiarch/workbook.html#w3">Week 3 tab of the workbook</a>. Self-exam questions for this week are on its Self-exam tab.</p>
+    <ul class="links">
+      <li><a href="workbooks/aiarch/workbook.html#ex-w3-c1">w3-c1</a> coding - Lighthouse runtime and gateway stack in CDK (2-3 h)</li>
+      <li><a href="workbooks/aiarch/workbook.html#ex-w3-t1">w3-t1</a> troubleshooting - Agent v2.5.0 never becomes healthy on AgentCore Runtime (1-1.5 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 4 ============================== -->
+<section class="page" id="week4" data-title="Week 4">
+  <h2>Week 4 - Identity, OBO and Cedar <button class="reset" data-reset="w4">reset week</button></h2>
+  <p class="lede">The gap that most often sinks agent platforms in review: the tool must act as the user, not as the agent. Then authorization as policy: Cedar on the gateway (Policy in AgentCore) and inside the API (Verified Permissions). Your IAM evaluation instincts carry over; the syntax and the token flows are new.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>OAuth 2.0 and JWT access tokens</h3>
+    <p class="focus">Authorization code with PKCE, client credentials, access vs ID tokens, audience and scopes, JWT access token claims, inbound JWT on Runtime and Gateway.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-mon-1"><span>Whiteboard auth code + PKCE and client credentials from memory, then check against RFC 6749 and 7636</span></li>
+        <li data-id="w4-mon-2"><span>Read RFC 9068 and list the claims an API must check</span></li>
+        <li data-id="w4-mon-3"><span>Read Inbound JWT authorization and Runtime inbound and outbound auth</span></li>
+        <li data-id="w4-mon-4"><span>Rule to say in interviews: identity comes from the verified token, never from tool arguments</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC 6749: OAuth 2.0</a></li>
+        <li><a href="https://datatracker.ietf.org/doc/html/rfc7636">RFC 7636: PKCE</a></li>
+        <li><a href="https://datatracker.ietf.org/doc/html/rfc9068">RFC 9068: JWT profile for access tokens</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/inbound-jwt-authorizer.html">Inbound JWT authorization</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-oauth.html">Runtime inbound and outbound auth</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>On-behalf-of and RFC 8693</h3>
+    <p class="focus">The confused-deputy problem; subject_token and actor_token; Entra's JWT-bearer OBO form; checking what the IdP returns.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-tue-1"><span>Read RFC 8693 sections 2 and 4 (act claim)</span></li>
+        <li data-id="w4-tue-2"><span>Read the Microsoft OBO flow and note how it differs</span></li>
+        <li data-id="w4-tue-3"><span>Draw the token path for one portfolio request: every token, issuer, audience, subject</span></li>
+        <li data-id="w4-tue-4"><span>Do w4-c1</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC 8693: OAuth 2.0 Token Exchange</a></li>
+        <li><a href="https://datatracker.ietf.org/doc/html/rfc7523">RFC 7523: JWT profile for OAuth 2.0 grants</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-on-behalf-of-flow">Microsoft identity platform OBO flow</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/on-behalf-of-token-exchange.html">On-behalf-of token exchange</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w4-c1" title="On-behalf-of token exchange for Lighthouse tools">w4-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>AgentCore Identity</h3>
+    <p class="focus">Workload identities, GetWorkloadAccessTokenForJWT, OAuth2 credential providers with on-behalf-of modes, GetResourceOauth2Token, scoping credential access.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wed-1"><span>Read AgentCore Identity, terminology and understanding agent identities</span></li>
+        <li data-id="w4-wed-2"><span>Read Credential providers, Get workload access token and Supported authentication patterns</span></li>
+        <li data-id="w4-wed-3"><span>Configure an OAuth2 credential provider in an OBO mode your IdP supports (Cognito, Okta or Entra page)</span></li>
+        <li data-id="w4-wed-4"><span>Have the downstream API log sub and act; prove a replayed user token fails on audience</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity.html">AgentCore Identity</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-terminology.html">Identity terminology</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/understanding-agent-identities.html">Understanding agent identities</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-outbound-credential-provider.html">Credential providers</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/get-workload-access-token.html">Get workload access token</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/common-use-cases.html">Supported authentication patterns</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/scope-credential-provider-access.html">Scope credential access</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-idp-cognito.html">Provider setup: Cognito</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-idp-okta.html">Provider setup: Okta</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-idp-microsoft.html">Provider setup: Microsoft</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w4-c1" title="On-behalf-of token exchange for Lighthouse tools">w4-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Cedar and Policy in AgentCore</h3>
+    <p class="focus">permit and forbid, conditions, entities and schemas; principals from JWT claims, actions per tool, tool inputs in conditions; what happens when a policy errors.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-thu-1"><span>Read Cedar terminology, policy syntax and authorization semantics (note: a policy whose evaluation errors is skipped)</span></li>
+        <li data-id="w4-thu-2"><span>Read Policy in AgentCore, core concepts, conditions and authorization flow</span></li>
+        <li data-id="w4-thu-3"><span>Write the portfolio policy set: employee, manager (own team only), auditor (read only), and a forbid outside business hours</span></li>
+        <li data-id="w4-thu-4"><span>Do w4-t1</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cedarpolicy.com/">Cedar docs</a></li>
+        <li><a href="https://docs.cedarpolicy.com/overview/terminology.html">Cedar terminology</a></li>
+        <li><a href="https://docs.cedarpolicy.com/policies/syntax-policy.html">Cedar policy syntax</a></li>
+        <li><a href="https://docs.cedarpolicy.com/auth/authorization.html">Cedar authorization semantics</a></li>
+        <li><a href="https://docs.cedarpolicy.com/schema/schema.html">Cedar schema</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy.html">Policy in AgentCore</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-core-concepts.html">Policy core concepts</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-conditions.html">Policy conditions</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-authorization-flow.html">Authorization flow</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/example-policies-principal.html">Principal-scoped policy examples</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w4-t1" title="A contractor approved another team&#x27;s access request (Cedar)">w4-t1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>LOG_ONLY then ENFORCE; Verified Permissions</h3>
+    <p class="focus">Roll out policies like dry-run first; temporal policies and Dogwood; AVP inside the API for record-level decisions.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-fri-1"><span>Read Enforcement modes and Test a policy in LOG_ONLY mode; replay 20 scripted requests and check every decision and error</span></li>
+        <li data-id="w4-fri-2"><span>Read Temporal policies and skim Dogwood</span></li>
+        <li data-id="w4-fri-3"><span>Read AVP terminology, policy stores, identity sources and IsAuthorizedWithToken</span></li>
+        <li data-id="w4-fri-4"><span>Write the half page: why both layers (gateway and API) exist</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-enforcement-modes.html">Enforcement modes</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-test-a-policy.html">Test a policy in LOG_ONLY mode</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-temporal.html">Temporal policies</a></li>
+        <li><a href="https://dogwood-policy.github.io/dogwood/index.html">Dogwood policy language</a></li>
+        <li><a href="https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/what-is-avp.html">What is Amazon Verified Permissions</a></li>
+        <li><a href="https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/terminology.html">AVP terminology</a></li>
+        <li><a href="https://docs.aws.amazon.com/verifiedpermissions/latest/apireference/API_IsAuthorizedWithToken.html">IsAuthorizedWithToken API</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/interventions/cedar-authorization/">Strands Cedar authorization</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: identity to every tool, and one hand-built MCP server</h3>
+    <p class="focus">Tools act as the calling user; Cedar decides which role may call which tool; the AI-page MCP server goes behind Gateway.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wk-1"><span>OBO wired end to end in the portfolio; decision log captured in LOG_ONLY, then ENFORCE</span></li>
+        <li data-id="w4-wk-2"><span>Do ai-c1 (MCP server) and add it to the gateway as an MCP server target</span></li>
+        <li data-id="w4-wk-3"><span>Grade w4-c1, w4-t1 and ai-c1</span></li>
+        <li data-id="w4-wk-4"><span>Week 4 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization">MCP authorization</a></li>
+        <li><a href="https://datatracker.ietf.org/doc/html/rfc9728">RFC 9728: Protected resource metadata</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-target-MCPservers.html">Gateway MCP server targets</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w4-c1" title="On-behalf-of token exchange for Lighthouse tools">w4-c1</a><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w4-t1" title="A contractor approved another team&#x27;s access request (Cedar)">w4-t1</a><a class="exchip" href="workbooks/aiarch/workbook.html#ex-ai-c1" title="A change-management MCP server for Lighthouse">ai-c1</a></p>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> Tools act as the calling user through OBO; Cedar decides which role may call which tool, first LOG_ONLY then ENFORCE with the decision log as evidence; one hand-built MCP server behind Gateway.</div>
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/aiarch/workbook.html#w4">Week 4 tab of the workbook</a>. Self-exam questions for this week are on its Self-exam tab.</p>
+    <ul class="links">
+      <li><a href="workbooks/aiarch/workbook.html#ex-w4-c1">w4-c1</a> coding - On-behalf-of token exchange for Lighthouse tools (2-3 h)</li>
+      <li><a href="workbooks/aiarch/workbook.html#ex-w4-t1">w4-t1</a> troubleshooting - A contractor approved another team&#x27;s access request (Cedar) (1-1.5 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 5 ============================== -->
+<section class="page" id="week5" data-title="Week 5">
+  <h2>Week 5 - AgentOps and DynamoDB <button class="reset" data-reset="w5">reset week</button></h2>
+  <p class="lede">You operate platforms for a living; agent-shaped telemetry is the new part: spans per model and tool call, tokens, cost and quality, not just errors and latency. Then the platform's own state in DynamoDB, access patterns first.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>OTEL GenAI conventions and ADOT</h3>
+    <p class="focus">Agent, model and tool spans; gen_ai.usage token attributes; MCP spans; ADOT as the way to send to X-Ray and Transaction Search.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-mon-1"><span>Read the GenAI semantic conventions, agent spans, model spans and MCP spans</span></li>
+        <li data-id="w5-mon-2"><span>Instrument the agents with ADOT; confirm invoke_agent, chat and execute_tool spans</span></li>
+        <li data-id="w5-mon-3"><span>Do w5-t1: tool spans that start new traces</span></li>
+        <li data-id="w5-mon-4"><span>Read X-Ray with ADOT</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTEL GenAI semantic conventions</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-agent-spans/">OTEL GenAI agent spans</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/">OTEL GenAI model spans</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/mcp/">OTEL semantic conventions for MCP</a></li>
+        <li><a href="https://aws-otel.github.io/docs/introduction/">AWS Distro for OpenTelemetry</a></li>
+        <li><a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-services-adot.html">X-Ray with ADOT</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w5-t1" title="Tool spans start new traces when tools run in parallel">w5-t1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>AgentCore Observability and Transaction Search</h3>
+    <p class="focus">Built-in metrics for Runtime, Gateway, Identity, Policy; one-time Transaction Search setup; GenAI observability pages; cross-account monitoring.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-tue-1"><span>Enable Transaction Search; find one conversation end to end</span></li>
+        <li data-id="w5-tue-2"><span>Read Runtime, Gateway and Policy observability data; list the metrics for your dashboard</span></li>
+        <li data-id="w5-tue-3"><span>Set up cross-account observability into shared-services</span></li>
+        <li data-id="w5-tue-4"><span>Build the dashboard in CDK: p50/p95 latency, tool error rate, throttles, Cedar denies, tokens</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html">Observe, trace and audit agents</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-configure.html">Add observability to AgentCore resources</a></li>
+        <li><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Transaction-Search.html">CloudWatch Transaction Search</a></li>
+        <li><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/GenAI-observability.html">CloudWatch generative AI observability</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-runtime-metrics.html">Runtime observability data</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-gateway-metrics.html">Gateway observability data</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-policy-metrics.html">Policy observability data</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-cross-account.html">AgentCore cross-account monitoring</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Audit, registry and online evaluation</h3>
+    <p class="focus">CloudTrail data events for Gateway, Bedrock invocation logging, AWS Agent Registry for discovery and approval, online evaluations on sampled traffic.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wed-1"><span>Turn on Gateway data events and find one tool call from its trace ID</span></li>
+        <li data-id="w5-wed-2"><span>Read Bedrock and CloudTrail plus model invocation logging; note cost and what each records</span></li>
+        <li data-id="w5-wed-3"><span>Publish the agents and the MCP server in Agent Registry with an approval step</span></li>
+        <li data-id="w5-wed-4"><span>Configure an online evaluation on a sample of traffic</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/enabling-cloudtrail-data-event-logging.html">Gateway CloudTrail data events</a></li>
+        <li><a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html">CloudTrail data events</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html">Bedrock model invocation logging</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry.html">AWS Agent Registry</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-record-lifecycle.html">Agent Registry record lifecycle</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-organizations.html">Agent Registry with Organizations</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html">AgentCore Evaluations</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/online-evaluations.html">Online evaluation</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>DynamoDB for agent state</h3>
+    <p class="focus">What goes in AgentCore Memory, Strands session storage and your own table; access patterns first; conditional writes, TTL, Streams.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-thu-1"><span>Write eight access patterns for the platform, then one table with at most two GSIs</span></li>
+        <li data-id="w5-thu-2"><span>Read Condition expressions, Transactions and Time to Live</span></li>
+        <li data-id="w5-thu-3"><span>Read AgentCore Memory and Long-term memory vs RAG; draw the data-lives-where line</span></li>
+        <li data-id="w5-thu-4"><span>Do w5-c1</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/data-modeling.html">DynamoDB data modeling</a></li>
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-general-nosql-design.html">NoSQL design for DynamoDB</a></li>
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html">Condition expressions</a></li>
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html">Transactions</a></li>
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html">Time to Live</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html">AgentCore Memory</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-ltm-rag.html">Long-term memory vs RAG</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w5-c1" title="One DynamoDB table for Lighthouse platform state">w5-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Cost per conversation</h3>
+    <p class="focus">Streams feeding a cost ledger, on-demand vs provisioned, hot partitions, leading-key IAM conditions.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-fri-1"><span>Feed the cost ledger from span records with a Stream-triggered Lambda</span></li>
+        <li data-id="w5-fri-2"><span>Read On-demand capacity mode and Fine-grained access with IAM conditions</span></li>
+        <li data-id="w5-fri-3"><span>Add hourly cost and cost-per-conversation panels and alarms to SNS</span></li>
+        <li data-id="w5-fri-4"><span>Read DynamoDB Streams and CloudWatch EMF</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html">DynamoDB Streams</a></li>
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html">On-demand capacity mode</a></li>
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html">Fine-grained access with IAM conditions</a></li>
+        <li><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Embedded_Metric_Format.html">CloudWatch embedded metric format</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_dynamodb-readme.html">CDK aws-dynamodb</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w5-c1" title="One DynamoDB table for Lighthouse platform state">w5-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: the AgentOps dashboard and two incidents</h3>
+    <p class="focus">Cause two incidents on purpose and write the post-incident note for each, starting from the alarm that fired.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wk-1"><span>Incident 1: revoke the tool Lambda's permission. Incident 2: push a version with a broken prompt</span></li>
+        <li data-id="w5-wk-2"><span>Write each note: alarm, first three checks, root cause, fix</span></li>
+        <li data-id="w5-wk-3"><span>Grade w5-c1 and w5-t1</span></li>
+        <li data-id="w5-wk-4"><span>Week 5 self-exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/metrics/">Strands metrics</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-metrics/">OTEL GenAI metrics</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w5-c1" title="One DynamoDB table for Lighthouse platform state">w5-c1</a><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w5-t1" title="Tool spans start new traces when tools run in parallel">w5-t1</a></p>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> An AgentOps dashboard with latency, errors, tokens and cost per conversation, alarms wired to SNS, Gateway data events, registry entries, and two post-incident notes.</div>
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/aiarch/workbook.html#w5">Week 5 tab of the workbook</a>. Self-exam questions for this week are on its Self-exam tab.</p>
+    <ul class="links">
+      <li><a href="workbooks/aiarch/workbook.html#ex-w5-c1">w5-c1</a> coding - One DynamoDB table for Lighthouse platform state (2-3 h)</li>
+      <li><a href="workbooks/aiarch/workbook.html#ex-w5-t1">w5-t1</a> troubleshooting - Tool spans start new traces when tools run in parallel (1-1.5 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 6 ============================== -->
+<section class="page" id="week6" data-title="Week 6">
+  <h2>Week 6 - SSM Automation, CDK Pipelines and cost <button class="reset" data-reset="w6">reset week</button></h2>
+  <p class="lede">Close the last DevOps gaps (SSM Automation, CDK Pipelines) and make the platform cheaper with numbers. Every runbook encodes the habit you already have: back up current state before you change anything.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>SSM Automation runbooks</h3>
+    <p class="focus">YAML documents with executeAwsApi, executeScript, waitForAwsResourceProperty, branch and approve; outputs; an assume role.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-mon-1"><span>Read Automation, Authoring runbooks and the actions reference</span></li>
+        <li data-id="w6-mon-2"><span>Read aws:executeScript and aws:approve</span></li>
+        <li data-id="w6-mon-3"><span>Do w6-c1: roll back the agent endpoint</span></li>
+        <li data-id="w6-mon-4"><span>Skim the AWS-owned runbook reference for one you can reuse</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html">Automation</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-authoring-runbooks.html">Authoring runbooks</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html">Automation actions reference</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-action-executeScript.html">aws:executeScript</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-action-approve.html">aws:approve</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-runbook-reference.html">AWS-owned runbook reference</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w6-c1" title="SSM Automation runbook: roll back the agent endpoint">w6-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Cross-account runs, Parameter Store, Change Manager</h3>
+    <p class="focus">Run from shared-services against dev; flags and prompt versions in Parameter Store; Session Manager and OpsCenter.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-tue-1"><span>Read Running automations in multiple accounts and regions</span></li>
+        <li data-id="w6-tue-2"><span>Write the drain runbook: Parameter Store flag, wait for active sessions to reach zero, report</span></li>
+        <li data-id="w6-tue-3"><span>Write the rotate-OAuth-secret runbook (IdP mocked)</span></li>
+        <li data-id="w6-tue-4"><span>Read Change Manager, Session Manager and OpsCenter; note when each earns its cost</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/running-automations-multiple-accounts-regions.html">Running automations in multiple accounts and regions</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html">Parameter Store</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/change-manager.html">Change Manager</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">Session Manager</a></li>
+        <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">OpsCenter</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ssm-readme.html">CDK aws-ssm</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w6-c1" title="SSM Automation runbook: roll back the agent endpoint">w6-c1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>CDK Pipelines with GitLab as the source</h3>
+    <p class="focus">A self-mutating CodePipeline with Stages in waves, sourced from GitLab through CodeConnections; bootstrap roles and SCPs.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wed-1"><span>Read the CDK Pipelines guide and the pipelines module README</span></li>
+        <li data-id="w6-wed-2"><span>Create a CodeConnections GitLab connection and a pipeline on a branch of the portfolio</span></li>
+        <li data-id="w6-wed-3"><span>Read CDK stages and assets; deploy dev and prod as Stages with a manual approval</span></li>
+        <li data-id="w6-wed-4"><span>Do w6-t1</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/cdk-pipeline.html">CDK Pipelines guide</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html">CDK pipelines module</a></li>
+        <li><a href="https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-create-gitlab.html">CodeConnections: GitLab</a></li>
+        <li><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/connections-gitlab.html">CodePipeline GitLab connections</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/stages.html">CDK stages</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/assets.html">CDK assets</a></li>
+        <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/aspects.html">CDK aspects</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w6-t1" title="Prod deploy blocked by an explicit deny in an SCP">w6-t1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Prompt caching, model choice and token budgets</h3>
+    <p class="focus">Where agent cost comes from; cache checkpoints after the stable prefix; smaller models where an eval says it is safe; cycle caps.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-thu-1"><span>Read Bedrock prompt caching and the Strands caching page</span></li>
+        <li data-id="w6-thu-2"><span>Do ai-t1: the cache that never hits</span></li>
+        <li data-id="w6-thu-3"><span>Record a baseline on 30 conversations: tokens, cache hits, cycles, p50/p95, cost, eval score</span></li>
+        <li data-id="w6-thu-4"><span>Change one thing at a time; keep the before/after table</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html">Bedrock prompt caching</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/sdk/model-providers/amazon-bedrock-prompt-caching/">Strands: Bedrock prompt caching</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-routing.html">Bedrock intelligent prompt routing</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles.html">Inference profiles</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-create.html">Create an application inference profile</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/service-tiers-inference.html">Service tiers</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-ai-t1" title="Bedrock spend tripled after release 3.1.0 (prompt caching)">ai-t1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Quotas, pricing and spend guardrails</h3>
+    <p class="focus">Bedrock and AgentCore quotas and pricing, AWS Budgets, Gateway rate limits per user, the Generative AI Lens.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-fri-1"><span>Read Bedrock quotas and AgentCore quotas; list the three you would hit first</span></li>
+        <li data-id="w6-fri-2"><span>Read Bedrock and AgentCore pricing; price one conversation</span></li>
+        <li data-id="w6-fri-3"><span>Add an AWS Budgets alarm and Gateway rate limits</span></li>
+        <li data-id="w6-fri-4"><span>Skim the Well-Architected Generative AI Lens</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html">Bedrock quotas</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html">AgentCore quotas</a></li>
+        <li><a href="https://aws.amazon.com/bedrock/pricing/">Bedrock pricing</a></li>
+        <li><a href="https://aws.amazon.com/bedrock/agentcore/pricing/">AgentCore pricing</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-rate-limits.html">Gateway rate limits</a></li>
+        <li><a href="https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html">AWS Budgets</a></li>
+        <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html">Well-Architected Generative AI Lens</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Ship the portfolio</h3>
+    <p class="focus">README, architecture diagram, the ADR, the cost table, and the five-minute walkthrough.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wk-1"><span>Three runbooks, the before/after cost table, README and architecture diagram</span></li>
+        <li data-id="w6-wk-2"><span>Write the GitLab-native vs CDK Pipelines ADR (x-2 is the drill)</span></li>
+        <li data-id="w6-wk-3"><span>Grade w6-c1, w6-t1 and ai-t1; week 6 self-exam</span></li>
+        <li data-id="w6-wk-4"><span>Rehearse the 5-minute walkthrough from the org layout to the cost-per-conversation panel</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/best-practices.html">CDK best practices</a></li>
+        <li><a href="https://skillbuilder.aws/">AWS Skill Builder</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w6-c1" title="SSM Automation runbook: roll back the agent endpoint">w6-c1</a><a class="exchip" href="workbooks/aiarch/workbook.html#ex-w6-t1" title="Prod deploy blocked by an explicit deny in an SCP">w6-t1</a><a class="exchip" href="workbooks/aiarch/workbook.html#ex-ai-t1" title="Bedrock spend tripled after release 3.1.0 (prompt caching)">ai-t1</a></p>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> Three runbooks, a CDK Pipelines branch with an ADR, a cost before/after table, the README and an architecture diagram; exam date set.</div>
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/aiarch/workbook.html#w6">Week 6 tab of the workbook</a>. Self-exam questions for this week are on its Self-exam tab.</p>
+    <ul class="links">
+      <li><a href="workbooks/aiarch/workbook.html#ex-w6-c1">w6-c1</a> coding - SSM Automation runbook: roll back the agent endpoint (2 h)</li>
+      <li><a href="workbooks/aiarch/workbook.html#ex-w6-t1">w6-t1</a> troubleshooting - Prod deploy blocked by an explicit deny in an SCP (1-1.5 h)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI integration fundamentals <button class="reset" data-reset="ai">reset page</button></h2>
+  <p class="lede">Shared across the study guides. No model training or data science: you call a model over HTTPS and engineer the software around it. Most of it is ordinary API work; the seven areas below are what is different, because an LLM is a probabilistic component, not a deterministic API.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Same</span>What is just API integration</h3>
+    <p class="focus">REST/SDK calls, auth, retries, timeouts, rate limits, streaming (SSE), cost metering. MCP is JSON-RPC with a tool/resource schema; an MCP server is a small service exposing your existing APIs as tools.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-same-1"><span>Make a first Messages API call with streaming; read the usage block (input/output/cache tokens)</span></li>
+        <li data-id="ai-same-2"><span>Read the MCP architecture overview: hosts, clients, servers, tools, resources, prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming messages</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture">MCP architecture overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">1</span>Tool design</h3>
+    <p class="focus">Names, descriptions and input schemas decide whether the model picks the right tool with the right arguments. API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-tool-1"><span>Read the tool use docs and Anthropic's guidance on writing tools for agents</span></li>
+        <li data-id="ai-tool-2"><span>Rewrite one vague tool description and compare call accuracy before and after</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">2</span>The agent loop</h3>
+    <p class="focus">Model requests a tool, your code runs it, the result goes back, repeat. Stop conditions, structured errors the model can recover from, parallel tool calls.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-loop-1"><span>Read Building Effective Agents (workflows vs agents)</span></li>
+        <li data-id="ai-loop-2"><span>Hand-write an agent loop with 2-3 tools, max-turn limit and <code>is_error</code> results</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://code.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> (a loop you do not write yourself)</li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">3</span>Context engineering and caching</h3>
+    <p class="focus">What goes in the system prompt vs per-request context; staying within the context window; prompt caching for cost and latency (static prefix first, dynamic data after the breakpoint).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-ctx-1"><span>Read the context engineering post and the prompt caching docs</span></li>
+        <li data-id="ai-ctx-2"><span>Show <code>cache_read_input_tokens</code> &gt; 0 on turn 2, then break it by changing one prefix byte</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">4</span>Security</h3>
+    <p class="focus">Prompt injection from untrusted content; model output is untrusted input; the model can skip, fake or reorder tool calls, so enforcement lives server-side. Auth in front of MCP servers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-sec-1"><span>Read the OWASP Top 10 for LLM applications</span></li>
+        <li data-id="ai-sec-2"><span>Read the MCP security best practices and authorization spec</span></li>
+        <li data-id="ai-sec-3"><span>Plant an injection in a tool result; confirm a server-side check (not the prompt) blocks the action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices">MCP security best practices</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization">MCP authorization</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">5</span>Evals</h3>
+    <p class="focus">Outputs vary run to run, so test with scored scenario suites ("did it call checkout without confirming?") rather than exact-match asserts. The least familiar part for most engineers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-eval-1"><span>Read the guide on building empirical evaluations and test cases</span></li>
+        <li data-id="ai-eval-2"><span>Write a 10-case eval for your agent: code-graded checks plus one model-graded rubric; run it 3x</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Create strong empirical evaluations</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">6</span>RAG</h3>
+    <p class="focus">Embeddings + a vector store (pgvector, OpenSearch, Azure AI Search), chunking, retrieval quality, citations. A data-pipeline and search problem, not model training.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-rag-1"><span>Read the embeddings docs and the contextual retrieval post</span></li>
+        <li data-id="ai-rag-2"><span>Embed ~50 docs into pgvector, retrieve top-k, answer with citations; measure hit rate on 10 questions</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/research/contextual-retrieval">Contextual retrieval</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">7</span>Observability</h3>
+    <p class="focus">Trace prompts, tool calls, token use and latency per turn. OpenTelemetry has GenAI semantic conventions for exactly this.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-obs-1"><span>Read the OTel GenAI semantic conventions (spans, metrics, events)</span></li>
+        <li data-id="ai-obs-2"><span>Emit one span per model call and per tool call with token counts as attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI semantic conventions</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Build</span>Two starter builds</h3>
+    <p class="focus">The fastest way to close the gap. Do these before going deeper anywhere else.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-build-1"><span>Build 1: agent loop against the Messages API with 2-3 tools you already understand</span></li>
+        <li data-id="ai-build-2"><span>Build 2: streamable-HTTP MCP server in front of a familiar API, with auth, called from Claude Code</span></li>
+        <li data-id="ai-build-3"><span>Add a tiny RAG step to Build 1: embed, retrieve, cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/2026-07-28/develop/build-server">MCP: Build a server</a></li>
+        <li><a href="https://code.claude.com/docs/en/mcp">Claude Code: connect MCP servers</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> (API, MCP, MCP Advanced)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card" id="ai-applies">
+    <h3>How this applies to this role</h3>
+    <p>AWS AI Architect: the same seven areas, built on AgentCore and Strands in Python, with Claude on Bedrock (Converse API, inference profiles) instead of the direct API. Do the "Build" tasks above against Bedrock in your dev account; build 2 is the MCP server you put behind Gateway in week 4.</p>
+    <table>
+      <tr><th>Area</th><th>AgentCore angle</th><th>Plan week</th></tr>
+      <tr><td>1 Tool design</td><td>Gateway tool names and descriptions are prompts; task-shaped MCP tools; semantic tool search past a dozen tools</td><td><a href="#week3">W3 Wed</a>, <a href="#week4">W4 weekend</a></td></tr>
+      <tr><td>2 Agent loop</td><td>Strands owns the loop; you own hooks, budgets and the pattern choice</td><td><a href="#week2">W2</a></td></tr>
+      <tr><td>3 Context + caching</td><td>Bedrock cache points after the stable system prompt and tool schemas; dynamic data after them</td><td><a href="#week6">W6 Thu</a></td></tr>
+      <tr><td>4 Security</td><td>OBO so tools act as the user, Cedar on the gateway, no token passthrough, VPC endpoints and SCPs</td><td><a href="#week4">W4</a>, <a href="#week1">W1</a></td></tr>
+      <tr><td>5 Evals</td><td>Strands evals and AgentCore online evaluation on sampled traffic; your own golden set in CI</td><td><a href="#week2">W2 Fri</a>, <a href="#week5">W5 Wed</a></td></tr>
+      <tr><td>6 RAG</td><td>Nice to have here: Bedrock Knowledge Bases as a Gateway target; AgentCore Memory is not RAG</td><td><a href="#week7">W7</a></td></tr>
+      <tr><td>7 Observability</td><td>ADOT, Transaction Search, gen_ai spans, cost per conversation</td><td><a href="#week5">W5</a></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Workbook for this page</h3>
+    <p>Open the <a href="workbooks/aiarch/workbook.html#ai">AI Integration tab of the workbook</a>. Self-exam questions for this page are on its Self-exam tab.</p>
+    <ul class="links">
+      <li><a href="workbooks/aiarch/workbook.html#ex-ai-c1">ai-c1</a> coding - A change-management MCP server for Lighthouse (2-3 h)</li>
+      <li><a href="workbooks/aiarch/workbook.html#ex-ai-t1">ai-t1</a> troubleshooting - Bedrock spend tripled after release 3.1.0 (prompt caching) (1-1.5 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 7 (ADD-ON) ============================== -->
+<section class="page" id="week7" data-title="Week 7 (add-on)">
+  <h2>Week 7 (add-on) - Optional drills and nice-to-haves <button class="reset" data-reset="w7">reset week</button></h2>
+  <p class="lede">Optional. Two extra workbook drills, the nice-to-have items from the posting, and the certification step. Not counted in the overall progress bar.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Drill</span>DynamoDB hot partition (x-1)</h3>
+    <p class="focus">Optional troubleshooting: an on-demand table that throttles every morning.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-x1-1"><span>Do x-1 and grade it</span></li>
+        <li data-id="w7-x1-2"><span>Turn on Contributor Insights on a test table and find a hot key</span></li>
+        <li data-id="w7-x1-3"><span>Write the GSI migration plan for a live table</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/data-modeling.html">DynamoDB data modeling</a></li>
+        <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html">On-demand capacity mode</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-x-1" title="The on-demand session table throttles at 09:00">x-1</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">ADR</span>Pipeline ADR and endpoint policies (x-2)</h3>
+    <p class="focus">Optional design: GitLab-native vs CDK Pipelines, and endpoint policies including OAuth bearer-token callers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-x2-1"><span>Do x-2 and grade it</span></li>
+        <li data-id="w7-x2-2"><span>Compare your ADR with the one in your portfolio and reconcile</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/cdk-pipeline.html">CDK Pipelines guide</a></li>
+        <li><a href="https://docs.aws.amazon.com/codebuild/latest/userguide/gitlab-runner.html">Self-managed GitLab runners in CodeBuild</a></li>
+        <li><a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-access.html">Endpoint policies</a></li>
+      </ul></div>
+    </div>
+    <p class="chips"><span class="lbl">Workbook</span><a class="exchip" href="workbooks/aiarch/workbook.html#ex-x-2" title="Pipeline ADR: GitLab-native vs CDK Pipelines, plus endpoint policies">x-2</a></p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Nice</span>Nice-to-haves from the posting</h3>
+    <p class="focus">Knowledge Bases and RAG, API Gateway, Lambda and Step Functions, EKS, LangGraph: know where each fits without building all of them.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-nice-1"><span>Add a Bedrock Knowledge Base as a Gateway target and call it from the orchestrator</span></li>
+        <li data-id="w7-nice-2"><span>Read Long-term memory vs RAG and explain the difference in two sentences</span></li>
+        <li data-id="w7-nice-3"><span>Read the Strands LangGraph migration page again and map one graph</span></li>
+        <li data-id="w7-nice-4"><span>Shared core: Contextual retrieval</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-ltm-rag.html">Long-term memory vs RAG</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-supported-targets.html">Supported targets</a></li>
+        <li><a href="https://strandsagents.com/docs/user-guide/migrate/langgraph/">Migrate from LangGraph</a></li>
+        <li><a href="https://www.anthropic.com/research/contextual-retrieval">Contextual retrieval (Anthropic)</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="day">
+    <h3><span class="tag">Cert</span>Certifications</h3>
+    <p class="focus">DevOps Engineer - Professional first (matches the primary focus); Solutions Architect - Professional (SAP-C03) second if the contract wants "architect" on paper.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-cert-1"><span>Take the DOP-C02 exam you booked in week 1</span></li>
+        <li data-id="w7-cert-2"><span>Read the SAP-C03 exam guide and list the domains you have not covered</span></li>
+        <li data-id="w7-cert-3"><span>Rewrite the top third of your resume for this posting</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://aws.amazon.com/certification/certified-devops-engineer-professional/">AWS Certified DevOps Engineer - Professional</a></li>
+        <li><a href="https://aws.amazon.com/certification/certified-solutions-architect-professional/">AWS Certified Solutions Architect - Professional</a></li>
+        <li><a href="https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-03/solutions-architect-professional-03.html">SAP-C03 exam guide</a></li>
+        <li><a href="https://aws.amazon.com/certification/certified-generative-ai-developer-professional/">AWS Certified Generative AI Developer - Professional</a></li>
+      </ul></div>
+    </div>
+    
+  </div>
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/aiarch/workbook.html#w7">Week 7 tab of the workbook</a>. Self-exam questions for this week are on its Self-exam tab.</p>
+    <ul class="links">
+      <li><a href="workbooks/aiarch/workbook.html#ex-x-1">x-1</a> troubleshooting - The on-demand session table throttles at 09:00 (1-1.5 h)</li>
+      <li><a href="workbooks/aiarch/workbook.html#ex-x-2">x-2</a> design - Pipeline ADR: GitLab-native vs CDK Pipelines, plus endpoint policies (2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== INTERVIEW PREP ============================== -->
+<section class="page" id="interview" data-title="Interview prep">
+  <h2>Interview prep <button class="reset" data-reset="iv">reset page</button></h2>
+  <p class="lede">Likely questions for this posting, with talk-track bullets. Rehearse each question aloud: answer in 2 minutes, then give the 30-second version. Tick a question once you can do both without notes. Only claim what you have built; where you have not, say what you would do and why.</p>
+  <div class="progress"><div id="bar-iv"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Design</span>Walk me through an enterprise agent platform on AWS, end to end</h3>
+    <p class="focus">The core whiteboard. Draw it from the org layout to the cost panel; that is also your portfolio walkthrough.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-1-1"><span>&quot;Design the platform for 20 teams building agents on AgentCore. Where does each piece live?&quot;</span></li>
+        <li data-id="iv-1-2"><span>&quot;How does a user&#x27;s identity reach the tool API?&quot;</span></li>
+        <li data-id="iv-1-3"><span>&quot;How do you release and roll back an agent?&quot;</span></li>
+        <li data-id="iv-1-4"><span>&quot;What would you build first in the first 30 days?&quot;</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Org first: management account empty, Security, Infrastructure (shared-services: ECR, runners, pipelines), Workloads per environment, Sandbox. SCPs for regions (with cross-Region inference destinations), approved Bedrock models, CloudTrail protection; an RCP for the org boundary.</li>
+        <li>Pipeline: GitLab merge requests run tests, synth and cdk diff; the ARM64 image is built and scanned once in shared-services and promoted by digest; OIDC roles per account, no stored keys; prod behind a protected environment or a CodePipeline approval.</li>
+        <li>Agents: Strands on AgentCore Runtime, one runtime per agent app, versions and endpoints so rollback is moving prod; tools only through Gateway (Lambda, OpenAPI, MCP server targets), Policy in AgentCore with Cedar on every tool call.</li>
+        <li>Identity: inbound JWT, OBO token exchange so the tool sees the user; state in DynamoDB and AgentCore Memory; AgentOps with ADOT traces, a cost-per-conversation dashboard, Gateway data events, Agent Registry for discovery.</li>
+        <li>Close with what you would measure in week one: p95 latency per tool, tool error rate, Cedar denies, tokens and cost per conversation.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Cloud</span>Multi-account governance and SCPs</h3>
+    <p class="focus">Your strongest ground; show you have authored guardrails, not just lived under them.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-2-1"><span>&quot;Write me an SCP that restricts Regions. What breaks?&quot;</span></li>
+        <li data-id="iv-2-2"><span>&quot;How do you test an SCP without locking out an OU?&quot;</span></li>
+        <li data-id="iv-2-3"><span>&quot;SCP vs RCP vs permissions boundary?&quot;</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Deny-list with FullAWSAccess kept; NotAction for global services; Bedrock cross-Region inference destinations allowed only with an approved inference profile ARN; break-glass via aws:PrincipalArn.</li>
+        <li>Missing keys: negated operators are true when the key is absent, which is what makes 'deny unless through my VPC endpoint' work; IfExists where absence must not deny.</li>
+        <li>Test OU with one sandbox account, a request table run through an evaluator (as in w1-c1), then watch CloudTrail for explicit-deny events for a week before widening.</li>
+        <li>SCPs cap principals in member accounts (never the management account or service-linked roles); RCPs cap resources (deny-only, Principal "*"; careful with web identity on STS); boundaries cap one principal.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Cloud</span>Pipelines: GitLab CI/CD, CDK and CDK Pipelines</h3>
+    <p class="focus">Name the gap (GitLab syntax, CDK Pipelines) and show the concepts transfer.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-3-1"><span>&quot;Show me your GitLab pipeline for a CDK app deploying to three accounts.&quot;</span></li>
+        <li data-id="iv-3-2"><span>&quot;GitLab-native deploys or CDK Pipelines?&quot;</span></li>
+        <li data-id="iv-3-3"><span>&quot;A deploy fails with an explicit SCP deny. Walk me through it.&quot;</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>id_tokens with a pinned aud, a role per account whose trust pins sub to project and ref type; protected tags and protected environments in GitLab do what IAM cannot see.</li>
+        <li>Synth once and keep cdk.out as an artifact; call cdk directly with explicit -c env so a wrapper cannot drop flags; bootstrap with --trust from shared-services.</li>
+        <li>CDK Pipelines keeps execution inside AWS with waves and approvals; GitLab-native keeps one tool for developers. A hybrid (MR checks in GitLab, deploy in CodePipeline) is a fair answer; ask which the team runs.</li>
+        <li>In a CDK deploy CloudFormation calls IAM as the bootstrap cfn-exec role, so an SCP exemption for the CI role does not help (w6-t1).</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Agents</span>Strands, multi-agent patterns and MCP</h3>
+    <p class="focus">Be concrete about what you built and why you chose the pattern.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-4-1"><span>&quot;Agents as tools, swarm or graph?&quot;</span></li>
+        <li data-id="iv-4-2"><span>&quot;Where do guardrails go in a Strands app?&quot;</span></li>
+        <li data-id="iv-4-3"><span>&quot;Build an MCP server for our ITSM. How do you design the tools?&quot;</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Start with agents as tools: easiest to bound and trace. Swarm for open-ended handoffs, graph for branching flows with loops, workflow for fixed parallel tasks; measured on quality, model calls and tokens.</li>
+        <li>Hooks for anything that must hold (audit, delete blocks, budgets); Cedar on the gateway for tool authorization; prompts only for behavior.</li>
+        <li>Task-shaped tools (create change, get change, list my open changes, comment), small outputs, actionable errors, identity from the verified token; or no server at all when an OpenAPI or Lambda target is enough.</li>
+        <li>State: never share an Agent across sessions (w2-t1); session managers or AgentCore Memory keyed on the session.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Identity</span>OAuth on-behalf-of and Cedar</h3>
+    <p class="focus">Where most agent platforms get it wrong. Draw the token path.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-5-1"><span>&quot;Why not give the agent a service account?&quot;</span></li>
+        <li data-id="iv-5-2"><span>&quot;Explain RFC 8693 token exchange.&quot;</span></li>
+        <li data-id="iv-5-3"><span>&quot;A Cedar forbid did not stop an approval. Why might that be?&quot;</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>A service account makes the agent a confused deputy: the API authorizes the agent, not the user. OBO keeps the user as subject and records the agent as actor.</li>
+        <li>subject_token is the user's token, actor_token the agent's; the IdP issues a token for the API's audience with narrowed scope; verify audience, subject, scope and actor before use. Entra uses the JWT-bearer form.</li>
+        <li>AgentCore Identity: workload identity, GetWorkloadAccessTokenForJWT, an OAuth2 credential provider in token-exchange mode, GetResourceOauth2Token; the agent never sees client secrets.</li>
+        <li>Cedar skips a policy whose evaluation errors, so a forbid that reads a missing attribute does nothing (w4-t1). Guard with has and validate against the schema in CI; review errors in LOG_ONLY, not just decisions.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Ops</span>AgentOps, incidents and cost</h3>
+    <p class="focus">Tie your incident experience to agent-shaped telemetry.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-6-1"><span>&quot;What is on your AgentOps dashboard?&quot;</span></li>
+        <li data-id="iv-6-2"><span>&quot;Tool spans show up as separate traces. Debug it.&quot;</span></li>
+        <li data-id="iv-6-3"><span>&quot;Cost tripled after a release. Where do you look?&quot;</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>p50/p95 per agent and tool, tool error rate, throttles, Cedar denies, tokens in/out and cache hits, cost per conversation, online evaluation scores; alarms to SNS with runbooks.</li>
+        <li>Parallel tool calls on a thread pool lose the OTEL context unless you copy it; check parent ids and thread names in the exported spans (w5-t1).</li>
+        <li>Cache read tokens first: dynamic data before the cache point kills the cache (ai-t1). Then cycles per turn, tool output size, model choice; change one thing at a time against an eval.</li>
+        <li>Rollback is an SSM runbook that backs up the endpoint state, asks for approval, moves the endpoint and verifies the error metric (w6-c1).</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fit</span>Background and fit</h3>
+    <p class="focus">Lead with the mandatory block in the posting's words; be plain that the agentic work is a personal build.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-7-1"><span>&quot;Tell me about yourself in two minutes.&quot;</span></li>
+        <li data-id="iv-7-2"><span>&quot;Have you run AgentCore in production?&quot;</span></li>
+        <li data-id="iv-7-3"><span>&quot;What would you need to learn here?&quot;</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>26 years of operations and platform work across multi-account AWS, CDK, IAM and federation, CloudWatch and CloudTrail, release management and incidents.</li>
+        <li>"I built and run this platform in a personal AWS organization" and walk through the repo; do not claim production AgentCore, Strands or Cedar.</li>
+        <li>Name the smaller gaps yourself (GitLab specifics, CDK Pipelines, SSM Automation depth) and the week in which you closed each.</li>
+        <li>Ask: is the platform in production or being built; which IdP issues user tokens and does it support token exchange; GitLab cdk deploy or CDK Pipelines with GitLab as source.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Questions to ask them</h3>
+    <ul class="links">
+      <li>Is the AgentCore platform in production today, or is this role building it?</li>
+      <li>Which IdP issues user tokens, and does it support token exchange (RFC 8693) or the Entra OBO form?</li>
+      <li>Is deployment GitLab CI running cdk deploy, or CDK Pipelines on CodePipeline with GitLab as the source?</li>
+      <li>How many teams will publish agents and MCP servers, and is AWS Agent Registry part of the plan?</li>
+      <li>Which Bedrock models and Regions are approved, and who owns the SCPs?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== RESOURCES ============================== -->
+<section class="page" id="resources" data-title="Resources">
+  <h2>All resources</h2>
+  <p class="lede">Every Materials link in this plan, grouped by week. Links were checked for HTTP 200 and the page title on 2026-11-13 (role and shared study notes) and on the day this plan was built; docs.aws.amazon.com serves a 200 stub for removed pages, so a status check alone is not enough.</p>
+  <div class="grid2">
+    <div class="card"><h3>Week 1 - Multi-account foundation and GitLab OIDC</h3><ul class="links">
+      <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html">What is AWS Organizations</a></li>
+      <li><a href="https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html">Organizing your AWS environment (whitepaper)</a></li>
+      <li><a href="https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/">AWS Security Reference Architecture</a></li>
+      <li><a href="https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html">What is Control Tower</a></li>
+      <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html">Accessing member accounts</a></li>
+      <li><a href="https://docs.aws.amazon.com/aws-certification/latest/devops-engineer-professional-02/devops-engineer-professional-02.html">DOP-C02 exam guide</a></li>
+      <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html">Service control policies</a></li>
+      <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_evaluation.html">SCP evaluation</a></li>
+      <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_examples.html">SCP examples</a></li>
+      <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_rcps.html">Resource control policies</a></li>
+      <li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_declarative_policies.html">Declarative policies</a></li>
+      <li><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html">IAM policy evaluation logic</a></li>
+      <li><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">Global condition keys</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html">Bedrock cross-Region inference</a></li>
+      <li><a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_bedrock-agentcore.html">Service authorization reference: AgentCore</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/security-vpc-condition.html">AgentCore VPC condition keys</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/vpc-interface-endpoints.html">Bedrock interface endpoints</a></li>
+      <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">What is IAM Identity Center</a></li>
+      <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html">Permission sets</a></li>
+      <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/abac.html">Identity Center ABAC</a></li>
+      <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html">Identity Center delegated administration</a></li>
+      <li><a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/trustedidentitypropagation-overview.html">Trusted identity propagation</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_organizations-readme.html">CDK aws-organizations (L1 only)</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_sso-readme.html">CDK aws-sso (L1 only)</a></li>
+      <li><a href="https://docs.gitlab.com/ci/">GitLab CI/CD</a></li>
+      <li><a href="https://docs.gitlab.com/ci/yaml/">CI/CD YAML reference</a></li>
+      <li><a href="https://docs.gitlab.com/ci/migration/github_actions/">Migrating from GitHub Actions</a></li>
+      <li><a href="https://docs.gitlab.com/ci/cloud_services/aws/">OIDC to AWS</a></li>
+      <li><a href="https://docs.gitlab.com/ci/secrets/id_token_authentication/">ID token authentication</a></li>
+      <li><a href="https://docs.gitlab.com/ci/environments/protected_environments/">Protected environments</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping-env.html">Bootstrap environments (trust)</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html">CDK bootstrapping</a></li>
+      <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li>
+      <li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+    </ul></div>
+    <div class="card"><h3>Week 2 - Strands Agents</h3><ul class="links">
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/quickstart/overview/">Strands quickstart overview</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/quickstart/python/">Python quickstart</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/agent-loop/">Agent loop</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/tools/custom-tools/">Custom tools</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/model-providers/amazon-bedrock/">Amazon Bedrock provider</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/model-providers/">Model providers</a></li>
+      <li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/multi-agent-patterns/">Multi-agent patterns</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/agents-as-tools/">Agents as tools</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/swarm/">Swarm</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/graph/">Graph</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/workflow/">Workflow</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/multi-agent/agent-to-agent/">Agent-to-Agent (A2A)</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/hooks/">Hooks</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/interventions/human-in-the-loop/">Human-in-the-loop</a></li>
+      <li><a href="https://code.claude.com/docs/en/hooks">Claude Code hooks</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/state/">Agent state</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/session-management/">Session management</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/tools/mcp-tools/">MCP tools</a></li>
+      <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></li>
+      <li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/model-providers/model-routing/">Model routing</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/observability/">Strands observability</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/traces/">Strands traces</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/migrate/langgraph/">Migrate from LangGraph</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/evals-sdk/">Strands evals SDK</a></li>
+      <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+    </ul></div>
+    <div class="card"><h3>Week 3 - AgentCore Runtime and Gateway</h3><ul class="links">
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html">AgentCore Runtime</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-service-contract.html">Runtime service contract</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/getting-started-custom.html">Get started without the AgentCore CLI</a></li>
+      <li><a href="https://docs.docker.com/build/building/multi-platform/">Docker multi-platform builds</a></li>
+      <li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html">ECR image scanning</a></li>
+      <li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html">ECR lifecycle policies</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_bedrockagentcore-readme.html">CDK aws-bedrockagentcore (stable L2)</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-bedrock-agentcore-alpha-readme.html">CDK AgentCore alpha</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-permissions.html">Runtime IAM permissions</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agent-runtime-versioning.html">Runtime versioning and endpoints</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/deploy/deploy_to_bedrock_agentcore/">Strands: deploy to AgentCore</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html">AgentCore Gateway</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-core-concepts.html">Gateway core concepts</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-supported-targets.html">Supported targets</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-add-target-lambda.html">Lambda targets</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-schema-openapi.html">OpenAPI targets</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-tool-naming.html">Tool naming</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-inbound-auth.html">Inbound authorization</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-outbound-auth.html">Outbound authorization</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-using-mcp-semantic-search.html">Semantic tool search</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/vpc.html">AgentCore VPC and PrivateLink</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/vpc-interface-endpoints.html">AgentCore interface endpoints</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agentcore-vpc.html">AgentCore Runtime VPC configuration</a></li>
+      <li><a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-access.html">Endpoint policies</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-vpc-egress.html">Gateway VPC egress</a></li>
+      <li><a href="https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html">What is PrivateLink</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html">Runtime sessions</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-long-run.html">Long-running and async agents</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-header-allowlist.html">Pass custom headers</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-security-best-practices.html">Runtime security best practices</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-troubleshooting.html">Runtime troubleshooting</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness-vs-runtime.html">Harness vs Runtime</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-using-inspector.html">Use the MCP Inspector</a></li>
+      <li><a href="https://github.com/awslabs/agentcore-samples">AgentCore samples (GitHub)</a></li>
+    </ul></div>
+    <div class="card"><h3>Week 4 - Identity, OBO and Cedar</h3><ul class="links">
+      <li><a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC 6749: OAuth 2.0</a></li>
+      <li><a href="https://datatracker.ietf.org/doc/html/rfc7636">RFC 7636: PKCE</a></li>
+      <li><a href="https://datatracker.ietf.org/doc/html/rfc9068">RFC 9068: JWT profile for access tokens</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/inbound-jwt-authorizer.html">Inbound JWT authorization</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-oauth.html">Runtime inbound and outbound auth</a></li>
+      <li><a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC 8693: OAuth 2.0 Token Exchange</a></li>
+      <li><a href="https://datatracker.ietf.org/doc/html/rfc7523">RFC 7523: JWT profile for OAuth 2.0 grants</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-on-behalf-of-flow">Microsoft identity platform OBO flow</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/on-behalf-of-token-exchange.html">On-behalf-of token exchange</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity.html">AgentCore Identity</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-terminology.html">Identity terminology</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/understanding-agent-identities.html">Understanding agent identities</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-outbound-credential-provider.html">Credential providers</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/get-workload-access-token.html">Get workload access token</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/common-use-cases.html">Supported authentication patterns</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/scope-credential-provider-access.html">Scope credential access</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-idp-cognito.html">Provider setup: Cognito</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-idp-okta.html">Provider setup: Okta</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity-idp-microsoft.html">Provider setup: Microsoft</a></li>
+      <li><a href="https://docs.cedarpolicy.com/">Cedar docs</a></li>
+      <li><a href="https://docs.cedarpolicy.com/overview/terminology.html">Cedar terminology</a></li>
+      <li><a href="https://docs.cedarpolicy.com/policies/syntax-policy.html">Cedar policy syntax</a></li>
+      <li><a href="https://docs.cedarpolicy.com/auth/authorization.html">Cedar authorization semantics</a></li>
+      <li><a href="https://docs.cedarpolicy.com/schema/schema.html">Cedar schema</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy.html">Policy in AgentCore</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-core-concepts.html">Policy core concepts</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-conditions.html">Policy conditions</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-authorization-flow.html">Authorization flow</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/example-policies-principal.html">Principal-scoped policy examples</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-enforcement-modes.html">Enforcement modes</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-test-a-policy.html">Test a policy in LOG_ONLY mode</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy-temporal.html">Temporal policies</a></li>
+      <li><a href="https://dogwood-policy.github.io/dogwood/index.html">Dogwood policy language</a></li>
+      <li><a href="https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/what-is-avp.html">What is Amazon Verified Permissions</a></li>
+      <li><a href="https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/terminology.html">AVP terminology</a></li>
+      <li><a href="https://docs.aws.amazon.com/verifiedpermissions/latest/apireference/API_IsAuthorizedWithToken.html">IsAuthorizedWithToken API</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/agents/interventions/cedar-authorization/">Strands Cedar authorization</a></li>
+      <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization">MCP authorization</a></li>
+      <li><a href="https://datatracker.ietf.org/doc/html/rfc9728">RFC 9728: Protected resource metadata</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-target-MCPservers.html">Gateway MCP server targets</a></li>
+    </ul></div>
+    <div class="card"><h3>Week 5 - AgentOps and DynamoDB</h3><ul class="links">
+      <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTEL GenAI semantic conventions</a></li>
+      <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-agent-spans/">OTEL GenAI agent spans</a></li>
+      <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/">OTEL GenAI model spans</a></li>
+      <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/mcp/">OTEL semantic conventions for MCP</a></li>
+      <li><a href="https://aws-otel.github.io/docs/introduction/">AWS Distro for OpenTelemetry</a></li>
+      <li><a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-services-adot.html">X-Ray with ADOT</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html">Observe, trace and audit agents</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-configure.html">Add observability to AgentCore resources</a></li>
+      <li><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Transaction-Search.html">CloudWatch Transaction Search</a></li>
+      <li><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/GenAI-observability.html">CloudWatch generative AI observability</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-runtime-metrics.html">Runtime observability data</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-gateway-metrics.html">Gateway observability data</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-policy-metrics.html">Policy observability data</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-cross-account.html">AgentCore cross-account monitoring</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/enabling-cloudtrail-data-event-logging.html">Gateway CloudTrail data events</a></li>
+      <li><a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html">CloudTrail data events</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html">Bedrock model invocation logging</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry.html">AWS Agent Registry</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-record-lifecycle.html">Agent Registry record lifecycle</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-organizations.html">Agent Registry with Organizations</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html">AgentCore Evaluations</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/online-evaluations.html">Online evaluation</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/data-modeling.html">DynamoDB data modeling</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-general-nosql-design.html">NoSQL design for DynamoDB</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html">Condition expressions</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html">Transactions</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html">Time to Live</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html">AgentCore Memory</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-ltm-rag.html">Long-term memory vs RAG</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html">DynamoDB Streams</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html">On-demand capacity mode</a></li>
+      <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html">Fine-grained access with IAM conditions</a></li>
+      <li><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Embedded_Metric_Format.html">CloudWatch embedded metric format</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_dynamodb-readme.html">CDK aws-dynamodb</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/metrics/">Strands metrics</a></li>
+      <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-metrics/">OTEL GenAI metrics</a></li>
+    </ul></div>
+    <div class="card"><h3>Week 6 - SSM Automation, CDK Pipelines and cost</h3><ul class="links">
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html">Automation</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-authoring-runbooks.html">Authoring runbooks</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html">Automation actions reference</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-action-executeScript.html">aws:executeScript</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-action-approve.html">aws:approve</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-runbook-reference.html">AWS-owned runbook reference</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/running-automations-multiple-accounts-regions.html">Running automations in multiple accounts and regions</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html">Parameter Store</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/change-manager.html">Change Manager</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">Session Manager</a></li>
+      <li><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html">OpsCenter</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ssm-readme.html">CDK aws-ssm</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/cdk-pipeline.html">CDK Pipelines guide</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html">CDK pipelines module</a></li>
+      <li><a href="https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-create-gitlab.html">CodeConnections: GitLab</a></li>
+      <li><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/connections-gitlab.html">CodePipeline GitLab connections</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/stages.html">CDK stages</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/assets.html">CDK assets</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/aspects.html">CDK aspects</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html">Bedrock prompt caching</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/sdk/model-providers/amazon-bedrock-prompt-caching/">Strands: Bedrock prompt caching</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-routing.html">Bedrock intelligent prompt routing</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles.html">Inference profiles</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-create.html">Create an application inference profile</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/service-tiers-inference.html">Service tiers</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html">Bedrock quotas</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/bedrock-agentcore-limits.html">AgentCore quotas</a></li>
+      <li><a href="https://aws.amazon.com/bedrock/pricing/">Bedrock pricing</a></li>
+      <li><a href="https://aws.amazon.com/bedrock/agentcore/pricing/">AgentCore pricing</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-rate-limits.html">Gateway rate limits</a></li>
+      <li><a href="https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html">AWS Budgets</a></li>
+      <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html">Well-Architected Generative AI Lens</a></li>
+      <li><a href="https://docs.aws.amazon.com/cdk/v2/guide/best-practices.html">CDK best practices</a></li>
+      <li><a href="https://skillbuilder.aws/">AWS Skill Builder</a></li>
+    </ul></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var KEY = "studyplan-aiarch-v1";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked */ } }
+
+  // Theme: follows the OS unless the toggle was used (stored under state.__theme)
+  function applyTheme() {
+    if (state.__theme) document.documentElement.setAttribute("data-theme", state.__theme);
+    else document.documentElement.removeAttribute("data-theme");
+  }
+  applyTheme();
+  document.getElementById("themebtn").addEventListener("click", function () {
+    var dark = state.__theme ? state.__theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    state.__theme = dark ? "light" : "dark"; save(); applyTheme();
+  });
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+
+  // Build tabs
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id;
+    a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+
+  // Turn task <li>s into checkboxes
+  document.querySelectorAll("ul.tasks li").forEach(function (li) {
+    var id = li.dataset.id;
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state[id];
+    li.insertBefore(cb, li.firstChild);
+    li.classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", function () {
+      state[id] = cb.checked;
+      li.classList.toggle("checked", cb.checked);
+      save(); refresh();
+    });
+  });
+
+  function items(prefix) {
+    return Array.prototype.slice.call(document.querySelectorAll('ul.tasks li[data-id^="' + prefix + '"]'));
+  }
+  function pctOf(list) {
+    if (!list.length) return null;
+    var done = 0;
+    list.forEach(function (li) { if (state[li.dataset.id]) done++; });
+    return Math.round(100 * done / list.length);
+  }
+  function setPage(pageId, barId, v) {
+    var bar = document.getElementById(barId);
+    if (bar) bar.style.width = (v || 0) + "%";
+    var tab = tabs.querySelector('[data-page="' + pageId + '"] .pct');
+    if (tab) tab.textContent = v === null ? "" : v + "%";
+  }
+
+  // page id -> checkbox prefix; the overall bar counts the six core weeks only (add-on excluded)
+  var PAGES = [];
+  for (var n = 1; n <= 7; n++) PAGES.push(["week" + n, "w" + n + "-", "bar-w" + n]);
+  PAGES.push(["ai", "ai-", "bar-ai"]);
+  PAGES.push(["interview", "iv-", "bar-iv"]);
+
+  function refresh() {
+    PAGES.forEach(function (p) { setPage(p[0], p[2], pctOf(items(p[1]))); });
+    var core = [];
+    for (var n = 1; n <= 6; n++) core = core.concat(items("w" + n + "-"));
+    setPage("overview", "bar-all", pctOf(core));
+  }
+
+  document.querySelectorAll("button.reset").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!confirm("Clear all checkboxes on this page?")) return;
+      var w = b.dataset.reset;
+      Object.keys(state).forEach(function (k) { if (k.indexOf(w + "-") === 0) delete state[k]; });
+      save();
+      items(w + "-").forEach(function (li) {
+        li.querySelector("input").checked = false; li.classList.remove("checked");
+      });
+      refresh();
+    });
+  });
+
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    var el = document.getElementById(id);
+    if (!el || !el.classList.contains("page")) id = "overview";
+    pages.forEach(function (p) { p.classList.toggle("active", p.id === id); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === id); });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show(); refresh();
+})();
+</script>
+</body>
+</html>

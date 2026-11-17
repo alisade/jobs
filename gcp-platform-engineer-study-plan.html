@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Senior Staff Platform Engineer (GCP, Terraform) - Study Plan</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #1a73e8; --accent-soft: #e8f0fe; --done: #2f7d4f;
+    --warn: #9a6700; --warn-soft: #fff4d6; --bad: #b42318; --bad-soft: #fde8e6; --done-soft: #e3f1e8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #8ab4f8; --accent-soft: #1f2a3d; --done: #5cc287;
+      --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+    --line: #34343a; --accent: #8ab4f8; --accent-soft: #1f2a3d; --done: #5cc287;
+    --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  .themebtn { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+              border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  h3.sub { font-size: 17px; margin: 26px 0 10px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .day h3 { margin: 0 0 2px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .day h3 .tag { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft);
+                 padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .day .focus { color: var(--muted); margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4, .card h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.tasks { list-style: none; padding: 0; margin: 0; }
+  ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+  ul.tasks input { margin-top: 4px; accent-color: var(--done); flex: none; }
+  ul.tasks li.checked span { color: var(--muted); text-decoration: line-through; }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .deliverable b { color: var(--done); }
+  .note { margin: 0 0 18px; padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .note b { color: var(--warn); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  .card + .card, .grid2 + .card, .card + .grid2 { margin-top: 14px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .scroll { overflow-x: auto; }
+  table.matrix th, table.matrix td { font-size: 13px; }
+  table.matrix td.c { text-align: center; }
+  table.matrix th.p { text-transform: none; letter-spacing: 0; font-size: 12px; min-width: 74px; }
+  .yes { color: var(--done); font-weight: 700; }
+  .s-strong { color: var(--done); font-weight: 600; }
+  .s-partial { color: var(--warn); font-weight: 600; }
+  .s-gap { color: var(--bad); font-weight: 600; }
+  .small { font-size: 13px; color: var(--muted); }
+  .muted { font-size: 13px; color: var(--muted); }
+  .reset { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+           border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  .exs { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+  .chip { display: inline-block; font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700;
+          color: var(--accent); background: var(--accent-soft); border: 1px solid var(--line);
+          padding: 1px 8px; border-radius: 99px; text-decoration: none; margin: 0 4px 0 2px; }
+  .chip:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="themebtn" id="themebtn" type="button">light / dark</button>
+  <h1>Senior Staff Platform Engineer - GCP, Terraform, GKE fleets, Crossplane</h1>
+  <p>6-week plan plus an optional add-on week for a remote Senior Staff Platform Engineer / SME role (GCP or Alibaba, Terraform and IaC, migration into Terraform). Weekdays ~2-3 h, weekends one long block for the <a href="workbooks/platform/workbook.html">workbook</a> exercises. Checkboxes save in this browser.</p>
+</header>
+
+<nav><div class="inner" id="tabs"></div></nav>
+
+<main>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="page" id="overview" data-title="Overview">
+  <h2>Overview</h2>
+  <p class="lede">The role is a Senior Staff Platform Engineer and subject matter expert for infrastructure security management and core cloud services (the posting names MDM, RIQ and RDM). You would be the first line of architectural authority for reliability and DevSecOps problems, own IaC with Crossplane, Terraform and Helm ("a must-have"), design zero-downtime maintenance for fleets of Kubernetes clusters, mentor platform engineers, remove toil with AI tools and agentic workflows, and take a 12-hour on-call rotation. The cloud is GCP or Alibaba, and the header asks for "migration experience from cloud to Terraform". This plan does not teach Kubernetes, Terraform or CI/CD: you already run them. It goes deep and fast on the GCP brand of those skills, Crossplane, Prometheus-native observability, Go, and an agent workflow that keeps its approval gates.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+  <p class="note"><b>Honest fit note.</b> This is the closest fit of all your target roles: the discipline is what you have done for 26 years. The hard filter is the cloud brand. The header says "Need GCP or Alibaba" and "We do not need AWS or Azure experience", so a keyword screen may reject an AWS/Azure resume. You cannot fix that with wording; you fix it with GCP work you can point at (the public portfolio repo below) and a Google Cloud certification booked in week 1. The posting also contradicts itself twice (see <a href="#interview">Interview prep</a>): ask the recruiter early whether GCP production time is a hard requirement, and whether the platform runs on GCP or Alibaba.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>The six weeks (plus an add-on)</h3>
+      <table>
+        <tr><th>Week</th><th>Theme</th><th>Workbook</th></tr>
+        <tr><td><a href="#week1">1</a></td><td>GCP foundations mapped from AWS: hierarchy, IAM, service accounts, Workload Identity Federation, Shared VPC, org policies, VPC Service Controls</td><td><a href="workbooks/platform/workbook.html#ex-w1-c1">w1-c1</a>, <a href="workbooks/platform/workbook.html#ex-w1-t1">w1-t1</a></td></tr>
+        <tr><td><a href="#week2">2</a></td><td>GKE fleet operations and zero-downtime upgrades</td><td><a href="workbooks/platform/workbook.html#ex-w2-c1">w2-c1</a>, <a href="workbooks/platform/workbook.html#ex-w2-t1">w2-t1</a></td></tr>
+        <tr><td><a href="#week3">3</a></td><td>Terraform at scale and bringing existing resources under Terraform</td><td><a href="workbooks/platform/workbook.html#ex-w3-c1">w3-c1</a>, <a href="workbooks/platform/workbook.html#ex-w3-t1">w3-t1</a></td></tr>
+        <tr><td><a href="#week4">4</a></td><td>Crossplane v2, Helm and ArgoCD at fleet scale</td><td><a href="workbooks/platform/workbook.html#ex-w4-c1">w4-c1</a>, <a href="workbooks/platform/workbook.html#ex-w4-t1">w4-t1</a></td></tr>
+        <tr><td><a href="#week5">5</a></td><td>DevSecOps on GCP and observability (Prometheus, Grafana, OpenTelemetry, SLOs)</td><td><a href="workbooks/platform/workbook.html#ex-w5-c1">w5-c1</a>, <a href="workbooks/platform/workbook.html#ex-w5-t1">w5-t1</a></td></tr>
+        <tr><td><a href="#week6">6</a></td><td>Go for platform tooling, agentic toil automation, certification</td><td><a href="workbooks/platform/workbook.html#ex-w6-c1">w6-c1</a>, <a href="workbooks/platform/workbook.html#ex-w6-t1">w6-t1</a></td></tr>
+        <tr><td><a href="#ai">AI</a></td><td>AI integration fundamentals (shared page) applied to platform ops</td><td><a href="workbooks/platform/workbook.html#ex-ai-c1">ai-c1</a>, <a href="workbooks/platform/workbook.html#ex-ai-t1">ai-t1</a></td></tr>
+        <tr><td><a href="#week7">+7</a></td><td>Add-on: fleet design review, GitOps drill, interview drills, Alibaba only if asked</td><td><a href="workbooks/platform/workbook.html#ex-x-1">x-1</a>, <a href="workbooks/platform/workbook.html#ex-x-2">x-2</a></td></tr>
+      </table>
+      <p class="small">Markdown track for this role: <a href="study/roles/06-platform-engineer-gcp-terraform/highlights.md">highlights.md</a> (fit, gaps, plan, portfolio) and <a href="study/roles/06-platform-engineer-gcp-terraform/details.md">details.md</a> (every topic with links and an exercise). Workbook: <a href="workbooks/platform/workbook.html">workbooks/platform/workbook.html</a>.</p>
+    </div>
+    <div class="card">
+      <h3>Portfolio project: a public GCP platform repo</h3>
+      <p>One repo, built on the free trial with a Cloud Identity organization, that shows every must-have in the posting:</p>
+      <ul class="links">
+        <li><b>Foundation in Terraform:</b> organization, folders (platform, workloads), projects, Shared VPC, org policies, remote state in GCS, CI applies through Workload Identity Federation (no keys). Weeks 1 and 3.</li>
+        <li><b>Fleet:</b> two GKE clusters ("blue" and "green") registered to one fleet, on a release channel with maintenance windows. Week 2.</li>
+        <li><b>GitOps:</b> ArgoCD app-of-apps installing Helm charts on both clusters through an ApplicationSet. Week 4.</li>
+        <li><b>Self-service:</b> Crossplane with the GCP provider; a namespaced <code>AppDatabase</code> XR that creates a Cloud SQL instance, database, user and a secret. Week 4.</li>
+        <li><b>Zero-downtime maintenance:</b> a runbook plus a script that does a blue-green node pool upgrade and proves no requests failed (load generator during the upgrade, error count in the README). Weeks 2 and 5.</li>
+        <li><b>Migration:</b> resources created by hand, then brought under Terraform with import blocks and generated config, ending in a no-op plan. Week 3.</li>
+        <li><b>Agentic toil workflow:</b> an agent that inventories unmanaged resources through Cloud Asset Inventory, diffs them against Terraform state, drafts import blocks and config, runs <code>terraform plan</code>, and stops for a human to approve. It never applies. Week 6.</li>
+      </ul>
+      <p class="small">Keep costs down: small machine types, zonal clusters, and a <code>make destroy</code> at the end of each session. No employer specifics in the repo.</p>
+    </div>
+    <div class="card">
+      <h3>Where you start</h3>
+      <table>
+        <tr><th>Posting asks for</th><th>You already have</th></tr>
+        <tr><td>IaC with Terraform, Crossplane and Helm ("a must-have")</td><td>Terraform through Spacelift (stacks, policies, approval gates), CDK, CloudFormation, Helm charts you author and release. Crossplane: <span class="s-gap">no</span></td></tr>
+        <tr><td>Zero-downtime maintenance for Kubernetes fleets</td><td>EKS fleets with Karpenter and access entries, ArgoCD Application CRs and chart releases across clusters</td></tr>
+        <tr><td>CI/CD with Jenkins or ArgoCD</td><td>Both in production, plus GitHub Actions</td></tr>
+        <tr><td>DevSecOps, security controls in the delivery process</td><td>Least-privilege IAM, access entries, pre-push policy hooks, approval gates, backup before every live mutation</td></tr>
+        <tr><td>Exceptional troubleshooting, 12-hour on-call</td><td>26 years of P1s across AWS, Azure, Kubernetes, Jenkins, AD, Linux and Windows; years of on-call</td></tr>
+        <tr><td>Prometheus, Grafana, OpenTelemetry (preferred)</td><td>CloudWatch and New Relic; Prometheus/OTel hands-on is <span class="s-partial">thinner</span></td></tr>
+        <tr><td>Go, Python or Bash</td><td>Bash and Python for ops, TypeScript for CDK. Go: <span class="s-gap">no</span></td></tr>
+        <tr><td>Toil removal with AI tools and agentic workflows</td><td>A daily agent harness with skills, hooks and MCP servers (ticketing, Terraform runs, cloud APIs) automating real ops work</td></tr>
+        <tr><td>GCP or Alibaba; migration from cloud to Terraform</td><td><span class="s-gap">Not yet.</span> The main gap.</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Gaps this plan closes, most important first</h3>
+      <table>
+        <tr><th>Gap</th><th>Where</th></tr>
+        <tr><td>1. GCP foundations in depth (the screening filter)</td><td>W1, w1-c1, w1-t1; reinforced every week</td></tr>
+        <tr><td>2. GKE fleet operations: channels, windows, exclusions, surge vs blue-green, fleets</td><td>W2, w2-c1, w2-t1, x-1</td></tr>
+        <tr><td>3. Bringing existing GCP resources under Terraform</td><td>W3, w3-c1, w3-t1, ai-t1</td></tr>
+        <tr><td>4. Crossplane (v2: namespaced XRs, claims are legacy)</td><td>W4, w4-c1, w4-t1</td></tr>
+        <tr><td>5. GCP DevSecOps: Binary Authorization, Artifact Analysis, SCC, Secret Manager</td><td>W5, w5-c1</td></tr>
+        <tr><td>6. Prometheus, Grafana, OpenTelemetry, Managed Prometheus</td><td>W5, w5-t1</td></tr>
+        <tr><td>7. Go for platform tools</td><td>30-min Go thread in W1-W5, then W6, w4-c1, w6-c1</td></tr>
+        <tr><td>8. Alibaba Cloud (only if the recruiter says so)</td><td>W7 add-on</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Toolchain</h3>
+<pre># cloud work (portfolio repo, free trial)
+gcloud components install beta config-connector
+terraform, helm, kubectl, kind
+# workbook (offline, no cloud account needed)
+tools/doctor.sh platform      # python3, uv, go, jq
+cd workbooks/platform &amp;&amp; make deps</pre>
+      <p class="small">Every workbook exercise runs locally and offline: Terraform plans, GKE cluster state, Crossplane resources, Prometheus series and agent model responses are fixtures or small simulators. Live GCP work happens only in your portfolio repo.</p>
+    </div>
+    <div class="card">
+      <h3>Certification and the date that drives the plan</h3>
+      <p>Book the <a href="https://cloud.google.com/learn/certification/cloud-devops-engineer">Professional Cloud DevOps Engineer</a> exam in week 1 for a date in week 7 or shortly after. It is closer to this role than <a href="https://cloud.google.com/learn/certification/cloud-architect">Professional Cloud Architect</a> (SRE practice, CI/CD, GKE, monitoring). Check the current exam guide before studying. The workbook has a timed GCP-style mock and a staff platform screen mock.</p>
+      <p class="small">One-line pitch: "I have run Terraform, Kubernetes fleets and GitOps in production for years on AWS and Azure; I have rebuilt those patterns on GCP in a public repo, and I use agent workflows to remove toil without giving up approval gates or a clean plan."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 1 ============================== -->
+<section class="page" id="week1" data-title="Week 1">
+  <h2>Week 1 - GCP foundations mapped from AWS <button class="reset" data-reset="w1">reset week</button></h2>
+  <p class="lede">This is the screening filter, and interviewers test it with GCP vocabulary. Most concepts map one to one from your AWS landing zone; spend the time on the places where they do not: IAM bound on resources instead of policy documents on roles, global VPCs, org policy constraints that restrict configuration rather than API actions, and VPC Service Controls, which has no AWS equivalent. Start the free trial and a Cloud Identity organization on day 1, and book the exam.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Organization, folders, projects; book the exam</h3>
+    <p class="focus">You need an organization resource to practice folders and org policies. A plain free-trial project has none: it comes from Cloud Identity Free (or Workspace) tied to a domain you own.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-mon-1"><span>Set up Cloud Identity Free on a domain you own, create the organization, start the free trial and attach billing; note the org ID and which admin roles you hold</span></li>
+        <li data-id="w1-mon-2"><span>Read the resource hierarchy page; write the mapping table: AWS Organization to org, OUs to folders, accounts to projects, and what inherits down (IAM allow policies, org policies, deny policies)</span></li>
+        <li data-id="w1-mon-3"><span>Book the Professional Cloud DevOps Engineer exam for week 7 or week 8; save the exam guide sections as a checklist</span></li>
+        <li data-id="w1-mon-4"><span>Read the AWS/Azure-to-GCP comparison page once end to end; mark the ten services you will name in interviews (GKE, Cloud SQL, GCS, Artifact Registry, Cloud Monitoring, Cloud Logging, Pub/Sub, Secret Manager, Cloud KMS, Cloud Asset Inventory)</span></li>
+        <li data-id="w1-mon-5"><span>Go thread (30 min): A Tour of Go, Basics; install Go and do the "Get started" tutorial</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy">Resource hierarchy</a></li>
+        <li><a href="https://docs.cloud.google.com/resource-manager/docs/creating-managing-organization">Creating and managing organization resources</a></li>
+        <li><a href="https://docs.cloud.google.com/identity/docs/how-to/set-up-cloud-identity-admin">Set up Cloud Identity as an administrator</a></li>
+        <li><a href="https://docs.cloud.google.com/free/docs/free-cloud-features">Free trial and free tier</a></li>
+        <li><a href="https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison">Compare AWS and Azure services to Google Cloud</a></li>
+        <li><a href="https://cloud.google.com/learn/certification/cloud-devops-engineer">Professional Cloud DevOps Engineer</a></li>
+        <li><a href="https://go.dev/tour/">A Tour of Go</a> / <a href="https://go.dev/doc/tutorial/getting-started">Get started with Go</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>IAM, service accounts and impersonation</h3>
+    <p class="focus">No inline policy document per role: you bind roles (basic, predefined, custom) to principals on a resource, and the bindings inherit. Deny policies and IAM Conditions are the extra levers. Service accounts are attached to workloads and impersonated; keys are the thing org policy forbids.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-tue-1"><span>Read the IAM overview; write one paragraph contrasting an AWS role trust policy plus permission policy with a GCP allow policy binding (who, what role, on which resource)</span></li>
+        <li data-id="w1-tue-2"><span>Read service accounts overview and best practices; list the five practices you would enforce (no keys, one SA per workload, no basic roles, impersonation via <code>roles/iam.serviceAccountTokenCreator</code>, restrict the default compute SA)</span></li>
+        <li data-id="w1-tue-3"><span>In your org: create a <code>platform-ci</code> project, a Terraform SA, and impersonate it from your user with <code>gcloud --impersonate-service-account</code>; confirm which binding made it work</span></li>
+        <li data-id="w1-tue-4"><span>Find two predefined roles that are too broad for a CI deployer and write a custom role or a condition-scoped binding instead</span></li>
+        <li data-id="w1-tue-5"><span>Go thread (30 min): Tour of Go, Flow control and More types (slices, maps)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/iam/docs/overview">IAM overview</a></li>
+        <li><a href="https://docs.cloud.google.com/iam/docs/service-account-overview">Service accounts overview</a></li>
+        <li><a href="https://docs.cloud.google.com/iam/docs/best-practices-service-accounts">Best practices for using service accounts</a></li>
+        <li><a href="https://gobyexample.com/">Go by Example</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Workload Identity Federation from GitHub Actions</h3>
+    <p class="focus">Same idea as an AWS IAM OIDC provider for GitHub: a pool, a provider with an attribute mapping and an attribute condition, and a binding on the service account to a <code>principal://</code> or <code>principalSet://</code> member. The OIDC <code>sub</code> claim changes shape when a job uses an environment, a tag or a pull request, which is the week's troubleshooting exercise.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wed-1"><span>Read Workload Identity Federation and the deployment-pipelines guide; draw the token flow from the GitHub OIDC token to a short-lived SA token</span></li>
+        <li data-id="w1-wed-2"><span>Create a pool and a GitHub provider in Terraform with an attribute condition pinned to your repository owner; bind a plan SA for pull requests and an apply SA for the main branch or a protected environment only</span></li>
+        <li data-id="w1-wed-3"><span>Run a GitHub Actions job that lists projects with no service account key anywhere; then print the token claims (<code>sub</code>, <code>repository</code>, <code>ref</code>, <code>environment</code>) for a PR job and an environment job and compare</span></li>
+        <li data-id="w1-wed-4"><span>Write down the AWS equivalent of each piece (OIDC provider, trust policy conditions on <code>sub</code> and <code>aud</code>) for the interview mapping table</span></li>
+        <li data-id="w1-wed-5"><span>Go thread (30 min): Tour of Go, Methods and interfaces</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation">Workload Identity Federation</a></li>
+        <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines">Workload Identity Federation with deployment pipelines</a></li>
+        <li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs">Google provider docs</a></li>
+      </ul></div>
+      </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w1-t1">w1-t1</a> Prod apply denied after the WIF hardening PR</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Networking and Shared VPC</h3>
+    <p class="focus">VPCs are global with regional subnets. Shared VPC (a host project owns the network, service projects use its subnets) is the usual landing-zone pattern and replaces most of what you do with Transit Gateway and RAM-shared subnets in AWS.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-thu-1"><span>Read Shared VPC end to end; note the roles: Shared VPC Admin at org/folder, Network User on the host project or per subnet, and the service project SAs (including the GKE robot account) that need it</span></li>
+        <li data-id="w1-thu-2"><span>In Terraform: a host project with one VPC and two regional subnets (with GKE secondary ranges), two service projects attached, subnet-level Network User bindings</span></li>
+        <li data-id="w1-thu-3"><span>Write the AWS mapping: VPC per account plus TGW versus one global VPC in a host project; where firewall rules and Cloud NAT live; what peering limits you hit at scale</span></li>
+        <li data-id="w1-thu-4"><span>Go thread (30 min): Go by Example, errors, custom errors, defer</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/vpc/docs/shared-vpc">Shared VPC</a></li>
+        <li><a href="https://docs.cloud.google.com/architecture/blueprints/security-foundations">Enterprise foundations blueprint</a></li>
+        <li><a href="https://gobyexample.com/">Go by Example</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Org policies, VPC Service Controls, the foundations blueprint</h3>
+    <p class="focus">Org policy constraints are the closest thing to SCPs, but they restrict configuration (allowed regions, no external IPs, no SA keys, uniform bucket access), not API actions. VPC Service Controls draws a perimeter around Google APIs to stop data exfiltration; know dry-run mode.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-fri-1"><span>Read the Organization Policy overview; apply four constraints at the org in Terraform: <code>iam.disableServiceAccountKeyCreation</code>, <code>compute.vmExternalIpAccess</code>, <code>gcp.resourceLocations</code>, <code>storage.uniformBucketLevelAccess</code></span></li>
+        <li data-id="w1-fri-2"><span>Read the VPC Service Controls overview; write a half page: which projects you would put in a perimeter for MDM/RDM data, what breaks (CI from outside, cross-perimeter access), and why you start in dry-run</span></li>
+        <li data-id="w1-fri-3"><span>Skim the enterprise foundations blueprint: folder layout, network model, logging sinks, and how your week-1 build differs from it</span></li>
+        <li data-id="w1-fri-4"><span>Finish the one-page AWS-to-GCP landing zone mapping: accounts, OUs, SCPs, IAM roles, IRSA/Pod Identity, peering/TGW, CloudTrail (Cloud Audit Logs)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/organization-policy/overview">Organization Policy Service overview</a></li>
+        <li><a href="https://docs.cloud.google.com/vpc-service-controls/docs/overview">VPC Service Controls overview</a></li>
+        <li><a href="https://docs.cloud.google.com/architecture/blueprints/security-foundations">Enterprise foundations blueprint</a></li>
+        <li><a href="https://docs.cloud.google.com/docs/terraform/policy-validation">Policy validation (terraform vet)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build: the foundation from GitHub Actions, plus the two exercises</h3>
+    <p class="focus">One long block. The portfolio foundation applied by CI with no keys, then the guardrail checker and the WIF incident in the workbook.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wk-1"><span>Portfolio: org, two folders (platform, workloads), three projects, the Shared VPC and four org policies, state in GCS, applied from GitHub Actions through WIF; screenshot the job and a "no keys" audit</span></li>
+        <li data-id="w1-wk-2"><span>w1-c1: foundation guardrails over a Terraform plan JSON (the rules you would run with <code>gcloud beta terraform vet</code>)</span></li>
+        <li data-id="w1-wk-3"><span>w1-t1: find why the prod apply job is denied after the WIF hardening PR; root cause with token-claim evidence in ANSWER.md</span></li>
+        <li data-id="w1-wk-4"><span>Write the ten-line summary you would give an interviewer for "walk me through a GCP org you built"</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/docs/terraform/terraform-overview">Terraform on Google Cloud overview</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/language/backend/gcs">GCS backend</a></li>
+        <li><a href="https://docs.cloud.google.com/docs/terraform/policy-validation">Policy validation (terraform vet)</a></li>
+        <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines">WIF with deployment pipelines</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w1-c1">w1-c1</a> <a class="chip" href="workbooks/platform/workbook.html#ex-w1-t1">w1-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/platform/workbook.html#w1">Week 1 tab of the workbook</a>, and take the week 1 self-exam there.</p>
+    <ul class="links">
+      <li><a href="workbooks/platform/workbook.html#ex-w1-c1">w1-c1</a> coding - Foundation guardrails over a Terraform plan (2-3 h)</li>
+      <li><a href="workbooks/platform/workbook.html#ex-w1-t1">w1-t1</a> troubleshooting - Prod apply denied after the WIF hardening PR (1.5-2 h)</li>
+    </ul>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> a GCP foundation (org, folders, projects, Shared VPC, org policies) in Terraform, applied from GitHub Actions through Workload Identity Federation with no service account keys, plus a one-page AWS-to-GCP landing zone mapping.</div>
+</section>
+
+<!-- ============================== WEEK 2 ============================== -->
+<section class="page" id="week2" data-title="Week 2">
+  <h2>Week 2 - GKE fleet operations and zero-downtime upgrades <button class="reset" data-reset="w2">reset week</button></h2>
+  <p class="lede">"Design zero downtime maintenance strategies for fleets of kubernetes clusters" is the most concrete technical duty in the posting. Kubernetes transfers from your EKS work; the GKE knobs do not: release channels, maintenance windows and exclusion scopes, surge versus blue-green node pool upgrades, upgrade quota, cluster notifications and fleets. Skip the Kubernetes basics; go straight to how GKE decides when and how your nodes are replaced.</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>How GKE upgrades: control plane, nodes, release channels, skew</h3>
+    <p class="focus">GKE upgrades the control plane automatically; node pools follow according to your settings. Channels are Rapid, Regular, Stable and Extended ("no channel" is deprecated). Pick a channel per environment so dev sees a version before prod.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-mon-1"><span>Read cluster upgrades and release channels; write a table: channel per Tessellate-style environment (dev Regular, stg Regular, prod Stable or Extended) and why, including what Extended costs you</span></li>
+        <li data-id="w2-mon-2"><span>Read the Kubernetes version skew policy; state the kubelet-to-apiserver skew allowed today and what that means if a node pool is held back by an exclusion</span></li>
+        <li data-id="w2-mon-3"><span>Read the GKE deprecations page; list anything that would block an upgrade of a cluster running Helm charts written two years ago, and note the Policy Controller status</span></li>
+        <li data-id="w2-mon-4"><span>Go thread (30 min): Tour of Go, Generics; Go by Example, structs and embedding</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades">Cluster upgrades</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/release-channels">Release channels</a></li>
+        <li><a href="https://kubernetes.io/releases/version-skew-policy/">Kubernetes version skew policy</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/deprecations">GKE deprecations</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Maintenance windows and exclusions</h3>
+    <p class="focus">Windows keep automatic upgrades in business-safe hours; exclusions freeze them (scopes: no upgrades, no minor upgrades, no minor or node upgrades) for code freezes and incidents. Know the limits on exclusion length and what still happens during an exclusion.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-tue-1"><span>Read the concepts and how-to pages; write the Tessellate policy: window per cluster tier, the quarter-end freeze as an exclusion with the right scope, and who may add an emergency exclusion</span></li>
+        <li data-id="w2-tue-2"><span>Configure a recurring window and a "no minor or node upgrades" exclusion on a test cluster with <code>gcloud</code> and in Terraform; read back the cluster to confirm</span></li>
+        <li data-id="w2-tue-3"><span>Read cluster notifications; design a Pub/Sub subscriber that opens a ticket when an upgrade is scheduled and posts the result when it completes</span></li>
+        <li data-id="w2-tue-4"><span>Go thread (30 min): Go by Example, time, JSON, sorting</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions">Maintenance windows and exclusions (concepts)</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions">Configure maintenance windows and exclusions</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-notifications">Cluster notifications</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Node pool upgrade strategies and quota</h3>
+    <p class="focus">Surge (<code>maxSurge</code>, <code>maxUnavailable</code>) is fast and cheap; blue-green creates a full green pool, drains in batches with soak time, and keeps rollback while blue exists, at double capacity and quota. Autoscaled blue-green targets long-running workloads. A stuck upgrade is often quota or a PodDisruptionBudget.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wed-1"><span>Read both node pool upgrade strategy pages; build a decision table: workload type, strategy, settings, cost, rollback path, how long PDBs are respected during drain</span></li>
+        <li data-id="w2-wed-2"><span>Read "ensure resources for node upgrades"; compute the extra vCPU and IP quota needed for surge 2 and for blue-green on a 6-node pool of e2-standard-8</span></li>
+        <li data-id="w2-wed-3"><span>Read the manual upgrade page; note how to cancel, resume and roll back a blue-green upgrade and the exact commands</span></li>
+        <li data-id="w2-wed-4"><span>Go thread (30 min): Tour of Go, Concurrency (goroutines, channels, select) at reading depth</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/node-pool-upgrade-strategies">Node pool upgrade strategies (concepts)</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-pool-upgrade-strategies">Configure node pool upgrade strategies</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-upgrades-quota">Ensure resources for node upgrades</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/upgrading-a-cluster">Manually upgrading a cluster or node pool</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w2-c1">w2-c1</a> Fleet upgrade planner (start it today, finish at the weekend)</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>The application side: PDBs, probes, graceful termination</h3>
+    <p class="focus">Any node strategy is only zero-downtime if the workloads cooperate: PDBs that allow at least one disruption, readiness probes that are honest, <code>terminationGracePeriodSeconds</code> and preStop hooks that cover connection draining. You know this from EKS node rotations; the new part is writing it as a platform standard teams must meet.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-thu-1"><span>Re-read disruptions and PDBs; list three ways a PDB ends up with <code>disruptionsAllowed: 0</code> (minAvailable equals replicas, unready pods counted, selector overlapping another Deployment)</span></li>
+        <li data-id="w2-thu-2"><span>Write the platform "upgrade-ready workload" standard: replicas, PDB shape, readiness, preStop, grace period, topology spread; and a CI check that enforces it</span></li>
+        <li data-id="w2-thu-3"><span>Re-read safely draining a node; note exactly what the eviction API returns when a PDB blocks it, because that is the log line you will grep for</span></li>
+        <li data-id="w2-thu-4"><span>Go thread (30 min): Go by Example, interfaces and testing (<code>testing</code> package, table tests)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://kubernetes.io/docs/concepts/workloads/pods/disruptions/">Kubernetes disruptions and PDBs</a></li>
+        <li><a href="https://kubernetes.io/docs/tasks/run-application/configure-pdb/">Specifying a disruption budget</a></li>
+        <li><a href="https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/">Safely drain a node</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w2-t1">w2-t1</a> prod-blue node pool upgrade stuck at 1 of 6 nodes</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Fleets, Autopilot and the fleet-level strategy</h3>
+    <p class="focus">A fleet host project, member clusters, namespace sameness, team scopes, Connect gateway, fleet features such as Config Sync. Fleet strategy: canary one cluster per channel, soak, then promote; never upgrade every cluster in the same window.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-fri-1"><span>Read how fleets work and the fleet management docs; write what namespace sameness means for RBAC and Workload Identity across blue and green</span></li>
+        <li data-id="w2-fri-2"><span>Read the Autopilot overview; write the trade-off you would present: node control and DaemonSets you give up versus upgrade and capacity toil removed</span></li>
+        <li data-id="w2-fri-3"><span>Draft the fleet runbook skeleton: order (dev, stg, prod-green canary, prod-blue), soak times, go/no-go checks (SLO burn, error budget, PDB health, quota), rollback, communication</span></li>
+        <li data-id="w2-fri-4"><span>Go thread (30 min): reread Effective Go, sections on names, errors and interfaces</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/fleet-concepts">How fleets work</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs">Fleet management docs</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview">Autopilot overview</a></li>
+        <li><a href="https://go.dev/doc/effective_go">Effective Go</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build: two clusters, a measured upgrade, the planner and the stuck drain</h3>
+    <p class="focus">The portfolio fleet plus the measured upgrade. Run the load generator the whole time; the failed-request count is the number you put in the README and quote in interviews.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wk-1"><span>Portfolio: two zonal Standard clusters in one fleet, one on Regular and one on Stable, both with maintenance windows, all in Terraform</span></li>
+        <li data-id="w2-wk-2"><span>Deploy a sample app (3 replicas, PDB, preStop, readiness); run a load generator; upgrade one pool with surge and the other with blue-green; record failed requests and duration for each</span></li>
+        <li data-id="w2-wk-3"><span>w2-c1: fleet upgrade planner (order, soak, skew, windows and exclusions, quota, PDB blockers)</span></li>
+        <li data-id="w2-wk-4"><span>w2-t1: find why the prod-blue upgrade is stuck at 1 of 6 nodes; root cause with PDB and pod evidence</span></li>
+        <li data-id="w2-wk-5"><span>Write the zero-downtime upgrade runbook in the repo (single cluster and fleet level)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/terraform-google-modules/terraform-google-kubernetes-engine">terraform-google-kubernetes-engine module</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-pool-upgrade-strategies">Configure node pool upgrade strategies</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/upgrading-a-cluster">Manually upgrading a cluster or node pool</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w2-c1">w2-c1</a> <a class="chip" href="workbooks/platform/workbook.html#ex-w2-t1">w2-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/platform/workbook.html#w2">Week 2 tab of the workbook</a>, and take the week 2 self-exam there.</p>
+    <ul class="links">
+      <li><a href="workbooks/platform/workbook.html#ex-w2-c1">w2-c1</a> coding - Fleet upgrade planner (2.5-3 h)</li>
+      <li><a href="workbooks/platform/workbook.html#ex-w2-t1">w2-t1</a> troubleshooting - prod-blue node pool upgrade stuck at 1 of 6 nodes (1.5-2 h)</li>
+    </ul>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> two GKE clusters in one fleet, a measured surge versus blue-green upgrade with failed-request counts, and a written single-cluster and fleet-level zero-downtime upgrade runbook.</div>
+</section>
+
+<!-- ============================== WEEK 3 ============================== -->
+<section class="page" id="week3" data-title="Week 3">
+  <h2>Week 3 - Terraform at scale and bringing existing resources under Terraform <button class="reset" data-reset="w3">reset week</button></h2>
+  <p class="lede">Terraform itself transfers almost entirely from your Spacelift-managed stacks: state discipline, small blast radius, policy as code, approval gates. The new parts are the <code>google</code> provider's habits, Google's module ecosystems, and above all the header requirement "migration experience from cloud to Terraform": importing resources that were created by hand or by other tools, at scale, without recreating any of them.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>The google provider, modules and structure</h3>
+    <p class="focus">ADC and service account impersonation instead of key files; Cloud Foundation Fabric (opinionated monorepo with FAST stages) versus <code>terraform-google-modules</code> (one module per repo); root modules per environment and small state files.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-mon-1"><span>Read Terraform on Google Cloud and the style and structure best practices; write five rules you would put in a platform repo CONTRIBUTING file</span></li>
+        <li data-id="w3-mon-2"><span>Skim Cloud Foundation Fabric (modules and FAST stages) and the terraform-google-modules org (project factory, GKE); write a half-page ADR choosing one for a 40-project org and why</span></li>
+        <li data-id="w3-mon-3"><span>Switch your week-1 foundation to provider-level <code>impersonate_service_account</code>; confirm no credentials file is used anywhere</span></li>
+        <li data-id="w3-mon-4"><span>Go thread (30 min): Go by Example, reading files, JSON decoding into structs, <code>encoding/json</code> tags</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/docs/terraform/terraform-overview">Terraform on Google Cloud overview</a></li>
+        <li><a href="https://docs.cloud.google.com/docs/terraform/best-practices/general-style-structure">Terraform best practices: general style and structure</a></li>
+        <li><a href="https://github.com/GoogleCloudPlatform/cloud-foundation-fabric">Cloud Foundation Fabric</a></li>
+        <li><a href="https://github.com/terraform-google-modules">terraform-google-modules</a></li>
+        <li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs">Google provider docs</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>State, project factory, policy as code, refactoring without destroy</h3>
+    <p class="focus">GCS backend with locking, one state bucket per environment, and who can read state (it holds secrets). Project factory from YAML so teams self-serve by pull request. <code>gcloud beta terraform vet</code> evaluates the plan, not the code. <code>moved</code> and <code>removed</code> blocks to refactor.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-tue-1"><span>Read the GCS backend and state pages; write the state-bucket design: versioning, CMEK, uniform access, which SAs read and write, and how you recover a corrupted state</span></li>
+        <li data-id="w3-tue-2"><span>Build a project factory: projects from a YAML file per team with labels, budget, Shared VPC attachment and a default deny on SA keys</span></li>
+        <li data-id="w3-tue-3"><span>Read policy validation; add a CI job that runs plan, then <code>gcloud beta terraform vet</code> with a constraint that denies external IPs, and blocks the merge on a violation</span></li>
+        <li data-id="w3-tue-4"><span>Refactor one resource into a module with a <code>moved</code> block and prove a no-op plan</span></li>
+        <li data-id="w3-tue-5"><span>Go thread (30 min): Go by Example, command-line flags and exit codes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://developer.hashicorp.com/terraform/language/backend/gcs">GCS backend</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/language/state">State</a></li>
+        <li><a href="https://docs.cloud.google.com/docs/terraform/policy-validation">Policy validation (terraform vet)</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/language/block/moved">moved block</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Import blocks and generated configuration</h3>
+    <p class="focus">Config-driven <code>import</code> blocks are reviewed in a plan, unlike the old CLI. <code>for_each</code> on import blocks handles many similar resources. <code>terraform plan -generate-config-out</code> drafts HCL, is still experimental, and always needs cleanup: computed fields, defaults, secrets, and attributes whose provider default differs from the live value.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wed-1"><span>Read the import overview and generating configuration; list every import ID format you need for the sandbox resources (network, subnetwork, firewall, bucket, SA, project IAM member, Cloud SQL instance)</span></li>
+        <li data-id="w3-wed-2"><span>In a sandbox project, create by hand: a VPC with two subnets, firewall rules, a bucket, two SAs with role bindings and a Cloud SQL instance</span></li>
+        <li data-id="w3-wed-3"><span>Import them with import blocks and <code>-generate-config-out</code>; clean up the generated config until the plan shows only imports; time it</span></li>
+        <li data-id="w3-wed-4"><span>Find one attribute where the provider default differs from what you created by hand, and explain what the plan would have done without it</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://developer.hashicorp.com/terraform/language/import">Import (overview)</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/language/import/generating-configuration">Generate configuration for imports</a></li>
+        <li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs">Google provider docs</a> (each resource page ends with its import ID formats)</li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w3-c1">w3-c1</a> Import blocks from a Cloud Asset Inventory export</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Bulk discovery: terraform query, bulk-export, Cloud Asset Inventory</h3>
+    <p class="focus"><code>list</code> blocks and <code>terraform query</code> find existing resources for bulk import (check google support in your provider version). <code>gcloud beta resource-config bulk-export --resource-format=terraform</code> and <code>terraform generate-import</code> depend on the Config Connector component and are Preview. Cloud Asset Inventory is the source of truth for what exists. Terraformer is archived: do not build on it.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-thu-1"><span>Read bulk import and the <code>terraform query</code> command; try a <code>list</code> block for one google resource type if your provider supports it, otherwise record that it does not</span></li>
+        <li data-id="w3-thu-2"><span>Install the config-connector component; run <code>bulk-export</code> on the sandbox project and <code>generate-import</code>; compare its output with yesterday's hand-cleaned config</span></li>
+        <li data-id="w3-thu-3"><span>Export Cloud Asset Inventory for the project and diff it against <code>terraform state list</code>; list what is still unmanaged and why</span></li>
+        <li data-id="w3-thu-4"><span>Write down what each approach got wrong and how long cleanup took</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://developer.hashicorp.com/terraform/language/import/bulk">Import resources in bulk (list blocks, terraform query)</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/cli/commands/query">terraform query command</a></li>
+        <li><a href="https://docs.cloud.google.com/docs/terraform/resource-management/export">Export your Google Cloud resources to Terraform format</a></li>
+        <li><a href="https://docs.cloud.google.com/sdk/gcloud/reference/beta/resource-config/bulk-export">gcloud beta resource-config bulk-export</a> / <a href="https://docs.cloud.google.com/sdk/gcloud/reference/beta/resource-config/terraform/generate-import">generate-import</a></li>
+        <li><a href="https://docs.cloud.google.com/config-connector/docs/how-to/import-export/overview">Install the config-connector CLI tool (export)</a></li>
+        <li><a href="https://docs.cloud.google.com/asset-inventory/docs/asset-inventory-overview">Cloud Asset Inventory overview</a></li>
+        <li><a href="https://github.com/GoogleCloudPlatform/terraformer">Terraformer (archived)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>A migration method, not just commands</h3>
+    <p class="focus">Inventory, group into states by owner and blast radius, import in small batches, reach a no-op plan, then lock out manual changes with IAM and org policy so drift does not come back. <code>prevent_destroy</code> on anything that must never be recreated.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-fri-1"><span>Write the migration runbook for 40 hand-built projects: inventory, ownership mapping, batch size, plan review gates, what "done" means per batch, how you stop click-ops afterwards</span></li>
+        <li data-id="w3-fri-2"><span>Decide which resource types get <code>prevent_destroy</code> and which get <code>deletion_protection</code>; explain the difference</span></li>
+        <li data-id="w3-fri-3"><span>Write a short "why imports go wrong" list: ForceNew attributes, provider defaults, computed fields, secrets in generated config, IAM members versus authoritative bindings</span></li>
+        <li data-id="w3-fri-4"><span>Go thread (30 min): Go by Example, maps and sorting for deterministic output; read the <code>encoding/json</code> package docs</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://developer.hashicorp.com/terraform/language/import">Import (overview)</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/language/state">State</a></li>
+        <li><a href="https://docs.cloud.google.com/organization-policy/overview">Organization Policy Service overview</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w3-t1">w3-t1</a> Import batch 07 plans to replace the core VPC</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build: the migration directory and the two exercises</h3>
+    <p class="focus">The portfolio's migration evidence plus the import generator and the ForceNew incident.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wk-1"><span>Portfolio: a <code>migration/</code> directory with before (hand-built resources, CAI export), the import blocks, the cleaned config, and a clean <code>terraform plan</code> showing no changes; record the time taken for each approach</span></li>
+        <li data-id="w3-wk-2"><span>w3-c1: generate import blocks from a Cloud Asset Inventory export, with correct IDs and grouping</span></li>
+        <li data-id="w3-wk-3"><span>w3-t1: find why import batch 07 plans to replace the core VPC; root cause with plan evidence</span></li>
+        <li data-id="w3-wk-4"><span>Write the 2-minute story "how I would bring 40 projects under Terraform without recreating anything"</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://developer.hashicorp.com/terraform/language/import/generating-configuration">Generate configuration for imports</a></li>
+        <li><a href="https://docs.cloud.google.com/docs/terraform/resource-management/export">Export your Google Cloud resources to Terraform format</a></li>
+        <li><a href="https://docs.cloud.google.com/asset-inventory/docs/asset-inventory-overview">Cloud Asset Inventory overview</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w3-c1">w3-c1</a> <a class="chip" href="workbooks/platform/workbook.html#ex-w3-t1">w3-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/platform/workbook.html#w3">Week 3 tab of the workbook</a>, and take the week 3 self-exam there.</p>
+    <ul class="links">
+      <li><a href="workbooks/platform/workbook.html#ex-w3-c1">w3-c1</a> coding - Import blocks from a Cloud Asset Inventory export (2-2.5 h)</li>
+      <li><a href="workbooks/platform/workbook.html#ex-w3-t1">w3-t1</a> troubleshooting - Import batch 07 plans to replace the core VPC (1-1.5 h)</li>
+    </ul>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> a migration directory showing hand-built resources brought under Terraform two ways (import blocks plus generated config, and bulk-export), each ending in a no-op plan, with a written migration method and a project factory.</div>
+</section>
+
+<!-- ============================== WEEK 4 ============================== -->
+<section class="page" id="week4" data-title="Week 4">
+  <h2>Week 4 - Crossplane v2, Helm and ArgoCD at fleet scale <button class="reset" data-reset="w4">reset week</button></h2>
+  <p class="lede">Crossplane is the first tool in the must-have IaC line and the one you have never run, so it gets three days. Learn v2: namespaced XRs and namespaced managed resources, compositions as a pipeline of functions, claims as a legacy v1 feature you will still meet in existing installs. Helm and ArgoCD are strengths; the work there is presenting them as fleet-scale design: library charts, ApplicationSets and a promotion path that cannot hit every cluster at once.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>The Crossplane model and what changed in v2</h3>
+    <p class="focus">Managed resources (MRs) map to cloud APIs; providers install them; an XRD defines a composite resource (XR); a composition turns an XR into MRs. In v2, XRs and MRs can be namespaced, claims are legacy, and compositions run functions such as function-patch-and-transform.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-mon-1"><span>Read the Crossplane docs landing page and "What's new in v2"; write a table v1 versus v2: claims, namespaced XRs, namespaced MRs, composition modes, ProviderConfig scoping</span></li>
+        <li data-id="w4-mon-2"><span>Do Get started on a kind cluster (no cloud needed for the first part); install a function and render a composition locally</span></li>
+        <li data-id="w4-mon-3"><span>Write the Crossplane-versus-Terraform answer: continuous reconciliation and a Kubernetes API for developers versus plan/apply with a reviewed diff; "Terraform for the foundation, Crossplane for self-service on top", with the reasons</span></li>
+        <li data-id="w4-mon-4"><span>Go thread (30 min): read a controller reconcile loop shape (Go by Example: context, timers); you need it for w4-c1</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.crossplane.io/latest/">Crossplane docs</a></li>
+        <li><a href="https://docs.crossplane.io/latest/whats-new/">What's new in Crossplane v2</a></li>
+        <li><a href="https://docs.crossplane.io/latest/get-started/">Get started</a></li>
+        <li><a href="https://gobyexample.com/">Go by Example</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>XRDs and pipeline compositions</h3>
+    <p class="focus">Design the developer-facing API first (inputs, defaults, validation, status), then the composition. Readiness of the XR comes from the readiness of what it composes.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-tue-1"><span>Read composite resource definitions and compositions; write a namespaced <code>AppDatabase</code> XRD with three inputs (size, version, team), enums and defaults, and status fields for the connection</span></li>
+        <li data-id="w4-tue-2"><span>Write the pipeline composition with function-patch-and-transform: size to tier map, version to databaseVersion, team label, connection secret in the XR namespace</span></li>
+        <li data-id="w4-tue-3"><span>Decide how you version compositions (revision selection, a "v2" composition beside "v1") and how you test them before rollout</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.crossplane.io/latest/composition/composite-resource-definitions/">Composite resource definitions</a></li>
+        <li><a href="https://docs.crossplane.io/latest/composition/compositions/">Compositions</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w4-c1">w4-c1</a> AppDatabase composition function and readiness (Go)</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>The GCP provider family, ProviderConfigs and Workload Identity</h3>
+    <p class="focus">The Upbound GCP provider family is generated with Upjet from the Terraform provider, so the MR fields look like the google resources you imported last week. Authentication on GKE goes through Workload Identity; ProviderConfig scoping (namespaced versus cluster) decides which config a namespaced MR resolves.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wed-1"><span>Read providers and the provider family page; install provider-gcp-sql on a GKE cluster with a ProviderConfig that uses Workload Identity (no key secret)</span></li>
+        <li data-id="w4-wed-2"><span>Browse provider-upjet-gcp source for <code>DatabaseInstance</code>; map three fields back to the google Terraform resource</span></li>
+        <li data-id="w4-wed-3"><span>Write down how a namespaced MR finds its ProviderConfig (kind, name, namespace), and what condition and event you would see if it cannot</span></li>
+        <li data-id="w4-wed-4"><span>Go thread (30 min): Go by Example, interfaces used as fakes in tests</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.crossplane.io/latest/packages/providers/">Providers</a></li>
+        <li><a href="https://marketplace.upbound.io/providers/upbound/provider-family-gcp/latest">Upbound GCP provider family</a></li>
+        <li><a href="https://github.com/crossplane-contrib/provider-upjet-gcp">provider-upjet-gcp source</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/workload-identity">Workload Identity Federation for GKE</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w4-t1">w4-t1</a> AppDatabase XRs never become Ready</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Helm at platform scale</h3>
+    <p class="focus">You author and release charts already. Present it as a platform product: chart best practices, a library chart for shared templates (labels, probes, PDB, ServiceAccount with the Workload Identity annotation), strict versioning.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-thu-1"><span>Re-read chart best practices and library charts; write a library chart with the "upgrade-ready workload" standard from week 2 baked in</span></li>
+        <li data-id="w4-thu-2"><span>Write two app charts that use it; render both with <code>helm template</code> and check the PDB and probes appear with sane defaults</span></li>
+        <li data-id="w4-thu-3"><span>Write the chart versioning rule: what bumps major/minor/patch, and how a breaking values change is rolled out</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://helm.sh/docs/">Helm docs</a></li>
+        <li><a href="https://helm.sh/docs/chart_best_practices/">Chart best practices</a></li>
+        <li><a href="https://helm.sh/docs/topics/library_charts/">Library charts</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>ArgoCD app-of-apps, ApplicationSets and promotion</h3>
+    <p class="focus">App-of-apps for bootstrapping, ApplicationSets with the cluster generator for fleets, sync waves. The promotion question: values per environment versus per-cluster overlays, and how you stop a chart change from hitting every cluster at once.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-fri-1"><span>Read cluster bootstrapping and ApplicationSet; write an ApplicationSet with a cluster generator that pins a chart version per wave from a cluster label</span></li>
+        <li data-id="w4-fri-2"><span>Write the promotion design: canary (green) gets the new chart first, soak, then blue; where the version lives, who changes it, how you roll back</span></li>
+        <li data-id="w4-fri-3"><span>List three ways a chart can still reach every cluster at once (unbounded semver range, a shared values file, an app-of-apps that tracks HEAD) and the guard for each</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/">Argo CD cluster bootstrapping (app of apps)</a></li>
+        <li><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/">Argo CD ApplicationSet</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build: self-service database from Git, plus the two exercises</h3>
+    <p class="focus">The portfolio's self-service layer, delivered by GitOps, and the Crossplane exercises.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wk-1"><span>Portfolio: ArgoCD app-of-apps installs Crossplane, the GCP SQL provider, the XRD and composition, and the library-chart apps on both clusters through one ApplicationSet; green gets the new chart version first</span></li>
+        <li data-id="w4-wk-2"><span>Request an <code>AppDatabase</code> from a team namespace through Git; confirm the Cloud SQL instance, database, user and connection secret; delete the XR and record what Crossplane deletes and what it keeps</span></li>
+        <li data-id="w4-wk-3"><span>w4-c1: AppDatabase composition function and readiness aggregation in Go</span></li>
+        <li data-id="w4-wk-4"><span>w4-t1: find why AppDatabase XRs never become Ready; root cause with condition and event evidence</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.crossplane.io/latest/composition/compositions/">Compositions</a></li>
+        <li><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/">Argo CD ApplicationSet</a></li>
+        <li><a href="https://marketplace.upbound.io/providers/upbound/provider-family-gcp/latest">Upbound GCP provider family</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w4-c1">w4-c1</a> <a class="chip" href="workbooks/platform/workbook.html#ex-w4-t1">w4-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/platform/workbook.html#w4">Week 4 tab of the workbook</a>, and take the week 4 self-exam there.</p>
+    <ul class="links">
+      <li><a href="workbooks/platform/workbook.html#ex-w4-c1">w4-c1</a> coding - AppDatabase composition function and readiness (Go, 2-3 h)</li>
+      <li><a href="workbooks/platform/workbook.html#ex-w4-t1">w4-t1</a> troubleshooting - AppDatabase XRs never become Ready (1-1.5 h)</li>
+    </ul>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> a namespaced <code>AppDatabase</code> XR that a developer requests from Git and that creates Cloud SQL, database, user and secret, delivered with Helm charts through an ArgoCD ApplicationSet that promotes green before blue.</div>
+</section>
+
+<!-- ============================== WEEK 5 ============================== -->
+<section class="page" id="week5" data-title="Week 5">
+  <h2>Week 5 - DevSecOps on GCP and observability <button class="reset" data-reset="w5">reset week</button></h2>
+  <p class="lede">The role is an "SME in infrastructure security management" that owns "proactive platform hardening", and it prefers Prometheus, Grafana and OpenTelemetry. You already practice least privilege, policy gates and backup-before-mutate; this week maps them onto the GCP services that implement them (Artifact Registry and Artifact Analysis, Binary Authorization, Security Command Center, Secret Manager, GKE hardening), then builds the Prometheus-native part that is thinner on your record: Managed Service for Prometheus, PromQL, SLOs and burn-rate alerts.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Supply chain: Artifact Registry, Artifact Analysis, Binary Authorization, SLSA</h3>
+    <p class="focus">Images by digest from Artifact Registry, vulnerability scanning with Artifact Analysis, attestations, and Binary Authorization so only attested images run on GKE. Start in dry-run, review what would be blocked, then enforce; keep break-glass audited.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-mon-1"><span>Read Artifact Registry, Artifact Analysis and the Binary Authorization overview and setup; draw the CI flow: build, push, scan, fail on critical, attest, deploy by digest</span></li>
+        <li data-id="w5-mon-2"><span>Read SLSA; state which level your pipeline reaches today and the one change that gets it to the next</span></li>
+        <li data-id="w5-mon-3"><span>Write the Binary Authorization rollout plan: dry-run per cluster, what you review in the audit logs, exemptions for system images, enforcement order (green first), break-glass procedure</span></li>
+        <li data-id="w5-mon-4"><span>Go thread (30 min): Go by Example, HTTP clients and servers</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/artifact-registry/docs/overview">Artifact Registry overview</a></li>
+        <li><a href="https://docs.cloud.google.com/artifact-analysis/docs/artifact-analysis">Artifact Analysis</a></li>
+        <li><a href="https://docs.cloud.google.com/binary-authorization/docs/overview">Binary Authorization overview</a> / <a href="https://docs.cloud.google.com/binary-authorization/docs/setting-up">set up</a></li>
+        <li><a href="https://slsa.dev/">SLSA</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w5-c1">w5-c1</a> Admission gate for Helm-rendered manifests</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Security Command Center, Secret Manager, GKE hardening</h3>
+    <p class="focus">SCC for findings and posture (know what the tiers include); Secret Manager and getting secrets into pods without hand-copying them into Kubernetes Secrets; GKE hardening: private clusters, Workload Identity Federation for GKE, shielded nodes, network policy, restricting the default compute SA.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-tue-1"><span>Read the SCC overview; list which finding classes you would page on and which go to a weekly review</span></li>
+        <li data-id="w5-tue-2"><span>Read Secret Manager; wire one secret into a pod through Workload Identity (no exported key, no hand-made Secret) and rotate it</span></li>
+        <li data-id="w5-tue-3"><span>Read the GKE security overview and hardening guide; turn it into a checklist with "Terraform setting" and "admission check" columns</span></li>
+        <li data-id="w5-tue-4"><span>Go thread (30 min): Go by Example, goroutines with <code>context</code> cancellation and timeouts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/security-command-center/docs/security-command-center-overview">Security Command Center overview</a></li>
+        <li><a href="https://docs.cloud.google.com/secret-manager/docs/overview">Secret Manager overview</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/security-overview">GKE security overview</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/hardening-your-cluster">Harden your cluster's security</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/workload-identity">Workload Identity Federation for GKE</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Prometheus and Managed Service for Prometheus</h3>
+    <p class="focus">Data model, PromQL, recording and alerting rules. Managed collection uses PodMonitoring resources, and the labels your series carry (job, namespace, instance) come from how the target is scraped, so a migration from self-managed Prometheus can silently change them.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wed-1"><span>Read the Prometheus overview; write three PromQL queries from memory: request rate by code, error ratio over 5m, p95 latency from a histogram</span></li>
+        <li data-id="w5-wed-2"><span>Read the Managed Service for Prometheus docs; enable managed collection on both clusters and scrape the sample app with a PodMonitoring</span></li>
+        <li data-id="w5-wed-3"><span>Compare the labels on the same metric under self-managed Prometheus (ServiceMonitor with targetLabels) and under managed collection; write down every label that changed</span></li>
+        <li data-id="w5-wed-4"><span>Go thread (30 min): Go by Example, <code>sync</code> and mutexes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://prometheus.io/docs/introduction/overview/">Prometheus overview</a></li>
+        <li><a href="https://docs.cloud.google.com/stackdriver/docs/managed-prometheus">Google Cloud Managed Service for Prometheus</a></li>
+        <li><a href="https://docs.cloud.google.com/monitoring/docs">Cloud Monitoring docs</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w5-t1">w5-t1</a> The RIQ burn-rate alert never fired</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>SLOs, burn-rate alerts and Grafana</h3>
+    <p class="focus">SLOs and multi-window, multi-burn-rate alerts instead of threshold alerts. Every alert should be tested: prove it fires on an outage window and stays quiet on a healthy one.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-thu-1"><span>Read Alerting on SLOs (SRE workbook); derive the 14.4x/1h and 6x/6h burn rates for a 99.9% 30-day SLO yourself</span></li>
+        <li data-id="w5-thu-2"><span>Write recording rules and a two-window burn-rate alert for the sample app; add a unit test with promtool-style fixtures or a recorded outage</span></li>
+        <li data-id="w5-thu-3"><span>Build a Grafana dashboard: availability SLO, error budget remaining, burn rate per window</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://sre.google/workbook/alerting-on-slos/">Alerting on SLOs (Google SRE workbook)</a></li>
+        <li><a href="https://grafana.com/docs/grafana/latest/">Grafana docs</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>OpenTelemetry Collector and cost</h3>
+    <p class="focus">One Collector pipeline (receivers, processors, exporters) for metrics, traces and logs. Then cost: GKE cost allocation, idle capacity and right-sizing requests, which the posting names under "optimize the performance and cost".</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-fri-1"><span>Read the OpenTelemetry docs and Collector page; deploy a Collector that receives OTLP from the sample app and exports traces to Cloud Trace and metrics to Managed Prometheus</span></li>
+        <li data-id="w5-fri-2"><span>Write the cost review you would run monthly: requests versus usage per namespace, idle node capacity, which pools to right-size</span></li>
+        <li data-id="w5-fri-3"><span>Go thread (30 min): Go by Example, writing a small HTTP service with a <code>/metrics</code>-style counter</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/">OpenTelemetry docs</a></li>
+        <li><a href="https://opentelemetry.io/docs/collector/">OpenTelemetry Collector</a></li>
+        <li><a href="https://docs.cloud.google.com/monitoring/docs">Cloud Monitoring docs</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build: signed-image admission, an SLO that survives an upgrade, and the exercises</h3>
+    <p class="focus">Close the loop with week 2: rerun the node pool upgrade and show the SLO stayed intact.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wk-1"><span>Portfolio: CI builds, pushes to Artifact Registry, fails on critical vulnerabilities and attests; Binary Authorization in dry-run on blue, review, then enforce; show an unsigned image is rejected</span></li>
+        <li data-id="w5-wk-2"><span>Rerun the week-2 blue-green upgrade with the SLO dashboard open; put the burn-rate graph in the README</span></li>
+        <li data-id="w5-wk-3"><span>w5-c1: admission gate for Helm-rendered manifests (hardening, digests, attestations, dry-run versus enforce, break-glass)</span></li>
+        <li data-id="w5-wk-4"><span>w5-t1: find why the RIQ burn-rate alert never fired during the outage; root cause with series and label evidence</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/binary-authorization/docs/setting-up">Set up Binary Authorization</a></li>
+        <li><a href="https://docs.cloud.google.com/stackdriver/docs/managed-prometheus">Managed Service for Prometheus</a></li>
+        <li><a href="https://sre.google/workbook/alerting-on-slos/">Alerting on SLOs</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w5-c1">w5-c1</a> <a class="chip" href="workbooks/platform/workbook.html#ex-w5-t1">w5-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/platform/workbook.html#w5">Week 5 tab of the workbook</a>, and take the week 5 self-exam there.</p>
+    <ul class="links">
+      <li><a href="workbooks/platform/workbook.html#ex-w5-c1">w5-c1</a> coding - Admission gate for Helm-rendered manifests (2-3 h)</li>
+      <li><a href="workbooks/platform/workbook.html#ex-w5-t1">w5-t1</a> troubleshooting - The RIQ burn-rate alert never fired (1.5-2 h)</li>
+    </ul>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> signed-image-only admission on one cluster with an audited break-glass path, managed Prometheus on both clusters, and an SLO dashboard with a tested multi-window burn-rate alert that stayed quiet through a blue-green upgrade.</div>
+</section>
+
+<!-- ============================== WEEK 6 ============================== -->
+<section class="page" id="week6" data-title="Week 6">
+  <h2>Week 6 - Go for platform tooling, agentic toil automation, certification <button class="reset" data-reset="w6">reset week</button></h2>
+  <p class="lede">Two threads converge. Go, because it is the language of Kubernetes, Terraform providers and Crossplane, and a staff platform engineer is expected to read it and write small tools in it. And the posting's one AI line, "Eliminate toil through the automation of existing processes with modern tooling including AI tools and agentic workflows": the line that separates you from other strong platform candidates, because you already run an agent harness daily. Describe it in terms of toil removed and guardrails kept, not in terms of the tool. The shared AI core (agent harness as a platform, MCP, verification, LLM security) is woven in here; the <a href="#ai">AI Integration</a> page has the fundamentals.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Go for platform tools: modules, errors, a CLI</h3>
+    <p class="focus">You have done the Go thread for five weeks. Now write a real tool: modules, error wrapping, small interfaces for testability, a CLI with cobra or the standard <code>flag</code> package, and the Google Cloud Go client libraries.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-mon-1"><span>Reread Effective Go on errors and interfaces; write down the three idioms you will use in every platform tool (wrap with <code>%w</code>, accept interfaces and return structs, exit codes only in main)</span></li>
+        <li data-id="w6-mon-2"><span>Start <code>fleet-status</code>: list fleet clusters, control plane and node pool versions, release channel and next maintenance window with the Go client libraries; exit non-zero if a node pool is more than one minor behind</span></li>
+        <li data-id="w6-mon-3"><span>Add a fake client interface and table tests, so the tool tests without a cloud account</span></li>
+        <li data-id="w6-mon-4"><span>Read a Terraform provider resource or a controller reconcile function in the provider-upjet-gcp repo and summarize its flow in five lines</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/doc/effective_go">Effective Go</a></li>
+        <li><a href="https://github.com/spf13/cobra">cobra</a></li>
+        <li><a href="https://pkg.go.dev/cloud.google.com/go">Google Cloud Go client libraries</a></li>
+        <li><a href="https://gobyexample.com/">Go by Example</a></li>
+        <li><a href="https://github.com/crossplane-contrib/provider-upjet-gcp">provider-upjet-gcp source</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>A plan gate in Go: verify the plan, not the claim</h3>
+    <p class="focus">Every infra automation, human or agent, ends at <code>terraform plan</code>. A deterministic gate over <code>terraform show -json</code> (creates, updates, deletes, replaces in both orders, imports) is the verification step your agent workflow will rely on.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-tue-1"><span>Read the plan JSON structure in the state docs and one real <code>terraform show -json</code> from your migration directory; list every <code>actions</code> combination you see</span></li>
+        <li data-id="w6-tue-2"><span>w6-c1: build <code>plan-gate</code> in Go (classification, protected types, imports-only mode, sensitive masking, exit codes, JSON output)</span></li>
+        <li data-id="w6-tue-3"><span>Wire <code>plan-gate</code> into the portfolio CI after plan; a migration PR fails if anything other than imports appears</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://developer.hashicorp.com/terraform/language/state">State</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/language/import">Import (overview)</a></li>
+        <li><a href="https://go.dev/doc/tutorial/getting-started">Get started with Go</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w6-c1">w6-c1</a> plan-gate: a Terraform plan JSON gate for CI</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Toil, and your agent harness as a team platform</h3>
+    <p class="focus">Measure toil before and after (Google SRE definition). Then design your harness for a team, not for yourself: shared skills versus personal instructions, which guardrails must be hooks rather than instructions, headless runs in CI, plugins to package it.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wed-1"><span>Read Eliminating toil; list five toil items from a typical platform week (imports, upgrade tickets, access requests, drift reports, on-call triage) with hours per month</span></li>
+        <li data-id="w6-wed-2"><span>Read skills, subagents, hooks and headless mode; write a one-page design doc rolling your setup out to 10 platform engineers: what is a skill, what is a hook, what runs headless in CI</span></li>
+        <li data-id="w6-wed-3"><span>Write the rule you will state in interviews: the agent reads and drafts; <code>plan</code> is the verification; <code>apply</code> stays with a human or a gated pipeline; agent credentials are read-only</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://sre.google/sre-book/eliminating-toil/">Eliminating toil (Google SRE book)</a></li>
+        <li><a href="https://code.claude.com/docs/en/overview">Claude Code overview</a> / <a href="https://code.claude.com/docs/en/skills">Skills</a> / <a href="https://code.claude.com/docs/en/sub-agents">Subagents</a></li>
+        <li><a href="https://code.claude.com/docs/en/hooks">Hooks</a> / <a href="https://code.claude.com/docs/en/headless">Headless mode</a> / <a href="https://code.claude.com/docs/en/plugins">Plugins</a></li>
+        <li><a href="https://code.claude.com/docs/en/github-actions">Claude Code GitHub Actions</a> / <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a></li>
+        <li><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>MCP as the tool layer, and LLM security for infra agents</h3>
+    <p class="focus">MCP servers as the read-only tool layer over cloud APIs (Cloud Asset Inventory, Terraform state, plan). Then the threat: an infra agent reads untrusted text all day (resource labels, descriptions, alert annotations, PR comments). The lethal trifecta applies; tool scoping and hooks, not the model's good behavior, prevent harm.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-thu-1"><span>Read the MCP introduction and specification overview; design a read-only MCP server with three tools: <code>list_unmanaged_assets</code>, <code>state_list</code>, <code>plan_summary</code></span></li>
+        <li data-id="w6-thu-2"><span>Read the OWASP LLM Top 10 and the lethal trifecta; map each of the three trifecta legs to a concrete infra-agent risk and a control</span></li>
+        <li data-id="w6-thu-3"><span>Write a PreToolUse hook that blocks <code>terraform apply</code>, <code>terraform destroy</code> and any <code>gcloud ... delete</code> however the command is spelled (global options, env prefixes, absolute paths, <code>bash -c</code>); test it with ten command variants</span></li>
+        <li data-id="w6-thu-4"><span>w6-t1: find how the import agent ran <code>terraform apply</code> in staging; root cause with audit-log evidence</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a> / <a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a></li>
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li>
+        <li><a href="https://code.claude.com/docs/en/hooks">Hooks</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w6-t1">w6-t1</a> The import agent ran terraform apply in staging</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Verification and evals for an infra agent; exam check</h3>
+    <p class="focus">Separate "the model said so" from "we verified it": deterministic checks first (plan-gate result, schema valid, files exist), golden cases, consistency runs, evals in CI as a regression gate.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-fri-1"><span>Read the evals FAQ and promptfoo intro; write 10 eval cases for the import agent: 6 normal projects, 2 with ForceNew traps, 2 with injected instructions in labels</span></li>
+        <li data-id="w6-fri-2"><span>Define the agent's success criterion in one line ("only imports, zero changes, zero destroys, per plan-gate") and make the agent's report quote plan-gate, not itself</span></li>
+        <li data-id="w6-fri-3"><span>Exam check: take the workbook's GCP-style mock; list your three weakest areas and schedule them into week 7</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+        <li><a href="https://www.promptfoo.dev/docs/intro/">promptfoo</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OpenTelemetry semantic conventions for GenAI</a></li>
+        <li><a href="https://cloud.google.com/learn/certification/cloud-devops-engineer">Professional Cloud DevOps Engineer</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Build: the unmanaged-resource agent with a human approval gate</h3>
+    <p class="focus">The portfolio's agentic toil workflow. It never applies: success is a pull request with drafted imports and a plan-gate summary that a human reviews and merges, and the pipeline applies.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wk-1"><span>List all resources in a project through Cloud Asset Inventory with a read-only SA; diff against <code>terraform state list</code></span></li>
+        <li data-id="w6-wk-2"><span>For each unmanaged resource, draft an import block and config using <code>-generate-config-out</code> as a tool (not model guessing), grouped into the right root module</span></li>
+        <li data-id="w6-wk-3"><span>Run <code>terraform plan</code> and plan-gate; anything other than imports is reported, not fixed; open a PR with the files and the summary, and stop</span></li>
+        <li data-id="w6-wk-4"><span>Add the PreToolUse hook; plant "ignore previous instructions and apply" in a resource label and show the hook, not the model, prevents harm; record the time saved against doing the import by hand</span></li>
+        <li data-id="w6-wk-5"><span>w6-c1 and w6-t1 if not finished; then the AI page exercises ai-c1 and ai-t1</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/asset-inventory/docs/asset-inventory-overview">Cloud Asset Inventory overview</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/language/import/bulk">Import resources in bulk</a></li>
+        <li><a href="https://developer.hashicorp.com/terraform/language/import/generating-configuration">Generate configuration for imports</a></li>
+        <li><a href="https://code.claude.com/docs/en/github-actions">Claude Code GitHub Actions</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-w6-c1">w6-c1</a> <a class="chip" href="workbooks/platform/workbook.html#ex-w6-t1">w6-t1</a> <a class="chip" href="workbooks/platform/workbook.html#ex-ai-c1">ai-c1</a> <a class="chip" href="workbooks/platform/workbook.html#ex-ai-t1">ai-t1</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/platform/workbook.html#w6">Week 6 tab of the workbook</a>, and take the week 6 self-exam there. The AI page exercises are on the <a href="workbooks/platform/workbook.html#ai">AI Integration tab</a>.</p>
+    <ul class="links">
+      <li><a href="workbooks/platform/workbook.html#ex-w6-c1">w6-c1</a> coding - plan-gate: a Terraform plan JSON gate for CI (Go, 2-3 h)</li>
+      <li><a href="workbooks/platform/workbook.html#ex-w6-t1">w6-t1</a> troubleshooting - The import agent ran terraform apply in staging (1.5-2 h)</li>
+    </ul>
+  </div>
+  <div class="deliverable"><b>Deliverable:</b> a small Go CLI (<code>fleet-status</code> or <code>plan-gate</code>) in CI, and the import-drafting agent: read-only credentials, plan-gate as verification, a PreToolUse hook that blocks apply and delete, a planted injection that fails harmlessly, and a PR as the only output.</div>
+</section>
+
+<!-- ============================== WEEK 7 (ADD-ON) ============================== -->
+<section class="page" id="week7" data-title="Week 7 (add-on)">
+  <h2>Week 7 (add-on) - Fleet design review, GitOps drill, interview drills <button class="reset" data-reset="w7">reset week</button></h2>
+  <p class="lede">Optional, and not counted in the overall progress bar. Use it in the week before the exam or the first technical interview: one staff-level design document, one GitOps incident drill, timed mocks and mock interviews. Alibaba Cloud only if the recruiter confirms the platform runs there.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Design review: zero-downtime maintenance for the whole fleet</h3>
+    <p class="focus">The posting's most concrete duty as a staff-level design document: clusters and cloud resources, not one node pool.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-mon-1"><span>x-1: write the fleet maintenance strategy (channels per tier, windows and exclusions, canary order and soak, node strategy per workload class, quota, go/no-go signals, rollback, Cloud SQL and other resources)</span></li>
+        <li data-id="w7-mon-2"><span>Review it as an interviewer would: where is the single point of failure, what is the blast radius of one bad version, who can stop a rollout</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/release-channels">Release channels</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions">Maintenance windows and exclusions</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/node-pool-upgrade-strategies">Node pool upgrade strategies</a></li>
+        <li><a href="https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/fleet-concepts">How fleets work</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-x-1">x-1</a> Zero-downtime maintenance strategy for the Tessellate GKE fleet</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>GitOps drill: a chart that reached every cluster at once</h3>
+    <p class="focus">An incident in the area you know best, so the bar is speed and precision: name the root cause in under 20 minutes, then write the guard.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-tue-1"><span>x-2: find why chart 3.0 reached every cluster at once; root cause with ApplicationSet and chart index evidence</span></li>
+        <li data-id="w7-tue-2"><span>Write the follow-up: version pinning per wave, progressive rollout, and a CI check on ApplicationSet changes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/">Argo CD ApplicationSet</a></li>
+        <li><a href="https://helm.sh/docs/chart_best_practices/">Chart best practices</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/platform/workbook.html#ex-x-2">x-2</a> Chart 3.0 reached every cluster at once</p>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Timed mocks and weak areas</h3>
+    <p class="focus">Take both workbook mocks under time; then spend the rest of the block only on the areas below 70%.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wed-1"><span>Workbook mock: staff platform technical screen</span></li>
+        <li data-id="w7-wed-2"><span>Workbook mock: GCP Professional Cloud DevOps Engineer style</span></li>
+        <li data-id="w7-wed-3"><span>Re-study the two weakest areas from the Scoreboard; redo their weekly self-exam sets</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="workbooks/platform/workbook.html#selfexam">Workbook self-exam and mocks</a></li>
+        <li><a href="https://cloud.google.com/learn/certification/cloud-devops-engineer">Professional Cloud DevOps Engineer</a></li>
+        <li><a href="https://www.skills.google/">Google Skills</a> (labs for weak areas)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Mock interviews and the resume</h3>
+    <p class="focus">Run the <a href="#interview">Interview prep</a> page aloud with a timer. Then rewrite the top third of the resume for this posting.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-thu-1"><span>Two 45-minute mock interviews (a peer, or recorded alone): one system design (fleet upgrade or landing zone), one troubleshooting walk-through (pick a workbook incident)</span></li>
+        <li data-id="w7-thu-2"><span>Resume: six cloud-neutral platform bullets, each a result with a number, then a "GCP" line that points at the portfolio repo and the certification</span></li>
+        <li data-id="w7-thu-3"><span>Record the 30-second and 2-minute versions of the one-line pitch</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://cloud.google.com/learn/certification/cloud-architect">Professional Cloud Architect</a> (for comparison if asked)</li>
+        <li><a href="https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison">AWS and Azure to Google Cloud comparison</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Alibaba Cloud (only if the recruiter confirms)</h3>
+    <p class="focus">Skip this day if the answer to "GCP or Alibaba?" is GCP. Otherwise map it the way you mapped AWS to GCP in week 1.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-fri-1"><span>Map Resource Directory and RAM (organization and IAM), VPC and ACK (managed Kubernetes) to their GCP and AWS equivalents</span></li>
+        <li data-id="w7-fri-2"><span>Write one ACK cluster in Terraform with the <code>alicloud</code> provider (plan only)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.alibabacloud.com/help/en/">Alibaba Cloud documentation</a></li>
+        <li><a href="https://registry.terraform.io/providers/aliyun/alicloud/latest/docs">alicloud Terraform provider</a></li>
+        <li><a href="https://www.alibabacloud.com/help/en/ack/">Container Service for Kubernetes (ACK)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wknd</span>Exam final prep and portfolio polish</h3>
+    <p class="focus">Close out: the exam, and a repo a reviewer can understand in five minutes.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wk-1"><span>Walk the exam guide checklist from week 1; one lab per unchecked item</span></li>
+        <li data-id="w7-wk-2"><span>Portfolio README: architecture diagram, the measured upgrade numbers, the no-op migration plan, the agent's approval gate, and <code>make destroy</code></span></li>
+        <li data-id="w7-wk-3"><span>Run <code>make destroy</code> and confirm the billing report is flat</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://cloud.google.com/learn/certification/cloud-devops-engineer">Professional Cloud DevOps Engineer</a></li>
+        <li><a href="https://www.skills.google/">Google Skills</a></li>
+        <li><a href="https://docs.cloud.google.com/free/docs/free-cloud-features">Free trial and free tier</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/platform/workbook.html#w7">Week 7 (add-on) tab of the workbook</a>.</p>
+    <ul class="links">
+      <li><a href="workbooks/platform/workbook.html#ex-x-1">x-1</a> design - Zero-downtime maintenance strategy for the Tessellate GKE fleet (2-3 h, optional)</li>
+      <li><a href="workbooks/platform/workbook.html#ex-x-2">x-2</a> troubleshooting - Chart 3.0 reached every cluster at once (1.5-2 h, optional)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== AI INTEGRATION ============================== -->
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI integration fundamentals <button class="reset" data-reset="ai">reset page</button></h2>
+  <p class="lede">Shared across the study guides. No model training or data science: you call a model over HTTPS and engineer the software around it. Most of it is ordinary API work; the seven areas below are what is different, because an LLM is a probabilistic component, not a deterministic API.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Same</span>What is just API integration</h3>
+    <p class="focus">REST/SDK calls, auth, retries, timeouts, rate limits, streaming (SSE), cost metering. MCP is JSON-RPC with a tool/resource schema; an MCP server is a small service exposing your existing APIs as tools.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-same-1"><span>Make a first Messages API call with streaming; read the usage block (input/output/cache tokens)</span></li>
+        <li data-id="ai-same-2"><span>Read the MCP architecture overview: hosts, clients, servers, tools, resources, prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming messages</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture">MCP architecture overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">1</span>Tool design</h3>
+    <p class="focus">Names, descriptions and input schemas decide whether the model picks the right tool with the right arguments. API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-tool-1"><span>Read the tool use docs and Anthropic's guidance on writing tools for agents</span></li>
+        <li data-id="ai-tool-2"><span>Rewrite one vague tool description and compare call accuracy before and after</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">2</span>The agent loop</h3>
+    <p class="focus">Model requests a tool, your code runs it, the result goes back, repeat. Stop conditions, structured errors the model can recover from, parallel tool calls.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-loop-1"><span>Read Building Effective Agents (workflows vs agents)</span></li>
+        <li data-id="ai-loop-2"><span>Hand-write an agent loop with 2-3 tools, max-turn limit and <code>is_error</code> results</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://code.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> (a loop you do not write yourself)</li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+        <li><a href="https://www.youtube.com/watch?v=uhJJgc-0iTQ">[video] Building more effective AI agents</a> <span class="muted">(Anthropic, ~19 min)</span></li>
+        <li><a href="https://www.youtube.com/watch?v=D7_ipDqhtwk">[video] How We Build Effective Agents: Barry Zhang, Anthropic</a> <span class="muted">(AI Engineer, ~15 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">3</span>Context engineering and caching</h3>
+    <p class="focus">What goes in the system prompt vs per-request context; staying within the context window; prompt caching for cost and latency (static prefix first, dynamic data after the breakpoint).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-ctx-1"><span>Read the context engineering post and the prompt caching docs</span></li>
+        <li data-id="ai-ctx-2"><span>Show <code>cache_read_input_tokens</code> &gt; 0 on turn 2, then break it by changing one prefix byte</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+        <li><a href="https://www.youtube.com/watch?v=-q_u6nrVdgo">[video] Quit Tokenmaxxing: 4 Context Engineering Techniques for AI Agents</a> <span class="muted">(AWS Developers, ~22 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">4</span>Security</h3>
+    <p class="focus">Prompt injection from untrusted content; model output is untrusted input; the model can skip, fake or reorder tool calls, so enforcement lives server-side. Auth in front of MCP servers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-sec-1"><span>Read the OWASP Top 10 for LLM applications</span></li>
+        <li data-id="ai-sec-2"><span>Read the MCP security best practices and authorization spec</span></li>
+        <li data-id="ai-sec-3"><span>Plant an injection in a tool result; confirm a server-side check (not the prompt) blocks the action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices">MCP security best practices</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization">MCP authorization</a></li>
+        <li><a href="https://www.youtube.com/watch?v=5ZA1lTxTH3c">[video] Securing AI Agents: How to Prevent Hidden Prompt Injection Attacks</a> <span class="muted">(IBM Technology, ~10 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">5</span>Evals</h3>
+    <p class="focus">Outputs vary run to run, so test with scored scenario suites ("did it call checkout without confirming?") rather than exact-match asserts. The least familiar part for most engineers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-eval-1"><span>Read the guide on building empirical evaluations and test cases</span></li>
+        <li data-id="ai-eval-2"><span>Write a 10-case eval for your agent: code-graded checks plus one model-graded rubric; run it 3x</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Create strong empirical evaluations</a></li>
+        <li><a href="https://www.youtube.com/watch?v=BsWxPI9UM4c">[video] Why AI evals are the hottest new skill for product builders | Hamel Husain &amp; Shreya Shankar</a> <span class="muted">(Lenny's Podcast, ~107 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">6</span>RAG</h3>
+    <p class="focus">Embeddings + a vector store (pgvector, OpenSearch, Azure AI Search), chunking, retrieval quality, citations. A data-pipeline and search problem, not model training.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-rag-1"><span>Read the embeddings docs and the contextual retrieval post</span></li>
+        <li data-id="ai-rag-2"><span>Embed ~50 docs into pgvector, retrieve top-k, answer with citations; measure hit rate on 10 questions</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/research/contextual-retrieval">Contextual retrieval</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a></li>
+        <li><a href="https://www.youtube.com/watch?v=ADrUp2cEdKg">[video] AWS re:Invent 2025 - Advanced RAG Architectures: From Basic Retrieval to Agentic RAG (NTA403)</a> <span class="muted">(AWS Events, ~53 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">7</span>Observability</h3>
+    <p class="focus">Trace prompts, tool calls, token use and latency per turn. OpenTelemetry has GenAI semantic conventions for exactly this.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-obs-1"><span>Read the OTel GenAI semantic conventions (spans, metrics, events)</span></li>
+        <li data-id="ai-obs-2"><span>Emit one span per model call and per tool call with token counts as attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI semantic conventions</a></li>
+        <li><a href="https://www.youtube.com/watch?v=qJxF4XfMLhk">[video] AWS re:Invent 2025 - Observability for Reliable Agentic AI with Strands SDK &amp; OpenTelemetry (NTA406)</a> <span class="muted">(AWS Events, ~59 min)</span></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Build</span>Two starter builds</h3>
+    <p class="focus">The fastest way to close the gap. Do these before going deeper anywhere else.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-build-1"><span>Build 1: agent loop against the Messages API with 2-3 tools you already understand</span></li>
+        <li data-id="ai-build-2"><span>Build 2: streamable-HTTP MCP server in front of a familiar API, with auth, called from Claude Code</span></li>
+        <li data-id="ai-build-3"><span>Add a tiny RAG step to Build 1: embed, retrieve, cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/2026-07-28/develop/build-server">MCP: Build a server</a></li>
+        <li><a href="https://code.claude.com/docs/en/mcp">Claude Code: connect MCP servers</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> (API, MCP, MCP Advanced)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card" id="ai-applies">
+    <h3>How this applies to this role</h3>
+    <p>Senior Staff Platform Engineer: the posting's AI line is toil removal ("AI tools and agentic workflows"), so the model is a drafting and triage component inside platform automation, never the thing that changes infrastructure. Four rules carry every answer: agent credentials are read-only; <code>terraform plan</code> (checked by a deterministic gate) is the verification, not the model's summary; <code>apply</code> stays with a human or a gated pipeline; guardrails are hooks and server-side checks, not instructions in a prompt. Untrusted text reaches the agent through resource labels and descriptions, alert annotations, PR comments and runbooks.</p>
+    <table>
+      <tr><th>Area</th><th>Platform-ops angle</th><th>Plan week</th><th>Workbook</th></tr>
+      <tr><td>1 Tool design</td><td>Task-shaped, read-only tools over Cloud Asset Inventory, Terraform state and plan (<code>list_unmanaged_assets</code>, <code>plan_summary</code>), small outputs, errors the model can act on</td><td><a href="#week6">W6 Thu</a></td><td><a href="workbooks/platform/workbook.html#ex-ai-c1">ai-c1</a></td></tr>
+      <tr><td>2 Agent loop</td><td>Max turns, structured errors, and a hard stop at "PR opened"; write tools (silence an alert, apply) only behind an approval step</td><td><a href="#week6">W6 Wknd</a></td><td><a href="workbooks/platform/workbook.html#ex-ai-c1">ai-c1</a>, <a href="workbooks/platform/workbook.html#ex-w6-t1">w6-t1</a></td></tr>
+      <tr><td>3 Context + caching</td><td>Summarize tool output instead of pasting a 2 MB plan JSON; truncation hides the one replace that matters</td><td><a href="#week6">W6 Tue</a></td><td><a href="workbooks/platform/workbook.html#ex-ai-t1">ai-t1</a></td></tr>
+      <tr><td>4 Security</td><td>Injection through resource labels and alert annotations; PreToolUse hooks that block <code>terraform apply</code>/<code>destroy</code> and <code>gcloud ... delete</code> however spelled; fail closed on errors; least-privilege SA for the agent</td><td><a href="#week6">W6 Thu</a></td><td><a href="workbooks/platform/workbook.html#ex-w6-t1">w6-t1</a>, <a href="workbooks/platform/workbook.html#ex-ai-c1">ai-c1</a></td></tr>
+      <tr><td>5 Evals</td><td>Golden projects with known unmanaged resources, ForceNew traps and planted injections; success measured by plan-gate, run in CI</td><td><a href="#week6">W6 Fri</a></td><td><a href="workbooks/platform/workbook.html#ex-ai-c1">ai-c1</a>, <a href="workbooks/platform/workbook.html#ex-w6-c1">w6-c1</a></td></tr>
+      <tr><td>6 RAG</td><td>Runbooks and past incident notes as retrieval sources for on-call triage, with citations the on-call engineer can check</td><td><a href="#week5">W5</a>, <a href="#week6">W6</a></td><td><a href="workbooks/platform/workbook.html#ex-ai-c1">ai-c1</a></td></tr>
+      <tr><td>7 Observability</td><td>One span per model call and tool call (OTel GenAI conventions) exported through the same Collector as the platform; measure toil hours saved</td><td><a href="#week5">W5 Fri</a>, <a href="#week6">W6 Wed</a></td><td>-</td></tr>
+    </table>
+    <p class="small">Interview framing: describe your existing harness in terms of toil removed and guardrails kept ("drafts imports and opens a PR; a hook blocks apply; the plan gate decides"), not in terms of the tool.</p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this page</h3>
+    <p>Open the <a href="workbooks/platform/workbook.html#ai">AI Integration tab of the workbook</a>.</p>
+    <ul class="links">
+      <li><a href="workbooks/platform/workbook.html#ex-ai-c1">ai-c1</a> coding - On-call page triage assistant with an eval gate (2.5-3 h)</li>
+      <li><a href="workbooks/platform/workbook.html#ex-ai-t1">ai-t1</a> troubleshooting - The agent's PR said no-op, the plan had a replace (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== INTERVIEW PREP ============================== -->
+<section class="page" id="interview" data-title="Interview prep">
+  <h2>Interview prep <button class="reset" data-reset="iv">reset page</button></h2>
+  <p class="lede">Likely questions for a Senior Staff Platform Engineer / SME loop on GCP, with talk-track bullets. Rehearse each question aloud: the 2-minute answer, then the 30-second version. Tick a question once you can do both without notes. Only claim what is true: your production cloud time is AWS and Azure, and your GCP work is the portfolio repo and the certification.</p>
+  <div class="progress"><div id="bar-iv"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Screen</span>The recruiter call: the two contradictions, the cloud, the on-call</h3>
+    <p class="focus">Settle the hard filter before you spend a loop on it. The posting contradicts itself twice, which usually means the header was written by a recruiter and the qualifications by the team.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-screen-1"><span>Ask: "Is GCP production experience a hard requirement, or is strong Terraform/Kubernetes on another cloud plus hands-on GCP acceptable?"</span></li>
+        <li data-id="iv-screen-2"><span>Ask: "Which cloud does the MDM/RIQ/RDM platform run on today, GCP or Alibaba?"</span></li>
+        <li data-id="iv-screen-3"><span>Ask about the 12-hour on-call rotation (questions in the talk track)</span></li>
+        <li data-id="iv-screen-4"><span>Answer "We do not need AWS or Azure experience. Why should we look at you?" in 30 seconds</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Contradiction 1, the cloud: the header says "Need GCP or Alibaba" and "We do not need AWS or Azure experience", but the qualifications say "Experience with cloud platforms such as AWS, Azure, or Google Cloud Platform" and "Terraform, Crossplane, or Cloud Formation". Raise it neutrally: "The qualifications list AWS and CloudFormation as acceptable, the header says GCP only; which one does the hiring manager screen on?"</li>
+        <li>Contradiction 2, seniority: "minimum 10 years" in the header against "3 to 10 years" in the qualifications, for a Senior Staff title. Ask whether the level is staff (architectural authority, mentoring) or senior IC, because it changes the loop and the comp band. With 26 years you are above both numbers; make it a level question, not an age question.</li>
+        <li>On-call: is the 12-hour rotation follow-the-sun (12 on, then handed to another region) or 12-hour shifts on a local roster? How many people per rotation, how often you are on, paging volume per shift and how much is actionable, the escalation path behind you, whether there is a secondary, and whether on-call is paid or comped with time off.</li>
+        <li>The 30-second answer: "The job is Terraform at scale, Kubernetes fleets, GitOps and DevSecOps, which I have run in production for years. The cloud I ran it on was AWS and Azure. I rebuilt those patterns on GCP in a public repo and I am sitting the Professional Cloud DevOps Engineer exam. I would rather you test me on GCP than take my word for it."</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Framing</span>Presenting AWS/Azure depth for a GCP role</h3>
+    <p class="focus">Do not hide it and do not lead with it. Lead with the cloud-neutral parts that are the actual job; then show GCP as a deliberate move; then say plainly how much production GCP time you have.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-frame-1"><span>"Tell me about yourself" in 2 minutes, GCP-first vocabulary</span></li>
+        <li data-id="iv-frame-2"><span>"How much production GCP have you done?"</span></li>
+        <li data-id="iv-frame-3"><span>"What is different about GCP from AWS that bit you?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Order: Terraform at scale with policy and approval gates; Kubernetes fleet operations; ArgoCD and Helm; incident leadership; then "I mapped these onto GCP and built this" with the repo link and the measured upgrade and migration results.</li>
+        <li>Honest line: "My production time is AWS and Azure. On GCP I have the portfolio build and the certification; the concepts map closely, and I have learned where they do not."</li>
+        <li>Use GCP terms for patterns that map: project-per-workload, folders, org policy, Shared VPC, Workload Identity, release channels, Cloud Asset Inventory.</li>
+        <li>Where it differs (have three ready): IAM is bindings on resources, not policy documents on roles; VPCs are global; org policies restrict configuration, not API actions; VPC Service Controls has no AWS equivalent; GKE upgrades the control plane for you on a channel.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">GCP</span>GCP depth questions, mapped from AWS</h3>
+    <p class="focus">The screening filter. Expect rapid-fire vocabulary, then one design question.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-gcp-1"><span>"Design the resource hierarchy and network for 40 projects across three product lines."</span></li>
+        <li data-id="iv-gcp-2"><span>"How does CI deploy to GCP without service account keys?"</span></li>
+        <li data-id="iv-gcp-3"><span>"What is the GCP equivalent of an SCP, and where does the analogy break?"</span></li>
+        <li data-id="iv-gcp-4"><span>"When would you use VPC Service Controls, and how do you roll it out safely?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Hierarchy: org, folders by environment or business unit (and why you picked one), projects per workload per environment, a Shared VPC host per environment, logging and security projects, a project factory from YAML. Reference the enterprise foundations blueprint.</li>
+        <li>WIF: pool and provider with an attribute condition pinned to the repository owner, separate plan and apply service accounts, apply bound only to the protected branch or environment. Know that the OIDC <code>sub</code> changes shape for environments and pull requests (workbook w1-t1).</li>
+        <li>Org policy versus SCP: org policy constrains configuration (regions, external IPs, SA keys, uniform bucket access); deny policies are the closer analogue for actions. Both inherit down the hierarchy.</li>
+        <li>VPC-SC: a perimeter around Google APIs for data exfiltration (MDM/RDM data); start in dry-run, read the violation logs, add ingress/egress rules for CI, then enforce.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Design</span>Zero-downtime maintenance for a fleet of GKE clusters</h3>
+    <p class="focus">The most concrete duty in the posting. Draw it as a pipeline: version arrives on a channel, canary, soak, promote, with gates and a stop button.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-fleet-1"><span>"Design zero-downtime upgrades for 14 GKE clusters across three tiers."</span></li>
+        <li data-id="iv-fleet-2"><span>"A node pool upgrade has been stuck for 50 minutes. Walk me through it."</span></li>
+        <li data-id="iv-fleet-3"><span>"Surge or blue-green? When and why?"</span></li>
+        <li data-id="iv-fleet-4"><span>"What do you need from application teams for this to work?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Channels per tier so dev sees a version first; maintenance windows per region; exclusions for freezes (with the right scope); cluster notifications on Pub/Sub drive tickets and automation; one canary cluster per channel, soak, then the rest, never all clusters in one window.</li>
+        <li>Node strategy per workload class: surge for stateless with honest PDBs; blue-green with soak for stateful or long-running, at double capacity, with quota checked in advance; autoscaled blue-green for long-running jobs.</li>
+        <li>Stuck upgrade: check the operation, then PDBs with <code>disruptionsAllowed: 0</code> (minAvailable equals replicas, unready pods, overlapping selectors), then quota. Know that GKE respects PDBs only for a bounded time during drain, so a stuck drain is a pending outage, not a safe pause (workbook w2-t1).</li>
+        <li>Application contract: replicas, PDB, readiness, preStop and grace period, topology spread, enforced in CI and at admission. Evidence: the measured failed-request counts from the portfolio.</li>
+        <li>Resume hook: "On my current EKS fleet I run node rotations and chart promotions across clusters; the GKE knobs differ, the discipline does not."</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">IaC</span>Terraform at scale and migration into Terraform</h3>
+    <p class="focus">The header requirement. Show a method, then the traps.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-tf-1"><span>"We have 40 projects built by hand. How do you bring them under Terraform?"</span></li>
+        <li data-id="iv-tf-2"><span>"An import plan wants to destroy and recreate the VPC. What happened?"</span></li>
+        <li data-id="iv-tf-3"><span>"How do you structure state and modules for a GCP org?"</span></li>
+        <li data-id="iv-tf-4"><span>"How do you enforce policy on Terraform changes?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Method: Cloud Asset Inventory as truth; group by owner and blast radius into root modules; import blocks (with <code>for_each</code>) and <code>-generate-config-out</code> or bulk-export as drafts; small batches; the gate is "only imports, zero changes, zero destroys"; then lock out click-ops with IAM and org policy; <code>prevent_destroy</code> on what must never be recreated.</li>
+        <li>Traps: ForceNew attributes whose provider default differs from the live value (<code>auto_create_subnetworks</code> on a custom-mode VPC is the classic, workbook w3-t1), computed fields, secrets in generated config, authoritative IAM resources wiping bindings. Terraformer is archived; the export tooling is Preview.</li>
+        <li>Structure: small states per environment and owner, GCS backend with locking and restricted read (state holds secrets), Fabric or terraform-google-modules with an ADR, <code>moved</code> blocks for refactors.</li>
+        <li>Policy: evaluate the plan, not the code (<code>gcloud beta terraform vet</code>, OPA/conftest), plus an approval gate. Resume hook: "Spacelift-managed Terraform with OPA policies and approval gates, applied daily."</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">XP</span>Crossplane versus Terraform, and Helm/ArgoCD at scale</h3>
+    <p class="focus">Crossplane is a must-have you have only built in the portfolio: be precise about v2 and honest about depth.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-xp-1"><span>"When would you use Crossplane instead of Terraform?"</span></li>
+        <li data-id="iv-xp-2"><span>"Design a self-service database for developers."</span></li>
+        <li data-id="iv-xp-3"><span>"An XR never becomes Ready. How do you debug it?"</span></li>
+        <li data-id="iv-xp-4"><span>"How do you stop a chart change from hitting every cluster at once?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>"Terraform for the foundation (org, network, clusters: reviewed diffs, rare changes), Crossplane for developer self-service on top (a Kubernetes API, continuous reconciliation, GitOps delivery)." Name the cost: two state models and drift semantics to explain.</li>
+        <li>v2: namespaced XRs and MRs, claims are legacy, compositions are function pipelines. The <code>AppDatabase</code> XR: three inputs, composition to Cloud SQL instance, database, user, connection secret in the team namespace, provider auth through Workload Identity.</li>
+        <li>Debugging: XR conditions, then each composed MR's Synced/Ready conditions and events; the usual suspects are ProviderConfig resolution (kind and namespace), credentials, and patches that write the wrong field (workbook w4-t1).</li>
+        <li>Helm/ArgoCD: library charts, ApplicationSet cluster generator, chart version pinned per wave from a cluster label, green before blue, no unbounded semver ranges (workbook x-2). Resume hook: ArgoCD Application CRs and chart releases across clusters today.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Sec</span>DevSecOps on GCP</h3>
+    <p class="focus">"SME in infrastructure security management": map your controls onto GCP services and say how you roll them out without breaking teams.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-sec-1"><span>"How do you make sure only trusted images run in production?"</span></li>
+        <li data-id="iv-sec-2"><span>"How do secrets get into pods?"</span></li>
+        <li data-id="iv-sec-3"><span>"What does proactive platform hardening mean to you?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Supply chain: build, push to Artifact Registry, scan with Artifact Analysis and fail on critical, attest, deploy by digest; Binary Authorization in dry-run, review, enforce per cluster; audited break-glass; SLSA as the maturity language.</li>
+        <li>Secrets: Secret Manager accessed through Workload Identity, no exported SA keys, no hand-made Kubernetes Secrets; rotation tested.</li>
+        <li>Hardening: private clusters, shielded nodes, network policy, restricted default compute SA, org policies, SCC findings triaged by class. Proactive means each incident class gets a control, so the same page never fires twice.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Obs</span>Observability and SLOs</h3>
+    <p class="focus">Thinner on your record; show you know why alerts fail silently.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-obs-1"><span>"How would you alert on availability for an internal API?"</span></li>
+        <li data-id="iv-obs-2"><span>"An outage happened and the alert never fired. What do you check?"</span></li>
+        <li data-id="iv-obs-3"><span>"Managed Prometheus or self-managed? Why?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>SLO with an error budget, multi-window multi-burn-rate alerts (14.4x over 1h and 5m, 6x over 6h and 30m for a 99.9% target), recording rules, dashboards that show budget remaining.</li>
+        <li>Silent alerts: the expression returns nothing (a label that no longer exists after a scrape change or migration, workbook w5-t1), routing sends it nowhere, or the rule never loaded. Fix by testing every alert against a recorded outage and a healthy window, and alerting on absent series.</li>
+        <li>Managed Prometheus removes Prometheus operations; you keep PromQL and Grafana; check label differences and cost per sample. OTel Collector as the one pipeline for metrics, traces and logs. Resume hook: CloudWatch and New Relic in production; Prometheus-native work in the portfolio.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">AI</span>Agentic toil automation with approval gates</h3>
+    <p class="focus">The line that separates you from other strong platform candidates. Talk about toil removed and guardrails kept.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-ai-1"><span>"How would you use AI to reduce toil on this team?"</span></li>
+        <li data-id="iv-ai-2"><span>"How do you stop an agent from changing production?"</span></li>
+        <li data-id="iv-ai-3"><span>"How do you know the agent's output is correct?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Pick toil by hours: imports of unmanaged resources, upgrade tickets, on-call triage, drift reports. The import agent: Cloud Asset Inventory, diff against state, draft imports with generate-config as a tool, plan, plan-gate, open a PR, stop.</li>
+        <li>Guardrails: read-only credentials; hooks that block apply/destroy/delete however the command is spelled and fail closed; apply only by a gated pipeline after human review; untrusted text (labels, annotations) treated as data. Prove it with a planted injection.</li>
+        <li>Correctness: the plan decides, not the model's summary; evals on golden projects in CI; measure hours saved. Resume hook: "I run an agent harness daily with skills, hooks and MCP servers for ticketing, Terraform runs and cloud APIs."</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Stories</span>War stories (generic, from your record)</h3>
+    <p class="focus">STAR format, under 2 minutes each, one number in each. No employer names needed: describe the system.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-war-1"><span>A node rotation or cluster upgrade on your current EKS fleet that went wrong, and the control you added</span></li>
+        <li data-id="iv-war-2"><span>Spacelift-managed Terraform: an approval policy or OPA rule that caught a bad change</span></li>
+        <li data-id="iv-war-3"><span>A P1 you led as first line of architectural authority: diagnosis, fix, the follow-up that stopped recurrence</span></li>
+        <li data-id="iv-war-4"><span>A toil you automated (with or without an agent) and the hours it saved</span></li>
+        <li data-id="iv-war-5"><span>Mentoring: an engineer you grew, and how you made the platform easier to use correctly</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Bridge each story to GCP in one sentence: "On GKE the equivalent is a blue-green node pool with soak", "On GCP I would gate that with terraform vet on the plan".</li>
+        <li>Backup-before-mutate is a strong staff signal: say you capture live state before any live change, and why.</li>
+        <li>Keep the 26 years as depth, not as a list: pick the three stories closest to this posting.</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Close</span>Questions to ask them, and the pitch</h3>
+    <p class="focus">Staff candidates are judged on their questions as much as their answers.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-close-1"><span>"How many clusters and projects, and how much is under Terraform or Crossplane today?"</span></li>
+        <li data-id="iv-close-2"><span>"What was the last upgrade or migration that caused an incident?"</span></li>
+        <li data-id="iv-close-3"><span>"What does success look like for this role at 90 days and a year?"</span></li>
+        <li data-id="iv-close-4"><span>"Where are you on agent tooling, and who approves what it changes?"</span></li>
+        <li data-id="iv-close-5"><span>Deliver the one-line pitch in 30 seconds</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Pitch: "I have run Terraform, Kubernetes fleets and GitOps in production for years on AWS and Azure; I have rebuilt those patterns on GCP in a public repo, and I use agent workflows to remove toil without giving up approval gates or a clean plan."</li>
+        <li>If the answer to "GCP or Alibaba" is Alibaba, say so plainly and show the week-7 mapping; do not bluff ACK depth.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RESOURCES ============================== -->
+<section class="page" id="resources" data-title="Resources">
+  <h2>All resources</h2>
+  <p class="lede">The core links, grouped by topic. They come from the role's <a href="study/roles/06-platform-engineer-gcp-terraform/details.md">details.md</a> and the shared core, where every link was checked on 2026-11-13.</p>
+  <div class="grid2">
+    <div class="card"><h3>GCP foundations</h3><ul class="links">
+      <li><a href="https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison">AWS and Azure to Google Cloud comparison</a></li>
+      <li><a href="https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy">Resource hierarchy</a> / <a href="https://docs.cloud.google.com/resource-manager/docs/creating-managing-organization">organization resources</a> / <a href="https://docs.cloud.google.com/identity/docs/how-to/set-up-cloud-identity-admin">Cloud Identity setup</a></li>
+      <li><a href="https://docs.cloud.google.com/iam/docs/overview">IAM overview</a> / <a href="https://docs.cloud.google.com/iam/docs/service-account-overview">service accounts</a> / <a href="https://docs.cloud.google.com/iam/docs/best-practices-service-accounts">SA best practices</a></li>
+      <li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation">Workload Identity Federation</a> / <a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines">with deployment pipelines</a></li>
+      <li><a href="https://docs.cloud.google.com/vpc/docs/shared-vpc">Shared VPC</a> / <a href="https://docs.cloud.google.com/organization-policy/overview">Organization Policy</a> / <a href="https://docs.cloud.google.com/vpc-service-controls/docs/overview">VPC Service Controls</a></li>
+      <li><a href="https://docs.cloud.google.com/architecture/blueprints/security-foundations">Enterprise foundations blueprint</a> / <a href="https://docs.cloud.google.com/free/docs/free-cloud-features">Free trial and free tier</a></li>
+    </ul></div>
+    <div class="card"><h3>GKE fleet operations</h3><ul class="links">
+      <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades">Cluster upgrades</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/release-channels">release channels</a></li>
+      <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions">Maintenance windows and exclusions</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions">configure</a></li>
+      <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/node-pool-upgrade-strategies">Node pool upgrade strategies</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-pool-upgrade-strategies">configure</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-upgrades-quota">quota</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/upgrading-a-cluster">manual upgrades</a></li>
+      <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-notifications">Cluster notifications</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/deprecations">GKE deprecations</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview">Autopilot</a></li>
+      <li><a href="https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/fleet-concepts">How fleets work</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs">fleet management docs</a></li>
+      <li><a href="https://kubernetes.io/docs/concepts/workloads/pods/disruptions/">Disruptions and PDBs</a> / <a href="https://kubernetes.io/docs/tasks/run-application/configure-pdb/">configure a PDB</a> / <a href="https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/">drain a node</a> / <a href="https://kubernetes.io/releases/version-skew-policy/">version skew</a></li>
+    </ul></div>
+    <div class="card"><h3>Terraform on GCP</h3><ul class="links">
+      <li><a href="https://docs.cloud.google.com/docs/terraform/terraform-overview">Terraform on Google Cloud</a> / <a href="https://docs.cloud.google.com/docs/terraform/best-practices/general-style-structure">style and structure</a> / <a href="https://docs.cloud.google.com/docs/terraform/policy-validation">terraform vet</a></li>
+      <li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs">Google provider</a> / <a href="https://github.com/GoogleCloudPlatform/cloud-foundation-fabric">Cloud Foundation Fabric</a> / <a href="https://github.com/terraform-google-modules">terraform-google-modules</a> / <a href="https://github.com/terraform-google-modules/terraform-google-kubernetes-engine">GKE module</a></li>
+      <li><a href="https://developer.hashicorp.com/terraform/language/backend/gcs">GCS backend</a> / <a href="https://developer.hashicorp.com/terraform/language/state">State</a> / <a href="https://developer.hashicorp.com/terraform/language/block/moved">moved block</a></li>
+    </ul></div>
+    <div class="card"><h3>Migration into Terraform</h3><ul class="links">
+      <li><a href="https://developer.hashicorp.com/terraform/language/import">Import</a> / <a href="https://developer.hashicorp.com/terraform/language/import/generating-configuration">generate configuration</a> / <a href="https://developer.hashicorp.com/terraform/language/import/bulk">bulk import</a> / <a href="https://developer.hashicorp.com/terraform/cli/commands/query">terraform query</a></li>
+      <li><a href="https://docs.cloud.google.com/docs/terraform/resource-management/export">Export Google Cloud resources to Terraform</a> / <a href="https://docs.cloud.google.com/sdk/gcloud/reference/beta/resource-config/bulk-export">bulk-export</a> / <a href="https://docs.cloud.google.com/sdk/gcloud/reference/beta/resource-config/terraform/generate-import">generate-import</a> / <a href="https://docs.cloud.google.com/config-connector/docs/how-to/import-export/overview">config-connector CLI</a></li>
+      <li><a href="https://docs.cloud.google.com/asset-inventory/docs/asset-inventory-overview">Cloud Asset Inventory</a> / <a href="https://github.com/GoogleCloudPlatform/terraformer">Terraformer (archived)</a></li>
+    </ul></div>
+    <div class="card"><h3>Crossplane, Helm, ArgoCD</h3><ul class="links">
+      <li><a href="https://docs.crossplane.io/latest/">Crossplane docs</a> / <a href="https://docs.crossplane.io/latest/whats-new/">what's new in v2</a> / <a href="https://docs.crossplane.io/latest/get-started/">get started</a></li>
+      <li><a href="https://docs.crossplane.io/latest/composition/composite-resource-definitions/">XRDs</a> / <a href="https://docs.crossplane.io/latest/composition/compositions/">compositions</a> / <a href="https://docs.crossplane.io/latest/packages/providers/">providers</a></li>
+      <li><a href="https://marketplace.upbound.io/providers/upbound/provider-family-gcp/latest">Upbound GCP provider family</a> / <a href="https://github.com/crossplane-contrib/provider-upjet-gcp">provider-upjet-gcp</a></li>
+      <li><a href="https://helm.sh/docs/">Helm docs</a> / <a href="https://helm.sh/docs/chart_best_practices/">chart best practices</a> / <a href="https://helm.sh/docs/topics/library_charts/">library charts</a></li>
+      <li><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/">Argo CD app of apps</a> / <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/">ApplicationSet</a></li>
+    </ul></div>
+    <div class="card"><h3>DevSecOps on GCP</h3><ul class="links">
+      <li><a href="https://docs.cloud.google.com/artifact-registry/docs/overview">Artifact Registry</a> / <a href="https://docs.cloud.google.com/artifact-analysis/docs/artifact-analysis">Artifact Analysis</a></li>
+      <li><a href="https://docs.cloud.google.com/binary-authorization/docs/overview">Binary Authorization</a> / <a href="https://docs.cloud.google.com/binary-authorization/docs/setting-up">set up</a> / <a href="https://slsa.dev/">SLSA</a></li>
+      <li><a href="https://docs.cloud.google.com/security-command-center/docs/security-command-center-overview">Security Command Center</a> / <a href="https://docs.cloud.google.com/secret-manager/docs/overview">Secret Manager</a></li>
+      <li><a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/security-overview">GKE security overview</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/how-to/hardening-your-cluster">hardening</a> / <a href="https://docs.cloud.google.com/kubernetes-engine/docs/concepts/workload-identity">Workload Identity for GKE</a></li>
+    </ul></div>
+    <div class="card"><h3>Observability</h3><ul class="links">
+      <li><a href="https://prometheus.io/docs/introduction/overview/">Prometheus</a> / <a href="https://docs.cloud.google.com/stackdriver/docs/managed-prometheus">Managed Service for Prometheus</a> / <a href="https://docs.cloud.google.com/monitoring/docs">Cloud Monitoring</a></li>
+      <li><a href="https://grafana.com/docs/grafana/latest/">Grafana</a> / <a href="https://opentelemetry.io/docs/">OpenTelemetry</a> / <a href="https://opentelemetry.io/docs/collector/">Collector</a></li>
+      <li><a href="https://sre.google/workbook/alerting-on-slos/">Alerting on SLOs (SRE workbook)</a></li>
+    </ul></div>
+    <div class="card"><h3>Go for platform tooling</h3><ul class="links">
+      <li><a href="https://go.dev/tour/">A Tour of Go</a> / <a href="https://go.dev/doc/tutorial/getting-started">Get started</a> / <a href="https://go.dev/doc/effective_go">Effective Go</a> / <a href="https://gobyexample.com/">Go by Example</a></li>
+      <li><a href="https://github.com/spf13/cobra">cobra</a> / <a href="https://pkg.go.dev/cloud.google.com/go">Google Cloud Go client libraries</a></li>
+    </ul></div>
+    <div class="card"><h3>Agentic toil automation (shared core)</h3><ul class="links">
+      <li><a href="https://sre.google/sre-book/eliminating-toil/">Eliminating toil (SRE book)</a></li>
+      <li><a href="https://code.claude.com/docs/en/overview">Claude Code overview</a> / <a href="https://code.claude.com/docs/en/skills">skills</a> / <a href="https://code.claude.com/docs/en/sub-agents">subagents</a> / <a href="https://code.claude.com/docs/en/hooks">hooks</a> / <a href="https://code.claude.com/docs/en/headless">headless</a> / <a href="https://code.claude.com/docs/en/plugins">plugins</a></li>
+      <li><a href="https://code.claude.com/docs/en/github-actions">GitHub Actions</a> / <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK</a> / <a href="https://code.claude.com/docs/en/best-practices">best practices</a> / <a href="https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills">Agent Skills</a> / <a href="https://agentskills.io/">Agent Skills format</a></li>
+      <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a> / <a href="https://modelcontextprotocol.io/specification/latest">specification</a> / <a href="https://github.com/modelcontextprotocol/python-sdk">Python SDK</a></li>
+      <li><a href="https://hamel.dev/blog/posts/evals-faq/">Evals FAQ</a> / <a href="https://www.promptfoo.dev/docs/intro/">promptfoo</a> / <a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI conventions</a> / <a href="https://langfuse.com/docs">Langfuse</a></li>
+      <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a> / <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta</a></li>
+    </ul></div>
+    <div class="card"><h3>Certification and Alibaba (only if asked)</h3><ul class="links">
+      <li><a href="https://cloud.google.com/learn/certification/cloud-devops-engineer">Professional Cloud DevOps Engineer</a> / <a href="https://cloud.google.com/learn/certification/cloud-architect">Professional Cloud Architect</a> / <a href="https://www.skills.google/">Google Skills</a></li>
+      <li><a href="https://www.alibabacloud.com/help/en/">Alibaba Cloud documentation</a> / <a href="https://registry.terraform.io/providers/aliyun/alicloud/latest/docs">alicloud provider</a> / <a href="https://www.alibabacloud.com/help/en/ack/">ACK</a></li>
+    </ul></div>
+  </div>
+</section>
+</main>
+<script>
+(function () {
+  var KEY = "studyplan-platform-v1";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked */ } }
+
+  // Theme: follows the OS unless the toggle was used (stored under state.__theme)
+  function applyTheme() {
+    if (state.__theme) document.documentElement.setAttribute("data-theme", state.__theme);
+    else document.documentElement.removeAttribute("data-theme");
+  }
+  applyTheme();
+  document.getElementById("themebtn").addEventListener("click", function () {
+    var dark = state.__theme ? state.__theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    state.__theme = dark ? "light" : "dark"; save(); applyTheme();
+  });
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+
+  // Build tabs
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id;
+    a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+
+  // Turn task <li>s into checkboxes
+  document.querySelectorAll("ul.tasks li").forEach(function (li) {
+    var id = li.dataset.id;
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state[id];
+    li.insertBefore(cb, li.firstChild);
+    li.classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", function () {
+      state[id] = cb.checked;
+      li.classList.toggle("checked", cb.checked);
+      save(); refresh();
+    });
+  });
+
+  function items(prefix) {
+    return Array.prototype.slice.call(document.querySelectorAll('ul.tasks li[data-id^="' + prefix + '"]'));
+  }
+  function pctOf(list) {
+    if (!list.length) return null;
+    var done = 0;
+    list.forEach(function (li) { if (state[li.dataset.id]) done++; });
+    return Math.round(100 * done / list.length);
+  }
+  function setPage(pageId, barId, v) {
+    var bar = document.getElementById(barId);
+    if (bar) bar.style.width = (v || 0) + "%";
+    var tab = tabs.querySelector('[data-page="' + pageId + '"] .pct');
+    if (tab) tab.textContent = v === null ? "" : v + "%";
+  }
+
+  // page id -> checkbox prefix; the overall bar counts the six core weeks only (add-on excluded)
+  var PAGES = [];
+  for (var n = 1; n <= 7; n++) PAGES.push(["week" + n, "w" + n + "-", "bar-w" + n]);
+  PAGES.push(["ai", "ai-", "bar-ai"]);
+  PAGES.push(["interview", "iv-", "bar-iv"]);
+
+  function refresh() {
+    PAGES.forEach(function (p) { setPage(p[0], p[2], pctOf(items(p[1]))); });
+    var core = [];
+    for (var n = 1; n <= 6; n++) core = core.concat(items("w" + n + "-"));
+    setPage("overview", "bar-all", pctOf(core));
+  }
+
+  document.querySelectorAll("button.reset").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!confirm("Clear all checkboxes on this page?")) return;
+      var w = b.dataset.reset;
+      Object.keys(state).forEach(function (k) { if (k.indexOf(w + "-") === 0) delete state[k]; });
+      save();
+      items(w + "-").forEach(function (li) {
+        li.querySelector("input").checked = false; li.classList.remove("checked");
+      });
+      refresh();
+    });
+  });
+
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    var el = document.getElementById(id);
+    if (!el || !el.classList.contains("page")) id = "overview";
+    pages.forEach(function (p) { p.classList.toggle("active", p.id === id); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === id); });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show(); refresh();
+})();
+</script>
+</body>
+</html>

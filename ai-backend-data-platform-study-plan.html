@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-driven Backend Developer, Data Platform - Study Plan</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #3b5bdb; --accent-soft: #e7ecfc; --done: #2f7d4f;
+    --warn: #9a6700; --warn-soft: #fff4d6; --bad: #b42318; --bad-soft: #fde8e6; --done-soft: #e3f1e8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #8ea6ff; --accent-soft: #232a45; --done: #5cc287;
+      --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+    --line: #34343a; --accent: #8ea6ff; --accent-soft: #232a45; --done: #5cc287;
+    --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  .themebtn { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+              border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  h3.sub { font-size: 17px; margin: 26px 0 10px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .day h3 { margin: 0 0 2px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .day h3 .tag { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft);
+                 padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .day .focus { color: var(--muted); margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4, .card h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.tasks { list-style: none; padding: 0; margin: 0; }
+  ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+  ul.tasks input { margin-top: 4px; accent-color: var(--done); flex: none; }
+  ul.tasks li.checked span { color: var(--muted); text-decoration: line-through; }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .deliverable b { color: var(--done); }
+  .note { margin: 0 0 18px; padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .note b { color: var(--warn); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  .card + .card, .grid2 + .card, .card + .grid2 { margin-top: 14px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .scroll { overflow-x: auto; }
+  table.matrix th, table.matrix td { font-size: 13px; }
+  table.matrix td.c { text-align: center; }
+  table.matrix th.p { text-transform: none; letter-spacing: 0; font-size: 12px; min-width: 74px; }
+  .yes { color: var(--done); font-weight: 700; }
+  .s-strong { color: var(--done); font-weight: 600; }
+  .s-partial { color: var(--warn); font-weight: 600; }
+  .s-gap { color: var(--bad); font-weight: 600; }
+  .small { font-size: 13px; color: var(--muted); }
+  .muted { font-size: 13px; color: var(--muted); }
+  .reset { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+           border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  .exchips { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; align-items: baseline; }
+  .exchip { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; padding: 2px 9px; border-radius: 99px;
+            background: var(--done-soft); color: var(--done); text-decoration: none; font-weight: 600; }
+  .exchip:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="themebtn" id="themebtn" type="button">light / dark</button>
+  <h1>AI-driven Backend Developer (Python/TypeScript), Data Platform - platform layer for agentic apps</h1>
+  <p>6-week plan plus an optional add-on week for a senior backend role building the platform that replaces a third-party CRM. Weekdays ~2-3 h, weekends one long block for the <a href="workbooks/backend/workbook.html">workbook</a> exercises. Checkboxes save in this browser.</p>
+</header>
+
+<nav><div class="inner" id="tabs"></div></nav>
+
+<main>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="page" id="overview" data-title="Overview">
+  <h2>Overview</h2>
+  <p class="lede">The client, an enterprise data and AI platform company, is moving its own business apps off a major third-party CRM onto systems it builds. This role builds the platform layer underneath: the architecture and service boundaries, the PostgreSQL data models, the Python and TypeScript services, the APIs, events and workflow primitives that product teams and agentic apps build on, and the migration path off the CRM. Early months are whiteboard-heavy. On-site in Mountain View, CA, 6-12 months, via Toptal.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+
+  <div class="note"><b>Honest fit note.</b> This is a senior backend engineering role first. Your infrastructure depth covers one required bullet fully and makes you unusually strong on "running services reliably in production", but the interviewers will probe application backend depth: designing a schema for a complex business domain, explaining a query plan, choosing between a REST and an event interface, and defending a service boundary. Nothing on record shows that yet, so you prove it with a built system and a confident whiteboard session. Pitch yourself as a backend engineer with an operator's instincts, not as a DevOps engineer who also codes. Full role track: <a href="study/roles/07-ai-backend-data-platform/highlights.md">study/roles/07-ai-backend-data-platform/highlights.md</a>.</div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>The plan: six weeks plus an optional add-on</h3>
+      <table>
+        <tr><th>Week</th><th>Theme</th><th>Workbook</th></tr>
+        <tr><td><a href="#week1">1</a></td><td>System design and the CRM domain</td><td><a href="workbooks/backend/workbook.html#ex-w1-c1">w1-c1</a>, <a href="workbooks/backend/workbook.html#ex-w1-t1">w1-t1</a></td></tr>
+        <tr><td><a href="#week2">2</a></td><td>PostgreSQL in depth</td><td><a href="workbooks/backend/workbook.html#ex-w2-c1">w2-c1</a>, <a href="workbooks/backend/workbook.html#ex-w2-t1">w2-t1</a></td></tr>
+        <tr><td><a href="#week3">3</a></td><td>Python services and API design</td><td><a href="workbooks/backend/workbook.html#ex-w3-c1">w3-c1</a>, <a href="workbooks/backend/workbook.html#ex-w3-t1">w3-t1</a></td></tr>
+        <tr><td><a href="#week4">4</a></td><td>TypeScript services and a GraphQL read layer</td><td><a href="workbooks/backend/workbook.html#ex-w4-c1">w4-c1</a>, <a href="workbooks/backend/workbook.html#ex-w4-t1">w4-t1</a></td></tr>
+        <tr><td><a href="#week5">5</a></td><td>Events, the outbox and Go</td><td><a href="workbooks/backend/workbook.html#ex-w5-c1">w5-c1</a>, <a href="workbooks/backend/workbook.html#ex-w5-t1">w5-t1</a></td></tr>
+        <tr><td><a href="#week6">6</a></td><td>Workflow automation and durable execution</td><td><a href="workbooks/backend/workbook.html#ex-w6-c1">w6-c1</a>, <a href="workbooks/backend/workbook.html#ex-w6-t1">w6-t1</a></td></tr>
+        <tr><td><a href="#week7">+7</a></td><td>Migrations at scale and mock whiteboards</td><td><a href="workbooks/backend/workbook.html#ex-x-1">x-1</a>, <a href="workbooks/backend/workbook.html#ex-x-2">x-2</a></td></tr>
+        <tr><td><a href="#ai">AI</a></td><td>AI integration fundamentals (shared page), applied to agents on the platform</td><td><a href="workbooks/backend/workbook.html#ex-ai-c1">ai-c1</a>, <a href="workbooks/backend/workbook.html#ex-ai-t1">ai-t1</a></td></tr>
+        <tr><td><a href="#interview">IV</a></td><td>Interview prep: talk tracks for the likely questions</td><td>timed screen in the workbook Self-exam</td></tr>
+      </table>
+      <p class="small">Weekdays about 2-3 h, weekends one long block for the <a href="workbooks/backend/workbook.html">workbook</a> exercises. Checkboxes save in this browser.</p>
+    </div>
+    <div class="card">
+      <h3>Portfolio: an "own your CRM" platform</h3>
+      <p>A public repo, synthetic data only, that rebuilds a thin slice of what the client is building:</p>
+      <ul class="links">
+        <li><b>Data:</b> PostgreSQL schema for accounts, contacts, leads, opportunities and activities, multi-tenant with row-level security, activities partitioned by month, an append-only audit log</li>
+        <li><b>Services:</b> a Python FastAPI service that owns accounts and contacts, a TypeScript Fastify service that owns opportunities; each owns its tables and they talk through APIs and events</li>
+        <li><b>Events:</b> a transactional outbox in each service, relayed to Kafka (Redpanda locally) by a small Go service; idempotent consumers</li>
+        <li><b>Workflows:</b> Temporal lead assignment with manager approval and opportunity stage sign-off</li>
+        <li><b>Agent surface:</b> an MCP server with task-level tools; reads scoped by RLS, writes through a Temporal approval, every call in the audit log</li>
+        <li><b>Migration:</b> a Salesforce-shaped CSV importer keeping 18-character legacy ids, with a reconciliation report</li>
+        <li><b>Delivery and docs:</b> Docker Compose, a Helm chart, CI with Testcontainers, migration lint, a load test; one ADR per major decision and <code>docs/query-plans.md</code></li>
+      </ul>
+      <p class="small">If time runs short, cut the GraphQL layer, then the Go relay (use a Python poller), then the Helm chart. Do not cut RLS, the outbox, the Temporal approval or the reconciliation report: those are the interview stories.</p>
+    </div>
+    <div class="card">
+      <h3>Where you start</h3>
+      <table>
+        <tr><th>Posting asks for</th><th>You already have</th></tr>
+        <tr><td>Docker, Kubernetes, CI/CD, reliable production</td><td>26 years: EKS, Helm, ArgoCD, Jenkins, GitHub Actions, Terraform, P1 incident work</td></tr>
+        <tr><td>Workflow automation / orchestration</td><td>Step Functions and pipelines: retries, timeouts and partial failure from the operator side</td></tr>
+        <tr><td>Messaging (Kafka, RabbitMQ, Redis)</td><td>Kinesis and Firehose as infrastructure: shards, ordering and backpressure</td></tr>
+        <tr><td>TypeScript on Node</td><td>Daily TypeScript for CDK and Node runtimes</td></tr>
+        <tr><td>AI coding tools daily (nice to have)</td><td>Exact match: heavy daily Claude Code with your own skills, hooks and MCP servers</td></tr>
+        <tr><td>Permissions and auditability for agents</td><td>Least-privilege IAM, approval gates, policy hooks, back-up-before-mutate discipline</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Gaps this plan closes, most important first</h3>
+      <table>
+        <tr><th>Gap</th><th>Where</th></tr>
+        <tr><td>System design and whiteboarding for platforms</td><td>W1, then every weekend; mocks in W7</td></tr>
+        <tr><td>PostgreSQL as the schema designer</td><td>W2, W7 Mon-Tue</td></tr>
+        <tr><td>Senior backend services in Python and TypeScript</td><td>W3, W4</td></tr>
+        <tr><td>API design for other teams</td><td>W3 Wed-Thu, W4 Thu</td></tr>
+        <tr><td>Go (required: "Go or Java")</td><td>W4 Fri, W5</td></tr>
+        <tr><td>Events and messaging as an application developer</td><td>W5</td></tr>
+        <tr><td>Workflow engines as a builder</td><td>W6</td></tr>
+        <tr><td>CRM data models and migration</td><td>W1 Thu, W7 Wed</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>The workbook</h3>
+      <p><a href="workbooks/backend/workbook.html">workbooks/backend/workbook.html</a>: 16 graded exercises (coding, troubleshooting, design), weekly self-exams and a timed technical screen. Everything runs locally and offline: real PostgreSQL 18 through PGlite, FastAPI and SQLAlchemy on SQLite where Postgres is not the point, real Temporal with its time-skipping test server, the MCP Python SDK, Go stdlib.</p>
+<pre>cd workbooks/backend &amp;&amp; make deps      # once: node_modules, .venv, Temporal test server
+cd exercises/w1-c1 &amp;&amp; make setup &amp;&amp; make test
+# from workbooks/ in Claude Code:
+/grade backend/w1-c1</pre>
+    </div>
+    <div class="card">
+      <h3>One-line pitch</h3>
+      <p>"I have run production platforms for 26 years, and I now build them from the schema up: Postgres models with tenancy enforced in the database, services with clean boundaries and an outbox, workflows with approval gates, and agent tools that cannot do more than the user could."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 1 ============================== -->
+<section class="page" id="week1" data-title="Week 1">
+  <h2>Week 1 - System design and the CRM domain <button class="reset" data-reset="w1">reset week</button></h2>
+  <p class="lede">Interviews for this role start at the whiteboard, and so does the job. This week sets the method you will use in every session, the service-boundary and tenancy vocabulary, and enough of the Salesforce object model to know what the platform has to replace. The shared core is compressed into Friday.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>The whiteboard method and the Keystone brief</h3>
+    <p class="focus">One repeatable method for every design question: requirements and non-goals, scale estimates, core entities, API, high-level design, then deep dives on the two riskiest parts. Say trade-offs out loud; your operator view of failure modes is the differentiator.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-mon-1"><span>Read Hello Interview's "system design in a hurry" end to end; write the method on one index card</span></li>
+        <li data-id="w1-mon-2"><span>Read the posting again and list every noun that will be a service, a table or an interface (accounts, pipeline, activities, workflow primitives, agent tools)</span></li>
+        <li data-id="w1-mon-3"><span>Do one 45-minute dry run on paper: "the platform layer for a company leaving its CRM"; time each phase</span></li>
+        <li data-id="w1-mon-4"><span>System Design Primer: skim the scalability, consistency and availability sections you have not reviewed in a while</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction">Hello Interview: system design in a hurry</a></li>
+        <li><a href="https://github.com/donnemartin/system-design-primer">System Design Primer</a></li>
+        <li><a href="https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF">System Design Interview, Alex Xu</a></li>
+        <li><a href="https://bytebytego.com/courses/system-design-interview">ByteByteGo system design course</a></li>
+        <li><a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/">Designing Data-Intensive Applications, 2nd edition</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Service boundaries, data ownership, multi-tenancy</h3>
+    <p class="focus">Draw boundaries around data ownership and business capability, not tech layers: one service owns each table, others use its API or events. Multi-tenancy: shared schema plus <code>tenant_id</code> and RLS, schema per tenant, database per tenant.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-tue-1"><span>Read the microservices.io pattern map: decompose by business capability, database per service, API composition, CQRS</span></li>
+        <li data-id="w1-tue-2"><span>Newman, Monolith to Microservices: chapters on splitting the database and on data ownership</span></li>
+        <li data-id="w1-tue-3"><span>Read the Azure multitenant guide and the AWS SaaS fundamentals; make a table of isolation, cost, noisy neighbor and operational load for the three tenancy models</span></li>
+        <li data-id="w1-tue-4"><span>Write down what a "tenant" probably is at the client (business unit or app) and the question you would ask to confirm it</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://microservices.io/patterns/microservices.html">Microservice architecture patterns</a></li>
+        <li><a href="https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/">Monolith to Microservices (Newman)</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/overview">Azure multitenant architecture guide</a></li>
+        <li><a href="https://docs.aws.amazon.com/whitepapers/latest/saas-architecture-fundamentals/saas-architecture-fundamentals.html">AWS SaaS architecture fundamentals</a></li>
+        <li><a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/">Designing Data-Intensive Applications, 2nd edition</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Consistency choices, sagas and ADRs</h3>
+    <p class="focus">Where you need one transaction, where eventual consistency through events is fine, and where a saga or a workflow coordinates a multi-service change. ADRs turn a whiteboard session into something others can review.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wed-1"><span>DDIA: chapters on transactions and on consistency; note the anomalies Read Committed allows</span></li>
+        <li data-id="w1-wed-2"><span>Read the saga and transactional outbox patterns; sketch an "opportunity closed-won creates a renewal" saga with compensations</span></li>
+        <li data-id="w1-wed-3"><span>Write a one-page ADR template (context, options, decision, consequences) you will reuse all plan</span></li>
+        <li data-id="w1-wed-4"><span>For the Keystone brief, list three decisions that deserve an ADR and two that do not</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/">Designing Data-Intensive Applications, 2nd edition</a></li>
+        <li><a href="https://microservices.io/patterns/data/saga.html">Saga pattern (microservices.io)</a></li>
+        <li><a href="https://microservices.io/patterns/data/transactional-outbox.html">Transactional outbox (microservices.io)</a></li>
+        <li><a href="https://microservices.io/patterns/microservices.html">Microservice architecture patterns</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>CRM domain: Salesforce objects, IDs and hidden logic</h3>
+    <p class="focus">Account, Contact, Lead (converts into Account, Contact and Opportunity), Opportunity with line items and contact roles, Task and Event with the polymorphic <code>WhoId</code>/<code>WhatId</code>. 15- vs 18-character IDs. The real requirements live in validation rules, flows, triggers, roll-ups and sharing rules.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-thu-1"><span>Trailhead data modeling and leads/opportunities modules; draw the object graph with cardinalities</span></li>
+        <li data-id="w1-thu-2"><span>Read how 15-character IDs (case-sensitive) map to 18-character IDs (case-insensitive checksum suffix); you will debug exactly this in w1-t1</span></li>
+        <li data-id="w1-thu-3"><span>Trailhead API basics and Change Data Capture: Bulk API 2.0 for extraction, CDC for changes during the transition</span></li>
+        <li data-id="w1-thu-4"><span>List where business logic hides in a CRM org and, for each kind, what its new home on a platform would be</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://trailhead.salesforce.com/content/learn/modules/data_modeling">Trailhead: data modeling</a></li>
+        <li><a href="https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience">Trailhead: leads and opportunities</a></li>
+        <li><a href="https://trailhead.salesforce.com/content/learn/modules/api_basics">Trailhead: Salesforce API basics</a></li>
+        <li><a href="https://trailhead.salesforce.com/content/learn/modules/change-data-capture">Trailhead: Change Data Capture basics</a></li>
+        <li><a href="https://trailhead.salesforce.com/content/learn/modules/large-data-volumes">Trailhead: large data volumes</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Shared core, compressed: Claude Code, tool calling, MCP, LLM security</h3>
+    <p class="focus">The posting wants AI tools in your daily workflow and agentic apps on the platform. You already live in Claude Code; spend one evening turning that into vocabulary: skills, hooks as deterministic guardrails, MCP servers designed around tasks, and why tool scoping, not model behavior, is the control.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-fri-1"><span>Skim Claude Code skills, subagents, hooks and headless mode; write three sentences on how you would roll them out to a team of ten backend engineers</span></li>
+        <li data-id="w1-fri-2"><span>Read the tool use overview and "Writing effective tools for agents"; note what makes a tool task-level rather than one-per-endpoint</span></li>
+        <li data-id="w1-fri-3"><span>Read the MCP introduction and the authorization section of the spec</span></li>
+        <li data-id="w1-fri-4"><span>Read the lethal trifecta post and the OWASP LLM Top 10 entries on prompt injection and excessive agency</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://code.claude.com/docs/en/skills">Claude Code skills</a></li>
+        <li><a href="https://code.claude.com/docs/en/hooks">Claude Code hooks</a></li>
+        <li><a href="https://code.claude.com/docs/en/headless">Claude Code headless mode</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization">MCP specification: authorization</a></li>
+        <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li>
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: whiteboard write-up and a migration bug</h3>
+    <p class="focus">One long block on the week-1 workbook exercises: the first architecture write-up with two ADRs, and a pilot import that attached contacts to the wrong accounts.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wk-1"><span>w1-c1: write the Keystone platform design (boundaries, data model, interfaces, deep dives, migration) and ADRs 0001 and 0002</span></li>
+        <li data-id="w1-wk-2"><span>w1-t1: find why the pilot import merged accounts; fix the importer and make the reconciliation report clean</span></li>
+        <li data-id="w1-wk-3"><span>Record yourself explaining the w1-c1 diagram in 5 minutes; note every place you said "it depends" without saying on what</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://microservices.io/patterns/refactoring/strangler-application.html">Strangler application (microservices.io)</a></li>
+        <li><a href="https://martinfowler.com/bliki/StranglerFigApplication.html">Strangler fig application (Fowler)</a></li>
+        <li><a href="https://trailhead.salesforce.com/content/learn/modules/lex_implementation_data_management">Trailhead: importing and exporting data</a></li>
+      </ul></div>
+    </div>
+    <div class="exchips"><span class="small">Workbook:</span><a class="exchip" href="workbooks/backend/workbook.html#ex-w1-c1">w1-c1</a><a class="exchip" href="workbooks/backend/workbook.html#ex-w1-t1">w1-t1</a></div>
+    <div class="deliverable"><b>Deliverable:</b> Whiteboard write-up 1 with two ADRs, and a clean reconciliation report for the pilot import.</div>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/backend/workbook.html#w1">Week 1 tab of the workbook</a>. Run <code>make setup</code> in the exercise folder, solve, then <code>/grade backend/&lt;id&gt;</code> from <code>workbooks/</code>.</p>
+    <ul class="links">
+      <li><a href="workbooks/backend/workbook.html#ex-w1-c1">w1-c1</a> design - Whiteboard write-up: the Keystone platform layer (2-3 h)</li>
+      <li><a href="workbooks/backend/workbook.html#ex-w1-t1">w1-t1</a> troubleshooting - Contacts attached to the wrong accounts after the pilot import (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+<!-- ============================== WEEK 2 ============================== -->
+<section class="page" id="week2" data-title="Week 2">
+  <h2>Week 2 - PostgreSQL in depth <button class="reset" data-reset="w2">reset week</button></h2>
+  <p class="lede">"Deep database experience, especially PostgreSQL" is a required bullet, and you know Postgres as infrastructure. This week makes you the schema designer: constraints as business rules, indexes from queries, reading plans, tenancy enforced by RLS, and the locking behavior that decides whether a migration is safe. The workbook runs real PostgreSQL 18 in-process through PGlite.</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Modeling: keys, constraints, custom fields, soft deletes</h3>
+    <p class="focus">Normalize first, then denormalize on purpose. Surrogate keys (UUIDv7 or bigint identity) plus the legacy CRM id, foreign keys, <code>CHECK</code> and <code>UNIQUE</code> as business rules, <code>jsonb</code> for genuinely open-ended custom fields, and why soft deletes complicate uniqueness.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-mon-1"><span>Read the JSON types page (jsonb operators, containment, GIN opclasses)</span></li>
+        <li data-id="w2-mon-2"><span>Model accounts, contacts, opportunities and activities on paper with every constraint you can justify; mark which CRM validation rules became constraints</span></li>
+        <li data-id="w2-mon-3"><span>Write the partial unique index for contact email that ignores soft-deleted rows; explain why a plain UNIQUE breaks</span></li>
+        <li data-id="w2-mon-4"><span>Decide enums vs lookup tables for opportunity stage and defend it in two sentences</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.postgresql.org/docs/current/datatype-json.html">PostgreSQL: JSON types</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/indexes.html">PostgreSQL: indexes</a></li>
+        <li><a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/">Designing Data-Intensive Applications, 2nd edition</a></li>
+        <li><a href="https://pglite.dev/">PGlite (PostgreSQL in WebAssembly, used by the workbook)</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Indexes that match the queries</h3>
+    <p class="focus">B-tree column order, composite and covering (<code>INCLUDE</code>) indexes, partial and expression indexes, GIN for <code>jsonb</code>, and indexes that support keyset pagination. Design indexes from the query, not from the table.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-tue-1"><span>Use The Index, Luke: the chapters on concatenated indexes, ranges and ORDER BY</span></li>
+        <li data-id="w2-tue-2"><span>Read the PostgreSQL indexes chapter sections on multicolumn, partial and expression indexes</span></li>
+        <li data-id="w2-tue-3"><span>For the three portfolio queries (account timeline, my open opportunities, custom-field search) write the index each needs and the predicate shape that keeps it usable</span></li>
+        <li data-id="w2-tue-4"><span>Write down two ways a correct index becomes useless (a cast or function on the column, a leading column the query does not constrain)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://use-the-index-luke.com/">Use The Index, Luke</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/indexes.html">PostgreSQL: indexes</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/sql-createindex.html">PostgreSQL: CREATE INDEX (CONCURRENTLY)</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/datatype-json.html">PostgreSQL: JSON types</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Reading plans: EXPLAIN (ANALYZE, BUFFERS) and pg_stat_statements</h3>
+    <p class="focus">Seq scan vs index scan vs bitmap, nested loop vs hash join, row estimate errors and stale statistics, buffers, and <code>pg_stat_statements</code> to find the queries worth fixing.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wed-1"><span>Read Using EXPLAIN completely; then pgMustard's glossary for every node type you meet</span></li>
+        <li data-id="w2-wed-2"><span>In the workbook's PGlite (or a local Postgres), seed 50,000 activities and compare plans for the timeline query with and without the composite index</span></li>
+        <li data-id="w2-wed-3"><span>Paste a plan into explain.dalibo.com and explain the costliest node in one sentence</span></li>
+        <li data-id="w2-wed-4"><span>Read pg_stat_statements: which columns tell you mean vs total time, and why total time decides priority</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.postgresql.org/docs/current/using-explain.html">PostgreSQL: using EXPLAIN</a></li>
+        <li><a href="https://www.pgmustard.com/docs/explain">pgMustard EXPLAIN glossary</a></li>
+        <li><a href="https://explain.dalibo.com/">explain.dalibo.com (plan visualizer)</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/pgstatstatements.html">PostgreSQL: pg_stat_statements</a></li>
+        <li><a href="https://pglite.dev/">PGlite (PostgreSQL in WebAssembly, used by the workbook)</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Row-level security for tenancy, and SET LOCAL under a pooler</h3>
+    <p class="focus"><code>ENABLE</code> plus <code>FORCE ROW LEVEL SECURITY</code> (owners bypass otherwise), an app role without <code>BYPASSRLS</code>, policies on <code>current_setting('app.tenant_id', true)</code>, and setting it with <code>SET LOCAL</code> inside each transaction so it cannot leak across pooled connections (PgBouncer transaction mode).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-thu-1"><span>Read row security policies and CREATE POLICY (USING vs WITH CHECK, permissive vs restrictive)</span></li>
+        <li data-id="w2-thu-2"><span>Read the Crunchy Data tenant RLS post; note the missing-setting behavior with the second argument of current_setting</span></li>
+        <li data-id="w2-thu-3"><span>Prove it: as the app role with no tenant set, a SELECT returns zero rows rather than an error or all rows</span></li>
+        <li data-id="w2-thu-4"><span>Write the one-paragraph explanation of why <code>SET</code> (session) is a data leak under transaction pooling and <code>SET LOCAL</code> is not</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.postgresql.org/docs/current/ddl-rowsecurity.html">PostgreSQL: row security policies</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/sql-createpolicy.html">PostgreSQL: CREATE POLICY</a></li>
+        <li><a href="https://www.crunchydata.com/blog/row-level-security-for-tenants-in-postgres">Row-level security for tenants (Crunchy Data)</a></li>
+        <li><a href="https://pglite.dev/">PGlite (PostgreSQL in WebAssembly, used by the workbook)</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>MVCC, isolation and locks</h3>
+    <p class="focus">What Read Committed allows, when to use Serializable or <code>SELECT ... FOR UPDATE</code>, lock queues, deadlocks, vacuum and bloat. This is where your operator experience with replicas and capacity meets the schema owner's view.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-fri-1"><span>Read the MVCC intro and transaction isolation pages; write one lost-update example and the two ways to prevent it</span></li>
+        <li data-id="w2-fri-2"><span>Read explicit locking: the table-level lock conflict matrix, and which DDL takes ACCESS EXCLUSIVE</span></li>
+        <li data-id="w2-fri-3"><span>Explain a lock queue: why one waiting ALTER TABLE blocks every later reader</span></li>
+        <li data-id="w2-fri-4"><span>Note when you would choose optimistic version checks vs FOR UPDATE for opportunity stage changes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.postgresql.org/docs/current/mvcc.html">PostgreSQL: concurrency control (MVCC)</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/transaction-iso.html">PostgreSQL: transaction isolation</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/explicit-locking.html">PostgreSQL: explicit locking</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/sql-altertable.html">PostgreSQL: ALTER TABLE (NOT VALID)</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: tenancy in the database, and a slow timeline</h3>
+    <p class="focus">Write the Keystone core schema with RLS and the indexes the queries need, then debug a timeline query that went from fast to slow after a release.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wk-1"><span>w2-c1: migrations for the core schema with composite tenant FKs, constraints, RLS (ENABLE + FORCE) and indexes; tests prove zero rows without a tenant</span></li>
+        <li data-id="w2-wk-2"><span>w2-t1: find why the account timeline p95 jumped after release 2026.44, with plan evidence</span></li>
+        <li data-id="w2-wk-3"><span>Save before/after plans for both into your portfolio's <code>docs/query-plans.md</code></span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.postgresql.org/docs/current/ddl-rowsecurity.html">PostgreSQL: row security policies</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/using-explain.html">PostgreSQL: using EXPLAIN</a></li>
+        <li><a href="https://use-the-index-luke.com/">Use The Index, Luke</a></li>
+      </ul></div>
+    </div>
+    <div class="exchips"><span class="small">Workbook:</span><a class="exchip" href="workbooks/backend/workbook.html#ex-w2-c1">w2-c1</a><a class="exchip" href="workbooks/backend/workbook.html#ex-w2-t1">w2-t1</a></div>
+    <div class="deliverable"><b>Deliverable:</b> Portfolio schema with RLS, three tuned queries with before/after plans.</div>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/backend/workbook.html#w2">Week 2 tab of the workbook</a>. Run <code>make setup</code> in the exercise folder, solve, then <code>/grade backend/&lt;id&gt;</code> from <code>workbooks/</code>.</p>
+    <ul class="links">
+      <li><a href="workbooks/backend/workbook.html#ex-w2-c1">w2-c1</a> coding - Keystone core schema with tenancy enforced in the database (2-3 h)</li>
+      <li><a href="workbooks/backend/workbook.html#ex-w2-t1">w2-t1</a> troubleshooting - The account timeline got slow after release 2026.44 (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+<!-- ============================== WEEK 3 ============================== -->
+<section class="page" id="week3" data-title="Week 3">
+  <h2>Week 3 - Python services and API design <button class="reset" data-reset="w3">reset week</button></h2>
+  <p class="lede">Production-grade FastAPI on async SQLAlchemy 2, and the API rules that matter when other teams and agents depend on you: idempotency keys, keyset pagination, problem details and additive versioning.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>FastAPI: contracts, dependencies, lifespan</h3>
+    <p class="focus">Path operations with Pydantic models as request and response contracts, dependency injection for the DB session, current user and tenant, lifespan events for pools, and the limits of background tasks.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-mon-1"><span>Read FastAPI dependencies (including dependencies with yield) and build a session dependency that commits or rolls back</span></li>
+        <li data-id="w3-mon-2"><span>Write response models that never leak internal columns; check the generated OpenAPI</span></li>
+        <li data-id="w3-mon-3"><span>Read testing with dependency overrides; override the tenant dependency in a test</span></li>
+        <li data-id="w3-mon-4"><span>Note what a FastAPI background task is not (durable, retried) and what you would use instead</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://fastapi.tiangolo.com/">FastAPI</a></li>
+        <li><a href="https://fastapi.tiangolo.com/tutorial/dependencies/">FastAPI: dependencies</a></li>
+        <li><a href="https://fastapi.tiangolo.com/advanced/testing-dependencies/">FastAPI: testing with dependency overrides</a></li>
+        <li><a href="https://pydantic.dev/docs/validation/latest/get-started/">Pydantic docs</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Async correctly, and SQLAlchemy 2 sessions</h3>
+    <p class="focus">What blocks the event loop, <code>async def</code> vs <code>def</code> endpoints, timeouts and cancellation, bounded concurrency; SQLAlchemy 2.0 style with the async engine on asyncpg, one session per request, explicit transactions, eager loading to avoid N+1, pool sizing against <code>max_connections</code>.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-tue-1"><span>Read FastAPI's concurrency page; list three things that silently block the loop in a typical service</span></li>
+        <li data-id="w3-tue-2"><span>SQLAlchemy unified tutorial (2.0 style select) and the asyncio extension (AsyncSession, expire_on_commit, lazy loading pitfalls)</span></li>
+        <li data-id="w3-tue-3"><span>Set the RLS tenant per transaction from the session dependency with <code>set_config('app.tenant_id', :t, true)</code></span></li>
+        <li data-id="w3-tue-4"><span>Compute a pool budget: pods x pool_size + max_overflow against Postgres max_connections and the pooler</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://fastapi.tiangolo.com/async/">FastAPI: concurrency and async/await</a></li>
+        <li><a href="https://docs.python.org/3/library/asyncio.html">Python asyncio</a></li>
+        <li><a href="https://docs.sqlalchemy.org/en/20/tutorial/index.html">SQLAlchemy 2.0 unified tutorial</a></li>
+        <li><a href="https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html">SQLAlchemy asyncio extension</a></li>
+        <li><a href="https://magicstack.github.io/asyncpg/current/">asyncpg docs</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>REST resource design for APIs other teams depend on</h3>
+    <p class="focus">Nouns and standard methods, partial updates, RFC 9457 problem details, OpenAPI as the contract, additive evolution within a version and deprecation windows. Consumers you do not know about will break.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wed-1"><span>Read the Google API design guide sections on resources, standard methods and errors</span></li>
+        <li data-id="w3-wed-2"><span>Read RFC 9457 and write the problem types Keystone needs (validation, not found, conflict, idempotency mismatch)</span></li>
+        <li data-id="w3-wed-3"><span>Write the OpenAPI for accounts and contacts before any code (spec-first)</span></li>
+        <li data-id="w3-wed-4"><span>Write a versioning policy in five bullets: what is additive, what needs v2, how long deprecation lasts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/apis/design">Google API design guide</a></li>
+        <li><a href="https://www.rfc-editor.org/rfc/rfc9457.html">RFC 9457: problem details</a></li>
+        <li><a href="https://openapis.org/">OpenAPI Initiative</a></li>
+        <li><a href="https://github.com/github/spec-kit">GitHub Spec Kit</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Idempotency keys and cursor pagination</h3>
+    <p class="focus">Agents and workflow activities retry, so every create and side-effecting call takes an idempotency key: store key, request fingerprint and response, replay on retry, reject a reused key with a different body. Pagination is keyset with a stable, unique sort and an opaque cursor.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-thu-1"><span>Read Stripe's idempotent requests and Brandur's Postgres implementation; note how the key is claimed atomically</span></li>
+        <li data-id="w3-thu-2"><span>Read the IETF Idempotency-Key draft: status codes for a concurrent duplicate and for a mismatched payload</span></li>
+        <li data-id="w3-thu-3"><span>Read AIP-158; write the keyset query on <code>(created_at, id)</code> and explain why <code>created_at</code> alone skips rows</span></li>
+        <li data-id="w3-thu-4"><span>Decide what goes in a cursor and how you stop clients from forging one</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.stripe.com/api/idempotent_requests">Stripe: idempotent requests</a></li>
+        <li><a href="https://brandur.org/idempotency-keys">Idempotency keys in Postgres (Brandur Leach)</a></li>
+        <li><a href="https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/">IETF draft: Idempotency-Key header</a></li>
+        <li><a href="https://google.aip.dev/158">AIP-158: pagination</a></li>
+        <li><a href="https://relay.dev/graphql/connections.htm">Relay cursor connections spec</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Alembic and testing with real dependencies</h3>
+    <p class="focus">Alembic migrations (autogenerate, and why you still review every file), pytest against a real Postgres with Testcontainers, dependency overrides, and contract tests on the OpenAPI schema.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-fri-1"><span>Read the Alembic tutorial; generate a migration and find one thing autogenerate got wrong or missed</span></li>
+        <li data-id="w3-fri-2"><span>Read the Testcontainers getting started for Python; plan a CI job that runs tests against Postgres 16+</span></li>
+        <li data-id="w3-fri-3"><span>Write a contract test that fails when a response field is removed or renamed</span></li>
+        <li data-id="w3-fri-4"><span>Use uv for the project; pin and lock dependencies</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://alembic.sqlalchemy.org/en/latest/">Alembic docs</a></li>
+        <li><a href="https://testcontainers.com/">Testcontainers</a></li>
+        <li><a href="https://fastapi.tiangolo.com/advanced/testing-dependencies/">FastAPI: testing with dependency overrides</a></li>
+        <li><a href="https://docs.astral.sh/uv/">uv</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: idempotency under concurrency, and a pagination bug</h3>
+    <p class="focus">Two exercises that are straight from the posting: an idempotency layer that must hold when 20 retries arrive at once, and a partner sync that silently loses contacts.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wk-1"><span>w3-c1: idempotency keys that survive concurrent retries (claim by insert, replay, mismatch, release on failure)</span></li>
+        <li data-id="w3-wk-2"><span>w3-t1: find why the marketing partner sync is missing contacts; fix the cursor and prove a full walk returns every row once</span></li>
+        <li data-id="w3-wk-3"><span>Load-test your accounts service with 200 concurrent clients; write down the first bottleneck (pool or N+1) and the fix</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://brandur.org/idempotency-keys">Idempotency keys in Postgres (Brandur Leach)</a></li>
+        <li><a href="https://google.aip.dev/158">AIP-158: pagination</a></li>
+        <li><a href="https://www.rfc-editor.org/rfc/rfc9457.html">RFC 9457: problem details</a></li>
+      </ul></div>
+    </div>
+    <div class="exchips"><span class="small">Workbook:</span><a class="exchip" href="workbooks/backend/workbook.html#ex-w3-c1">w3-c1</a><a class="exchip" href="workbooks/backend/workbook.html#ex-w3-t1">w3-t1</a></div>
+    <div class="deliverable"><b>Deliverable:</b> Python accounts/contacts service with idempotency keys, cursor pagination and RFC 9457 errors.</div>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/backend/workbook.html#w3">Week 3 tab of the workbook</a>. Run <code>make setup</code> in the exercise folder, solve, then <code>/grade backend/&lt;id&gt;</code> from <code>workbooks/</code>.</p>
+    <ul class="links">
+      <li><a href="workbooks/backend/workbook.html#ex-w3-c1">w3-c1</a> coding - Idempotency keys that survive concurrent retries (2-3 h)</li>
+      <li><a href="workbooks/backend/workbook.html#ex-w3-t1">w3-t1</a> troubleshooting - The partner sync is missing contacts (1.5 h)</li>
+    </ul>
+  </div>
+</section>
+<!-- ============================== WEEK 4 ============================== -->
+<section class="page" id="week4" data-title="Week 4">
+  <h2>Week 4 - TypeScript services and a GraphQL read layer <button class="reset" data-reset="w4">reset week</button></h2>
+  <p class="lede">You write TypeScript daily for CDK and Node runtimes; the gap is long-running HTTP services and their data layer. Fastify, Kysely and Zod, a transaction that writes the outbox with the change, and a GraphQL read layer that batches without leaking. Go starts on Friday.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>The Node event loop and graceful shutdown</h3>
+    <p class="focus">What blocks the loop, worker threads for CPU work, keep-alive and timeouts, and graceful shutdown on SIGTERM: stop accepting, drain in-flight requests, close pools. You know why this matters in Kubernetes; now write it.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-mon-1"><span>Read the Node event loop guide; explain microtasks vs the phases to yourself without notes</span></li>
+        <li data-id="w4-mon-2"><span>Write a SIGTERM handler that flips readiness, waits for in-flight requests and closes the DB pool with a deadline</span></li>
+        <li data-id="w4-mon-3"><span>Compare server keepAliveTimeout with your load balancer idle timeout; write the rule</span></li>
+        <li data-id="w4-mon-4"><span>Note one CPU-heavy task in a CRM backend (CSV parsing, PDF) and where it should run</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://nodejs.org/learn/asynchronous-work/event-loop-timers-and-nexttick">Node.js: the event loop, timers and nextTick</a></li>
+        <li><a href="https://fastify.dev/docs/latest/">Fastify docs</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Fastify schemas and Zod at the edges</h3>
+    <p class="focus">Fastify is schema-first: JSON Schema validation and serialization per route, which matches contract-first API design. Zod validates config and inbound events and gives you shared types between services. Learn to read NestJS in case the client uses it.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-tue-1"><span>Fastify docs: routes, validation and serialization, hooks, plugins and encapsulation, error handler</span></li>
+        <li data-id="w4-tue-2"><span>Build one route with a response schema and show it drops undeclared fields</span></li>
+        <li data-id="w4-tue-3"><span>Zod: parse config at startup and fail fast; parse inbound events at the consumer edge</span></li>
+        <li data-id="w4-tue-4"><span>Skim the NestJS overview (modules, providers, guards) so a NestJS codebase reads familiar</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://fastify.dev/docs/latest/">Fastify docs</a></li>
+        <li><a href="https://zod.dev/">Zod</a></li>
+        <li><a href="https://docs.nestjs.com/">NestJS docs</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Kysely, transactions, FOR UPDATE and SET LOCAL</h3>
+    <p class="focus">Kysely is a type-safe SQL query builder: your Postgres work (indexes, plans, <code>SET LOCAL</code> for RLS inside a transaction) carries over directly. Know Drizzle and Prisma well enough to discuss the trade-offs.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wed-1"><span>Kysely docs: getting started, transactions, raw sql, migrations</span></li>
+        <li data-id="w4-wed-2"><span>Write a transaction that sets the tenant, locks the opportunity row FOR UPDATE, validates and writes an outbox row</span></li>
+        <li data-id="w4-wed-3"><span>Compare Kysely, Drizzle and Prisma on per-transaction session settings for RLS and on generated SQL visibility</span></li>
+        <li data-id="w4-wed-4"><span>Decide optimistic versioning vs FOR UPDATE for stage transitions and write down why</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://kysely.dev/docs/intro">Kysely docs</a></li>
+        <li><a href="https://orm.drizzle.team/docs/overview">Drizzle ORM docs</a></li>
+        <li><a href="https://www.prisma.io/docs">Prisma docs</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/explicit-locking.html">PostgreSQL: explicit locking</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>A GraphQL read layer: connections, DataLoader, field auth</h3>
+    <p class="focus">GraphQL fits a read layer that joins accounts, contacts and opportunities for UI and agent clients; it does not fit write-heavy command APIs. Connections-style pagination, N+1 and DataLoader (per request), field-level authorization and query cost limits.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-thu-1"><span>Read GraphQL learn: schema, execution, pagination, authorization and best practices</span></li>
+        <li data-id="w4-thu-2"><span>Read the Relay connections spec and map it onto your keyset cursors</span></li>
+        <li data-id="w4-thu-3"><span>Read the DataLoader README: batching, caching, and why a loader is created per request</span></li>
+        <li data-id="w4-thu-4"><span>Apollo schema design: write the Account type with contacts and openOpportunities fields</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://graphql.org/learn/">GraphQL: learn</a></li>
+        <li><a href="https://graphql.org/learn/pagination/">GraphQL: pagination</a></li>
+        <li><a href="https://graphql.org/learn/authorization/">GraphQL: authorization</a></li>
+        <li><a href="https://graphql.org/learn/best-practices/">GraphQL: best practices</a></li>
+        <li><a href="https://relay.dev/graphql/connections.htm">Relay cursor connections spec</a></li>
+        <li><a href="https://github.com/graphql/dataloader">DataLoader (GitHub)</a></li>
+        <li><a href="https://www.apollographql.com/docs/graphos/schema-design">Apollo: schema design</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Go basics, part 1</h3>
+    <p class="focus">Go is a required bullet ("Go or Java") and the right pick for you: Kubernetes, Helm and Terraform are Go, and the platform glue this team needs (relays, sidecars, CLIs) is too. Start the language now so week 5 can build with it.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-fri-1"><span>A Tour of Go: basics, methods and interfaces, generics, concurrency</span></li>
+        <li data-id="w4-fri-2"><span>Effective Go: names, errors, interfaces, embedding, concurrency</span></li>
+        <li data-id="w4-fri-3"><span>Go by Example: goroutines, channels, select, context, worker pools</span></li>
+        <li data-id="w4-fri-4"><span>Read "organizing a module" and set up a module with cmd/ and internal/</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/tour/">A Tour of Go</a></li>
+        <li><a href="https://go.dev/doc/effective_go">Effective Go</a></li>
+        <li><a href="https://gobyexample.com/">Go by Example</a></li>
+        <li><a href="https://go.dev/doc/modules/layout">Go: organizing a module</a></li>
+        <li><a href="https://dev.java/learn/">dev.java learning path</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: stage transitions with an outbox, and a GraphQL leak</h3>
+    <p class="focus">The pipeline service's core write path, and an incident where the read layer showed one team another team's data.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wk-1"><span>w4-c1: opportunity stage transitions in one transaction with a row lock, stage history and an outbox row, RFC 9457 errors</span></li>
+        <li data-id="w4-wk-2"><span>w4-t1: find why sales managers saw account names from another business unit in the pipeline view</span></li>
+        <li data-id="w4-wk-3"><span>Kill the service during a load test and show zero failed requests (graceful shutdown)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://kysely.dev/docs/intro">Kysely docs</a></li>
+        <li><a href="https://fastify.dev/docs/latest/">Fastify docs</a></li>
+        <li><a href="https://github.com/graphql/dataloader">DataLoader (GitHub)</a></li>
+      </ul></div>
+    </div>
+    <div class="exchips"><span class="small">Workbook:</span><a class="exchip" href="workbooks/backend/workbook.html#ex-w4-c1">w4-c1</a><a class="exchip" href="workbooks/backend/workbook.html#ex-w4-t1">w4-t1</a></div>
+    <div class="deliverable"><b>Deliverable:</b> TS opportunities/pipeline service plus a small GraphQL read API across both services.</div>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/backend/workbook.html#w4">Week 4 tab of the workbook</a>. Run <code>make setup</code> in the exercise folder, solve, then <code>/grade backend/&lt;id&gt;</code> from <code>workbooks/</code>.</p>
+    <ul class="links">
+      <li><a href="workbooks/backend/workbook.html#ex-w4-c1">w4-c1</a> coding - Opportunity stage transitions with an outbox (Fastify + Kysely) (2-3 h)</li>
+      <li><a href="workbooks/backend/workbook.html#ex-w4-t1">w4-t1</a> troubleshooting - Sales managers see someone else's account names (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+<!-- ============================== WEEK 5 ============================== -->
+<section class="page" id="week5" data-title="Week 5">
+  <h2>Week 5 - Events, the outbox and Go <button class="reset" data-reset="w5">reset week</button></h2>
+  <p class="lede">Events are how Keystone services integrate without sharing tables. This week is about correctness, not throughput: no dual writes, at-least-once delivery handled by idempotent consumers, and Go for the platform glue.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>The Kafka model, as an application developer</h3>
+    <p class="focus">Topics, partitions, keys and per-key ordering (key by account id), consumer groups, offsets, retention, compaction, delivery semantics and the idempotent producer. Kinesis shards map to partitions and checkpoints to committed offsets; what is new is writing correct producers and consumers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-mon-1"><span>Read the Kafka introduction and the message delivery semantics section</span></li>
+        <li data-id="w5-mon-2"><span>Run Redpanda locally (one container) and produce/consume keyed messages with rpk</span></li>
+        <li data-id="w5-mon-3"><span>Write down what "exactly once" means inside Kafka and why it does not extend to your database</span></li>
+        <li data-id="w5-mon-4"><span>Map your Kinesis/Firehose knowledge onto Kafka terms in a two-column table</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://kafka.apache.org/intro/">Kafka introduction</a></li>
+        <li><a href="https://kafka.apache.org/documentation/#semantics">Kafka docs: message delivery semantics</a></li>
+        <li><a href="https://docs.redpanda.com/streaming/current/get-started/quick-start/">Redpanda quick start</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Dual writes and the transactional outbox</h3>
+    <p class="focus">Writing to the database and publishing to Kafka are two systems and one of them will fail. Write the event row in the same transaction as the change; relay it by polling or by CDC (Debezium outbox router).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-tue-1"><span>Read the transactional outbox pattern and the Debezium outbox event router</span></li>
+        <li data-id="w5-tue-2"><span>Write the outbox table and the polling relay query with <code>FOR UPDATE SKIP LOCKED</code> in batches</span></li>
+        <li data-id="w5-tue-3"><span>List what can make a relay publish an event twice, and which of those are acceptable</span></li>
+        <li data-id="w5-tue-4"><span>Decide polling vs CDC for Keystone phase 1 and write it as an ADR</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://microservices.io/patterns/data/transactional-outbox.html">Transactional outbox (microservices.io)</a></li>
+        <li><a href="https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html">Debezium outbox event router</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/explicit-locking.html">PostgreSQL: explicit locking</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Idempotent consumers, DLQs and event design</h3>
+    <p class="focus">Consumers are at-least-once, so make them idempotent: a processed-event table in the same transaction as the effect, or natural idempotency. Dead-letter topics, poison messages, replay. Thin notification vs full-state events, schema evolution, versioned event types.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wed-1"><span>Design the processed-event table and the transaction that uses it; explain why committing the offset first loses events</span></li>
+        <li data-id="w5-wed-2"><span>Write the DLQ policy: how many attempts, what goes in the DLQ record, who replays and how</span></li>
+        <li data-id="w5-wed-3"><span>Decide event shapes for OpportunityStageChanged (full state) and ActivityLogged (thin) and justify each</span></li>
+        <li data-id="w5-wed-4"><span>Write the compatibility rule you would enforce in CI for event schemas</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://kafka.apache.org/documentation/#semantics">Kafka docs: message delivery semantics</a></li>
+        <li><a href="https://microservices.io/patterns/data/transactional-outbox.html">Transactional outbox (microservices.io)</a></li>
+        <li><a href="https://microservices.io/patterns/data/saga.html">Saga pattern (microservices.io)</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Go for platform glue</h3>
+    <p class="focus"><code>context.Context</code> for cancellation and deadlines through every call, <code>net/http</code> servers and clients with timeouts, graceful shutdown, Postgres from Go with pgx, table-driven tests and the race detector.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-thu-1"><span>Read the context package docs; thread a context through a consumer loop and a DB call</span></li>
+        <li data-id="w5-thu-2"><span>Read net/http: server timeouts, Shutdown, client timeouts</span></li>
+        <li data-id="w5-thu-3"><span>Go tutorial: accessing a relational database; then skim pgx (pgxpool, transactions)</span></li>
+        <li data-id="w5-thu-4"><span>Write one table-driven test and run it with <code>-race</code></span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://pkg.go.dev/context">Go: context package</a></li>
+        <li><a href="https://pkg.go.dev/net/http">Go: net/http package</a></li>
+        <li><a href="https://go.dev/doc/tutorial/database-access">Go tutorial: accessing a relational database</a></li>
+        <li><a href="https://pkg.go.dev/github.com/jackc/pgx/v5">pgx (Postgres driver for Go)</a></li>
+        <li><a href="https://gobyexample.com/">Go by Example</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>RabbitMQ vs Kafka, Redis, and sagas</h3>
+    <p class="focus">Work queues with acks and routing vs a replayable log: pick by whether consumers need history. Redis for cache-aside with explicit TTLs and invalidation, rate limiting and streams; know the limits of Redis locks and use database constraints or a workflow engine for correctness-critical exclusion.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-fri-1"><span>RabbitMQ tutorials 1-3 and the reliability guide (publisher confirms, consumer acks)</span></li>
+        <li data-id="w5-fri-2"><span>Redis: cache-aside with TTL and event-driven invalidation for account cards</span></li>
+        <li data-id="w5-fri-3"><span>Read the Redis distributed locks page including the caveats; write why you would not use it for lead assignment</span></li>
+        <li data-id="w5-fri-4"><span>Revisit the renewal saga from week 1: which steps belong in a workflow engine instead</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.rabbitmq.com/tutorials">RabbitMQ tutorials</a></li>
+        <li><a href="https://www.rabbitmq.com/docs/reliability">RabbitMQ reliability guide</a></li>
+        <li><a href="https://redis.io/docs/latest/">Redis docs</a></li>
+        <li><a href="https://redis.io/docs/latest/develop/data-types/streams/">Redis streams</a></li>
+        <li><a href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/">Redis distributed locks (read the caveats)</a></li>
+        <li><a href="https://microservices.io/patterns/data/saga.html">Saga pattern (microservices.io)</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: an idempotent consumer in Go, and a double-publishing relay</h3>
+    <p class="focus">The two halves of reliable events: a Go consumer that survives duplicates, redelivery and poison messages, and a relay incident where duplicates got past the consumer's dedupe.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wk-1"><span>w5-c1: idempotent timeline consumer in Go (dedupe in the same transaction, offsets after apply, DLQ, shutdown)</span></li>
+        <li data-id="w5-wk-2"><span>w5-t1: find why stage-change duplicates reached downstream after the relay restart</span></li>
+        <li data-id="w5-wk-3"><span>Break your portfolio pipeline on purpose: kill the relay mid-batch, deliver duplicates, reorder two partitions; show the timeline ends up correct</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://microservices.io/patterns/data/transactional-outbox.html">Transactional outbox (microservices.io)</a></li>
+        <li><a href="https://kafka.apache.org/documentation/#semantics">Kafka docs: message delivery semantics</a></li>
+        <li><a href="https://pkg.go.dev/context">Go: context package</a></li>
+      </ul></div>
+    </div>
+    <div class="exchips"><span class="small">Workbook:</span><a class="exchip" href="workbooks/backend/workbook.html#ex-w5-c1">w5-c1</a><a class="exchip" href="workbooks/backend/workbook.html#ex-w5-t1">w5-t1</a></div>
+    <div class="deliverable"><b>Deliverable:</b> Outbox relay and a consumer that builds the activity timeline, with a written failure drill.</div>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/backend/workbook.html#w5">Week 5 tab of the workbook</a>. Run <code>make setup</code> in the exercise folder, solve, then <code>/grade backend/&lt;id&gt;</code> from <code>workbooks/</code>.</p>
+    <ul class="links">
+      <li><a href="workbooks/backend/workbook.html#ex-w5-c1">w5-c1</a> coding - Idempotent timeline consumer in Go (2-3 h)</li>
+      <li><a href="workbooks/backend/workbook.html#ex-w5-t1">w5-t1</a> troubleshooting - Duplicate stage-change events after the relay restart (2 h)</li>
+    </ul>
+  </div>
+</section>
+<!-- ============================== WEEK 6 ============================== -->
+<section class="page" id="week6" data-title="Week 6">
+  <h2>Week 6 - Workflow automation and durable execution <button class="reset" data-reset="w6">reset week</button></h2>
+  <p class="lede">"Workflow automation primitives" are what product teams and agentic apps build on. Temporal is the same idea as Step Functions expressed as code: durable state, retries, timers and human steps, with determinism rules you must respect.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Durable execution and determinism</h3>
+    <p class="focus">Workflow code whose state survives crashes because every step is recorded in an event history and replayed. Workflows must be deterministic; all side effects (DB writes, API calls, LLM calls) live in activities with retry policies and timeouts. Step Functions gives you the operator half already.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-mon-1"><span>Read "what is durable execution" and the workflows and activities concept pages</span></li>
+        <li data-id="w6-mon-2"><span>Read the event history page; trace one execution's events by hand</span></li>
+        <li data-id="w6-mon-3"><span>Temporal Python SDK guide: workflow and activity definitions, workers, retry policies</span></li>
+        <li data-id="w6-mon-4"><span>Write down five things that break determinism in Python workflow code</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://temporal.io/blog/what-is-durable-execution">What is durable execution</a></li>
+        <li><a href="https://docs.temporal.io/workflows">Temporal: workflows</a></li>
+        <li><a href="https://docs.temporal.io/activities">Temporal: activities</a></li>
+        <li><a href="https://docs.temporal.io/encyclopedia/event-history">Temporal: event history</a></li>
+        <li><a href="https://docs.temporal.io/develop/python">Temporal Python SDK guide</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Signals, queries, updates and timers</h3>
+    <p class="focus">How a human approval or an external event reaches a running workflow, and timers for "escalate if not approved in 48 hours". Updates give the caller a validated, synchronous answer; signals are fire-and-forget.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-tue-1"><span>Read sending messages and the Python message-passing guide; compare signal vs update for an approval</span></li>
+        <li data-id="w6-tue-2"><span>Write an approval workflow skeleton with a 48-hour timer and an update validator</span></li>
+        <li data-id="w6-tue-3"><span>Read the Python testing guide: time-skipping environment, mocking activities</span></li>
+        <li data-id="w6-tue-4"><span>Do the first Temporal course module if you prefer guided practice</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.temporal.io/sending-messages">Temporal: signals, queries and updates</a></li>
+        <li><a href="https://docs.temporal.io/develop/python/workflows/message-passing">Temporal Python: message passing</a></li>
+        <li><a href="https://docs.temporal.io/develop/python/best-practices/testing-suite">Temporal Python: testing (time skipping, replay)</a></li>
+        <li><a href="https://learn.temporal.io/courses/">Temporal courses</a></li>
+        <li><a href="https://github.com/temporalio/samples-python">Temporal Python samples</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Versioning running workflows and replay tests</h3>
+    <p class="focus">Changing workflow code while old executions are still running: patching (version markers) or worker versioning, and replay tests against recorded histories in CI before every deploy.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wed-1"><span>Read the Python versioning guide: <code>workflow.patched</code>, deprecate_patch, the three-deploy pattern</span></li>
+        <li data-id="w6-wed-2"><span>Read the replay testing section; export a history from the test environment and replay it</span></li>
+        <li data-id="w6-wed-3"><span>Write the CI step that replays a sample of production histories against the new code</span></li>
+        <li data-id="w6-wed-4"><span>Write the runbook entry for "nondeterminism error after deploy"</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.temporal.io/develop/python/workflows/versioning">Temporal Python: versioning (patching)</a></li>
+        <li><a href="https://docs.temporal.io/develop/python/best-practices/testing-suite">Temporal Python: testing (time skipping, replay)</a></li>
+        <li><a href="https://docs.temporal.io/encyclopedia/event-history">Temporal: event history</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Workflow primitives for product teams and agents</h3>
+    <p class="focus">A small catalog of reusable workflows (assign, approve, notify, sync, escalate) with typed inputs, exposed through an API so product teams do not touch the engine. Agents call a tool that starts a workflow, the workflow enforces approval and retries, and the agent queries status later.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-thu-1"><span>Design the primitives API: start, signal or update, query, cancel; idempotent workflow ids</span></li>
+        <li data-id="w6-thu-2"><span>Write how an agent tool starts a workflow on behalf of a user, and what it must not be able to do</span></li>
+        <li data-id="w6-thu-3"><span>Compare Temporal, Step Functions and a queue plus cron on developer experience, testing, lock-in and long human steps</span></li>
+        <li data-id="w6-thu-4"><span>Skim the TypeScript SDK guide so you can say how the same workflow looks in TS</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.temporal.io/">Temporal docs</a></li>
+        <li><a href="https://docs.temporal.io/develop/typescript">Temporal TypeScript SDK guide</a></li>
+        <li><a href="https://github.com/temporalio/samples-typescript">Temporal TypeScript samples</a></li>
+        <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Delivery and reliability, from the service owner's side</h3>
+    <p class="focus">Your strongest area; the work is showing it as a service owner: readiness vs liveness that reflect real dependencies, migrations as a separate job before rollout, SLOs per API, traces across the outbox and Kafka, tests with real dependencies in CI.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-fri-1"><span>Write readiness and liveness for accounts-svc and say what each must not check</span></li>
+        <li data-id="w6-fri-2"><span>Design the Helm pre-upgrade migration job and the rollback story when a migration fails</span></li>
+        <li data-id="w6-fri-3"><span>Write SLOs for the timeline API and the consumer lag, with the alert you would page on</span></li>
+        <li data-id="w6-fri-4"><span>Plan the CI pipeline: Testcontainers Postgres and Redpanda, migration lint, a smoke load test</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://helm.sh/docs/">Helm docs</a></li>
+        <li><a href="https://docs.docker.com/compose/">Docker Compose</a></li>
+        <li><a href="https://testcontainers.com/">Testcontainers</a></li>
+        <li><a href="https://github.com/sbdchd/squawk">squawk (migration linter)</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: the lead assignment workflow, and a nondeterminism incident</h3>
+    <p class="focus">The approval primitive in real Temporal code, and the deploy that left in-flight workflows stuck.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wk-1"><span>w6-c1: lead assignment workflow with an approval update, 48-hour escalation and an idempotent assign activity</span></li>
+        <li data-id="w6-wk-2"><span>w6-t1: find why lead workflows got stuck after Tuesday's deploy; fix it so recorded histories replay</span></li>
+        <li data-id="w6-wk-3"><span>Write the same lead flow as a Step Functions state machine on paper and list what differs</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.temporal.io/develop/python/workflows/message-passing">Temporal Python: message passing</a></li>
+        <li><a href="https://docs.temporal.io/develop/python/workflows/versioning">Temporal Python: versioning (patching)</a></li>
+        <li><a href="https://docs.temporal.io/develop/python/best-practices/testing-suite">Temporal Python: testing (time skipping, replay)</a></li>
+      </ul></div>
+    </div>
+    <div class="exchips"><span class="small">Workbook:</span><a class="exchip" href="workbooks/backend/workbook.html#ex-w6-c1">w6-c1</a><a class="exchip" href="workbooks/backend/workbook.html#ex-w6-t1">w6-t1</a></div>
+    <div class="deliverable"><b>Deliverable:</b> Lead-assignment workflow with a human approval step, started from the API, with replay tests.</div>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/backend/workbook.html#w6">Week 6 tab of the workbook</a>. Run <code>make setup</code> in the exercise folder, solve, then <code>/grade backend/&lt;id&gt;</code> from <code>workbooks/</code>.</p>
+    <ul class="links">
+      <li><a href="workbooks/backend/workbook.html#ex-w6-c1">w6-c1</a> coding - Lead assignment workflow with manager approval (2-3 h)</li>
+      <li><a href="workbooks/backend/workbook.html#ex-w6-t1">w6-t1</a> troubleshooting - Lead workflows stuck after Tuesday's deploy (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== AI INTEGRATION ============================== -->
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI integration fundamentals <button class="reset" data-reset="ai">reset page</button></h2>
+  <p class="lede">Shared across the study guides. No model training or data science: you call a model over HTTPS and engineer the software around it. Most of it is ordinary API work; the seven areas below are what is different, because an LLM is a probabilistic component, not a deterministic API.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Same</span>What is just API integration</h3>
+    <p class="focus">REST/SDK calls, auth, retries, timeouts, rate limits, streaming (SSE), cost metering. MCP is JSON-RPC with a tool/resource schema; an MCP server is a small service exposing your existing APIs as tools.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-same-1"><span>Make a first Messages API call with streaming; read the usage block (input/output/cache tokens)</span></li>
+        <li data-id="ai-same-2"><span>Read the MCP architecture overview: hosts, clients, servers, tools, resources, prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming messages</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">1</span>Tool design</h3>
+    <p class="focus">Names, descriptions and input schemas decide whether the model picks the right tool with the right arguments. API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-tool-1"><span>Read the tool use docs and Anthropic's guidance on writing tools for agents</span></li>
+        <li data-id="ai-tool-2"><span>Rewrite one vague tool description and compare call accuracy before and after</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">2</span>The agent loop</h3>
+    <p class="focus">Model requests a tool, your code runs it, the result goes back, repeat. Stop conditions, structured errors the model can recover from, parallel tool calls.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-loop-1"><span>Read Building Effective Agents (workflows vs agents)</span></li>
+        <li data-id="ai-loop-2"><span>Hand-write an agent loop with 2-3 tools, max-turn limit and <code>is_error</code> results</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> (a loop you do not write yourself)</li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">3</span>Context engineering and caching</h3>
+    <p class="focus">What goes in the system prompt vs per-request context; staying within the context window; prompt caching for cost and latency (static prefix first, dynamic data after the breakpoint).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-ctx-1"><span>Read the context engineering post and the prompt caching docs</span></li>
+        <li data-id="ai-ctx-2"><span>Show <code>cache_read_input_tokens</code> &gt; 0 on turn 2, then break it by changing one prefix byte</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">4</span>Security</h3>
+    <p class="focus">Prompt injection from untrusted content; model output is untrusted input; the model can skip, fake or reorder tool calls, so enforcement lives server-side. Auth in front of MCP servers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-sec-1"><span>Read the OWASP Top 10 for LLM applications</span></li>
+        <li data-id="ai-sec-2"><span>Read the MCP security best practices and authorization spec</span></li>
+        <li data-id="ai-sec-3"><span>Plant an injection in a tool result; confirm a server-side check (not the prompt) blocks the action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices">MCP security best practices</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">MCP authorization</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">5</span>Evals</h3>
+    <p class="focus">Outputs vary run to run, so test with scored scenario suites ("did it call checkout without confirming?") rather than exact-match asserts. The least familiar part for most engineers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-eval-1"><span>Read the guide on building empirical evaluations and test cases</span></li>
+        <li data-id="ai-eval-2"><span>Write a 10-case eval for your agent: code-graded checks plus one model-graded rubric; run it 3x</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Create strong empirical evaluations</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">6</span>RAG</h3>
+    <p class="focus">Embeddings + a vector store (pgvector, OpenSearch, Azure AI Search), chunking, retrieval quality, citations. A data-pipeline and search problem, not model training.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-rag-1"><span>Read the embeddings docs and the contextual retrieval post</span></li>
+        <li data-id="ai-rag-2"><span>Embed ~50 docs into pgvector, retrieve top-k, answer with citations; measure hit rate on 10 questions</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/news/contextual-retrieval">Contextual retrieval</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">7</span>Observability</h3>
+    <p class="focus">Trace prompts, tool calls, token use and latency per turn. OpenTelemetry has GenAI semantic conventions for exactly this.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-obs-1"><span>Read the OTel GenAI semantic conventions (spans, metrics, events)</span></li>
+        <li data-id="ai-obs-2"><span>Emit one span per model call and per tool call with token counts as attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI semantic conventions</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Build</span>Two starter builds</h3>
+    <p class="focus">The fastest way to close the gap. Do these before going deeper anywhere else.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-build-1"><span>Build 1: agent loop against the Messages API with 2-3 tools you already understand</span></li>
+        <li data-id="ai-build-2"><span>Build 2: streamable-HTTP MCP server in front of a familiar API, with auth, called from Claude Code</span></li>
+        <li data-id="ai-build-3"><span>Add a tiny RAG step to Build 1: embed, retrieve, cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/develop/build-server">MCP: Build a server</a></li>
+        <li><a href="https://code.claude.com/docs/en/mcp">Claude Code: connect MCP servers</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> (API, MCP, MCP Advanced)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card" id="ai-applies">
+    <h3>How this applies to this role</h3>
+    <p>AI-driven backend developer, data platform: you are not building the agents, you are building the platform they run on. The questions are about identity, scoping, approvals and audit at the platform layer, with the model treated as an untrusted caller. Build the starter builds in Python against your Keystone services, and use the <a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a> for the tool server.</p>
+    <table>
+      <tr><th>Area</th><th>Data platform angle</th><th>Plan week</th></tr>
+      <tr><td>1 Tool design</td><td>Task-level tools over the platform (find account, get timeline, log activity, propose assignment), not one tool per REST endpoint; inputs small and typed, outputs paginated</td><td><a href="#week1">W1 Fri</a>, <a href="#week6">W6 Thu</a></td></tr>
+      <tr><td>2 Agent loop</td><td>The agent never holds long-running state: risky writes start a Temporal workflow and the agent queries its status later</td><td><a href="#week6">W6 Thu</a></td></tr>
+      <tr><td>3 Context + caching</td><td>Tool outputs sized for a context window (timeline pages of 20-50 items, summaries), stable tool definitions so the cached prefix holds</td><td><a href="#week4">W4 Thu</a></td></tr>
+      <tr><td>4 Security</td><td>Delegated identity so RLS applies to the agent as to the user; tenant never taken from a tool argument; record content treated as untrusted; write tools idempotent and approval-gated</td><td><a href="#week2">W2 Thu</a>, <a href="#week3">W3 Thu</a></td></tr>
+      <tr><td>5 Evals</td><td>Evals on tool usage: did the agent call the write tool without a proposal, did it page correctly, did it stay inside the tenant</td><td><a href="#week6">W6 Thu</a></td></tr>
+      <tr><td>6 RAG</td><td>Light here: search over activity notes goes to a search index fed by events, with the same tenant filter</td><td><a href="#week5">W5 Wed</a></td></tr>
+      <tr><td>7 Observability</td><td>Append-only audit log (actor, on-behalf-of, agent id, tool, args hash, outcome, trace id) plus OTel GenAI spans; per-agent quotas and rate limits at the gateway</td><td><a href="#week6">W6 Fri</a></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/backend/workbook.html#ai">AI tab of the workbook</a>. Run <code>make setup</code> in the exercise folder, solve, then <code>/grade backend/&lt;id&gt;</code> from <code>workbooks/</code>.</p>
+    <ul class="links">
+      <li><a href="workbooks/backend/workbook.html#ex-ai-c1">ai-c1</a> coding - Tenant-scoped MCP tool server with an audit log (2-3 h)</li>
+      <li><a href="workbooks/backend/workbook.html#ex-ai-t1">ai-t1</a> troubleshooting - The assistant showed another business unit's pipeline (1.5-2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 7 (ADD-ON) ============================== -->
+<section class="page" id="week7" data-title="Week 7 (add-on)">
+  <h2>Week 7 - Migrations at scale and mock whiteboards <button class="reset" data-reset="w7">reset week</button></h2>
+  <p class="lede">Optional week. Zero-downtime migrations and partitioning are the Postgres topics most likely to come up as follow-ups, cutover planning is the client's actual project, and four timed mocks are the best preparation for the whiteboard rounds.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Zero-downtime migrations</h3>
+    <p class="focus">Expand and contract (add new, backfill or dual-write, switch reads, drop old), <code>CREATE INDEX CONCURRENTLY</code> (not in a transaction), constraints as <code>NOT VALID</code> then <code>VALIDATE CONSTRAINT</code>, <code>lock_timeout</code> so a migration fails fast instead of blocking traffic, batched backfills, migration linting in CI.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-mon-1"><span>Read the parallel change bliki and the CONCURRENTLY and NOT VALID sections of the docs</span></li>
+        <li data-id="w7-mon-2"><span>Run squawk on three migrations you wrote in weeks 2-4; fix what it flags</span></li>
+        <li data-id="w7-mon-3"><span>Read the pgroll README; compare its approach to hand-written expand/contract</span></li>
+        <li data-id="w7-mon-4"><span>Write the expand/contract plan for renaming <code>opportunity.amount</code> to <code>amount_usd</code> with zero downtime</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://martinfowler.com/bliki/ParallelChange.html">Parallel change / expand-contract (Fowler)</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/sql-createindex.html">PostgreSQL: CREATE INDEX (CONCURRENTLY)</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/sql-altertable.html">PostgreSQL: ALTER TABLE (NOT VALID)</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/explicit-locking.html">PostgreSQL: explicit locking</a></li>
+        <li><a href="https://github.com/sbdchd/squawk">squawk (migration linter)</a></li>
+        <li><a href="https://github.com/xataio/pgroll">pgroll</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Partitioning the activity table</h3>
+    <p class="focus">Declarative range partitioning by month, partition pruning, the rule that a primary key on a partitioned table must include the partition key, and pg_partman for creating partitions ahead and retiring old ones.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-tue-1"><span>Read table partitioning: pruning, limitations, attaching and detaching</span></li>
+        <li data-id="w7-tue-2"><span>Redesign activities as monthly partitions; rewrite the primary key and the timeline index</span></li>
+        <li data-id="w7-tue-3"><span>Read pg_partman's README: premake, retention, and what to alert on</span></li>
+        <li data-id="w7-tue-4"><span>Write how legal hold interacts with partition retention</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.postgresql.org/docs/current/ddl-partitioning.html">PostgreSQL: table partitioning</a></li>
+        <li><a href="https://github.com/pgpartman/pg_partman">pg_partman</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/indexes.html">PostgreSQL: indexes</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Cutover planning and reconciliation</h3>
+    <p class="focus">Strangler fig per capability behind a routing layer, a one-way CDC sync while the CRM is still the source of truth, then flip the source of truth per capability. Reconciliation is a deliverable: counts, checksums, sampled diffs, orphan checks, and a rollback plan per cutover.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wed-1"><span>Read the strangler fig articles; draw the routing layer for the activities cutover</span></li>
+        <li data-id="w7-wed-2"><span>Write a one-page cutover plan for one internal app: phases, source of truth per phase, drift detection, rollback</span></li>
+        <li data-id="w7-wed-3"><span>Extend your w1-t1 reconciliation report with checksums over normalized fields and sampled diffs</span></li>
+        <li data-id="w7-wed-4"><span>List the CRM features your app depends on that nobody listed (reports, email templates, sharing rules)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://microservices.io/patterns/refactoring/strangler-application.html">Strangler application (microservices.io)</a></li>
+        <li><a href="https://martinfowler.com/bliki/StranglerFigApplication.html">Strangler fig application (Fowler)</a></li>
+        <li><a href="https://trailhead.salesforce.com/content/learn/modules/change-data-capture">Trailhead: Change Data Capture basics</a></li>
+        <li><a href="https://trailhead.salesforce.com/content/learn/modules/large-data-volumes">Trailhead: large data volumes</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Mock sessions 1 and 2 (timed, recorded)</h3>
+    <p class="focus">Two 45-minute sessions on a whiteboard or Excalidraw, recorded. Review each recording the same day: method, numbers, trade-offs said out loud.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-thu-1"><span>Session 1: an activity timeline across 10,000 accounts with 50 M events</span></li>
+        <li data-id="w7-thu-2"><span>Session 2: a tool gateway that lets agents read and write CRM data safely</span></li>
+        <li data-id="w7-thu-3"><span>Write an ADR for the hardest decision in each</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction">Hello Interview: system design in a hurry</a></li>
+        <li><a href="https://bytebytego.com/courses/system-design-interview">ByteByteGo system design course</a></li>
+        <li><a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/">Designing Data-Intensive Applications, 2nd edition</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Mock sessions 3 and 4, and the portfolio pass</h3>
+    <p class="focus">Session 3 is the workbook's x-1. Session 4 repeats the week-1 prompt to measure how far you came.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-fri-1"><span>Session 3: x-1, a self-serve workflow automation service (timed, with curveballs)</span></li>
+        <li data-id="w7-fri-2"><span>Session 4: the platform layer for a company leaving its CRM; compare with your week-1 recording</span></li>
+        <li data-id="w7-fri-3"><span>Portfolio pass: README, ADR index, query plans doc, the one-line pitch at the top</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction">Hello Interview: system design in a hurry</a></li>
+        <li><a href="https://github.com/donnemartin/system-design-primer">System Design Primer</a></li>
+      </ul></div>
+    </div>
+    <div class="exchips"><span class="small">Workbook:</span><a class="exchip" href="workbooks/backend/workbook.html#ex-x-1">x-1</a></div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Build: the migration that took the API down</h3>
+    <p class="focus">A realistic post-incident exercise: evidence from pg_locks and pg_stat_activity, and a rewrite into safe migrations.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wk-1"><span>x-2: find why migration 0057 took the API down; rewrite it as safe migrations that pass the linter</span></li>
+        <li data-id="w7-wk-2"><span>Do an expand/contract migration on your portfolio under a load test and record that error rates did not move</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.postgresql.org/docs/current/explicit-locking.html">PostgreSQL: explicit locking</a></li>
+        <li><a href="https://martinfowler.com/bliki/ParallelChange.html">Parallel change / expand-contract (Fowler)</a></li>
+        <li><a href="https://github.com/sbdchd/squawk">squawk (migration linter)</a></li>
+      </ul></div>
+    </div>
+    <div class="exchips"><span class="small">Workbook:</span><a class="exchip" href="workbooks/backend/workbook.html#ex-x-2">x-2</a></div>
+    <div class="deliverable"><b>Deliverable:</b> An expand/contract migration done live under load, and four recorded mock sessions.</div>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this week</h3>
+    <p>Open the <a href="workbooks/backend/workbook.html#w7">Week 7 tab of the workbook</a>. Run <code>make setup</code> in the exercise folder, solve, then <code>/grade backend/&lt;id&gt;</code> from <code>workbooks/</code>.</p>
+    <ul class="links">
+      <li><a href="workbooks/backend/workbook.html#ex-x-1">x-1</a> design - Timed whiteboard: a self-serve workflow automation service (1.5 h)</li>
+      <li><a href="workbooks/backend/workbook.html#ex-x-2">x-2</a> troubleshooting - The migration that took the API down (2 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== INTERVIEW ============================== -->
+<section class="page" id="interview" data-title="Interview prep">
+  <h2>Interview prep <button class="reset" data-reset="iv">reset page</button></h2>
+  <p class="lede">Likely questions for this posting, with talk-track bullets. Rehearse each question aloud: answer in two minutes, then give the 30-second version. Tick a question once you can do both without notes. The workbook's timed screen (Self-exam tab) and the four mock sessions in week 7 are the dress rehearsals.</p>
+  <div class="progress"><div id="bar-iv"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Design</span>Design the platform layer for a company leaving its CRM</h3>
+    <p class="focus">The likely first whiteboard, and the job's first month. Run the method out loud; spend the first five minutes on questions.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-design-1"><span>"Design the backend platform our apps and agents will build on after we leave the CRM."</span></li>
+        <li data-id="iv-design-2"><span>"Where do you draw the service boundaries, and why there?"</span></li>
+        <li data-id="iv-design-3"><span>"How is a tenant isolated, and how does a partner manager see across tenants?"</span></li>
+        <li data-id="iv-design-4"><span>"What would you build first, and what would you refuse to build in phase 1?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Ask first: what is a tenant here (business unit, app, both), how many product teams, which capability hurts most today, EU residency.</li>
+        <li>Estimate from the inventory: only activities are big (tens of GB, 1 M+ rows a month); writes are small; reads are dominated by one or two consumers. Let the numbers pick partitioning, replicas and caching.</li>
+        <li>Boundaries by data ownership: accounts/contacts, pipeline, activities/timeline, automation (workflows), agent gateway. One owner per table; APIs for now-answers, outbox events for everything downstream (your w1-c1).</li>
+        <li>Tenancy: shared schema plus RLS with FORCE and SET LOCAL per transaction, a region per residency boundary, explicit cross-tenant policy instead of BYPASSRLS (ADR 0001).</li>
+        <li>Close with migration: strangler fig per capability, CDC from the CRM, reconciliation as the cutover gate, a rollback per step.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Design</span>The activity timeline at 50 M events, and other scale follow-ups</h3>
+    <p class="focus">Interviewers push one component until it breaks. Know your numbers and the index that makes the query cheap.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-scale-1"><span>"The newest 50 activities for an account with 400,000 of them, p95 under 200 ms. How?"</span></li>
+        <li data-id="iv-scale-2"><span>"Activities grow 1.1 M a month and must be kept 7 years. What changes?"</span></li>
+        <li data-id="iv-scale-3"><span>"The support console is 60% of reads with a 150 ms budget. Where do those reads go?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Keyset query on <code>(tenant_id, account_id, occurred_at DESC, id DESC)</code> with a row-value cursor; it reads a few index pages per partition regardless of account size.</li>
+        <li>Monthly range partitions on occurred_at; the primary key includes the partition key; pg_partman creates partitions ahead; retention and legal hold become detach operations.</li>
+        <li>Read replica plus cache-aside with short TTLs invalidated by events for account cards; accept replica lag and show where it is visible.</li>
+        <li>Operator angle: alert on missing future partitions, replica lag, and outbox age; you have run these in production, say so.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Postgres</span>PostgreSQL depth: plans, RLS, locks and migrations</h3>
+    <p class="focus">"Deep database experience" is a required bullet. Expect a plan to read, an RLS question and a migration question.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-pg-1"><span>"Here is an EXPLAIN ANALYZE. What is wrong and what would you change?"</span></li>
+        <li data-id="iv-pg-2"><span>"How do you make sure one tenant can never read another's rows, even with a pooler?"</span></li>
+        <li data-id="iv-pg-3"><span>"Add a foreign key and an index to a 50 M row table without downtime."</span></li>
+        <li data-id="iv-pg-4"><span>"Two requests change the same opportunity stage at once. What happens?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Read plans bottom up: estimated vs actual rows, the node that does the work, buffers. Common causes: a cast or function on an indexed column, a missing composite index for the ORDER BY, stale statistics (your w2-t1).</li>
+        <li>RLS: ENABLE and FORCE, app role without BYPASSRLS, policies USING and WITH CHECK on <code>current_setting('app.tenant_id', true)</code>, set with <code>set_config(..., true)</code> inside the transaction; a test that proves zero rows without a tenant (w2-c1).</li>
+        <li>Migrations: lock_timeout first; CREATE INDEX CONCURRENTLY outside a transaction; ADD CONSTRAINT ... NOT VALID then VALIDATE CONSTRAINT; batched backfills; squawk in CI (x-2).</li>
+        <li>Concurrency: SELECT ... FOR UPDATE on the row, or an optimistic version column with a 409; Read Committed allows the lost update otherwise.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">API</span>APIs other teams depend on</h3>
+    <p class="focus">The posting says it twice. Show rules, not taste.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-api-1"><span>"An agent retries a create after a timeout. What stops a duplicate?"</span></li>
+        <li data-id="iv-api-2"><span>"Design pagination for a partner that syncs 2 M contacts."</span></li>
+        <li data-id="iv-api-3"><span>"REST or GraphQL for this platform?"</span></li>
+        <li data-id="iv-api-4"><span>"How do you change an API that teams you do not know about depend on?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Idempotency keys: claim (tenant, key) by insert under a unique constraint, store a request fingerprint and the response, replay with a header, 422 on a different body, 409 while in progress, release on failure (w3-c1).</li>
+        <li>Keyset on a unique, stable sort (created_at, id), opaque cursor, bounded limit; never offset on big tables (w3-t1).</li>
+        <li>REST with OpenAPI for commands and resources; a GraphQL read layer for UI and agent reads that join entities, with per-request DataLoader and field auth (w4-t1); no GraphQL mutations in phase 1.</li>
+        <li>Additive changes only within a version, deprecation windows with usage metrics per client, RFC 9457 errors with stable type URIs, contract tests in CI.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Events</span>Events, outbox and workflows</h3>
+    <p class="focus">Distributed-systems correctness questions. Your Kinesis and Step Functions background is real evidence; translate it.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-events-1"><span>"How do you publish an event when a row changes, without losing or inventing events?"</span></li>
+        <li data-id="iv-events-2"><span>"Is exactly-once delivery possible?"</span></li>
+        <li data-id="iv-events-3"><span>"Temporal or Step Functions for lead assignment with a manager approval?"</span></li>
+        <li data-id="iv-events-4"><span>"You changed a workflow and in-flight executions started failing. Why?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Transactional outbox: event row in the same transaction; relay by polling with SKIP LOCKED or by Debezium; the outbox event id travels with the message so consumers can dedupe (w5-t1).</li>
+        <li>Exactly-once processing is an end-to-end property you build: at-least-once delivery plus an idempotent consumer that records processed ids in the same transaction as the effect (w5-c1).</li>
+        <li>Temporal when the flow is code-heavy, long-running with human steps, and you want tests and replay; Step Functions when it is AWS-native glue and the team is already there. Both: idempotent activities.</li>
+        <li>Nondeterminism: workflow code changed the command sequence for old histories; fix with patching or worker versioning, and replay recorded histories in CI before deploys (w6-t1).</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Agents</span>Agentic apps on the platform</h3>
+    <p class="focus">The client wants agents on this platform. You run MCP servers daily: turn that into a design answer.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-agents-1"><span>"Design the tool surface for a sales assistant agent."</span></li>
+        <li data-id="iv-agents-2"><span>"How do you stop an agent from reading another business unit's data?"</span></li>
+        <li data-id="iv-agents-3"><span>"An agent wants to reassign a lead. What happens?"</span></li>
+        <li data-id="iv-agents-4"><span>"Security asks: what did the agent change last Tuesday?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Task-level tools (find account, get timeline, log activity, propose assignment), not one tool per endpoint; descriptions written for a model; small, typed inputs; paginated outputs.</li>
+        <li>Delegated identity: the agent acts on behalf of a user, the user and tenant come from the session, never from tool arguments, so RLS applies exactly as for the user (ai-c1). Prompt injection through record content is expected; scoping is the control, not the system prompt (ai-t1).</li>
+        <li>Writes are idempotent; risky ones start a workflow with an approval; the agent can query status but cannot approve.</li>
+        <li>Append-only audit log: actor, on-behalf-of, agent id, tool, args hash, outcome, trace id. Your habit of pre-push policy hooks and approval gates is the same instinct.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">CRM</span>Migrating off the CRM</h3>
+    <p class="focus">It is the whole project. Credibility comes from knowing where the bodies are buried.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-crm-1"><span>"How would you migrate the sales app off the CRM without a big bang?"</span></li>
+        <li data-id="iv-crm-2"><span>"What is hard about Salesforce data specifically?"</span></li>
+        <li data-id="iv-crm-3"><span>"How do you know the migration is correct?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Strangler fig per capability behind a routing layer; CDC from the CRM while it is the source of truth; flip the source of truth per capability; reverse sync for apps not yet moved; rollback per cutover.</li>
+        <li>Polymorphic WhoId/WhatId, 15- vs 18-character ids (15 is case-sensitive; never lowercase it, convert to 18), record types and picklists, and the hidden logic in validation rules, flows, triggers and roll-ups (w1-t1).</li>
+        <li>Reconciliation as a gate: counts per object, checksums over normalized fields, sampled field diffs, orphan checks, and zero unexplained differences for a week before cutover.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Code</span>Language depth: Python, TypeScript, Go</h3>
+    <p class="focus">Expect a live-coding or code-review round. Be precise about concurrency in each runtime.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-lang-1"><span>"What blocks the event loop in FastAPI, and how would you find it?"</span></li>
+        <li data-id="iv-lang-2"><span>"Walk me through graceful shutdown of a Node service in Kubernetes."</span></li>
+        <li data-id="iv-lang-3"><span>"Write a Go worker that consumes messages and shuts down cleanly."</span></li>
+        <li data-id="iv-lang-4"><span>"Your Go is newer than your Python. How do you work in it?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Python: sync I/O or CPU work in an async def endpoint; find it with loop slow-callback logging and profiling; fix with async drivers, run_in_executor or a plain def endpoint (threadpool).</li>
+        <li>Node: SIGTERM, flip readiness, stop accepting, drain in-flight with a deadline, close pools; keepAliveTimeout above the load balancer idle timeout.</li>
+        <li>Go: context everywhere, select on ctx.Done(), commit offsets after the apply, errgroup for workers, -race in tests (w5-c1).</li>
+        <li>Be honest: Go is new for production use; show the relay and consumer you built, and that you read Go daily in Kubernetes and Terraform source.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Stories</span>Stories: backend engineer with an operator's instincts</h3>
+    <p class="focus">STAR format, under two minutes, one number each. Pitch yourself as a backend engineer with an operator's instincts, not a DevOps engineer who also codes.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-stories-1"><span>A production incident you diagnosed to a root cause in application or data code, not just infrastructure.</span></li>
+        <li data-id="iv-stories-2"><span>A pipeline you built or ran with retries, ordering and backpressure (Kinesis/Firehose, Step Functions) and what you would do differently as the service owner.</span></li>
+        <li data-id="iv-stories-3"><span>A guardrail you designed (approval gates, policy hooks, least-privilege IAM) and how it maps to agent tool scoping.</span></li>
+        <li data-id="iv-stories-4"><span>How you use AI coding tools daily without cutting corners: skills, hooks, verification before claiming done.</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Lead with the portfolio repo: schema with RLS, two services with an outbox, a Go consumer, a Temporal approval, an MCP server, and the reconciliation report.</li>
+        <li>Translate infrastructure work into backend vocabulary: shards are partitions, checkpoints are offsets, Step Functions retries are activity retry policies.</li>
+        <li>The posting lists Claude Code by name: describe the team harness you would set up (shared skills, hooks as deterministic gates, permission modes) from the shared core.</li>
+        <li>Only claim what you have done; where you have not, say what you would do and why.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Ask</span>Questions to ask them</h3>
+    <p class="focus">Signal seniority and find the real scope. On-site in Mountain View, 6-12 months via Toptal: confirm logistics early.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-ask-1"><span>Prepare five questions per loop and pick two or three in the room.</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>What is a tenant on the new platform: a business unit, an app, or both?</li>
+        <li>Which capability moves off the CRM first, and what is the deadline that drives it?</li>
+        <li>Which stack is already decided (Postgres flavor, Kafka vs a managed bus, Temporal Cloud or self-hosted)?</li>
+        <li>How do product teams and agent builders consume the platform today: SDKs, APIs, a portal?</li>
+        <li>Are existing services on the JVM? (decides Go vs Java for this contract)</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RESOURCES ============================== -->
+<section class="page" id="resources" data-title="Resources">
+  <h2>All resources</h2>
+  <p class="lede">The core links, grouped. Links come from the role and shared study tracks (checked on 2026-11-13); the few added for this plan were checked the same day.</p>
+  <div class="grid2">
+    <div class="card"><h3>System design and architecture</h3><ul class="links">
+      <li><a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/">Designing Data-Intensive Applications, 2nd edition</a></li>
+      <li><a href="https://github.com/donnemartin/system-design-primer">System Design Primer</a></li>
+      <li><a href="https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF">System Design Interview, Alex Xu</a></li>
+      <li><a href="https://bytebytego.com/courses/system-design-interview">ByteByteGo system design course</a></li>
+      <li><a href="https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction">Hello Interview: system design in a hurry</a></li>
+      <li><a href="https://microservices.io/patterns/microservices.html">Microservice architecture patterns</a></li>
+      <li><a href="https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/">Monolith to Microservices (Newman)</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/overview">Azure multitenant architecture guide</a></li>
+      <li><a href="https://docs.aws.amazon.com/whitepapers/latest/saas-architecture-fundamentals/saas-architecture-fundamentals.html">AWS SaaS architecture fundamentals</a></li>
+      <li><a href="https://microservices.io/patterns/data/saga.html">Saga pattern (microservices.io)</a></li>
+      <li><a href="https://microservices.io/patterns/refactoring/strangler-application.html">Strangler application (microservices.io)</a></li>
+      <li><a href="https://martinfowler.com/bliki/StranglerFigApplication.html">Strangler fig application (Fowler)</a></li>
+    </ul></div>
+    <div class="card"><h3>PostgreSQL</h3><ul class="links">
+      <li><a href="https://www.postgresql.org/docs/current/indexes.html">PostgreSQL: indexes</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/using-explain.html">PostgreSQL: using EXPLAIN</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/mvcc.html">PostgreSQL: concurrency control (MVCC)</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/transaction-iso.html">PostgreSQL: transaction isolation</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/explicit-locking.html">PostgreSQL: explicit locking</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/sql-createindex.html">PostgreSQL: CREATE INDEX (CONCURRENTLY)</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/sql-altertable.html">PostgreSQL: ALTER TABLE (NOT VALID)</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/ddl-partitioning.html">PostgreSQL: table partitioning</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/ddl-rowsecurity.html">PostgreSQL: row security policies</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/sql-createpolicy.html">PostgreSQL: CREATE POLICY</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/datatype-json.html">PostgreSQL: JSON types</a></li>
+      <li><a href="https://www.postgresql.org/docs/current/pgstatstatements.html">PostgreSQL: pg_stat_statements</a></li>
+      <li><a href="https://use-the-index-luke.com/">Use The Index, Luke</a></li>
+      <li><a href="https://www.pgmustard.com/docs/explain">pgMustard EXPLAIN glossary</a></li>
+      <li><a href="https://explain.dalibo.com/">explain.dalibo.com (plan visualizer)</a></li>
+      <li><a href="https://www.crunchydata.com/blog/row-level-security-for-tenants-in-postgres">Row-level security for tenants (Crunchy Data)</a></li>
+      <li><a href="https://martinfowler.com/bliki/ParallelChange.html">Parallel change / expand-contract (Fowler)</a></li>
+      <li><a href="https://github.com/sbdchd/squawk">squawk (migration linter)</a></li>
+      <li><a href="https://github.com/xataio/pgroll">pgroll</a></li>
+      <li><a href="https://github.com/pgpartman/pg_partman">pg_partman</a></li>
+      <li><a href="https://pglite.dev/">PGlite (PostgreSQL in WebAssembly, used by the workbook)</a></li>
+    </ul></div>
+    <div class="card"><h3>Python services</h3><ul class="links">
+      <li><a href="https://fastapi.tiangolo.com/">FastAPI</a></li>
+      <li><a href="https://fastapi.tiangolo.com/async/">FastAPI: concurrency and async/await</a></li>
+      <li><a href="https://fastapi.tiangolo.com/tutorial/dependencies/">FastAPI: dependencies</a></li>
+      <li><a href="https://fastapi.tiangolo.com/advanced/testing-dependencies/">FastAPI: testing with dependency overrides</a></li>
+      <li><a href="https://docs.sqlalchemy.org/en/20/tutorial/index.html">SQLAlchemy 2.0 unified tutorial</a></li>
+      <li><a href="https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html">SQLAlchemy asyncio extension</a></li>
+      <li><a href="https://magicstack.github.io/asyncpg/current/">asyncpg docs</a></li>
+      <li><a href="https://alembic.sqlalchemy.org/en/latest/">Alembic docs</a></li>
+      <li><a href="https://docs.python.org/3/library/asyncio.html">Python asyncio</a></li>
+      <li><a href="https://pydantic.dev/docs/validation/latest/get-started/">Pydantic docs</a></li>
+      <li><a href="https://docs.astral.sh/uv/">uv</a></li>
+      <li><a href="https://testcontainers.com/">Testcontainers</a></li>
+    </ul></div>
+    <div class="card"><h3>TypeScript services</h3><ul class="links">
+      <li><a href="https://nodejs.org/learn/asynchronous-work/event-loop-timers-and-nexttick">Node.js: the event loop, timers and nextTick</a></li>
+      <li><a href="https://fastify.dev/docs/latest/">Fastify docs</a></li>
+      <li><a href="https://kysely.dev/docs/intro">Kysely docs</a></li>
+      <li><a href="https://orm.drizzle.team/docs/overview">Drizzle ORM docs</a></li>
+      <li><a href="https://www.prisma.io/docs">Prisma docs</a></li>
+      <li><a href="https://docs.nestjs.com/">NestJS docs</a></li>
+      <li><a href="https://zod.dev/">Zod</a></li>
+    </ul></div>
+    <div class="card"><h3>API design and GraphQL</h3><ul class="links">
+      <li><a href="https://docs.cloud.google.com/apis/design">Google API design guide</a></li>
+      <li><a href="https://google.aip.dev/158">AIP-158: pagination</a></li>
+      <li><a href="https://www.rfc-editor.org/rfc/rfc9457.html">RFC 9457: problem details</a></li>
+      <li><a href="https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/">IETF draft: Idempotency-Key header</a></li>
+      <li><a href="https://docs.stripe.com/api/idempotent_requests">Stripe: idempotent requests</a></li>
+      <li><a href="https://brandur.org/idempotency-keys">Idempotency keys in Postgres (Brandur Leach)</a></li>
+      <li><a href="https://openapis.org/">OpenAPI Initiative</a></li>
+      <li><a href="https://graphql.org/learn/">GraphQL: learn</a></li>
+      <li><a href="https://graphql.org/learn/best-practices/">GraphQL: best practices</a></li>
+      <li><a href="https://graphql.org/learn/pagination/">GraphQL: pagination</a></li>
+      <li><a href="https://graphql.org/learn/authorization/">GraphQL: authorization</a></li>
+      <li><a href="https://relay.dev/graphql/connections.htm">Relay cursor connections spec</a></li>
+      <li><a href="https://www.apollographql.com/docs/graphos/schema-design">Apollo: schema design</a></li>
+      <li><a href="https://github.com/graphql/dataloader">DataLoader (GitHub)</a></li>
+    </ul></div>
+    <div class="card"><h3>Events and messaging</h3><ul class="links">
+      <li><a href="https://kafka.apache.org/intro/">Kafka introduction</a></li>
+      <li><a href="https://kafka.apache.org/documentation/#semantics">Kafka docs: message delivery semantics</a></li>
+      <li><a href="https://docs.redpanda.com/streaming/current/get-started/quick-start/">Redpanda quick start</a></li>
+      <li><a href="https://microservices.io/patterns/data/transactional-outbox.html">Transactional outbox (microservices.io)</a></li>
+      <li><a href="https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html">Debezium outbox event router</a></li>
+      <li><a href="https://www.rabbitmq.com/tutorials">RabbitMQ tutorials</a></li>
+      <li><a href="https://www.rabbitmq.com/docs/reliability">RabbitMQ reliability guide</a></li>
+      <li><a href="https://redis.io/docs/latest/">Redis docs</a></li>
+      <li><a href="https://redis.io/docs/latest/develop/data-types/streams/">Redis streams</a></li>
+      <li><a href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/">Redis distributed locks (read the caveats)</a></li>
+    </ul></div>
+    <div class="card"><h3>Workflows (Temporal)</h3><ul class="links">
+      <li><a href="https://docs.temporal.io/">Temporal docs</a></li>
+      <li><a href="https://temporal.io/blog/what-is-durable-execution">What is durable execution</a></li>
+      <li><a href="https://docs.temporal.io/workflows">Temporal: workflows</a></li>
+      <li><a href="https://docs.temporal.io/activities">Temporal: activities</a></li>
+      <li><a href="https://docs.temporal.io/encyclopedia/event-history">Temporal: event history</a></li>
+      <li><a href="https://docs.temporal.io/sending-messages">Temporal: signals, queries and updates</a></li>
+      <li><a href="https://docs.temporal.io/develop/python">Temporal Python SDK guide</a></li>
+      <li><a href="https://docs.temporal.io/develop/python/workflows/message-passing">Temporal Python: message passing</a></li>
+      <li><a href="https://docs.temporal.io/develop/python/best-practices/testing-suite">Temporal Python: testing (time skipping, replay)</a></li>
+      <li><a href="https://docs.temporal.io/develop/python/workflows/versioning">Temporal Python: versioning (patching)</a></li>
+      <li><a href="https://docs.temporal.io/develop/typescript">Temporal TypeScript SDK guide</a></li>
+      <li><a href="https://learn.temporal.io/courses/">Temporal courses</a></li>
+      <li><a href="https://github.com/temporalio/samples-python">Temporal Python samples</a></li>
+      <li><a href="https://github.com/temporalio/samples-typescript">Temporal TypeScript samples</a></li>
+    </ul></div>
+    <div class="card"><h3>CRM data models and migration</h3><ul class="links">
+      <li><a href="https://trailhead.salesforce.com/content/learn/modules/data_modeling">Trailhead: data modeling</a></li>
+      <li><a href="https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience">Trailhead: leads and opportunities</a></li>
+      <li><a href="https://trailhead.salesforce.com/content/learn/modules/api_basics">Trailhead: Salesforce API basics</a></li>
+      <li><a href="https://trailhead.salesforce.com/content/learn/modules/change-data-capture">Trailhead: Change Data Capture basics</a></li>
+      <li><a href="https://trailhead.salesforce.com/content/learn/modules/large-data-volumes">Trailhead: large data volumes</a></li>
+      <li><a href="https://trailhead.salesforce.com/content/learn/modules/lex_implementation_data_management">Trailhead: importing and exporting data</a></li>
+      <li><a href="https://microservices.io/patterns/refactoring/strangler-application.html">Strangler application (microservices.io)</a></li>
+      <li><a href="https://martinfowler.com/bliki/StranglerFigApplication.html">Strangler fig application (Fowler)</a></li>
+    </ul></div>
+    <div class="card"><h3>Go (and Java if the client is on the JVM)</h3><ul class="links">
+      <li><a href="https://go.dev/tour/">A Tour of Go</a></li>
+      <li><a href="https://go.dev/doc/effective_go">Effective Go</a></li>
+      <li><a href="https://gobyexample.com/">Go by Example</a></li>
+      <li><a href="https://go.dev/doc/tutorial/database-access">Go tutorial: accessing a relational database</a></li>
+      <li><a href="https://go.dev/doc/modules/layout">Go: organizing a module</a></li>
+      <li><a href="https://pkg.go.dev/context">Go: context package</a></li>
+      <li><a href="https://pkg.go.dev/net/http">Go: net/http package</a></li>
+      <li><a href="https://pkg.go.dev/github.com/jackc/pgx/v5">pgx (Postgres driver for Go)</a></li>
+      <li><a href="https://dev.java/learn/">dev.java learning path</a></li>
+    </ul></div>
+    <div class="card"><h3>Agents on the platform and the shared core</h3><ul class="links">
+      <li><a href="https://code.claude.com/docs/en/overview">Claude Code overview</a></li>
+      <li><a href="https://code.claude.com/docs/en/skills">Claude Code skills</a></li>
+      <li><a href="https://code.claude.com/docs/en/sub-agents">Claude Code subagents</a></li>
+      <li><a href="https://code.claude.com/docs/en/hooks">Claude Code hooks</a></li>
+      <li><a href="https://code.claude.com/docs/en/headless">Claude Code headless mode</a></li>
+      <li><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a></li>
+      <li><a href="https://code.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK overview</a></li>
+      <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li>
+      <li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+      <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li>
+      <li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></li>
+      <li><a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a></li>
+      <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization">MCP specification: authorization</a></li>
+      <li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a></li>
+      <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+      <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li>
+      <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">OWASP logging cheat sheet</a></li>
+      <li><a href="https://github.com/github/spec-kit">GitHub Spec Kit</a></li>
+      <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+      <li><a href="https://www.promptfoo.dev/docs/intro/">promptfoo</a></li>
+      <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OpenTelemetry GenAI semantic conventions</a></li>
+    </ul></div>
+    <div class="card"><h3>Delivery</h3><ul class="links">
+      <li><a href="https://docs.docker.com/compose/">Docker Compose</a></li>
+      <li><a href="https://helm.sh/docs/">Helm docs</a></li>
+      <li><a href="https://testcontainers.com/">Testcontainers</a></li>
+      <li><a href="https://github.com/sbdchd/squawk">squawk (migration linter)</a></li>
+    </ul></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var KEY = "studyplan-backend-v1";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked */ } }
+
+  // Theme: follows the OS unless the toggle was used (stored under state.__theme)
+  function applyTheme() {
+    if (state.__theme) document.documentElement.setAttribute("data-theme", state.__theme);
+    else document.documentElement.removeAttribute("data-theme");
+  }
+  applyTheme();
+  document.getElementById("themebtn").addEventListener("click", function () {
+    var dark = state.__theme ? state.__theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    state.__theme = dark ? "light" : "dark"; save(); applyTheme();
+  });
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+
+  // Build tabs
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id;
+    a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+
+  // Turn task <li>s into checkboxes
+  document.querySelectorAll("ul.tasks li").forEach(function (li) {
+    var id = li.dataset.id;
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state[id];
+    li.insertBefore(cb, li.firstChild);
+    li.classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", function () {
+      state[id] = cb.checked;
+      li.classList.toggle("checked", cb.checked);
+      save(); refresh();
+    });
+  });
+
+  function items(prefix) {
+    return Array.prototype.slice.call(document.querySelectorAll('ul.tasks li[data-id^="' + prefix + '"]'));
+  }
+  function pctOf(list) {
+    if (!list.length) return null;
+    var done = 0;
+    list.forEach(function (li) { if (state[li.dataset.id]) done++; });
+    return Math.round(100 * done / list.length);
+  }
+  function setPage(pageId, barId, v) {
+    var bar = document.getElementById(barId);
+    if (bar) bar.style.width = (v || 0) + "%";
+    var tab = tabs.querySelector('[data-page="' + pageId + '"] .pct');
+    if (tab) tab.textContent = v === null ? "" : v + "%";
+  }
+
+  // page id -> checkbox prefix; the overall bar counts the six core weeks only (add-on excluded)
+  var PAGES = [];
+  for (var n = 1; n <= 7; n++) PAGES.push(["week" + n, "w" + n + "-", "bar-w" + n]);
+  PAGES.push(["ai", "ai-", "bar-ai"]);
+  PAGES.push(["interview", "iv-", "bar-iv"]);
+
+  function refresh() {
+    PAGES.forEach(function (p) { setPage(p[0], p[2], pctOf(items(p[1]))); });
+    var core = [];
+    for (var n = 1; n <= 6; n++) core = core.concat(items("w" + n + "-"));
+    setPage("overview", "bar-all", pctOf(core));
+  }
+
+  document.querySelectorAll("button.reset").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!confirm("Clear all checkboxes on this page?")) return;
+      var w = b.dataset.reset;
+      Object.keys(state).forEach(function (k) { if (k.indexOf(w + "-") === 0) delete state[k]; });
+      save();
+      items(w + "-").forEach(function (li) {
+        li.querySelector("input").checked = false; li.classList.remove("checked");
+      });
+      refresh();
+    });
+  });
+
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    var el = document.getElementById(id);
+    if (!el || !el.classList.contains("page")) id = "overview";
+    pages.forEach(function (p) { p.classList.toggle("active", p.id === id); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === id); });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show(); refresh();
+})();
+</script>
+</body>
+</html>

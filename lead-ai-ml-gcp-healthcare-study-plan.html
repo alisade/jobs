@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lead / Senior AI/ML Engineer (GCP, healthcare payer) - Study Plan</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #1a73e8; --accent-soft: #e8f0fe; --done: #2f7d4f;
+    --warn: #9a6700; --warn-soft: #fff4d6; --bad: #b42318; --bad-soft: #fde8e6; --done-soft: #e3f1e8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #8ab4f8; --accent-soft: #1f2a3d; --done: #5cc287;
+      --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+    --line: #34343a; --accent: #8ab4f8; --accent-soft: #1f2a3d; --done: #5cc287;
+    --warn: #e3b341; --warn-soft: #3a3120; --bad: #f97066; --bad-soft: #3d1f1c; --done-soft: #1f3327;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  .themebtn { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+              border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  h3.sub { font-size: 17px; margin: 26px 0 10px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .day h3 { margin: 0 0 2px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .day h3 .tag { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft);
+                 padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .day .focus { color: var(--muted); margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4, .card h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.tasks { list-style: none; padding: 0; margin: 0; }
+  ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+  ul.tasks input { margin-top: 4px; accent-color: var(--done); flex: none; }
+  ul.tasks li.checked span { color: var(--muted); text-decoration: line-through; }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .deliverable b { color: var(--done); }
+  .note { margin: 0 0 18px; padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .note b { color: var(--warn); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  .card + .card, .grid2 + .card, .card + .grid2 { margin-top: 14px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .scroll { overflow-x: auto; }
+  table.matrix th, table.matrix td { font-size: 13px; }
+  table.matrix td.c { text-align: center; }
+  table.matrix th.p { text-transform: none; letter-spacing: 0; font-size: 12px; min-width: 74px; }
+  .yes { color: var(--done); font-weight: 700; }
+  .s-strong { color: var(--done); font-weight: 600; }
+  .s-partial { color: var(--warn); font-weight: 600; }
+  .s-gap { color: var(--bad); font-weight: 600; }
+  .small { font-size: 13px; color: var(--muted); }
+  .muted { font-size: 13px; color: var(--muted); }
+  .reset { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+           border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+  .exs { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+  .chip { display: inline-block; font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700;
+          color: var(--accent); background: var(--accent-soft); border: 1px solid var(--line);
+          padding: 1px 8px; border-radius: 99px; text-decoration: none; margin: 0 4px 0 2px; }
+  .chip:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="themebtn" id="themebtn" type="button">light / dark</button>
+  <h1>Lead / Senior AI/ML Engineer on GCP - healthcare payer: LangGraph, Python services, FHIR, RAG, HIPAA</h1>
+  <p>6-week plan plus an optional add-on week for a remote contract role at the Lead or Senior level. Weekdays ~2-3 h, weekends one long block for the <a href="workbooks/healthai/workbook.html">workbook</a> exercises. Checkboxes save in this browser.</p>
+</header>
+
+<nav><div class="inner" id="tabs"></div></nav>
+
+<main>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="page" id="overview" data-title="Overview">
+  <h2>Overview</h2>
+  <p class="lede">One remote contract posting for both a Lead and a Senior AI/ML Engineer on GCP at a healthcare payer, 12+ years of experience. The work is production LLM applications, RAG pipelines and agent frameworks (LangGraph first) on Vertex AI, now documented as Gemini Enterprise Agent Platform: Model Garden, endpoint deployment, Vector Search, Workbench, with Cloud Run, Pub/Sub and Cloud Functions around it, written as advanced, tested, containerized Python (asyncio, FastAPI, Pydantic, gRPC). The domain is payer workflows (prior authorization, claims, appeals, member engagement) on FHIR, X12 and ICD-10/CPT, with HIPAA and PHI handling inside the AI pipeline. Nice-to-haves: Terraform and GCP IAM/VPCs, PEFT/LoRA, evals in CI, and the Professional ML Engineer or Cloud Architect certification. This plan builds on the shared core and does not reteach CI/CD, Terraform or production operations.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+  <p class="note"><b>Honest fit note.</b> Two hard filters that study does not clear: "12+ years of software/AI engineering" and "3+ years directly building, deploying, and maintaining production-grade LLM applications, RAG pipelines, or autonomous agent frameworks". Your 26 years are infrastructure and DevOps years; do not stretch either number. Payer experience is a strong preference and you have not worked at a payer: learn the vocabulary and the CMS rule, and say so plainly. Your strongest card is regulated-environment operations (federal and SOX controls, audit trails, least privilege, approval gates), which is exactly what the HIPAA Security Rule asks for. <b>Senior</b> is the realistic target once the portfolio is deployed and you can walk its code line by line; apply for <b>Lead</b> only if the team needs someone to own platform, security and delivery for the AI work. Ask the recruiter whether the 3+ years is a hard cutoff for Senior, and which payer workflow the team starts with.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>The six weeks (plus an add-on)</h3>
+      <table>
+        <tr><th>Week</th><th>Theme</th><th>Workbook</th></tr>
+        <tr><td><a href="#week1">1</a></td><td>Advanced Python I (asyncio, Pydantic v2, FastAPI) and the payer domain (PA, CMS-0057-F, claims, appeals)</td><td><a href="workbooks/healthai/workbook.html#ex-w1-c1">w1-c1</a>, <a href="workbooks/healthai/workbook.html#ex-w1-t1">w1-t1</a></td></tr>
+        <tr><td><a href="#week2">2</a></td><td>gRPC (grpc.aio), containers and event-driven pipelines on Cloud Run and Pub/Sub</td><td><a href="workbooks/healthai/workbook.html#ex-w2-c1">w2-c1</a>, <a href="workbooks/healthai/workbook.html#ex-w2-t1">w2-t1</a></td></tr>
+        <tr><td><a href="#week3">3</a></td><td>Health data standards: FHIR R4, Da Vinci CRD/DTR/PAS, X12 278/837/835, ICD-10-CM, HCPCS, CPT licensing</td><td><a href="workbooks/healthai/workbook.html#ex-w3-c1">w3-c1</a>, <a href="workbooks/healthai/workbook.html#ex-w3-t1">w3-t1</a></td></tr>
+        <tr><td><a href="#week4">4</a></td><td>LangGraph: state, checkpointers, interrupts for human review, memory, multi-agent; the other named frameworks</td><td><a href="workbooks/healthai/workbook.html#ex-w4-c1">w4-c1</a>, <a href="workbooks/healthai/workbook.html#ex-w4-t1">w4-t1</a></td></tr>
+        <tr><td><a href="#week5">5</a></td><td>RAG at scale (chunking, hybrid search, reranking, retrieval evals) and Agent Platform ML (Model Garden, endpoints, Vector Search, Workbench)</td><td><a href="workbooks/healthai/workbook.html#ex-w5-c1">w5-c1</a>, <a href="workbooks/healthai/workbook.html#ex-w5-t1">w5-t1</a></td></tr>
+        <tr><td><a href="#week6">6</a></td><td>HIPAA in AI pipelines (minimum necessary, de-identification, PHI map, audit logs), evals in CI, LLM security, exam prep</td><td><a href="workbooks/healthai/workbook.html#ex-w6-c1">w6-c1</a>, <a href="workbooks/healthai/workbook.html#ex-w6-t1">w6-t1</a></td></tr>
+        <tr><td><a href="#ai">AI</a></td><td>AI integration fundamentals (shared page) applied to the PA assistant</td><td><a href="workbooks/healthai/workbook.html#ex-ai-c1">ai-c1</a>, <a href="workbooks/healthai/workbook.html#ex-ai-t1">ai-t1</a></td></tr>
+        <tr><td><a href="#week7">+7</a></td><td>Add-on: PEFT/LoRA as a costed decision, mock interviews, the exam</td><td><a href="workbooks/healthai/workbook.html#ex-x-1">x-1</a></td></tr>
+      </table>
+      <p class="small">Markdown track for this role: <a href="study/roles/10-lead-ai-ml-gcp-healthcare/highlights.md">highlights.md</a> (fit, gaps, ten-week plan, portfolio) and <a href="study/roles/10-lead-ai-ml-gcp-healthcare/details.md">details.md</a> (every topic with links and an exercise). This plan compresses that ten-week plan into six weeks plus an add-on. Workbook: <a href="workbooks/healthai/workbook.html">workbooks/healthai/workbook.html</a>. GCP foundations and Terraform: the role 6 track; Gemini on Vertex AI, RAG Engine and FastAPI on Cloud Run: the role 5 track.</p>
+    </div>
+    <div class="card">
+      <h3>Portfolio project: prior-authorization assistant on GCP</h3>
+      <p>One public repo, synthetic data only, that touches every must-have in the posting:</p>
+      <ul class="links">
+        <li><b>Data:</b> Synthea patients in a Cloud Healthcare API FHIR store, and synthetic medical policies in a payer's coverage-criteria style, large enough that retrieval is a real problem. ICD-10-CM codes; procedures by HCPCS Level II or a generic label, never CPT descriptors. Week 3, week 5.</li>
+        <li><b>Intake:</b> FastAPI accepting a PAS-shaped Bundle, validated with Pydantic, published to Pub/Sub. Weeks 1-3.</li>
+        <li><b>Agents:</b> LangGraph with intake, policy retrieval, a criteria-check agent using tool calls against the FHIR store, and a drafting agent that cites every criterion; checkpointed in Postgres so a case can wait days. Week 4.</li>
+        <li><b>Human in the loop by design:</b> the system may only recommend approval; every denial, low-confidence and missing-information case goes to a reviewer through an interrupt, and the decision and reason are stored. Week 4.</li>
+        <li><b>Clock:</b> every case records its CMS-0057-F deadline (72 hours expedited, 7 calendar days standard) and a dashboard shows time remaining; no case closes without a specific denial reason. Week 1.</li>
+        <li><b>Retrieval:</b> structure-aware chunks, Vector Search hybrid dense plus sparse, the ranking API, metadata filters by line of business and effective date. Week 5.</li>
+        <li><b>Services:</b> FastAPI edge, gRPC between internal stages, Cloud Run with separate service accounts and no public ingress except the edge. Week 2.</li>
+        <li><b>PHI handling:</b> a PHI data-flow map, de-identification for every copy that leaves the FHIR store, Data Access audit logs, an "if this were real" BAA section. Week 6.</li>
+        <li><b>Evals in CI:</b> recall@k, citation support, criteria accuracy, and a hard check that no denial bypasses review. Week 6.</li>
+        <li><b>Small model and infrastructure:</b> a LoRA comparison for ICD-10-CM extraction (add-on) and Terraform for the whole setup applied with Workload Identity Federation (role 6).</li>
+      </ul>
+      <p class="small">Keep it cheap: small endpoints undeployed after each session and a <code>make destroy</code>. No real PHI, no employer specifics, no real payer's policies.</p>
+    </div>
+    <div class="card">
+      <h3>Where you start</h3>
+      <table>
+        <tr><th>Posting asks for</th><th>You already have</th></tr>
+        <tr><td>12+ years; 3+ years of production LLM apps, RAG or agents</td><td>26 years in DevOps and infrastructure; agent work in your own daily harness. <span class="s-gap">Production LLM product: not yet</span></td></tr>
+        <tr><td>Multi-agent orchestration, tool calling, stateful graphs, memory</td><td>Tool calling, MCP servers and permission design from your harness; Step Functions. <span class="s-gap">LangGraph: no</span></td></tr>
+        <tr><td>Vertex AI: Model Garden, endpoints, Vector Search, Workbench</td><td>Managed compute, quotas and endpoints on AWS. <span class="s-gap">Not yet on GCP</span></td></tr>
+        <tr><td>Cloud Run, Pub/Sub, Cloud Functions</td><td>Lambda, Step Functions, Kinesis/Firehose, EKS, Docker in production <span class="s-partial">(different cloud)</span></td></tr>
+        <tr><td>Advanced Python: AsyncIO, FastAPI, Pydantic, gRPC</td><td>Python for ops, TypeScript and bash daily, Docker and CI/CD in depth. <span class="s-partial">Advanced async services and gRPC: thin</span></td></tr>
+        <tr><td>Payer workflows; FHIR, X12, ICD-10/CPT</td><td>EDI integrations at the infrastructure level; mortgage servicing (regulated, deadline-driven). <span class="s-gap">Payer domain: new</span></td></tr>
+        <tr><td>Hybrid search, reranking, chunking at scale</td><td><span class="s-gap">Not yet beyond the shared baseline</span></td></tr>
+        <tr><td>HIPAA, PHI, privacy in AI pipelines</td><td><span class="s-strong">Federal (NIST 800-53, FISMA) and SOX controls: least privilege, audit trails, approval gates, change control</span></td></tr>
+        <tr><td>Terraform, GCP VPCs, IAM (nice-to-have)</td><td><span class="s-strong">Terraform through Spacelift, deep AWS and Azure IAM</span>; GCP via role 6</td></tr>
+        <tr><td>PEFT/LoRA; evals in CI (nice-to-have)</td><td>CI/CD is your day job; eval method from the shared core. <span class="s-gap">Fine-tuning: no</span></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Gaps this plan closes, most important first</h3>
+      <table>
+        <tr><th>Gap</th><th>Where</th></tr>
+        <tr><td>1. Production LLM application evidence</td><td>The portfolio, deployed and measured (every week)</td></tr>
+        <tr><td>2. LangGraph</td><td>W4, w4-c1, w4-t1</td></tr>
+        <tr><td>3. Advanced Python services</td><td>W1-W2, w1-c1, w2-c1, w2-t1</td></tr>
+        <tr><td>4. Payer domain and CMS-0057-F</td><td>W1, w1-c1, w1-t1</td></tr>
+        <tr><td>5. Health data standards</td><td>W3, w3-c1, w3-t1</td></tr>
+        <tr><td>6. RAG at scale</td><td>W5, w5-c1, w5-t1</td></tr>
+        <tr><td>7. Agent Platform ML side</td><td>W5 Thu-Fri</td></tr>
+        <tr><td>8. HIPAA inside AI pipelines</td><td>W6, w6-c1, w6-t1, ai-t1</td></tr>
+        <tr><td>9. Event-driven pipelines on GCP</td><td>W2</td></tr>
+        <tr><td>10. PEFT/LoRA</td><td>W7 add-on, x-1</td></tr>
+        <tr><td>11. Certification (ML Engineer)</td><td>Book W1 Mon; sit after W7</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Toolchain</h3>
+<pre># workbook (offline, no cloud account needed)
+tools/doctor.sh healthai        # python3, uv
+cd workbooks/healthai &amp;&amp; make deps   # builds healthai/.venv (Python 3.12)
+# portfolio (your own GCP project)
+gcloud, terraform, docker, uv, ruff, mypy, pytest</pre>
+      <p class="small">Every workbook exercise runs locally: LangGraph and grpc.aio run for real; models, the FHIR store, Pub/Sub-style stages and Vector Search are scripted stubs or in-process fakes over synthetic data.</p>
+    </div>
+    <div class="card">
+      <h3>Certification and the pitch</h3>
+      <p>Book the <a href="https://cloud.google.com/learn/certification/machine-learning-engineer">Professional Machine Learning Engineer</a> exam in week 1 for a date after week 7; it fits this posting better than <a href="https://cloud.google.com/learn/certification/cloud-architect">Professional Cloud Architect</a> (generative AI on Agent Platform, serving and scaling, monitoring). Check the current exam guide first; product names change.</p>
+      <p class="small">One-line pitch: "I have spent 26 years running production systems under federal and SOX audit; I built a prior authorization assistant on GCP with LangGraph, hybrid retrieval and a human on every denial, and I know how to make an AI pipeline that handles PHI pass a security review."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 1 ============================== -->
+<section class="page" id="week1" data-title="Week 1">
+  <h2>Week 1 - Advanced Python I and the payer domain <button class="reset" data-reset="w1">reset week</button></h2>
+  <p class="lede">Two slow-to-build areas start together: async Python at the depth a coding interview probes, and the payer vocabulary you need to hold a conversation with a UM team. Book the Professional Machine Learning Engineer exam today for a date after week 7. The shared core's tool calling and structured output work happens here, because Pydantic models are the contract for every model output in this role.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>asyncio properly; book the exam</h3>
+    <p class="focus">The event loop, structured concurrency with <code>asyncio.TaskGroup</code>, <code>asyncio.timeout</code>, cancellation and cleanup, semaphores to bound model and FHIR calls, and what blocks the loop.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-mon-1"><span>Read the conceptual overview of asyncio, then the TaskGroup and timeout sections of Coroutines and tasks</span></li>
+        <li data-id="w1-mon-2"><span>Write a 40-line script: 20 fake FHIR lookups through a TaskGroup with a Semaphore(5) and a 1 s timeout each; print peak concurrency</span></li>
+        <li data-id="w1-mon-3"><span>Cancel the parent task halfway and prove every child stopped (count CancelledError in a finally)</span></li>
+        <li data-id="w1-mon-4"><span>Read Developing with asyncio: debug mode, blocking-call detection, and <code>asyncio.to_thread</code></span></li>
+        <li data-id="w1-mon-5"><span>Book the Professional Machine Learning Engineer exam; save the exam guide sections as a checklist</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.python.org/3/howto/a-conceptual-overview-of-asyncio.html">A conceptual overview of asyncio</a></li><li><a href="https://docs.python.org/3/library/asyncio-task.html">Coroutines and tasks (TaskGroup, timeouts)</a></li><li><a href="https://docs.python.org/3/library/asyncio.html">asyncio</a></li><li><a href="https://docs.python.org/3/library/asyncio-dev.html">Developing with asyncio</a></li><li><a href="https://cloud.google.com/learn/certification/machine-learning-engineer">Professional Machine Learning Engineer</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Pydantic v2 as the contract; structured outputs</h3>
+    <p class="focus">Discriminated unions (one model per PA category), field and model validators, strict mode, <code>model_validate_json</code>, settings, and what changed from v1. The same models validate LLM output, with the validation error fed back on retry.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-tue-1"><span>Read the models and validators pages; note <code>model_validator(mode="after")</code>, <code>ConfigDict(extra="forbid")</code>, <code>AwareDatetime</code>, <code>StrictInt</code></span></li>
+        <li data-id="w1-tue-2"><span>Model imaging, medication and inpatient PA requests as a discriminated union on <code>category</code></span></li>
+        <li data-id="w1-tue-3"><span>Shared core: call Gemini with a response schema built from a Pydantic model; validate, and on failure retry once with the error message</span></li>
+        <li data-id="w1-tue-4"><span>Skim the v1 migration guide and list five renamed APIs you might meet in older code</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://pydantic.dev/docs/validation/latest/concepts/models/">Pydantic: models</a></li><li><a href="https://pydantic.dev/docs/validation/latest/concepts/validators/">Pydantic: validators</a></li><li><a href="https://pydantic.dev/docs/validation/latest/concepts/pydantic_settings/">Pydantic: settings management</a></li><li><a href="https://pydantic.dev/docs/validation/latest/get-started/migration/">Pydantic: migration guide from v1</a></li><li><a href="https://aistudio.google.com/docs/structured-output">Gemini structured output</a></li><li><a href="https://aistudio.google.com/docs/function-calling">Gemini function calling</a></li><li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>FastAPI beyond the tutorial</h3>
+    <p class="focus">Dependencies for clients and audit context, lifespan for shared clients, <code>async def</code> vs <code>def</code> routes, error handlers, bigger-app structure, async tests with dependency overrides.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wed-1"><span>Read concurrency and async/await, dependencies, lifespan events and bigger applications</span></li>
+        <li data-id="w1-wed-2"><span>Build a PA intake skeleton: POST validates the union, GET returns the case; lifespan creates a fake eligibility client on <code>app.state</code></span></li>
+        <li data-id="w1-wed-3"><span>Write async tests with <code>httpx.AsyncClient</code> over <code>ASGITransport</code> and a dependency override; add one test that proves a timeout returns 503</span></li>
+        <li data-id="w1-wed-4"><span>Set up ruff and mypy on the skeleton (uv project)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://fastapi.tiangolo.com/async/">FastAPI: concurrency and async/await</a></li><li><a href="https://fastapi.tiangolo.com/tutorial/dependencies/">FastAPI: dependencies</a></li><li><a href="https://fastapi.tiangolo.com/advanced/events/">FastAPI: lifespan events</a></li><li><a href="https://fastapi.tiangolo.com/tutorial/bigger-applications/">FastAPI: bigger applications</a></li><li><a href="https://fastapi.tiangolo.com/advanced/async-tests/">FastAPI: async tests</a></li><li><a href="https://fastapi.tiangolo.com/advanced/testing-dependencies/">FastAPI: testing dependencies with overrides</a></li><li><a href="https://docs.astral.sh/uv/">uv</a></li><li><a href="https://docs.astral.sh/ruff/">Ruff</a></li><li><a href="https://mypy.readthedocs.io/en/stable/">mypy</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w1-c1">w1-c1</a> PA intake API with typed requests and the CMS-0057-F clock (coding, 2-3 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Prior authorization and the CMS-0057-F clocks</h3>
+    <p class="focus">Who the players are, the PA steps (coverage requirements, documentation, submission, clinical review, decision, notification, appeal), and the rule: 72 hours expedited, 7 calendar days standard, a specific reason for every denial, public metrics, and the 2027 APIs.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-thu-1"><span>Read the CMS-0057-F page and fact sheet; write down who it applies to and the exclusion for QHP issuers on the FFEs</span></li>
+        <li data-id="w1-thu-2"><span>Draw the PA swimlane (provider, intake, clinical review, notification, appeal) with both clocks marked</span></li>
+        <li data-id="w1-thu-3"><span>Read the AMA prior authorization page for the provider's view of the burden</span></li>
+        <li data-id="w1-thu-4"><span>Write the deadline function on paper first: what does "7 calendar days" mean across a DST change? Then run the w1-t1 incident</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.cms.gov/initiatives/burden-reduction/overview/interoperability/policies-regulations/cms-interoperability-prior-authorization-final-rule-cms-0057-f">CMS-0057-F final rule</a></li><li><a href="https://www.cms.gov/newsroom/fact-sheets/cms-interoperability-prior-authorization-final-rule-cms-0057-f">CMS-0057-F fact sheet</a></li><li><a href="https://www.federalregister.gov/documents/2024/02/08/2024-00895/medicare-and-medicaid-programs-patient-protection-and-affordable-care-act-advancing-interoperability">CMS-0057-F in the Federal Register</a></li><li><a href="https://www.cms.gov/initiatives/burden-reduction/overview/interoperability">CMS interoperability overview</a></li><li><a href="https://www.ama-assn.org/practice-management/prior-authorization">AMA: prior authorization</a></li><li><a href="https://www.cms.gov/data-research/monitoring-programs/medicare-fee-service-compliance-programs/prior-authorization-and-pre-claim-review-initiatives">Medicare FFS prior authorization initiatives</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w1-t1">w1-t1</a> The CMS clock report says zero late decisions (troubleshooting, 1.5-2 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Claims, appeals, member engagement; lines of business</h3>
+    <p class="focus">Claims lifecycle from 837 to 835, Explanation of Benefits, appeals and grievances with their own clocks, member engagement and Star Ratings. Rules differ for commercial, Medicare Advantage, Medicaid managed care and ACA plans.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-fri-1"><span>Write the claims lifecycle in ten lines: submission, clearinghouse edits, adjudication (eligibility, coverage, PA match, coding edits, pricing, cost share), payment, remittance, denials</span></li>
+        <li data-id="w1-fri-2"><span>Read the Medicare managed care appeals page; note reconsideration and independent review</span></li>
+        <li data-id="w1-fri-3"><span>Read two real Local Coverage Determinations in the Medicare Coverage Database and turn one into a criteria checklist</span></li>
+        <li data-id="w1-fri-4"><span>Write a one-page payer glossary in your own words (PA, UM, LOB, EOB, 837/835/278, LCD, reconsideration, Star Ratings)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.cms.gov/medicare/appeals-grievances/managed-care">Medicare managed care appeals</a></li><li><a href="https://www.cms.gov/medicare-coverage-database/search.aspx">Medicare Coverage Database (NCDs and LCDs)</a></li><li><a href="https://www.cms.gov/medicare/health-drug-plans/part-c-d-performance-data">Part C and D performance data (Star Ratings)</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-162">45 CFR Part 162</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Workbook: intake API and the clock incident</h3>
+    <p class="focus">One long block: finish the intake service with 20+ tests and work the clock troubleshooting case end to end.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wk-1"><span>Finish <code>healthai/w1-c1</code>: discriminated union, DST-safe clock, 503 on eligibility timeout, idempotency, lifespan</span></li>
+        <li data-id="w1-wk-2"><span>Work <code>healthai/w1-t1</code>: reproduce, find the cause, fix, fill in findings.json; grade both</span></li>
+        <li data-id="w1-wk-3"><span>Start the portfolio repo: uv project, ruff, mypy, pytest, and the intake service as its first component</span></li>
+        <li data-id="w1-wk-4"><span>Shared core: write a one-page design of your Claude Code setup as a team harness (skills vs CLAUDE.md, which guardrails must be hooks)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.pytest.org/en/stable/">pytest</a></li><li><a href="https://pytest-asyncio.readthedocs.io/en/latest/">pytest-asyncio</a></li><li><a href="https://code.claude.com/docs/en/skills">Skills</a></li><li><a href="https://code.claude.com/docs/en/hooks">Hooks</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w1-c1">w1-c1</a> PA intake API with typed requests and the CMS-0057-F clock (coding, 2-3 h) / <a class="chip" href="workbooks/healthai/workbook.html#ex-w1-t1">w1-t1</a> The CMS clock report says zero late decisions (troubleshooting, 1.5-2 h)</p>
+    <div class="deliverable"><b>Deliverable:</b> a FastAPI intake service with typed requests, a correct CMS-0057-F clock and 20+ pytest tests, plus a one-page payer glossary.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 2 ============================== -->
+<section class="page" id="week2" data-title="Week 2">
+  <h2>Week 2 - gRPC, containers and event-driven pipelines <button class="reset" data-reset="w2">reset week</button></h2>
+  <p class="lede">The posting asks for gRPC and cloud-native pipelines (Cloud Run, Pub/Sub, Cloud Functions). The delivery semantics and service identities map closely from Lambda, SQS/SNS and Step Functions; the new parts are gRPC itself, the Cloud Run contract and Pub/Sub's push model with OIDC. GCP project setup and Terraform come from the role 6 track; reuse it rather than relearn it.</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Protobuf and grpc.aio</h3>
+    <p class="focus">proto3 contracts, unary vs streaming RPCs, generated stubs, and the asyncio API. When gRPC (internal, typed, streaming) and when REST (edge, browsers, partners).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-mon-1"><span>Read gRPC core concepts and the proto3 guide</span></li>
+        <li data-id="w2-mon-2"><span>Do the Python quickstart, then port it to <code>grpc.aio</code> (server and client)</span></li>
+        <li data-id="w2-mon-3"><span>Write <code>criteria.proto</code> with CheckCriteria and Health; generate stubs with grpcio-tools in a Makefile target</span></li>
+        <li data-id="w2-mon-4"><span>Write down three reasons the edge stays REST and internal stages use gRPC</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://grpc.io/docs/what-is-grpc/core-concepts/">gRPC core concepts</a></li><li><a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers proto3 guide</a></li><li><a href="https://grpc.io/docs/languages/python/quickstart/">gRPC Python quickstart</a></li><li><a href="https://grpc.io/docs/languages/python/basics/">gRPC Python basics</a></li><li><a href="https://grpc.github.io/grpc/python/grpc_asyncio.html">gRPC asyncio API</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Deadlines, cancellation, status codes, health</h3>
+    <p class="focus">A deadline on every call, <code>context.time_remaining()</code> on the server, cancellation that actually stops the work, the right status codes, and the health checking protocol.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-tue-1"><span>Read the deadlines, status codes and health checking guides</span></li>
+        <li data-id="w2-tue-2"><span>In your service: set a client deadline, read time_remaining on the server, and shrink per-check budgets to fit</span></li>
+        <li data-id="w2-tue-3"><span>Cancel a call from the client and prove the server-side tasks were cancelled</span></li>
+        <li data-id="w2-tue-4"><span>Map five failure cases to status codes (bad input, missing case, FHIR 503, deadline, quota)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://grpc.io/docs/guides/deadlines/">gRPC deadlines</a></li><li><a href="https://grpc.io/docs/guides/status-codes/">gRPC status codes</a></li><li><a href="https://grpc.io/docs/guides/health-checking/">gRPC health checking</a></li><li><a href="https://grpc.github.io/grpc/python/grpc_asyncio.html">gRPC asyncio API</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w2-c1">w2-c1</a> CriteriaService on grpc.aio: concurrent, bounded, deadline-aware (coding, 2-3 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Containers and the Cloud Run contract</h3>
+    <p class="focus">Slim images with uv, non-root user, one process, graceful shutdown on SIGTERM, request timeouts and concurrency per instance, gRPC on Cloud Run with HTTP/2 end to end.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wed-1"><span>Read the container runtime contract and gRPC on Cloud Run</span></li>
+        <li data-id="w2-wed-2"><span>Build an image with uv for the criteria service: non-root, under 200 MB; handle SIGTERM by draining</span></li>
+        <li data-id="w2-wed-3"><span>Deploy the FastAPI edge and the gRPC service to Cloud Run with separate service accounts; no public ingress on the gRPC one</span></li>
+        <li data-id="w2-wed-4"><span>Note how Cloud Run concurrency multiplies your per-instance semaphore into FHIR store load</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run">What is Cloud Run</a></li><li><a href="https://docs.cloud.google.com/run/docs/container-contract">Cloud Run container runtime contract</a></li><li><a href="https://docs.cloud.google.com/run/docs/triggering/grpc">gRPC on Cloud Run</a></li><li><a href="https://docs.astral.sh/uv/guides/integration/docker/">uv in Docker</a></li><li><a href="https://fastapi.tiangolo.com/deployment/docker/">FastAPI in containers</a></li><li><a href="https://docs.cloud.google.com/run/docs/securing/service-identity">Cloud Run service identity</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w2-t1">w2-t1</a> CriteriaService goes dark after a FHIR latency spike (troubleshooting, 1.5-2 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Pub/Sub delivery semantics and idempotency</h3>
+    <p class="focus">Topics and subscriptions, push vs pull, at-least-once by default, exactly-once for pull, ordering keys, dead-letter topics, retry policy, filters and schemas. Every handler survives redelivery.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-thu-1"><span>Read the Pub/Sub overview, push subscriptions, dead-letter topics, exactly-once delivery and ordering</span></li>
+        <li data-id="w2-thu-2"><span>Wire intake to a topic and a push subscription to the criteria stage with an OIDC invoker service account</span></li>
+        <li data-id="w2-thu-3"><span>Add a dead-letter topic with max delivery attempts; send a poison message and watch it land there</span></li>
+        <li data-id="w2-thu-4"><span>Make the stage idempotent on case id plus stage; redeliver a message twice and show one effect</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/pubsub/docs/overview">Pub/Sub overview</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/push">Push subscriptions</a></li><li><a href="https://docs.cloud.google.com/run/docs/tutorials/pubsub">Using Pub/Sub with Cloud Run</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/dead-letter-topics">Dead-letter topics</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery">Exactly-once delivery</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/ordering">Ordering messages</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/subscription-message-filter">Subscription message filters</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/schemas">Pub/Sub schemas</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Cloud Run functions, Eventarc, Workflows, Healthcare API notifications</h3>
+    <p class="focus">Functions for small handlers, services for real dependencies, jobs for batch re-indexing; Eventarc routing; Workflows when an HTTP request should not hold a long LLM call; FHIR store changes published to Pub/Sub.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-fri-1"><span>Read the functions comparison and Eventarc overview</span></li>
+        <li data-id="w2-fri-2"><span>Decide for each portfolio stage: service, function or job, and write one line why</span></li>
+        <li data-id="w2-fri-3"><span>Read Healthcare API Pub/Sub notifications: a new PA Claim in the FHIR store can start the pipeline</span></li>
+        <li data-id="w2-fri-4"><span>Read the Workflows overview and sketch the four-stage pipeline as a workflow for comparison</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/functions/docs/concepts/overview">Cloud Run functions overview</a></li><li><a href="https://docs.cloud.google.com/run/docs/functions/comparison">Compare Cloud Run functions</a></li><li><a href="https://docs.cloud.google.com/run/docs/create-jobs">Cloud Run jobs</a></li><li><a href="https://docs.cloud.google.com/eventarc/docs/overview">Eventarc overview</a></li><li><a href="https://docs.cloud.google.com/run/docs/triggering/trigger-with-events">Trigger Cloud Run with events</a></li><li><a href="https://docs.cloud.google.com/workflows/docs/overview">Workflows overview</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/pubsub">Healthcare API: Pub/Sub notifications</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Workbook: criteria service and the wedged revision</h3>
+    <p class="focus">Build the bounded, deadline-aware service, then debug the outage where it stayed down after the dependency recovered.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wk-1"><span>Finish <code>healthai/w2-c1</code> (TaskGroup, Semaphore(5), per-check timeout, cancel and deadline tests)</span></li>
+        <li data-id="w2-wk-2"><span>Work <code>healthai/w2-t1</code>: replay the morning with <code>make repro</code>, find the leak, fix, grade</span></li>
+        <li data-id="w2-wk-3"><span>Portfolio: two services talking gRPC, one stage triggered by Pub/Sub, on Cloud Run from Terraform (role 6 foundation)</span></li>
+        <li data-id="w2-wk-4"><span>Shared core: read Building effective agents and mark which pipeline steps need a model and which stay deterministic</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li><li><a href="https://docs.cloud.google.com/run/docs/container-contract">Cloud Run container runtime contract</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w2-c1">w2-c1</a> CriteriaService on grpc.aio: concurrent, bounded, deadline-aware (coding, 2-3 h) / <a class="chip" href="workbooks/healthai/workbook.html#ex-w2-t1">w2-t1</a> CriteriaService goes dark after a FHIR latency spike (troubleshooting, 1.5-2 h)</p>
+    <div class="deliverable"><b>Deliverable:</b> two services talking gRPC on Cloud Run with separate service accounts, one Pub/Sub-triggered stage with a dead-letter topic, all from Terraform.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 3 ============================== -->
+<section class="page" id="week3" data-title="Week 3">
+  <h2>Week 3 - Health data standards: FHIR, Da Vinci, X12, code sets <button class="reset" data-reset="w3">reset week</button></h2>
+  <p class="lede">Every input and output of a payer AI system is shaped by these standards. You have run EDI integrations at the infrastructure level, so envelopes, partners and acknowledgments are familiar; the new parts are FHIR's resource model, the Da Vinci PA guides and the code sets, including what you may and may not publish (CPT descriptors are AMA-licensed).</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>FHIR R4: resources, references, Bundles, REST, US Core</h3>
+    <p class="focus">Resources and references, Bundles (collection, transaction), the REST API and search, profiles and extensions, US Core as the base for US data.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-mon-1"><span>Read the FHIR R4 home page, resource list and RESTful API overview</span></li>
+        <li data-id="w3-mon-2"><span>Read the Bundle page: fullUrl, urn:uuid references, transaction vs collection</span></li>
+        <li data-id="w3-mon-3"><span>Skim US Core: which profiles you would expect on Patient, Condition, Coverage</span></li>
+        <li data-id="w3-mon-4"><span>Hand-write a Bundle with Patient, Coverage and two Conditions whose references resolve</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://hl7.org/fhir/R4/">FHIR R4</a></li><li><a href="https://hl7.org/fhir/R4/resourcelist.html">FHIR R4 resource list</a></li><li><a href="https://hl7.org/fhir/R4/http.html">FHIR R4 RESTful API</a></li><li><a href="https://hl7.org/fhir/R4/bundle.html">FHIR R4 Bundle</a></li><li><a href="https://hl7.org/fhir/us/core/">US Core</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w3-t1">w3-t1</a> Oncology and cardiology PAs pended for missing diagnosis (troubleshooting, 1.5 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Payer resources: Coverage, Claim, ClaimResponse, EOB</h3>
+    <p class="focus">The payer side of FHIR, and the patient-access and payer-exchange guides you should know by name.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-tue-1"><span>Read Claim (use: claim, preauthorization, predetermination), ClaimResponse and ExplanationOfBenefit</span></li>
+        <li data-id="w3-tue-2"><span>Read Coverage: beneficiary, payor, subscriberId, class</span></li>
+        <li data-id="w3-tue-3"><span>Skim CARIN Blue Button and Da Vinci PDex: who reads what under the 2027 Patient Access and Payer-to-Payer APIs</span></li>
+        <li data-id="w3-tue-4"><span>Write the field-level mapping from a PA decision to ClaimResponse (outcome, preAuthRef, item adjudication, denial reason)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://hl7.org/fhir/R4/claim.html">FHIR R4 Claim</a></li><li><a href="https://hl7.org/fhir/R4/claimresponse.html">FHIR R4 ClaimResponse</a></li><li><a href="https://hl7.org/fhir/R4/explanationofbenefit.html">FHIR R4 ExplanationOfBenefit</a></li><li><a href="https://hl7.org/fhir/R4/coverage.html">FHIR R4 Coverage</a></li><li><a href="https://hl7.org/fhir/us/carin-bb/">CARIN Blue Button</a></li><li><a href="https://hl7.org/fhir/us/davinci-pdex/">Da Vinci PDex</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Da Vinci CRD, DTR and PAS</h3>
+    <p class="focus">CRD asks through CDS Hooks whether PA is needed and what documentation; DTR is the payer's questionnaire pre-filled from the record; PAS submits the Bundle around a Claim with <code>Claim/$submit</code> and checks status with <code>$inquire</code>.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wed-1"><span>Read the Da Vinci project page, then PAS: specification, use cases, $submit and $inquire</span></li>
+        <li data-id="w3-wed-2"><span>Read CRD and its hooks, and the CDS Hooks spec overview</span></li>
+        <li data-id="w3-wed-3"><span>Read DTR: how a questionnaire is pre-filled and returned</span></li>
+        <li data-id="w3-wed-4"><span>Draw the end-to-end flow CRD -> DTR -> PAS -> ClaimResponse and mark where your agents would sit</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.hl7.org/about/davinci/">Da Vinci project</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/">Da Vinci PAS (published)</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/specification.html">PAS specification</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/usecases.html">PAS use cases</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/OperationDefinition-Claim-submit.html">PAS Claim/$submit</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/OperationDefinition-Claim-inquiry.html">PAS Claim/$inquire</a></li><li><a href="https://hl7.org/fhir/us/davinci-crd/">Da Vinci CRD</a></li><li><a href="https://hl7.org/fhir/us/davinci-crd/hooks.html">CRD hooks</a></li><li><a href="https://cds-hooks.org/">CDS Hooks</a></li><li><a href="https://hl7.org/fhir/us/davinci-dtr/">Da Vinci DTR</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w3-c1">w3-c1</a> X12 278-like request to a Da Vinci PAS-shaped FHIR Bundle (coding, 2-3 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>X12 278/837/835 and the code sets</h3>
+    <p class="focus">The HIPAA transactions (45 CFR 162), the public X12 examples, ICD-10-CM (diagnoses), ICD-10-PCS (inpatient procedures), HCPCS Level II, and CPT licensing.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-thu-1"><span>Read the X12 transaction set list and the public examples for 278 and 837</span></li>
+        <li data-id="w3-thu-2"><span>Read 45 CFR Part 162 headings: which transactions and code sets are named</span></li>
+        <li data-id="w3-thu-3"><span>Download the ICD-10-CM code file from CMS; write a validator that rejects codes not in the current year's file</span></li>
+        <li data-id="w3-thu-4"><span>Read the AMA CPT pages and write one sentence on why your repo uses generic labels or HCPCS instead of CPT descriptors</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://x12.org/">X12</a></li><li><a href="https://x12.org/products/transaction-sets">X12 transaction sets</a></li><li><a href="https://x12.org/examples">X12 examples</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-162">45 CFR Part 162</a></li><li><a href="https://www.cms.gov/priorities/key-initiatives/burden-reduction/administrative-simplification">CMS administrative simplification</a></li><li><a href="https://www.cms.gov/medicare/coding-billing/icd-10-codes">CMS: ICD-10 code files</a></li><li><a href="https://www.cms.gov/medicare/coding-billing/healthcare-common-procedure-system">CMS: HCPCS Level II</a></li><li><a href="https://www.ama-assn.org/practice-management/cpt">AMA: CPT</a></li><li><a href="https://www.ama-assn.org/practice-management/cpt/cpt-code-set-overview">AMA: CPT code set overview</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w3-c1">w3-c1</a> X12 278-like request to a Da Vinci PAS-shaped FHIR Bundle (coding, 2-3 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Synthea and the Healthcare API FHIR store</h3>
+    <p class="focus">Synthetic patients with no PHI, loaded into a FHIR store you control with IAM per dataset and store.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-fri-1"><span>Generate 500 Synthea patients</span></li>
+        <li data-id="w3-fri-2"><span>Create a Healthcare API dataset and FHIR store in Terraform; import the bundles</span></li>
+        <li data-id="w3-fri-3"><span>Search the store for one patient's Conditions and MedicationRequests with the REST API</span></li>
+        <li data-id="w3-fri-4"><span>Turn on Pub/Sub notifications on the store and see a new Claim start your week-2 pipeline</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://synthetichealth.github.io/synthea/">Synthea</a></li><li><a href="https://github.com/synthetichealth/synthea">Synthea on GitHub</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/introduction">Cloud Healthcare API introduction</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/concepts/fhir">Healthcare API: FHIR concepts</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/fhir">Healthcare API: create and manage FHIR stores</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/fhir-resources">Healthcare API: FHIR resources</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/fhir-import-export">Healthcare API: import and export FHIR</a></li><li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/healthcare_fhir_store">Terraform: google_healthcare_fhir_store</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Workbook: 278 to PAS, and the missing diagnoses</h3>
+    <p class="focus">Write the adapter from the 278-like format to the PAS-shaped Bundle, then debug the release that made every oncology case look undiagnosed.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wk-1"><span>Finish <code>healthai/w3-c1</code> and write your "does not map cleanly" list</span></li>
+        <li data-id="w3-wk-2"><span>Work <code>healthai/w3-t1</code>, including the regression test the grader runs against the released code</span></li>
+        <li data-id="w3-wk-3"><span>Portfolio: a PAS-shaped request Bundle built from one Synthea patient, validated with your Pydantic models</span></li>
+        <li data-id="w3-wk-4"><span>Shared core: build a small MCP server in Python with three read-only tools over your FHIR store (coverage, conditions, medications)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></li><li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a></li><li><a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w3-c1">w3-c1</a> X12 278-like request to a Da Vinci PAS-shaped FHIR Bundle (coding, 2-3 h) / <a class="chip" href="workbooks/healthai/workbook.html#ex-w3-t1">w3-t1</a> Oncology and cardiology PAs pended for missing diagnosis (troubleshooting, 1.5 h)</p>
+    <div class="deliverable"><b>Deliverable:</b> a FHIR store loaded with synthetic patients and a validated PAS-shaped request Bundle built from one of them.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 4 ============================== -->
+<section class="page" id="week4" data-title="Week 4">
+  <h2>Week 4 - LangGraph: state, persistence, interrupts, memory, multi-agent <button class="reset" data-reset="w4">reset week</button></h2>
+  <p class="lede">LangGraph is the framework most likely to be whiteboarded. Your Step Functions experience maps directly: explicit states, transitions, retries, and state carried between steps, with a model inside some nodes. The design rule for the whole portfolio starts here: the system may only recommend approval; every denial goes to a person through an interrupt.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Graph API: state, nodes, edges, reducers, Command, Send</h3>
+    <p class="focus">A typed state, nodes as functions over state, normal and conditional edges, START and END, reducers (overwrite vs append), <code>Command</code> to update and route from a node, <code>Send</code> for fan-out over criteria.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-mon-1"><span>Read the LangGraph overview, Thinking in LangGraph and the Graph API page</span></li>
+        <li data-id="w4-mon-2"><span>Build a toy graph with a TypedDict state and an append-only audit list (operator.add); show what happens without the reducer</span></li>
+        <li data-id="w4-mon-3"><span>Use Send to fan out one check per criterion and gather results</span></li>
+        <li data-id="w4-mon-4"><span>Read Application structure and lay out the portfolio's graph package</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.langchain.com/oss/python/langgraph/overview">LangGraph overview</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/thinking-in-graph-api">Thinking in LangGraph</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/graph-api">Graph API</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/application-structure">Application structure</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Tools and structured output inside the graph</h3>
+    <p class="focus">A tool node, tool errors returned to the model, parallel tool calls, and Pydantic-validated model output. Workflows vs agents: which nodes need a model at all.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-tue-1"><span>Read Workflows and agents, and Tools</span></li>
+        <li data-id="w4-tue-2"><span>Add a tool-calling node that reads coverage and conditions (your week-3 MCP tools or plain functions)</span></li>
+        <li data-id="w4-tue-3"><span>Validate the model's recommendation with a Pydantic model; route invalid output to review instead of crashing</span></li>
+        <li data-id="w4-tue-4"><span>Shared core: read Writing effective tools for agents and rewrite one tool description and error message</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.langchain.com/oss/python/langgraph/workflows-agents">Workflows and agents</a></li><li><a href="https://docs.langchain.com/oss/python/langchain/tools">Tools</a></li><li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li><li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li><li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Persistence, interrupts and time travel</h3>
+    <p class="focus">A checkpointer saves state after every step per thread_id: resume after a crash, human-in-the-loop, replay and fork. <code>interrupt()</code> pauses; <code>Command(resume=...)</code> continues. Nodes re-run from the top on resume.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wed-1"><span>Read Persistence, Interrupts and Time travel</span></li>
+        <li data-id="w4-wed-2"><span>Add an interrupt before any outcome other than approve-recommended; resume with a reviewer decision</span></li>
+        <li data-id="w4-wed-3"><span>Use the SQLite checkpointer, kill the process while a case waits, restart and resume</span></li>
+        <li data-id="w4-wed-4"><span>Fork a case from an earlier checkpoint with a different reviewer decision and show both histories; read the Postgres checkpointer page for production</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.langchain.com/oss/python/langgraph/persistence">Persistence</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/interrupts">Interrupts</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/use-time-travel">Time travel</a></li><li><a href="https://pypi.org/project/langgraph-checkpoint-postgres/">langgraph-checkpoint-postgres</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w4-c1">w4-c1</a> PA intake graph where no denial is ever automatic (coding, 2-3 h) / <a class="chip" href="workbooks/healthai/workbook.html#ex-w4-t1">w4-t1</a> A reviewer&#x27;s decision lands on another member&#x27;s case (troubleshooting, 1.5-2 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Memory, subgraphs and multi-agent</h3>
+    <p class="focus">Short-term memory is thread state; long-term memory is a namespaced store across threads. Subgraphs with their own state; supervisors and handoffs; and when one agent with more tools beats several agents.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-thu-1"><span>Read Memory concepts and Add memory; write what you would keep per case, per member and per reviewer, and the PHI consequence of each</span></li>
+        <li data-id="w4-thu-2"><span>Read Subgraphs and Multi-agent</span></li>
+        <li data-id="w4-thu-3"><span>Restructure the PA flow as intake, policy retrieval, criteria check and drafting; decide which are subgraphs and which are plain nodes</span></li>
+        <li data-id="w4-thu-4"><span>Read Streaming and stream node updates to a reviewer UI stub</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.langchain.com/oss/python/concepts/memory">Memory concepts</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/add-memory">Add memory</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/use-subgraphs">Subgraphs</a></li><li><a href="https://docs.langchain.com/oss/python/langchain/multi-agent">Multi-agent</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/streaming">Streaming</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>The other frameworks; testing and observability</h3>
+    <p class="focus">AutoGen is archived and Semantic Kernel now points to Microsoft Agent Framework; LlamaIndex is strongest on ingestion and retrieval. Testing graphs node by node with fixed model output; tracing every node and tool call.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-fri-1"><span>Read the AutoGen and Semantic Kernel repository notices and the Microsoft Agent Framework overview and workflows pages</span></li>
+        <li data-id="w4-fri-2"><span>Skim the LlamaIndex framework docs and Workflows; write the one-page comparison table (state, persistence, HITL, multi-agent style, maturity)</span></li>
+        <li data-id="w4-fri-3"><span>Read LangGraph Testing and Observability; add node-level tests with a scripted model</span></li>
+        <li data-id="w4-fri-4"><span>Emit one OpenTelemetry span per node and per tool call (GenAI conventions)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/microsoft/autogen">AutoGen repository (archived notice)</a></li><li><a href="https://github.com/microsoft/semantic-kernel">Semantic Kernel repository (successor notice)</a></li><li><a href="https://learn.microsoft.com/en-us/agent-framework/overview/">Microsoft Agent Framework overview</a></li><li><a href="https://learn.microsoft.com/en-us/agent-framework/workflows/">Microsoft Agent Framework workflows</a></li><li><a href="https://learn.microsoft.com/en-us/agent-framework/migration-guide/from-autogen/">Migration guide from AutoGen</a></li><li><a href="https://learn.microsoft.com/en-us/agent-framework/migration-guide/from-semantic-kernel/">Migration guide from Semantic Kernel</a></li><li><a href="https://developers.llamaindex.ai/python/framework/">LlamaIndex framework docs</a></li><li><a href="https://developers.llamaindex.ai/python/llamaagents/workflows/">LlamaIndex Workflows</a></li><li><a href="https://developers.llamaindex.ai/llamaparse/parse/">LlamaParse</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/test">Testing</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/observability">Observability</a></li><li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OpenTelemetry GenAI semantic conventions</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Workbook: no automatic denials, and the mixed-up cases</h3>
+    <p class="focus">Build the graph that can never deny on its own, then debug the release where reviewer decisions landed on another member's case.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wk-1"><span>Finish <code>healthai/w4-c1</code> including the exhaustive invariant test</span></li>
+        <li data-id="w4-wk-2"><span>Work <code>healthai/w4-t1</code>: replay the burst, find the race, write what Privacy should be told</span></li>
+        <li data-id="w4-wk-3"><span>Portfolio: the single-agent PA intake graph that pauses for review and survives a process kill</span></li>
+        <li data-id="w4-wk-4"><span>Write the interview sentence: "a model never denies care on its own", and how the graph enforces it in code, not in a prompt</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.langchain.com/oss/python/langgraph/interrupts">Interrupts</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/persistence">Persistence</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w4-c1">w4-c1</a> PA intake graph where no denial is ever automatic (coding, 2-3 h) / <a class="chip" href="workbooks/healthai/workbook.html#ex-w4-t1">w4-t1</a> A reviewer&#x27;s decision lands on another member&#x27;s case (troubleshooting, 1.5-2 h)</p>
+    <div class="deliverable"><b>Deliverable:</b> a checkpointed PA intake graph where every adverse path stops at an interrupt, with a test that proves no denial auto-finalizes.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 5 ============================== -->
+<section class="page" id="week5" data-title="Week 5">
+  <h2>Week 5 - RAG at scale and Agent Platform (Vertex AI) ML <button class="reset" data-reset="w5">reset week</button></h2>
+  <p class="lede">Payer medical policies, clinical guidelines and provider manuals are exactly the large, structured, versioned document stores the posting means. Retrieval quality is measured before answer quality. In the same week you cover the ML side of Agent Platform the posting lists: Model Garden, endpoint deployment, Vector Search and Workbench. Google now documents Vertex AI as Gemini Enterprise Agent Platform; use both names.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Parsing and structure-aware chunking; metadata</h3>
+    <p class="focus">Layout-aware parsing (headings, tables, lists), chunks that keep the section path, parent-child chunks, contextual chunk headers, special handling for criteria tables. Metadata (line of business, plan, state, effective and end dates, version) is a correctness filter.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-mon-1"><span>Read the Document AI layout parser and chunking page and Contextual retrieval</span></li>
+        <li data-id="w5-mon-2"><span>Write a chunker for markdown policies that keeps the section path and never splits a table row</span></li>
+        <li data-id="w5-mon-3"><span>Generate or assemble a synthetic policy corpus with versions and effective dates (start small; grow it to thousands of pages for the portfolio)</span></li>
+        <li data-id="w5-mon-4"><span>List the metadata fields you will filter on and why retrieving a retired policy is a bug</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/document-ai/docs/layout-parse-chunk">Document AI: layout parser and chunking</a></li><li><a href="https://www.anthropic.com/research/contextual-retrieval">Contextual retrieval (Anthropic)</a></li><li><a href="https://developers.llamaindex.ai/llamaparse/parse/">LlamaParse</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w5-t1">w5-t1</a> The chunker splits a criteria table mid-row (troubleshooting, 1.5-2 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Hybrid search, fusion and embeddings</h3>
+    <p class="focus">Dense for meaning, sparse or keyword for exact terms (drug names, codes, policy ids), fused with reciprocal rank fusion or weights. Embedding task types (document vs query). Alternatives when the data already lives in AlloyDB or BigQuery.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-tue-1"><span>Read Vector Search hybrid search, embedding task types and the RRF reference</span></li>
+        <li data-id="w5-tue-2"><span>Implement BM25 plus dense retrieval and RRF (k = 60) over your corpus</span></li>
+        <li data-id="w5-tue-3"><span>Read the AlloyDB hybrid search and BigQuery vector search pages; write when you would choose each</span></li>
+        <li data-id="w5-tue-4"><span>Label 30 queries with the correct policy section, mixing exact-term and paraphrase queries</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/about-hybrid-search">Vector Search: about hybrid search</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/task-types">Embedding task types</a></li><li><a href="https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion">Reciprocal rank fusion (Elasticsearch reference)</a></li><li><a href="https://docs.cloud.google.com/alloydb/docs/ai/run-hybrid-vector-similarity-search">AlloyDB: hybrid vector similarity search</a></li><li><a href="https://docs.cloud.google.com/bigquery/docs/vector-search-intro">BigQuery vector search</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w5-c1">w5-c1</a> Hybrid policy retrieval with rerank, measured (coding, 2-3 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Reranking and retrieval evals</h3>
+    <p class="focus">A cross-encoder or the Agent Search ranking API over the top 50 to 100 candidates; recall@k, MRR or nDCG, per-filter slices, regression gates.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wed-1"><span>Read the ranking API page, RAG Engine retrieval and ranking, and the cross-encoder page</span></li>
+        <li data-id="w5-wed-2"><span>Add a rerank step and measure recall@10 and MRR before and after, and the latency cost</span></li>
+        <li data-id="w5-wed-3"><span>Slice the results by query type and count retired-version hits per setup</span></li>
+        <li data-id="w5-wed-4"><span>Skim BEIR and Ragas for metric definitions you can cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/generative-ai-app-builder/docs/ranking">Agent Search ranking API</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/retrieval-and-ranking">RAG Engine: retrieval and ranking</a></li><li><a href="https://www.sbert.net/examples/cross_encoder/applications/README.html">Cross-encoders (Sentence Transformers)</a></li><li><a href="https://github.com/beir-cellar/beir">BEIR retrieval benchmark</a></li><li><a href="https://docs.ragas.io/en/stable/">Ragas</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w5-c1">w5-c1</a> Hybrid policy retrieval with rerank, measured (coding, 2-3 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Model Garden, self-deployed models and endpoints</h3>
+    <p class="focus">Model as a service vs self-deployed on your own endpoint, vLLM serving, machine and GPU choice, accelerator quota, traffic split, min and max replicas, endpoint types (shared public, dedicated, private).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-thu-1"><span>Read Model Garden explore models and the self-deployed models overview</span></li>
+        <li data-id="w5-thu-2"><span>Do the deploy and inference tutorial with a small Gemma model on a dedicated endpoint, min replicas 1</span></li>
+        <li data-id="w5-thu-3"><span>Read vLLM serving and Choose an endpoint type; write why PHI traffic goes to a private (PSC) endpoint</span></li>
+        <li data-id="w5-thu-4"><span>Record cold-start time, p50/p95 latency and cost per hour, then undeploy and confirm the bill stops</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models">Model Garden: explore models</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/self-deployed-models">Overview of self-deployed models</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/deploy-and-inference-tutorial">Deploy and inference tutorial (Model Garden)</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm">vLLM serving on Cloud GPUs</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/use-gemma">Use Gemma open models</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment">Deploy a model to an endpoint</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions/choose-endpoint-type">Choose an endpoint type</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction">Model Registry introduction</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/training/overview">Custom training overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Vector Search operations, Workbench, VPC-SC and CMEK</h3>
+    <p class="focus">Indexes and index endpoints, batch vs streaming updates, filtering with restricts and numeric filters, VPC endpoints, idle cost; Workbench instances with no public IP and CMEK; perimeters around everything that can touch PHI.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-fri-1"><span>Read the Vector Search overview, quickstart, index configuration, create/update and filtering pages</span></li>
+        <li data-id="w5-fri-2"><span>Create an index and a VPC index endpoint in Terraform (google_vertex_ai_index); load your chunks with restricts for line of business</span></li>
+        <li data-id="w5-fri-3"><span>Read the Workbench introduction; create an instance with no public IP and idle shutdown</span></li>
+        <li data-id="w5-fri-4"><span>Read VPC Service Controls and CMEK for Agent Platform; list the APIs your perimeter must include</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/overview">Vector Search overview</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/quickstart">Vector Search quickstart</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/configuring-indexes">Configure index parameters</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/create-manage-index">Create and manage an index</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/update-rebuild-index">Update and rebuild an index</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/filtering">Filter vector matches</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/deploy-index-vpc">Deploy an index to a VPC endpoint</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/notebooks/workbench/introduction">Introduction to Agent Platform Workbench</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/vpc-service-controls">VPC Service Controls for Agent Platform</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/cmek">CMEK for Agent Platform</a></li><li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vertex_ai_index">Terraform: google_vertex_ai_index</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Workbook: measured hybrid retrieval, and the split table</h3>
+    <p class="focus">Build the measured retrieval stack, then debug the chunker release that broke criteria questions.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wk-1"><span>Finish <code>healthai/w5-c1</code>: BM25, dense, RRF, filters before ranking, rerank, recall@k and MRR by slice</span></li>
+        <li data-id="w5-wk-2"><span>Work <code>healthai/w5-t1</code>, separating the real cause from the embedding upgrade in the same release</span></li>
+        <li data-id="w5-wk-3"><span>Portfolio: policy retrieval with recall@k before and after reranking, a Gemma endpoint called from the graph with cost per call logged</span></li>
+        <li data-id="w5-wk-4"><span>Write the four-setup comparison table (fixed vs structure-aware, dense vs hybrid, with and without rerank)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/about-hybrid-search">Vector Search: about hybrid search</a></li><li><a href="https://docs.cloud.google.com/generative-ai-app-builder/docs/ranking">Agent Search ranking API</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w5-c1">w5-c1</a> Hybrid policy retrieval with rerank, measured (coding, 2-3 h) / <a class="chip" href="workbooks/healthai/workbook.html#ex-w5-t1">w5-t1</a> The chunker splits a criteria table mid-row (troubleshooting, 1.5-2 h)</p>
+    <div class="deliverable"><b>Deliverable:</b> policy retrieval over a synthetic policy corpus with recall@k and MRR before and after reranking, and zero retired-version hits.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 6 ============================== -->
+<section class="page" id="week6" data-title="Week 6">
+  <h2>Week 6 - HIPAA in AI pipelines, evals in CI, certification prep <button class="reset" data-reset="w6">reset week</button></h2>
+  <p class="lede">This is your strongest card: years of NIST 800-53, FISMA and SOX controls (least privilege, audit trails, approval gates, change control) map closely onto the HIPAA Security Rule. The new parts are the PHI-specific rules (minimum necessary, de-identification, BAA scope) and where PHI hides inside an AI pipeline. Evals in CI and LLM security from the shared core land here, applied to PHI.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>The HIPAA rules, minimum necessary, BAA scope</h3>
+    <p class="focus">Privacy Rule, Security Rule (administrative, physical, technical safeguards), Breach Notification Rule; covered entities and business associates; minimum necessary as an access rule and a context-engineering rule.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-mon-1"><span>Read the Security Rule subpart headings and 164.312 (technical safeguards, audit controls)</span></li>
+        <li data-id="w6-mon-2"><span>Read 164.502(b) minimum necessary and 164.504(e) business associate contracts</span></li>
+        <li data-id="w6-mon-3"><span>Read Google Cloud HIPAA compliance and the BAA; list which of your portfolio services are covered and which third-party tools are not</span></li>
+        <li data-id="w6-mon-4"><span>Map five of your federal/SOX controls onto Security Rule safeguards in a table</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164">45 CFR Part 164</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C">45 CFR 164 Subpart C (Security Rule)</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.312">45 CFR 164.312 (technical safeguards)</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-E/section-164.502">45 CFR 164.502 (minimum necessary)</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-E/section-164.504">45 CFR 164.504 (business associates)</a></li><li><a href="https://docs.cloud.google.com/docs/security/compliance/hipaa">Google Cloud HIPAA compliance</a></li><li><a href="https://cloud.google.com/security/compliance/hipaa-compliance">Google Cloud HIPAA overview</a></li><li><a href="https://cloud.google.com/terms/hipaa-baa">Google Cloud BAA</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>De-identification: Safe Harbor, the Healthcare API, Sensitive Data Protection</h3>
+    <p class="focus">Safe Harbor (18 identifier types) vs Expert Determination; pseudonyms usually remain PHI; the Healthcare API de-identify operation for datasets; Sensitive Data Protection inspect, de-identify and pseudonymize for text, logs and traces.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-tue-1"><span>Read 164.514 and the Healthcare API de-identification concepts and how-to</span></li>
+        <li data-id="w6-tue-2"><span>Read Sensitive Data Protection overview, inspect text, de-identify, pseudonymization, infoTypes and templates</span></li>
+        <li data-id="w6-tue-3"><span>Produce your eval dataset with the Healthcare API de-identify operation, not by hand</span></li>
+        <li data-id="w6-tue-4"><span>Write a log and trace scrubber with tests that plant names, member ids, dates and phone numbers in many formats</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-E/section-164.514">45 CFR 164.514 (de-identification)</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/concepts/de-identification">Healthcare API: de-identification concepts</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/fhir-deidentify">Healthcare API: de-identify FHIR data</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/sensitive-data-protection-overview">Sensitive Data Protection overview</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-text">Inspect text for sensitive data</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data">De-identify sensitive data</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/pseudonymization">Pseudonymization</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference">infoTypes reference</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-templates">De-identification and inspection templates</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w6-c1">w6-c1</a> PHI de-identification for logs, prompts and traces (coding, 2-3 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>The PHI flow map, audit logs, Model Armor, data governance</h3>
+    <p class="focus">Prompts, retrieved chunks, outputs, embeddings, index metadata, checkpoints and memory, traces, logs, eval sets, notebooks, caches: each one is kept in the boundary, de-identified, or never stored.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wed-1"><span>Draw the PHI data-flow map for the portfolio and mark every store PHI, de-identified or none</span></li>
+        <li data-id="w6-wed-2"><span>Enable Data Access audit logs on the FHIR store; answer "which service account read this patient's record, and when" with one Logging query</span></li>
+        <li data-id="w6-wed-3"><span>Read Healthcare API access control, audit logging and consent management</span></li>
+        <li data-id="w6-wed-4"><span>Read Model Armor, zero data retention and Assured Workloads; note where each fits</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/logging/docs/audit">Cloud Audit Logs</a></li><li><a href="https://docs.cloud.google.com/logging/docs/audit/configure-data-access">Enable Data Access audit logs</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/access-control">Healthcare API: access control</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/audit-logging">Healthcare API: audit logging</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/consent-managing">Healthcare API: consent management</a></li><li><a href="https://docs.cloud.google.com/model-armor/overview">Model Armor overview</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention">Generative AI zero data retention</a></li><li><a href="https://docs.cloud.google.com/assured-workloads/docs/overview">Assured Workloads overview</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w6-t1">w6-t1</a> Member names in exported spans, with redaction switched on (troubleshooting, 1.5-2 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Evals in CI for probabilistic software</h3>
+    <p class="focus">Layered gates: schema and FHIR validity, retrieval recall@k, citation support, criteria accuracy, safety invariants as hard gates. Variance: N runs per case and a confidence bound. Trajectory checks for the graph.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-thu-1"><span>Re-read the evals FAQ: error analysis first, deterministic checks before judges</span></li>
+        <li data-id="w6-thu-2"><span>Read the Gen AI evaluation service overview and LangGraph testing</span></li>
+        <li data-id="w6-thu-3"><span>Write the CI job for the portfolio: 3 runs per case, fail on regression or on any denial that skipped review, cost in the job summary</span></li>
+        <li data-id="w6-thu-4"><span>Shared core: a promptfoo suite of 15 cases (10 normal, 3 edge, 2 injection) for your drafting agent</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-overview">Gen AI evaluation service overview</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/test">Testing</a></li><li><a href="https://www.promptfoo.dev/docs/intro/">promptfoo</a></li><li><a href="https://langfuse.com/docs">Langfuse docs</a></li><li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OpenTelemetry GenAI semantic conventions</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-ai-c1">ai-c1</a> Eval gate in CI for the PA assistant (coding, 2-3 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>LLM security for PHI pipelines; certification prep</h3>
+    <p class="focus">Indirect prompt injection through provider documents, the lethal trifecta in a PA system, least-privilege tools, write tools behind approval, enforcement in tools and server state rather than prompts.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-fri-1"><span>Read the OWASP Top 10 for LLM applications and the lethal trifecta post</span></li>
+        <li data-id="w6-fri-2"><span>Plant an instruction in a synthetic clinical document and show your tool scoping, not the model's behaviour, prevents harm</span></li>
+        <li data-id="w6-fri-3"><span>Work through the ML Engineer exam guide; mark sections the portfolio does not touch (classic ML pipelines) as extra study</span></li>
+        <li data-id="w6-fri-4"><span>Shared core: write one Claude Code hook that blocks a dangerous tool call however it is spelled</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li><li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li><li><a href="https://cloud.google.com/learn/certification/machine-learning-engineer">Professional Machine Learning Engineer</a></li><li><a href="https://cloud.google.com/learn/certification/cloud-architect">Professional Cloud Architect</a></li><li><a href="https://code.claude.com/docs/en/hooks">Hooks</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-ai-t1">ai-t1</a> A denial finalized with no reviewer on record (troubleshooting, 1.5 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Workbook and portfolio polish</h3>
+    <p class="focus">De-identification and the leaking redaction filter, then make the portfolio presentable.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wk-1"><span>Finish <code>healthai/w6-c1</code> and work <code>healthai/w6-t1</code>; grade both</span></li>
+        <li data-id="w6-wk-2"><span>Do the AI page exercises <code>healthai/ai-c1</code> and <code>healthai/ai-t1</code> if not done yet</span></li>
+        <li data-id="w6-wk-3"><span>Portfolio README: architecture diagram, PHI map, eval results table, "if this were real" (BAA, covered services, regions)</span></li>
+        <li data-id="w6-wk-4"><span>Record a 5-minute demo: a case that auto-approves, a model denial that waits for review, the reviewer resuming it</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/docs/security/compliance/hipaa">Google Cloud HIPAA compliance</a></li><li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-w6-c1">w6-c1</a> PHI de-identification for logs, prompts and traces (coding, 2-3 h) / <a class="chip" href="workbooks/healthai/workbook.html#ex-w6-t1">w6-t1</a> Member names in exported spans, with redaction switched on (troubleshooting, 1.5-2 h)</p>
+    <div class="deliverable"><b>Deliverable:</b> a PHI data-flow map, de-identified copies for evals and logs, Data Access audit logs on, and an eval gate that fails the build on regression.</div>
+  </div>
+</section>
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI integration fundamentals <button class="reset" data-reset="ai">reset page</button></h2>
+  <p class="lede">Shared across the study guides. No model training or data science: you call a model over HTTPS and engineer the software around it. Most of it is ordinary API work; the seven areas below are what is different, because an LLM is a probabilistic component, not a deterministic API.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Same</span>What is just API integration</h3>
+    <p class="focus">REST/SDK calls, auth, retries, timeouts, rate limits, streaming (SSE), cost metering. MCP is JSON-RPC with a tool/resource schema; an MCP server is a small service exposing your existing APIs as tools.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-same-1"><span>Make a first Messages API call with streaming; read the usage block (input/output/cache tokens)</span></li>
+        <li data-id="ai-same-2"><span>Read the MCP architecture overview: hosts, clients, servers, tools, resources, prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming messages</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">1</span>Tool design</h3>
+    <p class="focus">Names, descriptions and input schemas decide whether the model picks the right tool with the right arguments. API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-tool-1"><span>Read the tool use docs and Anthropic's guidance on writing tools for agents</span></li>
+        <li data-id="ai-tool-2"><span>Rewrite one vague tool description and compare call accuracy before and after</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">2</span>The agent loop</h3>
+    <p class="focus">Model requests a tool, your code runs it, the result goes back, repeat. Stop conditions, structured errors the model can recover from, parallel tool calls.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-loop-1"><span>Read Building Effective Agents (workflows vs agents)</span></li>
+        <li data-id="ai-loop-2"><span>Hand-write an agent loop with 2-3 tools, max-turn limit and <code>is_error</code> results</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> (a loop you do not write yourself)</li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">3</span>Context engineering and caching</h3>
+    <p class="focus">What goes in the system prompt vs per-request context; staying within the context window; prompt caching for cost and latency (static prefix first, dynamic data after the breakpoint).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-ctx-1"><span>Read the context engineering post and the prompt caching docs</span></li>
+        <li data-id="ai-ctx-2"><span>Show <code>cache_read_input_tokens</code> &gt; 0 on turn 2, then break it by changing one prefix byte</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">4</span>Security</h3>
+    <p class="focus">Prompt injection from untrusted content; model output is untrusted input; the model can skip, fake or reorder tool calls, so enforcement lives server-side. Auth in front of MCP servers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-sec-1"><span>Read the OWASP Top 10 for LLM applications</span></li>
+        <li data-id="ai-sec-2"><span>Read the MCP security best practices and authorization spec</span></li>
+        <li data-id="ai-sec-3"><span>Plant an injection in a tool result; confirm a server-side check (not the prompt) blocks the action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices">MCP security best practices</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">MCP authorization</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">5</span>Evals</h3>
+    <p class="focus">Outputs vary run to run, so test with scored scenario suites ("did it call checkout without confirming?") rather than exact-match asserts. The least familiar part for most engineers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-eval-1"><span>Read the guide on building empirical evaluations and test cases</span></li>
+        <li data-id="ai-eval-2"><span>Write a 10-case eval for your agent: code-graded checks plus one model-graded rubric; run it 3x</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Create strong empirical evaluations</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">6</span>RAG</h3>
+    <p class="focus">Embeddings + a vector store (pgvector, OpenSearch, Azure AI Search), chunking, retrieval quality, citations. A data-pipeline and search problem, not model training.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-rag-1"><span>Read the embeddings docs and the contextual retrieval post</span></li>
+        <li data-id="ai-rag-2"><span>Embed ~50 docs into pgvector, retrieve top-k, answer with citations; measure hit rate on 10 questions</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/news/contextual-retrieval">Contextual retrieval</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">7</span>Observability</h3>
+    <p class="focus">Trace prompts, tool calls, token use and latency per turn. OpenTelemetry has GenAI semantic conventions for exactly this.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-obs-1"><span>Read the OTel GenAI semantic conventions (spans, metrics, events)</span></li>
+        <li data-id="ai-obs-2"><span>Emit one span per model call and per tool call with token counts as attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI semantic conventions</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Build</span>Two starter builds</h3>
+    <p class="focus">The fastest way to close the gap. Do these before going deeper anywhere else.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-build-1"><span>Build 1: agent loop against the Messages API with 2-3 tools you already understand</span></li>
+        <li data-id="ai-build-2"><span>Build 2: streamable-HTTP MCP server in front of a familiar API, with auth, called from Claude Code</span></li>
+        <li data-id="ai-build-3"><span>Add a tiny RAG step to Build 1: embed, retrieve, cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/develop/build-server">MCP: Build a server</a></li>
+        <li><a href="https://code.claude.com/docs/en/mcp">Claude Code: connect MCP servers</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> (API, MCP, MCP Advanced)</li>
+      </ul></div>
+    </div>
+  </div>
+
+    <div class="card" id="ai-applies">
+    <h3>How this applies to this role</h3>
+    <p>Lead/Senior AI/ML Engineer at a payer: the same seven areas, built in Python on Agent Platform with LangGraph, and held to one design rule: the model recommends, a person decides every adverse outcome. Enforcement lives in graph edges, tool code and server-side state, never in a prompt. Untrusted text reaches the model through provider documents, faxed records turned into text, and portal free-text; PHI reaches it through everything the FHIR store returns, so minimum necessary is also your context-engineering rule.</p>
+    <table>
+      <tr><th>Area</th><th>Payer AI angle</th><th>Plan week</th><th>Workbook</th></tr>
+      <tr><td>1 Tool design</td><td>Task-shaped, read-only FHIR tools (coverage, conditions, prior therapies) with small outputs and errors the model can act on; no finalize tool for the drafting agent</td><td><a href="#week4">W4 Tue</a>, <a href="#week3">W3 Wknd</a></td><td><a href="workbooks/healthai/workbook.html#ex-ai-t1">ai-t1</a>, <a href="workbooks/healthai/workbook.html#ex-w2-c1">w2-c1</a></td></tr>
+      <tr><td>2 Agent loop</td><td>A LangGraph graph instead of a free loop: explicit nodes, conditional edges, interrupts before any adverse outcome, max turns on tool-calling nodes</td><td><a href="#week4">W4</a></td><td><a href="workbooks/healthai/workbook.html#ex-w4-c1">w4-c1</a></td></tr>
+      <tr><td>3 Context + caching</td><td>Minimum necessary projection of the FHIR record; policy text as a cacheable prefix, case data after it; summaries instead of raw bundles</td><td><a href="#week6">W6 Mon</a>, <a href="#week4">W4 Tue</a></td><td><a href="workbooks/healthai/workbook.html#ex-w6-c1">w6-c1</a></td></tr>
+      <tr><td>4 Security</td><td>Indirect injection through provider documents; authorization from server state; least-privilege service accounts per stage; Model Armor as defence in depth; PHI out of logs and traces</td><td><a href="#week6">W6 Fri</a></td><td><a href="workbooks/healthai/workbook.html#ex-ai-t1">ai-t1</a>, <a href="workbooks/healthai/workbook.html#ex-w6-t1">w6-t1</a></td></tr>
+      <tr><td>5 Evals</td><td>Layered gates in CI: schema and FHIR validity, recall@k, citation support, criteria accuracy on a Wilson bound, and "no denial without review" as a hard gate; synthetic or de-identified data only</td><td><a href="#week6">W6 Thu</a></td><td><a href="workbooks/healthai/workbook.html#ex-ai-c1">ai-c1</a></td></tr>
+      <tr><td>6 RAG</td><td>Structure-aware chunking of policies, hybrid dense plus sparse on Vector Search, the ranking API, effective-date and line-of-business filters, citations a nurse can check</td><td><a href="#week5">W5</a></td><td><a href="workbooks/healthai/workbook.html#ex-w5-c1">w5-c1</a>, <a href="workbooks/healthai/workbook.html#ex-w5-t1">w5-t1</a></td></tr>
+      <tr><td>7 Observability</td><td>One span per node, model call and tool call (OTel GenAI conventions), scrubbed of PHI before export; cost per case next to quality</td><td><a href="#week4">W4 Fri</a>, <a href="#week6">W6 Wed</a></td><td><a href="workbooks/healthai/workbook.html#ex-w6-t1">w6-t1</a></td></tr>
+    </table>
+    <p class="small">Do the "Build" tasks above against Gemini on Agent Platform as well as the Claude API (shared core section 3): the same Pydantic contract, two SDKs. Interview framing: describe your harness in terms of guardrails kept and audit trail produced, not in terms of the tool.</p>
+  </div>
+
+  <div class="card">
+    <h3>Workbook for this page</h3>
+    <p>Open the <a href="workbooks/healthai/workbook.html#ai">AI Integration tab of the workbook</a>.</p>
+    <ul class="links">
+      <li><a class="chip" href="workbooks/healthai/workbook.html#ex-ai-c1">ai-c1</a> coding - Eval gate in CI for the PA assistant (2-3 h)</li>
+      <li><a class="chip" href="workbooks/healthai/workbook.html#ex-ai-t1">ai-t1</a> troubleshooting - A denial finalized with no reviewer on record (1.5 h)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WEEK 7 ============================== -->
+<section class="page" id="week7" data-title="Week 7 (add-on)">
+  <h2>Week 7 (add-on) - PEFT/LoRA, drills and mock interviews <button class="reset" data-reset="w7">reset week</button></h2>
+  <p class="lede">Optional. Fine-tuning is a nice-to-have in the posting; treat it as a costed decision, not a reflex. Try prompting first and keep it as the baseline. The rest of the week is interview rehearsal.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>LoRA and QLoRA concepts</h3>
+    <p class="focus">Low-rank adapters instead of full weights: rank, alpha, dropout, target modules; QLoRA on a 4-bit base model to fit one GPU.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-mon-1"><span>Read the PEFT docs, quicktour and LoRA conceptual guide</span></li>
+        <li data-id="w7-mon-2"><span>Read the LoRA and QLoRA papers' abstracts and method sections</span></li>
+        <li data-id="w7-mon-3"><span>Write when tuning a small model beats prompting a large one, and when it does not</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://huggingface.co/docs/peft/index">PEFT documentation</a></li><li><a href="https://huggingface.co/docs/peft/quicktour">PEFT quicktour</a></li><li><a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora">LoRA conceptual guide</a></li><li><a href="https://huggingface.co/docs/peft/developer_guides/quantization">PEFT quantization (QLoRA)</a></li><li><a href="https://arxiv.org/abs/2106.09685">LoRA paper</a></li><li><a href="https://arxiv.org/abs/2305.14314">QLoRA paper</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Tue</span>Extraction with TRL or token classification</h3>
+    <p class="focus">Generative extraction to JSON with SFTTrainer vs span extraction with token classification; data needs and held-out sets.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-tue-1"><span>Read TRL SFTTrainer and token classification</span></li>
+        <li data-id="w7-tue-2"><span>Generate synthetic notes with known ICD-10-CM codes from Synthea conditions plus templated text</span></li>
+        <li data-id="w7-tue-3"><span>Plan the held-out set and the metrics: F1 per code, invalid-code rate, rare-code slice, latency, cost per 1,000 notes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://huggingface.co/docs/trl/sft_trainer">TRL SFTTrainer</a></li><li><a href="https://huggingface.co/docs/transformers/tasks/token_classification">Token classification</a></li><li><a href="https://synthetichealth.github.io/synthea/">Synthea</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Wed</span>Tuning and serving on Agent Platform</h3>
+    <p class="focus">Model Garden LoRA/QLoRA recipes, open-model tuning, custom training jobs, serving the adapter on an endpoint.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wed-1"><span>Read the Model Garden LoRA/QLoRA recommendations and open model tuning</span></li>
+        <li data-id="w7-wed-2"><span>Read Create a custom training job; sketch the job for your tuning run</span></li>
+        <li data-id="w7-wed-3"><span>Decide what an always-on endpoint costs against your monthly volume</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/lora-qlora">Model Garden: LoRA and QLoRA recommendations</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/open-model-tuning">Open model tuning</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/training/create-custom-job">Create a custom training job</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions/choose-endpoint-type">Choose an endpoint type</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Thu</span>Design exercise: LoRA vs prompting</h3>
+    <p class="focus">A costed decision with slice-level quality, serving inside the HIPAA boundary, release gates and the October 1 code-set update.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-thu-1"><span>Do <code>healthai/x-1</code>: DESIGN.md and ANSWER.md; grade it</span></li>
+        <li data-id="w7-thu-2"><span>If you have GPU budget, run a small LoRA experiment and compare with the design numbers</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/lora-qlora">Model Garden: LoRA and QLoRA recommendations</a></li><li><a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora">LoRA conceptual guide</a></li>
+      </ul></div>
+    </div>
+    <p class="exs">Workbook: <a class="chip" href="workbooks/healthai/workbook.html#ex-x-1">x-1</a> Design: LoRA-tuned small model vs prompting for ICD-10-CM extraction (design, 2 h)</p>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Fri</span>Mock interview: system design</h3>
+    <p class="focus">Design the PA assistant on GCP end to end on a whiteboard in 45 minutes.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-fri-1"><span>Run the system design question from the Interview prep tab against a timer</span></li>
+        <li data-id="w7-fri-2"><span>Record yourself; check you named the denial rule, the CMS clocks, the PHI map and the eval gates</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li><li><a href="https://docs.cloud.google.com/docs/security/compliance/hipaa">Google Cloud HIPAA compliance</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Mock interviews and the exam</h3>
+    <p class="focus">Two mock interviews (coding and design) and the ML Engineer exam if booked.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wk-1"><span>Coding mock: implement a bounded async fan-out with timeouts from scratch in 30 minutes</span></li>
+        <li data-id="w7-wk-2"><span>Design mock: the retrieval layer for 50,000 pages of policy with versioning</span></li>
+        <li data-id="w7-wk-3"><span>Sit the Professional Machine Learning Engineer exam</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://cloud.google.com/learn/certification/machine-learning-engineer">Professional Machine Learning Engineer</a></li><li><a href="https://docs.python.org/3/library/asyncio-task.html">Coroutines and tasks (TaskGroup, timeouts)</a></li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== INTERVIEW PREP ============================== -->
+<section class="page" id="interview" data-title="Interview prep">
+  <h2>Interview prep <button class="reset" data-reset="iv">reset page</button></h2>
+  <p class="lede">Likely questions for this Lead/Senior AI/ML Engineer loop at a payer, with talk-track bullets. Rehearse each question aloud: the 2-minute answer, then the 30-second version. Tick it once you can do both without notes. Only claim what is true: your production LLM evidence is the portfolio, your payer knowledge is studied, and your regulated-operations record is real.</p>
+  <div class="progress"><div id="bar-iv"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Screen</span>The recruiter call: the two filters and the level</h3>
+    <p class="focus">Settle the hard filters before spending a loop on them. One posting covers two levels; find out which one they would put you in.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-screen-1"><span>Ask: "Is the 3+ years of production LLM work a hard cutoff for the Senior level, or would a deployed portfolio system plus long production experience in regulated environments be considered?"</span></li>
+        <li data-id="iv-screen-2"><span>Ask: "Which payer workflow does the team work on first: prior authorization, claims or appeals?"</span></li>
+        <li data-id="iv-screen-3"><span>Ask whether the Lead role means owning architecture and leading engineers, or a senior IC title</span></li>
+        <li data-id="iv-screen-4"><span>Answer "You have not worked at a payer. Why you?" in 30 seconds</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Do not stretch the numbers. Say: "26 years of production engineering, years of automation code, agent work in my daily harness, and one deployed, measured, public LLM system."</li>
+        <li>Payer answer: "I have not worked at a payer. I have learned PA, CMS-0057-F, FHIR, Da Vinci PAS and X12 278 well enough to build against them, and I have spent years in regulated, deadline-driven back offices under audit."</li>
+        <li>Lead framing, only if it fits: "the person who makes the agents safe, observable and compliant in production": platform, security, delivery, approval gates.</li>
+        <li>Contract specifics: duration, hours overlap, who owns the GCP organization and BAA, whether PHI is in scope from day one.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Design</span>System design: a prior authorization assistant on GCP</h3>
+    <p class="focus">The likely whiteboard question. Lead with the design rule, then the clocks, then the boxes.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-design-1"><span>"Design an AI system that helps nurses process prior authorization requests." 45 minutes, out loud</span></li>
+        <li data-id="iv-design-2"><span>"Where can the model decide, and where must it not?"</span></li>
+        <li data-id="iv-design-3"><span>"How does a case that waits three days for a reviewer survive a deploy?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Rule first: the system may only recommend approval; every denial, low-confidence and missing-information case goes to a reviewer through a LangGraph interrupt, and the reviewer's decision and reason are stored. Then ask how their compliance team reads current CMS and state guidance on algorithm-assisted denials.</li>
+        <li>Clocks: CMS-0057-F, 72 hours expedited, 7 calendar days standard (not for QHP issuers on the FFEs); a specific reason on every denial; the queue sorts by time remaining.</li>
+        <li>Flow: PAS Bundle or 278 at a FastAPI edge -> Pub/Sub -> LangGraph (intake, retrieval, criteria check with FHIR tools, drafting with citations) -> interrupt -> reviewer UI -> ClaimResponse. Postgres checkpointer, thread id per case.</li>
+        <li>GCP: Cloud Run per stage with its own service account, gRPC internally, private endpoints, VPC-SC around the PHI project, CMEK, Data Access audit logs.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Graph</span>LangGraph depth</h3>
+    <p class="focus">Expect a whiteboard of the state and edges, then probing on persistence.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-graph-1"><span>Draw the PA graph's state, nodes and conditional edges</span></li>
+        <li data-id="iv-graph-2"><span>"What happens to code before interrupt() when the node resumes?"</span></li>
+        <li data-id="iv-graph-3"><span>"Two reviewers submit at once. What can go wrong?"</span></li>
+        <li data-id="iv-graph-4"><span>"When would you not use multi-agent?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>State is a TypedDict with reducers; the audit list appends; nodes return partial updates. Routing is a positive condition for auto-approval; everything else falls through to review.</li>
+        <li>Nodes re-run from the top on resume, so code before interrupt() must be side-effect free. Command(resume=...) on the same thread id.</li>
+        <li>Concurrency: build the run config per call, never a shared dict; guard that the determination's case id matches (w4-t1). Time travel to repair a bad resume.</li>
+        <li>Frameworks: "I build with LangGraph; AutoGen and Semantic Kernel were folded into Microsoft Agent Framework; I would use LlamaIndex where ingestion and retrieval are the hard part."</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Python</span>Advanced Python coding round</h3>
+    <p class="focus">The posting says "advanced"; expect live coding on async and typing.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-python-1"><span>Write a bounded async fan-out with TaskGroup, Semaphore and per-call timeouts in 20 minutes</span></li>
+        <li data-id="iv-python-2"><span>"What blocks the event loop, and how do you find it?"</span></li>
+        <li data-id="iv-python-3"><span>"Pydantic v1 to v2: what changed that bit you?"</span></li>
+        <li data-id="iv-python-4"><span>"When gRPC, when REST?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>TaskGroup cancels siblings on the first failure; turn expected failures into results; never catch CancelledError; async with on the semaphore.</li>
+        <li>Blocking: sync SDKs, CPU work, time.sleep. Debug mode warns on slow callbacks; offload with asyncio.to_thread or a process pool.</li>
+        <li>v2: model_validate/model_dump, field_validator/model_validator, ConfigDict, strict types, discriminated unions, pydantic-settings split out.</li>
+        <li>gRPC internally (typed contracts, deadlines, streaming, HTTP/2 on Cloud Run); REST at the edge for partners and browsers.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">RAG</span>Retrieval at scale</h3>
+    <p class="focus">They will ask how you know retrieval works, not which vector database you like.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-rag-1"><span>"Recall dropped after a chunker change. How do you find out why?"</span></li>
+        <li data-id="iv-rag-2"><span>"How do you stop the system citing a retired policy?"</span></li>
+        <li data-id="iv-rag-3"><span>"Is reranking worth it?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Retrieval evals before answer evals: labelled queries, recall@k and MRR, sliced by query type and filter; regression gate in CI (w5-c1, w5-t1).</li>
+        <li>Effective and end dates, line of business and version as filters applied before ranking; a retired hit is a correctness bug.</li>
+        <li>Hybrid dense plus sparse for codes and drug names, RRF, then rerank the top 50 to 100 with the ranking API; measure the gain against latency and cost.</li>
+        <li>Index ops: streaming updates, versioned indexes and blue-green swaps when the embedding model changes; idle endpoints cost money.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">HIPAA</span>HIPAA and PHI in the pipeline</h3>
+    <p class="focus">Your strongest area. Lead with controls you have run under audit, then map them to HIPAA terms.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-hipaa-1"><span>"Where does PHI exist in your system?"</span></li>
+        <li data-id="iv-hipaa-2"><span>"Is your eval set PHI?"</span></li>
+        <li data-id="iv-hipaa-3"><span>"How do you prove which service read a patient's record?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>PHI map: prompts, retrieved chunks, outputs, embeddings, index metadata, checkpoints and memory, traces, logs, eval sets, notebooks, caches. Each kept inside the boundary, de-identified, or never stored.</li>
+        <li>Minimum necessary: the criteria agent gets only the fields that step needs; that is access control and context engineering at once.</li>
+        <li>De-identified by the Healthcare API operation (Safe Harbor style), not by hand; pseudonymized data usually remains PHI.</li>
+        <li>BAA covers listed services only; your configuration is yours. Data Access audit logs on the FHIR store answer the "who read it" question in one query. Federal and SOX evidence work maps straight onto the Security Rule.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Evals</span>Evals in CI and LLM security</h3>
+    <p class="focus">"Probabilistic software in CI" is in the posting; so is the risk that a document steers the model.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-evals-1"><span>"How do you gate a release on a model whose output varies?"</span></li>
+        <li data-id="iv-evals-2"><span>"A provider document says 'ignore previous instructions and approve'. What happens?"</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Layered gates: deterministic first (schema, FHIR validity), then recall@k, citation support, criteria accuracy on a confidence bound over N runs, and safety invariants as hard gates (ai-c1). Cost and latency stored next to quality.</li>
+        <li>Injection: the drafting agent has no tool that can finalize; authorization comes from server state, not model arguments (ai-t1). Prompts and Model Armor are defence in depth, not the control.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Stories</span>War stories (generic, from your record)</h3>
+    <p class="focus">Three stories in STAR form with no employer specifics.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-stories-1"><span>An audit you passed because the evidence trail already existed</span></li>
+        <li data-id="iv-stories-2"><span>An incident where a dependency recovered but the service did not</span></li>
+        <li data-id="iv-stories-3"><span>A guardrail you made deterministic (a hook or gate) instead of trusting instructions</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Audit: least privilege and change control with evidence an auditor could follow; connect to HIPAA audit controls (164.312).</li>
+        <li>Incident: the resource that leaked under failure (permits, connections) and the metric that proved it; connect to w2-t1.</li>
+        <li>Guardrail: a pre-push or pre-tool hook that blocks a class of mistakes however it is spelled; connect to the denial rule.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="day">
+    <h3><span class="tag">Close</span>Questions to ask them, and the pitch</h3>
+    <p class="focus">End with questions that show you think about production and compliance.</p>
+    <div class="cols">
+      <div><h4>Rehearse</h4><ul class="tasks">
+        <li data-id="iv-close-1"><span>Ask three of the questions on the right</span></li>
+        <li data-id="iv-close-2"><span>Deliver the one-line pitch</span></li>
+      </ul></div>
+      <div><h4>Talk track</h4><ul class="links">
+        <li>Which line of business and which workflow first? Who owns clinical policy content and its versions?</li>
+        <li>How does compliance read current CMS and state guidance on algorithm-assisted denials? Who signs off a release?</li>
+        <li>Is the GCP organization already under a BAA, with VPC-SC in place? Where do evals run today?</li>
+        <li>Pitch: "I have spent 26 years running production systems under federal and SOX audit; I built a prior authorization assistant on GCP with LangGraph, hybrid retrieval and a human on every denial, and I know how to make an AI pipeline that handles PHI pass a security review."</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RESOURCES ============================== -->
+<section class="page" id="resources" data-title="Resources">
+  <h2>All resources</h2>
+  <p class="lede">The core links, grouped by topic. They come from the role's <a href="study/roles/10-lead-ai-ml-gcp-healthcare/details.md">details.md</a> and the shared core, where every link was checked on 2026-11-13.</p>
+  <div class="grid2">
+    <div class="card"><h3>Advanced Python</h3><ul class="links"><li><a href="https://docs.python.org/3/library/asyncio.html">asyncio</a></li><li><a href="https://docs.python.org/3/library/asyncio-task.html">Coroutines and tasks (TaskGroup, timeouts)</a></li><li><a href="https://docs.python.org/3/howto/a-conceptual-overview-of-asyncio.html">A conceptual overview of asyncio</a></li><li><a href="https://docs.python.org/3/library/asyncio-dev.html">Developing with asyncio</a></li><li><a href="https://pydantic.dev/docs/validation/latest/concepts/models/">Pydantic: models</a></li><li><a href="https://pydantic.dev/docs/validation/latest/concepts/validators/">Pydantic: validators</a></li><li><a href="https://pydantic.dev/docs/validation/latest/concepts/pydantic_settings/">Pydantic: settings management</a></li><li><a href="https://pydantic.dev/docs/validation/latest/get-started/migration/">Pydantic: migration guide from v1</a></li><li><a href="https://docs.pytest.org/en/stable/">pytest</a></li><li><a href="https://pytest-asyncio.readthedocs.io/en/latest/">pytest-asyncio</a></li><li><a href="https://docs.astral.sh/uv/">uv</a></li><li><a href="https://docs.astral.sh/ruff/">Ruff</a></li><li><a href="https://mypy.readthedocs.io/en/stable/">mypy</a></li></ul></div>
+    <div class="card"><h3>FastAPI and gRPC</h3><ul class="links"><li><a href="https://fastapi.tiangolo.com/async/">FastAPI: concurrency and async/await</a></li><li><a href="https://fastapi.tiangolo.com/tutorial/dependencies/">FastAPI: dependencies</a></li><li><a href="https://fastapi.tiangolo.com/advanced/events/">FastAPI: lifespan events</a></li><li><a href="https://fastapi.tiangolo.com/tutorial/bigger-applications/">FastAPI: bigger applications</a></li><li><a href="https://fastapi.tiangolo.com/advanced/async-tests/">FastAPI: async tests</a></li><li><a href="https://fastapi.tiangolo.com/advanced/testing-dependencies/">FastAPI: testing dependencies with overrides</a></li><li><a href="https://fastapi.tiangolo.com/deployment/docker/">FastAPI in containers</a></li><li><a href="https://docs.astral.sh/uv/guides/integration/docker/">uv in Docker</a></li><li><a href="https://grpc.io/docs/what-is-grpc/core-concepts/">gRPC core concepts</a></li><li><a href="https://grpc.io/docs/languages/python/basics/">gRPC Python basics</a></li><li><a href="https://grpc.github.io/grpc/python/grpc_asyncio.html">gRPC asyncio API</a></li><li><a href="https://grpc.io/docs/guides/deadlines/">gRPC deadlines</a></li><li><a href="https://grpc.io/docs/guides/status-codes/">gRPC status codes</a></li><li><a href="https://grpc.io/docs/guides/health-checking/">gRPC health checking</a></li><li><a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers proto3 guide</a></li><li><a href="https://docs.cloud.google.com/run/docs/triggering/grpc">gRPC on Cloud Run</a></li></ul></div>
+    <div class="card"><h3>Cloud Run, Pub/Sub, events</h3><ul class="links"><li><a href="https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run">What is Cloud Run</a></li><li><a href="https://docs.cloud.google.com/run/docs/container-contract">Cloud Run container runtime contract</a></li><li><a href="https://docs.cloud.google.com/functions/docs/concepts/overview">Cloud Run functions overview</a></li><li><a href="https://docs.cloud.google.com/run/docs/functions/comparison">Compare Cloud Run functions</a></li><li><a href="https://docs.cloud.google.com/run/docs/create-jobs">Cloud Run jobs</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/overview">Pub/Sub overview</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/push">Push subscriptions</a></li><li><a href="https://docs.cloud.google.com/run/docs/tutorials/pubsub">Using Pub/Sub with Cloud Run</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/dead-letter-topics">Dead-letter topics</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery">Exactly-once delivery</a></li><li><a href="https://docs.cloud.google.com/pubsub/docs/ordering">Ordering messages</a></li><li><a href="https://docs.cloud.google.com/eventarc/docs/overview">Eventarc overview</a></li><li><a href="https://docs.cloud.google.com/workflows/docs/overview">Workflows overview</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/pubsub">Healthcare API: Pub/Sub notifications</a></li><li><a href="https://docs.cloud.google.com/run/docs/securing/service-identity">Cloud Run service identity</a></li></ul></div>
+    <div class="card"><h3>Payer workflows</h3><ul class="links"><li><a href="https://www.cms.gov/initiatives/burden-reduction/overview/interoperability/policies-regulations/cms-interoperability-prior-authorization-final-rule-cms-0057-f">CMS-0057-F final rule</a></li><li><a href="https://www.cms.gov/newsroom/fact-sheets/cms-interoperability-prior-authorization-final-rule-cms-0057-f">CMS-0057-F fact sheet</a></li><li><a href="https://www.federalregister.gov/documents/2024/02/08/2024-00895/medicare-and-medicaid-programs-patient-protection-and-affordable-care-act-advancing-interoperability">CMS-0057-F in the Federal Register</a></li><li><a href="https://www.cms.gov/initiatives/burden-reduction/overview/interoperability">CMS interoperability overview</a></li><li><a href="https://www.ama-assn.org/practice-management/prior-authorization">AMA: prior authorization</a></li><li><a href="https://www.cms.gov/data-research/monitoring-programs/medicare-fee-service-compliance-programs/prior-authorization-and-pre-claim-review-initiatives">Medicare FFS prior authorization initiatives</a></li><li><a href="https://www.cms.gov/medicare-coverage-database/search.aspx">Medicare Coverage Database (NCDs and LCDs)</a></li><li><a href="https://www.cms.gov/medicare/appeals-grievances/managed-care">Medicare managed care appeals</a></li><li><a href="https://www.cms.gov/medicare/health-drug-plans/part-c-d-performance-data">Part C and D performance data (Star Ratings)</a></li></ul></div>
+    <div class="card"><h3>FHIR and Da Vinci</h3><ul class="links"><li><a href="https://hl7.org/fhir/R4/">FHIR R4</a></li><li><a href="https://hl7.org/fhir/R4/resourcelist.html">FHIR R4 resource list</a></li><li><a href="https://hl7.org/fhir/R4/http.html">FHIR R4 RESTful API</a></li><li><a href="https://hl7.org/fhir/R4/bundle.html">FHIR R4 Bundle</a></li><li><a href="https://hl7.org/fhir/R4/claim.html">FHIR R4 Claim</a></li><li><a href="https://hl7.org/fhir/R4/claimresponse.html">FHIR R4 ClaimResponse</a></li><li><a href="https://hl7.org/fhir/R4/explanationofbenefit.html">FHIR R4 ExplanationOfBenefit</a></li><li><a href="https://hl7.org/fhir/R4/coverage.html">FHIR R4 Coverage</a></li><li><a href="https://hl7.org/fhir/us/core/">US Core</a></li><li><a href="https://www.hl7.org/about/davinci/">Da Vinci project</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/">Da Vinci PAS (published)</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/specification.html">PAS specification</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/OperationDefinition-Claim-submit.html">PAS Claim/$submit</a></li><li><a href="https://hl7.org/fhir/us/davinci-pas/OperationDefinition-Claim-inquiry.html">PAS Claim/$inquire</a></li><li><a href="https://hl7.org/fhir/us/davinci-crd/">Da Vinci CRD</a></li><li><a href="https://hl7.org/fhir/us/davinci-dtr/">Da Vinci DTR</a></li><li><a href="https://cds-hooks.org/">CDS Hooks</a></li><li><a href="https://hl7.org/fhir/us/carin-bb/">CARIN Blue Button</a></li><li><a href="https://hl7.org/fhir/us/davinci-pdex/">Da Vinci PDex</a></li></ul></div>
+    <div class="card"><h3>X12, code sets, synthetic data</h3><ul class="links"><li><a href="https://x12.org/">X12</a></li><li><a href="https://x12.org/products/transaction-sets">X12 transaction sets</a></li><li><a href="https://x12.org/examples">X12 examples</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-162">45 CFR Part 162</a></li><li><a href="https://www.cms.gov/priorities/key-initiatives/burden-reduction/administrative-simplification">CMS administrative simplification</a></li><li><a href="https://www.cms.gov/medicare/coding-billing/icd-10-codes">CMS: ICD-10 code files</a></li><li><a href="https://www.cms.gov/medicare/coding-billing/healthcare-common-procedure-system">CMS: HCPCS Level II</a></li><li><a href="https://www.ama-assn.org/practice-management/cpt">AMA: CPT</a></li><li><a href="https://www.ama-assn.org/practice-management/cpt/cpt-code-set-overview">AMA: CPT code set overview</a></li><li><a href="https://synthetichealth.github.io/synthea/">Synthea</a></li><li><a href="https://github.com/synthetichealth/synthea">Synthea on GitHub</a></li></ul></div>
+    <div class="card"><h3>LangGraph and other frameworks</h3><ul class="links"><li><a href="https://docs.langchain.com/oss/python/langgraph/overview">LangGraph overview</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/thinking-in-graph-api">Thinking in LangGraph</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/graph-api">Graph API</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/workflows-agents">Workflows and agents</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/persistence">Persistence</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/interrupts">Interrupts</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/use-time-travel">Time travel</a></li><li><a href="https://docs.langchain.com/oss/python/concepts/memory">Memory concepts</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/use-subgraphs">Subgraphs</a></li><li><a href="https://docs.langchain.com/oss/python/langchain/multi-agent">Multi-agent</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/test">Testing</a></li><li><a href="https://docs.langchain.com/oss/python/langgraph/observability">Observability</a></li><li><a href="https://pypi.org/project/langgraph-checkpoint-postgres/">langgraph-checkpoint-postgres</a></li><li><a href="https://github.com/microsoft/autogen">AutoGen repository (archived notice)</a></li><li><a href="https://github.com/microsoft/semantic-kernel">Semantic Kernel repository (successor notice)</a></li><li><a href="https://learn.microsoft.com/en-us/agent-framework/overview/">Microsoft Agent Framework overview</a></li><li><a href="https://learn.microsoft.com/en-us/agent-framework/workflows/">Microsoft Agent Framework workflows</a></li><li><a href="https://developers.llamaindex.ai/python/framework/">LlamaIndex framework docs</a></li><li><a href="https://developers.llamaindex.ai/python/llamaagents/workflows/">LlamaIndex Workflows</a></li></ul></div>
+    <div class="card"><h3>RAG at scale</h3><ul class="links"><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/about-hybrid-search">Vector Search: about hybrid search</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/task-types">Embedding task types</a></li><li><a href="https://docs.cloud.google.com/generative-ai-app-builder/docs/ranking">Agent Search ranking API</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/rag-engine/retrieval-and-ranking">RAG Engine: retrieval and ranking</a></li><li><a href="https://docs.cloud.google.com/document-ai/docs/layout-parse-chunk">Document AI: layout parser and chunking</a></li><li><a href="https://docs.cloud.google.com/alloydb/docs/ai/run-hybrid-vector-similarity-search">AlloyDB: hybrid vector similarity search</a></li><li><a href="https://docs.cloud.google.com/bigquery/docs/vector-search-intro">BigQuery vector search</a></li><li><a href="https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion">Reciprocal rank fusion (Elasticsearch reference)</a></li><li><a href="https://www.sbert.net/examples/cross_encoder/applications/README.html">Cross-encoders (Sentence Transformers)</a></li><li><a href="https://www.anthropic.com/research/contextual-retrieval">Contextual retrieval (Anthropic)</a></li><li><a href="https://github.com/beir-cellar/beir">BEIR retrieval benchmark</a></li><li><a href="https://docs.ragas.io/en/stable/">Ragas</a></li></ul></div>
+    <div class="card"><h3>Agent Platform (Vertex AI) ML</h3><ul class="links"><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models">Agent Platform: models (formerly Vertex AI generative AI)</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models">Model Garden: explore models</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/self-deployed-models">Overview of self-deployed models</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/deploy-and-inference-tutorial">Deploy and inference tutorial (Model Garden)</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm">vLLM serving on Cloud GPUs</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/use-gemma">Use Gemma open models</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment">Deploy a model to an endpoint</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions/choose-endpoint-type">Choose an endpoint type</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction">Model Registry introduction</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/overview">Vector Search overview</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/configuring-indexes">Configure index parameters</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/update-rebuild-index">Update and rebuild an index</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/filtering">Filter vector matches</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/deploy-index-vpc">Deploy an index to a VPC endpoint</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/notebooks/workbench/introduction">Introduction to Agent Platform Workbench</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/vpc-service-controls">VPC Service Controls for Agent Platform</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/cmek">CMEK for Agent Platform</a></li><li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vertex_ai_index">Terraform: google_vertex_ai_index</a></li></ul></div>
+    <div class="card"><h3>HIPAA and PHI on GCP</h3><ul class="links"><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164">45 CFR Part 164</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C">45 CFR 164 Subpart C (Security Rule)</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.312">45 CFR 164.312 (technical safeguards)</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-E/section-164.502">45 CFR 164.502 (minimum necessary)</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-E/section-164.504">45 CFR 164.504 (business associates)</a></li><li><a href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-E/section-164.514">45 CFR 164.514 (de-identification)</a></li><li><a href="https://docs.cloud.google.com/docs/security/compliance/hipaa">Google Cloud HIPAA compliance</a></li><li><a href="https://cloud.google.com/terms/hipaa-baa">Google Cloud BAA</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/introduction">Cloud Healthcare API introduction</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/concepts/de-identification">Healthcare API: de-identification concepts</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/fhir-deidentify">Healthcare API: de-identify FHIR data</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/access-control">Healthcare API: access control</a></li><li><a href="https://docs.cloud.google.com/healthcare-api/docs/how-tos/audit-logging">Healthcare API: audit logging</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/sensitive-data-protection-overview">Sensitive Data Protection overview</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data">De-identify sensitive data</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/pseudonymization">Pseudonymization</a></li><li><a href="https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference">infoTypes reference</a></li><li><a href="https://docs.cloud.google.com/logging/docs/audit/configure-data-access">Enable Data Access audit logs</a></li><li><a href="https://docs.cloud.google.com/model-armor/overview">Model Armor overview</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention">Generative AI zero data retention</a></li><li><a href="https://docs.cloud.google.com/assured-workloads/docs/overview">Assured Workloads overview</a></li><li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/healthcare_fhir_store">Terraform: google_healthcare_fhir_store</a></li></ul></div>
+    <div class="card"><h3>Fine-tuning, evals, certification</h3><ul class="links"><li><a href="https://huggingface.co/docs/peft/index">PEFT documentation</a></li><li><a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora">LoRA conceptual guide</a></li><li><a href="https://huggingface.co/docs/peft/developer_guides/quantization">PEFT quantization (QLoRA)</a></li><li><a href="https://huggingface.co/docs/trl/sft_trainer">TRL SFTTrainer</a></li><li><a href="https://huggingface.co/docs/transformers/tasks/token_classification">Token classification</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/lora-qlora">Model Garden: LoRA and QLoRA recommendations</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning/open-model-tuning">Open model tuning</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/training/create-custom-job">Create a custom training job</a></li><li><a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-overview">Gen AI evaluation service overview</a></li><li><a href="https://hamel.dev/blog/posts/evals-faq/">LLM evals FAQ (Hamel Husain)</a></li><li><a href="https://www.promptfoo.dev/docs/intro/">promptfoo</a></li><li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OpenTelemetry GenAI semantic conventions</a></li><li><a href="https://langfuse.com/docs">Langfuse docs</a></li><li><a href="https://cloud.google.com/learn/certification/machine-learning-engineer">Professional Machine Learning Engineer</a></li><li><a href="https://cloud.google.com/learn/certification/cloud-architect">Professional Cloud Architect</a></li></ul></div>
+    <div class="card"><h3>Shared core</h3><ul class="links"><li><a href="https://code.claude.com/docs/en/overview">Claude Code overview</a></li><li><a href="https://code.claude.com/docs/en/skills">Skills</a></li><li><a href="https://code.claude.com/docs/en/sub-agents">Subagents</a></li><li><a href="https://code.claude.com/docs/en/hooks">Hooks</a></li><li><a href="https://code.claude.com/docs/en/headless">Headless mode</a></li><li><a href="https://code.claude.com/docs/en/github-actions">Claude Code GitHub Actions</a></li><li><a href="https://code.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK overview</a></li><li><a href="https://www.anthropic.com/research/building-effective-agents">Building effective agents</a></li><li><a href="https://www.anthropic.com/research/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li><li><a href="https://www.anthropic.com/research/writing-tools-for-agents">Writing effective tools for agents</a></li><li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude tool use overview</a></li><li><a href="https://aistudio.google.com/docs/function-calling">Gemini function calling</a></li><li><a href="https://aistudio.google.com/docs/structured-output">Gemini structured output</a></li><li><a href="https://aistudio.google.com/docs">Gemini API docs</a></li><li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></li><li><a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a></li><li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a></li><li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li><li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta (Simon Willison)</a></li><li><a href="https://github.com/github/spec-kit">GitHub Spec Kit</a></li></ul></div>
+  </div>
+</section>
+</main>
+<script>
+(function () {
+  var KEY = "studyplan-healthai-v1";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked */ } }
+
+  // Theme: follows the OS unless the toggle was used (stored under state.__theme)
+  function applyTheme() {
+    if (state.__theme) document.documentElement.setAttribute("data-theme", state.__theme);
+    else document.documentElement.removeAttribute("data-theme");
+  }
+  applyTheme();
+  document.getElementById("themebtn").addEventListener("click", function () {
+    var dark = state.__theme ? state.__theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    state.__theme = dark ? "light" : "dark"; save(); applyTheme();
+  });
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+
+  // Build tabs
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id;
+    a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+
+  // Turn task <li>s into checkboxes
+  document.querySelectorAll("ul.tasks li").forEach(function (li) {
+    var id = li.dataset.id;
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state[id];
+    li.insertBefore(cb, li.firstChild);
+    li.classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", function () {
+      state[id] = cb.checked;
+      li.classList.toggle("checked", cb.checked);
+      save(); refresh();
+    });
+  });
+
+  function items(prefix) {
+    return Array.prototype.slice.call(document.querySelectorAll('ul.tasks li[data-id^="' + prefix + '"]'));
+  }
+  function pctOf(list) {
+    if (!list.length) return null;
+    var done = 0;
+    list.forEach(function (li) { if (state[li.dataset.id]) done++; });
+    return Math.round(100 * done / list.length);
+  }
+  function setPage(pageId, barId, v) {
+    var bar = document.getElementById(barId);
+    if (bar) bar.style.width = (v || 0) + "%";
+    var tab = tabs.querySelector('[data-page="' + pageId + '"] .pct');
+    if (tab) tab.textContent = v === null ? "" : v + "%";
+  }
+
+  // page id -> checkbox prefix; the overall bar counts the six core weeks only (add-on excluded)
+  var PAGES = [];
+  for (var n = 1; n <= 7; n++) PAGES.push(["week" + n, "w" + n + "-", "bar-w" + n]);
+  PAGES.push(["ai", "ai-", "bar-ai"]);
+  PAGES.push(["interview", "iv-", "bar-iv"]);
+
+  function refresh() {
+    PAGES.forEach(function (p) { setPage(p[0], p[2], pctOf(items(p[1]))); });
+    var core = [];
+    for (var n = 1; n <= 6; n++) core = core.concat(items("w" + n + "-"));
+    setPage("overview", "bar-all", pctOf(core));
+  }
+
+  document.querySelectorAll("button.reset").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!confirm("Clear all checkboxes on this page?")) return;
+      var w = b.dataset.reset;
+      Object.keys(state).forEach(function (k) { if (k.indexOf(w + "-") === 0) delete state[k]; });
+      save();
+      items(w + "-").forEach(function (li) {
+        li.querySelector("input").checked = false; li.classList.remove("checked");
+      });
+      refresh();
+    });
+  });
+
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    var el = document.getElementById(id);
+    if (!el || !el.classList.contains("page")) id = "overview";
+    pages.forEach(function (p) { p.classList.toggle("active", p.id === id); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === id); });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show(); refresh();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Principal Golang Architect - Study Plan</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #00758d; --accent-soft: #e2f2f5; --done: #2f7d4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #4fc3d9; --accent-soft: #1d3338; --done: #5cc287;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 14px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .day h3 { margin: 0 0 2px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .day h3 .tag { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft);
+                 padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .day .focus { color: var(--muted); margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.tasks { list-style: none; padding: 0; margin: 0; }
+  ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+  ul.tasks input { margin-top: 4px; accent-color: var(--done); flex: none; }
+  ul.tasks li.checked span { color: var(--muted); text-decoration: line-through; }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .deliverable b { color: var(--done); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card.wide { grid-column: 1 / -1; }
+  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .reset { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+           border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Principal Golang Architect - Go, Operators, Observability, Agentic AI</h1>
+  <p>6-week plan (plus an optional add-on week) for a 12-month remote contract. Go is front-loaded because everything else depends on it. Weekdays ~2-3h, weekends one long block. Checkboxes save in this browser.</p>
+</header>
+
+<nav><div class="inner" id="tabs"></div></nav>
+
+<main>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="page" id="overview" data-title="Overview">
+  <h2>Overview</h2>
+  <p class="lede">Helm, ArgoCD, Terraform/CDK, EKS operations and CI/CD are already strengths and are not taught here. The six weeks go to Go itself, operator engineering, Go-side observability, Istio/Kafka depth, and agentic AI built in Go - all converging on one capstone repo.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>The six weeks</h3>
+      <table>
+        <tr><th>Week</th><th>Theme</th></tr>
+        <tr><td><a href="#week1">1</a></td><td>Go language and idioms: types, interfaces, errors, generics, stdlib HTTP/JSON</td></tr>
+        <tr><td><a href="#week2">2</a></td><td>Concurrency, context, testing, profiling, tooling, containers</td></tr>
+        <tr><td><a href="#week3">3</a></td><td>Kubernetes API machinery, client-go, controller-runtime, Kubebuilder</td></tr>
+        <tr><td><a href="#week4">4</a></td><td>Build the capstone operator: CRDs, reconcile, finalizers, conditions, envtest, webhooks</td></tr>
+        <tr><td><a href="#week5">5</a></td><td>OTel + Prometheus/Grafana in Go, Istio/Envoy internals, Kafka from Go</td></tr>
+        <tr><td><a href="#week6">6</a></td><td>Agentic AI / MCP / RAG in Go on EKS, multi-cluster, architecture + interview prep</td></tr>
+        <tr><td><a href="#week7">+7</a></td><td>Add-on: Go performance, production troubleshooting, code reading, mock interviews</td></tr>
+        <tr><td><a href="#ai">AI</a></td><td>AI integration fundamentals (shared page): tool design, agent loop, caching, security, evals, RAG, observability - mapped to weeks 5-6</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Capstone: <code>agent-fleet-operator</code></h3>
+      <p>A Kubebuilder operator (Go, controller-runtime) running on EKS that manages agentic AI workloads through CRDs:</p>
+      <ul class="links">
+        <li><code>MCPServer</code> CRD - deploys an MCP server (built with the official MCP Go SDK) as Deployment + Service + HPA + PDB + Istio AuthorizationPolicy; status conditions, finalizers</li>
+        <li><code>Agent</code> CRD - deploys a Go agent (official Anthropic Go SDK, Claude on the API or Bedrock) that references MCPServers and a <code>KnowledgeBase</code></li>
+        <li><code>KnowledgeBase</code> CRD - RAG ingestion Job into pgvector; the agent queries it through an MCP tool</li>
+        <li>Tasks arrive on Kafka; OpenTelemetry traces span operator, Kafka, agent, LLM and MCP calls; Prometheus metrics + Grafana dashboard</li>
+        <li>Helm chart, CI with envtest, ArgoCD ApplicationSet to two EKS clusters</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Your existing strengths, mapped to the role</h3>
+      <table>
+        <tr><th>Requirement</th><th>Your evidence</th></tr>
+        <tr><td>12+ years IT</td><td>26 years, multi-language developer</td></tr>
+        <tr><td>AWS/EKS architecture</td><td>6 years AWS SA + production EKS (Karpenter, access entries, multi-account)</td></tr>
+        <tr><td>Distributed systems</td><td>2 years on the AWS Chime SDK service team (real-time, service-team operational bar)</td></tr>
+        <tr><td>Helm, GitOps, ArgoCD</td><td>Running Helm chart promotion via ArgoCD today</td></tr>
+        <tr><td>CI/CD, infra automation, Terraform</td><td>Jenkins on k8s, GitHub Actions/CodeBuild, CDK + Terraform on AWS/GCP/Azure</td></tr>
+        <tr><td>HA / troubleshooting</td><td>Production on-call and incident work on EKS</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Gaps this plan closes</h3>
+      <table>
+        <tr><th>Gap</th><th>Where</th></tr>
+        <tr><td>Hands-on Go (biggest)</td><td>Weeks 1-2, then every week after; add-on week 7</td></tr>
+        <tr><td>Operators, controllers, CRDs, Kubebuilder</td><td>Weeks 3-4</td></tr>
+        <tr><td>OpenTelemetry + Prometheus in Go</td><td>Week 5</td></tr>
+        <tr><td>Istio/Envoy internals, Kafka</td><td>Week 5</td></tr>
+        <tr><td>Agentic AI, RAG, MCP in Go</td><td>Week 6 (and the capstone)</td></tr>
+        <tr><td>Multi-cluster / federation</td><td>Week 6</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Toolchain to install on day 1</h3>
+<pre>brew install go kind kubebuilder helm golangci-lint
+go install golang.org/x/tools/gopls@latest
+go install golang.org/x/vuln/cmd/govulncheck@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
+# editor: VS Code Go extension or GoLand</pre>
+    </div>
+    <div class="card">
+      <h3>Verify loop (use it from week 2 on)</h3>
+<pre>go vet ./... &amp;&amp; golangci-lint run
+go test -race -cover ./...
+govulncheck ./...
+make test          # kubebuilder: envtest
+make docker-build  # operator image</pre>
+      <p>Rule for the whole plan: write it in Go. If you catch yourself reaching for a Python script, port it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 1 ============================== -->
+<section class="page" id="week1" data-title="Week 1">
+  <h2>Week 1 - Go language and idioms <button class="reset" data-reset="w1">reset week</button></h2>
+  <p class="lede">Learn Go as Go, not as Python with braces: small interfaces, explicit errors, composition over inheritance, zero values that work. Primary text: "Learning Go" 2e (Bodner).</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Toolchain, modules, the Tour</h3>
+    <p class="focus">Get the toolchain and editor right on day one; blast through the basic syntax.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-mon-1"><span>Install Go, gopls, delve; do the "Get started" and "Create a module" tutorials</span></li>
+        <li data-id="w1-mon-2"><span>A Tour of Go: Basics and Flow control sections in one sitting</span></li>
+        <li data-id="w1-mon-3"><span>Learning Go 2e ch. 1-3 (environment, predeclared types, composite types)</span></li>
+        <li data-id="w1-mon-4"><span>Read "Organizing a Go module"; note <code>cmd/</code>, <code>internal/</code> and package naming</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/doc/tutorial/getting-started">Tutorial: Get started</a> / <a href="https://go.dev/doc/tutorial/create-module">Create a module</a></li>
+        <li><a href="https://go.dev/tour/">A Tour of Go</a></li>
+        <li><a href="https://www.oreilly.com/library/view/learning-go-2nd/9781098139285/">Learning Go 2e</a></li>
+        <li><a href="https://go.dev/doc/modules/layout">Organizing a Go module</a></li>
+        <li><a href="https://go.dev/ref/mod">Go Modules Reference</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Slices, maps, structs, pointers</h3>
+    <p class="focus">The parts that surprise Python developers: slice aliasing and append, value vs pointer semantics, zero values.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-tue-1"><span>Read the slices intro blog post; predict then verify output of 5 append/aliasing snippets</span></li>
+        <li data-id="w1-tue-2"><span>Learning Go 2e ch. 4-6 (blocks/shadowing, functions, pointers)</span></li>
+        <li data-id="w1-tue-3"><span>Go by Example: slices, maps, structs, methods, pointers, closures, range</span></li>
+        <li data-id="w1-tue-4"><span>Write down when you would pass a pointer vs a value - you will be asked in interviews</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/blog/slices-intro">Go Slices: usage and internals</a></li>
+        <li><a href="https://gobyexample.com/">Go by Example</a></li>
+        <li><a href="https://go.dev/doc/effective_go#data">Effective Go: Data</a></li>
+        <li><a href="https://100go.co/">100 Go Mistakes</a> (#1-#40 on data types)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Methods, interfaces, embedding</h3>
+    <p class="focus">Implicit interfaces, "accept interfaces, return structs", method sets, embedding instead of inheritance.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wed-1"><span>Learning Go 2e ch. 7 (types, methods, interfaces) - the most important chapter this week</span></li>
+        <li data-id="w1-wed-2"><span>Tour: Methods and interfaces section; do the Stringer, Errors and Readers exercises</span></li>
+        <li data-id="w1-wed-3"><span>Read Effective Go sections on interfaces and embedding</span></li>
+        <li data-id="w1-wed-4"><span>Exercise: define a <code>Store</code> interface with in-memory and file implementations; consumer depends only on the interface</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/doc/effective_go#interfaces_and_types">Effective Go: Interfaces and other types</a></li>
+        <li><a href="https://go.dev/doc/effective_go#embedding">Effective Go: Embedding</a></li>
+        <li><a href="https://go-proverbs.github.io/">Go Proverbs</a></li>
+        <li><a href="https://go.dev/wiki/CodeReviewComments">Go Code Review Comments</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Errors and generics</h3>
+    <p class="focus">Errors are values: wrapping with <code>%w</code>, <code>errors.Is/As</code>, sentinel vs typed errors; generics with constraints, and when not to use them.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-thu-1"><span>Learning Go 2e ch. 8-9 (generics, errors)</span></li>
+        <li data-id="w1-thu-2"><span>Read the Go 1.13 errors post and "Errors are values"</span></li>
+        <li data-id="w1-thu-3"><span>Generics tutorial; write a generic <code>Map/Filter</code> and a typed LRU cache</span></li>
+        <li data-id="w1-thu-4"><span>Skim <code>slices</code> and <code>maps</code> stdlib packages so you stop hand-writing loops for them</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/blog/go1.13-errors">Working with Errors in Go 1.13</a></li>
+        <li><a href="https://go.dev/blog/errors-are-values">Errors are values</a></li>
+        <li><a href="https://go.dev/doc/tutorial/generics">Tutorial: Generics</a> / <a href="https://go.dev/blog/intro-generics">An Introduction to Generics</a></li>
+        <li><a href="https://pkg.go.dev/slices">slices</a> / <a href="https://pkg.go.dev/maps">maps</a> / <a href="https://pkg.go.dev/errors">errors</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Stdlib HTTP, JSON, slog</h3>
+    <p class="focus">The standard library is enough for most services: <code>net/http</code> with 1.22+ routing, <code>encoding/json</code> struct tags, structured logging.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-fri-1"><span>Learning Go 2e ch. 10-13 (modules, tools, stdlib) - skim what you know</span></li>
+        <li data-id="w1-fri-2"><span>Read the 1.22 routing enhancements post; build a CRUD handler set with method + path patterns</span></li>
+        <li data-id="w1-fri-3"><span>JSON: struct tags, <code>omitempty</code>, custom <code>MarshalJSON</code>, streaming decoder</span></li>
+        <li data-id="w1-fri-4"><span>Add <code>log/slog</code> JSON logging with request-scoped attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/blog/routing-enhancements">Routing enhancements for Go 1.22</a></li>
+        <li><a href="https://pkg.go.dev/net/http">net/http</a> / <a href="https://pkg.go.dev/encoding/json">encoding/json</a></li>
+        <li><a href="https://go.dev/blog/slog">Structured Logging with slog</a></li>
+        <li><a href="https://go.dev/doc/tutorial/web-service-gin">Tutorial: RESTful API</a> (compare gin to stdlib)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Port a tool you already use</h3>
+    <p class="focus">Pick a real Python script from your platform work (e.g. an ECR tag lookup, an EKS access-entry audit) and rewrite it in Go with the AWS SDK for Go v2.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wk-1"><span>CLI with <code>flag</code> (or cobra) + AWS SDK for Go v2 + paginators + slog</span></li>
+        <li data-id="w1-wk-2"><span>Small HTTP API in front of it (stdlib mux, JSON, errors mapped to status codes)</span></li>
+        <li data-id="w1-wk-3"><span>Read the Google Go Style Guide "Decisions" page; apply it to your code</span></li>
+        <li data-id="w1-wk-4"><span>Learn Go with Tests: first 5 chapters (start the TDD habit)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.aws.amazon.com/sdk-for-go/v2/developer-guide/welcome.html">AWS SDK for Go v2 docs</a></li>
+        <li><a href="https://github.com/spf13/cobra">spf13/cobra</a></li>
+        <li><a href="https://google.github.io/styleguide/go/">Google Go Style Guide</a></li>
+        <li><a href="https://quii.gitbook.io/learn-go-with-tests">Learn Go with Tests</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> a Go CLI + HTTP service replacing one of your Python tools, in a public repo, with idiomatic package layout and error handling.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 2 ============================== -->
+<section class="page" id="week2" data-title="Week 2">
+  <h2>Week 2 - Concurrency, testing, tooling <button class="reset" data-reset="w2">reset week</button></h2>
+  <p class="lede">Your asyncio and sockets background maps well, but the model is different: preemptive goroutines, channels, shared memory guarded by the race detector, and <code>context</code> for cancellation everywhere. Primary text: "Concurrency in Go" (Cox-Buday).</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Goroutines, channels, select</h3>
+    <p class="focus">Unbuffered vs buffered, closing, nil channels in select, who owns a channel.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-mon-1"><span>Tour: Concurrency section incl. Equivalent Binary Trees and Web Crawler exercises</span></li>
+        <li data-id="w2-mon-2"><span>Concurrency in Go ch. 1-3 (CSP, building blocks)</span></li>
+        <li data-id="w2-mon-3"><span>Learning Go 2e ch. 12 (concurrency)</span></li>
+        <li data-id="w2-mon-4"><span>Write a note comparing goroutines/channels with asyncio tasks/queues</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/tour/concurrency/1">Tour: Concurrency</a></li>
+        <li><a href="https://www.oreilly.com/library/view/concurrency-in-go/9781491941294/">Concurrency in Go</a></li>
+        <li><a href="https://gobyexample.com/goroutines">Go by Example: goroutines</a> (through "stateful goroutines")</li>
+        <li><a href="https://go.dev/doc/effective_go#concurrency">Effective Go: Concurrency</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Context, sync, errgroup, patterns</h3>
+    <p class="focus">Cancellation trees, deadlines, worker pools, fan-out/fan-in, bounded concurrency, graceful shutdown.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-tue-1"><span>Read the context and pipelines blog posts</span></li>
+        <li data-id="w2-tue-2"><span>Concurrency in Go ch. 4 (patterns: confinement, for-select, or-done, tee, bridge)</span></li>
+        <li data-id="w2-tue-3"><span>Build a bounded worker pool with <code>errgroup.SetLimit</code> and context cancellation</span></li>
+        <li data-id="w2-tue-4"><span>Add graceful shutdown to your week-1 service (<code>signal.NotifyContext</code> + <code>Server.Shutdown</code>)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/blog/context">Go Concurrency Patterns: Context</a></li>
+        <li><a href="https://go.dev/blog/pipelines">Pipelines and cancellation</a></li>
+        <li><a href="https://pkg.go.dev/golang.org/x/sync/errgroup">errgroup</a> / <a href="https://pkg.go.dev/sync">sync</a> / <a href="https://pkg.go.dev/context">context</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Memory model, races, profiling</h3>
+    <p class="focus">Happens-before, the race detector, pprof and execution traces; how you will troubleshoot a hot controller in production.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wed-1"><span>Read the memory model summary (first sections) and the race detector article</span></li>
+        <li data-id="w2-wed-2"><span>Plant a data race, catch it with <code>-race</code>, fix it two ways (mutex, channel)</span></li>
+        <li data-id="w2-wed-3"><span>Expose <code>net/http/pprof</code>; take CPU, heap and goroutine profiles under load; read a flame graph</span></li>
+        <li data-id="w2-wed-4"><span>Concurrency in Go ch. 5 (at scale: error propagation, timeouts, heartbeats, rate limiting)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/ref/mem">The Go Memory Model</a></li>
+        <li><a href="https://go.dev/doc/articles/race_detector">Data Race Detector</a></li>
+        <li><a href="https://go.dev/doc/diagnostics">Diagnostics</a> / <a href="https://pkg.go.dev/net/http/pprof">net/http/pprof</a></li>
+        <li><a href="https://go.dev/blog/pprof">Profiling Go Programs</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Testing the Go way</h3>
+    <p class="focus">Table-driven tests, subtests, <code>httptest</code>, fakes via interfaces, fuzzing, benchmarks.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-thu-1"><span>Learning Go 2e ch. 15 (writing tests)</span></li>
+        <li data-id="w2-thu-2"><span>Convert your week-1 tests to table-driven subtests with <code>t.Parallel()</code></span></li>
+        <li data-id="w2-thu-3"><span>Test HTTP handlers with <code>httptest</code>; fake the AWS client behind an interface</span></li>
+        <li data-id="w2-thu-4"><span>Add one fuzz test and one benchmark; read the output of <code>-benchmem</code></span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/wiki/TableDrivenTests">Table-driven tests</a></li>
+        <li><a href="https://pkg.go.dev/testing">testing</a> / <a href="https://pkg.go.dev/net/http/httptest">httptest</a></li>
+        <li><a href="https://go.dev/doc/security/fuzz/">Go Fuzzing</a></li>
+        <li><a href="https://github.com/stretchr/testify">testify</a> (common in k8s-adjacent code)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Tooling, images, CI</h3>
+    <p class="focus">Lint, vuln scanning, reproducible small images, CI. You know CI deeply; this is the Go-specific layer.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-fri-1"><span>golangci-lint with a sane config (govet, staticcheck, errcheck, revive, gosec)</span></li>
+        <li data-id="w2-fri-2"><span>Multi-stage Dockerfile to distroless static; compare with <code>ko build</code>; multi-arch for Graviton</span></li>
+        <li data-id="w2-fri-3"><span>GitHub Actions: setup-go cache, lint, <code>test -race</code>, govulncheck, image push</span></li>
+        <li data-id="w2-fri-4"><span>Read about GoReleaser for CLI release automation</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://golangci-lint.run/">golangci-lint</a></li>
+        <li><a href="https://go.dev/doc/security/vuln/">Go vulnerability management</a></li>
+        <li><a href="https://ko.build/">ko</a> / <a href="https://github.com/GoogleContainerTools/distroless">distroless</a></li>
+        <li><a href="https://docs.docker.com/guides/golang/">Docker: Go language guide</a></li>
+        <li><a href="https://github.com/actions/setup-go">actions/setup-go</a> / <a href="https://goreleaser.com/">GoReleaser</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>A concurrent service, shipped to your cluster</h3>
+    <p class="focus">Combine the week: concurrency, context, tests, image, chart. Deploy with the Helm + ArgoCD flow you already know.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wk-1"><span>Service that fans out to N upstreams with per-call timeouts, a retry budget and a circuit breaker</span></li>
+        <li data-id="w2-wk-2"><span>Health/readiness endpoints, graceful shutdown, pprof behind a flag</span></li>
+        <li data-id="w2-wk-3"><span>Helm chart + deploy to a kind cluster (and your sandbox EKS via ArgoCD if available)</span></li>
+        <li data-id="w2-wk-4"><span>Read 100 Go Mistakes concurrency sections (#55-#74)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://kind.sigs.k8s.io/">kind</a></li>
+        <li><a href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/">Builders' Library: timeouts, retries, backoff</a></li>
+        <li><a href="https://pkg.go.dev/golang.org/x/time/rate">x/time/rate</a></li>
+        <li><a href="https://100go.co/">100 Go Mistakes</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> race-clean, tested, linted concurrent Go service with CI, a distroless image and a Helm chart, running on kind.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 3 ============================== -->
+<section class="page" id="week3" data-title="Week 3">
+  <h2>Week 3 - client-go, controller-runtime, Kubebuilder <button class="reset" data-reset="w3">reset week</button></h2>
+  <p class="lede">You operate Kubernetes; now learn it from the API server's side. Understand informers and work queues in raw client-go first, so controller-runtime is not magic. Primary text: "Programming Kubernetes" (Hausenblas, Schimanski) plus the Kubebuilder book.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>API machinery and the controller pattern</h3>
+    <p class="focus">GVK/GVR, the object model (TypeMeta, ObjectMeta, Spec, Status), resourceVersion, optimistic concurrency, level- vs edge-triggered.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-mon-1"><span>Programming Kubernetes ch. 1-3 (intro, API basics, client-go)</span></li>
+        <li data-id="w3-mon-2"><span>Read the Kubernetes API conventions doc: spec/status, conditions, optimistic concurrency</span></li>
+        <li data-id="w3-mon-3"><span>Read the Controllers and Operator pattern concept pages</span></li>
+        <li data-id="w3-mon-4"><span><code>kubectl get --raw</code> and <code>-v=8</code> against kind to watch real list/watch traffic</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.oreilly.com/library/view/programming-kubernetes/9781492047094/">Programming Kubernetes</a></li>
+        <li><a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md">Kubernetes API conventions</a></li>
+        <li><a href="https://kubernetes.io/docs/concepts/architecture/controller/">Concepts: Controllers</a></li>
+        <li><a href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">Concepts: Operator pattern</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>client-go: informers, listers, work queues</h3>
+    <p class="focus">SharedInformerFactory, the local cache, event handlers that only enqueue keys, rate-limited work queues, resync.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-tue-1"><span>Read and run <code>kubernetes/sample-controller</code>; trace one event from watch to <code>syncHandler</code></span></li>
+        <li data-id="w3-tue-2"><span>Read the sample-controller "controller-client-go" architecture doc and diagram</span></li>
+        <li data-id="w3-tue-3"><span>Write a tiny raw client-go controller that labels Pods missing an <code>owner</code> label</span></li>
+        <li data-id="w3-tue-4"><span>Programming Kubernetes ch. 4-5 (CRDs, automating code generation)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/kubernetes/sample-controller">kubernetes/sample-controller</a></li>
+        <li><a href="https://github.com/kubernetes/sample-controller/blob/master/docs/controller-client-go.md">client-go under the hood</a></li>
+        <li><a href="https://pkg.go.dev/k8s.io/client-go/tools/cache">client-go/tools/cache</a> / <a href="https://pkg.go.dev/k8s.io/client-go/util/workqueue">util/workqueue</a></li>
+        <li><a href="https://github.com/kubernetes/client-go">kubernetes/client-go</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>controller-runtime architecture</h3>
+    <p class="focus">Manager, cached client vs APIReader, Builder (For/Owns/Watches), predicates, Reconciler contract, leader election.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wed-1"><span>Read the Kubebuilder "Architecture" page and controller-runtime package docs</span></li>
+        <li data-id="w3-wed-2"><span>Read the controller-runtime FAQ (cache, stale reads, multiple controllers)</span></li>
+        <li data-id="w3-wed-3"><span>Rewrite Tuesday's Pod labeler with controller-runtime; compare line counts and behavior</span></li>
+        <li data-id="w3-wed-4"><span>Programming Kubernetes ch. 6 (solutions for writing operators)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://book.kubebuilder.io/architecture">Kubebuilder: Architecture</a></li>
+        <li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime">controller-runtime (pkg.go.dev)</a></li>
+        <li><a href="https://github.com/kubernetes-sigs/controller-runtime/blob/main/FAQ.md">controller-runtime FAQ</a></li>
+        <li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/builder">pkg/builder</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Kubebuilder CronJob tutorial (part 1)</h3>
+    <p class="focus">Scaffold, API types, markers, CRD and RBAC generation.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-thu-1"><span>Kubebuilder Quick Start end to end on kind</span></li>
+        <li data-id="w3-thu-2"><span>CronJob tutorial: project layout, API design, root types</span></li>
+        <li data-id="w3-thu-3"><span>Read the markers reference: validation, printcolumns, subresources, RBAC</span></li>
+        <li data-id="w3-thu-4"><span>Diff the generated CRD YAML against your Go types to see what each marker does</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://book.kubebuilder.io/quick-start">Kubebuilder: Quick Start</a></li>
+        <li><a href="https://book.kubebuilder.io/cronjob-tutorial/cronjob-tutorial">CronJob tutorial</a></li>
+        <li><a href="https://book.kubebuilder.io/reference/markers">Markers reference</a></li>
+        <li><a href="https://book.kubebuilder.io/reference/markers/crd-validation">CRD validation markers</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>CronJob tutorial (part 2) and Operator SDK</h3>
+    <p class="focus">The controller logic, owner references, running locally, and where Operator SDK sits relative to Kubebuilder.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-fri-1"><span>CronJob tutorial: implementing the controller, main.go, deploying</span></li>
+        <li data-id="w3-fri-2"><span>Run the controller with <code>make run</code>, then in-cluster with <code>make deploy</code></span></li>
+        <li data-id="w3-fri-3"><span>Read Operator SDK overview + capability levels; note it wraps Kubebuilder for Go operators</span></li>
+        <li data-id="w3-fri-4"><span>Read Operator SDK best practices</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://book.kubebuilder.io/cronjob-tutorial/controller-implementation">Implementing a controller</a></li>
+        <li><a href="https://sdk.operatorframework.io/docs/">Operator SDK docs</a></li>
+        <li><a href="https://sdk.operatorframework.io/docs/overview/operator-capabilities/">Operator capability levels</a></li>
+        <li><a href="https://sdk.operatorframework.io/docs/best-practices/">Operator SDK best practices</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>envtest, webhooks, read real operators</h3>
+    <p class="focus">Finish the tutorial with tests and webhooks; study how mature operators are structured.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wk-1"><span>CronJob tutorial: webhooks and writing tests (envtest + Ginkgo/Gomega)</span></li>
+        <li data-id="w3-wk-2"><span>Read the envtest reference: what it runs (etcd + apiserver) and what it does not (no controllers, no GC)</span></li>
+        <li data-id="w3-wk-3"><span>Code-read one production operator you already run: Karpenter or ACK, focusing on the reconcile entrypoint</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://book.kubebuilder.io/cronjob-tutorial/webhook-implementation">Implementing webhooks</a></li>
+        <li><a href="https://book.kubebuilder.io/cronjob-tutorial/writing-tests">Writing tests</a> / <a href="https://book.kubebuilder.io/reference/envtest">envtest reference</a></li>
+        <li><a href="https://onsi.github.io/ginkgo/">Ginkgo</a> / <a href="https://onsi.github.io/gomega/">Gomega</a></li>
+        <li><a href="https://github.com/kubernetes-sigs/karpenter">kubernetes-sigs/karpenter</a> / <a href="https://github.com/aws-controllers-k8s/community">ACK</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> completed CronJob operator with envtest suite, plus a one-page note explaining informer, cache, work queue and reconcile in your own words.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 4 ============================== -->
+<section class="page" id="week4" data-title="Week 4">
+  <h2>Week 4 - Build the capstone operator <button class="reset" data-reset="w4">reset week</button></h2>
+  <p class="lede">Start <code>agent-fleet-operator</code>. This week: the <code>MCPServer</code> CRD fully production-shaped. The <code>Agent</code> and <code>KnowledgeBase</code> CRDs follow the same patterns in weeks 5-6.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>API design: spec, status, conditions</h3>
+    <p class="focus">Design the API like a principal: versioning, defaults, validation, status that tells an operator what is wrong.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-mon-1"><span><code>kubebuilder init</code>; <code>create api</code> for <code>MCPServer</code> (group <code>agents.example.dev</code>, v1alpha1)</span></li>
+        <li data-id="w4-mon-2"><span>Spec: image, transport, port, replicas/autoscaling, env from Secrets, allowed callers</span></li>
+        <li data-id="w4-mon-3"><span>Status: <code>[]metav1.Condition</code> (Ready, Progressing, Degraded), <code>observedGeneration</code>, endpoint URL</span></li>
+        <li data-id="w4-mon-4"><span>CEL validation rules for cross-field checks; printcolumns</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties">API conventions: status and conditions</a></li>
+        <li><a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/meta#SetStatusCondition">meta.SetStatusCondition</a></li>
+        <li><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules">CRD validation rules (CEL)</a></li>
+        <li><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/">CRD versioning</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Reconcile: owned resources, idempotency</h3>
+    <p class="focus">Reconcile to desired state every time; never depend on the event that triggered you.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-tue-1"><span>Create/update Deployment + Service with <code>controllerutil.CreateOrUpdate</code> and owner refs</span></li>
+        <li data-id="w4-tue-2"><span><code>Owns()</code> watches so drift on children triggers reconcile; predicates to ignore status-only changes</span></li>
+        <li data-id="w4-tue-3"><span>Compare CreateOrUpdate with server-side apply; pick one and justify it in a short ADR</span></li>
+        <li data-id="w4-tue-4"><span>Handle conflicts and requeue correctly (<code>Result{RequeueAfter}</code> vs returning an error)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/controller/controllerutil">controllerutil</a></li>
+        <li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/reconcile">pkg/reconcile</a></li>
+        <li><a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/">Server-Side Apply</a></li>
+        <li><a href="https://book.kubebuilder.io/reference/good-practices">Kubebuilder: good practices</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Finalizers, external state, events</h3>
+    <p class="focus">Clean up things Kubernetes GC cannot see; emit Events; avoid hot loops.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wed-1"><span>Add a finalizer that deregisters the MCP server from an external registry (a ConfigMap-backed catalog or an AWS resource)</span></li>
+        <li data-id="w4-wed-2"><span>Record Kubernetes Events for state transitions</span></li>
+        <li data-id="w4-wed-3"><span>Add HPA and PDB; condition Degraded when available replicas &lt; min</span></li>
+        <li data-id="w4-wed-4"><span>Use EKS Pod Identity for any AWS calls the operator makes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://book.kubebuilder.io/reference/using-finalizers">Kubebuilder: using finalizers</a></li>
+        <li><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/">Concepts: Finalizers</a></li>
+        <li><a href="https://pkg.go.dev/k8s.io/client-go/tools/record">client-go/tools/record</a></li>
+        <li><a href="https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html">EKS Pod Identity</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Testing the operator</h3>
+    <p class="focus">Unit tests for pure builders, envtest for reconcile behavior, e2e on kind.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-thu-1"><span>Pure-function tests for "desired Deployment from spec" (table-driven)</span></li>
+        <li data-id="w4-thu-2"><span>envtest: create MCPServer, assert children, conditions and finalizer; delete and assert cleanup</span></li>
+        <li data-id="w4-thu-3"><span>Use <code>Eventually</code> correctly; no sleeps</span></li>
+        <li data-id="w4-thu-4"><span>Scaffolded e2e suite against kind in CI</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://book.kubebuilder.io/reference/envtest">envtest reference</a></li>
+        <li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/envtest">pkg/envtest</a></li>
+        <li><a href="https://onsi.github.io/gomega/#making-asynchronous-assertions">Gomega: asynchronous assertions</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Webhooks, leader election, scale</h3>
+    <p class="focus">Defaulting/validating webhooks with cert-manager; HA operator replicas; tuning for thousands of objects.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-fri-1"><span>Defaulting + validating webhook for MCPServer; when CEL is enough and when you need a webhook</span></li>
+        <li data-id="w4-fri-2"><span>Enable leader election; run 2 replicas; kill the leader and time failover</span></li>
+        <li data-id="w4-fri-3"><span>Set <code>MaxConcurrentReconciles</code>, cache label selectors, and rate limiter; note memory effects</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://book.kubebuilder.io/reference/webhook-overview">Kubebuilder: webhook overview</a></li>
+        <li><a href="https://cert-manager.io/docs/">cert-manager</a></li>
+        <li><a href="https://pkg.go.dev/k8s.io/client-go/tools/leaderelection">client-go leaderelection</a></li>
+        <li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/cache">controller-runtime cache options</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Ship it to EKS the way you ship everything</h3>
+    <p class="focus">Your home ground: chart, CI, ArgoCD, Karpenter. Make it look like a real platform component.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wk-1"><span>Helm chart for the operator (CRDs in <code>crds/</code> or templated; document the upgrade trade-off)</span></li>
+        <li data-id="w4-wk-2"><span>GitHub Actions: lint, envtest, e2e on kind, multi-arch image, chart publish</span></li>
+        <li data-id="w4-wk-3"><span>Deploy to a sandbox EKS cluster via ArgoCD; create a sample MCPServer from Git</span></li>
+        <li data-id="w4-wk-4"><span>Write the README architecture section with a reconcile sequence diagram</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://helm.sh/docs/chart_best_practices/custom_resource_definitions/">Helm: CRD best practices</a></li>
+        <li><a href="https://book.kubebuilder.io/plugins/available/helm-v1-alpha">Kubebuilder Helm plugin</a></li>
+        <li><a href="https://docs.aws.amazon.com/eks/latest/best-practices/introduction.html">EKS Best Practices Guide</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> <code>agent-fleet-operator</code> v0.1 with the MCPServer CRD, conditions, finalizer, webhook, envtest + e2e in CI, Helm chart, running on EKS via ArgoCD.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 5 ============================== -->
+<section class="page" id="week5" data-title="Week 5">
+  <h2>Week 5 - Observability, Istio/Envoy, Kafka <button class="reset" data-reset="w5">reset week</button></h2>
+  <p class="lede">Instrument everything you built in Go, understand the mesh below it, and add Kafka as the task bus for agents.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Prometheus in Go and in controller-runtime</h3>
+    <p class="focus">client_golang, metric types, label cardinality, the built-in controller-runtime metrics, custom operator metrics.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-mon-1"><span>Prometheus Go app guide; add RED metrics to your week-2 service</span></li>
+        <li data-id="w5-mon-2"><span>Read Kubebuilder metrics docs; register custom metrics (e.g. MCPServers by phase) on the controller-runtime registry</span></li>
+        <li data-id="w5-mon-3"><span>Read metric naming and instrumentation best practices</span></li>
+        <li data-id="w5-mon-4"><span>Scrape with a ServiceMonitor via kube-prometheus-stack on kind</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://prometheus.io/docs/guides/go-application/">Instrumenting a Go application</a></li>
+        <li><a href="https://pkg.go.dev/github.com/prometheus/client_golang/prometheus">client_golang/prometheus</a></li>
+        <li><a href="https://book.kubebuilder.io/reference/metrics">Kubebuilder: metrics</a></li>
+        <li><a href="https://prometheus.io/docs/practices/naming/">Metric and label naming</a> / <a href="https://prometheus.io/docs/practices/instrumentation/">Instrumentation</a></li>
+        <li><a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack">kube-prometheus-stack</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>OpenTelemetry in Go</h3>
+    <p class="focus">TracerProvider, spans, context propagation, otelhttp/otelgrpc, OTLP exporter, resource attributes, metrics bridge.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-tue-1"><span>OTel Go Getting Started, then the Instrumentation and Exporters pages</span></li>
+        <li data-id="w5-tue-2"><span>Instrument the week-2 service: otelhttp server + client, manual spans, span events, errors</span></li>
+        <li data-id="w5-tue-3"><span>Add tracing to the operator's reconcile (one span per reconcile, child spans per child resource)</span></li>
+        <li data-id="w5-tue-4"><span>Correlate logs: inject trace_id into slog records</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/languages/go/">OTel Go docs</a></li>
+        <li><a href="https://opentelemetry.io/docs/languages/go/getting-started/">Getting started</a> / <a href="https://opentelemetry.io/docs/languages/go/instrumentation/">Instrumentation</a> / <a href="https://opentelemetry.io/docs/languages/go/exporters/">Exporters</a></li>
+        <li><a href="https://github.com/open-telemetry/opentelemetry-go-contrib">opentelemetry-go-contrib</a> (otelhttp, otelgrpc)</li>
+        <li><a href="https://opentelemetry.io/docs/concepts/context-propagation/">Context propagation</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Collector, Grafana, SLOs</h3>
+    <p class="focus">Collector pipelines on Kubernetes, the OTel Operator, Grafana dashboards and SLO alerting.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wed-1"><span>Run the OTel Collector (agent + gateway) via the OpenTelemetry Operator on kind; export to Tempo/Jaeger and Prometheus</span></li>
+        <li data-id="w5-wed-2"><span>Grafana dashboard for the operator: reconcile rate/errors/latency, work queue depth, MCPServer phases</span></li>
+        <li data-id="w5-wed-3"><span>Write two multi-window burn-rate SLO alerts</span></li>
+        <li data-id="w5-wed-4"><span>Know the AWS options: ADOT, Amazon Managed Prometheus and Grafana</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/collector/">OTel Collector</a></li>
+        <li><a href="https://opentelemetry.io/docs/platforms/kubernetes/operator/">OpenTelemetry Operator for Kubernetes</a></li>
+        <li><a href="https://grafana.com/docs/grafana/latest/dashboards/">Grafana dashboards</a></li>
+        <li><a href="https://sre.google/workbook/alerting-on-slos/">SRE Workbook: Alerting on SLOs</a></li>
+        <li><a href="https://aws-otel.github.io/docs/introduction">AWS Distro for OpenTelemetry</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Istio and Envoy internals</h3>
+    <p class="focus">Envoy listeners/clusters/filters, xDS from istiod, sidecar vs ambient (ztunnel + waypoint), mTLS identity, AuthorizationPolicy.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-thu-1"><span>Read the Envoy architecture overview and the xDS protocol page</span></li>
+        <li data-id="w5-thu-2"><span>Read Istio architecture, traffic management, security; then the ambient overview</span></li>
+        <li data-id="w5-thu-3"><span>Install Istio on kind; use <code>istioctl proxy-config</code> to dump listeners, routes, clusters for one pod</span></li>
+        <li data-id="w5-thu-4"><span>Extend the operator: MCPServer gets an AuthorizationPolicy allowing only referenced Agents' service accounts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/arch_overview">Envoy architecture overview</a></li>
+        <li><a href="https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol">xDS REST and gRPC protocol</a></li>
+        <li><a href="https://istio.io/latest/docs/ops/deployment/architecture/">Istio architecture</a> / <a href="https://istio.io/latest/docs/concepts/traffic-management/">traffic</a> / <a href="https://istio.io/latest/docs/concepts/security/">security</a></li>
+        <li><a href="https://istio.io/latest/docs/ambient/overview/">Istio ambient mode</a></li>
+        <li><a href="https://istio.io/latest/docs/reference/config/security/authorization-policy/">AuthorizationPolicy reference</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Kafka from Go</h3>
+    <p class="focus">Partitions, consumer groups, rebalancing, delivery semantics, idempotent producers; franz-go as the client.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-fri-1"><span>Kafka docs: design section (log, partitions, consumer groups, delivery semantics)</span></li>
+        <li data-id="w5-fri-2"><span>Run Kafka on kind with Strimzi; produce/consume with franz-go, manual commits, graceful rebalance</span></li>
+        <li data-id="w5-fri-3"><span>Propagate trace context through Kafka headers; follow messaging semantic conventions</span></li>
+        <li data-id="w5-fri-4"><span>Read the MSK developer guide intro to talk about the managed option on AWS</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://kafka.apache.org/documentation/#design">Kafka documentation: Design</a></li>
+        <li><a href="https://github.com/twmb/franz-go">twmb/franz-go</a> / <a href="https://github.com/confluentinc/confluent-kafka-go">confluent-kafka-go</a></li>
+        <li><a href="https://strimzi.io/docs/operators/latest/overview">Strimzi overview</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/messaging/kafka/">OTel semconv: Kafka</a></li>
+        <li><a href="https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html">Amazon MSK</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Agent CRD skeleton + end-to-end trace</h3>
+    <p class="focus">Add the second CRD and prove one trace crosses operator, Kafka and a workload.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wk-1"><span><code>Agent</code> CRD: model, system prompt ConfigMap ref, <code>mcpServerRefs</code>, Kafka topic; reconciles a Deployment</span></li>
+        <li data-id="w5-wk-2"><span>Stub agent worker in Go consuming tasks from Kafka (LLM call comes next week)</span></li>
+        <li data-id="w5-wk-3"><span>One Grafana view: Kafka lag, agent task latency, reconcile metrics; one trace in Tempo/Jaeger end to end</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://book.kubebuilder.io/reference/watching-resources">Kubebuilder: watching resources</a></li>
+        <li><a href="https://opentelemetry.io/docs/languages/go/instrumentation/">OTel Go instrumentation</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> instrumented operator + Agent CRD, Kafka task bus, Istio-enforced MCP access, Grafana dashboard and an end-to-end trace screenshot in the README.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 6 ============================== -->
+<section class="page" id="week6" data-title="Week 6">
+  <h2>Week 6 - Agentic AI in Go, multi-cluster, interview prep <button class="reset" data-reset="w6">reset week</button></h2>
+  <p class="lede">The required differentiator: agents, RAG and MCP built in Go and run as cloud-native workloads. Then multi-cluster, and turning the capstone into an architecture story.</p>
+  <div class="progress"><div id="bar-w6"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Anthropic Go SDK: tool use and the agent loop</h3>
+    <p class="focus">Messages API from Go, tool definitions, the tool_use / tool_result loop, streaming, Bedrock as a backend.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-mon-1"><span>Read the anthropic-sdk-go README and examples; read the tool use overview</span></li>
+        <li data-id="w6-mon-2"><span>Write the agent loop in Go: tools, parallel tool calls with errgroup, <code>is_error</code> results, max-turn budget</span></li>
+        <li data-id="w6-mon-3"><span>Switch the client to Bedrock (SDK bedrock option + Pod Identity); compare config</span></li>
+        <li data-id="w6-mon-4"><span>Read "Building effective agents"; pick the patterns your Agent CRD should support</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/anthropics/anthropic-sdk-go">anthropics/anthropic-sdk-go</a> / <a href="https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go">pkg.go.dev</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude docs: Tool use</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock">Claude on Amazon Bedrock</a></li>
+        <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>MCP in Go: servers and clients</h3>
+    <p class="focus">The official MCP Go SDK; streamable HTTP transport; tools/resources/prompts; the agent as an MCP client.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-tue-1"><span>Read the MCP spec overview, transports and authorization pages</span></li>
+        <li data-id="w6-tue-2"><span>Build a streamable-HTTP MCP server with <code>modelcontextprotocol/go-sdk</code> exposing 2-3 platform tools (e.g. read-only k8s queries)</span></li>
+        <li data-id="w6-tue-3"><span>Make the agent an MCP client: discover tools from referenced MCPServers and feed them to Claude</span></li>
+        <li data-id="w6-tue-4"><span>Test it with MCP Inspector; instrument MCP calls with OTel spans</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/modelcontextprotocol/go-sdk">modelcontextprotocol/go-sdk</a> / <a href="https://pkg.go.dev/github.com/modelcontextprotocol/go-sdk/mcp">pkg.go.dev mcp</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a> / <a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">Authorization</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/mcp-connector">Claude MCP connector</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>RAG in Go</h3>
+    <p class="focus">Chunking, embeddings, vector search with pgvector, contextual retrieval, evaluation; the KnowledgeBase CRD.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wed-1"><span>Read Anthropic's embeddings guide and "Contextual Retrieval"</span></li>
+        <li data-id="w6-wed-2"><span><code>KnowledgeBase</code> CRD: source (S3 prefix or Git repo) and embedding model; operator runs an ingestion Job</span></li>
+        <li data-id="w6-wed-3"><span>Ingestion in Go: chunk, embed (Voyage or Bedrock Titan), store with pgvector-go; HNSW index</span></li>
+        <li data-id="w6-wed-4"><span>Expose retrieval as an MCP tool; build a 20-question eval set and record hit rate</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Claude docs: Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/engineering/contextual-retrieval">Contextual Retrieval</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a> / <a href="https://github.com/pgvector/pgvector-go">pgvector-go</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html">Bedrock Titan embeddings</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel semconv: GenAI</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Multi-cluster and federation</h3>
+    <p class="focus">Fleet patterns: GitOps fan-out, federated placement, multi-cluster mesh, and multi-cluster controllers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-thu-1"><span>ArgoCD ApplicationSet with the cluster generator: deploy the operator to two clusters with per-cluster values</span></li>
+        <li data-id="w6-thu-2"><span>Read Karmada concepts (propagation, override policies) and the KubeFed history - why it was archived</span></li>
+        <li data-id="w6-thu-3"><span>Istio multi-cluster models (primary-remote, multi-primary); SIG Multicluster APIs (ClusterSet, MCS)</span></li>
+        <li data-id="w6-thu-4"><span>Skim multicluster-runtime: one controller reconciling across clusters</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Cluster/">ApplicationSet cluster generator</a></li>
+        <li><a href="https://karmada.io/docs/">Karmada docs</a></li>
+        <li><a href="https://istio.io/latest/docs/setup/install/multicluster/">Istio multicluster install</a></li>
+        <li><a href="https://multicluster.sigs.k8s.io/">SIG Multicluster</a></li>
+        <li><a href="https://github.com/kubernetes-sigs/multicluster-runtime">kubernetes-sigs/multicluster-runtime</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Architecture: scale, resiliency, HA</h3>
+    <p class="focus">Write the design doc a principal would write for this platform; rehearse system-design answers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-fri-1"><span>Design doc: goals, CRD API, failure modes (LLM outage, Kafka lag, apiserver throttling), SLOs, cost, security (prompt injection via tools, least-privilege MCP)</span></li>
+        <li data-id="w6-fri-2"><span>Re-read Builders' Library on load shedding and static stability; apply to the agent tier</span></li>
+        <li data-id="w6-fri-3"><span>Read the Reliability Pillar sections on fault isolation and cell-based design</span></li>
+        <li data-id="w6-fri-4"><span>Look at kagent (CNCF k8s-native agent framework) to compare designs</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/">Builders' Library: load shedding</a></li>
+        <li><a href="https://aws.amazon.com/builders-library/static-stability-using-availability-zones/">Builders' Library: static stability</a></li>
+        <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html">Well-Architected Reliability Pillar</a></li>
+        <li><a href="https://dataintensive.net/">Designing Data-Intensive Applications</a></li>
+        <li><a href="https://kagent.dev/">kagent</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Finish, demo, talk track</h3>
+    <p class="focus">Package the capstone so a reviewer understands it in five minutes, and rehearse the stories.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w6-wk-1"><span>Demo: <code>kubectl apply</code> an Agent + MCPServer + KnowledgeBase; send a task to Kafka; show answer, trace and dashboard</span></li>
+        <li data-id="w6-wk-2"><span>README: architecture diagram, CRD reference, design doc, ADRs, metrics</span></li>
+        <li data-id="w6-wk-3"><span>3-minute recorded walkthrough</span></li>
+        <li data-id="w6-wk-4"><span>Talk track: reconcile design, scale tuning, failure modes, multi-cluster rollout, Chime/SA stories in STAR form</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li>Your week-6 design doc and ADRs</li>
+        <li><a href="https://sre.google/sre-book/table-of-contents/">Google SRE book</a> (for troubleshooting stories)</li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> public <code>agent-fleet-operator</code> repo covering every must-have: Go, operators/CRDs, Helm/ArgoCD/CI, OTel/Prometheus/Grafana, Kafka, Istio, MCP + RAG + agent on EKS, multi-cluster, plus a design doc and demo.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 7 (ADD-ON) ============================== -->
+<section class="page" id="week7" data-title="Week 7 (add-on)">
+  <h2>Week 7 (add-on) - Go depth and production troubleshooting <button class="reset" data-reset="w7">reset week</button></h2>
+  <p class="lede">Optional. A principal Go role will probe depth: runtime behavior, performance, reading big codebases, and debugging live systems. Do it after week 6, or pull days forward when something feels shaky.</p>
+  <div class="progress"><div id="bar-w7"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Runtime, GC and memory</h3>
+    <p class="focus">Escape analysis, allocations, the GC guide, <code>GOMEMLIMIT</code> and <code>GOMAXPROCS</code> in containers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-mon-1"><span>Read the GC guide fully</span></li>
+        <li data-id="w7-mon-2"><span><code>go build -gcflags=-m</code> on your hot paths; remove 2 avoidable allocations</span></li>
+        <li data-id="w7-mon-3"><span>Set <code>GOMEMLIMIT</code> from the pod memory limit; test under a cgroup limit</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://go.dev/doc/gc-guide">A Guide to the Go Garbage Collector</a></li>
+        <li><a href="https://pkg.go.dev/runtime">runtime</a> / <a href="https://pkg.go.dev/runtime/debug">runtime/debug</a></li>
+        <li><a href="https://go.dev/doc/pgo">Profile-guided optimization</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Live debugging</h3>
+    <p class="focus">Delve, goroutine dumps, execution traces, goroutine leaks.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-tue-1"><span>Debug the operator in-cluster with delve (ephemeral container or <code>dlv</code> headless)</span></li>
+        <li data-id="w7-tue-2"><span>Plant a goroutine leak; find it via <code>/debug/pprof/goroutine?debug=2</code> and fix it</span></li>
+        <li data-id="w7-tue-3"><span>Capture and read an execution trace with <code>go tool trace</code></span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/go-delve/delve">go-delve/delve</a></li>
+        <li><a href="https://pkg.go.dev/runtime/trace">runtime/trace</a></li>
+        <li><a href="https://go.dev/blog/execution-traces-2024">More powerful Go execution traces</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Code reading: controller-runtime internals</h3>
+    <p class="focus">Read the code you depend on most, so you can answer "what happens when..." questions precisely.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wed-1"><span>Trace <code>Manager.Start</code> to controller workers in <code>pkg/internal/controller</code></span></li>
+        <li data-id="w7-wed-2"><span>Read how the cache wraps informers and how the delegating client chooses cache vs live reads</span></li>
+        <li data-id="w7-wed-3"><span>Read client-go's rate-limited work queue implementation</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/kubernetes-sigs/controller-runtime/tree/main/pkg/internal/controller">controller-runtime pkg/internal/controller</a></li>
+        <li><a href="https://github.com/kubernetes-sigs/controller-runtime/tree/main/pkg/cache">controller-runtime pkg/cache</a></li>
+        <li><a href="https://github.com/kubernetes/client-go/tree/master/util/workqueue">client-go util/workqueue</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>API server and etcd at scale</h3>
+    <p class="focus">Why operators fall over at scale: watch cache, API Priority and Fairness, etcd limits, client QPS.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-thu-1"><span>Read API Priority and Fairness; set a FlowSchema for your operator</span></li>
+        <li data-id="w7-thu-2"><span>Read the EKS scalability best practices for control plane and controllers</span></li>
+        <li data-id="w7-thu-3"><span>Load test: 2,000 MCPServer objects; record reconcile latency and memory, then tune</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/flow-control/">API Priority and Fairness</a></li>
+        <li><a href="https://docs.aws.amazon.com/eks/latest/best-practices/scalability.html">EKS best practices: scalability</a></li>
+        <li><a href="https://etcd.io/docs/latest/">etcd docs</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>gRPC and protobuf in Go</h3>
+    <p class="focus">Common in platform services and in Envoy/xDS; worth being fluent.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-fri-1"><span>gRPC Go quick start and basics tutorial</span></li>
+        <li data-id="w7-fri-2"><span>Add interceptors for OTel and deadlines; health checking service</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://grpc.io/docs/languages/go/quickstart/">gRPC Go quick start</a> / <a href="https://grpc.io/docs/languages/go/basics/">basics</a></li>
+        <li><a href="https://protobuf.dev/getting-started/gotutorial/">Protocol Buffers Go tutorial</a></li>
+        <li><a href="https://buf.build/docs/">Buf</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Mock interviews</h3>
+    <p class="focus">Live-code in Go under time pressure; whiteboard the platform.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w7-wk-1"><span>10 Go exercism exercises with mentoring off, timed</span></li>
+        <li data-id="w7-wk-2"><span>Live-code a minimal controller from memory (informer + workqueue) in 45 minutes</span></li>
+        <li data-id="w7-wk-3"><span>Two system-design rehearsals: "multi-tenant agent platform on EKS" and "operator for a stateful service"</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://exercism.org/tracks/go">Exercism Go track</a></li>
+        <li><a href="https://100go.co/">100 Go Mistakes</a> (full pass)</li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> load-test report for the operator with before/after tuning, plus confidence answering Go runtime and controller-internals questions live.</div>
+  </div>
+</section>
+
+<!-- ============================== AI INTEGRATION FUNDAMENTALS ============================== -->
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI integration fundamentals <button class="reset" data-reset="ai">reset page</button></h2>
+  <p class="lede">Shared across all the study guides. No model training or data science: you call a model over HTTPS and engineer the software around it. Most of it is ordinary API work; the seven areas below are what is different, because an LLM is a probabilistic component, not a deterministic API.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Same</span>What is just API integration</h3>
+    <p class="focus">REST/SDK calls, auth, retries, timeouts, rate limits, streaming (SSE), cost metering. MCP is JSON-RPC with a tool/resource schema; an MCP server is a small service exposing your existing APIs as tools.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-same-1"><span>Make a first Messages API call with streaming; read the usage block (input/output/cache tokens)</span></li>
+        <li data-id="ai-same-2"><span>Read the MCP architecture overview: hosts, clients, servers, tools, resources, prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming messages</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">1</span>Tool design</h3>
+    <p class="focus">Names, descriptions and input schemas decide whether the model picks the right tool with the right arguments. API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-tool-1"><span>Read the tool use docs and Anthropic's guidance on writing tools for agents</span></li>
+        <li data-id="ai-tool-2"><span>Rewrite one vague tool description and compare call accuracy before and after</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">2</span>The agent loop</h3>
+    <p class="focus">Model requests a tool, your code runs it, the result goes back, repeat. Stop conditions, structured errors the model can recover from, parallel tool calls.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-loop-1"><span>Read Building Effective Agents (workflows vs agents)</span></li>
+        <li data-id="ai-loop-2"><span>Hand-write an agent loop with 2-3 tools, max-turn limit and <code>is_error</code> results</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> (a loop you do not write yourself)</li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">3</span>Context engineering and caching</h3>
+    <p class="focus">What goes in the system prompt vs per-request context; staying within the context window; prompt caching for cost and latency (static prefix first, dynamic data after the breakpoint).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-ctx-1"><span>Read the context engineering post and the prompt caching docs</span></li>
+        <li data-id="ai-ctx-2"><span>Show <code>cache_read_input_tokens</code> &gt; 0 on turn 2, then break it by changing one prefix byte</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">4</span>Security</h3>
+    <p class="focus">Prompt injection from untrusted content; model output is untrusted input; the model can skip, fake or reorder tool calls, so enforcement lives server-side. Auth in front of MCP servers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-sec-1"><span>Read the OWASP Top 10 for LLM applications</span></li>
+        <li data-id="ai-sec-2"><span>Read the MCP security best practices and authorization spec</span></li>
+        <li data-id="ai-sec-3"><span>Plant an injection in a tool result; confirm a server-side check (not the prompt) blocks the action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices">MCP security best practices</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">MCP authorization</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">5</span>Evals</h3>
+    <p class="focus">Outputs vary run to run, so test with scored scenario suites ("did it call checkout without confirming?") rather than exact-match asserts. The least familiar part for most engineers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-eval-1"><span>Read the guide on building empirical evaluations and test cases</span></li>
+        <li data-id="ai-eval-2"><span>Write a 10-case eval for your agent: code-graded checks plus one model-graded rubric; run it 3x</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Create strong empirical evaluations</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">6</span>RAG</h3>
+    <p class="focus">Embeddings + a vector store (pgvector, OpenSearch, Azure AI Search), chunking, retrieval quality, citations. A data-pipeline and search problem, not model training.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-rag-1"><span>Read the embeddings docs and the contextual retrieval post</span></li>
+        <li data-id="ai-rag-2"><span>Embed ~50 docs into pgvector, retrieve top-k, answer with citations; measure hit rate on 10 questions</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/news/contextual-retrieval">Contextual retrieval</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">7</span>Observability</h3>
+    <p class="focus">Trace prompts, tool calls, token use and latency per turn. OpenTelemetry has GenAI semantic conventions for exactly this.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-obs-1"><span>Read the OTel GenAI semantic conventions (spans, metrics, events)</span></li>
+        <li data-id="ai-obs-2"><span>Emit one span per model call and per tool call with token counts as attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI semantic conventions</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Build</span>Two starter builds</h3>
+    <p class="focus">The fastest way to close the gap. Do these before going deeper anywhere else.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-build-1"><span>Build 1: agent loop against the Messages API with 2-3 tools you already understand</span></li>
+        <li data-id="ai-build-2"><span>Build 2: streamable-HTTP MCP server in front of a familiar API, with auth, called from Claude Code</span></li>
+        <li data-id="ai-build-3"><span>Add a tiny RAG step to Build 1: embed, retrieve, cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/develop/build-server">MCP: Build a server</a></li>
+        <li><a href="https://code.claude.com/docs/en/mcp">Claude Code: connect MCP servers</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> (API, MCP, MCP Advanced)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card" id="ai-applies">
+    <h3>How this applies to this role</h3>
+    <p>Principal Golang Architect: the same seven areas, but built in Go and run as platform workloads. Use the official <a href="https://github.com/modelcontextprotocol/go-sdk">MCP Go SDK</a> (<code>modelcontextprotocol/go-sdk</code>) and the official <a href="https://github.com/anthropics/anthropic-sdk-go">Anthropic Go SDK</a> (<code>anthropics/anthropic-sdk-go</code>, which also targets Bedrock). Do the "Build" tasks above in Go, not Python.</p>
+    <table>
+      <tr><th>Area</th><th>Go-architect angle</th><th>Plan week</th></tr>
+      <tr><td>1 Tool design</td><td>MCP tools as typed Go handlers with JSON-schema inputs; read-only platform tools first</td><td><a href="#week6">W6 Tue</a></td></tr>
+      <tr><td>2 Agent loop</td><td>Loop in Go with anthropic-sdk-go; parallel tool calls via errgroup; max-turn and context deadlines</td><td><a href="#week6">W6 Mon</a> (concurrency from <a href="#week2">W2</a>)</td></tr>
+      <tr><td>3 Context + caching</td><td>System prompt in a ConfigMap referenced by the <code>Agent</code> CRD; keep the cached prefix byte-stable across rollouts</td><td><a href="#week6">W6 Mon</a>, <a href="#week5">W5 weekend</a></td></tr>
+      <tr><td>4 Security</td><td>MCP servers and agents as Kubernetes workloads behind a gateway: Istio mTLS + AuthorizationPolicy per service account, MCP OAuth authorization at the server, Pod Identity for AWS, least-privilege tools</td><td><a href="#week5">W5 Thu</a>, <a href="#week4">W4 Wed</a>, <a href="#week6">W6 Tue/Fri</a></td></tr>
+      <tr><td>5 Evals</td><td>Go test suites that score scenarios (code-graded + one model-graded), run in CI like envtest</td><td><a href="#week6">W6 Wed</a>, <a href="#week4">W4 Thu</a></td></tr>
+      <tr><td>6 RAG</td><td><code>KnowledgeBase</code> CRD, ingestion Job in Go, pgvector-go, retrieval exposed as an MCP tool</td><td><a href="#week6">W6 Wed</a></td></tr>
+      <tr><td>7 Observability</td><td>OTel GenAI semantic conventions in Go: manual <code>gen_ai.*</code> spans and token-usage attributes around each SDK call, MCP call spans, trace context across Kafka</td><td><a href="#week5">W5 Tue-Wed</a>, <a href="#week6">W6 Tue</a></td></tr>
+    </table>
+    <p><b>Note on "LLM integration with cloud-native platforms":</b> in an interview this may also mean self-hosting open-weight models on EKS GPU nodes (Karpenter GPU NodePools, <a href="https://docs.vllm.ai/en/latest/">vLLM</a> as the inference server, <a href="https://kserve.github.io/website/">KServe</a> as the Kubernetes serving layer). That is model serving, not training: autoscaling, GPU scheduling, model caching and routing - squarely platform work. Be ready to compare it with calling a hosted API (Claude via API or Bedrock) on cost, latency, ops burden and data residency.</p>
+  </div>
+</section>
+
+<!-- ============================== RESOURCES ============================== -->
+<section class="page" id="resources" data-title="Resources">
+  <h2>All resources</h2>
+  <p class="lede">Every link in the plan, grouped.</p>
+  <div class="grid2">
+    <div class="card"><h3>Go language</h3><ul class="links">
+      <li><a href="https://go.dev/tour/">A Tour of Go</a> / <a href="https://gobyexample.com/">Go by Example</a> / <a href="https://go.dev/doc/effective_go">Effective Go</a></li>
+      <li><a href="https://go.dev/doc/tutorial/getting-started">Get started</a> / <a href="https://go.dev/doc/tutorial/create-module">Create a module</a> / <a href="https://go.dev/doc/tutorial/generics">Generics tutorial</a> / <a href="https://go.dev/doc/tutorial/web-service-gin">RESTful API tutorial</a></li>
+      <li><a href="https://go.dev/doc/modules/layout">Module layout</a> / <a href="https://go.dev/ref/mod">Modules reference</a> / <a href="https://go.dev/ref/spec">Language spec</a></li>
+      <li><a href="https://go.dev/blog/slices-intro">Slices intro</a> / <a href="https://go.dev/blog/go1.13-errors">Go 1.13 errors</a> / <a href="https://go.dev/blog/errors-are-values">Errors are values</a> / <a href="https://go.dev/blog/intro-generics">Intro to generics</a></li>
+      <li><a href="https://go.dev/blog/routing-enhancements">1.22 routing</a> / <a href="https://go.dev/blog/slog">slog</a></li>
+      <li><a href="https://pkg.go.dev/net/http">net/http</a> / <a href="https://pkg.go.dev/encoding/json">encoding/json</a> / <a href="https://pkg.go.dev/slices">slices</a> / <a href="https://pkg.go.dev/maps">maps</a> / <a href="https://pkg.go.dev/errors">errors</a></li>
+      <li><a href="https://go-proverbs.github.io/">Go Proverbs</a> / <a href="https://go.dev/wiki/CodeReviewComments">Code Review Comments</a> / <a href="https://google.github.io/styleguide/go/">Google Go Style Guide</a></li>
+      <li><a href="https://quii.gitbook.io/learn-go-with-tests">Learn Go with Tests</a> / <a href="https://100go.co/">100 Go Mistakes</a> / <a href="https://exercism.org/tracks/go">Exercism Go</a></li>
+      <li><a href="https://docs.aws.amazon.com/sdk-for-go/v2/developer-guide/welcome.html">AWS SDK for Go v2</a> / <a href="https://github.com/spf13/cobra">cobra</a></li>
+    </ul></div>
+    <div class="card"><h3>Books</h3><ul class="links">
+      <li><a href="https://www.oreilly.com/library/view/learning-go-2nd/9781098139285/">Learning Go 2e</a> (Bodner)</li>
+      <li><a href="https://www.oreilly.com/library/view/concurrency-in-go/9781491941294/">Concurrency in Go</a> (Cox-Buday)</li>
+      <li><a href="https://www.oreilly.com/library/view/programming-kubernetes/9781492047094/">Programming Kubernetes</a> (Hausenblas, Schimanski)</li>
+      <li><a href="https://100go.co/">100 Go Mistakes and How to Avoid Them</a> (Harsanyi)</li>
+      <li><a href="https://dataintensive.net/">Designing Data-Intensive Applications</a> (Kleppmann)</li>
+      <li><a href="https://sre.google/sre-book/table-of-contents/">Site Reliability Engineering</a> / <a href="https://sre.google/workbook/alerting-on-slos/">SRE Workbook: SLO alerting</a></li>
+    </ul></div>
+    <div class="card"><h3>Concurrency, testing, performance</h3><ul class="links">
+      <li><a href="https://go.dev/tour/concurrency/1">Tour: Concurrency</a> / <a href="https://gobyexample.com/goroutines">Go by Example: goroutines</a> / <a href="https://go.dev/doc/effective_go#concurrency">Effective Go: Concurrency</a></li>
+      <li><a href="https://go.dev/blog/context">Context</a> / <a href="https://go.dev/blog/pipelines">Pipelines</a> / <a href="https://pkg.go.dev/golang.org/x/sync/errgroup">errgroup</a> / <a href="https://pkg.go.dev/sync">sync</a> / <a href="https://pkg.go.dev/context">context</a> / <a href="https://pkg.go.dev/golang.org/x/time/rate">x/time/rate</a></li>
+      <li><a href="https://go.dev/ref/mem">Memory model</a> / <a href="https://go.dev/doc/articles/race_detector">Race detector</a> / <a href="https://go.dev/doc/diagnostics">Diagnostics</a> / <a href="https://go.dev/blog/pprof">Profiling</a> / <a href="https://pkg.go.dev/net/http/pprof">net/http/pprof</a></li>
+      <li><a href="https://go.dev/doc/gc-guide">GC guide</a> / <a href="https://go.dev/doc/pgo">PGO</a> / <a href="https://pkg.go.dev/runtime">runtime</a> / <a href="https://pkg.go.dev/runtime/debug">runtime/debug</a> / <a href="https://pkg.go.dev/runtime/trace">runtime/trace</a> / <a href="https://go.dev/blog/execution-traces-2024">Execution traces</a></li>
+      <li><a href="https://go.dev/wiki/TableDrivenTests">Table-driven tests</a> / <a href="https://pkg.go.dev/testing">testing</a> / <a href="https://pkg.go.dev/net/http/httptest">httptest</a> / <a href="https://go.dev/doc/security/fuzz/">Fuzzing</a> / <a href="https://github.com/stretchr/testify">testify</a></li>
+      <li><a href="https://github.com/go-delve/delve">delve</a></li>
+    </ul></div>
+    <div class="card"><h3>Tooling, images, CI</h3><ul class="links">
+      <li><a href="https://golangci-lint.run/">golangci-lint</a> / <a href="https://go.dev/doc/security/vuln/">govulncheck</a></li>
+      <li><a href="https://ko.build/">ko</a> / <a href="https://github.com/GoogleContainerTools/distroless">distroless</a> / <a href="https://docs.docker.com/guides/golang/">Docker Go guide</a></li>
+      <li><a href="https://github.com/actions/setup-go">actions/setup-go</a> / <a href="https://goreleaser.com/">GoReleaser</a> / <a href="https://kind.sigs.k8s.io/">kind</a></li>
+      <li><a href="https://helm.sh/docs/chart_best_practices/custom_resource_definitions/">Helm CRD best practices</a> / <a href="https://book.kubebuilder.io/plugins/available/helm-v1-alpha">Kubebuilder Helm plugin</a></li>
+      <li><a href="https://grpc.io/docs/languages/go/quickstart/">gRPC Go quick start</a> / <a href="https://grpc.io/docs/languages/go/basics/">basics</a> / <a href="https://protobuf.dev/getting-started/gotutorial/">protobuf Go</a> / <a href="https://buf.build/docs/">Buf</a></li>
+    </ul></div>
+    <div class="card"><h3>Kubernetes API and client-go</h3><ul class="links">
+      <li><a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md">API conventions</a> (<a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties">status/conditions</a>)</li>
+      <li><a href="https://kubernetes.io/docs/concepts/architecture/controller/">Controllers</a> / <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">Operator pattern</a> / <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/">Finalizers</a></li>
+      <li><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules">CRD CEL validation</a> / <a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/">CRD versioning</a> / <a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/">Server-Side Apply</a></li>
+      <li><a href="https://kubernetes.io/docs/concepts/cluster-administration/flow-control/">API Priority and Fairness</a> / <a href="https://etcd.io/docs/latest/">etcd</a></li>
+      <li><a href="https://github.com/kubernetes/sample-controller">sample-controller</a> / <a href="https://github.com/kubernetes/sample-controller/blob/master/docs/controller-client-go.md">client-go under the hood</a> / <a href="https://github.com/kubernetes/client-go">client-go</a></li>
+      <li><a href="https://pkg.go.dev/k8s.io/client-go/tools/cache">tools/cache</a> / <a href="https://pkg.go.dev/k8s.io/client-go/util/workqueue">util/workqueue</a> / <a href="https://github.com/kubernetes/client-go/tree/master/util/workqueue">workqueue source</a> / <a href="https://pkg.go.dev/k8s.io/client-go/tools/leaderelection">leaderelection</a> / <a href="https://pkg.go.dev/k8s.io/client-go/tools/record">record</a></li>
+      <li><a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/meta#SetStatusCondition">meta.SetStatusCondition</a></li>
+    </ul></div>
+    <div class="card"><h3>controller-runtime, Kubebuilder, Operator SDK</h3><ul class="links">
+      <li><a href="https://book.kubebuilder.io/">Kubebuilder book</a>: <a href="https://book.kubebuilder.io/quick-start">Quick Start</a> / <a href="https://book.kubebuilder.io/architecture">Architecture</a> / <a href="https://book.kubebuilder.io/cronjob-tutorial/cronjob-tutorial">CronJob tutorial</a> / <a href="https://book.kubebuilder.io/cronjob-tutorial/controller-implementation">controller</a> / <a href="https://book.kubebuilder.io/cronjob-tutorial/webhook-implementation">webhooks</a> / <a href="https://book.kubebuilder.io/cronjob-tutorial/writing-tests">tests</a></li>
+      <li><a href="https://book.kubebuilder.io/reference/markers">Markers</a> / <a href="https://book.kubebuilder.io/reference/markers/crd-validation">CRD validation markers</a> / <a href="https://book.kubebuilder.io/reference/envtest">envtest</a> / <a href="https://book.kubebuilder.io/reference/using-finalizers">finalizers</a> / <a href="https://book.kubebuilder.io/reference/metrics">metrics</a> / <a href="https://book.kubebuilder.io/reference/webhook-overview">webhooks</a> / <a href="https://book.kubebuilder.io/reference/watching-resources">watching</a> / <a href="https://book.kubebuilder.io/reference/good-practices">good practices</a></li>
+      <li><a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime">controller-runtime</a>: <a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/builder">builder</a> / <a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/reconcile">reconcile</a> / <a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/controller/controllerutil">controllerutil</a> / <a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/cache">cache</a> / <a href="https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/envtest">envtest</a></li>
+      <li><a href="https://github.com/kubernetes-sigs/controller-runtime/blob/main/FAQ.md">controller-runtime FAQ</a> / <a href="https://github.com/kubernetes-sigs/controller-runtime/tree/main/pkg/internal/controller">internal/controller</a> / <a href="https://github.com/kubernetes-sigs/controller-runtime/tree/main/pkg/cache">pkg/cache source</a></li>
+      <li><a href="https://sdk.operatorframework.io/docs/">Operator SDK</a> / <a href="https://sdk.operatorframework.io/docs/overview/operator-capabilities/">capability levels</a> / <a href="https://sdk.operatorframework.io/docs/best-practices/">best practices</a></li>
+      <li><a href="https://onsi.github.io/ginkgo/">Ginkgo</a> / <a href="https://onsi.github.io/gomega/">Gomega</a> (<a href="https://onsi.github.io/gomega/#making-asynchronous-assertions">async assertions</a>) / <a href="https://cert-manager.io/docs/">cert-manager</a></li>
+      <li><a href="https://github.com/kubernetes-sigs/karpenter">Karpenter</a> / <a href="https://github.com/aws-controllers-k8s/community">ACK</a> (reference operators)</li>
+    </ul></div>
+    <div class="card"><h3>Observability</h3><ul class="links">
+      <li><a href="https://opentelemetry.io/docs/languages/go/">OTel Go</a>: <a href="https://opentelemetry.io/docs/languages/go/getting-started/">getting started</a> / <a href="https://opentelemetry.io/docs/languages/go/instrumentation/">instrumentation</a> / <a href="https://opentelemetry.io/docs/languages/go/exporters/">exporters</a> / <a href="https://github.com/open-telemetry/opentelemetry-go-contrib">contrib</a></li>
+      <li><a href="https://opentelemetry.io/docs/concepts/context-propagation/">Context propagation</a> / <a href="https://opentelemetry.io/docs/collector/">Collector</a> / <a href="https://opentelemetry.io/docs/platforms/kubernetes/operator/">OTel Operator</a></li>
+      <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">semconv GenAI</a> / <a href="https://opentelemetry.io/docs/specs/semconv/messaging/kafka/">semconv Kafka</a></li>
+      <li><a href="https://prometheus.io/docs/guides/go-application/">Prometheus Go guide</a> / <a href="https://pkg.go.dev/github.com/prometheus/client_golang/prometheus">client_golang</a> / <a href="https://prometheus.io/docs/practices/naming/">naming</a> / <a href="https://prometheus.io/docs/practices/instrumentation/">instrumentation</a></li>
+      <li><a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack">kube-prometheus-stack</a> / <a href="https://grafana.com/docs/grafana/latest/dashboards/">Grafana dashboards</a> / <a href="https://aws-otel.github.io/docs/introduction">ADOT</a></li>
+    </ul></div>
+    <div class="card"><h3>Istio, Envoy, Kafka</h3><ul class="links">
+      <li><a href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/arch_overview">Envoy architecture</a> / <a href="https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol">xDS protocol</a></li>
+      <li><a href="https://istio.io/latest/docs/ops/deployment/architecture/">Istio architecture</a> / <a href="https://istio.io/latest/docs/concepts/traffic-management/">traffic</a> / <a href="https://istio.io/latest/docs/concepts/security/">security</a> / <a href="https://istio.io/latest/docs/ambient/overview/">ambient</a> / <a href="https://istio.io/latest/docs/reference/config/security/authorization-policy/">AuthorizationPolicy</a> / <a href="https://istio.io/latest/docs/setup/install/multicluster/">multicluster</a></li>
+      <li><a href="https://kafka.apache.org/documentation/#design">Kafka design</a> / <a href="https://github.com/twmb/franz-go">franz-go</a> / <a href="https://github.com/confluentinc/confluent-kafka-go">confluent-kafka-go</a> / <a href="https://strimzi.io/docs/operators/latest/overview">Strimzi</a> / <a href="https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html">MSK</a></li>
+    </ul></div>
+    <div class="card"><h3>Agentic AI, MCP, RAG</h3><ul class="links">
+      <li><a href="https://github.com/anthropics/anthropic-sdk-go">anthropic-sdk-go</a> / <a href="https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go">pkg.go.dev</a></li>
+      <li><a href="https://github.com/modelcontextprotocol/go-sdk">MCP Go SDK</a> / <a href="https://pkg.go.dev/github.com/modelcontextprotocol/go-sdk/mcp">pkg.go.dev mcp</a> / <a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+      <li><a href="https://modelcontextprotocol.io/specification/latest">MCP spec</a> / <a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">Authorization</a></li>
+      <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use</a> / <a href="https://platform.claude.com/docs/en/agents-and-tools/mcp-connector">MCP connector</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock">Claude on Bedrock</a></li>
+      <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a> / <a href="https://www.anthropic.com/engineering/contextual-retrieval">Contextual Retrieval</a></li>
+      <li><a href="https://github.com/pgvector/pgvector">pgvector</a> / <a href="https://github.com/pgvector/pgvector-go">pgvector-go</a> / <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html">Bedrock Titan embeddings</a></li>
+      <li><a href="https://kagent.dev/">kagent</a></li>
+    </ul></div>
+    <div class="card"><h3>AI integration (shared page) and model serving</h3><ul class="links">
+      <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+      <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Empirical evaluations</a> / <a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a></li>
+      <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing tools for agents</a> / <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Context engineering</a> / <a href="https://www.anthropic.com/news/contextual-retrieval">Contextual retrieval (news)</a></li>
+      <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture</a> / <a href="https://modelcontextprotocol.io/docs/develop/build-server">Build a server</a> / <a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices">Security best practices</a> / <a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a></li>
+      <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM</a> / <a href="https://github.com/anthropics/courses">anthropics/courses</a> / <a href="https://anthropic.skilljar.com/">Anthropic Academy</a></li>
+      <li><a href="https://docs.vllm.ai/en/latest/">vLLM</a> / <a href="https://kserve.github.io/website/">KServe</a></li>
+    </ul></div>
+    <div class="card"><h3>AWS, multi-cluster, architecture</h3><ul class="links">
+      <li><a href="https://docs.aws.amazon.com/eks/latest/best-practices/introduction.html">EKS Best Practices</a> / <a href="https://docs.aws.amazon.com/eks/latest/best-practices/scalability.html">scalability</a> / <a href="https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html">Pod Identity</a></li>
+      <li><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Cluster/">ApplicationSet cluster generator</a> / <a href="https://karmada.io/docs/">Karmada</a> / <a href="https://multicluster.sigs.k8s.io/">SIG Multicluster</a> / <a href="https://github.com/kubernetes-sigs/multicluster-runtime">multicluster-runtime</a></li>
+      <li><a href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/">Timeouts and retries</a> / <a href="https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/">Load shedding</a> / <a href="https://aws.amazon.com/builders-library/static-stability-using-availability-zones/">Static stability</a></li>
+      <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html">Reliability Pillar</a></li>
+    </ul></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var KEY = "go-architect-study-plan-v1";
+  var WEEKS = ["w1", "w2", "w3", "w4", "w5", "w6", "w7"];
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+
+  // Build tabs
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id;
+    a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+
+  // Turn task <li>s into checkboxes
+  document.querySelectorAll("ul.tasks li").forEach(function (li) {
+    var id = li.dataset.id;
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state[id];
+    li.insertBefore(cb, li.firstChild);
+    li.classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", function () {
+      state[id] = cb.checked;
+      li.classList.toggle("checked", cb.checked);
+      save(); refresh();
+    });
+  });
+
+  function pct(prefix) {
+    var items = document.querySelectorAll('ul.tasks li[data-id^="' + prefix + '"]');
+    if (!items.length) return 0;
+    var done = 0;
+    items.forEach(function (li) { if (state[li.dataset.id]) done++; });
+    return Math.round(100 * done / items.length);
+  }
+
+  function refresh() {
+    WEEKS.forEach(function (w) {
+      var v = pct(w + "-");
+      var bar = document.getElementById("bar-" + w);
+      if (bar) bar.style.width = v + "%";
+      var tab = tabs.querySelector('[data-page="week' + w.slice(1) + '"] .pct');
+      if (tab) tab.textContent = v + "%";
+    });
+    var ai = pct("ai-");
+    document.getElementById("bar-ai").style.width = ai + "%";
+    tabs.querySelector('[data-page="ai"] .pct').textContent = ai + "%";
+    var all = pct("w");
+    document.getElementById("bar-all").style.width = all + "%";
+    tabs.querySelector('[data-page="overview"] .pct').textContent = all + "%";
+  }
+
+  document.querySelectorAll("button.reset").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!confirm("Clear all checkboxes for this week?")) return;
+      var w = b.dataset.reset;
+      Object.keys(state).forEach(function (k) { if (k.indexOf(w + "-") === 0) delete state[k]; });
+      save();
+      document.querySelectorAll('ul.tasks li[data-id^="' + w + '-"]').forEach(function (li) {
+        li.querySelector("input").checked = false; li.classList.remove("checked");
+      });
+      refresh();
+    });
+  });
+
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    if (!document.getElementById(id)) id = "overview";
+    pages.forEach(function (p) { p.classList.toggle("active", p.id === id); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === id); });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show(); refresh();
+})();
+</script>
+</body>
+</html>

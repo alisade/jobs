@@ -40,7 +40,7 @@ solution after grading).
 - Don't read `.grading/` before you submit; that is where the hidden tests and reference live.
 - Pass mark is 70/100. Troubleshooting is graded mostly on the root cause and evidence in
   `ANSWER.md`, not just on the system working again.
-- This is a local git repo (no remote). Commit after each exercise if you want history;
-  `git checkout -- <track>/exercises/<id>` resets an exercise to its starter state.
+- The workbooks live in the `jobs` repo. Commit after each exercise if you want history;
+  `git checkout -- <track>/exercises/<id>` (run from this directory) resets an exercise to its starter state.
 
 See [SPEC.md](SPEC.md) for the exercise format.

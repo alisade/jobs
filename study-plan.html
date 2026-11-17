@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FDE Study Plan - Agent Runtimes and MCP</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1f; --muted: #6b6b70;
+    --line: #e4e4e0; --accent: #c15f3c; --accent-soft: #f6e9e3; --done: #2f7d4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17171a; --panel: #212125; --ink: #ececef; --muted: #9a9aa2;
+      --line: #34343a; --accent: #e08a62; --accent-soft: #3a2a23; --done: #5cc287;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { padding: 28px 32px 0; max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header p { margin: 0; color: var(--muted); }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 14px 32px 0; display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { padding: 8px 14px; border-radius: 8px 8px 0 0; color: var(--muted); text-decoration: none;
+          font-weight: 600; border: 1px solid transparent; border-bottom: none; }
+  nav a .pct { font-weight: 400; font-size: 12px; margin-left: 6px; }
+  nav a.active { color: var(--ink); background: var(--panel); border-color: var(--line); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 0 0 24px; }
+  .progress > div { height: 100%; background: var(--done); width: 0; transition: width .2s; }
+  .day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .day h3 { margin: 0 0 2px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .day h3 .tag { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft);
+                 padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .day .focus { color: var(--muted); margin: 0 0 12px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } header, main, nav .inner { padding-left: 16px; padding-right: 16px; } }
+  .cols h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  ul.tasks { list-style: none; padding: 0; margin: 0; }
+  ul.tasks li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+  ul.tasks input { margin-top: 4px; accent-color: var(--done); flex: none; }
+  ul.tasks li.checked span { color: var(--muted); text-decoration: line-through; }
+  ul.links { padding-left: 18px; margin: 0; }
+  ul.links li { padding: 2px 0; }
+  a { color: var(--accent); }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft);
+         padding: 1px 5px; border-radius: 4px; }
+  pre { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  .deliverable { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--done); background: var(--bg); border-radius: 0 6px 6px 0; }
+  .deliverable b { color: var(--done); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .reset { float: right; font-size: 12px; color: var(--muted); background: none; border: 1px solid var(--line);
+           border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Forward Deployed Engineer - Agent Runtimes and MCP</h1>
+  <p>4-week study plan built around <a href="https://github.com/anthropics/commerce-agents">anthropics/commerce-agents</a>. Weekdays ~2-3h, weekends one long block. Checkboxes save in this browser.</p>
+</header>
+
+<nav><div class="inner" id="tabs"></div></nav>
+
+<main>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="page" id="overview" data-title="Overview">
+  <h2>Overview</h2>
+  <p class="lede">Python fundamentals are skipped. The month goes to the Claude agent stack, MCP + auth, and building a portfolio that mirrors the posting's deliverables.</p>
+  <div class="progress"><div id="bar-all"></div></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>The four weeks</h3>
+      <table>
+        <tr><th>Week</th><th>Theme</th></tr>
+        <tr><td><a href="#week1">1</a></td><td>Blueprint codebase + Claude API, caching, Agent SDK</td></tr>
+        <tr><td><a href="#week2">2</a></td><td>MCP servers, OAuth/JWT, latency budgets, Managed Agents</td></tr>
+        <tr><td><a href="#week3">3</a></td><td>Build <code>agent-trust-commerce</code> (the mixin package)</td></tr>
+        <tr><td><a href="#week4">4</a></td><td>MCP gateway, Customer MCP server, skill, integration guide, demo</td></tr>
+        <tr><td><a href="#ai">AI</a></td><td>AI integration fundamentals: the seven areas that differ from normal API work (shared page)</td></tr>
+        <tr><td><a href="#week5">+5</a></td><td>Add-on: Python focus areas (typing, mixins, asyncio, exceptions, pytest)</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>End-of-month portfolio (maps to the posting)</h3>
+      <ul class="links">
+        <li><code>agent-trust-commerce</code> Python package</li>
+        <li>Managed Agents gateway variant</li>
+        <li>Customer MCP server (advisory tools)</li>
+        <li>commerce-builder companion skill</li>
+        <li>Merchant integration guide with effort metrics</li>
+        <li>Demo against the retail vertical</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Local setup (done)</h3>
+      <p>Repo at <code>~/git/jobs/commerce-agents</code>, venv + npm installed, 1104 tests passing. Add your key to <code>.env</code>, then:</p>
+<pre>cd ~/git/jobs/commerce-agents
+source .venv/bin/activate
+python scripts/run_demo.py retail --all
+# storefront :3000, portal :3100</pre>
+    </div>
+    <div class="card">
+      <h3>Verify loop (use it all month)</h3>
+<pre>ruff check . &amp;&amp; ruff format --check . \
+  &amp;&amp; pytest &amp;&amp; python scripts/check.py
+python scripts/verify_all.py
+python scripts/smoke_chat.py --vertical retail</pre>
+      <p>Caching check: <code>cache_read_input_tokens</code> on <code>turn_complete</code> must be non-zero from turn 2.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 1 ============================== -->
+<section class="page" id="week1" data-title="Week 1">
+  <h2>Week 1 - Blueprint + Claude API <button class="reset" data-reset="w1">reset week</button></h2>
+  <p class="lede">Get the blueprint running on its paths, and understand tool use and prompt caching well enough to explain why its static prefix is byte-stable.</p>
+  <div class="progress"><div id="bar-w1"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Python delta + first run</h3>
+    <p class="focus">Half day on 3.11+ features and tooling, half day on getting the retail demo live.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-mon-1"><span>Skim uv and ruff docs; set up pyright or mypy strict on a scratch project</span></li>
+        <li data-id="w1-mon-2"><span>Read <code>asyncio.TaskGroup</code>, <code>asyncio.timeout()</code>, ExceptionGroup and <code>except*</code></span></li>
+        <li data-id="w1-mon-3"><span>Add <code>ANTHROPIC_API_KEY</code> to <code>.env</code>; run the retail demo; try the prompts in its README</span></li>
+        <li data-id="w1-mon-4"><span>Run the verify loop and <code>smoke_chat.py --vertical retail</code></span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.astral.sh/uv/">uv docs</a> / <a href="https://docs.astral.sh/ruff/">ruff docs</a></li>
+        <li><a href="https://docs.python.org/3/library/asyncio-task.html#task-groups">asyncio Task Groups</a> / <a href="https://docs.python.org/3/library/asyncio-task.html#timeouts">Timeouts</a></li>
+        <li><a href="https://docs.python.org/3/tutorial/errors.html#raising-and-handling-multiple-unrelated-exceptions">ExceptionGroup and except*</a></li>
+        <li><a href="https://docs.pydantic.dev/latest/">Pydantic v2</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/examples/retail/README.md">retail vertical README</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Blueprint deep read</h3>
+    <p class="focus">Map the interfaces your mixin will wrap. Take notes with file:line on every claim (the posting asks for this).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-tue-1"><span>Read <code>StorefrontBackend</code> and its result/error types; list every cart and checkout hook</span></li>
+        <li data-id="w1-tue-2"><span>Read <code>gates.py</code>, <code>fencing.py</code>, <code>executor.py</code>: where does a tool call get checked?</span></li>
+        <li data-id="w1-tue-3"><span>Read <code>docs/safety.md</code> and <code>docs/backends.md</code> end to end</span></li>
+        <li data-id="w1-tue-4"><span>Find how an "unavailable" result is returned and rendered</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/core/shopping_agent/backend.py">backend.py</a> / <a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/core/shopping_agent/types.py">types.py</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/core/shopping_agent/gates.py">gates.py</a> / <a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/core/shopping_agent/executor.py">executor.py</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/docs/safety.md">docs/safety.md</a> / <a href="https://github.com/anthropics/commerce-agents/blob/main/docs/backends.md">docs/backends.md</a></li>
+        <li><a href="https://docs.commercetools.com/tutorials/shopping-agent-commerce-agents-blueprint">commercetools: shopping agent on the blueprint</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Messages API tool use</h3>
+    <p class="focus">tool_use / tool_result blocks, <code>is_error</code>, parallel tool calls, the agent loop.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wed-1"><span>Read the tool use docs; write a 50-line agent loop from scratch</span></li>
+        <li data-id="w1-wed-2"><span>Return a domain error as <code>is_error: true</code> and watch how the model recovers</span></li>
+        <li data-id="w1-wed-3"><span>Trace <code>ShoppingAgent.stream_turn</code> in runtime-messages-api</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Claude docs: Tool use overview</a></li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+        <li><a href="https://github.com/anthropics/anthropic-cookbook">Anthropic cookbook</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/tree/main/shopping-agent/runtime-messages-api">shopping-agent/runtime-messages-api</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Prompt caching</h3>
+    <p class="focus">Breakpoints, prefix order (tools, system, messages), TTLs, cache metrics. Why static-prefix bytes matter.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-thu-1"><span>Read the prompt caching docs fully, including the invalidation rules</span></li>
+        <li data-id="w1-thu-2"><span>In the blueprint, find the breakpoint and the fenced per-request block after it (<code>prompt.py</code>)</span></li>
+        <li data-id="w1-thu-3"><span>Run two turns; log <code>cache_read_input_tokens</code>; then change one tool description and watch it drop to zero</span></li>
+        <li data-id="w1-thu-4"><span>Read the plugin's <code>commerce-prompt-caching</code> skill</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Claude docs: Prompt caching</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/core/shopping_agent/prompt.py">prompt.py</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/tree/main/plugins/commerce-builder/skills/commerce-prompt-caching">commerce-prompt-caching skill</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Claude Agent SDK</h3>
+    <p class="focus">Custom tools, hooks, permission modes; same agent, SDK-owned loop.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-fri-1"><span>Read the Agent SDK overview and Python reference</span></li>
+        <li data-id="w1-fri-2"><span>Run <code>python shopping-agent/runtime-agent-sdk/main.py --once "a two-person tent under $250"</code></span></li>
+        <li data-id="w1-fri-3"><span>Compare what the SDK path does and does not run vs the Messages API path (grounding, memory)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude docs: Agent SDK overview</a></li>
+        <li><a href="https://github.com/anthropics/claude-agent-sdk-python">claude-agent-sdk-python</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/tree/main/shopping-agent/runtime-agent-sdk">shopping-agent/runtime-agent-sdk</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>All three runtimes + courses</h3>
+    <p class="focus">The posting's first 90-day item: stand up verticals on all three runtimes.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w1-wk-1"><span>Run retail on Messages API and Agent SDK; dry-run <code>scripts/deploy_managed_agent.sh</code></span></li>
+        <li data-id="w1-wk-2"><span>Run <code>scripts/verify_all.py</code> (adds deploy dry runs and web builds)</span></li>
+        <li data-id="w1-wk-3"><span>Anthropic Academy at 2x: Building with the Claude API, Intro to MCP</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy (Skilljar)</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/managed-agents/README.md">managed-agents README</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> blueprint notes doc with file:line citations; retail running on all paths; caching hit rates recorded.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 2 ============================== -->
+<section class="page" id="week2" data-title="Week 2">
+  <h2>Week 2 - MCP, auth, Managed Agents <button class="reset" data-reset="w2">reset week</button></h2>
+  <p class="lede">Enforcement lives server-side: the model can skip a tool call, so the MCP server and gateway are where trust is decided.</p>
+  <div class="progress"><div id="bar-w2"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>MCP servers (streamable HTTP)</h3>
+    <p class="focus">Spec concepts, the Python SDK, and the blueprint's storefront MCP server.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-mon-1"><span>Read the MCP spec overview and transports (streamable HTTP)</span></li>
+        <li data-id="w2-mon-2"><span>Build a toy streamable-HTTP server with the Python SDK; call it from MCP Inspector</span></li>
+        <li data-id="w2-mon-3"><span>Read <code>storefront_mcp_server.py</code> and its tests</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/tree/main/shopping-agent/managed-agents/storefront-mcp-server">storefront-mcp-server</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>MCP authorization</h3>
+    <p class="focus">OAuth 2.1 for MCP, protected resource metadata, token audience binding.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-tue-1"><span>Read the MCP Authorization spec page closely</span></li>
+        <li data-id="w2-tue-2"><span>Read RFC 9728 (Protected Resource Metadata)</span></li>
+        <li data-id="w2-tue-3"><span>Skim the OAuth 2.1 draft: what changed from 2.0</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">MCP spec: Authorization</a></li>
+        <li><a href="https://www.rfc-editor.org/rfc/rfc9728">RFC 9728</a></li>
+        <li><a href="https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/">OAuth 2.1 draft</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>JWT / JWKS verification</h3>
+    <p class="focus">kid lookup, key rotation, alg pinning, aud/iss/exp, clock skew.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wed-1"><span>Read RFC 8725 (JWT best current practices) - the attacks list</span></li>
+        <li data-id="w2-wed-2"><span>Build a verifier with <code>PyJWKClient</code>: cached JWKS, rotation, strict alg list</span></li>
+        <li data-id="w2-wed-3"><span>Write tests: expired, wrong aud, unknown kid, alg=none, HS/RS confusion</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.rfc-editor.org/rfc/rfc8725">RFC 8725 JWT BCP</a></li>
+        <li><a href="https://www.rfc-editor.org/rfc/rfc7519">RFC 7519 JWT</a> / <a href="https://www.rfc-editor.org/rfc/rfc7517">RFC 7517 JWK</a></li>
+        <li><a href="https://pyjwt.readthedocs.io/en/stable/usage.html">PyJWT usage (JWKS section)</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Client credentials + latency budgets</h3>
+    <p class="focus">Calling a real-time risk API inside a budget; fail-open vs fail-closed per hook.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-thu-1"><span>Client-credentials flow with token caching and early refresh</span></li>
+        <li data-id="w2-thu-2"><span>Write a one-page fail-policy matrix: browse/search/cart/checkout x allow/deny/timeout/error</span></li>
+        <li data-id="w2-thu-3"><span>Timeouts, retries (or none), circuit breaker within one request budget</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.4">RFC 6749 sec. 4.4 Client Credentials</a></li>
+        <li><a href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/">Builders' Library: timeouts, retries, backoff</a></li>
+        <li><a href="https://pragprog.com/titles/mnee2/release-it-second-edition/">Release It! 2e</a> (stability patterns)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Managed Agents</h3>
+    <p class="focus">Agents, environments, sessions, vaults, permission policies (always-ask).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-fri-1"><span>Read the Managed Agents docs: sessions, environments, vaults</span></li>
+        <li data-id="w2-fri-2"><span>Build a toy agent that calls your Monday MCP server via a vault credential</span></li>
+        <li data-id="w2-fri-3"><span>Read the blueprint's <code>agent.yaml</code> manifest</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/managed-agents/sessions">Managed Agents: Sessions</a></li>
+        <li><a href="https://platform.claude.com/docs/en/managed-agents/environments">Managed Agents: Environments</a></li>
+        <li><a href="https://platform.claude.com/docs/en/managed-agents/vaults">Managed Agents: Vaults</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/managed-agents/shopping-agent/agent.yaml">agent.yaml</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Live deploy + routing + commerce context</h3>
+    <p class="focus">Deploy the shopping agent to Managed Agents; Bedrock/Vertex routing; agentic-commerce trust landscape.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w2-wk-1"><span><code>scripts/deploy_managed_agent.sh ... --live</code> for the shopping agent</span></li>
+        <li data-id="w2-wk-2"><span>Point a runtime at Bedrock via <code>client=</code>; read <code>docs/deployment.md</code></span></li>
+        <li data-id="w2-wk-3"><span>Skim agent-payment/trust protocols to talk about the landscape</span></li>
+        <li data-id="w2-wk-4"><span>Anthropic Academy: MCP Advanced Topics</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock">Claude on Amazon Bedrock</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai">on Vertex AI</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/docs/deployment.md">docs/deployment.md</a></li>
+        <li><a href="https://ap2-protocol.org/">AP2 (Agent Payments Protocol)</a></li>
+        <li><a href="https://www.agenticcommerce.dev/">Agentic Commerce Protocol</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> authenticated toy MCP server with JWT tests; fail-policy matrix; shopping agent live on Managed Agents.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 3 ============================== -->
+<section class="page" id="week3" data-title="Week 3">
+  <h2>Week 3 - Build <code>agent-trust-commerce</code> <button class="reset" data-reset="w3">reset week</button></h2>
+  <p class="lede">The core deliverable: an <code>AgentTrustMixin</code> over the blueprint backends, fully tested, passing the blueprint's own suites.</p>
+  <div class="progress"><div id="bar-w3"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Skeleton + mock risk API</h3>
+    <p class="focus">A package that installs next to the blueprint, plus a fake risk service you can make slow or fail.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-mon-1"><span>New repo: pyproject, ruff matching the blueprint's <code>ruff.toml</code>, strict type checking, pytest</span></li>
+        <li data-id="w3-mon-2"><span>FastAPI mock risk API with injectable latency, errors and decisions</span></li>
+        <li data-id="w3-mon-3"><span>Pydantic decision model: allow / deny / review, reason codes, no PII</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/ruff.toml">blueprint ruff.toml</a> / <a href="https://github.com/anthropics/commerce-agents/blob/main/pytest.ini">pytest.ini</a></li>
+        <li><a href="https://fastapi.tiangolo.com/">FastAPI</a></li>
+        <li><a href="https://pytest-asyncio.readthedocs.io/">pytest-asyncio</a> / <a href="https://lundberg.github.io/respx/">respx</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Identity at session start</h3>
+    <p class="focus">Bind a verified identity (JWT claims or vault credential) to the session before any tool runs.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-tue-1"><span>Find where the blueprint creates the session and how <code>X-Session-Id</code> flows</span></li>
+        <li data-id="w3-tue-2"><span>Implement identity binding; reject hooks on an unbound session</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/docs/backends.md">docs/backends.md</a> (identity and credentials)</li>
+        <li><a href="https://github.com/anthropics/commerce-agents/tree/main/examples/demo_common">examples/demo_common</a> (host)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>In-path checks + decision mapping</h3>
+    <p class="focus">Wrap cart and checkout hooks; map decisions to the blueprint's native results (Unavailable, domain errors).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wed-1"><span>Mixin overrides via <code>super()</code>; verify MRO with a concrete backend</span></li>
+        <li data-id="w3-wed-2"><span>Map deny to a domain error, review to unavailable/hand-off, allow to passthrough</span></li>
+        <li data-id="w3-wed-3"><span>Confirm no prompt bytes change (caching stays warm)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.python.org/3/tutorial/classes.html#multiple-inheritance">Python: multiple inheritance / MRO</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/core/shopping_agent/types.py">types.py</a> (result types)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Fail policy, logging, outcomes</h3>
+    <p class="focus">Per-hook fail-open/closed, timeout and breaker, PII-free decision logs, outcome reporting.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-thu-1"><span>Per-hook policy config driven by your week-2 matrix</span></li>
+        <li data-id="w3-thu-2"><span><code>asyncio.timeout</code> budget + simple circuit breaker</span></li>
+        <li data-id="w3-thu-3"><span>Structured decision log with hashed identifiers; outcome report back to the risk API</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.python.org/3/library/logging.html">logging</a></li>
+        <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">OWASP Logging Cheat Sheet</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Tests against the blueprint</h3>
+    <p class="focus">Your suite plus the blueprint's own verification, with the mixin enabled.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-fri-1"><span>Tests: allow, deny, review, timeout, risk-down, breaker-open, unbound session</span></li>
+        <li data-id="w3-fri-2"><span>Run the blueprint's <code>pytest</code> + <code>check.py</code> with a mixed-in retail backend</span></li>
+        <li data-id="w3-fri-3"><span>Pin the blueprint commit you target; note compatibility</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.pytest.org/en/stable/">pytest docs</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/tree/main/tests">blueprint tests/</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Wire into retail</h3>
+    <p class="focus">End to end: storefront, agent, mixin, mock risk API.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w3-wk-1"><span>Retail vertical running with trust checks on cart and checkout</span></li>
+        <li data-id="w3-wk-2"><span>Scripted conversations that hit every decision path</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/anthropics/commerce-agents/tree/main/examples/retail">examples/retail</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/scripts/smoke_chat.py">scripts/smoke_chat.py</a></li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> <code>agent-trust-commerce</code> package, green tests, retail running with trust checks in path.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 4 ============================== -->
+<section class="page" id="week4" data-title="Week 4">
+  <h2>Week 4 - Gateway, plugin, guide, demo <button class="reset" data-reset="w4">reset week</button></h2>
+  <p class="lede">Finish the remaining deliverables and measure merchant effort as an acceptance metric.</p>
+  <div class="progress"><div id="bar-w4"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon-Tue</span>Managed Agents gateway variant</h3>
+    <p class="focus">Storefront MCP server behind an authenticating gateway; two identity options.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-mon-1"><span>Gateway in front of the storefront MCP server verifying JWTs (week-2 verifier)</span></li>
+        <li data-id="w4-mon-2"><span>Option A: vault-stored credential on the Managed Agents session</span></li>
+        <li data-id="w4-mon-3"><span>Option B: signed-claim identity forwarded to the mixin</span></li>
+        <li data-id="w4-mon-4"><span>Prove the model cannot bypass checks by skipping or reordering calls</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/managed-agents/vaults">Managed Agents: Vaults</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">MCP spec: Authorization</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Customer MCP server</h3>
+    <p class="focus">Advisory tools for merchant engineers (e.g. explain a decision, check config, list hooks covered).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wed-1"><span>3-5 read-only advisory tools, streamable HTTP, with tests</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>commerce-builder companion skill</h3>
+    <p class="focus">A skill that scaffolds the mixin into a merchant's backend and points at your MCP server.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-thu-1"><span>Read the existing plugin, its commands and the <code>commerce-trust-safety</code> skill</span></li>
+        <li data-id="w4-thu-2"><span>Write the companion skill; test it with <code>/scaffold-commerce-agent</code> on a fresh dir</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://code.claude.com/docs/en/plugins">Claude Code: Plugins</a> / <a href="https://code.claude.com/docs/en/skills">Skills</a></li>
+        <li><a href="https://github.com/anthropics/skills">anthropics/skills</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/tree/main/plugins/commerce-builder">plugins/commerce-builder</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>Merchant integration guide</h3>
+    <p class="focus">Your SA strength. Measure it like an acceptance test.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-fri-1"><span>Guide: install, configure policy, wire identity, verify</span></li>
+        <li data-id="w4-fri-2"><span>Measure: files touched, lines added, prompt bytes changed, gates, time-to-first-verified-session</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/docs/backends.md">docs/backends.md</a> (style reference)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Demo + interview prep</h3>
+    <p class="focus">Package it so a reviewer understands it in five minutes.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w4-wk-1"><span>3-minute demo video against the retail vertical</span></li>
+        <li data-id="w4-wk-2"><span>README: architecture, decision paths, metrics table</span></li>
+        <li data-id="w4-wk-3"><span>Talk track: file:line walkthrough, fail-open vs closed, caching, server-side enforcement</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li>Your week 1 notes doc</li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> public portfolio repo covering every item in the posting's "Deliverables you own" line.</div>
+  </div>
+</section>
+
+<!-- ============================== WEEK 5 (ADD-ON) ============================== -->
+<section class="page" id="week5" data-title="Week 5 (add-on)">
+  <h2>Week 5 (add-on) - Python focus areas <button class="reset" data-reset="w5">reset week</button></h2>
+  <p class="lede">Optional. A sharpening week on the Python areas the posting names: typed code, abstract backends, async, exceptions mapped to structured results, pytest and ruff. Do it after week 4, or pull single days forward when a build step feels shaky.</p>
+  <div class="progress"><div id="bar-w5"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Mon</span>Typing in depth</h3>
+    <p class="focus">Protocol vs ABC, generics, TypedDict, <code>Self</code>, <code>@override</code>, strict type checking.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-mon-1"><span>Read Fluent Python 2e ch. 8, 13, 15 (type hints, protocols, advanced typing)</span></li>
+        <li data-id="w5-mon-2"><span>Decide when to use Protocol (structural) vs ABC (nominal); write one of each for a backend</span></li>
+        <li data-id="w5-mon-3"><span>Run pyright in strict mode on <code>shopping-agent/core</code>; read and classify the findings</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/">Fluent Python 2e</a></li>
+        <li><a href="https://docs.python.org/3/library/typing.html">typing module</a> / <a href="https://typing.python.org/en/latest/">Python typing docs and spec</a></li>
+        <li><a href="https://docs.python.org/3/library/abc.html">abc module</a></li>
+        <li><a href="https://microsoft.github.io/pyright/">pyright</a> / <a href="https://mypy.readthedocs.io/en/stable/">mypy</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Tue</span>Mixins, MRO, Pydantic v2</h3>
+    <p class="focus">Cooperative multiple inheritance with <code>super()</code>; the exact pattern behind <code>AgentTrustMixin</code>.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-tue-1"><span>Read Fluent Python 2e ch. 14 (inheritance, mixins) and the MRO howto</span></li>
+        <li data-id="w5-tue-2"><span>Exercise: two stacked mixins over an abstract backend; assert call order via <code>__mro__</code></span></li>
+        <li data-id="w5-tue-3"><span>Pydantic v2: validators, discriminated unions, <code>model_config</code>, settings</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.python.org/3/howto/mro.html">Python MRO howto</a></li>
+        <li><a href="https://docs.python.org/3/tutorial/classes.html#multiple-inheritance">Tutorial: multiple inheritance</a></li>
+        <li><a href="https://docs.pydantic.dev/latest/concepts/unions/">Pydantic unions</a> / <a href="https://docs.pydantic.dev/latest/concepts/validators/">validators</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Wed</span>Advanced asyncio</h3>
+    <p class="focus">Structured concurrency, cancellation semantics, timeouts inside a request budget, anyio.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wed-1"><span>TaskGroup, <code>asyncio.timeout</code>, <code>shield</code>, and what cancellation does to <code>finally</code> blocks</span></li>
+        <li data-id="w5-wed-2"><span>Read anyio basics (the MCP SDK and the blueprint's stack use it)</span></li>
+        <li data-id="w5-wed-3"><span>Run a test with asyncio debug mode on; find a never-awaited coroutine on purpose</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.python.org/3/library/asyncio-task.html">asyncio: coroutines and tasks</a></li>
+        <li><a href="https://docs.python.org/3/library/asyncio-dev.html">Developing with asyncio (debug mode)</a></li>
+        <li><a href="https://anyio.readthedocs.io/en/stable/">anyio docs</a></li>
+        <li>Fluent Python 2e ch. 21 (asynchronous programming)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Thu</span>Exceptions to structured results</h3>
+    <p class="focus">Domain error hierarchies mapped to tool results, never stack traces; ExceptionGroups from TaskGroup.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-thu-1"><span>Read PEP 654; handle a TaskGroup failure with <code>except*</code></span></li>
+        <li data-id="w5-thu-2"><span>Trace how the blueprint's executor turns a backend exception into a tool result</span></li>
+        <li data-id="w5-thu-3"><span>Exercise: a small error hierarchy plus one mapping function, fully typed and tested</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://peps.python.org/pep-0654/">PEP 654: Exception Groups</a></li>
+        <li><a href="https://docs.python.org/3/tutorial/errors.html">Tutorial: errors and exceptions</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/shopping-agent/core/shopping_agent/executor.py">executor.py</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Fri</span>pytest depth</h3>
+    <p class="focus">Fixtures, parametrize, async tests, HTTP mocking, property-based tests.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-fri-1"><span>Fixture scopes, factories, <code>conftest.py</code> layering (read the blueprint's root conftest)</span></li>
+        <li data-id="w5-fri-2"><span>pytest-asyncio modes (the blueprint uses <code>asyncio_mode = auto</code>) and respx mocks</span></li>
+        <li data-id="w5-fri-3"><span>One Hypothesis property test for the decision-mapping function</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://docs.pytest.org/en/stable/how-to/fixtures.html">pytest fixtures</a> / <a href="https://docs.pytest.org/en/stable/how-to/parametrize.html">parametrize</a></li>
+        <li><a href="https://pytest-asyncio.readthedocs.io/">pytest-asyncio</a> / <a href="https://lundberg.github.io/respx/">respx</a></li>
+        <li><a href="https://hypothesis.readthedocs.io/en/latest/">Hypothesis</a></li>
+        <li><a href="https://github.com/anthropics/commerce-agents/blob/main/conftest.py">blueprint conftest.py</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Weekend</span>Packaging and quality pass</h3>
+    <p class="focus">Apply everything above to your week-3 package.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="w5-wk-1"><span>Clean <code>pyproject.toml</code>: metadata, optional extras, entry points</span></li>
+        <li data-id="w5-wk-2"><span>Tighten ruff rule sets; get the package clean under strict pyright</span></li>
+        <li data-id="w5-wk-3"><span>Raise test coverage on failure paths; add CI (lint, types, tests)</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/">Writing pyproject.toml</a></li>
+        <li><a href="https://docs.astral.sh/ruff/rules/">ruff rules</a> / <a href="https://docs.astral.sh/uv/">uv</a></li>
+        <li><a href="https://www.oreilly.com/library/view/robust-python/9781098100650/">Robust Python</a> (Viafore)</li>
+      </ul></div>
+    </div>
+    <div class="deliverable"><b>Deliverable:</b> <code>agent-trust-commerce</code> clean under strict typing and ruff, with property tests and CI.</div>
+  </div>
+</section>
+
+<!-- ============================== AI INTEGRATION FUNDAMENTALS ============================== -->
+<section class="page" id="ai" data-title="AI Integration">
+  <h2>AI integration fundamentals <button class="reset" data-reset="ai">reset page</button></h2>
+  <p class="lede">Shared across all the study guides. No model training or data science: you call a model over HTTPS and engineer the software around it. Most of it is ordinary API work; the seven areas below are what is different, because an LLM is a probabilistic component, not a deterministic API.</p>
+  <div class="progress"><div id="bar-ai"></div></div>
+
+  <div class="day">
+    <h3><span class="tag">Same</span>What is just API integration</h3>
+    <p class="focus">REST/SDK calls, auth, retries, timeouts, rate limits, streaming (SSE), cost metering. MCP is JSON-RPC with a tool/resource schema; an MCP server is a small service exposing your existing APIs as tools.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-same-1"><span>Make a first Messages API call with streaming; read the usage block (input/output/cache tokens)</span></li>
+        <li data-id="ai-same-2"><span>Read the MCP architecture overview: hosts, clients, servers, tools, resources, prompts</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/get-started">Claude API: Get started</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming messages</a></li>
+        <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">1</span>Tool design</h3>
+    <p class="focus">Names, descriptions and input schemas decide whether the model picks the right tool with the right arguments. API design for a non-human caller.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-tool-1"><span>Read the tool use docs and Anthropic's guidance on writing tools for agents</span></li>
+        <li data-id="ai-tool-2"><span>Rewrite one vague tool description and compare call accuracy before and after</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use overview</a></li>
+        <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing effective tools for agents</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">2</span>The agent loop</h3>
+    <p class="focus">Model requests a tool, your code runs it, the result goes back, repeat. Stop conditions, structured errors the model can recover from, parallel tool calls.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-loop-1"><span>Read Building Effective Agents (workflows vs agents)</span></li>
+        <li data-id="ai-loop-2"><span>Hand-write an agent loop with 2-3 tools, max-turn limit and <code>is_error</code> results</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> (a loop you do not write yourself)</li>
+        <li><a href="https://github.com/anthropics/courses">anthropics/courses</a> (tool use course)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">3</span>Context engineering and caching</h3>
+    <p class="focus">What goes in the system prompt vs per-request context; staying within the context window; prompt caching for cost and latency (static prefix first, dynamic data after the breakpoint).</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-ctx-1"><span>Read the context engineering post and the prompt caching docs</span></li>
+        <li data-id="ai-ctx-2"><span>Show <code>cache_read_input_tokens</code> &gt; 0 on turn 2, then break it by changing one prefix byte</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt engineering overview</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">4</span>Security</h3>
+    <p class="focus">Prompt injection from untrusted content; model output is untrusted input; the model can skip, fake or reorder tool calls, so enforcement lives server-side. Auth in front of MCP servers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-sec-1"><span>Read the OWASP Top 10 for LLM applications</span></li>
+        <li data-id="ai-sec-2"><span>Read the MCP security best practices and authorization spec</span></li>
+        <li data-id="ai-sec-3"><span>Plant an injection in a tool result; confirm a server-side check (not the prompt) blocks the action</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/security_best_practices">MCP security best practices</a></li>
+        <li><a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">MCP authorization</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">5</span>Evals</h3>
+    <p class="focus">Outputs vary run to run, so test with scored scenario suites ("did it call checkout without confirming?") rather than exact-match asserts. The least familiar part for most engineers.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-eval-1"><span>Read the guide on building empirical evaluations and test cases</span></li>
+        <li data-id="ai-eval-2"><span>Write a 10-case eval for your agent: code-graded checks plus one model-graded rubric; run it 3x</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Create strong empirical evaluations</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">6</span>RAG</h3>
+    <p class="focus">Embeddings + a vector store (pgvector, OpenSearch, Azure AI Search), chunking, retrieval quality, citations. A data-pipeline and search problem, not model training.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-rag-1"><span>Read the embeddings docs and the contextual retrieval post</span></li>
+        <li data-id="ai-rag-2"><span>Embed ~50 docs into pgvector, retrieve top-k, answer with citations; measure hit rate on 10 questions</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/embeddings">Embeddings</a></li>
+        <li><a href="https://www.anthropic.com/news/contextual-retrieval">Contextual retrieval</a></li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/citations">Citations</a></li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">7</span>Observability</h3>
+    <p class="focus">Trace prompts, tool calls, token use and latency per turn. OpenTelemetry has GenAI semantic conventions for exactly this.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-obs-1"><span>Read the OTel GenAI semantic conventions (spans, metrics, events)</span></li>
+        <li data-id="ai-obs-2"><span>Emit one span per model call and per tool call with token counts as attributes</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/">OTel GenAI semantic conventions</a></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <h3><span class="tag">Build</span>Two starter builds</h3>
+    <p class="focus">The fastest way to close the gap. Do these before going deeper anywhere else.</p>
+    <div class="cols">
+      <div><h4>Tasks</h4><ul class="tasks">
+        <li data-id="ai-build-1"><span>Build 1: agent loop against the Messages API with 2-3 tools you already understand</span></li>
+        <li data-id="ai-build-2"><span>Build 2: streamable-HTTP MCP server in front of a familiar API, with auth, called from Claude Code</span></li>
+        <li data-id="ai-build-3"><span>Add a tiny RAG step to Build 1: embed, retrieve, cite</span></li>
+      </ul></div>
+      <div><h4>Materials</h4><ul class="links">
+        <li><a href="https://modelcontextprotocol.io/docs/develop/build-server">MCP: Build a server</a></li>
+        <li><a href="https://code.claude.com/docs/en/mcp">Claude Code: connect MCP servers</a></li>
+        <li><a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a></li>
+        <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> (API, MCP, MCP Advanced)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card" id="ai-applies">
+    <h3>How this applies to this role</h3>
+    <!-- ROLE-SPECIFIC: each guide replaces this card body -->
+    <p>Forward Deployed Engineer: pure integration, all seven areas, no ML. <code>anthropics/commerce-agents</code> is a production-grade reference for every item: tool contracts and gates (1, 4), three runtimes of the same loop (2), byte-stable cached prefix (3), verification suites (5), grounding (6), per-call cache logging (7). Weeks 1-2 of this plan cover the rest.</p>
+  </div>
+</section>
+
+<!-- ============================== RESOURCES ============================== -->
+<section class="page" id="resources" data-title="Resources">
+  <h2>All resources</h2>
+  <p class="lede">Every link in the plan, grouped.</p>
+  <div class="grid2">
+    <div class="card"><h3>Blueprint</h3><ul class="links">
+      <li><a href="https://github.com/anthropics/commerce-agents">anthropics/commerce-agents</a></li>
+      <li><a href="https://github.com/anthropics/commerce-agents/blob/main/docs/safety.md">docs/safety.md</a></li>
+      <li><a href="https://github.com/anthropics/commerce-agents/blob/main/docs/backends.md">docs/backends.md</a></li>
+      <li><a href="https://github.com/anthropics/commerce-agents/blob/main/docs/deployment.md">docs/deployment.md</a></li>
+      <li><a href="https://docs.commercetools.com/tutorials/shopping-agent-commerce-agents-blueprint">commercetools tutorial</a></li>
+    </ul></div>
+    <div class="card"><h3>Claude platform</h3><ul class="links">
+      <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use</a></li>
+      <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a></li>
+      <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Agent SDK</a></li>
+      <li><a href="https://platform.claude.com/docs/en/managed-agents/sessions">Managed Agents: Sessions</a> / <a href="https://platform.claude.com/docs/en/managed-agents/environments">Environments</a> / <a href="https://platform.claude.com/docs/en/managed-agents/vaults">Vaults</a></li>
+      <li><a href="https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock">Bedrock</a> / <a href="https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai">Vertex AI</a></li>
+      <li><a href="https://anthropic.skilljar.com/">Anthropic Academy</a> / <a href="https://github.com/anthropics/courses">courses</a> / <a href="https://github.com/anthropics/anthropic-cookbook">cookbook</a></li>
+    </ul></div>
+    <div class="card"><h3>MCP and Claude Code</h3><ul class="links">
+      <li><a href="https://modelcontextprotocol.io/specification/latest">MCP specification</a> / <a href="https://modelcontextprotocol.io/specification/latest/basic/authorization">Authorization</a></li>
+      <li><a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a> / <a href="https://github.com/modelcontextprotocol/inspector">Inspector</a></li>
+      <li><a href="https://code.claude.com/docs/en/plugins">Claude Code plugins</a> / <a href="https://code.claude.com/docs/en/skills">skills</a></li>
+      <li><a href="https://github.com/anthropics/skills">anthropics/skills</a></li>
+    </ul></div>
+    <div class="card"><h3>Auth and resilience</h3><ul class="links">
+      <li><a href="https://www.rfc-editor.org/rfc/rfc8725">RFC 8725</a>, <a href="https://www.rfc-editor.org/rfc/rfc7519">7519</a>, <a href="https://www.rfc-editor.org/rfc/rfc7517">7517</a>, <a href="https://www.rfc-editor.org/rfc/rfc9728">9728</a>, <a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.4">6749 sec. 4.4</a></li>
+      <li><a href="https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/">OAuth 2.1 draft</a></li>
+      <li><a href="https://pyjwt.readthedocs.io/en/stable/usage.html">PyJWT usage</a></li>
+      <li><a href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/">Builders' Library: timeouts and retries</a></li>
+      <li><a href="https://pragprog.com/titles/mnee2/release-it-second-edition/">Release It! 2e</a></li>
+      <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">OWASP Logging Cheat Sheet</a></li>
+    </ul></div>
+    <div class="card"><h3>Python tooling</h3><ul class="links">
+      <li><a href="https://docs.astral.sh/uv/">uv</a> / <a href="https://docs.astral.sh/ruff/">ruff</a> / <a href="https://docs.pydantic.dev/latest/">Pydantic</a></li>
+      <li><a href="https://docs.python.org/3/library/asyncio-task.html#task-groups">asyncio Task Groups</a> / <a href="https://docs.python.org/3/library/asyncio-task.html#timeouts">Timeouts</a></li>
+      <li><a href="https://docs.pytest.org/en/stable/">pytest</a> / <a href="https://pytest-asyncio.readthedocs.io/">pytest-asyncio</a> / <a href="https://lundberg.github.io/respx/">respx</a></li>
+      <li><a href="https://fastapi.tiangolo.com/">FastAPI</a></li>
+      <li><a href="https://microsoft.github.io/pyright/">pyright</a> / <a href="https://mypy.readthedocs.io/en/stable/">mypy</a> / <a href="https://typing.python.org/en/latest/">typing docs</a></li>
+      <li><a href="https://docs.python.org/3/howto/mro.html">MRO howto</a> / <a href="https://peps.python.org/pep-0654/">PEP 654</a> / <a href="https://anyio.readthedocs.io/en/stable/">anyio</a></li>
+      <li><a href="https://hypothesis.readthedocs.io/en/latest/">Hypothesis</a> / <a href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/">pyproject guide</a></li>
+      <li><a href="https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/">Fluent Python 2e</a> / <a href="https://www.oreilly.com/library/view/robust-python/9781098100650/">Robust Python</a></li>
+    </ul></div>
+    <div class="card"><h3>Agentic commerce context</h3><ul class="links">
+      <li><a href="https://ap2-protocol.org/">AP2 (Agent Payments Protocol)</a></li>
+      <li><a href="https://www.agenticcommerce.dev/">Agentic Commerce Protocol</a></li>
+    </ul></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var KEY = "fde-study-plan-v1";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
+  function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
+
+  var pages = Array.prototype.slice.call(document.querySelectorAll("section.page"));
+  var tabs = document.getElementById("tabs");
+
+  // Build tabs
+  pages.forEach(function (p) {
+    var a = document.createElement("a");
+    a.href = "#" + p.id;
+    a.dataset.page = p.id;
+    a.innerHTML = p.dataset.title + '<span class="pct"></span>';
+    tabs.appendChild(a);
+  });
+
+  // Turn task <li>s into checkboxes
+  document.querySelectorAll("ul.tasks li").forEach(function (li) {
+    var id = li.dataset.id;
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!state[id];
+    li.insertBefore(cb, li.firstChild);
+    li.classList.toggle("checked", cb.checked);
+    cb.addEventListener("change", function () {
+      state[id] = cb.checked;
+      li.classList.toggle("checked", cb.checked);
+      save(); refresh();
+    });
+  });
+
+  function pct(prefix) {
+    var items = document.querySelectorAll('ul.tasks li[data-id^="' + prefix + '"]');
+    if (!items.length) return null;
+    var done = 0;
+    items.forEach(function (li) { if (state[li.dataset.id]) done++; });
+    return Math.round(100 * done / items.length);
+  }
+
+  function refresh() {
+    ["w1", "w2", "w3", "w4", "w5"].forEach(function (w) {
+      var v = pct(w + "-");
+      document.getElementById("bar-" + w).style.width = v + "%";
+      var tab = tabs.querySelector('[data-page="week' + w.slice(1) + '"] .pct');
+      if (tab) tab.textContent = v + "%";
+    });
+    var ai = pct("ai-");
+    document.getElementById("bar-ai").style.width = ai + "%";
+    tabs.querySelector('[data-page="ai"] .pct').textContent = ai + "%";
+    document.getElementById("bar-all").style.width = pct("w") + "%";
+    tabs.querySelector('[data-page="overview"] .pct').textContent = pct("w") + "%";
+  }
+
+  document.querySelectorAll("button.reset").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!confirm("Clear all checkboxes for this week?")) return;
+      var w = b.dataset.reset;
+      Object.keys(state).forEach(function (k) { if (k.indexOf(w + "-") === 0) delete state[k]; });
+      save();
+      document.querySelectorAll('ul.tasks li[data-id^="' + w + '-"]').forEach(function (li) {
+        li.querySelector("input").checked = false; li.classList.remove("checked");
+      });
+      refresh();
+    });
+  });
+
+  function show() {
+    var id = (location.hash || "#overview").slice(1);
+    if (!document.getElementById(id)) id = "overview";
+    pages.forEach(function (p) { p.classList.toggle("active", p.id === id); });
+    tabs.querySelectorAll("a").forEach(function (a) { a.classList.toggle("active", a.dataset.page === id); });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show(); refresh();
+})();
+</script>
+</body>
+</html>
