@@ -33,3 +33,7 @@ locally, and `/grade` needs Claude Code; scores recorded locally show only in yo
 - `commerce-agents/` is not tracked; `study-plan.html` explains how to clone it.
 
 On github.com the `.html` files show as source; use the site above or open them from a local clone.
+
+## License
+
+[MIT](LICENSE).

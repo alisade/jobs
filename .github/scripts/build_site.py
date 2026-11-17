@@ -66,7 +66,7 @@ blockquote { margin: 0; padding: 0 1em; color: var(--muted); border-left: 4px so
 </head>
 <body>
 <main>
-<nav><a href="__HOME__">Home</a> &middot; <a href="__SRC__">View source on GitHub</a></nav>
+<nav><a href="__HOME__">All study plans</a>__EXTRA__ &middot; <a href="__SRC__">View source on GitHub</a></nav>
 __BODY__
 </main>
 __LINKFIX__
@@ -93,6 +93,59 @@ def link_fix(path, out, repo):
     return LINK_FIX.replace("__REPO__", repo).replace("__ROOT__", rel_root(path, out))
 
 
+CRUMB_STYLE = 'style="margin:0 0 10px;font-size:14px"'
+
+
+def plan_for_track(out, track):
+    wb = out / "workbooks" / track / "workbook.html"
+    if wb.exists():
+        m = re.search(r'href="\.\./\.\./([^"/#]+-study-plan\.html|study-plan\.html)', wb.read_text(errors="replace"))
+        if m:
+            return m.group(1)
+    return None
+
+
+def plan_for_role(out, role):
+    for plan in sorted(out.glob("*study-plan.html")):
+        if f"study/roles/{role}/" in plan.read_text(errors="replace"):
+            return plan.name
+    return None
+
+
+def extra_links(out, dst):
+    parts = dst.relative_to(out).parts
+    root = rel_root(dst, out)
+    links = []
+    if len(parts) > 2 and parts[0] == "workbooks" and (out / "workbooks" / parts[1] / "workbook.html").exists():
+        plan = plan_for_track(out, parts[1])
+        if plan:
+            links.append(f'<a href="{root}{plan}">Study plan</a>')
+        links.append(f'<a href="{root}workbooks/{parts[1]}/workbook.html">{parts[1]} workbook</a>')
+    elif len(parts) > 3 and parts[0] == "study" and parts[1] == "roles":
+        plan = plan_for_role(out, parts[2])
+        if plan:
+            links.append(f'<a href="{root}{plan}">Study plan</a>')
+    return "".join(" &middot; " + l for l in links)
+
+
+def add_crumbs(path, out):
+    """Breadcrumbs on plan and workbook pages that do not carry them in source."""
+    t = path.read_text(encoding="utf-8", errors="replace")
+    if 'class="crumbs"' in t or "<header>" not in t:
+        return t
+    rel = path.relative_to(out).parts
+    links = []
+    if len(rel) == 1 and rel[0].endswith("study-plan.html"):
+        m = re.search(r'href="(workbooks/[^/"]+/workbook\.html)', t)
+        links = ['<a href="README.md">All study plans</a>'] + ([f'<a href="{m.group(1)}">Workbook</a>'] if m else [])
+    elif len(rel) == 3 and rel[0] == "workbooks" and rel[2] == "workbook.html":
+        plan = plan_for_track(out, rel[1])
+        links = ['<a href="../../README.md">All study plans</a>'] + ([f'<a href="../../{plan}">Study plan</a>'] if plan else [])
+    if not links:
+        return t
+    return t.replace("<header>", f'<header>\n  <p class="crumbs" {CRUMB_STYLE}>' + " &middot; ".join(links) + "</p>", 1)
+
+
 def render_md(src, dst, out, repo, rel):
     text = src.read_text(encoding="utf-8", errors="replace")
     md = markdown.Markdown(
@@ -105,6 +158,7 @@ def render_md(src, dst, out, repo, rel):
     root = rel_root(dst, out)
     page = (PAGE.replace("__TITLE__", html.escape(title))
                 .replace("__HOME__", root + "index.html")
+                .replace("__EXTRA__", extra_links(out, dst))
                 .replace("__SRC__", f"{repo}/blob/main/{rel}")
                 .replace("__BODY__", body)
                 .replace("__LINKFIX__", link_fix(dst, out, repo)))
@@ -128,7 +182,7 @@ def main():
                 render_md(p, dst, out, repo, rel)
                 md_count += 1
             elif name.lower().endswith(".html"):
-                t = p.read_text(encoding="utf-8", errors="replace")
+                t = add_crumbs(p, out)
                 t = MD_HREF.sub(r"\1\2.html\3", t)
                 fix = link_fix(p, out, repo)
                 t = t.replace("</body>", fix + "</body>", 1) if "</body>" in t else t + fix
@@ -137,6 +191,11 @@ def main():
     readme = out / "README.html"
     if readme.exists() and not (out / "index.html").exists():
         shutil.copy(readme, out / "index.html")
+    for p in out.rglob("*.html"):
+        t = p.read_text(encoding="utf-8", errors="replace")
+        prefix = "" if rel_root(p, out) == "./" else rel_root(p, out)
+        if f'href="{prefix}README.html"' in t:
+            p.write_text(t.replace(f'href="{prefix}README.html"', f'href="{prefix}index.html"'), encoding="utf-8")
     (out / ".nojekyll").write_text("")
     print(f"site: {html_count} html pages patched, {md_count} markdown pages rendered -> {out}")
 
