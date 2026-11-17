@@ -1,0 +1,6 @@
+status: 500
+content-type: application/json;charset=utf-8
+x-request-id: golden-1
+location: -
+
+{"status":500,"error":"internal error"}

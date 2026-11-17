@@ -1,0 +1,27 @@
+{
+  "id": "javaai/w6-c1",
+  "title": "Tune or prompt? Build the tuning set and pick a model with numbers",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 6,
+  "optional": false,
+  "area": "Tuning and evaluation",
+  "scenario": "Course Ops wrote 309 quiz items in the house style and asked whether a tuned Flash-Lite can replace prompted Flash. Recorded outputs exist for three candidates on a 50-item held-out set. Build the supervised tuning dataset (format, duplicates, leakage, split) and the comparison that decides what ships.",
+  "task": [
+    "Gemini supervised tuning JSONL examples",
+    "Dedupe, leakage check and a deterministic hash split with a report",
+    "Strict output parsing, correctness, grounding, cost per 1,000 and latency percentiles",
+    "A decision rule and a written recommendation"
+  ],
+  "acceptance": [
+    "Exact dataset counts and order-independent split",
+    "Scores match the reference for all candidates",
+    "pick() under three threshold settings",
+    "ANSWER.md recommends with caveats"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - when tuning beats prompting and RAG", "href": "week6"},
+    {"label": "Week 6 Tue - supervised tuning data", "href": "week6"},
+    {"label": "Week 6 Wed - comparing candidates on one eval set", "href": "week6"}
+  ]
+}

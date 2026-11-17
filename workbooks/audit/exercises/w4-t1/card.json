@@ -1,0 +1,25 @@
+{
+  "id": "audit/w4-t1",
+  "title": "Duplicate GRC issues after a retry",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 4,
+  "optional": false,
+  "area": "Stateful orchestration and human review",
+  "scenario": "The overnight CM03-2026Q3 publish run reported 6 published, 0 failed, but the GRC holds three open issues for CHG-104390 and two for CHG-104611, and the workpaper lists CHG-104390 twice. The platform team blames GRC rate limiting. You get the orchestrator log, the GRC gateway log with request ids and keys, the issues, the workpaper blob and the checkpoint table.",
+  "task": [
+    "Correlate both logs and explain every duplicate issue and row",
+    "Rule the rate-limiting theory in or out with evidence",
+    "Fix the client and the orchestrator so retries and restarts can never repeat a side effect",
+    "Write root cause, evidence and verification in ANSWER.md"
+  ],
+  "acceptance": [
+    "Under commit-then-timeout, lost requests, 429s and a crash after commit: one issue per exception, one row per sample",
+    "A new run id still raises its own issues; re-running a finished run is a no-op",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 4 Mon - durable execution, at-least-once and idempotency", "href": "week4"},
+    {"label": "Week 4 Thu - side effects, idempotency keys, commit-then-timeout", "href": "week4"}
+  ]
+}

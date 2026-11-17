@@ -1,0 +1,24 @@
+{
+  "id": "javaai/w5-t1",
+  "title": "The tutor cites the wrong lessons after a content release",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 5,
+  "optional": false,
+  "area": "RAG and evaluation",
+  "scenario": "Since this morning the Microbiology tutor cites lessons one off and some links 404. The release eval fell from 0.90 to 0.05 recall@3 on the content merge, but the gate is advisory. The ingest release the day before also changed the embedding model, and L2 wants to roll it back and re-embed for 4 hours.",
+  "task": [
+    "Prove where the ids come from and what changed",
+    "Rule the embedding-model theory in or out",
+    "Make ids content-derived, validated and order independent"
+  ],
+  "acceptance": [
+    "Ids from front matter; renames change nothing",
+    "Missing and duplicate ids raise; recall@3 >= 0.9; idempotent",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - chunking and metadata", "href": "week5"},
+    {"label": "Week 5 Thu - retrieval evals as release gates", "href": "week5"}
+  ]
+}

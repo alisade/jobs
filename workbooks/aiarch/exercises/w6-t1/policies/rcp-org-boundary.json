@@ -1,0 +1,16 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyAccessFromOutsideTheOrg",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": ["s3:*", "sts:AssumeRole", "kms:*", "secretsmanager:*", "sqs:*"],
+      "Resource": "*",
+      "Condition": {
+        "StringNotEqualsIfExists": {"aws:PrincipalOrgID": "o-hpm4k2x9qa"},
+        "BoolIfExists": {"aws:PrincipalIsAWSService": "false"}
+      }
+    }
+  ]
+}

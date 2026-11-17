@@ -1,0 +1,26 @@
+{
+  "id": "backend/w6-t1",
+  "title": "Lead workflows stuck after Tuesday's deploy",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 6,
+  "optional": false,
+  "area": "Workflow engines and durable execution",
+  "scenario": "Release 2026.45 of keystone-workflows shipped lead enrichment and an SLA deadline on the approval inbox. Since then, managers' approvals on leads that started before the deploy go nowhere, the workflow task failure alert is firing, and the 'approve by' time changes on every refresh. On call suspects the enrichment vendor's timeouts. You get the pager, the worker log, the PR diff and four exported histories.",
+  "task": [
+    "Replay the exported histories offline (make replay) and find the root cause with evidence",
+    "Fix the workflow so every recorded history replays and new executions still get enrichment",
+    "Make the SLA deadline deterministic and re-enable the sandbox",
+    "Explain the root cause, the red herring and the rollout plan in ANSWER.md"
+  ],
+  "acceptance": [
+    "Every history in histories/ replays with the Replayer, no nondeterminism",
+    "New executions record a version marker and run enrich_lead",
+    "sla_deadline is identical across replays and equals proposal time + 48 h",
+    "Workflow runs in the sandbox; ANSWER.md names nondeterminism and the patch"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - durable execution and determinism", "href": "week6"},
+    {"label": "Week 6 Wed - workflow versioning and replay tests", "href": "week6"}
+  ]
+}

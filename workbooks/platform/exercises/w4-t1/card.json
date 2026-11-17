@@ -1,0 +1,26 @@
+{
+  "id": "platform/w4-t1",
+  "title": "AppDatabase XRs never become Ready",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 4,
+  "optional": false,
+  "area": "Crossplane, Helm and ArgoCD",
+  "scenario": "After the move to Crossplane v2 namespaced XRs, every team's AppDatabase sits at Ready=False and no Cloud SQL instance appears. A colleague wants to add a JSON key secret because the provider logged a token warning. RDM onboards next week. You get the XRD, Composition, provider config, team XRs, trace and describe output, and a render-and-reconcile simulator.",
+  "task": [
+    "Reproduce with make reconcile and read the composed resources' conditions",
+    "Explain why the MRs cannot find their provider config although one named default exists",
+    "Fix it once in the platform so any new team namespace works, without keys",
+    "Root cause, evidence and prevention in ANSWER.md"
+  ],
+  "acceptance": [
+    "riq-scores, mdm-golden and a new team-rdm XR all become Ready",
+    "Composition mappings (tier, version, deletion policy, connection secret) unchanged",
+    "Still v2: namespaced XRD, no claims, Pipeline mode; credentials stay Workload Identity",
+    "Root cause and evidence in ANSWER.md; the token warning ruled out"
+  ],
+  "practices": [
+    {"label": "Week 4 - Crossplane v2: namespaced XRs and MRs, providers", "href": "week4"},
+    {"label": "Week 4 - compositions and functions", "href": "week4"}
+  ]
+}

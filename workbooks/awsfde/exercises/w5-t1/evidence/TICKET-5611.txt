@@ -1,0 +1,12 @@
+Ticket: CS-5611   Priority: P1 (security)   Opened: 2026-11-12 16:30 UTC
+Customer: Acme Foods (tenant acme-foods)
+Reporter: Maria Ortiz, supply planning lead, Acme Foods
+
+  Tidewater Ask says Penne 1kg depends on "Northwind Medical Gloves" and "Clearview Syringe Co".
+  We have never bought from either. Our real suppliers for Penne (Golden Grain Mills, Pacific
+  Packaging) are not listed at all. For Marinara it lists Clearview twice. Yesterday it was fine.
+
+Account team note (Jordan, TAM):
+  The duplicate rows are the known issue CS-5480 (fix scheduled). The new names look like
+  Brightline Health's suppliers; Brightline's graph was onboarded into the shared Neptune Analytics
+  graph on 2026-11-11 (see evidence/onboarding-brightline.md). Brightline has not complained.

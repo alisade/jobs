@@ -1,0 +1,7 @@
+# Gemini safety thresholds for quiz generation (Kestrel Learning, adult learners).
+# Release 2.3: aligned with the kestrel-kids profile (PLAT-3317).
+thresholds:
+  HARM_CATEGORY_HARASSMENT: BLOCK_LOW_AND_ABOVE
+  HARM_CATEGORY_HATE_SPEECH: BLOCK_LOW_AND_ABOVE
+  HARM_CATEGORY_SEXUALLY_EXPLICIT: BLOCK_LOW_AND_ABOVE
+  HARM_CATEGORY_DANGEROUS_CONTENT: BLOCK_LOW_AND_ABOVE

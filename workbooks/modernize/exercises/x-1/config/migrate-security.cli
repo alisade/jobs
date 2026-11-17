@@ -1,0 +1,6 @@
+# ClaimDesk security setup for the EAP 8 target (copied from the EAP 7.4 build scripts, CHG-88302)
+batch
+/subsystem=security/security-domain=claimdesk-ldap:add(cache-type=default)
+/subsystem=security/security-domain=claimdesk-ldap/authentication=classic:add(login-modules=[{code=LdapExtended, flag=required, module-options={java.naming.provider.url=ldaps://ldap-vip.corvane.local:636, bindDN="uid=svc-claimdesk,ou=service,dc=corvane,dc=local", bindCredential="${VAULT::claimdesk::ldapBind::1}", baseCtxDN="ou=people,dc=corvane,dc=local", baseFilter="(uid={0})", rolesCtxDN="ou=groups,dc=corvane,dc=local", roleFilter="(member={1})", roleAttributeID=cn, roleRecursion=2}}])
+run-batch
+reload

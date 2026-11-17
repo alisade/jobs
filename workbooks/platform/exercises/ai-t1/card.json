@@ -1,0 +1,27 @@
+{
+  "id": "platform/ai-t1",
+  "title": "The agent's PR said no-op, the plan had a replace",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": "ai",
+  "optional": false,
+  "area": "Agentic toil automation and AI",
+  "scenario": "The import agent opened PR #212 saying 'plan: 8 to import, 0 to change, 0 to destroy, verification passed'. A reviewer ran the plan: 14 imports and a forced replacement of the RIQ production database. The thread blames the 'be concise' line in the prompt. You get the agent code, the plan JSON, the run transcript, the PR and the review.",
+  "task": [
+    "Reproduce the run and find why verification passed on a plan that destroys a database",
+    "Explain why the model reported 8 imports and no replace; rule out the prompt theory",
+    "Make the gate verify the plan file, not the model, fail closed, and give the model a complete compact summary",
+    "Root cause, evidence and prevention in ANSWER.md"
+  ],
+  "acceptance": [
+    "Replace in either action order, delete, update or create blocks the PR; a clean import-only plan opens one with verified counts",
+    "A model claim of a clean plan never changes the verdict",
+    "Unreadable, truncated, errored plans fail closed",
+    "Tool output stays under the limit and is complete JSON naming the replaced resource"
+  ],
+  "practices": [
+    {"label": "AI Integration - context engineering and evals", "href": "ai"},
+    {"label": "Week 6 - plan as the verification step", "href": "week6"},
+    {"label": "Week 3 - reading terraform show -json", "href": "week3"}
+  ]
+}

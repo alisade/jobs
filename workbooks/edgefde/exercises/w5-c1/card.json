@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w5-c1",
+  "title": "OTA model rollout with canary and automatic rollback",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "Edge fleet operations",
+  "scenario": "Corvane's ten gateways get new pump-health models by hand on Sundays; last month a model that crashed on the newer rev2 boards took four gateways offline for a day. Build a rollout controller over a simulated fleet: canary, phased batches, health gates per window, automatic rollback, offline devices handled, resumable after its own crash.",
+  "task": [
+    "Canary on the first online device, then cumulative phases 1 / 20% / 50% / 100%",
+    "Health gates: process up, error rate, p95 latency, alert rate vs baseline",
+    "Automatic rollback of every touched device; offline devices skipped after a timeout",
+    "Max concurrent updates, atomic state file, resume without restarting, one rollout at a time"
+  ],
+  "acceptance": [
+    "Bad models stop at the canary; the rev2-only failure rolls back all touched devices in phase 3",
+    "max_concurrent honoured; short outages wait, long outages are skipped",
+    "Resume after a controller crash updates no device twice",
+    "ANSWER.md maps the design to a real OTA system"
+  ],
+  "practices": [
+    {"label": "Week 5 Tue - rollout strategy: canary, phases, automatic rollback", "href": "week5"},
+    {"label": "Week 5 Wed - offline devices, buffering and replay", "href": "week5"}
+  ]
+}

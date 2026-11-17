@@ -1,0 +1,140 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.13.4",
+  "resource_changes": [
+    {
+      "address": "google_storage_bucket.riq_reports",
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "riq_reports",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "tsl-riq-prod-reports",
+          "location": "US-CENTRAL1"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false
+      }
+    },
+    {
+      "address": "google_container_node_pool.prod_blue_default",
+      "mode": "managed",
+      "type": "google_container_node_pool",
+      "name": "prod_blue_default",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "update"
+        ],
+        "before": {
+          "name": "pool-default-v2",
+          "node_count": 3,
+          "version": "1.33.5-gke.1080000",
+          "labels": {
+            "pool": "default"
+          }
+        },
+        "after": {
+          "name": "pool-default-v2",
+          "node_count": 3,
+          "version": "1.34.1-gke.1293000",
+          "labels": {
+            "pool": "default"
+          }
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false
+      }
+    },
+    {
+      "address": "google_compute_firewall.legacy_allow_all",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "legacy_allow_all",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "delete"
+        ],
+        "before": {
+          "name": "legacy-allow-all"
+        },
+        "after": null,
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false
+      },
+      "action_reason": "delete_because_no_resource_config"
+    },
+    {
+      "address": "google_compute_instance_template.riq_worker",
+      "mode": "managed",
+      "type": "google_compute_instance_template",
+      "name": "riq_worker",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "create",
+          "delete"
+        ],
+        "before": {
+          "name_prefix": "riq-worker-",
+          "machine_type": "e2-standard-4",
+          "metadata": {
+            "startup-script": "echo v1"
+          }
+        },
+        "after": {
+          "name_prefix": "riq-worker-",
+          "machine_type": "e2-standard-8",
+          "metadata": {
+            "startup-script": "echo v1"
+          }
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false,
+        "replace_paths": [
+          [
+            "machine_type"
+          ]
+        ]
+      },
+      "action_reason": "replace_because_cannot_update"
+    },
+    {
+      "address": "google_secret_manager_secret_version.riq_db",
+      "mode": "managed",
+      "type": "google_secret_manager_secret_version",
+      "name": "riq_db",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "update"
+        ],
+        "before": {
+          "secret": "riq-db",
+          "secret_data": "old-pass-1"
+        },
+        "after": {
+          "secret": "riq-db",
+          "secret_data": "new-pass-2"
+        },
+        "after_unknown": {},
+        "before_sensitive": {
+          "secret_data": true
+        },
+        "after_sensitive": {
+          "secret_data": true
+        }
+      }
+    }
+  ]
+}

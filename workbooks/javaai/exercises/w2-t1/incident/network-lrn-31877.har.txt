@@ -1,0 +1,12 @@
+# HAR export (summarised), learner lrn-31877, Chrome DevTools throttling "Slow 3G", 2026-10-21
+# start = request sent, end = response fully received; times in ms from page load
+  #  method  url                                       start    end     status  size    cache
+  1  GET     /api/lessons/2/quiz-items                 4120     9870    200     3.1 KB  (miss)
+  2  GET     /api/lessons/3/quiz-items                 5034     7215    200     2.8 KB  (miss)
+     # learner clicked Lesson 3 at 5030 ms, before request 1 finished
+  3  POST    /api/lessons/3/attempts                   21880    23410   409     0.3 KB
+     request body: {"answers":[{"quizItemId":201,"chosenIndex":1},{"quizItemId":202,"chosenIndex":0},{"quizItemId":203,"chosenIndex":2}]}
+     response:     {"type":"https://kestrel.example/problems/conflict","title":"Conflict","status":409,
+                    "detail":"quiz item 201 does not belong to lesson 3"}
+  4  GET     /api/lessons/3/quiz-items                 40110    40990   200     2.8 KB  (memory cache)
+     # learner clicked Lesson 3 again: correct quiz shown

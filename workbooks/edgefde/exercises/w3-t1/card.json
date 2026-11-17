@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w3-t1",
+  "title": "Model v7 promoted on a stale metric",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 3,
+  "optional": false,
+  "area": "MLOps",
+  "scenario": "The pump gateways raised about six times more alerts all weekend after the nightly pipeline promoted v7 through an automatic gate. The gate passed, the build was green, and nobody touched the gateways. You get the CI log, a registry snapshot, gateway alert counts and the team changelog.",
+  "task": [
+    "Find what the gate actually compared and prove it from the log and the registry",
+    "Explain why v7 alerts so much on the gateways",
+    "Rule out the holdout refresh and the cache warning",
+    "Fix ci/ so unevaluated or wrongly evaluated challengers fail the build, while better ones still promote"
+  ],
+  "acceptance": [
+    "Replaying build #412 exits non-zero and v6 stays champion",
+    "Gate exit 2 without metrics bound to the challenger version and pinned holdout; 0 better; 3 tie or worse",
+    "Evaluate step fails loudly",
+    "ANSWER.md: full cause chain with evidence, remediation, prevention"
+  ],
+  "practices": [
+    {"label": "Week 3 Wed - eval gates and fail-closed CI for models", "href": "week3"},
+    {"label": "Week 3 Thu - monitoring after promotion", "href": "week3"}
+  ]
+}

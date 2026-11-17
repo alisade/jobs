@@ -1,0 +1,10 @@
+{
+  "protected_types": [
+    "google_compute_network",
+    "google_sql_database_instance",
+    "google_storage_bucket",
+    "google_kms_crypto_key"
+  ],
+  "imports_only": false,
+  "allowed_update_attributes": []
+}

@@ -1,0 +1,21 @@
+$ kubectl -n catalog exec catalog-search-7f9c6d-q41zt -- py-spy dump --pid 1
+Process 1: /usr/local/bin/python /usr/local/bin/uvicorn catalog_search.app:app --host 0.0.0.0 --port 8080 --workers 1
+Python v3.12.7 (/usr/local/bin/python3.12)
+
+Thread 1 (idle): "MainThread"
+    sleep (time)  [simulated network wait; in prod: ssl.SSLSocket.recv_into]
+    _round_trip (promotions_sdk/transport.py:88)
+    badges_for (promotions_sdk.py:46)
+    search (catalog_search/app.py:37)
+    run_endpoint_function (fastapi/routing.py:214)
+    app (fastapi/routing.py:301)
+    ...
+    run_until_complete (asyncio/base_events.py:687)
+    run (uvicorn/server.py:66)
+    main (uvicorn/main.py:579)
+Thread 7 (idle): "AnyIO worker thread"
+    wait (threading.py:359)
+    get (queue.py:180)
+    worker (anyio/_backends/_asyncio.py:907)
+
+# taken 4 times, 2 s apart: MainThread was inside badges_for in all 4 samples

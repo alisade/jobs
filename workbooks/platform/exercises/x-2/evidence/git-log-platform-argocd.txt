@@ -1,0 +1,16 @@
+$ git log --format='%h %ad %an  %s' --date=iso -- argocd/applicationsets/
+c41e09a 2026-11-10 14:40:12 +0000 dana.k   riq-api canary: 3.0.0 (dev-1, stg-1), soak 48h before stable (PLAT-1219)
+9b20d7f 2026-11-03 11:02:55 +0000 jun.w    riq-api: enable selfHeal on canary and stable (PLAT-1201)
+5aa81c3 2026-08-14 16:20:31 +0000 sam.o    riq-api stable: follow latest 2.x automatically, no more bump PRs (PLAT-1184)
+1f0e2b8 2026-06-30 09:12:07 +0000 dana.k   split riq-api into canary and stable ApplicationSets
+
+$ git show 5aa81c3 -- argocd/applicationsets/riq-api-stable.yaml
+-        targetRevision: 2.3.0
++        # follow the latest 2.x automatically, no more bump PRs (PLAT-1184)
++        targetRevision: '>=2.0.0'
+
+$ git show 9b20d7f -- argocd/applicationsets/riq-api-stable.yaml
+       syncPolicy:
+         automated:
+           prune: true
++          selfHeal: true

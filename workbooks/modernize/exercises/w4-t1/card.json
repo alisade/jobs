@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w4-t1",
+  "title": "The mainframe rejects September's claims extract",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 4,
+  "area": "Safe change on monoliths",
+  "scenario": "In the JDK 8 vs JDK 21 parallel run, August and October extracts are byte-identical and accepted, but the mainframe rejects every September record with a length error. The pod suspects the UTF-8 default charset or a tzdata update; go/no-go for the cutover is Monday.",
+  "task": [
+    "Find the byte-level difference and the JDK change behind it",
+    "Rule the charset and tzdata theories in or out",
+    "Make the file contract independent of locale data and fail fast on overflow",
+    "Write the blast radius for the rest of the monolith and a go/no-go call"
+  ],
+  "acceptance": [
+    "All twelve months use the copybook abbreviations; 45-byte records; default locale irrelevant",
+    "JDK 21 output byte-identical to JDK 8 production for all three months",
+    "Over-wide fields throw; ASCII output",
+    "ANSWER.md names JEP 252 / CLDR with evidence and covers blast radius"
+  ],
+  "practices": [
+    {"label": "Week 4 Thu - blast-radius inventory", "href": "week4"},
+    {"label": "Week 4 Fri - parallel runs, go/no-go and rollback", "href": "week4"}
+  ]
+}

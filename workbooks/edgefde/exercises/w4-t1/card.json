@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w4-t1",
+  "title": "INT8 model misses faults on the gateway",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 4,
+  "optional": false,
+  "area": "Edge AI runtimes",
+  "scenario": "A day after Corvane switched its pump gateways to the INT8 model, a vibration route finds an outer-race fault that the edge system never alerted on; no pump raised a single alert all day. The release log warns about IR versions and pre-processing and the gateway says XNNPACK is missing. Is INT8 just not accurate enough?",
+  "task": [
+    "Find the root cause with numbers from the INT8 graph and the data",
+    "Rule the release and runtime warnings in or out",
+    "Fix the release script so INT8 detects like FP32",
+    "Propose the release gate that would have stopped it"
+  ],
+  "acceptance": [
+    "INT8 within 0.02 recall and 0.01 false-alarm rate of FP32 on the gateway day",
+    "INT8 input range fits the standardized features from the shipped scaler.json",
+    "Still static INT8 QDQ and under 0.6x FP32 size",
+    "ANSWER.md: root cause with inspect evidence, red herrings, prevention"
+  ],
+  "practices": [
+    {"label": "Week 4 Wed - calibration data for static quantization", "href": "week4"},
+    {"label": "Week 4 Fri - ONNX Runtime on IoT and edge", "href": "week4"}
+  ]
+}

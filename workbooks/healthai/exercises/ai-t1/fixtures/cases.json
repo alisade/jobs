@@ -1,0 +1,27 @@
+[
+ {
+  "case_id": "PA-2026-0412",
+  "member_id": "M-100204",
+  "documents": [
+   "DOC-77",
+   "DOC-78"
+  ],
+  "auto_approve_eligible": false
+ },
+ {
+  "case_id": "PA-2026-0415",
+  "member_id": "M-100201",
+  "documents": [
+   "DOC-80"
+  ],
+  "auto_approve_eligible": true
+ },
+ {
+  "case_id": "PA-2026-0419",
+  "member_id": "M-100202",
+  "documents": [
+   "DOC-81"
+  ],
+  "auto_approve_eligible": false
+ }
+]

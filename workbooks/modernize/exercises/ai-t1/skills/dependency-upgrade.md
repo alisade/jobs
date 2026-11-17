@@ -1,0 +1,421 @@
+# Skill: dependency-upgrade
+
+- Step 1: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 2: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 3: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 4: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 5: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 6: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 7: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 8: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 9: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 10: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 11: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 12: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 13: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 14: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 15: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 16: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 17: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 18: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 19: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 20: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 21: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 22: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 23: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 24: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 25: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 26: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 27: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 28: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 29: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 30: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 31: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 32: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 33: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 34: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 35: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 36: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 37: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 38: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 39: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 40: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 41: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 42: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 43: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 44: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 45: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 46: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 47: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 48: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 49: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 50: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 51: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 52: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 53: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 54: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 55: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 56: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 57: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 58: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 59: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 60: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 61: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 62: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 63: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 64: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 65: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 66: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 67: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 68: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 69: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 70: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 71: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 72: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 73: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 74: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 75: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 76: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 77: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 78: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 79: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 80: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 81: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 82: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 83: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 84: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 85: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 86: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 87: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 88: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 89: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 90: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 91: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 92: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 93: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 94: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 95: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 96: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 97: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 98: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 99: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 100: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 101: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 102: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 103: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 104: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 105: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 106: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 107: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 108: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 109: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 110: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 111: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 112: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 113: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 114: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 115: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 116: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 117: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 118: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 119: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 120: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 121: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 122: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 123: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 124: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 125: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 126: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 127: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 128: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 129: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 130: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 131: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 132: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 133: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 134: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 135: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 136: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 137: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 138: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 139: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 140: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 141: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 142: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 143: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 144: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 145: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 146: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 147: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 148: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 149: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 150: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 151: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 152: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 153: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 154: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 155: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 156: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 157: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 158: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 159: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 160: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 161: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 162: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 163: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 164: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 165: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 166: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 167: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 168: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 169: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 170: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 171: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 172: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 173: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 174: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 175: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 176: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 177: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 178: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 179: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 180: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 181: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 182: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 183: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 184: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 185: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 186: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 187: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 188: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 189: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 190: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 191: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 192: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 193: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 194: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 195: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 196: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 197: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 198: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 199: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 200: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 201: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 202: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 203: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 204: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 205: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 206: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 207: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 208: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 209: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 210: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 211: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 212: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 213: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 214: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 215: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 216: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 217: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 218: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 219: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 220: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 221: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 222: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 223: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 224: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 225: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 226: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 227: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 228: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 229: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 230: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 231: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 232: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 233: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 234: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 235: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 236: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 237: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 238: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 239: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 240: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 241: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 242: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 243: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 244: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 245: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 246: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 247: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 248: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 249: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 250: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 251: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 252: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 253: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 254: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 255: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 256: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 257: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 258: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 259: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 260: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 261: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 262: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 263: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 264: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 265: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 266: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 267: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 268: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 269: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 270: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 271: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 272: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 273: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 274: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 275: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 276: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 277: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 278: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 279: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 280: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 281: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 282: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 283: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 284: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 285: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 286: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 287: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 288: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 289: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 290: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 291: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 292: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 293: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 294: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 295: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 296: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 297: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 298: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 299: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 300: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 301: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 302: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 303: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 304: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 305: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 306: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 307: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 308: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 309: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 310: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 311: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 312: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 313: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 314: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 315: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 316: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 317: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 318: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 319: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 320: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 321: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 322: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 323: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 324: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 325: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 326: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 327: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 328: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 329: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 330: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 331: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 332: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 333: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 334: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 335: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 336: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 337: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 338: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 339: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 340: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 341: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 342: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 343: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 344: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 345: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 346: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 347: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 348: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 349: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 350: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 351: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 352: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 353: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 354: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 355: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 356: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 357: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 358: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 359: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 360: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 361: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 362: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 363: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 364: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 365: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 366: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 367: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 368: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 369: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 370: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 371: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 372: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 373: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 374: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 375: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 376: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 377: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 378: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 379: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 380: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 381: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 382: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 383: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 384: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 385: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 386: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 387: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 388: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 389: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 390: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 391: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 392: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 393: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 394: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 395: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 396: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 397: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 398: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 399: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 400: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 401: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 402: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 403: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 404: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 405: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 406: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 407: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 408: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 409: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 410: for jdeps, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 411: for jdeprscan, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 412: for OpenRewrite dry run, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 413: for enforcer, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 414: for dependency tree, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 415: for characterization tests, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 416: for golden masters, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 417: for approval gate, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 418: for change log, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.
+- Step 419: for rollback note, run the verification command for this increment, paste the exact output into the change log, and stop for human approval when a major version changes.

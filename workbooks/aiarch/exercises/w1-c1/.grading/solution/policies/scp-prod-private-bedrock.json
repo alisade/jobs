@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyBedrockAndAgentCoreOutsideVpcEndpoints",
+      "Effect": "Deny",
+      "Action": [
+        "bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream",
+        "bedrock-agentcore:InvokeAgentRuntime"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {"aws:SourceVpce": ["vpce-0a1b2c3d4e5f60001", "vpce-0a1b2c3d4e5f60002"]},
+        "ArnNotLike": {"aws:PrincipalArn": "arn:aws:iam::*:role/hpm-breakglass"}
+      }
+    }
+  ]
+}

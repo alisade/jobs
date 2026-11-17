@@ -1,0 +1,28 @@
+{
+  "id": "audit/x-2",
+  "title": "ControlPilot production architecture and control-owner review pack",
+  "type": "design",
+  "estimate": "2-3 h",
+  "week": 7,
+  "optional": true,
+  "area": "Production architecture on Azure and Google",
+  "scenario": "Before year end the MFH audit committee, the CISO's architecture review and the external auditor's IT specialist want one document showing how ControlPilot runs in production: Azure hosting, Gemini through Gemini Enterprise Agent Platform via Workload Identity Federation, human sign-off, citations, 7-year immutable retention, a kill switch, and ControlPilot itself under the CM-03 program-change control.",
+  "task": [
+    "Design hosting, durable orchestration and review checkpoints on Azure",
+    "Design identity (managed identity plus Workload Identity Federation, no keys) and tool scoping",
+    "Cover data residency, immutable retention, traceability and the execution log",
+    "Cover evals in CI, change management for prompts and models, threat model and cost"
+  ],
+  "acceptance": [
+    "Every committee condition maps to a named mechanism",
+    "Write tools behind approval, no long-lived credentials, idempotent side effects",
+    "An external auditor can re-perform an item from workpaper and log",
+    "Cost computed from the stated volumes; rollout with exit criteria"
+  ],
+  "practices": [
+    {"label": "Week 7 Mon - Workload Identity Federation from Azure", "href": "week7"},
+    {"label": "Week 7 Tue - Azure hosting and immutable storage", "href": "week7"},
+    {"label": "Week 7 Wed - Gemini Enterprise Agent Platform", "href": "week7"},
+    {"label": "Week 4 - stateful orchestration with human review", "href": "week4"}
+  ]
+}

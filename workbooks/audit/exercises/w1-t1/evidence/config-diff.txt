@@ -1,0 +1,28 @@
+--- controlpilot/pipeline.py   2026.9.4
++++ controlpilot/pipeline.py   2026.10.2
+@@
+-MODEL = "gemini-3.6-flash"
+-TEMPERATURE = 0.0
++MODEL = "gemini-3.8-flash"
++TEMPERATURE = 0.4  # 2026.10.2: raised from 0.0 so summaries read less robotic (DEV-2291)
+@@ def build_config()
+     return types.GenerateContentConfig(
+         system_instruction=prompt.SYSTEM,
+         temperature=TEMPERATURE,
+         response_mime_type="application/json",
+-        response_schema=ChangeAssessment,
+     )
+--- controlpilot/contract.py   2026.9.4
++++ controlpilot/contract.py   2026.10.2
+@@
+ class ChangeAssessment(BaseModel):
++    # Forward compatible: ignore keys we do not know about so prompt tweaks never break a run.
++    model_config = ConfigDict(extra="ignore")
+--- controlpilot/prompt.py     2026.9.4
++++ controlpilot/prompt.py     2026.10.2
+@@
+-  approved_before_deploy, independent_approver, tests_passed
++  approval_precedes_deploy (true if the change was approved before it was deployed),
++  approver_independent (true if the approver is not the author),
++  ci_green (true if automated tests passed),
++  summary (one sentence).

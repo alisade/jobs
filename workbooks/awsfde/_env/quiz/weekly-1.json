@@ -1,0 +1,335 @@
+{
+  "questions": [
+    {
+      "id": "w1-q01",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "single",
+      "stem": "Tidewater Ask's Converse loop gets <code>stopReason: tool_use</code> with two <code>toolUse</code> blocks (lookup_shipment for SH-10001 and SH-10002). How must the next request carry the results?",
+      "options": [
+        "Two separate user messages, one <code>toolResult</code> each, in either order",
+        "The assistant message exactly as returned, then ONE user message containing both <code>toolResult</code> blocks with matching <code>toolUseId</code>s",
+        "Only the first result; the model asks again for the second",
+        "A system message with both results serialized as JSON"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Every toolUse in the assistant turn must be answered in the next user message by a toolResult with the same toolUseId. Splitting results across messages or answering only one produces a ValidationException naming the missing ids; system messages do not carry tool results.",
+      "learn": [
+        {
+          "label": "Tool use with Converse",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/tool-use.html"
+        },
+        {
+          "label": "Converse API",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q02",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "single",
+      "stem": "With <code>guardrailConfig</code> on a Converse call, a user asks Tidewater Ask for legal advice on suing a carrier (a denied topic). What does your code receive?",
+      "options": [
+        "A ValidationException with the guardrail id",
+        "A normal end_turn answer with a warning header",
+        "<code>stopReason: guardrail_intervened</code> with the guardrail's configured blocked message as the assistant text; with trace enabled, the assessment shows which policy fired",
+        "An AccessDeniedException because the topic is denied"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "An intervention is not an error: Converse returns stopReason guardrail_intervened and the blocked message text. trace enabled adds the guardrail assessment, which is how you tell a denied topic from a content filter or a PII action.",
+      "learn": [
+        {
+          "label": "Use a guardrail with the Converse API",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-use-converse-api.html"
+        },
+        {
+          "label": "Guardrails",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q03",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "single",
+      "stem": "A release sets <code>Config(retries={\"max_attempts\": 10, \"mode\": \"standard\"})</code> on the bedrock-runtime client. How many calls can one <code>converse()</code> make when every call is throttled?",
+      "options": [
+        "10",
+        "11: in a botocore Config, max_attempts counts retries, so the client reports total_max_attempts 11",
+        "3, standard mode caps retries at 2",
+        "Unlimited until the retry quota runs out"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "botocore's Config max_attempts is the number of retries after the first request; the client stores it as total_max_attempts = max_attempts + 1. total_max_attempts (or AWS_MAX_ATTEMPTS) counts the first attempt. Standard mode's default is 3 total attempts only when you do not set it.",
+      "learn": [
+        {
+          "label": "Timeouts, retries and backoff with jitter (Builders Library)",
+          "href": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"
+        },
+        {
+          "label": "boto3 converse reference",
+          "href": "https://docs.aws.amazon.com/boto3/latest/reference/services/bedrock-runtime/client/converse.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q04",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "multi",
+      "stem": "After a 'resilience' release the Monday peak turned into a ten-minute throttling storm on only 20% more traffic. Which two code properties explain the amplification? Choose two.",
+      "options": [
+        "An app-level retry loop wrapped around an SDK client that already retries, so attempts multiply",
+        "A fixed 1 s delay with no jitter, so throttled requests retry in synchronized waves",
+        "Using the Converse API instead of InvokeModel",
+        "Using a cross-Region inference profile id",
+        "Logging token usage per call"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Stacked layers multiply (5 app x 11 SDK = 55 calls per request) and un-jittered fixed delays line retries up into bursts that keep the bucket empty. Converse vs InvokeModel, inference profiles and logging do not add calls.",
+      "learn": [
+        {
+          "label": "Timeouts, retries and backoff with jitter (Builders Library)",
+          "href": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"
+        },
+        {
+          "label": "Quotas for Amazon Bedrock",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w1-q05",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "multi",
+      "stem": "Tidewater moves from the in-Region model id to the <code>us.</code> cross-Region inference profile. Which two statements are true? Choose two.",
+      "options": [
+        "Requests can be served in other Regions of the same geography, which raises throughput headroom",
+        "You invoke it by passing the inference profile id or ARN as <code>modelId</code>",
+        "Data can be processed in any Region worldwide",
+        "Quotas no longer apply",
+        "Guardrails cannot be used with inference profiles"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "A geographic profile routes within its geography (US Regions for us.), and you call it by profile id/ARN in modelId. Quotas still apply, processing stays in the geography, and guardrails work.",
+      "learn": [
+        {
+          "label": "Cross-Region inference",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w1-q06",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "single",
+      "stem": "Each Tidewater turn re-sends a 3,000-token system prompt and two tool specs. How do you cut input cost on multi-round turns with Converse?",
+      "options": [
+        "Shorten the user messages",
+        "Put a <code>cachePoint</code> block after the static system prompt and tools; cached reads are reported as cacheReadInputTokens and priced lower",
+        "Set temperature to 0",
+        "Move the system prompt into the first user message"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Prompt caching caches the prefix up to a cachePoint; on later calls the prefix is read from cache (cacheReadInputTokens in usage) at a reduced price. The prefix must be byte-identical; temperature does not affect billing.",
+      "learn": [
+        {
+          "label": "Prompt caching",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q07",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "multi",
+      "stem": "The customer's FinOps and audit teams want every prompt and response kept for 90 days. Which two statements about model invocation logging are true? Choose two.",
+      "options": [
+        "It is turned off until you enable it",
+        "It can deliver to CloudWatch Logs and/or S3",
+        "It is configured per guardrail",
+        "It is on by default and cannot be disabled",
+        "It only logs token counts, not content"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Model invocation logging is an opt-in setting that writes request/response data and metadata to CloudWatch Logs, S3 or both. It is not tied to guardrails and does log content (so treat the destination as sensitive).",
+      "learn": [
+        {
+          "label": "Model invocation logging",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w1-q08",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "single",
+      "stem": "lookup_shipment cannot find SH-99999 for this tenant. What should the loop send back?",
+      "options": [
+        "Raise an exception and return HTTP 500",
+        "A toolResult with <code>status: \"error\"</code> and a short text the model can act on, e.g. 'No shipment SH-99999 for this account'",
+        "Nothing; skip the toolUse id",
+        "A toolResult with status success and an empty JSON object"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Errors are data for the model: status error with an actionable message lets it recover or explain. Skipping the id fails validation; an empty success invites hallucination; a 500 ends the turn.",
+      "learn": [
+        {
+          "label": "Tool use with Converse",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/tool-use.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q09",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "multi",
+      "stem": "The first call with the new <code>us.</code> inference profile returns AccessDeniedException. Which two are the most likely causes? Choose two.",
+      "options": [
+        "The role's IAM policy allows the inference profile but not the underlying foundation model ARNs in the Regions the profile routes to",
+        "Model access has not been granted for that model in the account",
+        "The guardrail version is DRAFT",
+        "The request has more than one tool",
+        "The prompt is too long"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Calling through a cross-Region profile needs permission on the profile and on the foundation model in each destination Region, and the model must be enabled for the account. Prompt length and tool count give ValidationException, not AccessDenied.",
+      "learn": [
+        {
+          "label": "Cross-Region inference",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html"
+        },
+        {
+          "label": "Quotas for Amazon Bedrock",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w1-q10",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "single",
+      "stem": "Tidewater Ask answers from Knowledge Base passages. Which guardrail policy detects answers that are not supported by the retrieved passages or do not address the question?",
+      "options": [
+        "Denied topics",
+        "Content filters",
+        "Contextual grounding check (grounding and relevance scores against thresholds)",
+        "Word filters"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The contextual grounding check scores grounding against the provided source and relevance against the query; responses below the thresholds are blocked. The other policies look at content categories or words, not support by sources.",
+      "learn": [
+        {
+          "label": "Contextual grounding check",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-contextual-grounding-check.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q11",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "single",
+      "stem": "Your FinOps team asks for cost per question. A turn took three Converse calls. What do you sum?",
+      "options": [
+        "Only the last call's usage",
+        "Input, output and cache tokens of all three calls, each priced separately; input grows each round because the conversation is re-sent",
+        "Output tokens only; input is free",
+        "The totalTokens of the first call times three"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Each round re-sends the growing conversation, so every call's usage counts. Cache read and write tokens have their own prices.",
+      "learn": [
+        {
+          "label": "Converse API",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html"
+        },
+        {
+          "label": "Prompt caching",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q12",
+      "week": 1,
+      "set": "weekly",
+      "area": "bedrock",
+      "type": "multi",
+      "stem": "During the 09:02 login wave some calls are throttled. What should the answer service do? Choose two.",
+      "options": [
+        "Retry in exactly one layer with a small total (3-4 attempts) and exponential backoff with full jitter",
+        "When the budget is exhausted, return a degraded 503 with Retry-After instead of an internal error",
+        "Raise max_attempts to 20 so no request ever fails",
+        "Retry ValidationException too, in case it was transient",
+        "Add a second retry wrapper in the API layer"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Bounded, jittered retries in one layer absorb short bursts without amplifying them, and an honest degraded response lets clients back off. More attempts, extra layers and retrying non-retryable errors are what turn a burst into a storm.",
+      "learn": [
+        {
+          "label": "Timeouts, retries and backoff with jitter (Builders Library)",
+          "href": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"
+        },
+        {
+          "label": "Quotas for Amazon Bedrock",
+          "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html"
+        }
+      ],
+      "choose": 2
+    }
+  ]
+}

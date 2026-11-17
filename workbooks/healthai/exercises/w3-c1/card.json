@@ -1,0 +1,26 @@
+{
+  "id": "healthai/w3-c1",
+  "title": "X12 278-like request to a Da Vinci PAS-shaped FHIR Bundle",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "Health data standards: X12, FHIR R4, Da Vinci PAS",
+  "scenario": "Kestrel's new PA engine speaks FHIR (a PAS Bundle around a Claim with use preauthorization) while most requests still arrive as X12 278 from a clearinghouse. Write the adapter from a simplified 278-like format to the Bundle, with resolvable urn:uuid references, ICD-10-CM codes, dates, priority, and a list of what does not map cleanly.",
+  "task": [
+    "Parse the interchange with separators taken from ISA",
+    "Map to Claim, Patient, Coverage, Organization, Practitioner, ServiceRequest and Conditions",
+    "Raise typed errors for missing segments and bad dates",
+    "Write the 'does not map cleanly' list in ANSWER.md"
+  ],
+  "acceptance": [
+    "Both good fixtures pass the structural checker with no problems",
+    "Codes, dates, priority, systems and diagnosis order are correct; ids deterministic",
+    "Bad fixtures raise X12Error naming the problem"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - FHIR R4 resources, Bundles, references", "href": "week3"},
+    {"label": "Week 3 Wed - Da Vinci PAS, CRD, DTR", "href": "week3"},
+    {"label": "Week 3 Thu - X12 278, ICD-10-CM, HCPCS, CPT licensing", "href": "week3"}
+  ]
+}

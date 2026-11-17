@@ -1,0 +1,8 @@
+2026-10-13T22:00:04Z INFO  controlpilot release=2026.10.2 prompt=v2 model=gemini-3.8-flash temperature=0.4
+2026-10-13T22:00:04Z INFO  loaded 25 samples for CM-03 period 2026-07-01..2026-09-30
+2026-10-13T22:00:06Z INFO  S01 CHG-104901 model ok 1450/140 tokens result=pass
+2026-10-13T22:00:09Z INFO  S07 CHG-104907 model ok 1450/140 tokens result=pass
+2026-10-13T22:00:15Z INFO  S12 CHG-104912 model ok 1450/140 tokens result=pass
+2026-10-13T22:00:21Z INFO  S18 CHG-104918 model ok 1450/140 tokens result=pass
+2026-10-13T22:00:25Z INFO  S21 CHG-104921 model ok 1450/140 tokens result=pass
+2026-10-13T22:00:31Z INFO  run complete pass=25 exception=0 needs_review=0 validation_errors=0

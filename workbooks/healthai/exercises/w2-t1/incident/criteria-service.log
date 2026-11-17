@@ -1,0 +1,30 @@
+2026-11-18T09:05:00-05:00 INFO criteria.metrics criteria_inflight=3 criteria_permits_free=2 rpc_rate=41/s rpc_errors=0/s
+2026-11-18T09:06:00-05:00 INFO criteria.metrics criteria_inflight=3 criteria_permits_free=2 rpc_rate=41/s rpc_errors=0/s
+2026-11-18T09:07:00-05:00 INFO criteria.metrics criteria_inflight=3 criteria_permits_free=2 rpc_rate=41/s rpc_errors=0/s
+2026-11-18T09:08:00-05:00 INFO criteria.metrics criteria_inflight=3 criteria_permits_free=2 rpc_rate=41/s rpc_errors=0/s
+2026-11-18T09:09:00-05:00 INFO criteria.metrics criteria_inflight=3 criteria_permits_free=2 rpc_rate=41/s rpc_errors=0/s
+2026-11-18T09:10:04-05:00 WARNING criteria.fhir FHIR search latency p95=2810ms over 60s (threshold 1000ms)
+2026-11-18T09:10:11-05:00 WARNING criteria.server criterion KHP-MP-0417/2.a for PA-2026-77812 failed: TimeoutError()
+2026-11-18T09:10:18-05:00 WARNING criteria.server criterion KHP-MP-0417/2.b for PA-2026-77812 failed: TimeoutError()
+2026-11-18T09:10:25-05:00 WARNING criteria.server criterion KHP-MP-0212/3.c for PA-2026-77815 failed: TimeoutError()
+2026-11-18T09:10:32-05:00 WARNING criteria.server criterion KHP-MP-0388/1.a for PA-2026-77819 failed: TimeoutError()
+2026-11-18T09:10:39-05:00 WARNING criteria.server criterion KHP-MP-0417/2.a for PA-2026-77821 failed: TimeoutError()
+2026-11-18T09:10:46-05:00 WARNING criteria.server criterion KHP-MP-0101/4.d for PA-2026-77822 failed: TimeoutError()
+2026-11-18T09:10:52-05:00 WARNING criteria.server criterion KHP-MP-0417/2.c for PA-2026-77824 failed: CancelledError()
+2026-11-18T09:10:53-05:00 WARNING criteria.server criterion KHP-MP-0212/3.a for PA-2026-77826 failed: CancelledError()
+2026-11-18T09:11:00-05:00 INFO criteria.metrics criteria_inflight=1 criteria_permits_free=1 rpc_rate=38/s rpc_errors=12/s
+2026-11-18T09:11:20-05:00 WARNING criteria.server criterion KHP-MP-0388/1.b for PA-2026-77830 failed: TimeoutError()
+2026-11-18T09:12:00-05:00 INFO criteria.metrics criteria_inflight=1 criteria_permits_free=0 rpc_rate=35/s rpc_errors=22/s
+2026-11-18T09:13:00-05:00 INFO criteria.metrics criteria_inflight=0 criteria_permits_free=0 rpc_rate=33/s rpc_errors=31/s
+2026-11-18T09:13:40-05:00 INFO criteria.fhir FHIR search latency back under threshold (p95=140ms)
+2026-11-18T09:14:00-05:00 INFO criteria.metrics criteria_inflight=0 criteria_permits_free=0 rpc_rate=34/s rpc_errors=34/s
+2026-11-18T09:15:00-05:00 INFO criteria.metrics criteria_inflight=0 criteria_permits_free=0 rpc_rate=34/s rpc_errors=34/s
+2026-11-18T09:20:00-05:00 INFO criteria.metrics criteria_inflight=0 criteria_permits_free=0 rpc_rate=34/s rpc_errors=34/s
+2026-11-18T09:25:00-05:00 INFO criteria.metrics criteria_inflight=0 criteria_permits_free=0 rpc_rate=34/s rpc_errors=34/s
+2026-11-18T09:30:00-05:00 INFO criteria.metrics criteria_inflight=0 criteria_permits_free=0 rpc_rate=34/s rpc_errors=34/s
+2026-11-18T09:31:12-05:00 ERROR edge.criteria_client CheckCriteria PA-2026-77901: StatusCode.DEADLINE_EXCEEDED after 1.00s
+2026-11-18T09:31:13-05:00 ERROR edge.criteria_client CheckCriteria PA-2026-77903: StatusCode.DEADLINE_EXCEEDED after 1.00s
+2026-11-18T09:35:00-05:00 INFO criteria.metrics criteria_inflight=0 criteria_permits_free=0 rpc_rate=34/s rpc_errors=34/s
+2026-11-18T09:40:02-05:00 INFO run.revision criteria-service-00042-kab starting (same image digest sha256:4f1c...e9)
+2026-11-18T09:41:00-05:00 INFO criteria.metrics criteria_inflight=3 criteria_permits_free=2 rpc_rate=42/s rpc_errors=0/s
+2026-11-18T09:45:00-05:00 INFO criteria.metrics criteria_inflight=2 criteria_permits_free=3 rpc_rate=40/s rpc_errors=0/s

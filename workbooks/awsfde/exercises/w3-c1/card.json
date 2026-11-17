@@ -1,0 +1,27 @@
+{
+  "id": "awsfde/w3-c1",
+  "title": "Retrieval eval harness and a tenant-filtered Retrieve call",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 3,
+  "optional": false,
+  "area": "RAG and vector stores on AWS",
+  "scenario": "The platform team wants to move Tidewater Ask's Knowledge Base from fixed-size to hierarchical chunking. Build the one Retrieve request builder every caller must use, so the tenant metadata filter cannot be forgotten or widened, and an eval harness that turns a 20-question golden set into recall@5, MRR, per-tenant numbers, a leak check and a go/no-go gate.",
+  "task": [
+    "Build Retrieve requests with a mandatory tenant_id filter ANDed with user filters",
+    "Compute recall@k and MRR over unique documents, per tenant",
+    "Flag any result from another tenant (or untagged) as a hard failure",
+    "Compare two KB configurations and gate the change; recommend in ANSWER.md"
+  ],
+  "acceptance": [
+    "Requests validate against the real Retrieve model; no path drops or widens the tenant filter",
+    "Fixture run reproduces both configs' recall and finds the leaking question",
+    "Gate blocks on any leak and on a per-tenant floor"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - Bedrock Knowledge Bases", "href": "week3"},
+    {"label": "Week 3 Tue - chunking strategies", "href": "week3"},
+    {"label": "Week 3 Wed - metadata filters and multi-tenancy", "href": "week3"},
+    {"label": "Week 3 Fri - retrieval evals", "href": "week3"}
+  ]
+}

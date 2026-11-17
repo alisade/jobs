@@ -1,0 +1,6 @@
+status: 201
+content-type: application/json;charset=utf-8
+x-request-id: golden-1
+location: /claimdesk/claims/CLM-2026-118205
+
+{"number":"CLM-2026-118205","policy":"AU-9920114","status":"OPEN","notes":["Inspector booked for 2026-11-14"]}

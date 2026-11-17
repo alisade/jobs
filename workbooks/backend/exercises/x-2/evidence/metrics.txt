@@ -1,0 +1,10 @@
+# keystone-pg-primary, 1-minute samples
+time   cpu%  read_iops  active_conns  waiting_on_lock  xact_commit/s
+01:58    9       310         41              0             1840
+01:59    8       290         40              0             1795
+02:00   11       120        118            112              212
+02:01    6        40        231            229                4
+02:04    5        35        240            238                2
+02:07    6        38        240            238                3   (accounts-svc pool raised to 40 at 02:06)
+02:10    7        42        240            238                3
+02:11   10       300         44              0             1820

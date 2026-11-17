@@ -1,0 +1,36 @@
+# riq-api on every cluster that is not in the canary wave (prod-blue, prod-green, new clusters).
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: riq-api-stable
+  namespace: argocd
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: wave
+              operator: NotIn
+              values: [canary]
+  template:
+    metadata:
+      name: '{{name}}-riq-api'
+    spec:
+      project: riq
+      source:
+        repoURL: https://charts.tessellate.example/platform
+        chart: riq-api
+        # follow the latest 2.x automatically, no more bump PRs (PLAT-1184)
+        targetRevision: '>=2.0.0'
+        helm:
+          valueFiles:
+            - 'values-{{metadata.labels.env}}.yaml'
+      destination:
+        server: '{{server}}'
+        namespace: riq
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=false

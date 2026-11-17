@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w6-c1",
+  "title": "Modernization pod kit: a dependency-upgrade skill and the pod playbook",
+  "type": "design",
+  "estimate": "2.5 h",
+  "week": 6,
+  "area": "Leading pods and governing skills",
+  "scenario": "You lead the pod moving ClaimDesk to JDK 21, EAP 8 and Okta with four developers of mixed experience, each running an agent. Agents have already truncated evidence, rewritten golden files, silenced warnings with --add-opens and produced a 1,900-file commit. The sponsor wants a skill and a playbook that make those failures hard to repeat.",
+  "task": [
+    "Write skill/dependency-upgrade/SKILL.md: triggers, tool steps, verification, approval STOPs, a never list, 6-10 eval cases",
+    "Slice the program into owned, verifiable, revertible increments",
+    "Define the gates, a review rubric for agent PRs and a failure-mode log format",
+    "Assign the work to the roster and plan the mentoring"
+  ],
+  "acceptance": [
+    "The skill would have stopped each logged incident and verifies itself",
+    "Increments fit the change windows and each has one verifiable outcome and a rollback",
+    "Human gates sit where the risk is; the review rubric targets agent failure modes",
+    "The failure log feeds back into the skill (rubric)"
+  ],
+  "practices": [
+    {"label": "Week 6 Mon - slicing work for a pod", "href": "week6"},
+    {"label": "Week 6 Fri - the modernization pod kit", "href": "week6"}
+  ]
+}

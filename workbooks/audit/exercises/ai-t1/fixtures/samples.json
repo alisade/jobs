@@ -1,0 +1,177 @@
+{
+  "CHG-104100": {
+    "change_id": "CHG-104100",
+    "pr_number": 2200,
+    "title": "Settlement batch fix",
+    "author": "mreyes",
+    "merged_at": "2026-07-22T13:22:00Z"
+  },
+  "CHG-104117": {
+    "change_id": "CHG-104117",
+    "pr_number": 2204,
+    "title": "Settlement batch fix",
+    "author": "akhan",
+    "merged_at": "2026-08-10T10:27:00Z"
+  },
+  "CHG-104134": {
+    "change_id": "CHG-104134",
+    "pr_number": 2208,
+    "title": "Invoice matcher tolerance",
+    "author": "j.ortiz",
+    "merged_at": "2026-07-21T17:56:00Z"
+  },
+  "CHG-104151": {
+    "change_id": "CHG-104151",
+    "pr_number": 2212,
+    "title": "GL posting retry",
+    "author": "j.ortiz",
+    "merged_at": "2026-07-17T11:24:00Z"
+  },
+  "CHG-104168": {
+    "change_id": "CHG-104168",
+    "pr_number": 2216,
+    "title": "Invoice matcher tolerance",
+    "author": "mreyes",
+    "merged_at": "2026-08-16T17:49:00Z"
+  },
+  "CHG-104185": {
+    "change_id": "CHG-104185",
+    "pr_number": 2220,
+    "title": "Settlement batch fix",
+    "author": "dkwan",
+    "merged_at": "2026-08-21T11:52:00Z"
+  },
+  "CHG-104202": {
+    "change_id": "CHG-104202",
+    "pr_number": 2224,
+    "title": "Rate engine table update",
+    "author": "akhan",
+    "merged_at": "2026-09-16T17:21:00Z"
+  },
+  "CHG-104219": {
+    "change_id": "CHG-104219",
+    "pr_number": 2228,
+    "title": "Invoice matcher tolerance",
+    "author": "j.ortiz",
+    "merged_at": "2026-07-22T17:35:00Z"
+  },
+  "CHG-104236": {
+    "change_id": "CHG-104236",
+    "pr_number": 2232,
+    "title": "Rate engine table update",
+    "author": "mreyes",
+    "merged_at": "2026-07-14T10:19:00Z"
+  },
+  "CHG-104253": {
+    "change_id": "CHG-104253",
+    "pr_number": 2236,
+    "title": "Settlement batch fix",
+    "author": "akhan",
+    "merged_at": "2026-09-14T19:48:00Z"
+  },
+  "CHG-104270": {
+    "change_id": "CHG-104270",
+    "pr_number": 2240,
+    "title": "Invoice matcher tolerance",
+    "author": "j.ortiz",
+    "merged_at": "2026-07-27T18:18:00Z"
+  },
+  "CHG-104287": {
+    "change_id": "CHG-104287",
+    "pr_number": 2244,
+    "title": "Rate engine table update",
+    "author": "dkwan",
+    "merged_at": "2026-09-13T18:57:00Z"
+  },
+  "CHG-104304": {
+    "change_id": "CHG-104304",
+    "pr_number": 2248,
+    "title": "Billing export column",
+    "author": "akhan",
+    "merged_at": "2026-07-16T10:26:00Z"
+  },
+  "CHG-104321": {
+    "change_id": "CHG-104321",
+    "pr_number": 2252,
+    "title": "Billing export column",
+    "author": "j.ortiz",
+    "merged_at": "2026-09-17T19:30:00Z"
+  },
+  "CHG-104338": {
+    "change_id": "CHG-104338",
+    "pr_number": 2256,
+    "title": "GL posting retry",
+    "author": "tnguyen",
+    "merged_at": "2026-08-14T10:57:00Z"
+  },
+  "CHG-104355": {
+    "change_id": "CHG-104355",
+    "pr_number": 2260,
+    "title": "GL posting retry",
+    "author": "akhan",
+    "merged_at": "2026-09-28T18:36:00Z"
+  },
+  "CHG-104372": {
+    "change_id": "CHG-104372",
+    "pr_number": 2264,
+    "title": "Settlement batch fix",
+    "author": "mreyes",
+    "merged_at": "2026-09-14T18:42:00Z"
+  },
+  "CHG-104389": {
+    "change_id": "CHG-104389",
+    "pr_number": 2268,
+    "title": "Rate engine table update",
+    "author": "akhan",
+    "merged_at": "2026-07-10T12:21:00Z"
+  },
+  "CHG-104406": {
+    "change_id": "CHG-104406",
+    "pr_number": 2272,
+    "title": "Billing export column",
+    "author": "akhan",
+    "merged_at": "2026-09-13T18:13:00Z"
+  },
+  "CHG-104423": {
+    "change_id": "CHG-104423",
+    "pr_number": 2276,
+    "title": "GL posting retry",
+    "author": "tnguyen",
+    "merged_at": "2026-09-27T17:59:00Z"
+  },
+  "CHG-104440": {
+    "change_id": "CHG-104440",
+    "pr_number": 2280,
+    "title": "Rate engine table update",
+    "author": "tnguyen",
+    "merged_at": "2026-07-17T13:27:00Z"
+  },
+  "CHG-104457": {
+    "change_id": "CHG-104457",
+    "pr_number": 2284,
+    "title": "Rate engine table update",
+    "author": "dkwan",
+    "merged_at": "2026-09-24T18:11:00Z"
+  },
+  "CHG-104474": {
+    "change_id": "CHG-104474",
+    "pr_number": 2288,
+    "title": "Rate engine table update",
+    "author": "akhan",
+    "merged_at": "2026-08-26T19:42:00Z"
+  },
+  "CHG-104491": {
+    "change_id": "CHG-104491",
+    "pr_number": 2292,
+    "title": "Billing export column",
+    "author": "j.ortiz",
+    "merged_at": "2026-08-26T18:40:00Z"
+  },
+  "CHG-104508": {
+    "change_id": "CHG-104508",
+    "pr_number": 2296,
+    "title": "Settlement batch fix",
+    "author": "mreyes",
+    "merged_at": "2026-09-26T14:45:00Z"
+  }
+}

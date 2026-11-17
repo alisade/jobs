@@ -1,0 +1,27 @@
+{
+  "id": "backend/x-2",
+  "title": "The migration that took the API down",
+  "type": "troubleshooting",
+  "estimate": "2 h",
+  "week": 7,
+  "optional": true,
+  "area": "PostgreSQL: modeling, indexing, RLS, migrations",
+  "scenario": "During the 2026.46 deploy, migration 0057 (a foreign key and an index on activities, 4 seconds in staging) coincided with 11 minutes of 503s from accounts-svc while the database CPU sat at 12%. On call raised the connection pool and restarted pods with no effect, then killed the migration. You get the timeline, pg_stat_activity and pg_locks snapshots, app and job logs, metrics, and the migration.",
+  "task": [
+    "Explain the outage from the lock evidence: who held what, who waited for whom, and why the app stopped",
+    "Rewrite 0057 as safe migrations that pass kmigrate-lint: lock_timeout, NOT VALID then VALIDATE, CREATE INDEX CONCURRENTLY outside a transaction",
+    "Prove the end state on PGlite: validated FK, valid index, cross-tenant rows rejected",
+    "Write ANSWER.md with the root cause, why the pool change did nothing, and the prevention plan"
+  ],
+  "acceptance": [
+    "make lint clean with the reference linter; make migrate reaches a validated FK and a valid index",
+    "The FK is added NOT VALID with a lock_timeout and validated in a later migration",
+    "The index is built CONCURRENTLY in a no-transaction migration",
+    "ANSWER.md names the lock queue behind the idle-in-transaction session, with evidence"
+  ],
+  "practices": [
+    {"label": "Week 7 Mon - zero-downtime migrations", "href": "week7"},
+    {"label": "Week 2 Fri - MVCC, isolation and locks", "href": "week2"},
+    {"label": "Week 6 Fri - delivery and reliability for service owners", "href": "week6"}
+  ]
+}

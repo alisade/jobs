@@ -1,0 +1,25 @@
+{
+  "id": "healthai/w1-t1",
+  "title": "The CMS clock report says zero late decisions",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Payer domain: CMS-0057-F decision timeframes",
+  "scenario": "Kestrel Health Plan's Q4 CMS-0057-F metrics show zero late standard decisions, but the external auditor found five. The analytics team suspects the November time change. The same deadline code drives the nurse reviewers' time-remaining column.",
+  "task": [
+    "Reproduce the report and compare it with the audit sample",
+    "Find the root cause and decide whether the DST warnings matter",
+    "Fix the code, re-run the report, fill in findings.json",
+    "Explain impact and prevention in ANSWER.md"
+  ],
+  "acceptance": [
+    "Standard deadline is 7 calendar days on the plan wall clock; expedited stays 72 hours",
+    "Late counts and ids match an independent recompute; audit cases confirmed",
+    "Root cause backed by traced cases and before/after numbers"
+  ],
+  "practices": [
+    {"label": "Week 1 Thu - PA flow and CMS-0057-F clocks", "href": "week1"},
+    {"label": "Week 1 Mon - Python datetime, zoneinfo and tests", "href": "week1"}
+  ]
+}

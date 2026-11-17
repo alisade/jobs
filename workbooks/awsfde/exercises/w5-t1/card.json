@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/w5-t1",
+  "title": "Acme's product shows a supplier it never used",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 5,
+  "optional": false,
+  "area": "Knowledge graphs and Neptune",
+  "scenario": "The day after Brightline Health's graph was loaded into the shared Neptune Analytics graph, Acme Foods sees medical suppliers for its pasta and its real suppliers are gone; some rows repeat. The load completed with no errors and Brightline's smoke test passed.",
+  "task": [
+    "Prove the mechanism from the load files, load job statistics and query log",
+    "Separate the known duplicate-rows issue from the leak",
+    "Fix the export ids, implement the pre-load validator, scope every node in the tool query",
+    "Write the exposure statement and the repair plan for the live graph"
+  ],
+  "acceptance": [
+    "Tenant-scoped ids; validator rejects collisions and cross-tenant edges",
+    "Replayed history loads cleanly; queries return only the caller's tenant, once each",
+    "Root cause, evidence, exposure and repair plan in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - graph modeling", "href": "week5"},
+    {"label": "Week 5 Wed - Neptune Analytics and loading data", "href": "week5"},
+    {"label": "Week 5 Thu - a tenant-safe graph tool", "href": "week5"}
+  ]
+}

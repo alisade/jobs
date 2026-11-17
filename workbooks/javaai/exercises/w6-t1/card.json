@@ -1,0 +1,25 @@
+{
+  "id": "javaai/w6-t1",
+  "title": "The dashboard's Recent activity card got slow as data grew",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 6,
+  "optional": false,
+  "area": "Data and schema design",
+  "scenario": "The learner dashboard's Recent activity query takes 1.5-4 s on 41M quiz attempts and Cloud SQL CPU is 80-90%. The query has not changed since July; VACUUM ANALYZE changed nothing. You get Query Insights, a PostgreSQL plan, the migrations and a 200k-row local copy (SQLite, same plan shapes).",
+  "task": [
+    "Explain from the plans why the existing index does not help",
+    "Rule vacuum and buffers in or out",
+    "Add an additive V7 index and fix the predicate without changing results"
+  ],
+  "acceptance": [
+    "V1-V6 untouched; V7 additive",
+    "Plan searches by learner, course and the created_at range, no temp sort",
+    "Same rows, inclusive boundary day",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 6 Thu - indexes, EXPLAIN and composite index order", "href": "week6"},
+    {"label": "Week 6 Fri - migrations at scale", "href": "week6"}
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "attestor": "projects/tsl-security/attestors/prod-build-verified",
+  "note": "Export of Binary Authorization attestations for tsl-artifacts-prod (container analysis occurrences, trimmed).",
+  "attestations": [
+    {
+      "resource_uri": "us-docker.pkg.dev/tsl-artifacts-prod/mdm/mdm-api@sha256:c1e1b94505ca1361a4c463a5a665aa9b4c075823464c38caa3a36644e0bd6b60",
+      "digest": "sha256:c1e1b94505ca1361a4c463a5a665aa9b4c075823464c38caa3a36644e0bd6b60",
+      "attestor": "projects/tsl-security/attestors/prod-build-verified",
+      "created": "2026-11-02T14:10:00Z"
+    },
+    {
+      "resource_uri": "us-docker.pkg.dev/tsl-artifacts-prod/riq/riq-api@sha256:2853395b10a73fa08584985891c56e790a62fa347191f34df1ad0b7f1efd3219",
+      "digest": "sha256:2853395b10a73fa08584985891c56e790a62fa347191f34df1ad0b7f1efd3219",
+      "attestor": "projects/tsl-security/attestors/prod-build-verified",
+      "created": "2026-11-02T14:10:00Z"
+    },
+    {
+      "resource_uri": "us-docker.pkg.dev/tsl-artifacts-prod/riq/riq-migrate@sha256:c272fa7065c09dd34b509044911e97d20d65f0f389d10fd8214e896e4da861d7",
+      "digest": "sha256:c272fa7065c09dd34b509044911e97d20d65f0f389d10fd8214e896e4da861d7",
+      "attestor": "projects/tsl-security/attestors/prod-build-verified",
+      "created": "2026-11-02T14:10:00Z"
+    },
+    {
+      "resource_uri": "us-docker.pkg.dev/tsl-artifacts-prod/rdm/rdm-worker@sha256:c9ac47faa84730b322b146803584bdd7c103da7b9ec8ff0d947d5e4a5ce283c0",
+      "digest": "sha256:c9ac47faa84730b322b146803584bdd7c103da7b9ec8ff0d947d5e4a5ce283c0",
+      "attestor": "projects/tsl-security/attestors/prod-build-verified",
+      "created": "2026-11-02T14:10:00Z"
+    },
+    {
+      "resource_uri": "us-docker.pkg.dev/tsl-artifacts-prod/rdm/rdm-worker@sha256:7284f835df3809703349b725ac6d0bdcb5374a42adae1f4d5104dcb63383a146",
+      "digest": "sha256:7284f835df3809703349b725ac6d0bdcb5374a42adae1f4d5104dcb63383a146",
+      "attestor": "projects/tsl-security/attestors/qa-signoff",
+      "created": "2026-11-05T09:00:00Z"
+    }
+  ]
+}

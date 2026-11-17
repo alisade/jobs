@@ -1,0 +1,12 @@
+{
+  "corvid-logistics": {
+    "display_name": "Corvid Logistics",
+    "verified_email_domains": ["corvid-logistics.example"],
+    "guardrail": {"id": "gr-tw-ask-prod", "version": "4"}
+  },
+  "acme-foods": {
+    "display_name": "Acme Foods",
+    "verified_email_domains": ["acme-foods.example"],
+    "guardrail": {"id": "gr-tw-ask-prod", "version": "4"}
+  }
+}

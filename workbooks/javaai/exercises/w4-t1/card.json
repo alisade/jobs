@@ -1,0 +1,25 @@
+{
+  "id": "javaai/w4-t1",
+  "title": "The tutor is slow at 09:00 and some answers never arrive",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 4,
+  "optional": false,
+  "area": "ADK agents, FastAPI and Cloud Run",
+  "scenario": "At the 09:00 cohort start the FastAPI tutor on Cloud Run takes 10-25 s and 6% of turns end in 504s. Gemini latency is unchanged, CPU is under 10% and only 2-3 of 20 instances run. L2 blames cold starts and wants min instances 5. You get the service.yaml, the code, request logs and metrics.",
+  "task": [
+    "Find why one instance serves one turn at a time and prove it with make load",
+    "Explain why the autoscaler did not add instances and where the 504s come from",
+    "Rule cold starts in or out",
+    "Fix the handler and the Cloud Run concurrency and timeout"
+  ],
+  "acceptance": [
+    "Concurrent turns overlap; health checks answer during load",
+    "timeoutSeconds >= 120, containerConcurrency 2-40, ingress internal",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 4 Wed - Cloud Run concurrency, CPU allocation and timeouts", "href": "week4"},
+    {"label": "Week 4 Mon - FastAPI async vs sync handlers", "href": "week4"}
+  ]
+}

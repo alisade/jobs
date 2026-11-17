@@ -1,0 +1,28 @@
+{
+  "id": "backend/w3-c1",
+  "title": "Idempotency keys that survive concurrent retries",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "API design: REST, GraphQL, idempotency, pagination",
+  "scenario": "accounts-svc (FastAPI, async SQLAlchemy 2) accepts Idempotency-Key on its POSTs, but the first version checks then inserts. During a load test with retrying workflow activities and agents, 20 retries of one request created several accounts. Make the key a real guarantee.",
+  "task": [
+    "Require the Idempotency-Key on POST, scoped per tenant (400 problem if missing or too long)",
+    "Claim the key atomically by INSERT under the unique key, store a request fingerprint and the response",
+    "Replay completed responses with Idempotent-Replayed: true; 422 for a different request; 409 + Retry-After while in progress",
+    "Release the key when the handler fails or returns 5xx; expire keys after 24 h",
+    "All errors as RFC 9457 application/problem+json"
+  ],
+  "acceptance": [
+    "20 concurrent identical requests create exactly one account; the rest are replays or 409s",
+    "Fingerprint covers method, path and a canonical body (key order and whitespace do not matter)",
+    "A failed attempt can be retried with the same key; stored 4xx outcomes are replayed",
+    "Keys are per tenant; expired keys behave like new ones"
+  ],
+  "practices": [
+    {"label": "Week 3 Thu - idempotency keys and cursor pagination", "href": "week3"},
+    {"label": "Week 3 Tue - async and SQLAlchemy 2 sessions", "href": "week3"},
+    {"label": "Week 3 Wed - REST resource design, RFC 9457, OpenAPI, versioning", "href": "week3"}
+  ]
+}

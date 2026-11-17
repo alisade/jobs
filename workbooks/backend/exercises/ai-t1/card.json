@@ -1,0 +1,27 @@
+{
+  "id": "backend/ai-t1",
+  "title": "The assistant showed another business unit's pipeline",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": "ai",
+  "optional": false,
+  "area": "Agentic apps on the platform: MCP, scopes, audit",
+  "scenario": "An AMER account executive asked the Keystone sales assistant about Brightwater Logistics and got an EMEA deal amount, a competitor bid and a legal issue for Fjordline Shipping. The session token was verified and scoped to bu-amer. The assistant team proposes a stricter system prompt and a lower temperature. You get the ticket, the recorded session, the tool server log and the audit rows.",
+  "task": [
+    "Replay the recorded session offline and find why the tools returned another tenant's data",
+    "Separate the trigger from the cause, with evidence; assess the proposed prompt fix",
+    "Fix the tool layer so authorization comes only from the session's delegated identity",
+    "Audit every call (including denials) with enough detail to answer 'what did the agent do'"
+  ],
+  "acceptance": [
+    "Replaying INC-7731 returns no cross-tenant data; the injected call fails",
+    "Tool schemas expose no tenant argument and reject unknown arguments",
+    "Other tenants' ids look like not-found; timeline text is marked untrusted; limit bounded",
+    "Every call audited with agent, on-behalf-of user, tenant, tool, args hash, outcome, trace id"
+  ],
+  "practices": [
+    {"label": "AI Integration - 4 Security (prompt injection, server-side enforcement)", "href": "ai"},
+    {"label": "AI Integration - 1 Tool design", "href": "ai"},
+    {"label": "Week 1 Fri - shared core compressed (Claude Code, tool calling, MCP, LLM security)", "href": "week1"}
+  ]
+}

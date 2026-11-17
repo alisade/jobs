@@ -1,0 +1,7 @@
+course-ingest 3.2 (deployed 2026-11-11 16:40 UTC)
+  - Embedding model text-embedding-004 -> text-embedding-005 (same dimensions, re-embeds every row)
+  - Faster section splitter
+course-content merge 2026-11-12 08:55 UTC (PR #412, Course Ops)
+  + bio-210/00-welcome.md   "Welcome to Microbiology" (front matter lesson: l0)
+    "new course intro shown before lesson 1, as requested by the dean's office"
+  Triggered: Cloud Build -> course-ingest job -> course_chunks rebuilt for bio-210 at 09:02 UTC

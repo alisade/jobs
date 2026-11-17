@@ -1,0 +1,29 @@
+{
+  "reviewers": [
+    "s.lindqvist",
+    "r.okafor"
+  ],
+  "exceptions": {
+    "EXC-2026-0412": {
+      "change_id": "CHG-104233",
+      "attribute": "approval_before_deploy",
+      "status": "open",
+      "prepared_by": "svc-controlpilot",
+      "opened_at": "2026-11-10T21:02:00Z",
+      "history": []
+    },
+    "EXC-2026-0415": {
+      "change_id": "CHG-104240",
+      "attribute": "independent_approver",
+      "status": "open",
+      "prepared_by": "svc-controlpilot",
+      "opened_at": "2026-11-10T21:05:00Z",
+      "history": []
+    }
+  },
+  "workpaper": {
+    "CHG-104118": "pass",
+    "CHG-104233": "exception",
+    "CHG-104240": "exception"
+  }
+}

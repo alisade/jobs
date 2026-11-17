@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.6.0",
+  "id": "CMV-2026-0103",
+  "summary": "JNDI lookup in log messages allows code execution",
+  "database_specific": {
+    "severity": "CRITICAL"
+  },
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "Maven",
+        "name": "org.apache.logging.log4j:log4j-core"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.0-beta9"
+            },
+            {
+              "fixed": "2.17.1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

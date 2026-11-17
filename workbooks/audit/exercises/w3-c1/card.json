@@ -1,0 +1,27 @@
+{
+  "id": "audit/w3-c1",
+  "title": "ADK CM-03 tester with scoped tools, guardrail callbacks and an execution log",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 3,
+  "optional": false,
+  "area": "Google ADK and Gemini Enterprise Agent Platform",
+  "scenario": "ControlPilot's CM-03 tester moves onto Google ADK. The shared tool registry contains a write tool from another skill, and the change system holds out-of-sample and confidential tickets. Build the agent so it can read only the sample, never write outside record_result, stays within a tool budget, logs every call, and has its final answer checked against session state. A scripted BaseLlm plays the model.",
+  "task": [
+    "Write a before_tool_callback: allow-list, sample scoping for change ids and PRs, result values, a budget in session state",
+    "Write an after_tool_callback that logs one entry per call with blocked flags and result digests",
+    "Wire the ADK Agent with only the allowed tools and run it with Runner and a session",
+    "Validate the final summary strictly and cross-check it against what record_result stored"
+  ],
+  "acceptance": [
+    "Out-of-sample and unlinked calls are blocked and never executed",
+    "close_change is never offered and never runs",
+    "One log entry per call, in order, including blocked calls",
+    "Summary mismatches, gaps and free text end in needs_review"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - ADK agents, tools and Runner", "href": "week3"},
+    {"label": "Week 3 Wed - callbacks as guardrails, custom models for offline tests", "href": "week3"},
+    {"label": "Week 5 Thu - least-privilege tools", "href": "week5"}
+  ]
+}

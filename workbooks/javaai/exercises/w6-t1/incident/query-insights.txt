@@ -1,0 +1,15 @@
+# Cloud SQL Query Insights, 2026-11-13 08:30-10:00, top query by total time
+SELECT a.id, a.quiz_item_id, a.correct, a.created_at FROM quiz_attempt a
+ WHERE a.learner_id = $1 AND a.course_id = $2 AND date(a.created_at) >= $3
+ ORDER BY a.created_at DESC LIMIT 20
+calls 312,480   mean 1,840 ms   rows returned (avg) 11   rows examined (avg) 2,950,000
+
+# EXPLAIN (ANALYZE, BUFFERS) for one call (learner lrn-01234, course c03, since 2026-10-01)
+Limit  (actual time=1712.4..1712.4 rows=11 loops=1)
+  ->  Index Scan Backward using idx_attempt_created_learner on quiz_attempt a  (actual rows=11 loops=1)
+        Filter: ((learner_id = 'lrn-01234') AND (course_id = 'c03') AND (date(created_at) >= '2026-10-01'))
+        Rows Removed by Filter: 40981233
+        Buffers: shared hit=1204331 read=388210
+Planning Time: 0.2 ms
+Execution Time: 1712.6 ms
+# 2026-07 (8M rows): same plan, mean 290 ms

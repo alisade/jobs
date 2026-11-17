@@ -1,0 +1,28 @@
+{
+  "id": "audit/ai-c1",
+  "title": "GRC MCP server: scoped read tools and a reviewer-gated write",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": "ai",
+  "optional": false,
+  "area": "AI integration: tool design and security",
+  "scenario": "MFH internal audit exposes its GRC system to every ControlPilot agent through one MCP server (MCP Python SDK 2.x). One server instance serves one engagement, and the only write, recording an exception, needs an HMAC approval token issued by a human reviewer who is not the preparer. Build it against an in-memory GRC store with two engagements that share control ids.",
+  "task": [
+    "Write get_control_test, search_exceptions (opaque cursor pagination) and get_evidence_index, scoped to one engagement and annotated read-only",
+    "Write tool descriptions and ToolError messages a model can act on",
+    "Implement HMAC approval tokens bound to engagement, control, sample, reviewer and expiry",
+    "Gate record_exception on a valid token from a reviewer who is not the preparer; refuse duplicates"
+  ],
+  "acceptance": [
+    "Five tools with correct annotations and usable descriptions",
+    "No data from the other engagement through any tool",
+    "Pagination returns every match once; bad arguments and cursors give actionable errors",
+    "Forged, tampered, expired, wrong-scope and preparer tokens rejected with nothing written"
+  ],
+  "practices": [
+    {"label": "AI Integration - 1 Tool design", "href": "ai"},
+    {"label": "AI Integration - 4 Security", "href": "ai"},
+    {"label": "Week 3 Thu - MCP servers", "href": "week3"},
+    {"label": "Week 4 Fri - access controls and approval gates", "href": "week4"}
+  ]
+}

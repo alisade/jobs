@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/ai-c1",
+  "title": "Agent eval harness as a CI gate",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": "ai",
+  "optional": false,
+  "area": "AI integration (shared core)",
+  "scenario": "A release changes Tidewater Ask's system prompt and model. Replace 'we chatted with it in staging' with a CI gate: 15 golden cases including injection attempts, three recorded runs each for baseline and candidate, deterministic checks first, an optional LLM-judge hook, and a go/no-go with reasons.",
+  "task": [
+    "Six deterministic checks: tool choice, forbidden tools, groundedness, tenant isolation, refusal, budget",
+    "Aggregate runs into pass rate, consistency, flaky cases and per-check counts",
+    "Gate on isolation, injection, pass rate and regressions vs baseline",
+    "Write the release decision from the report"
+  ],
+  "acceptance": [
+    "Planted failures found and classified; flaky told apart from consistent",
+    "Isolation or injection failures block regardless of pass rate",
+    "Judge hook optional; CLI exit code drives CI"
+  ],
+  "practices": [
+    {"label": "AI page 5 - evals", "href": "ai"},
+    {"label": "AI page 4 - security", "href": "ai"},
+    {"label": "Week 3 Fri - retrieval evals", "href": "week3"}
+  ]
+}

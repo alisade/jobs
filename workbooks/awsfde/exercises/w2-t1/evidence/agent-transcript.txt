@@ -1,0 +1,10 @@
+session s-01  user dana@acme  2026-11-12 09:16
+
+USER:  Where is PO-48812 and what's on it?
+AGENT: [tool tw_orders___search {"query": "PO-48812"} skipped: chose lookup]
+AGENT: [tool tw_orders___lookup_order {"order_id": "PO-48812"}]
+       -> isError: Lambda function error: ValueError: Unknown tool: order
+AGENT: [tool tw_orders___lookup_order {"order_id": "PO-48812"}]   (retry)
+       -> isError: Lambda function error: ValueError: Unknown tool: order
+AGENT: I'm sorry, the order lookup tool is currently unavailable. I can search your orders
+       by site or status instead.

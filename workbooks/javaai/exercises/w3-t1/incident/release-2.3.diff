@@ -1,0 +1,29 @@
+commit 3be1c07  (tag: quiz-gen-2.3)
+    PLAT-3317 one safety profile for all products; bump fastapi, pydantic
+
+diff --git a/config/safety.yaml b/config/safety.yaml
+--- a/config/safety.yaml
++++ b/config/safety.yaml
+@@ -1,7 +1,8 @@
+ # Gemini safety thresholds for quiz generation (Kestrel Learning, adult learners).
++# Release 2.3: aligned with the kestrel-kids profile (PLAT-3317).
+ thresholds:
+-  HARM_CATEGORY_HARASSMENT: BLOCK_MEDIUM_AND_ABOVE
+-  HARM_CATEGORY_HATE_SPEECH: BLOCK_MEDIUM_AND_ABOVE
+-  HARM_CATEGORY_SEXUALLY_EXPLICIT: BLOCK_MEDIUM_AND_ABOVE
+-  HARM_CATEGORY_DANGEROUS_CONTENT: BLOCK_ONLY_HIGH
++  HARM_CATEGORY_HARASSMENT: BLOCK_LOW_AND_ABOVE
++  HARM_CATEGORY_HATE_SPEECH: BLOCK_LOW_AND_ABOVE
++  HARM_CATEGORY_SEXUALLY_EXPLICIT: BLOCK_LOW_AND_ABOVE
++  HARM_CATEGORY_DANGEROUS_CONTENT: BLOCK_LOW_AND_ABOVE
+
+diff --git a/requirements.txt b/requirements.txt
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-fastapi==0.110.0
+-pydantic==2.6.4
++fastapi==0.115.6
++pydantic==2.10.4
+ pyyaml==6.0.2
+ google-genai==1.31.0

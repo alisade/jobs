@@ -1,0 +1,28 @@
+# Alertmanager config (platform-observability repo, deployed with the GMP managed Alertmanager).
+route:
+  receiver: slack-techops
+  group_by: [alertname, cluster, namespace]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    - matchers: ['severity="page"', 'team=~"riq|mdm|rdm"']
+      receiver: pagerduty-core-services
+      continue: true
+    - matchers: ['severity="page"']
+      receiver: pagerduty-techops
+    - matchers: ['severity="ticket"']
+      receiver: jira-techops
+inhibit_rules:
+  - source_matchers: ['severity="page"']
+    target_matchers: ['severity="ticket"']
+    equal: [namespace, cluster]
+receivers:
+  - name: slack-techops
+    slack_configs: [{channel: "#techops-alerts"}]
+  - name: pagerduty-core-services
+    pagerduty_configs: [{routing_key_file: /etc/alertmanager/secrets/pd-core-services}]
+  - name: pagerduty-techops
+    pagerduty_configs: [{routing_key_file: /etc/alertmanager/secrets/pd-techops}]
+  - name: jira-techops
+    webhook_configs: [{url: "http://jira-bridge.monitoring.svc:8080/alert"}]

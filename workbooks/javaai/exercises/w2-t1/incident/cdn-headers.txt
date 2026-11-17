@@ -1,0 +1,8 @@
+$ curl -sI https://learn.kestrel.example/api/lessons/3/quiz-items -H 'Authorization: Bearer ...'
+HTTP/2 200
+content-type: application/json
+cache-control: public, max-age=300
+vary: Authorization
+x-cache: MISS from edge-sjc
+# max-age=300 has been set since release 0.2 (2026-08); the reports started 2026-10-14 with app release 1.6,
+# which replaced the lesson page's "load quiz on route resolve" with the new reactive QuizPageStore.

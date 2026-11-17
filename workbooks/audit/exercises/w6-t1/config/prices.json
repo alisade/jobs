@@ -1,0 +1,8 @@
+{
+  "model": "gemini-3.8-flash",
+  "unit": "usd_per_1m_tokens",
+  "note": "illustrative prices for the exercise",
+  "input": 0.30,
+  "cached_input": 0.03,
+  "output": 2.50
+}

@@ -1,0 +1,133 @@
+{
+ "": {
+  "entityTypes": {
+   "User": {
+    "shape": {
+     "type": "Record",
+     "attributes": {
+      "role": {
+       "type": "String"
+      },
+      "username": {
+       "type": "String"
+      },
+      "team": {
+       "type": "String",
+       "required": false
+      },
+      "idp": {
+       "type": "String"
+      }
+     }
+    }
+   },
+   "Gateway": {}
+  },
+  "actions": {
+   "create_access_request": {
+    "appliesTo": {
+     "principalTypes": [
+      "User"
+     ],
+     "resourceTypes": [
+      "Gateway"
+     ],
+     "context": {
+      "type": "Record",
+      "attributes": {
+       "input": {
+        "type": "Record",
+        "attributes": {
+         "user": {
+          "type": "String"
+         },
+         "entitlement": {
+          "type": "String"
+         },
+         "team": {
+          "type": "String"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "approve_access_request": {
+    "appliesTo": {
+     "principalTypes": [
+      "User"
+     ],
+     "resourceTypes": [
+      "Gateway"
+     ],
+     "context": {
+      "type": "Record",
+      "attributes": {
+       "input": {
+        "type": "Record",
+        "attributes": {
+         "request_id": {
+          "type": "String"
+         },
+         "team": {
+          "type": "String"
+         },
+         "requester": {
+          "type": "String"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "get_access_request": {
+    "appliesTo": {
+     "principalTypes": [
+      "User"
+     ],
+     "resourceTypes": [
+      "Gateway"
+     ],
+     "context": {
+      "type": "Record",
+      "attributes": {
+       "input": {
+        "type": "Record",
+        "attributes": {
+         "request_id": {
+          "type": "String"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "list_access_requests": {
+    "appliesTo": {
+     "principalTypes": [
+      "User"
+     ],
+     "resourceTypes": [
+      "Gateway"
+     ],
+     "context": {
+      "type": "Record",
+      "attributes": {
+       "input": {
+        "type": "Record",
+        "attributes": {
+         "team": {
+          "type": "String"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

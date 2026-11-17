@@ -1,0 +1,13 @@
+{
+  "region": "us-east-1",
+  "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "guardrail": {"id": "gr-tw-ask-prod", "version": "3"},
+  "max_tokens": 1024,
+  "max_tool_rounds": 4,
+  "table_name": "tidewater-ops",
+  "prices_note": "Illustrative prices in USD per 1,000 tokens for cost estimates in this exercise; not current list prices.",
+  "prices_per_1k": {
+    "us.anthropic.claude-sonnet-4-5-20250929-v1:0": {"input": 0.003, "output": 0.015, "cache_read": 0.0003, "cache_write": 0.00375},
+    "us.amazon.nova-pro-v1:0": {"input": 0.0008, "output": 0.0032, "cache_read": 0.0002, "cache_write": 0.0008}
+  }
+}

@@ -1,0 +1,32 @@
+$ kubectl -n team-riq get appdatabase riq-scores
+NAME         SYNCED   READY   COMPOSITION            AGE
+riq-scores   True     False   appdatabase-cloudsql   19h
+
+$ crossplane beta trace appdatabase riq-scores -n team-riq
+NAME                                           SYNCED   READY   STATUS
+AppDatabase/riq-scores (team-riq)              True     False   Creating: Unready resources: riq-scores-database, riq-scores-instance, and riq-scores-user
++- DatabaseInstance/riq-scores-instance        False    -       ReconcileError: ...referenced ProviderConfig...
++- Database/riq-scores-database                False    -       ReconcileError: ...referenced ProviderConfig...
++- User/riq-scores-user                        False    -       ReconcileError: ...referenced ProviderConfig...
+
+$ kubectl -n team-riq describe databaseinstance.sql.gcp.m.upbound.io riq-scores-instance | sed -n '/Provider Config Ref/,/Events/p'
+  Provider Config Ref:
+    Kind:  ProviderConfig
+    Name:  default
+Status:
+  Conditions:
+    Reason:   ReconcileError
+    Message:  connect failed: cannot get referenced ProviderConfig: ProviderConfig.gcp.m.upbound.io "default" not found
+    Type:     Synced
+Events:
+  Warning  CannotConnectToProvider  2m (x241 over 19h)  managed/sql.gcp.m.upbound.io/v1beta1, kind=databaseinstance  cannot get referenced ProviderConfig
+
+$ kubectl get providerconfigs.gcp.m.upbound.io -A
+No resources found
+$ kubectl get clusterproviderconfigs.gcp.m.upbound.io
+NAME      AGE
+default   19h
+
+$ kubectl -n crossplane-system logs deploy/provider-gcp-sql --since=30h | grep -i token | tail -2
+2026-11-11T14:02:10Z WARN  google: could not refresh token: metadata server timeout (retrying)
+2026-11-11T14:02:14Z INFO  google: token refreshed via Workload Identity (crossplane-sql@tsl-platform-prod.iam.gserviceaccount.com)

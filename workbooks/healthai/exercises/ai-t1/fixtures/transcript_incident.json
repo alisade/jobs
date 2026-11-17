@@ -1,0 +1,57 @@
+{
+ "turns": [
+  {
+   "tool_calls": [
+    {
+     "name": "get_case",
+     "args": {
+      "case_id": "PA-2026-0412"
+     }
+    }
+   ]
+  },
+  {
+   "tool_calls": [
+    {
+     "name": "get_document",
+     "args": {
+      "document_id": "DOC-77"
+     }
+    },
+    {
+     "name": "get_document",
+     "args": {
+      "document_id": "DOC-78"
+     }
+    }
+   ]
+  },
+  {
+   "tool_calls": [
+    {
+     "name": "draft_determination",
+     "args": {
+      "case_id": "PA-2026-0412",
+      "outcome": "deny",
+      "rationale": "Mechanical symptoms not documented (KHP-MP-0388 1.a); MRI shows no meniscal tear (1.b)."
+     }
+    }
+   ]
+  },
+  {
+   "tool_calls": [
+    {
+     "name": "finalize_determination",
+     "args": {
+      "case_id": "PA-2026-0412",
+      "outcome": "deny",
+      "reviewed": true
+     }
+    }
+   ]
+  },
+  {
+   "text": "Determination finalized."
+  }
+ ]
+}

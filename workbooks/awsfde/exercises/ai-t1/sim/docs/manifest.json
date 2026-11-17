@@ -1,0 +1,5 @@
+[
+  {"doc_id": "corvid-carrier-sla", "file": "carrier-sla.txt", "tenant_id": "corvid-logistics", "uploaded_by": "corvid-admin@corvid-logistics.example", "ingested": "2026-09-14"},
+  {"doc_id": "corvid-weekly-template", "file": "weekly-summary-template.txt", "tenant_id": "corvid-logistics", "uploaded_by": "corvid-admin@corvid-logistics.example", "ingested": "2026-09-14"},
+  {"doc_id": "corvid-rivermark-q4", "file": "carrier-scorecard-q4-rivermark.txt", "tenant_id": "corvid-logistics", "uploaded_by": "partner-portal:rivermark-freight", "ingested": "2026-11-07"}
+]

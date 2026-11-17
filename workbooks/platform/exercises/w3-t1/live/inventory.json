@@ -1,0 +1,68 @@
+{
+  "projects/tsl-riq-prod/global/networks/riq-legacy": {
+    "type": "google_compute_network",
+    "attrs": {
+      "name": "riq-legacy",
+      "project": "tsl-riq-prod",
+      "description": "RIQ legacy VPC (hand-built 2023)",
+      "auto_create_subnetworks": false,
+      "routing_mode": "GLOBAL",
+      "mtu": 1460
+    }
+  },
+  "projects/tsl-riq-prod/regions/us-central1/subnetworks/riq-usc1": {
+    "type": "google_compute_subnetwork",
+    "attrs": {
+      "name": "riq-usc1",
+      "project": "tsl-riq-prod",
+      "region": "us-central1",
+      "network": "projects/tsl-riq-prod/global/networks/riq-legacy",
+      "ip_cidr_range": "10.40.0.0/20",
+      "private_ip_google_access": true,
+      "description": null
+    }
+  },
+  "projects/tsl-riq-prod/regions/us-east4/subnetworks/riq-use4": {
+    "type": "google_compute_subnetwork",
+    "attrs": {
+      "name": "riq-use4",
+      "project": "tsl-riq-prod",
+      "region": "us-east4",
+      "network": "projects/tsl-riq-prod/global/networks/riq-legacy",
+      "ip_cidr_range": "10.40.16.0/20",
+      "private_ip_google_access": true,
+      "description": null
+    }
+  },
+  "tsl-riq-prod/tsl-riq-exports": {
+    "type": "google_storage_bucket",
+    "attrs": {
+      "name": "tsl-riq-exports",
+      "project": "tsl-riq-prod",
+      "location": "US-CENTRAL1",
+      "uniform_bucket_level_access": true,
+      "public_access_prevention": "enforced",
+      "labels": {
+        "owner": "riq",
+        "env": "prod"
+      },
+      "storage_class": "STANDARD"
+    }
+  },
+  "projects/tsl-riq-prod/instances/riq-legacy-pg": {
+    "type": "google_sql_database_instance",
+    "attrs": {
+      "name": "riq-legacy-pg",
+      "project": "tsl-riq-prod",
+      "region": "us-central1",
+      "database_version": "POSTGRES_14",
+      "settings": [
+        {
+          "tier": "db-custom-4-16384",
+          "availability_type": "REGIONAL"
+        }
+      ],
+      "deletion_protection": true
+    }
+  }
+}

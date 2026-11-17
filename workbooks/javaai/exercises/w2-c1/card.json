@@ -1,0 +1,26 @@
+{
+  "id": "javaai/w2-c1",
+  "title": "Streaming tutor chat: SSE parsing, cancellation and an answer-leak guard",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "Angular and TypeScript",
+  "scenario": "Kestrel's Angular tutor panel streams the agent's answer over SSE. Pilot bugs: lost words and broken characters, two answers mixed when a learner asks again, a spinner that never stops when the agent is down, and a reply that spelled out the answer to the learner's open quiz question. The logic is framework-free TypeScript + RxJS tested with jest.",
+  "task": [
+    "parseSse that survives chunks cut anywhere, including inside UTF-8 characters",
+    "A streaming leak guard that redacts quiz answers split across tokens",
+    "A store with latest-wins cancellation, error states and a first-token timeout"
+  ],
+  "acceptance": [
+    "Hidden jest tests cut the stream at every byte offset",
+    "Guard: across tokens, no false positives, no early prefix",
+    "Store: cancellation, flush on done, citations, errors, timeout",
+    "ANSWER.md: Angular wiring and why the server guard stays"
+  ],
+  "practices": [
+    {"label": "Week 2 Tue - signals and RxJS", "href": "week2"},
+    {"label": "Week 2 Wed - HttpClient and streamed responses", "href": "week2"},
+    {"label": "Week 2 Thu - testing services and components", "href": "week2"}
+  ]
+}

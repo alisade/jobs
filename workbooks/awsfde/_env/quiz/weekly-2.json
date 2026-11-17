@@ -1,0 +1,385 @@
+{
+  "questions": [
+    {
+      "id": "w2-q01",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "multi",
+      "stem": "You are containerizing Tidewater Ask for AgentCore Runtime with the HTTP protocol. Which two are part of the container contract? Choose two.",
+      "options": [
+        "Serve on 0.0.0.0 port 8080 (default) with POST /invocations and GET /ping",
+        "Build an ARM64 container image",
+        "Expose port 443 with TLS terminated in the container",
+        "Implement /healthz returning plain text OK",
+        "Run as a Lambda handler function"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "The HTTP protocol contract is port 8080 by default, /invocations and /ping, on an ARM64 container. TLS terminates at the service; /healthz and Lambda handlers are not part of it.",
+      "learn": [
+        {
+          "label": "Runtime HTTP protocol contract",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-http-protocol-contract.html"
+        },
+        {
+          "label": "AgentCore Runtime",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w2-q02",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "Your /ping returns <code>{\"status\": \"Healthy\", \"time_of_last_update\": now()}</code> on every call. What goes wrong?",
+      "options": [
+        "Nothing, it is the documented format",
+        "The idle session timeout never fires, so sessions live until max lifetime and can exhaust your session quota",
+        "The runtime treats the agent as unhealthy",
+        "Invocations are rejected with 409"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "time_of_last_update must change only when the status changes. A timestamp that advances on every ping looks like a continuous status change and keeps sessions alive.",
+      "learn": [
+        {
+          "label": "Runtime HTTP protocol contract",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-http-protocol-contract.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q03",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "An invocation kicks off a background reindex that runs after the response is sent. What should /ping report meanwhile?",
+      "options": [
+        "Healthy",
+        "HealthyBusy, which keeps the session active while the work runs",
+        "Unhealthy",
+        "Nothing; return 204"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "HealthyBusy says the agent is operational but busy with async work, and the session is kept alive. Healthy would let the idle timeout stop the microVM mid-task.",
+      "learn": [
+        {
+          "label": "Runtime HTTP protocol contract",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-http-protocol-contract.html"
+        },
+        {
+          "label": "Runtime sessions",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q04",
+      "week": 2,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "The agent code needs the caller's tenant_id claim. The runtime uses a customJWTAuthorizer. How does the token reach the container?",
+      "options": [
+        "It is always forwarded in X-Amzn-Bedrock-AgentCore-Runtime-Session-Id",
+        "Add Authorization to the runtime's request header allowlist; it can be forwarded when the runtime has a custom JWT authorizer",
+        "Call Cognito from the container with the user's password",
+        "Read it from the payload the web app sends"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Authorization is forwarded only if allowlisted, and only for runtimes configured with a custom JWT authorizer, which validated it first. The payload is attacker-controlled and the session header carries the session id.",
+      "learn": [
+        {
+          "label": "Pass custom headers to AgentCore Runtime",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-header-allowlist.html"
+        },
+        {
+          "label": "Runtime inbound and outbound auth",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-oauth.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q05",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "A session on AgentCore Runtime (microVM) sits idle for 20 minutes with default settings, then the user asks again with the same session id. What happens?",
+      "options": [
+        "The request fails with ResourceNotFoundException",
+        "The session had stopped after the 15-minute default idle timeout; the next invocation provisions a new microVM for the same session id, and in-memory state is gone",
+        "The old microVM resumes with its memory intact",
+        "Sessions never stop before 8 hours"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Defaults are 15 minutes idle and 8 hours max lifetime. A stopped session becomes active again on the next invocation on new compute, so durable state belongs in AgentCore Memory (or session storage), not in process memory.",
+      "learn": [
+        {
+          "label": "Runtime sessions",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html"
+        },
+        {
+          "label": "AgentCore Memory",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q06",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "A Gateway Lambda target named <code>tw_orders</code> exposes <code>lookup_order</code>. What does the function see in <code>context.client_context.custom[\"bedrockAgentCoreToolName\"]</code>?",
+      "options": [
+        "lookup_order",
+        "tw_orders___lookup_order (target name, three underscores, tool name)",
+        "tw_orders/lookup_order",
+        "arn:aws:bedrock-agentcore:...:tool/lookup_order"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The Gateway prefixes the tool with the target name and a triple-underscore delimiter; the docs' boilerplate strips it with index('___'). Splitting on single underscores breaks tools whose names contain underscores.",
+      "learn": [
+        {
+          "label": "Gateway: AWS Lambda function targets",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-add-target-lambda.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q07",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "What is the Lambda <code>event</code> when the Gateway invokes a Lambda target for tools/call?",
+      "options": [
+        "The full MCP JSON-RPC request",
+        "A map of the tool's inputSchema properties to their values (the tool arguments)",
+        "An API Gateway proxy event",
+        "The user's JWT claims"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The event is just the arguments; metadata (tool name, gateway id, target id, MCP message id) is in the context's client_context.custom.",
+      "learn": [
+        {
+          "label": "Gateway: AWS Lambda function targets",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-add-target-lambda.html"
+        },
+        {
+          "label": "AgentCore Gateway",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q08",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "You scope the runtime role with <code>bedrock-agentcore:namespace</code> conditions. Which value matches what AgentCore Memory acts on?",
+      "options": [
+        "tenant/acme-foods/actor/alice",
+        "/tenant/acme-foods/actor/alice",
+        "/tenant/acme-foods/actor/alice/ (one leading and one trailing slash)",
+        "Any of these; Memory normalizes IAM values"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Memory stores namespaces normalized with a leading and a trailing slash, and IAM condition values must use the same form; omitting a slash means the policy does not match. The trailing slash also prevents prefix collisions such as alice vs alice2.",
+      "learn": [
+        {
+          "label": "Long-term memory namespaces",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/specify-long-term-memory-organization.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q09",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "multi",
+      "stem": "A semantic strategy uses <code>/org/{orgname}/actor/{actorId}/</code> with a custom namespace key <code>orgname</code>. Which two are true? Choose two.",
+      "options": [
+        "Values are supplied per event in CreateEvent extractionConfig.namespaceVariables",
+        "Custom variable keys and values must be lowercase",
+        "If orgname is missing, CreateEvent fails",
+        "Custom variables replace actorId",
+        "Values are read from the caller's JWT automatically"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Custom variables are declared as namespaceKeys on the memory and supplied in extractionConfig.namespaceVariables; keys and values are lowercase. If a referenced variable is missing, the event is still stored but long-term extraction is skipped for that strategy (NamespaceResolutionFailure metric).",
+      "learn": [
+        {
+          "label": "Long-term memory namespaces",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/specify-long-term-memory-organization.html"
+        },
+        {
+          "label": "Memory strategies",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-strategies.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w2-q10",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "multi",
+      "stem": "Which two statements about AgentCore Memory are correct? Choose two.",
+      "options": [
+        "CreateEvent stores conversation events per actor and session (short-term memory)",
+        "Memory strategies extract long-term records from events asynchronously, and RetrieveMemoryRecords searches them in a namespace",
+        "Long-term records are written synchronously before CreateEvent returns",
+        "Memory has no notion of actors; isolation must be done in the prompt",
+        "RetrieveMemoryRecords requires the session id"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Events are short-term, scoped by actorId and sessionId; strategies (semantic, summary, user preference, custom) extract long-term records into namespaces in the background, which you search with RetrieveMemoryRecords.",
+      "learn": [
+        {
+          "label": "AgentCore Memory",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html"
+        },
+        {
+          "label": "Memory strategies",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-strategies.html"
+        }
+      ],
+      "choose": 2
+    },
+    {
+      "id": "w2-q11",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "A customer wants a stateless classifier: one Converse call per support email, no tools, no session. Runtime or Lambda?",
+      "options": [
+        "AgentCore Runtime, because all agents must run there",
+        "A plain Lambda calling Converse is enough; Runtime pays off for multi-step, long-running, session-isolated agents",
+        "Neither; use InvokeModel from the browser",
+        "Runtime, because Lambda cannot call Bedrock"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Runtime gives per-session microVM isolation, long sessions and agent-framework hosting. A single stateless call does not need it, and an FDE should say so.",
+      "learn": [
+        {
+          "label": "AgentCore Runtime",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html"
+        },
+        {
+          "label": "What is AgentCore",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q12",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "You write the Tidewater Ask infrastructure in CDK for a client. Which statement about AgentCore constructs is current?",
+      "options": [
+        "Everything is in @aws-cdk/aws-bedrock-agentcore-alpha",
+        "The L2 constructs are stable in aws-cdk-lib/aws-bedrockagentcore; only Policy is still in the alpha package",
+        "There is no CDK support; use raw CloudFormation",
+        "Use the deprecated starter toolkit instead"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The AgentCore L2 constructs moved to aws-cdk-lib/aws-bedrockagentcore; Policy (PolicyEngine, Policy) remains alpha. Check that before suggesting an alpha dependency in a client repo.",
+      "learn": [
+        {
+          "label": "CDK aws-bedrockagentcore module (stable)",
+          "href": "https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_bedrockagentcore-readme.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q13",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "Traces from the AgentCore runtime do not show up in CloudWatch. What one-time setup is commonly missing?",
+      "options": [
+        "Enabling X-Ray Insights",
+        "Turning on CloudWatch Transaction Search (and, for memory spans, enabling tracing on the memory)",
+        "Creating a Firehose stream",
+        "Adding a CloudWatch dashboard"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "AgentCore observability needs CloudWatch Transaction Search enabled once per account to view spans and traces; memory spans also need tracing enabled at memory creation.",
+      "learn": [
+        {
+          "label": "AgentCore Observability",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html"
+        }
+      ]
+    },
+    {
+      "id": "w2-q14",
+      "week": 2,
+      "set": "weekly",
+      "area": "agentcore",
+      "type": "single",
+      "stem": "Security wants a deterministic rule: the agent may call create_refund only for amounts under 500 USD, regardless of what the model decides. Which AgentCore capability fits?",
+      "options": [
+        "Memory strategies",
+        "AgentCore Policy (Cedar rules evaluated on tool calls at the Gateway)",
+        "Evaluations",
+        "Observability"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Policy evaluates Cedar rules on tool calls outside the model, so the rule holds even if the model is steered. Evaluations score quality; they do not block calls.",
+      "learn": [
+        {
+          "label": "AgentCore Policy",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy.html"
+        },
+        {
+          "label": "AgentCore Evaluations",
+          "href": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"
+        }
+      ]
+    }
+  ]
+}

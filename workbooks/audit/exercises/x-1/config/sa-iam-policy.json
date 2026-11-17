@@ -1,0 +1,12 @@
+{
+  "_source": "gcloud iam service-accounts get-iam-policy controlpilot-gemini@mfh-controlpilot-prod.iam.gserviceaccount.com --format=json",
+  "bindings": [
+    {
+      "role": "roles/iam.workloadIdentityUser",
+      "members": [
+        "principal://iam.googleapis.com/projects/418203557719/locations/global/workloadIdentityPools/azure-mfh/subject/9a41e0b5-2c7d-4f38-8e19-d5b6a3c0f271"
+      ]
+    }
+  ],
+  "etag": "BwYk3x1Qf9E="
+}

@@ -1,0 +1,34 @@
+{
+  "org_id": "o-hpm4k2x9qa",
+  "management_account": "111100000000",
+  "ous": {
+    "Security": "Root",
+    "Infrastructure": "Root",
+    "Workloads": "Root",
+    "Dev": "Workloads",
+    "Prod": "Workloads",
+    "Sandbox": "Root",
+    "Suspended": "Root"
+  },
+  "accounts": {
+    "111100000001": {"name": "security-tooling", "ou": "Security"},
+    "111100000002": {"name": "shared-services", "ou": "Infrastructure"},
+    "111100000003": {"name": "lighthouse-dev", "ou": "Dev"},
+    "111100000004": {"name": "lighthouse-prod", "ou": "Prod"},
+    "111100000005": {"name": "sandbox-agents", "ou": "Sandbox"}
+  },
+  "approved_regions": ["us-east-1", "us-east-2"],
+  "cross_region_inference_destinations": ["us-east-1", "us-east-2", "us-west-2"],
+  "prod_bedrock_vpc_endpoints": ["vpce-0a1b2c3d4e5f60001", "vpce-0a1b2c3d4e5f60002"],
+  "approved_models": [
+    "anthropic.claude-sonnet-4-5-*",
+    "anthropic.claude-haiku-4-5-*",
+    "amazon.nova-lite-*"
+  ],
+  "approved_inference_profiles": [
+    "us.anthropic.claude-sonnet-4-5-*",
+    "us.anthropic.claude-haiku-4-5-*"
+  ],
+  "breakglass_role": "hpm-breakglass",
+  "cloudtrail_bucket_prefix": "hpm-org-cloudtrail-"
+}

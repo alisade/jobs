@@ -1,0 +1,33 @@
+# riq-api on the canary wave (dev-1, stg-1). Bump this first; soak 48 h; then bump stable.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: riq-api-canary
+  namespace: argocd
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            wave: canary
+  template:
+    metadata:
+      name: '{{name}}-riq-api'
+    spec:
+      project: riq
+      source:
+        repoURL: https://charts.tessellate.example/platform
+        chart: riq-api
+        targetRevision: 3.0.0
+        helm:
+          valueFiles:
+            - 'values-{{metadata.labels.env}}.yaml'
+      destination:
+        server: '{{server}}'
+        namespace: riq
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=false

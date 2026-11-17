@@ -1,0 +1,5 @@
+2026/11/18 17:01:12 [error] 61#0: *8812331 upstream timed out (110: Operation timed out) while reading response header from upstream, client: 10.40.3.12, server: kong, request: "POST /api/assistant/stream HTTP/1.1", upstream: "http://10.42.7.31:8080/api/assistant/stream", route: assistant-stream, latency_ms: 30001
+2026/11/18 17:01:19 [error] 61#0: *8812654 upstream timed out (110: Operation timed out) while reading response header from upstream, client: 10.40.1.77, server: kong, request: "POST /api/assistant/stream HTTP/1.1", upstream: "http://10.42.2.18:8080/api/assistant/stream", route: assistant-stream, latency_ms: 30000
+2026/11/18 17:02:03 [error] 62#0: *8813990 upstream timed out (110: Operation timed out) while reading response header from upstream, client: 10.40.5.4, server: kong, request: "POST /api/assistant/stream HTTP/1.1", upstream: "http://10.42.7.31:8080/api/assistant/stream", route: assistant-stream, latency_ms: 30002
+# assistant-service log for one of them (conversation c-5d01e2):
+17:01:12.114 WARN  turn c-5d01e2 cancelled by client after 30.0s; phase=tool check_inventory; skus=20 stores=2 completed_lookups=35/40

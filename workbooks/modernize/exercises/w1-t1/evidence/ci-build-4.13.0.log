@@ -1,0 +1,8 @@
+[INFO] Building claimdesk-intake (FNOL intake batch) 4.13.0
+[INFO] --- compiler:3.13.0:compile (default-compile) @ claimdesk-intake ---
+[INFO] Compiling 6 source files with javac [debug release 21] to target/classes
+[INFO] --- surefire:3.5.2:test (default-test) @ claimdesk-intake ---
+[INFO] Running com.corvane.claimdesk.intake.IntakeParserTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.412 s
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS

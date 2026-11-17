@@ -1,0 +1,24 @@
+{
+  "id": "modernize/w5-t1",
+  "title": "The remediation report says fixed, the scanner says vulnerable",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 5,
+  "area": "Supply chain and vulnerability remediation",
+  "scenario": "claimdesk-web 7.5.0 passed Corvane's SBOM-based release gate with 0 open CRITICAL findings and is in production. This morning's image scan shows two CRITICAL findings. A developer blames the scanner's newer database; AppSec needs to know which tool is right before an emergency patch.",
+  "task": [
+    "Settle each disagreement between the gate and the scanner with versions, ranges and code",
+    "Rule the scanner-database theory in or out",
+    "Fix remediate.py with Maven version semantics and add tests",
+    "Re-run the gate and state what 7.5.0 really ships"
+  ],
+  "acceptance": [
+    "Version ordering handles multi-digit segments, trailing zeros and qualifiers; multi-range advisories",
+    "Correct status for every advisory on the provided SBOMs; the gate fails 7.5.0",
+    "ANSWER.md explains the string comparison with evidence and the AppSec follow-up"
+  ],
+  "practices": [
+    {"label": "Week 5 Thu - SBOMs (CycloneDX, Syft) and scanners (Grype, OSV)", "href": "week5"},
+    {"label": "Week 5 Fri - remediation reports and upgrade policy", "href": "week5"}
+  ]
+}

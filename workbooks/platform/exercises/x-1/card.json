@@ -1,0 +1,28 @@
+{
+  "id": "platform/x-1",
+  "title": "Zero-downtime maintenance strategy for the Tessellate GKE fleet",
+  "type": "design",
+  "estimate": "2-3 h",
+  "week": 7,
+  "optional": true,
+  "area": "GKE fleet operations and zero-downtime maintenance",
+  "scenario": "INC-3982 is still open: GKE upgraded prod-blue's node pools in parallel on a Saturday morning with nobody on the bridge, mdm-search went red, a singleton's PDB blocked the drain until GKE gave up, and prod-green repeated it a week later. Stable will offer 1.34 soon and ten more clusters are planned for 2027. Dana asks you, as the staff engineer, for the fleet maintenance strategy and runbook the postmortem never produced.",
+  "task": [
+    "Choose release channels, windows and exclusions per cluster, tied to the staffed calendar and freezes",
+    "Pick a node pool upgrade strategy per workload class, with settings, quota and cost",
+    "Define workload readiness requirements (PDBs, probes, singletons, stateful, CronJobs) and how to enforce them",
+    "Design the fleet rollout order with gates, traffic shifting and rollback",
+    "Write the runbook for one prod cluster and say how it scales to 14 clusters"
+  ],
+  "acceptance": [
+    "DESIGN.md covers every template section with GKE-specific settings and numbers from inputs/",
+    "INC-3982's failure modes are each addressed explicitly",
+    "Quota and capacity for blue-green are calculated, not assumed",
+    "ANSWER.md replays INC-3982 under the new design"
+  ],
+  "practices": [
+    {"label": "Week 2 - Release channels, maintenance windows and exclusions", "href": "week2"},
+    {"label": "Week 2 - Surge and blue-green node pool upgrades, PDBs", "href": "week2"},
+    {"label": "Add-on week - fleet design review", "href": "week7"}
+  ]
+}

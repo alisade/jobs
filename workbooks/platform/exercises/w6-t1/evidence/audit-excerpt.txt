@@ -1,0 +1,8 @@
+Cloud Audit Logs, project tsl-riq-stg, 2026-11-11
+02:12:57Z cloudsql.instances.update  principal: tf-apply-stg@tsl-platform-ci.iam.gserviceaccount.com
+          via impersonation by import-agent@tsl-platform-ci.iam.gserviceaccount.com
+          request: settings.tier db-custom-2-8192
+IAM policy on tf-apply-stg (tsl-platform-ci), binding added 2026-10-02 by marco.d "temporary: let the
+import agent run plans that read secrets":
+  roles/iam.serviceAccountTokenCreator  serviceAccount:import-agent@tsl-platform-ci.iam.gserviceaccount.com
+envs/stg/backend.tf / provider.tf: impersonate_service_account = "tf-apply-stg@tsl-platform-ci.iam.gserviceaccount.com"

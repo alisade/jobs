@@ -1,0 +1,338 @@
+[
+ {
+  "id": "KHP-MP-0417-2.a",
+  "kind": "row",
+  "policy_id": "KHP-MP-0417",
+  "text": "lumbar radiculopathy step therapy weeks",
+  "must_contain": "| 2.a | radiculopathy for lumbar:"
+ },
+ {
+  "id": "KHP-MP-0417-2.b",
+  "kind": "row",
+  "policy_id": "KHP-MP-0417",
+  "text": "lumbar neurologic deficit step therapy weeks",
+  "must_contain": "| 2.b | neurologic deficit for lumbar:"
+ },
+ {
+  "id": "KHP-MP-0417-2.c",
+  "kind": "row",
+  "policy_id": "KHP-MP-0417",
+  "text": "lumbar cauda equina step therapy weeks",
+  "must_contain": "| 2.c | cauda equina for lumbar:"
+ },
+ {
+  "id": "KHP-MP-0417-2.d",
+  "kind": "row",
+  "policy_id": "KHP-MP-0417",
+  "text": "lumbar red flag symptoms step therapy weeks",
+  "must_contain": "| 2.d | red flag symptoms for lumbar:"
+ },
+ {
+  "id": "KHP-MP-0417-2.e",
+  "kind": "row",
+  "policy_id": "KHP-MP-0417",
+  "text": "lumbar prior surgery step therapy weeks",
+  "must_contain": "| 2.e | prior surgery for lumbar:"
+ },
+ {
+  "id": "KHP-MP-0417-2.f",
+  "kind": "row",
+  "policy_id": "KHP-MP-0417",
+  "text": "lumbar malignancy history step therapy weeks",
+  "must_contain": "| 2.f | malignancy history for lumbar:"
+ },
+ {
+  "id": "KHP-MP-0417-docs",
+  "kind": "text",
+  "policy_id": "KHP-MP-0417",
+  "text": "lumbar documentation attestation six months",
+  "must_contain": "attestation from the ordering clinician"
+ },
+ {
+  "id": "KHP-MP-0417-excl",
+  "kind": "text",
+  "policy_id": "KHP-MP-0417",
+  "text": "lumbar investigational cosmetic duplicate",
+  "must_contain": "investigational, cosmetic or duplicate"
+ },
+ {
+  "id": "KHP-MP-0101-2.a",
+  "kind": "row",
+  "policy_id": "KHP-MP-0101",
+  "text": "infliximab fistulizing disease step therapy weeks",
+  "must_contain": "| 2.a | fistulizing disease for infliximab:"
+ },
+ {
+  "id": "KHP-MP-0101-2.b",
+  "kind": "row",
+  "policy_id": "KHP-MP-0101",
+  "text": "infliximab steroid dependence step therapy weeks",
+  "must_contain": "| 2.b | steroid dependence for infliximab:"
+ },
+ {
+  "id": "KHP-MP-0101-2.c",
+  "kind": "row",
+  "policy_id": "KHP-MP-0101",
+  "text": "infliximab mesalamine failure step therapy weeks",
+  "must_contain": "| 2.c | mesalamine failure for infliximab:"
+ },
+ {
+  "id": "KHP-MP-0101-2.d",
+  "kind": "row",
+  "policy_id": "KHP-MP-0101",
+  "text": "infliximab azathioprine trial step therapy weeks",
+  "must_contain": "| 2.d | azathioprine trial for infliximab:"
+ },
+ {
+  "id": "KHP-MP-0101-2.e",
+  "kind": "row",
+  "policy_id": "KHP-MP-0101",
+  "text": "infliximab tuberculosis screening step therapy weeks",
+  "must_contain": "| 2.e | tuberculosis screening for infliximab:"
+ },
+ {
+  "id": "KHP-MP-0101-2.f",
+  "kind": "row",
+  "policy_id": "KHP-MP-0101",
+  "text": "infliximab hepatitis B screening step therapy weeks",
+  "must_contain": "| 2.f | hepatitis B screening for infliximab:"
+ },
+ {
+  "id": "KHP-MP-0101-docs",
+  "kind": "text",
+  "policy_id": "KHP-MP-0101",
+  "text": "infliximab documentation attestation six months",
+  "must_contain": "attestation from the ordering clinician"
+ },
+ {
+  "id": "KHP-MP-0101-excl",
+  "kind": "text",
+  "policy_id": "KHP-MP-0101",
+  "text": "infliximab investigational cosmetic duplicate",
+  "must_contain": "investigational, cosmetic or duplicate"
+ },
+ {
+  "id": "KHP-MP-0611-2.a",
+  "kind": "row",
+  "policy_id": "KHP-MP-0611",
+  "text": "polysomnography apnea hypopnea index step therapy weeks",
+  "must_contain": "| 2.a | apnea hypopnea index for polysomnography:"
+ },
+ {
+  "id": "KHP-MP-0611-2.b",
+  "kind": "row",
+  "policy_id": "KHP-MP-0611",
+  "text": "polysomnography home test failure step therapy weeks",
+  "must_contain": "| 2.b | home test failure for polysomnography:"
+ },
+ {
+  "id": "KHP-MP-0611-2.c",
+  "kind": "row",
+  "policy_id": "KHP-MP-0611",
+  "text": "polysomnography hypoventilation step therapy weeks",
+  "must_contain": "| 2.c | hypoventilation for polysomnography:"
+ },
+ {
+  "id": "KHP-MP-0611-2.d",
+  "kind": "row",
+  "policy_id": "KHP-MP-0611",
+  "text": "polysomnography neuromuscular disease step therapy weeks",
+  "must_contain": "| 2.d | neuromuscular disease for polysomnography:"
+ },
+ {
+  "id": "KHP-MP-0611-2.e",
+  "kind": "row",
+  "policy_id": "KHP-MP-0611",
+  "text": "polysomnography epworth score step therapy weeks",
+  "must_contain": "| 2.e | epworth score for polysomnography:"
+ },
+ {
+  "id": "KHP-MP-0611-2.f",
+  "kind": "row",
+  "policy_id": "KHP-MP-0611",
+  "text": "polysomnography cardiopulmonary comorbidity step therapy weeks",
+  "must_contain": "| 2.f | cardiopulmonary comorbidity for polysomnography:"
+ },
+ {
+  "id": "KHP-MP-0611-docs",
+  "kind": "text",
+  "policy_id": "KHP-MP-0611",
+  "text": "polysomnography documentation attestation six months",
+  "must_contain": "attestation from the ordering clinician"
+ },
+ {
+  "id": "KHP-MP-0611-excl",
+  "kind": "text",
+  "policy_id": "KHP-MP-0611",
+  "text": "polysomnography investigational cosmetic duplicate",
+  "must_contain": "investigational, cosmetic or duplicate"
+ },
+ {
+  "id": "KHP-MP-0903-2.a",
+  "kind": "row",
+  "policy_id": "KHP-MP-0903",
+  "text": "rehabilitation functional goals step therapy weeks",
+  "must_contain": "| 2.a | functional goals for rehabilitation:"
+ },
+ {
+  "id": "KHP-MP-0903-2.b",
+  "kind": "row",
+  "policy_id": "KHP-MP-0903",
+  "text": "rehabilitation progress notes step therapy weeks",
+  "must_contain": "| 2.b | progress notes for rehabilitation:"
+ },
+ {
+  "id": "KHP-MP-0903-2.c",
+  "kind": "row",
+  "policy_id": "KHP-MP-0903",
+  "text": "rehabilitation visit limit step therapy weeks",
+  "must_contain": "| 2.c | visit limit for rehabilitation:"
+ },
+ {
+  "id": "KHP-MP-0903-2.d",
+  "kind": "row",
+  "policy_id": "KHP-MP-0903",
+  "text": "rehabilitation plan of care step therapy weeks",
+  "must_contain": "| 2.d | plan of care for rehabilitation:"
+ },
+ {
+  "id": "KHP-MP-0903-2.e",
+  "kind": "row",
+  "policy_id": "KHP-MP-0903",
+  "text": "rehabilitation maintenance therapy step therapy weeks",
+  "must_contain": "| 2.e | maintenance therapy for rehabilitation:"
+ },
+ {
+  "id": "KHP-MP-0903-2.f",
+  "kind": "row",
+  "policy_id": "KHP-MP-0903",
+  "text": "rehabilitation home exercise program step therapy weeks",
+  "must_contain": "| 2.f | home exercise program for rehabilitation:"
+ },
+ {
+  "id": "KHP-MP-0903-docs",
+  "kind": "text",
+  "policy_id": "KHP-MP-0903",
+  "text": "rehabilitation documentation attestation six months",
+  "must_contain": "attestation from the ordering clinician"
+ },
+ {
+  "id": "KHP-MP-0903-excl",
+  "kind": "text",
+  "policy_id": "KHP-MP-0903",
+  "text": "rehabilitation investigational cosmetic duplicate",
+  "must_contain": "investigational, cosmetic or duplicate"
+ },
+ {
+  "id": "KHP-MP-0815-2.a",
+  "kind": "row",
+  "policy_id": "KHP-MP-0815",
+  "text": "glucose insulin regimen step therapy weeks",
+  "must_contain": "| 2.a | insulin regimen for glucose:"
+ },
+ {
+  "id": "KHP-MP-0815-2.b",
+  "kind": "row",
+  "policy_id": "KHP-MP-0815",
+  "text": "glucose hypoglycemia unawareness step therapy weeks",
+  "must_contain": "| 2.b | hypoglycemia unawareness for glucose:"
+ },
+ {
+  "id": "KHP-MP-0815-2.c",
+  "kind": "row",
+  "policy_id": "KHP-MP-0815",
+  "text": "glucose fingerstick frequency step therapy weeks",
+  "must_contain": "| 2.c | fingerstick frequency for glucose:"
+ },
+ {
+  "id": "KHP-MP-0815-2.d",
+  "kind": "row",
+  "policy_id": "KHP-MP-0815",
+  "text": "glucose diabetes education step therapy weeks",
+  "must_contain": "| 2.d | diabetes education for glucose:"
+ },
+ {
+  "id": "KHP-MP-0815-2.e",
+  "kind": "row",
+  "policy_id": "KHP-MP-0815",
+  "text": "glucose endocrinology visit step therapy weeks",
+  "must_contain": "| 2.e | endocrinology visit for glucose:"
+ },
+ {
+  "id": "KHP-MP-0815-2.f",
+  "kind": "row",
+  "policy_id": "KHP-MP-0815",
+  "text": "glucose sensor adherence step therapy weeks",
+  "must_contain": "| 2.f | sensor adherence for glucose:"
+ },
+ {
+  "id": "KHP-MP-0815-docs",
+  "kind": "text",
+  "policy_id": "KHP-MP-0815",
+  "text": "glucose documentation attestation six months",
+  "must_contain": "attestation from the ordering clinician"
+ },
+ {
+  "id": "KHP-MP-0815-excl",
+  "kind": "text",
+  "policy_id": "KHP-MP-0815",
+  "text": "glucose investigational cosmetic duplicate",
+  "must_contain": "investigational, cosmetic or duplicate"
+ },
+ {
+  "id": "KHP-MP-0520-2.a",
+  "kind": "row",
+  "policy_id": "KHP-MP-0520",
+  "text": "bariatric body mass index step therapy weeks",
+  "must_contain": "| 2.a | body mass index for bariatric:"
+ },
+ {
+  "id": "KHP-MP-0520-2.b",
+  "kind": "row",
+  "policy_id": "KHP-MP-0520",
+  "text": "bariatric supervised diet step therapy weeks",
+  "must_contain": "| 2.b | supervised diet for bariatric:"
+ },
+ {
+  "id": "KHP-MP-0520-2.c",
+  "kind": "row",
+  "policy_id": "KHP-MP-0520",
+  "text": "bariatric psychological evaluation step therapy weeks",
+  "must_contain": "| 2.c | psychological evaluation for bariatric:"
+ },
+ {
+  "id": "KHP-MP-0520-2.d",
+  "kind": "row",
+  "policy_id": "KHP-MP-0520",
+  "text": "bariatric nutrition counseling step therapy weeks",
+  "must_contain": "| 2.d | nutrition counseling for bariatric:"
+ },
+ {
+  "id": "KHP-MP-0520-2.e",
+  "kind": "row",
+  "policy_id": "KHP-MP-0520",
+  "text": "bariatric comorbid hypertension step therapy weeks",
+  "must_contain": "| 2.e | comorbid hypertension for bariatric:"
+ },
+ {
+  "id": "KHP-MP-0520-2.f",
+  "kind": "row",
+  "policy_id": "KHP-MP-0520",
+  "text": "bariatric smoking cessation step therapy weeks",
+  "must_contain": "| 2.f | smoking cessation for bariatric:"
+ },
+ {
+  "id": "KHP-MP-0520-docs",
+  "kind": "text",
+  "policy_id": "KHP-MP-0520",
+  "text": "bariatric documentation attestation six months",
+  "must_contain": "attestation from the ordering clinician"
+ },
+ {
+  "id": "KHP-MP-0520-excl",
+  "kind": "text",
+  "policy_id": "KHP-MP-0520",
+  "text": "bariatric investigational cosmetic duplicate",
+  "must_contain": "investigational, cosmetic or duplicate"
+ }
+]

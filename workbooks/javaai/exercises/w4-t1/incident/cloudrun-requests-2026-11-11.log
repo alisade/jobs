@@ -1,0 +1,50 @@
+# Cloud Run request logs, service tutor-agent revision tutor-agent-00031-mex, 2026-11-11 (excerpt)
+# fields: timestamp  instanceId  status  latency  request  (modelMs = time inside generate_content)
+2026-11-11T09:00:00.000Z  00f3a1  200    5.84s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:00.400Z  7c19e2  200    6.13s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:00.800Z  00f3a1  200    6.87s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:01.200Z  7c19e2  200    3.07s  POST /v1/tutor/turn  modelMs=1800
+2026-11-11T09:00:01.600Z  00f3a1  200    5.51s  POST /v1/tutor/turn  modelMs=3000
+2026-11-11T09:00:02.000Z  7c19e2  200    4.36s  POST /v1/tutor/turn  modelMs=2100
+2026-11-11T09:00:02.400Z  00f3a1  200    4.49s  POST /v1/tutor/turn  modelMs=1900
+2026-11-11T09:00:02.800Z  7c19e2  200    8.87s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:03.200Z  00f3a1  200    5.58s  POST /v1/tutor/turn  modelMs=1900
+2026-11-11T09:00:03.600Z  7c19e2  200    6.56s  POST /v1/tutor/turn  modelMs=2100
+2026-11-11T09:00:04.000Z  00f3a1  200   10.23s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:04.400Z  7c19e2  200    6.59s  POST /v1/tutor/turn  modelMs=1800
+2026-11-11T09:00:04.800Z  00f3a1  200    7.27s  POST /v1/tutor/turn  modelMs=1800
+2026-11-11T09:00:05.200Z  7c19e2  200   10.96s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:05.600Z  00f3a1  200    7.44s  POST /v1/tutor/turn  modelMs=1800
+2026-11-11T09:00:06.000Z  7c19e2  200    9.22s  POST /v1/tutor/turn  modelMs=2400
+2026-11-11T09:00:06.400Z  00f3a1  200    8.77s  POST /v1/tutor/turn  modelMs=1900
+2026-11-11T09:00:06.800Z  7c19e2  200   10.72s  POST /v1/tutor/turn  modelMs=3000
+2026-11-11T09:00:07.200Z  00f3a1  200   10.91s  POST /v1/tutor/turn  modelMs=3000
+2026-11-11T09:00:07.600Z  7c19e2  200   13.59s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:08.000Z  00f3a1  200   10.54s  POST /v1/tutor/turn  modelMs=2100
+2026-11-11T09:00:08.400Z  7c19e2  200   11.08s  POST /v1/tutor/turn  modelMs=1800
+2026-11-11T09:00:08.800Z  00f3a1  200   11.84s  POST /v1/tutor/turn  modelMs=3000
+2026-11-11T09:00:09.200Z  7c19e2  200   11.32s  POST /v1/tutor/turn  modelMs=1900
+2026-11-11T09:00:09.600Z  00f3a1  200   11.94s  POST /v1/tutor/turn  modelMs=1900
+2026-11-11T09:00:10.000Z  7c19e2  200   13.86s  POST /v1/tutor/turn  modelMs=3000
+2026-11-11T09:00:10.400Z  00f3a1  200   13.91s  POST /v1/tutor/turn  modelMs=3000
+2026-11-11T09:00:10.800Z  7c19e2  200   16.97s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:11.200Z  00f3a1  200   17.39s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:11.600Z  7c19e2  200   14.23s  POST /v1/tutor/turn  modelMs=2400
+2026-11-11T09:00:12.000Z  00f3a1  200   14.48s  POST /v1/tutor/turn  modelMs=1800
+2026-11-11T09:00:12.400Z  7c19e2  200   18.86s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:12.800Z  00f3a1  200   15.57s  POST /v1/tutor/turn  modelMs=2100
+2026-11-11T09:00:13.200Z  7c19e2  200   16.30s  POST /v1/tutor/turn  modelMs=2400
+2026-11-11T09:00:13.600Z  00f3a1  200   20.16s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:14.000Z  7c19e2  200   16.47s  POST /v1/tutor/turn  modelMs=1900
+2026-11-11T09:00:14.400Z  00f3a1  200   16.96s  POST /v1/tutor/turn  modelMs=1900
+2026-11-11T09:00:14.800Z  7c19e2  200   21.23s  POST /v1/tutor/turn  modelMs=5600
+2026-11-11T09:00:15.200Z  00f3a1  200   17.27s  POST /v1/tutor/turn  modelMs=1800
+2026-11-11T09:00:15.600Z  7c19e2  200   17.56s  POST /v1/tutor/turn  modelMs=1900
+2026-11-11T09:00:31.204Z  9b2d07  -    -       Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-11-11T09:00:34.981Z  9b2d07  200   3.71s  POST /v1/tutor/turn  modelMs=2104   (first request on new instance: 1.6 s container start)
+2026-11-11T09:01:02.330Z  00f3a1  503   0.00s  GET /healthz  STARTUP/LIVENESS: probe timed out after 1s (instance remained serving)
+# tutor-agent app log, same window
+2026-11-11T09:00:14.002Z  00f3a1  INFO  turn learner=lrn-4471 modelMs=2311
+2026-11-11T09:00:16.318Z  00f3a1  INFO  turn learner=lrn-0950 modelMs=2290
+2026-11-11T09:00:18.611Z  00f3a1  INFO  turn learner=lrn-3312 modelMs=2287
+#   one turn finishes every ~2.3 s per instance, back to back, while 30+ requests are in flight on it

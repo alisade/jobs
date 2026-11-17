@@ -1,0 +1,47 @@
+{
+  "scenario": "s07",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s07_1",
+            "name": "get_alert",
+            "input": {
+              "alert_id": "ALR-10417"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s07_2",
+            "name": "query_metrics",
+            "input": {
+              "query": "histogram_quantile(0.99, sum by (le) (rate(http_request_duration_seconds_bucket{job=\"mdm-api\"}[5m])))",
+              "window": "1h"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Here is the triage note.\n{\"alert_id\": \"ALR-10417\", \"severity\": \"SEV3\", \"suspected_cause\": \"mdm-api p99 latency rose to 2.7s in the last 10 minutes; cause unknown\", \"evidence\": [{\"tool_use_id\": \"toolu_s07_2\", \"summary\": \"p99 from 0.31s to 2.7s\"}], \"next_steps\": [\"Check recent mdm-api deploys\", \"Check Cloud SQL for mdm\"], \"needs_human\": false}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# Cloud Logging, client error beacons from the Angular app (source maps applied), 2026-10-14 .. 2026-10-21
+2026-10-15T07:41:09Z lrn-20113 QuizPageComponent submit failed: HttpErrorResponse 409 POST /api/lessons/5/attempts "quiz item 412 does not belong to lesson 5"
+2026-10-17T18:02:55Z lrn-07750 QuizPageComponent submit failed: HttpErrorResponse 409 POST /api/lessons/8/attempts "quiz item 731 does not belong to lesson 8"
+2026-10-21T08:15:32Z lrn-31877 QuizPageComponent submit failed: HttpErrorResponse 409 POST /api/lessons/3/attempts "quiz item 201 does not belong to lesson 3"
+# 31 events in 7 days; 29 from sessions with effectiveType "3g" or "2g" (Network Information API)

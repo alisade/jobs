@@ -1,0 +1,7 @@
+# Resources that already exist on the EAP 8 target (cdk-app8-01), from :read-resource(recursive=false)
+/subsystem=elytron/credential-store=claimdesk-cs     (aliases: ldap-bind, oracle-app)
+/subsystem=elytron/permission-set=default-permissions
+/subsystem=elytron/simple-permission-mapper=default-permission-mapper
+/subsystem=elytron/provider-http-server-mechanism-factory=global
+/subsystem=elytron/http-authentication-factory=application-http-authentication
+/subsystem=undertow/application-security-domain=other

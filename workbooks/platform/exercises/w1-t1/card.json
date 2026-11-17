@@ -1,0 +1,27 @@
+{
+  "id": "platform/w1-t1",
+  "title": "Prod apply denied after the WIF hardening PR",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 1,
+  "optional": false,
+  "area": "GCP foundations and IAM",
+  "scenario": "Every foundation apply on main has failed since this morning with Permission 'iam.serviceAccounts.getAccessToken' denied, while PR plans still work. The org policy rollout InfoSec wants today is stuck behind it. You get the workflow, the Workload Identity Federation Terraform, the run log, decoded OIDC claims of two runs, audit log entries, the merged security PR and the on-call thread, plus a local WIF simulator.",
+  "task": [
+    "Reproduce both runs with make repro and find which step fails: STS exchange or impersonation",
+    "Find the root cause in the config and the evidence; rule out the red herrings in the thread",
+    "Fix infra/wif.tf.json so only the protected production apply can impersonate tf-apply",
+    "Root cause, evidence and the note for the PR in ANSWER.md"
+  ],
+  "acceptance": [
+    "The production apply job gets tf-apply; PR, feature-branch, staging, other-repo and fork tokens do not",
+    "PR plans keep working with tf-plan",
+    "No pool-wide or repository-wide binding on tf-apply; the owner condition stays; the apply job keeps its environment",
+    "Root cause with quoted evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 1 - Wed: Workload Identity Federation with deployment pipelines", "href": "week1"},
+    {"label": "Week 1 - Tue: service accounts and impersonation", "href": "week1"},
+    {"label": "Interview prep - GCP depth mapped from AWS", "href": "interview"}
+  ]
+}

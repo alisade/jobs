@@ -1,0 +1,32 @@
+{"id": "q01", "course": "bio-210", "question": "How do respiratory droplets and aerosols differ in how far they travel?", "relevant": ["l4-s1"]}
+{"id": "q02", "course": "bio-210", "question": "What are fomites?", "relevant": ["l4-s1"]}
+{"id": "q03", "course": "bio-210", "question": "What is a vector such as a mosquito or tick?", "relevant": ["l4-s2"]}
+{"id": "q04", "course": "bio-210", "question": "Which animals act as a reservoir for hantavirus?", "relevant": ["l4-s2"]}
+{"id": "q05", "course": "bio-210", "question": "What does R0 measure in a susceptible population?", "relevant": ["l4-s3"]}
+{"id": "q06", "course": "bio-210", "question": "When does an outbreak decline according to the effective reproduction number?", "relevant": ["l4-s3"]}
+{"id": "q07", "course": "bio-210", "question": "How does ventilation help break the chain of infection?", "relevant": ["l4-s4"]}
+{"id": "q08", "course": "bio-210", "question": "Why does isolation shorten the infectious period among contacts?", "relevant": ["l4-s4"]}
+{"id": "q09", "course": "bio-210", "question": "Does innate immunity improve with repeated exposure?", "relevant": ["l5-s1"]}
+{"id": "q10", "course": "bio-210", "question": "Which lymphocytes recognise specific antigens?", "relevant": ["l5-s1"]}
+{"id": "q11", "course": "bio-210", "question": "Why does a later infection trigger a faster secondary response after a vaccine?", "relevant": ["l5-s2"]}
+{"id": "q12", "course": "bio-210", "question": "What do mRNA vaccines deliver to cells?", "relevant": ["l5-s3"]}
+{"id": "q13", "course": "bio-210", "question": "What is an adjuvant for?", "relevant": ["l5-s3"]}
+{"id": "q14", "course": "bio-210", "question": "How does the herd immunity threshold depend on R0?", "relevant": ["l5-s4"]}
+{"id": "q15", "course": "bio-210", "question": "Why do antibiotics not treat influenza or the common cold?", "relevant": ["l6-s1"]}
+{"id": "q16", "course": "bio-210", "question": "What role do plasmids and horizontal gene transfer play in resistance?", "relevant": ["l6-s2"]}
+{"id": "q17", "course": "bio-210", "question": "Why should carbapenems be reserved?", "relevant": ["l6-s3"]}
+{"id": "q18", "course": "bio-210", "question": "What does narrow spectrum prescribing mean in stewardship?", "relevant": ["l6-s3"]}
+{"id": "q19", "course": "stats-101", "question": "Why is the median robust to outliers compared with the mean?", "relevant": ["l1-s1"]}
+{"id": "q20", "course": "stats-101", "question": "What is the standard deviation?", "relevant": ["l1-s2"]}
+{"id": "q21", "course": "stats-101", "question": "What does the interquartile range cover?", "relevant": ["l1-s2"]}
+{"id": "q22", "course": "stats-101", "question": "Why is the mean of income above its median?", "relevant": ["l1-s3"]}
+{"id": "q23", "course": "stats-101", "question": "What is the difference between a statistic and a parameter?", "relevant": ["l2-s1"]}
+{"id": "q24", "course": "stats-101", "question": "How does random sampling reduce selection bias?", "relevant": ["l2-s1"]}
+{"id": "q25", "course": "stats-101", "question": "What does the central limit theorem say about the sampling distribution of the mean?", "relevant": ["l2-s2"]}
+{"id": "q26", "course": "stats-101", "question": "Why do larger samples give narrower confidence intervals?", "relevant": ["l2-s3"]}
+{"id": "q27", "course": "stats-101", "question": "What does a p value mean under the null hypothesis?", "relevant": ["l2-s4"]}
+{"id": "q28", "course": "stats-101", "question": "Is statistical significance the same as practical importance?", "relevant": ["l2-s4"]}
+{"id": "q29", "course": "stats-101", "question": "Does correlation imply causation when a confounding variable exists?", "relevant": ["l3-s1"]}
+{"id": "q30", "course": "stats-101", "question": "What does the slope of a least squares line mean?", "relevant": ["l3-s2"]}
+{"id": "q31", "course": "stats-101", "question": "What does a pattern in a residual plot suggest?", "relevant": ["l3-s3"]}
+{"id": "q32", "course": "stats-101", "question": "What is R squared?", "relevant": ["l3-s3"]}

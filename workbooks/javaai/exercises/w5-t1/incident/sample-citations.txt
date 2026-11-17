@@ -1,0 +1,8 @@
+# tutor responses with citations, 2026-11-12 (section ids as stored in course_chunks)
+question: "What do mRNA vaccines deliver to cells?"
+  cited: bio-210 l3-s3 "Types of vaccines"        link -> /courses/bio-210/lessons/l3#s3 (Antibiotics and resistance)
+question: "Why should carbapenems be reserved?"
+  cited: bio-210 l4-s3 "Stewardship"              link -> /courses/bio-210/lessons/l4 (404: no such lesson)
+question: "How do respiratory droplets and aerosols differ?"
+  cited: bio-210 l2-s1 "Routes of transmission"   link -> /courses/bio-210/lessons/l2#s1 (Vaccines and immunity)
+# the heading text is right; the lesson id in front of it is not

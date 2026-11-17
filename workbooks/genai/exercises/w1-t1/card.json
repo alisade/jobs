@@ -1,0 +1,26 @@
+{
+  "id": "genai/w1-t1",
+  "title": "Duplicated words in streamed answers after the proxy change",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 1,
+  "optional": false,
+  "area": "React and TypeScript front end",
+  "scenario": "Since a web release and an edge proxy migration on the same day, Kestrel customers see the assistant repeat the first words of long answers. The gateway transcripts are clean and a frontend engineer blames React StrictMode. You have a HAR export, console, proxy and gateway logs and the reconnecting stream client.",
+  "task": [
+    "Find what the client sends on reconnect and what the gateway does with it, with quoted evidence",
+    "Separate the trigger (proxy idle timeout) from the root cause; rule out StrictMode",
+    "Fix the client to resume from the last event id across connections",
+    "Make the transcript reducer idempotent on event id"
+  ],
+  "acceptance": [
+    "Exact answer text after clean closes, network errors and half-received events",
+    "Each reconnect sends the newest event id",
+    "No duplicates when a gateway replays from the start",
+    "Reconnect budget, done and abort unchanged; ANSWER.md has the mechanism and evidence"
+  ],
+  "practices": [
+    {"label": "Week 1 - streaming a model response into the UI (SSE, reconnect)", "href": "week1"},
+    {"label": "Week 3 - streaming end to end behind proxies and load balancers", "href": "week3"}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "awsfde/x-2",
+  "title": "From three one-off fixes to a reusable tenant-isolation kit",
+  "type": "design",
+  "estimate": "2-3 h",
+  "week": 7,
+  "optional": true,
+  "area": "FDE practice",
+  "scenario": "Three engagements, three one-off tenant-isolation fixes: a Retrieve fallback without the tenant filter, a tool Lambda that read the tenant from its arguments, an embed URL cached at the edge. Fourteen teams in TypeScript and Python, a two-week cadence and a week-long AppSec review. Design the kit that makes the next one structurally hard.",
+  "task": [
+    "Name the common failure pattern behind the three incidents",
+    "Design the kit: tenant-context library, CDK construct with ABAC and LeadingKeys, Retrieve wrapper, response and CDN defaults, attack test kit, runbook",
+    "Sketch the APIs in TypeScript and Python and a CDK usage example",
+    "Plan adoption, evidence that it works, what not to generalize, and the FDE story"
+  ],
+  "acceptance": [
+    "Graded by rubric (no automated tests; grade.sh reports 0/0)",
+    "Each incident mapped to the layer that would have stopped it",
+    "Adoption plan fits the constraints; measurable signals that it works"
+  ],
+  "practices": [
+    {"label": "Week 7 Fri - FDE: one-off fix to reusable pattern", "href": "week7"},
+    {"label": "Week 4 - identity, ABAC and LeadingKeys", "href": "week4"},
+    {"label": "Week 3 - metadata filters", "href": "week3"},
+    {"label": "Week 6 - embedding backend", "href": "week6"}
+  ]
+}

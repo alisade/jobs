@@ -1,0 +1,26 @@
+{
+  "id": "javaai/w1-t1",
+  "title": "The learner dashboard got slow after a small release",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Java and Spring Boot",
+  "scenario": "The day after progress-api 0.9.0 (per-lesson progress for every enrolled course), semester traffic arrived: p95 4 s, Cloud SQL CPU 98%, HikariCP 'Connection is not available'. L2 wants pool size 50 and 12 instances. You get the page, request logs with Hibernate session metrics, Query Insights numbers and the code.",
+  "task": [
+    "Find the root cause and reproduce it with a statement count",
+    "Judge the pool-size proposal with numbers",
+    "Make statements per request a small constant with identical JSON",
+    "Back the replacement query with an index in a new migration"
+  ],
+  "acceptance": [
+    "Hibernate statistics: <= 4 statements, independent of data size",
+    "Response unchanged for small, large and empty learners",
+    "Pool not raised; learner_id index present",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 1 Wed - Spring Data JPA, fetch plans and the N+1 problem", "href": "week1"},
+    {"label": "Week 1 Fri - indexes, EXPLAIN and performance", "href": "week1"}
+  ]
+}

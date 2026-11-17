@@ -1,0 +1,118 @@
+{
+ "apiVersion": "2024-11-30",
+ "modelId": "prebuilt-layout",
+ "content": "From: akhan@meridianfreight.example\nDate: 2026-06-22T08:00:00-05:00\nSubject: CHG-104240 Invoice matcher tolerance\nApproved by me as the requester; CAB was skipped because the window was closing.\n",
+ "pages": [
+  {
+   "pageNumber": 1,
+   "width": 8.5,
+   "height": 11,
+   "unit": "inch",
+   "words": [
+    {
+     "content": "...",
+     "confidence": 0.99
+    }
+   ]
+  }
+ ],
+ "paragraphs": [
+  {
+   "content": "From: akhan@meridianfreight.example",
+   "boundingRegions": [
+    {
+     "pageNumber": 1,
+     "polygon": [
+      1,
+      1,
+      7.5,
+      1,
+      7.5,
+      1.2,
+      1,
+      1.2
+     ]
+    }
+   ],
+   "spans": [
+    {
+     "offset": 0,
+     "length": 35
+    }
+   ]
+  },
+  {
+   "content": "Date: 2026-06-22T08:00:00-05:00",
+   "boundingRegions": [
+    {
+     "pageNumber": 1,
+     "polygon": [
+      1,
+      1,
+      7.5,
+      1,
+      7.5,
+      1.2,
+      1,
+      1.2
+     ]
+    }
+   ],
+   "spans": [
+    {
+     "offset": 36,
+     "length": 31
+    }
+   ]
+  },
+  {
+   "content": "Subject: CHG-104240 Invoice matcher tolerance",
+   "boundingRegions": [
+    {
+     "pageNumber": 1,
+     "polygon": [
+      1,
+      1,
+      7.5,
+      1,
+      7.5,
+      1.2,
+      1,
+      1.2
+     ]
+    }
+   ],
+   "spans": [
+    {
+     "offset": 68,
+     "length": 45
+    }
+   ]
+  },
+  {
+   "content": "Approved by me as the requester; CAB was skipped because the window was closing.",
+   "boundingRegions": [
+    {
+     "pageNumber": 1,
+     "polygon": [
+      1,
+      1,
+      7.5,
+      1,
+      7.5,
+      1.2,
+      1,
+      1.2
+     ]
+    }
+   ],
+   "spans": [
+    {
+     "offset": 114,
+     "length": 80
+    }
+   ]
+  }
+ ],
+ "styles": []
+}

@@ -1,0 +1,334 @@
+{
+ "questions": [
+  {
+   "id": "w3-q01",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Tidewater Ask needs the retrieved chunks with their source URIs so its own Converse loop (with a guardrail and tools) writes the answer. Which Knowledge Base API fits?",
+   "options": [
+    "<code>RetrieveAndGenerate</code>, because it also returns citations",
+    "<code>Retrieve</code>, then pass the chunks to your own Converse call",
+    "<code>InvokeModel</code> with the knowledge base id in the body",
+    "<code>StartIngestionJob</code> with a query parameter"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Retrieve returns chunks, scores, locations and metadata and leaves generation to you, which is what you want when your loop owns tools, guardrails and prompt layout. RetrieveAndGenerate does both steps with a managed prompt. InvokeModel has no KB parameter; StartIngestionJob syncs a data source.",
+   "learn": [
+    {
+     "label": "Query a knowledge base",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-retrieve.html"
+    },
+    {
+     "label": "Bedrock Knowledge Bases",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q02",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Where does Bedrock look for the metadata (for example <code>tenant_id</code>) of <code>s3://docs/acme/returns.pdf</code> in an S3 data source?",
+   "options": [
+    "An S3 object tag named tenant_id",
+    "A sidecar file <code>returns.pdf.metadata.json</code> in the same location with a <code>metadataAttributes</code> object",
+    "The PDF's XMP properties",
+    "A DynamoDB table registered with the data source"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "S3 data sources read metadata from a companion file named after the source file plus .metadata.json, containing metadataAttributes. A misnamed or missing sidecar silently leaves the document untagged, which is why an eval should treat untagged results as leaks.",
+   "learn": [
+    {
+     "label": "Metadata in a data source",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-metadata.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q03",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "A developer combines the tenant filter with a user filter as <code>{\"orAll\": [{\"equals\": {\"key\": \"tenant_id\", \"value\": \"acme-foods\"}}, {\"equals\": {\"key\": \"doc_type\", \"value\": \"sop\"}}]}</code>. What happens?",
+   "options": [
+    "Only Acme's SOPs are returned",
+    "Acme's documents plus every tenant's SOPs are returned",
+    "The API rejects orAll with two members",
+    "Nothing changes: tenant_id filters are always applied first"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "orAll matches a chunk if any member matches, so every tenant's SOP qualifies. The tenant condition must be ANDed (andAll) with user filters. andAll and orAll each need at least two members.",
+   "learn": [
+    {
+     "label": "Configure queries and response generation",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html"
+    },
+    {
+     "label": "Multi-tenancy with metadata filtering (AWS blog)",
+     "href": "https://aws.amazon.com/blogs/machine-learning/multi-tenancy-in-rag-applications-in-a-single-amazon-bedrock-knowledge-base-with-metadata-filtering/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q04",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "multi",
+   "stem": "Which statements about metadata filtering for tenant isolation in one shared Knowledge Base are correct? Choose two.",
+   "options": [
+    "The tenant value must come from the verified identity, not from the prompt or a tool argument",
+    "Filtering after retrieval in application code is equivalent and simpler",
+    "An unfiltered retry to reduce 'I don't know' answers can leak another tenant's chunks for tenants with few documents",
+    "Filters only apply to RetrieveAndGenerate, not Retrieve",
+    "Metadata filters remove the need for per-tenant IAM or tests"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "The filter is only as trustworthy as its input, so it comes from the token. A fallback without the filter is exactly the w3-t1 incident. Post-filtering in code reduces recall (top-k is spent on other tenants) and still pulls their data into your process; filters work on both APIs; tests and least privilege are still needed.",
+   "learn": [
+    {
+     "label": "Multi-tenancy with metadata filtering (AWS blog)",
+     "href": "https://aws.amazon.com/blogs/machine-learning/multi-tenancy-in-rag-applications-in-a-single-amazon-bedrock-knowledge-base-with-metadata-filtering/"
+    },
+    {
+     "label": "Configure queries and response generation",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w3-q05",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Tidewater's contracts are long documents where a clause only makes sense with its section. Which chunking strategy keeps small chunks for matching while returning the larger surrounding context?",
+   "options": [
+    "Fixed-size chunking with 0% overlap",
+    "Hierarchical chunking (child chunks matched, parent chunks returned)",
+    "No chunking",
+    "Semantic chunking with a very small buffer"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Hierarchical chunking embeds small child chunks for precise matching and replaces them with their parent chunk at retrieval time. That is also why several retrieved chunks can map to one parent document, so evals should count documents, not chunks.",
+   "learn": [
+    {
+     "label": "Chunking",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q06",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "multi",
+   "stem": "A customer asks which vector store to use for a Knowledge Base. Which pairings of need and store are reasonable? Choose two.",
+   "options": [
+    "Hundreds of millions of vectors, cost-sensitive, simple similarity queries: S3 Vectors",
+    "Hybrid keyword plus vector search with a higher baseline cost accepted: OpenSearch Serverless",
+    "Sub-millisecond transactional writes per user: S3 Vectors",
+    "The data already lives in PostgreSQL and needs SQL joins: OpenSearch Serverless",
+    "Graph traversals across entities: Aurora pgvector"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "S3 Vectors targets large scale at low cost with simpler query features; OpenSearch Serverless gives hybrid search at a higher baseline. Postgres data with joins points at Aurora pgvector, and graph traversals at Neptune.",
+   "learn": [
+    {
+     "label": "S3 Vectors",
+     "href": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors.html"
+    },
+    {
+     "label": "OpenSearch Serverless vector search",
+     "href": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-vector-search.html"
+    },
+    {
+     "label": "Aurora PostgreSQL as a Knowledge Base store",
+     "href": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.VectorDB.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q07",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Your golden set has 20 questions and recall@5 rose from 0.725 to 0.95 after a chunking change. What is the most defensible statement to the change board?",
+   "options": [
+    "Retrieval improved by 31% in production",
+    "On this 20-question set recall@5 improved and no tenant fell below the floor; it is a smoke test, so grow the set from real misses before claiming a production number",
+    "The change is neutral because MRR is what matters",
+    "The result is invalid because recall must be measured on chunks"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Twenty questions supports a go/no-go for this change, not a precise production claim. Recall and MRR over unique documents are both useful; chunk-level metrics overstate quality.",
+   "learn": [
+    {
+     "label": "Evaluate RAG sources",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q08",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Why should a retrieval eval treat a result with no <code>tenant_id</code> metadata as a failure even when its content looks harmless?",
+   "options": [
+    "Untagged chunks cost more tokens",
+    "An untagged chunk is how filters get bypassed in practice (missing or misnamed sidecar), so its presence means the isolation model is broken",
+    "The Retrieve API returns untagged chunks only on errors",
+    "Untagged chunks cannot be cited"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Isolation depends on every document carrying the attribute. One untagged document is invisible to equals filters but visible to any unfiltered path, and tells you ingestion is not enforcing the contract.",
+   "learn": [
+    {
+     "label": "Metadata in a data source",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-metadata.html"
+    },
+    {
+     "label": "Multi-tenancy with metadata filtering (AWS blog)",
+     "href": "https://aws.amazon.com/blogs/machine-learning/multi-tenancy-in-rag-applications-in-a-single-amazon-bedrock-knowledge-base-with-metadata-filtering/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q09",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "multi",
+   "stem": "Retrieval quality is poor for questions phrased very differently from the documents. Which techniques address it? Choose two.",
+   "options": [
+    "Contextual retrieval: prepend chunk-specific context before embedding",
+    "Reranking the top results with a reranker model",
+    "Raising maxTokens on the generation call",
+    "Lowering the score threshold to accept weaker chunks",
+    "Switching from Retrieve to InvokeModel"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Adding context to chunks before embedding and reranking candidates both improve what reaches the model. maxTokens affects output length; accepting weaker chunks adds noise.",
+   "learn": [
+    {
+     "label": "Contextual retrieval (Anthropic)",
+     "href": "https://www.anthropic.com/research/contextual-retrieval"
+    },
+    {
+     "label": "Configure queries and response generation",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q10",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "Which statement about Knowledge Base data sync is correct?",
+   "options": [
+    "Documents uploaded to the S3 prefix are searchable immediately",
+    "A data source sync (ingestion job) must run to index new or changed documents and their metadata",
+    "Metadata changes are picked up without a sync",
+    "Only deletes need a sync"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Changes to an S3 data source, including metadata sidecars, are indexed by an ingestion job (StartIngestionJob). That is why event-driven pipelines start a sync after uploads.",
+   "learn": [
+    {
+     "label": "Bedrock Knowledge Bases",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q11",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "single",
+   "stem": "A tenant's answers cite the right documents but the generated text adds facts that are not in them. Which measurement targets this directly?",
+   "options": [
+    "Recall@k",
+    "Groundedness / faithfulness of the answer to the retrieved context",
+    "Chunk overlap percentage",
+    "Index size"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Recall measures retrieval; hallucinated additions are a generation problem measured by groundedness (also enforceable with a Guardrails contextual grounding check). Evaluate retrieval and generation separately.",
+   "learn": [
+    {
+     "label": "Evaluate RAG sources",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-kb.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q12",
+   "week": 3,
+   "set": "weekly",
+   "area": "rag",
+   "type": "multi",
+   "stem": "A pooled multi-tenant Knowledge Base is compared with one Knowledge Base per tenant. Which are real trade-offs? Choose two.",
+   "options": [
+    "Pooled: one ingestion pipeline and lower overhead, but isolation depends on correct metadata and filters on every call",
+    "Per-tenant: stronger isolation boundary and simpler deletion per tenant, but more resources to provision and operate per tenant",
+    "Pooled KBs cannot use metadata filters",
+    "Per-tenant KBs cannot share an embedding model",
+    "There is no difference in operational cost"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Pool vs silo is the classic SaaS trade-off: pooled is cheaper and simpler to run but every query path must filter; silo isolates by construction at higher per-tenant cost.",
+   "learn": [
+    {
+     "label": "Multi-tenancy with metadata filtering (AWS blog)",
+     "href": "https://aws.amazon.com/blogs/machine-learning/multi-tenancy-in-rag-applications-in-a-single-amazon-bedrock-knowledge-base-with-metadata-filtering/"
+    },
+    {
+     "label": "Bedrock Knowledge Bases",
+     "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html"
+    }
+   ],
+   "choose": 2
+  }
+ ]
+}

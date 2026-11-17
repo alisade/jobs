@@ -1,0 +1,6 @@
+# edge proxy connection log, pop sfo-edge-07 (new tier, CHG-8812)
+2026-11-06T16:58:02.101Z conn=7f1a req=POST /api/assistant/stream upstream=assist-gw-2 status=200 proto=h2
+2026-11-06T16:58:17.103Z conn=7f1a upstream_idle_timeout=15000ms bytes_down=1312 action=close reason="idle timeout" last_byte_age_ms=15001
+2026-11-06T16:58:17.680Z conn=7f2c req=POST /api/assistant/stream upstream=assist-gw-1 status=200 proto=h2 hdr_last_event_id=""
+2026-11-06T16:58:23.790Z conn=7f2c close reason="upstream finished" bytes_down=2287
+# summary since 2026-11-04 22:00: 1,912 stream closes with reason="idle timeout" (none before the migration)

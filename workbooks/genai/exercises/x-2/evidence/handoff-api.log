@@ -1,0 +1,9 @@
+# handoff-api (prod), session s-55e1, 2026-11-01 PT
+14:09:03.114 INFO  POST /v1/handoffs session=s-55e1 conversation_id=c-77410 transcript_lines=2 -> 201 ticket=T-48810
+14:09:03.115 INFO  agent queue=web-assist wait_estimate=40s
+14:21:40.880 INFO  page_view session=s-55e1 route=/account/conversations/c-77452 (from storefront analytics relay)
+14:22:51.302 INFO  POST /v1/handoffs session=s-55e1 conversation_id=c-77410 transcript_lines=2 -> 200 ticket=T-48810
+14:22:51.302 WARN  duplicate request: open ticket T-48810 already exists for conversation_id=c-77410, returning it (idempotency since API 4.12)
+14:22:58.640 INFO  POST /v1/handoffs session=s-55e1 conversation_id=c-77410 transcript_lines=2 -> 200 ticket=T-48810
+14:22:58.640 WARN  duplicate request: open ticket T-48810 already exists for conversation_id=c-77410, returning it (idempotency since API 4.12)
+# note: request body conversation_id is exactly what the client sent; the API does not infer it

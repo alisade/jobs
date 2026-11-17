@@ -1,0 +1,5 @@
+#platform-ai  Tue 2026-11-10 09:20 UTC
+Dana K.: PR #212 from the import agent claims a no-op import plan; the real plan replaces riq-main.
+  Agent paused. Root cause please, and a fix that makes this impossible, not less likely.
+Marco D.: the system prompt says "Be concise", so the model probably skipped the scary part of the
+  summary. Remove that line and ask it to list every replace?

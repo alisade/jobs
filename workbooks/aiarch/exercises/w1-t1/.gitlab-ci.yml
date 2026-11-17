@@ -1,0 +1,66 @@
+# Lighthouse platform pipeline (CDK in TypeScript, agent image for AgentCore Runtime).
+# main -> dev automatically. Release tags vX.Y.Z -> prod, manual, protected environment.
+stages: [test, synth, deploy]
+
+variables:
+  AWS_REGION: us-east-1
+  CDK_DEFAULT_REGION: us-east-1
+
+.aws-oidc:
+  id_tokens:
+    AWS_ID_TOKEN:
+      aud: https://gitlab.com
+  before_script:
+    - >
+      export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s"
+      $(aws sts assume-role-with-web-identity
+      --role-arn "${DEPLOY_ROLE_ARN}"
+      --role-session-name "gitlab-${CI_PROJECT_ID}-${CI_PIPELINE_ID}"
+      --web-identity-token "${AWS_ID_TOKEN}"
+      --duration-seconds 3600
+      --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]'
+      --output text))
+
+unit:
+  stage: test
+  image: node:22
+  script: [npm ci, npm test]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG
+
+synth:
+  stage: synth
+  image: node:22
+  script: [npm ci, npx cdk synth -c env=prod -o cdk.out]
+  artifacts:
+    paths: [cdk.out]
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG
+
+deploy-dev:
+  stage: deploy
+  extends: .aws-oidc
+  image: node:22
+  variables:
+    DEPLOY_ROLE_ARN: arn:aws:iam::111100000003:role/gitlab-deploy-dev
+  environment:
+    name: dev
+  script: [npm ci, npx cdk deploy --app cdk.out --require-approval never -c env=dev LighthouseDev/*]
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+deploy-prod:
+  stage: deploy
+  extends: .aws-oidc
+  image: node:22
+  variables:
+    DEPLOY_ROLE_ARN: arn:aws:iam::111100000004:role/gitlab-deploy-prod
+  environment:
+    name: production
+  script: [npm ci, npx cdk deploy --app cdk.out --require-approval never -c env=prod LighthouseProd/*]
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/
+      when: manual

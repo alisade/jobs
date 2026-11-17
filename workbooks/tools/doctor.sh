@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Report which toolchains the workbooks need and how to install the missing ones.
-# Usage: tools/doctor.sh [fde|go|ms|connect|all]   (default: all)
+# Usage: tools/doctor.sh [<track>|all]   (default: all)
+# Tracks: fde go ms connect audit modernize genai awsfde javaai platform backend edgefde aiarch healthai
 set -u
 track="${1:-all}"
 missing=0
@@ -18,24 +19,26 @@ check() {
 }
 
 echo "Workbook toolchain check (${track})"
-check python3 "fde ms connect"    "brew install python@3.12"
-check uv      "fde ms connect"    "curl -LsSf https://astral.sh/uv/install.sh | sh"
-check node    "fde ms connect"    "nvm install 22"
-check go      "go"        "brew install go"
+ALL="fde ms connect audit modernize genai awsfde javaai platform backend edgefde aiarch healthai"
+check python3 "${ALL}"    "brew install python@3.12"
+check uv      "${ALL}"    "curl -LsSf https://astral.sh/uv/install.sh | sh"
+check node    "fde ms connect genai javaai backend aiarch"    "nvm install 22"
+check go      "go platform backend"        "brew install go"
 check docker  "optional"  "brew install docker colima (not needed by current exercises)"
 check kubectl "optional"  "brew install kubectl (not needed by current exercises)"
-check dotnet  "ms"        "brew install --cask dotnet-sdk"
+check dotnet  "ms modernize"        "brew install --cask dotnet-sdk (modernize: only w5-c1, needs SDK 10)"
 check pac     "optional"  "dotnet tool install --global Microsoft.PowerApps.CLI.Tool (useful for real tenants, not needed by exercises)"
-check java    "connect"   "brew install openjdk@21 (connect/w8-c2 only; or set JAVA_HOME to a JDK 21)"
-check mvn     "connect"   "brew install maven (connect/w8-c2 only)"
-check jq      "fde go ms connect" "brew install jq"
+check java    "connect modernize javaai"   "brew install openjdk@21 (or set JAVA_HOME to a JDK 21)"
+check mvn     "connect modernize javaai"   "brew install maven"
+check rsync   "${ALL}"    "ships with macOS; apt install rsync on Linux (used by _env/validate.sh)"
+check jq      "fde go ms connect audit genai javaai backend aiarch" "brew install jq"
 
 # macOS ships a /usr/bin/java stub that exists without a JDK; prove a real JDK runs.
-if [ "${track}" = "all" ] || [ "${track}" = "connect" ]; then
+if [[ " all connect modernize javaai " == *" ${track} "* ]]; then
   jdk_java="java"
   if [ -x /opt/homebrew/opt/openjdk@21/bin/java ]; then jdk_java="/opt/homebrew/opt/openjdk@21/bin/java"; fi
   if "${jdk_java}" -version >/dev/null 2>&1; then
-    echo "  ok       JDK runs ($("${jdk_java}" -version 2>&1 | head -1); exercises load it via connect/_env/java-env.sh)"
+    echo "  ok       JDK runs ($("${jdk_java}" -version 2>&1 | head -1); exercises load it via <track>/_env/java-env.sh)"
   else
     echo "  MISSING  JDK (java stub only)  ->  brew install openjdk@21 and put it on PATH or set JAVA_HOME"
     missing=$((missing + 1))

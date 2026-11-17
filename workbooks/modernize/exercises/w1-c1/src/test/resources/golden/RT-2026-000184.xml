@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ratingResult id="RT-2026-000184" xmlns="urn:corvane:claims:rating:1">
+    <policyNumber>CMP-0042117</policyNumber>
+    <insuredName>Harbor Point Marina LLC</insuredName>
+    <lossCause>WINDSTORM</lossCause>
+    <grossLoss>1385000.00</grossLoss>
+    <retention>250000.00</retention>
+    <cededLoss>1135000.00</cededLoss>
+</ratingResult>

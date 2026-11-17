@@ -1,0 +1,12 @@
+#platform-oncall  Tue 2026-11-10 15:31 UTC
+
+Dana K.: foundation apply is red on main since this morning. Nothing has applied since PR #391
+  (org policy rollout) merged. CAB window closes at 18:00 UTC; InfoSec wants gcp.resourceLocations
+  enforced today.
+Dana K.: run 4412: https://github.example/tessellate/platform-foundation/actions/runs/9876504412
+  error is "Permission 'iam.serviceAccounts.getAccessToken' denied on resource (or it may not exist)."
+Marco D.: "or it may not exist" -> did someone delete tf-apply? I saw an SA cleanup ticket go by.
+Priya N.: PR plans are fine, I ran three today. Only the apply job fails.
+Marco D.: quick fix: grant roles/iam.serviceAccountTokenCreator on tf-apply to the whole pool
+  (principalSet .../*) and move on?
+Dana K.: no. Find out why first. You are on call: root cause, fix, and a note for the PR.

@@ -1,0 +1,26 @@
+{
+  "id": "healthai/w2-t1",
+  "title": "CriteriaService goes dark after a FHIR latency spike",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 2,
+  "optional": false,
+  "area": "gRPC, asyncio cancellation, Cloud Run operations",
+  "scenario": "A four-minute FHIR store latency spike was followed by a criteria-service outage that outlived it: every call DEADLINE_EXCEEDED, CPU idle, Health still SERVING, fixed only by redeploying the same image. Find out why with the log bundle and a live repro.",
+  "task": [
+    "Reproduce the morning with make repro and read the metrics lines",
+    "Find the root cause and explain idle CPU, SERVING health and the restart",
+    "Fix server.py without losing per-criterion error handling",
+    "Fill in findings.json and ANSWER.md"
+  ],
+  "acceptance": [
+    "All permits free after timeouts, errors, deadlines and cancels",
+    "CancelledError propagates; concurrency still bounded at 5",
+    "Root cause backed by log lines and repro output"
+  ],
+  "practices": [
+    {"label": "Week 2 Tue - deadlines, cancellation, status codes", "href": "week2"},
+    {"label": "Week 1 Mon - asyncio cancellation and cleanup", "href": "week1"},
+    {"label": "Week 2 Wed - the Cloud Run container contract", "href": "week2"}
+  ]
+}

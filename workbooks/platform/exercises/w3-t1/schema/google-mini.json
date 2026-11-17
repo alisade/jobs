@@ -1,0 +1,95 @@
+{
+  "google_compute_network": {
+    "name": {
+      "force_new": true
+    },
+    "project": {
+      "force_new": true
+    },
+    "description": {
+      "force_new": true,
+      "default": null
+    },
+    "auto_create_subnetworks": {
+      "force_new": true,
+      "default": true
+    },
+    "routing_mode": {
+      "default": "REGIONAL"
+    },
+    "mtu": {
+      "force_new": true,
+      "computed": true
+    }
+  },
+  "google_compute_subnetwork": {
+    "name": {
+      "force_new": true
+    },
+    "project": {
+      "force_new": true
+    },
+    "region": {
+      "force_new": true
+    },
+    "network": {
+      "force_new": true
+    },
+    "ip_cidr_range": {
+      "default": null
+    },
+    "private_ip_google_access": {
+      "default": false
+    },
+    "description": {
+      "force_new": true,
+      "default": null
+    }
+  },
+  "google_storage_bucket": {
+    "name": {
+      "force_new": true
+    },
+    "project": {
+      "force_new": true
+    },
+    "location": {
+      "force_new": true
+    },
+    "uniform_bucket_level_access": {
+      "computed": true
+    },
+    "public_access_prevention": {
+      "computed": true
+    },
+    "labels": {
+      "default": {}
+    },
+    "storage_class": {
+      "default": "STANDARD"
+    }
+  },
+  "google_sql_database_instance": {
+    "name": {
+      "force_new": true
+    },
+    "project": {
+      "force_new": true
+    },
+    "region": {
+      "force_new": true
+    },
+    "database_version": {
+      "force_new": false
+    },
+    "settings.tier": {
+      "default": null
+    },
+    "settings.availability_type": {
+      "default": "ZONAL"
+    },
+    "deletion_protection": {
+      "default": true
+    }
+  }
+}

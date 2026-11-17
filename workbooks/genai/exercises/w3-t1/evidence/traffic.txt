@@ -1,0 +1,10 @@
+# assistant traffic and spend, daily (from the analytics warehouse and the provider console)
+
+date        sessions   questions   provider_requests   billed_output_tokens   spend_usd
+2026-11-07  41,200     118,400     118,900             15.1M                   402
+2026-11-08  43,900     126,000     126,700             16.2M                   427
+2026-11-09  40,300     115,800     116,200             14.8M                   398
+2026-11-10  42,100     121,300     121,900             15.7M                   414
+2026-11-11  54,800     157,900     561,400             96.3M                   3,710
+
+# questions / sessions is flat (2.9); provider_requests / questions went from 1.00 to 3.56

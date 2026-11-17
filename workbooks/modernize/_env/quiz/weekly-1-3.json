@@ -1,0 +1,970 @@
+{
+  "questions": [
+    {
+      "id": "w1-q01",
+      "week": 1,
+      "set": "weekly",
+      "area": "java",
+      "type": "single",
+      "stem": "A Java 8 module fails to compile on JDK 21 with <code>package javax.xml.bind does not exist</code>. What is the correct remediation?",
+      "options": [
+        "Add <code>--add-modules java.xml.bind</code> to the compiler arguments",
+        "Add Jakarta XML Binding (<code>jakarta.xml.bind-api</code>) plus a runtime implementation such as <code>org.glassfish.jaxb:jaxb-runtime</code>, and rename the imports to <code>jakarta.xml.bind</code>",
+        "Compile with <code>--release 8</code> so the JDK 8 APIs are visible",
+        "Add <code>--add-opens java.base/javax.xml.bind=ALL-UNNAMED</code>"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "JEP 320 removed the Java EE and CORBA modules, including java.xml.bind, in JDK 11, so there is no module to add or open. The API now ships as a library: Jakarta XML Binding 3+ uses the jakarta.xml.bind package, and it needs an implementation at runtime. With only the API on the classpath, JAXBContext fails at runtime because no implementation is found.",
+      "learn": [
+        {
+          "label": "JEP 320",
+          "href": "https://openjdk.org/jeps/320"
+        },
+        {
+          "label": "Oracle JDK 21 migration guide",
+          "href": "https://docs.oracle.com/en/java/javase/21/migrate/getting-started.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q02",
+      "week": 1,
+      "set": "weekly",
+      "area": "java",
+      "type": "single",
+      "stem": "After the compile errors are fixed, the batch fails at startup on JDK 17 with <code>InaccessibleObjectException: Unable to make field private static java.nio.charset.Charset java.nio.charset.Charset.defaultCharset accessible</code>. Which statement is accurate?",
+      "options": [
+        "It is a warning on JDK 17; adding <code>--illegal-access=permit</code> restores JDK 8 behaviour",
+        "Strong encapsulation of JDK internals is enforced (JEP 403 in JDK 17 removed the --illegal-access switch); the right fix is to remove the reflective hack and state the charset explicitly",
+        "It only happens on Windows; on RHEL the hack still works",
+        "The module path is misconfigured; moving the jar from the classpath to the module path fixes it"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "JEP 396 (JDK 16) made strong encapsulation the default, and JEP 403 (JDK 17) removed --illegal-access, so the flag is ignored with a warning. --add-opens would work as a temporary bridge, but it is a smell. The durable fix is to stop poking at internals: pass StandardCharsets.UTF_8 explicitly. Since JEP 400 (JDK 18), UTF-8 is the default charset anyway.",
+      "learn": [
+        {
+          "label": "JEP 403",
+          "href": "https://openjdk.org/jeps/403"
+        },
+        {
+          "label": "JEP 396",
+          "href": "https://openjdk.org/jeps/396"
+        }
+      ]
+    },
+    {
+      "id": "w1-q03",
+      "week": 1,
+      "set": "weekly",
+      "area": "java",
+      "type": "single",
+      "stem": "Which tool, run against the compiled classes and their classpath, lists uses of JDK-internal APIs (such as <code>sun.misc.BASE64Encoder</code>) and suggests replacements?",
+      "options": [
+        "<code>jdeprscan --release 21</code>",
+        "<code>jdeps --jdk-internals</code>",
+        "<code>javap -c</code>",
+        "<code>jlink --list-modules</code>"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "jdeps --jdk-internals reports dependencies on JDK internal APIs and prints a suggested replacement where one exists, for example java.util.Base64. jdeprscan finds uses of deprecated APIs (with --for-removal for the ones that will go). The two complement each other: run both before you change code.",
+      "learn": [
+        {
+          "label": "jdeps",
+          "href": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeps.html"
+        },
+        {
+          "label": "jdeprscan",
+          "href": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeprscan.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q04",
+      "week": 1,
+      "set": "weekly",
+      "area": "java",
+      "type": "single",
+      "stem": "You replace <code>sun.misc.BASE64Encoder.encodeBuffer(bytes)</code> with <code>Base64.getMimeEncoder().encodeToString(bytes)</code>. The golden-master test against a partner file fails. Why?",
+      "options": [
+        "The MIME encoder uses a different alphabet",
+        "The MIME encoder wraps at 76 characters with CRLF and adds no trailing separator, while the legacy encoder used LF after every line, including the last",
+        "The MIME encoder pads with spaces instead of =",
+        "The legacy encoder wrapped at 64 characters"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Both produce standard base64 text, but they lay out the lines differently. java.util.Base64.getMimeEncoder() uses CRLF line separators and does not terminate the last line. Reproduce the old bytes with getMimeEncoder(76, new byte[] {'\\n'}) plus a trailing LF. This is why a golden master, not intuition, decides equivalence.",
+      "learn": [
+        {
+          "label": "Characterization test",
+          "href": "https://en.wikipedia.org/wiki/Characterization_test"
+        },
+        {
+          "label": "Oracle JDK 21 migration guide",
+          "href": "https://docs.oracle.com/en/java/javase/21/migrate/getting-started.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q05",
+      "week": 1,
+      "set": "weekly",
+      "area": "maven",
+      "type": "single",
+      "stem": "Your pom has jackson-core 2.13.5 in <code>dependencyManagement</code> from an old security pin. You bump jackson-databind to 2.17.2, which declares jackson-core 2.17.2. What does Maven put on the classpath?",
+      "options": [
+        "jackson-core 2.17.2, because nearest-wins picks the version declared by databind",
+        "jackson-core 2.13.5, because managed versions override the versions of transitive dependencies",
+        "Both versions; the classloader picks the newer one",
+        "The build fails with a convergence error by default"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "dependencyManagement controls the versions of transitive dependencies too, so the stale pin silently downgrades jackson-core. mvn dependency:tree -Dverbose shows 'version managed from 2.17.2'. Nothing fails by default. Only an enforcer rule such as requireUpperBoundDeps turns this into a build failure.",
+      "learn": [
+        {
+          "label": "Maven dependency mechanism",
+          "href": "https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html"
+        },
+        {
+          "label": "Enforcer: requireUpperBoundDeps",
+          "href": "https://maven.apache.org/enforcer/enforcer-rules/requireUpperBoundDeps.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q06",
+      "week": 1,
+      "set": "weekly",
+      "area": "maven",
+      "type": "single",
+      "stem": "Which Maven enforcer rule fails the build when the resolved version of a dependency is LOWER than a version some other dependency in the tree requires?",
+      "options": [
+        "<code>dependencyConvergence</code>",
+        "<code>requireUpperBoundDeps</code>",
+        "<code>banDuplicatePomDependencyVersions</code>",
+        "<code>requireJavaVersion</code>"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "requireUpperBoundDeps reports exactly the downgrade case, for example 'jackson-core:2.13.5 (managed) is lower than 2.17.2 required by jackson-databind'. dependencyConvergence is stricter about all conflicts, but it reacts to differing versions in the tree, not specifically to downgrades. Many teams enable both.",
+      "learn": [
+        {
+          "label": "Enforcer: requireUpperBoundDeps",
+          "href": "https://maven.apache.org/enforcer/enforcer-rules/requireUpperBoundDeps.html"
+        },
+        {
+          "label": "Maven enforcer plugin",
+          "href": "https://maven.apache.org/enforcer/maven-enforcer-plugin/"
+        }
+      ]
+    },
+    {
+      "id": "w1-q07",
+      "week": 1,
+      "set": "weekly",
+      "area": "maven",
+      "type": "single",
+      "stem": "The intake batch fails with <code>NoSuchMethodError: BufferRecycler.releaseToPool()</code> from jackson-databind, but only on the write path; parsing works. On-call blames the JDK 21 upgrade that shipped the same day. What is the best first diagnostic step?",
+      "options": [
+        "Roll back to JDK 8 and see if it disappears",
+        "Inspect the runtime classpath and <code>mvn dependency:tree -Dverbose</code> for mismatched versions of the same library family",
+        "Increase the heap; NoSuchMethodError is usually a symptom of class unloading under memory pressure",
+        "Add <code>--add-opens</code> for the Jackson packages"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A NoSuchMethodError between two jars of the same library means linkage against a different version than the one compiled for, so it is a classpath problem, not a JDK problem. The failure appears on first use of the missing method, which is why only some code paths break and why tests that only parse stay green.",
+      "learn": [
+        {
+          "label": "Maven dependency mechanism",
+          "href": "https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html"
+        },
+        {
+          "label": "Maven dependency plugin",
+          "href": "https://maven.apache.org/plugins/maven-dependency-plugin/"
+        }
+      ]
+    },
+    {
+      "id": "w1-q08",
+      "week": 1,
+      "set": "weekly",
+      "area": "maven",
+      "type": "single",
+      "stem": "What is the cleanest way to keep every Jackson artifact (core, databind, annotations, datatype modules) on one version across a multi-module build?",
+      "options": [
+        "Pin each artifact's version in every module",
+        "Import the <code>jackson-bom</code> in <code>dependencyManagement</code> and omit per-artifact versions",
+        "Use version ranges such as [2.13,3.0)",
+        "Shade Jackson into each module's jar"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A BOM imported with scope import and type pom manages all members of the family at once. Version ranges make builds non-reproducible, and shading multiplies copies of the library that scanners must find.",
+      "learn": [
+        {
+          "label": "Maven dependency mechanism",
+          "href": "https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q09",
+      "week": 1,
+      "set": "weekly",
+      "area": "java",
+      "type": "multi",
+      "choose": 2,
+      "stem": "Choose TWO accurate statements about OpenRewrite for a JDK 8 to 21 upgrade.",
+      "options": [
+        "Recipes such as <code>UpgradeToJava21</code> can be run as a dry run that produces a patch for review",
+        "OpenRewrite guarantees behaviour is unchanged, so characterization tests become unnecessary",
+        "Recipes transform types and imports from the lossless semantic tree, but they can miss strings, reflection and configuration files that name old packages",
+        "OpenRewrite only works on Gradle builds"
+      ],
+      "answer": [
+        0,
+        2
+      ],
+      "explanation": "OpenRewrite's dry run (rewrite:dryRun) writes a diff instead of changing files. Recipes are type-aware, which is their strength, but they do not understand string literals such as 'javax.servlet.error.status_code', reflection, or descriptors they have no recipe for. Tests still decide equivalence. Both the Maven and the Gradle plugins exist.",
+      "learn": [
+        {
+          "label": "OpenRewrite: migrate to Java 21",
+          "href": "https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21/"
+        },
+        {
+          "label": "OpenRewrite docs",
+          "href": "https://docs.openrewrite.org/"
+        }
+      ]
+    },
+    {
+      "id": "w1-q10",
+      "week": 1,
+      "set": "weekly",
+      "area": "java",
+      "type": "single",
+      "stem": "You compile with <code>maven.compiler.release=21</code> rather than <code>source=21</code>/<code>target=21</code>. What does <code>release</code> add?",
+      "options": [
+        "Nothing; they are aliases",
+        "It also compiles against the platform API of that release, so you cannot accidentally use APIs missing from it",
+        "It enables preview features",
+        "It produces multi-release jars"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "--release N sets the language level and bytecode target, and it also links against the API signatures of release N. With source/target alone, javac compiles against whatever JDK runs it, so code can build on a newer JDK yet fail on the target runtime.",
+      "learn": [
+        {
+          "label": "Oracle JDK 21 migration guide",
+          "href": "https://docs.oracle.com/en/java/javase/21/migrate/getting-started.html"
+        }
+      ]
+    },
+    {
+      "id": "w1-q11",
+      "week": 1,
+      "set": "weekly",
+      "area": "agents",
+      "type": "single",
+      "stem": "You are rolling your Claude Code setup out to a pod of 6 developers. Which guardrail belongs in a hook rather than in CLAUDE.md or a skill?",
+      "options": [
+        "Preferred commit message style",
+        "Blocking any edit to <code>src/test/resources/golden/**</code>, deterministically, on every tool call",
+        "How to run the characterization tests",
+        "The team's naming conventions"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Instructions in CLAUDE.md or skills are context the model may or may not follow. A PreToolUse hook runs your own code on every matching tool call and can deny it. Rules that must never be broken (golden files, secrets, protected branches) belong in hooks; conventions and procedures belong in skills and CLAUDE.md.",
+      "learn": [
+        {
+          "label": "Claude Code hooks",
+          "href": "https://code.claude.com/docs/en/hooks"
+        },
+        {
+          "label": "Claude Code skills",
+          "href": "https://code.claude.com/docs/en/skills"
+        }
+      ]
+    },
+    {
+      "id": "w1-q12",
+      "week": 1,
+      "set": "weekly",
+      "area": "agents",
+      "type": "single",
+      "stem": "How do Claude Code skills keep a large library of procedures from crowding the context window?",
+      "options": [
+        "Skills are compiled into the model weights",
+        "Only each skill's name and description load up front; the body (and bundled files) load when the skill is triggered",
+        "Skills are fetched from the network only when needed",
+        "Each skill runs in its own process with no shared context"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "This is progressive disclosure: the short description is what the model uses to decide whether a skill applies, so trigger wording matters. The full SKILL.md and any referenced scripts or files load only when the skill is invoked.",
+      "learn": [
+        {
+          "label": "Claude Code skills",
+          "href": "https://code.claude.com/docs/en/skills"
+        },
+        {
+          "label": "Equipping agents with Agent Skills",
+          "href": "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills"
+        }
+      ]
+    },
+    {
+      "id": "w2-q01",
+      "week": 2,
+      "set": "weekly",
+      "area": "reveng",
+      "type": "multi",
+      "choose": 3,
+      "stem": "A reverse-engineering pass greps every *.java file for SQL and reports the database tables of a JBoss WAR. Choose THREE places where database touchpoints commonly hide from that scan.",
+      "options": [
+        "JPA XML mappings such as <code>META-INF/orm.xml</code>",
+        "SQL in properties or resource files loaded by name",
+        "Shell or cron scripts on the hosts that run sqlplus",
+        "The Maven <code>groupId</code>",
+        "Image files under <code>webapp/</code>"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Entity mappings can be pure XML. Named queries often live in .properties or .sql resources. Batch work frequently runs outside the WAR from cron or a scheduler, against the same schema. A discovery checklist should cover descriptors, resources and ops files, not just Java sources.",
+      "learn": [
+        {
+          "label": "SchemaSpy",
+          "href": "https://schemaspy.org/"
+        },
+        {
+          "label": "C4 model",
+          "href": "https://c4model.com/"
+        }
+      ]
+    },
+    {
+      "id": "w2-q02",
+      "week": 2,
+      "set": "weekly",
+      "area": "reveng",
+      "type": "single",
+      "stem": "The architecture board requires every claim in the current-state spec to cite <code>path:line</code>. What makes this requirement effective rather than ceremonial?",
+      "options": [
+        "Citations make the document longer, which reviewers trust more",
+        "A deterministic checker can resolve each citation and confirm the quoted text is on that line, so fabricated or stale claims fail automatically",
+        "It lets the model skip reading files it has already cited",
+        "It satisfies the C4 notation"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Evidence is only valuable if it is checked. A verifier that resolves file:line plus a quote turns 'the model said so' into a verified claim, and it keeps working as the code drifts. Humans then spend their review time on the risky claims instead of on finding fabricated ones.",
+      "learn": [
+        {
+          "label": "Claude Code best practices",
+          "href": "https://code.claude.com/docs/en/best-practices"
+        },
+        {
+          "label": "LLM evals FAQ",
+          "href": "https://hamel.dev/blog/posts/evals-faq/"
+        }
+      ]
+    },
+    {
+      "id": "w2-q03",
+      "week": 2,
+      "set": "weekly",
+      "area": "agents",
+      "type": "single",
+      "stem": "Your reverse-engineer skill fans out one subagent per area (data, integrations, auth, runtime). What is the main risk of the summary handoff, and the mitigation?",
+      "options": [
+        "Subagents share one context, so they overwrite each other; run them sequentially",
+        "Each subagent returns only a summary, so detail and caveats are lost; require structured output with evidence per item and verify it before merging",
+        "Subagents cannot read files; give them the file contents in the prompt",
+        "Subagents always use a smaller model; pin the model"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Subagents get their own context window, which is the point: the parent keeps only the conclusion. The cost is that whatever the subagent does not write into its result is gone. Ask for a schema (items with file:line evidence and confidence), then run a verifier on the merged result.",
+      "learn": [
+        {
+          "label": "Claude Code subagents",
+          "href": "https://code.claude.com/docs/en/sub-agents"
+        },
+        {
+          "label": "Effective context engineering",
+          "href": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+        }
+      ]
+    },
+    {
+      "id": "w2-q04",
+      "week": 2,
+      "set": "weekly",
+      "area": "agents",
+      "type": "single",
+      "stem": "A tool the skill calls prints the first 200 hits, sorted by path, with no total and no marker. The agent concludes 'module reporting-batch has no database access'. What is the best fix?",
+      "options": [
+        "Raise the limit to 2000",
+        "Use a bigger model with a larger context window",
+        "Return a complete aggregate (every table with counts and modules) first, state the total and the page shown, and end a cut page with an explicit truncation line saying how to get the rest",
+        "Tell the agent in the system prompt to be careful"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Tools for agents should never truncate silently. A bigger limit only moves the cliff, and a bigger model sees the same 200 lines. Totals, an always-complete summary and an actionable continuation hint let the model know what it has not seen. The skill should also require proof before any claim of absence.",
+      "learn": [
+        {
+          "label": "Writing effective tools for agents",
+          "href": "https://www.anthropic.com/engineering/writing-tools-for-agents"
+        }
+      ]
+    },
+    {
+      "id": "w2-q05",
+      "week": 2,
+      "set": "weekly",
+      "area": "reveng",
+      "type": "single",
+      "stem": "In the C4 model, where does a cron job on one host that purges archive tables belong in the current-state picture of a WAR-based monolith?",
+      "options": [
+        "It is a component inside the WAR",
+        "It is a separate container (a deployable or runnable unit) that touches the same database",
+        "It is outside the system and should be left off the diagram",
+        "It belongs only in the code (level 4) diagram"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "C4 containers are separately runnable or deployable units: an application, a database, a script or a batch process. A cron script is part of the system's behaviour and is exactly what blast-radius analysis must not miss when the schema or the host changes.",
+      "learn": [
+        {
+          "label": "C4 model",
+          "href": "https://c4model.com/"
+        },
+        {
+          "label": "Structurizr docs",
+          "href": "https://docs.structurizr.com/"
+        }
+      ]
+    },
+    {
+      "id": "w2-q06",
+      "week": 2,
+      "set": "weekly",
+      "area": "reveng",
+      "type": "single",
+      "stem": "Which static tool would you add to keep an agent's architecture claims honest by turning 'web never calls DAO directly' into an executable test?",
+      "options": [
+        "SchemaSpy",
+        "ArchUnit",
+        "Syft",
+        "Renovate"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "ArchUnit expresses layering and dependency rules as JUnit tests over the bytecode, so a claim in the spec becomes a check that fails when it is wrong. SchemaSpy documents the database, Syft produces SBOMs, and Renovate updates dependencies.",
+      "learn": [
+        {
+          "label": "ArchUnit",
+          "href": "https://www.archunit.org/"
+        },
+        {
+          "label": "jQAssistant",
+          "href": "https://github.com/jqassistant"
+        }
+      ]
+    },
+    {
+      "id": "w2-q07",
+      "week": 2,
+      "set": "weekly",
+      "area": "reveng",
+      "type": "single",
+      "stem": "A JNDI name <code>java:global/claimdesk/fraudScoreUrl</code> appears in the code. Where do you look for the actual endpoint, and why does it matter for the spec?",
+      "options": [
+        "In the Java code only; JNDI names are the endpoints",
+        "In the app-server configuration that binds the name (standalone.xml, jboss-cli build scripts, deploy jobs), because the endpoint and its environment-specific value live there",
+        "In the Maven pom",
+        "In the browser's network tab"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A JNDI name is an indirection. The value is bound in server config, often by build scripts or by hand, and it differs per environment. A spec that stops at the name cannot tell the pod what an EAP 8 rebuild must recreate.",
+      "learn": [
+        {
+          "label": "WildFly documentation",
+          "href": "https://docs.wildfly.org/"
+        }
+      ]
+    },
+    {
+      "id": "w2-q08",
+      "week": 2,
+      "set": "weekly",
+      "area": "pods",
+      "type": "single",
+      "stem": "In spec-driven development, what should a modernization spec contain so that an AI-assisted pod can execute it without guessing?",
+      "options": [
+        "Only a narrative of the target architecture",
+        "Acceptance criteria an agent and a reviewer can verify (tests, golden files, commands), scope boundaries and explicit approval points",
+        "The full source code of the target",
+        "A list of tools to install"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The point of spec, then plan, then tasks is that each step has a checkable outcome. Write acceptance criteria as commands or tests, say what is out of scope, and mark where a human must approve. Keep the spec as the source of truth when the code drifts.",
+      "learn": [
+        {
+          "label": "GitHub Spec Kit",
+          "href": "https://github.com/github/spec-kit"
+        }
+      ]
+    },
+    {
+      "id": "w2-q09",
+      "week": 2,
+      "set": "weekly",
+      "area": "agents",
+      "type": "single",
+      "stem": "You build an MCP server so the pod's agents can query the reverse-engineering inventory. Which design is best?",
+      "options": [
+        "One tool per REST endpoint of the inventory service, mirroring the API 1:1",
+        "A few task-shaped, read-only tools (for example find_touchpoints(table), auth_checks(path)) with clear descriptions and bounded output",
+        "A single run_sql tool with full database access",
+        "Expose the inventory as one huge resource the model must read in full"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Design MCP tools around tasks the agent actually performs, not around an existing API surface. Read-only by default, descriptions that say when to use the tool, and bounded results. A raw SQL tool fails least privilege, and a single huge resource wastes context.",
+      "learn": [
+        {
+          "label": "MCP introduction",
+          "href": "https://modelcontextprotocol.io/docs/getting-started/intro"
+        },
+        {
+          "label": "Writing effective tools for agents",
+          "href": "https://www.anthropic.com/engineering/writing-tools-for-agents"
+        }
+      ]
+    },
+    {
+      "id": "w2-q10",
+      "week": 2,
+      "set": "weekly",
+      "area": "reveng",
+      "type": "multi",
+      "choose": 2,
+      "stem": "Choose TWO findings that belong in the 'runtime assumptions' section of a JDK 21 / EAP 8 modernization spec.",
+      "options": [
+        "<code>-Dfile.encoding=ISO-8859-1</code> in the server start options",
+        "The number of Java classes in the WAR",
+        "<code>-Duser.timezone=America/New_York</code> set on the hosts",
+        "The developer who wrote the most commits"
+      ],
+      "answer": [
+        0,
+        2
+      ],
+      "explanation": "Charset and timezone flags are runtime assumptions that upgrades change or expose. JEP 400 makes UTF-8 the default from JDK 18, and timezone settings interact with SYSDATE and LocalDate.now(). Class counts and authorship are not assumptions about the runtime.",
+      "learn": [
+        {
+          "label": "JEP 400",
+          "href": "https://openjdk.org/jeps/400"
+        }
+      ]
+    },
+    {
+      "id": "w2-q11",
+      "week": 2,
+      "set": "weekly",
+      "area": "agents",
+      "type": "single",
+      "stem": "A draft postmortem says the reverse-engineering agent 'hallucinated'. The transcript shows the tool returned exactly 200 lines and context use was 31%. What is the correct classification?",
+      "options": [
+        "Model hallucination; switch to a larger model",
+        "A tool-design failure (silent truncation) plus an unsupported absence claim the skill allowed; fix the tool and the skill's verification step",
+        "Context-window exhaustion",
+        "A network failure"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Read what the model actually received before you blame it. A round number of lines with no marker is the classic signature of truncation. The model faithfully summarised a partial result, then over-generalised. Record it in the skill's failure-mode log with the fix and an eval case.",
+      "learn": [
+        {
+          "label": "Writing effective tools for agents",
+          "href": "https://www.anthropic.com/engineering/writing-tools-for-agents"
+        },
+        {
+          "label": "Google SRE: postmortem culture",
+          "href": "https://sre.google/sre-book/postmortem-culture/"
+        }
+      ]
+    },
+    {
+      "id": "w3-q01",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "An API validates access tokens by reading the algorithm from the JWT header and then picking a verifier. An attacker sends a token with <code>alg: HS256</code>, signed with the server's public RSA key as the HMAC secret. What prevents this?",
+      "options": [
+        "Checking that the token has three segments",
+        "Pinning the accepted algorithm(s) on the server (for example RS256 only) and binding keys to algorithms, never trusting the header's alg",
+        "Base64-decoding the signature first",
+        "Using a shorter token lifetime"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "This is algorithm confusion, which RFC 8725 calls out: libraries must not let the token choose the algorithm. Configure the expected algorithm and key type on the server. The same rule rejects alg none.",
+      "learn": [
+        {
+          "label": "RFC 8725: JWT best current practices",
+          "href": "https://datatracker.ietf.org/doc/html/rfc8725"
+        },
+        {
+          "label": "Spring Security: JWT resource server",
+          "href": "https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html"
+        }
+      ]
+    },
+    {
+      "id": "w3-q02",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "multi",
+      "choose": 3,
+      "stem": "Choose THREE checks a resource server must perform on an Okta access token before using its groups claim.",
+      "options": [
+        "The signature verifies with a key from the issuer's JWKS, selected by kid",
+        "<code>iss</code> equals the expected authorization server",
+        "<code>aud</code> contains this API's audience",
+        "The token was issued from the same IP as the request",
+        "The groups claim has at least one entry"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Signature, issuer and audience (plus exp/nbf with a small skew) are the core checks. Skipping the audience check accepts tokens minted for another API by the same IdP. An empty groups claim is a valid token with no roles, which should mean deny, not reject.",
+      "learn": [
+        {
+          "label": "Spring Security: JWT resource server",
+          "href": "https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html"
+        },
+        {
+          "label": "RFC 8725: JWT best current practices",
+          "href": "https://datatracker.ietf.org/doc/html/rfc8725"
+        },
+        {
+          "label": "Okta: OAuth 2.0 and OIDC overview",
+          "href": "https://developer.okta.com/docs/concepts/oauth-openid/"
+        }
+      ]
+    },
+    {
+      "id": "w3-q03",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "In LDAP, <code>claims-senior-adjusters</code> is nested inside <code>claims-adjusters</code>, and the legacy resolver walks nested groups. Okta's groups claim lists direct memberships. What must the migration do to keep decisions identical?",
+      "options": [
+        "Nothing; Okta expands nested groups in tokens",
+        "Map the senior group to both roles (or replicate the hierarchy in code), and prove it with a parity test over users x actions",
+        "Ask every senior adjuster to join the adjusters group manually",
+        "Drop the senior role"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Semantic gaps between the old and new sources are where access silently changes. Capture the implied memberships in the mapping, then run the same authorization matrix through LDAP and through tokens and require identical decisions before cutover.",
+      "learn": [
+        {
+          "label": "Okta: groups claim",
+          "href": "https://developer.okta.com/docs/guides/customize-tokens-groups-claim/main/"
+        },
+        {
+          "label": "Spring Security: LDAP authentication",
+          "href": "https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/ldap.html"
+        }
+      ]
+    },
+    {
+      "id": "w3-q04",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "A user is deactivated in Okta at 10:00. Their access token was issued at 09:55 with a 60-minute lifetime. What happens at a resource server that only validates JWTs locally?",
+      "options": [
+        "Access stops at 10:00 because the JWKS changes",
+        "The token keeps working until it expires at 10:55, unless the API also introspects or the architecture keeps lifetimes short and revokes refresh tokens",
+        "The token stops working because the groups claim is re-read on every request",
+        "Okta pushes a revocation to every API automatically"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A self-contained JWT is a snapshot. LDAP checked group membership on every request, so a deactivated user lost access immediately. With local JWT validation, deprovisioning takes effect at expiry. Mitigate with short access-token lifetimes, refresh-token revocation and, for high-risk actions, introspection.",
+      "learn": [
+        {
+          "label": "Okta: OAuth 2.0 and OIDC overview",
+          "href": "https://developer.okta.com/docs/concepts/oauth-openid/"
+        },
+        {
+          "label": "RFC 9700: OAuth 2.0 security BCP",
+          "href": "https://datatracker.ietf.org/doc/html/rfc9700"
+        }
+      ]
+    },
+    {
+      "id": "w3-q05",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "Since Tuesday, tokens issued after 09:00 fail on three of four API nodes; the fourth node was rebooted on Wednesday. Okta's log shows a signing key rotation at 09:00. What is the most likely defect?",
+      "options": [
+        "Clock skew on three nodes",
+        "The JWKS is cached at startup and never refreshed, so long-running nodes do not know the new kid",
+        "The audience changed",
+        "The groups claim filter changed"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The pattern of failures tied to the new kid on nodes started before the rotation points at the key cache. Refresh on an unknown kid (rate-limited), refresh after a max age, and keep serving cached keys when the IdP is unreachable.",
+      "learn": [
+        {
+          "label": "Spring Security: JWT resource server",
+          "href": "https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html"
+        },
+        {
+          "label": "Nimbus JOSE + JWT",
+          "href": "https://connect2id.com/products/nimbus-jose-jwt"
+        }
+      ]
+    },
+    {
+      "id": "w3-q06",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "Why should refresh-on-unknown-kid be rate-limited?",
+      "options": [
+        "To reduce token size",
+        "Because an attacker can send tokens with random kids and turn every request into a JWKS fetch against the IdP",
+        "Because JWKS documents are signed and verification is slow",
+        "To keep clock skew below 60 seconds"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The kid comes from untrusted input. Without a minimum refresh interval (and single-flight under concurrency), a flood of random kids becomes a denial of service against your IdP and your own latency.",
+      "learn": [
+        {
+          "label": "RFC 8725: JWT best current practices",
+          "href": "https://datatracker.ietf.org/doc/html/rfc8725"
+        }
+      ]
+    },
+    {
+      "id": "w3-q07",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "A legacy WAR protects <code>/admin/*</code> with a <code>security-constraint</code> in web.xml and checks <code>isUserInRole(\"CLAIMS_SUPERVISOR\")</code> in code. During the OIDC migration, what is the lowest-risk approach for these checks?",
+      "options": [
+        "Rewrite every check against raw token claims",
+        "Keep the role names stable and map token claims to the same container roles at the authentication layer, so code and descriptors stay unchanged",
+        "Remove container security and rely on the API gateway",
+        "Move all checks into JSPs"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Keeping role names stable turns a cross-cutting rewrite into one mapping layer. The posting asks for exactly this: preserve architecture and behaviour, change the identity source. Parity tests then prove the mapping.",
+      "learn": [
+        {
+          "label": "Spring Security: OAuth 2.0 login",
+          "href": "https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html"
+        },
+        {
+          "label": "Okta: groups claim",
+          "href": "https://developer.okta.com/docs/guides/customize-tokens-groups-claim/main/"
+        }
+      ]
+    },
+    {
+      "id": "w3-q08",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "multi",
+      "choose": 2,
+      "stem": "Which is the right OAuth/OIDC pattern for each caller? Choose TWO.",
+      "options": [
+        "The browser-based ClaimDesk UI uses the authorization code flow with PKCE (OIDC login)",
+        "The agent portal calling the ClaimDesk API sends an access token that the API validates as a resource server",
+        "The UI uses the implicit flow to get tokens in the URL fragment",
+        "The API accepts ID tokens as bearer tokens"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "RFC 9700 deprecates the implicit grant and recommends the code flow with PKCE. ID tokens are for the client to learn who logged in; APIs should accept access tokens with their own audience.",
+      "learn": [
+        {
+          "label": "RFC 9700: OAuth 2.0 security BCP",
+          "href": "https://datatracker.ietf.org/doc/html/rfc9700"
+        },
+        {
+          "label": "Spring Security: OAuth 2.0 login",
+          "href": "https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html"
+        }
+      ]
+    },
+    {
+      "id": "w3-q09",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "To test the LDAP baseline and the JWT path without any external service, which pair of stand-ins is appropriate?",
+      "options": [
+        "A shared dev Active Directory and an Okta developer tenant",
+        "An embedded in-memory LDAP server loaded from LDIF (for example UnboundID) and a local issuer that signs tokens with its own RSA key and exposes a JWKS",
+        "Mocked boolean methods that return true",
+        "A copy of production LDAP"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Embedded LDAP keeps real LDAP semantics (search filters, nested groups) in a unit test. A local issuer lets you mint every edge case: wrong audience, expired, foreign key, alg none. Keycloak in a container is the heavier option when you need a full IdP.",
+      "learn": [
+        {
+          "label": "UnboundID in-memory directory server",
+          "href": "https://docs.ldap.com/ldap-sdk/docs/in-memory-directory-server.html"
+        },
+        {
+          "label": "Keycloak docs",
+          "href": "https://www.keycloak.org/documentation"
+        }
+      ]
+    },
+    {
+      "id": "w3-q10",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "In ASP.NET Core, the equivalent of a Spring resource server that validates Okta JWTs is configured with which component?",
+      "options": [
+        "Windows authentication middleware",
+        "JWT bearer authentication (<code>AddJwtBearer</code>) with authority and audience",
+        "Cookie authentication only",
+        "ASP.NET Identity with a local user store"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "AddJwtBearer configures validation from the authority's metadata and JWKS, plus the audience and other TokenValidationParameters. That is the .NET side of the same migration pattern.",
+      "learn": [
+        {
+          "label": "ASP.NET Core JWT bearer",
+          "href": "https://learn.microsoft.com/en-us/aspnet/core/security/authentication/configure-jwt-bearer-authentication"
+        }
+      ]
+    },
+    {
+      "id": "w3-q11",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "What is the safest cutover plan for moving authorization from LDAP to tokens on a live claims system?",
+      "options": [
+        "Big-bang switch on a weekend",
+        "Shadow mode: compute both decisions, enforce LDAP, log every difference; switch enforcement behind a flag after a clean period; keep LDAP as rollback for one release",
+        "Switch one user at a time by hand",
+        "Switch, then fix complaints as they arrive"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Decision-diff logging turns 'nobody's access changes' from a promise into a measured fact. A feature flag gives a fast rollback without a redeploy. Log the user and the action, not the token.",
+      "learn": [
+        {
+          "label": "Feature toggles",
+          "href": "https://martinfowler.com/articles/feature-toggles.html"
+        },
+        {
+          "label": "Parallel change",
+          "href": "https://martinfowler.com/bliki/ParallelChange.html"
+        }
+      ]
+    },
+    {
+      "id": "w3-q12",
+      "week": 3,
+      "set": "weekly",
+      "area": "identity",
+      "type": "single",
+      "stem": "A valid token arrives with <code>groups: \"APP_ClaimDesk_Managers\"</code> (a string, not an array) at a resolver that calls a list-only getter. What should the behaviour be?",
+      "options": [
+        "Reject the token as malformed",
+        "Accept both an array and a single string, matching names exactly; unknown or missing groups mean no roles",
+        "Lower-case the group names and match loosely",
+        "Grant the USER role by default"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Be strict about validation and explicit about claim shapes. Loose matching turns a typo or a lookalike group into access. Defaulting to a role when claims are missing violates least privilege.",
+      "learn": [
+        {
+          "label": "Okta: groups claim",
+          "href": "https://developer.okta.com/docs/guides/customize-tokens-groups-claim/main/"
+        },
+        {
+          "label": "RFC 7519: JSON Web Token",
+          "href": "https://datatracker.ietf.org/doc/html/rfc7519"
+        }
+      ]
+    }
+  ]
+}

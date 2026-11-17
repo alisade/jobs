@@ -1,0 +1,25 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {"resource": {"resourceType": "Patient", "id": "pat-1",
+      "identifier": [{"system": "urn:khp:member", "value": "M-100417"}, {"system": "urn:hosp:mrn", "value": "MRN-8812044"}],
+      "name": [{"family": "Okafor-Benn", "given": ["Rosalind", "June"]}],
+      "telecom": [{"system": "phone", "value": "(555) 201-7788"}, {"system": "email", "value": "r.okaforbenn@example.org"}],
+      "gender": "female", "birthDate": "1934-02-11",
+      "address": [{"line": ["4417 Larchmont Avenue"], "city": "Fairhaven", "state": "OH", "postalCode": "44122"}]}},
+    {"resource": {"resourceType": "Coverage", "id": "cov-1", "status": "active", "subscriberId": "M-100417",
+      "beneficiary": {"reference": "Patient/pat-1"}, "class": [{"value": "KHP Medicare Advantage HMO"}]}},
+    {"resource": {"resourceType": "Condition", "id": "c1", "subject": {"reference": "Patient/pat-1"},
+      "code": {"coding": [{"system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "M54.16"}]}, "onsetDateTime": "2026-07-02"}},
+    {"resource": {"resourceType": "Condition", "id": "c2", "subject": {"reference": "Patient/pat-1"},
+      "code": {"coding": [{"system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "M51.26"}]}, "onsetDateTime": "2026-08-19"}},
+    {"resource": {"resourceType": "MedicationRequest", "id": "m1", "status": "active", "subject": {"reference": "Patient/pat-1"},
+      "medicationCodeableConcept": {"text": "naproxen 500 mg"}, "authoredOn": "2026-07-03"}},
+    {"resource": {"resourceType": "Observation", "id": "o1", "subject": {"reference": "Patient/pat-1"},
+      "code": {"text": "pain score"}, "valueQuantity": {"value": 7, "unit": "/10"}, "effectiveDateTime": "2026-10-30"}},
+    {"resource": {"resourceType": "ServiceRequest", "id": "s1", "subject": {"reference": "Patient/pat-1"},
+      "code": {"text": "lumbar-mri"}, "authoredOn": "2026-11-02",
+      "note": [{"text": "Rosalind reports 8 weeks of physical therapy without relief. Daughter June Okafor-Benn can be reached at 555.201.7790."}]}}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "edgefde/w1-c1",
+  "title": "Idempotent vibration-feature ingest with a safe backfill",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 1,
+  "optional": false,
+  "area": "Production Python and data pipelines",
+  "scenario": "Corvane Industrial's pump-plant gateways publish one feature record per 60-second window to Kafka. The prototype consumer duplicated windows after a broker failover and a half-finished backfill left a day at 1.3x its rows. Build a consumer and a backfill CLI that can be killed and rerun at any point without changing the numbers, and that refuse to load an incomplete day.",
+  "task": [
+    "Pydantic message contract for schema v1/v2 with a quarantine reason for every rejection",
+    "SQLite store: one-transaction batches, upsert keyed by (device, window), higher seq wins",
+    "Consumer that commits offsets only after the write succeeds",
+    "Data quality checks per day (partition, presence, completeness, unknown devices, RMS range)",
+    "Backfill function and CLI that fail before writing when data quality fails"
+  ],
+  "acceptance": [
+    "Crash between poll and write, or a failed write: no lost and no duplicated windows",
+    "Batches are atomic; redelivered bad messages quarantined once",
+    "2026-10-14 backfilled any number of times gives exactly 5760 rows; 2026-10-15 fails on pump-03 completeness",
+    "CLI exit codes 0 / 2; ANSWER.md explains the delivery semantics"
+  ],
+  "practices": [
+    {"label": "Week 1 Tue - Kafka as a client author: partitions, groups, offsets", "href": "week1"},
+    {"label": "Week 1 Wed - delivery semantics and idempotent writes", "href": "week1"},
+    {"label": "Week 1 Thu - backfills and data quality checks", "href": "week1"}
+  ]
+}

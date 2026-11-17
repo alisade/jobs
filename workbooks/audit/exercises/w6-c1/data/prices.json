@@ -1,0 +1,5 @@
+{
+  "model": "gemini-3.8-flash",
+  "note": "illustrative prices for the exercise, USD per 1M tokens; check the current price list before quoting",
+  "per_1m_usd": {"input": 0.30, "cached_input": 0.03, "output": 2.50}
+}

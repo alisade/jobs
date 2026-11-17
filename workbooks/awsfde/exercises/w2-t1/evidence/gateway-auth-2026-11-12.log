@@ -1,0 +1,10 @@
+{"time": "2026-11-12T09:14:20Z", "gatewayId": "tw-ask-acme-gw-k3j9x2m4pq", "event": "UpdateGateway", "authorizerType": "CUSTOM_JWT", "discoveryUrl": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_TwAsk01/.well-known/openid-configuration", "allowedClients": ["tw-ask-agent-runtime"]}
+{"time": "2026-11-12T09:14:31Z", "gatewayId": "tw-ask-acme-gw-k3j9x2m4pq", "event": "UpdateGateway", "roleArn": "arn:aws:iam::111122223333:role/tw-ask-acme-gateway-exec-v2"}
+{"time": "2026-11-12T09:14:52Z", "method": "initialize", "status": 401, "reason": "missing bearer token", "client": "tw-ask-agent (sigv4 build 2026.11.05)"}
+{"time": "2026-11-12T09:15:03Z", "method": "initialize", "status": 401, "reason": "missing bearer token", "client": "tw-ask-agent (sigv4 build 2026.11.05)"}
+{"time": "2026-11-12T09:15:40Z", "method": "initialize", "status": 401, "reason": "missing bearer token", "client": "tw-ask-agent (sigv4 build 2026.11.05)"}
+{"time": "2026-11-12T09:16:02Z", "event": "AgentRuntimeUpdated", "agent": "tw-ask-agent", "build": "2026.11.12", "outboundAuth": "OAuth client credentials (AgentCore Identity token vault)"}
+{"time": "2026-11-12T09:16:41Z", "method": "initialize", "status": 200, "client": "tw-ask-agent (oauth build 2026.11.12)"}
+{"time": "2026-11-12T09:16:41Z", "method": "tools/list", "status": 200}
+{"time": "2026-11-12T09:16:44Z", "method": "tools/call", "name": "tw_orders___search", "status": 200, "lambdaInvoke": "Success"}
+{"time": "2026-11-12T09:16:49Z", "method": "tools/call", "name": "tw_orders___lookup_order", "status": 200, "lambdaInvoke": "FunctionError"}

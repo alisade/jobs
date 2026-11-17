@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w5-t1",
+  "title": "Alert counts tripled after the plant's WAN outage",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 5,
+  "optional": false,
+  "area": "Edge fleet operations",
+  "scenario": "After a 3-hour WAN outage and a flaky replacement router, the cloud dashboard shows two to three times the normal events for 09:00-13:00 on every pump and planners raised work orders off duplicates. The gateway buffered locally as designed; the log is full of NTP drift warnings.",
+  "task": [
+    "Find why the cloud holds more events than the gateway produced, with evidence",
+    "Rule the clock drift in or out",
+    "Make replay exactly-once under lost acks, partial acks, restarts and re-emitted readings",
+    "Plan the cleanup of duplicates and work orders"
+  ],
+  "acceptance": [
+    "Cloud counts equal gateway counts on the outage day, also with 90% lost acks",
+    "Partial acks leave unacknowledged rows pending; ids stable across resends",
+    "Order per device preserved; buffer cap still enforced",
+    "ANSWER.md: root cause with evidence, red herring, cleanup plan"
+  ],
+  "practices": [
+    {"label": "Week 5 Wed - offline buffering in SQLite WAL and idempotent replay", "href": "week5"},
+    {"label": "Week 1 Wed - idempotency keys and at-least-once delivery", "href": "week1"}
+  ]
+}

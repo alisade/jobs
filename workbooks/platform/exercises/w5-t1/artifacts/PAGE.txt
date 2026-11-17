@@ -1,0 +1,15 @@
+From: Dana K. (platform lead)
+To: TechOps platform on-call
+Date: 2026-11-05 08:40 UTC
+Subject: PIR prep - RIQ outage 2026-11-04, nobody was paged
+
+Yesterday 13:12-13:50 UTC riq-api on prod-blue returned 503 for roughly 6% of requests (bad
+connection-pool setting in riq-api 5.2.0, rolled back at 13:48). Three customers opened tickets; the
+RIQ team found out from Support at 13:41. PagerDuty shows nothing for RIQ all day.
+
+That is a 60x burn of a 99.9% SLO for 38 minutes. The fast-burn alert should have paged around 13:30.
+Before the PIR on Friday I need to know why it did not fire (or fired and went nowhere), the fix, and
+how we make sure an SLO alert cannot go silent like this again.
+
+Everything I could pull is in artifacts/. `make setup` rebuilds the TSDB extract from Managed Service
+for Prometheus for 06:00-15:00 UTC so you can replay the rules offline (see README).

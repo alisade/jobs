@@ -1,0 +1,27 @@
+{
+  "id": "genai/w4-t1",
+  "title": "The assistant offers a 20 percent promo code that does not exist",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 4,
+  "optional": false,
+  "area": "Guardrails and LLM security",
+  "scenario": "Kestrel's assistant tells customers that code SPRING20 takes 20 percent off a tent. Checkout rejects it, stores are honoring the price, and the grounding check that should block invented promotions logged grounded=True. The product team blames the model upgrade from the same weekend.",
+  "task": [
+    "Trace the code to its source in the tool results the model saw",
+    "Explain why the grounding check passed it and why a legitimate discount was blocked",
+    "Rule the model upgrade in or out from the timeline",
+    "Ground only on trusted structured fields and fence review text in the prompt"
+  ],
+  "acceptance": [
+    "Injected codes and review prices are blocked; legitimate discounts are shown",
+    "Prices and promotions must belong to the cited products",
+    "Reviews cannot escape the untrusted fence",
+    "Root cause named with evidence; red herring ruled out"
+  ],
+  "practices": [
+    {"label": "Week 4 - safety guardrails: input and output checks", "href": "week4"},
+    {"label": "Week 4 - indirect prompt injection and the lethal trifecta", "href": "week4"},
+    {"label": "Week 3 - ground product answers on tool results", "href": "week3"}
+  ]
+}

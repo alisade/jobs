@@ -1,0 +1,14 @@
+INC-20602  P1 (data integrity)  learners shown as having mastered lessons they never opened
+Opened 2026-11-14 15:20 by Course Ops
+
+Report
+  "In Microbiology, 37 learners have Fungal infections (l7) and Parasites (l8) marked mastered.
+   Most never opened l8 and none took either quiz. Certificates are generated from mastery."
+
+Work notes
+  15:40 L2: the writes came from the tutor-agent service account, not the grading worker (audit below).
+  15:45 L2: tutor-agent moved from gemini-2.0-flash to gemini-2.5-flash on 2026-11-13 (release notes).
+        Theory: the new model ignores the SEC-204 instruction "NEVER call record_mastery". Proposal:
+        roll back the model and make the instruction stronger (capital letters, repeated twice).
+  15:55 Course Ops: lesson l7 was updated 2026-11-14 09:10 with material imported from a public study forum.
+  16:00 Assigned to you. Agent config, tool-call logs, the audit extract and the lesson diff are here.

@@ -1,0 +1,473 @@
+{
+ "questions": [
+  {
+   "id": "w7-q01",
+   "week": 7,
+   "set": "weekly",
+   "area": "arch",
+   "type": "single",
+   "stem": "'Lesson' means a content page to authors and a unit of mastery to the learning team, and both teams edit the same table. What does DDD suggest?",
+   "options": [
+    "One shared Lesson entity with more columns",
+    "Separate bounded contexts (Catalog and Learning) with their own models and language, integrating by id and events",
+    "Rename the table",
+    "A microservice per table"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A bounded context is the boundary within which a term has one meaning. Different meanings deserve different models.",
+   "learn": [
+    {
+     "label": "Bounded context (Fowler)",
+     "href": "https://martinfowler.com/bliki/BoundedContext.html"
+    },
+    {
+     "label": "Domain-driven design (Fowler)",
+     "href": "https://martinfowler.com/bliki/DomainDrivenDesign.html"
+    }
+   ]
+  },
+  {
+   "id": "w7-q02",
+   "week": 7,
+   "set": "weekly",
+   "area": "arch",
+   "type": "multi",
+   "stem": "Which TWO are good reasons to split a separate service out of the modular monolith?",
+   "options": [
+    "A different runtime or failure mode (the Python ADK agent, LLM latency)",
+    "A new feature",
+    "Independent scaling needs or a compliance boundary",
+    "A developer prefers a new framework",
+    "To reduce the number of Git repositories"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Start with modules; split where runtime, scaling, failure or ownership truly differ. Otherwise a module with enforced boundaries is cheaper.",
+   "learn": [
+    {
+     "label": "Spring Modulith",
+     "href": "https://spring.io/projects/spring-modulith/"
+    },
+    {
+     "label": "Domain-driven design (Fowler)",
+     "href": "https://martinfowler.com/bliki/DomainDrivenDesign.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w7-q03",
+   "week": 7,
+   "set": "weekly",
+   "area": "arch",
+   "type": "single",
+   "stem": "How do you stop the Learning module from reaching into Catalog's internals in a Spring Boot monolith?",
+   "options": [
+    "Code review only",
+    "Spring Modulith: application modules by package, ApplicationModules.verify() in a test so illegal dependencies fail the build, and published events between modules",
+    "Put each module in a different database",
+    "Make every class public"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Spring Modulith documents and verifies module structure and supports event publication between modules (with an event publication registry for reliability).",
+   "learn": [
+    {
+     "label": "Spring Modulith",
+     "href": "https://spring.io/projects/spring-modulith/"
+    }
+   ]
+  },
+  {
+   "id": "w7-q04",
+   "week": 7,
+   "set": "weekly",
+   "area": "arch",
+   "type": "single",
+   "stem": "Generated quiz drafts leaked to learners because drafts and published items shared a table with a status column. What is the structural fix?",
+   "options": [
+    "A better WHERE clause",
+    "Drafts live in Authoring's own aggregate; publishing creates a separate, immutable published item in Catalog through one command, so learner queries cannot see drafts",
+    "A trigger that hides drafts",
+    "Train authors"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Make the invalid state unrepresentable instead of relying on every query remembering a filter.",
+   "learn": [
+    {
+     "label": "Domain-driven design (Fowler)",
+     "href": "https://martinfowler.com/bliki/DomainDrivenDesign.html"
+    }
+   ]
+  },
+  {
+   "id": "w7-q05",
+   "week": 7,
+   "set": "weekly",
+   "area": "arch",
+   "type": "single",
+   "stem": "Learning must tell Analytics and Tutoring about each recorded attempt without losing events if Pub/Sub is briefly down. Which pattern?",
+   "options": [
+    "Publish to Pub/Sub inside the HTTP request after commit",
+    "Transactional outbox: write the event row in the same transaction as the attempt, relay it to Pub/Sub, consumers idempotent on event id",
+    "Two-phase commit across Pub/Sub and PostgreSQL",
+    "Poll the attempts table from every consumer"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The outbox removes the dual-write problem; idempotent consumers handle at-least-once delivery.",
+   "learn": [
+    {
+     "label": "Spring Modulith",
+     "href": "https://spring.io/projects/spring-modulith/"
+    }
+   ]
+  },
+  {
+   "id": "w7-q06",
+   "week": 7,
+   "set": "weekly",
+   "area": "delivery",
+   "type": "single",
+   "stem": "Your team's weekly throughput over 12 weeks includes one zero week (a conference). For a Monte Carlo forecast, what do you do with it?",
+   "options": [
+    "Remove it as an outlier",
+    "Keep it: holidays, conferences and incidents recur, and the forecast should include that risk",
+    "Replace it with the average",
+    "Double the next week"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Forecasts from history should sample the history you have; zero weeks are part of real delivery.",
+   "learn": [
+    {
+     "label": "Kanban (Atlassian)",
+     "href": "https://www.atlassian.com/agile/kanban"
+    }
+   ]
+  },
+  {
+   "id": "w7-q07",
+   "week": 7,
+   "set": "weekly",
+   "area": "delivery",
+   "type": "single",
+   "stem": "Average WIP is 6 items and throughput is 0.75 items per day. What does Little's law predict for average cycle time?",
+   "options": [
+    "4.5 days",
+    "8 days",
+    "0.125 days",
+    "6.75 days"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Cycle time = WIP / throughput = 6 / 0.75 = 8 days. Raising WIP without raising throughput lengthens cycle time.",
+   "learn": [
+    {
+     "label": "Kanban (Atlassian)",
+     "href": "https://www.atlassian.com/agile/kanban"
+    }
+   ]
+  },
+  {
+   "id": "w7-q08",
+   "week": 7,
+   "set": "weekly",
+   "area": "delivery",
+   "type": "single",
+   "stem": "On a cumulative flow diagram the 'In review' band keeps widening while 'Done' grows slowly. What does it show?",
+   "options": [
+    "Healthy flow",
+    "A bottleneck at review: work arrives faster than it leaves; limit WIP there and swarm on reviews",
+    "Too few backlog items",
+    "The chart is broken"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Widening bands mean growing WIP in that state; the fix is a WIP limit and helping the constrained step.",
+   "learn": [
+    {
+     "label": "Jira cumulative flow diagram",
+     "href": "https://support.atlassian.com/jira-software-cloud/docs/view-and-understand-the-cumulative-flow-diagram/"
+    }
+   ]
+  },
+  {
+   "id": "w7-q09",
+   "week": 7,
+   "set": "weekly",
+   "area": "delivery",
+   "type": "single",
+   "stem": "How would you plan 'will tuning beat prompting?' on the board?",
+   "options": [
+    "As a normal story with points",
+    "As a time-boxed spike with an exit criterion defined by the eval (for example correct >= 0.88 at lower cost), ending in a decision either way",
+    "Leave it until the end",
+    "Ask the model"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Uncertain AI work needs a time box and an eval-based definition of done, or it never closes.",
+   "learn": [
+    {
+     "label": "Kanban (Atlassian)",
+     "href": "https://www.atlassian.com/agile/kanban"
+    },
+    {
+     "label": "LLM evals FAQ",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "w7-q10",
+   "week": 7,
+   "set": "weekly",
+   "area": "java",
+   "type": "single",
+   "stem": "You review a Kotlin service in the same codebase. Which statement about Kotlin is correct?",
+   "options": [
+    "Kotlin cannot call Java libraries",
+    "Kotlin types distinguish nullable (String?) from non-null (String) at compile time, data classes generate equals/hashCode/toString, and Kotlin and Java interoperate on the JVM",
+    "Kotlin requires a different JVM",
+    "Kotlin has no coroutines"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Null safety and data classes are the first things to read for; coroutines are Kotlin's concurrency model, comparable to virtual threads for I/O-bound work.",
+   "learn": [
+    {
+     "label": "Kotlin getting started",
+     "href": "https://kotlinlang.org/docs/getting-started.html"
+    }
+   ]
+  },
+  {
+   "id": "ai-q01",
+   "week": "ai",
+   "set": "weekly",
+   "area": "ai",
+   "type": "single",
+   "stem": "Which part of integrating Gemini is NOT ordinary API work?",
+   "options": [
+    "Auth, retries and timeouts",
+    "Rate limits",
+    "Outputs vary run to run, so correctness is measured with scored eval suites rather than exact-match asserts",
+    "Streaming over HTTP"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Most of the integration is normal API engineering; non-deterministic output is what changes testing, release gates and observability.",
+   "learn": [
+    {
+     "label": "LLM evals FAQ",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q02",
+   "week": "ai",
+   "set": "weekly",
+   "area": "ai",
+   "type": "single",
+   "stem": "The model can skip, fake or reorder tool calls. Where must the rule 'never mark mastery from the tutor' be enforced?",
+   "options": [
+    "In the system prompt",
+    "Server-side: the tool is not offered, the agent refuses it, and the MCP server authorizes per caller",
+    "In the Angular UI",
+    "In the eval suite only"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Enforcement lives outside the model. Prompts influence behaviour; code and authorization decide it.",
+   "learn": [
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    },
+    {
+     "label": "The lethal trifecta",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q03",
+   "week": "ai",
+   "set": "weekly",
+   "area": "ai",
+   "type": "single",
+   "stem": "Simon Willison's lethal trifecta: which three ingredients together make an agent exploitable by injected content?",
+   "options": [
+    "Access to private data, exposure to untrusted content, and a way to send data out (exfiltration)",
+    "Streaming, caching and retries",
+    "Python, Java and TypeScript",
+    "Low temperature, high top-p, long context"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Remove one leg (often the exfiltration channel or the write capability) to break the attack. ai-t1 shows that untrusted content plus a write tool is already enough to corrupt data.",
+   "learn": [
+    {
+     "label": "The lethal trifecta",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q04",
+   "week": "ai",
+   "set": "weekly",
+   "area": "ai",
+   "type": "multi",
+   "stem": "Which TWO are context-engineering choices for the tutor?",
+   "options": [
+    "Load only the lesson sections relevant to the question (just-in-time retrieval) instead of the whole course",
+    "Put every tool's full documentation in every turn",
+    "Keep the stable prefix (instructions, cached chapter) first and per-turn data after it so caching works",
+    "Paste all previous sessions into the prompt",
+    "Return 20,000-character tool results"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Context is a budget: retrieve what the turn needs and keep the cacheable prefix byte-stable.",
+   "learn": [
+    {
+     "label": "Effective context engineering",
+     "href": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+    },
+    {
+     "label": "Context caching",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/context-cache/context-cache-overview"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ai-q05",
+   "week": "ai",
+   "set": "weekly",
+   "area": "ai",
+   "type": "single",
+   "stem": "What belongs on an OpenTelemetry span around each Gemini call, per the GenAI semantic conventions?",
+   "options": [
+    "Only the HTTP status",
+    "The model, operation and token usage (input and output) as gen_ai.* attributes, with latency, so cost and performance are traceable per request",
+    "The learner's password",
+    "Nothing; LLM calls should not be traced"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The GenAI conventions standardise attribute names so dashboards and cost reports work across providers and services.",
+   "learn": [
+    {
+     "label": "OTel GenAI semantic conventions",
+     "href": "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q06",
+   "week": "ai",
+   "set": "weekly",
+   "area": "ai",
+   "type": "multi",
+   "stem": "An MCP server exposes the learner-progress tools. Which TWO design choices are right?",
+   "options": [
+    "Task-shaped read-only tools with clear descriptions and annotations",
+    "A 1:1 copy of every REST endpoint including writes",
+    "The learner identity taken from the authenticated session, not from a tool argument",
+    "Raw database rows as results",
+    "No error handling, so the model sees stack traces"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Design MCP tools around tasks; never let the model choose whose data to read.",
+   "learn": [
+    {
+     "label": "MCP introduction",
+     "href": "https://modelcontextprotocol.io/docs/getting-started/intro"
+    },
+    {
+     "label": "Writing effective tools for agents",
+     "href": "https://www.anthropic.com/research/writing-tools-for-agents"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "ai-q07",
+   "week": "ai",
+   "set": "weekly",
+   "area": "ai",
+   "type": "single",
+   "stem": "Your team shares agent skills and hooks across repositories. Which guardrail must be a hook rather than an instruction?",
+   "options": [
+    "A preference for short commit messages",
+    "Blocking a push that contains secrets or forbidden attribution, because a hook runs deterministically whatever the model decides",
+    "Using tabs vs spaces",
+    "The tone of PR descriptions"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Hooks are deterministic guardrails around a non-deterministic agent; skills carry reusable procedures and are loaded on demand.",
+   "learn": [
+    {
+     "label": "Claude Code hooks",
+     "href": "https://code.claude.com/docs/en/hooks"
+    },
+    {
+     "label": "Claude Code skills",
+     "href": "https://code.claude.com/docs/en/skills"
+    }
+   ]
+  },
+  {
+   "id": "ai-q08",
+   "week": "ai",
+   "set": "weekly",
+   "area": "ai",
+   "type": "single",
+   "stem": "Workflow or agent for 'generate 5 quiz items, validate, retry invalid ones, store drafts for review'?",
+   "options": [
+    "A fully autonomous agent with all tools",
+    "A workflow: deterministic steps (validate, store) around a model call, with a bounded corrective retry loop",
+    "No model at all",
+    "A multi-agent swarm"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Use the model where judgement is needed and keep the rest deterministic; it is cheaper, testable and safer.",
+   "learn": [
+    {
+     "label": "Building effective agents",
+     "href": "https://www.anthropic.com/research/building-effective-agents"
+    }
+   ]
+  }
+ ]
+}

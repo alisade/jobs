@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/x-1",
+  "title": "The on-demand session table throttles at 09:00",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 7,
+  "optional": true,
+  "area": "DynamoDB and state",
+  "scenario": "Every weekday at the 09:00 sign-in wave, new Lighthouse sessions fail with ThrottlingException although the table is on-demand and its consumed writes are modest. On-call wants provisioned capacity. Find the hot key in the metrics and the table design and fix the index.",
+  "task": [
+    "Read table vs index throttle metrics",
+    "Find the low-cardinality key",
+    "Shard the index key and make the index sparse",
+    "Keep the list-active query working"
+  ],
+  "acceptance": [
+    "Key spread, stable shards, sparse index and paginated fan-out tests pass",
+    "Table stays on-demand with TTL",
+    "ANSWER.md names the GSI hot partition with evidence"
+  ],
+  "practices": [
+    {"label": "Week 7 - DynamoDB drill", "href": "week7"},
+    {"label": "Week 5 Thu - DynamoDB modeling", "href": "week5"}
+  ]
+}

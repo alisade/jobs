@@ -1,0 +1,1931 @@
+{
+ "questions": [
+  {
+   "id": "w1-q01",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "A Kafka consumer writes feature rows to Postgres. The team wants no lost and no duplicated rows after crashes. Which combination achieves that most simply?",
+   "options": [
+    "enable.auto.commit=true with a 1 s interval",
+    "Commit offsets before the write so a crash never reprocesses",
+    "Commit offsets after the DB transaction commits, and make the write an upsert on a natural key",
+    "Enable the idempotent producer on the gateways"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "At-least-once delivery (commit after the durable write) plus an idempotent write keyed on a natural id gives effectively-once results. Committing first loses data on a crash; the idempotent producer only removes duplicates between producer and broker.",
+   "learn": [
+    {
+     "label": "Message delivery semantics (Confluent)",
+     "href": "https://docs.confluent.io/kafka/design/delivery-semantics.html"
+    },
+    {
+     "label": "Apache Kafka documentation",
+     "href": "https://kafka.apache.org/documentation/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q02",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "multi",
+   "stem": "Which two statements about <code>enable.idempotence=true</code> on a Kafka producer are true? (choose two)",
+   "options": [
+    "It prevents duplicate records in a partition caused by producer retries",
+    "It makes the consumer's database writes idempotent",
+    "It requires acks=all",
+    "It turns at-least-once consumers into exactly-once consumers"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "The idempotent producer dedupes retries per partition and needs acks=all. It says nothing about what your consumer does with the data downstream.",
+   "learn": [
+    {
+     "label": "Kafka producer config: enable.idempotence",
+     "href": "https://kafka.apache.org/documentation/#producerconfigs_enable.idempotence"
+    },
+    {
+     "label": "Exactly-once semantics in Kafka (Confluent)",
+     "href": "https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q03",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "Gateways key messages by device id. Why does that matter for the consumer?",
+   "options": [
+    "It spreads one device across all partitions for throughput",
+    "All of a device's messages land on one partition, so per-device order is preserved",
+    "It lets the broker compact old messages",
+    "It is required for consumer groups to work"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The partitioner hashes the key; one key always maps to one partition, which is the only place Kafka guarantees order.",
+   "learn": [
+    {
+     "label": "Apache Kafka documentation",
+     "href": "https://kafka.apache.org/documentation/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q04",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "A backfill of 2026-10-14 is rerun after a partial failure and the day ends with 1.3x the expected rows. What is the root design flaw?",
+   "options": [
+    "The orchestrator retried too quickly",
+    "The write is a plain INSERT, not idempotent per natural key",
+    "The archive files were compressed",
+    "The day was not partitioned by hour"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A backfill must be safe to rerun: upsert or replace-partition semantics keyed on (device, window). Retries then cannot double count.",
+   "learn": [
+    {
+     "label": "Airflow backfill",
+     "href": "https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/backfill.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q05",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "A data quality check counts windows per device per day for completeness. The archive contains some duplicate lines. What must the check count?",
+   "options": [
+    "Lines in the files",
+    "Valid records",
+    "Distinct (device, window_start) keys",
+    "Bytes per device"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Duplicates would inflate completeness and hide a gap. Count distinct keys.",
+   "learn": [
+    {
+     "label": "Pandera (dataframe validation)",
+     "href": "https://pandera.readthedocs.io/en/stable/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q06",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "Gateway firmware 4.2 adds a field <code>firmware</code> to every message. The consumer's Pydantic model is strict and starts quarantining every message. Which is the best fix?",
+   "options": [
+    "Pin all gateways to firmware 4.1",
+    "Configure the model to ignore unknown fields and version the schema (BACKWARD compatible changes)",
+    "Catch ValidationError and write the raw dict",
+    "Disable validation for v2 messages"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Adding an optional field is a backward-compatible change; consumers should tolerate unknown fields. A schema registry enforces the compatibility rule at publish time.",
+   "learn": [
+    {
+     "label": "Schema Registry overview",
+     "href": "https://docs.confluent.io/platform/current/schema-registry/index.html"
+    },
+    {
+     "label": "Pydantic docs",
+     "href": "https://pydantic.dev/docs/validation/latest/get-started/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q07",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "Which MQTT QoS level guarantees a message arrives at least once, possibly duplicated?",
+   "options": [
+    "QoS 0",
+    "QoS 1",
+    "QoS 2",
+    "Retained messages"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "QoS 1 is at-least-once; QoS 2 is exactly-once between client and broker (expensive); QoS 0 is fire-and-forget. Retained messages are about the last value per topic.",
+   "learn": [
+    {
+     "label": "MQTT",
+     "href": "https://mqtt.org/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q08",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "A Python ingest service spends most of its time waiting on the broker and an HTTP enrichment API. Which concurrency model fits best?",
+   "options": [
+    "multiprocessing with one process per message",
+    "asyncio with bounded concurrency and timeouts on every call",
+    "Threads without timeouts",
+    "A busy loop polling every millisecond"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "I/O-bound work suits asyncio (or a small thread pool); every external call needs a timeout and concurrency needs a bound.",
+   "learn": [
+    {
+     "label": "asyncio",
+     "href": "https://docs.python.org/3/library/asyncio.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q09",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "multi",
+   "stem": "Which two belong in the CI gate of a production Python service repo? (choose two)",
+   "options": [
+    "mypy (strict on src/) and ruff",
+    "pytest with property-based tests for parsers",
+    "pip install --upgrade of every dependency on each run",
+    "Disabling tests that touch time zones"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Types, lint and tests (including Hypothesis for parsers and signal functions) belong in CI. Unpinned upgrades break reproducibility; a lock file (uv) is the fix.",
+   "learn": [
+    {
+     "label": "mypy",
+     "href": "https://mypy.readthedocs.io/en/stable/"
+    },
+    {
+     "label": "Hypothesis",
+     "href": "https://hypothesis.readthedocs.io/en/latest/"
+    },
+    {
+     "label": "uv",
+     "href": "https://docs.astral.sh/uv/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q10",
+   "week": 1,
+   "set": "weekly",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "A consumer rejects messages with naive timestamps (no UTC offset). A colleague asks why not just assume local time. The best answer:",
+   "options": [
+    "Python cannot parse naive timestamps",
+    "The idempotency key is built from window_start; a guessed offset makes the same window two keys around DST changes and across sites",
+    "Naive timestamps are larger on the wire",
+    "Pydantic requires offsets"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Keys must be stable. Guessing time zones creates duplicate or colliding windows (DST, multi-site).",
+   "learn": [
+    {
+     "label": "Pydantic docs",
+     "href": "https://pydantic.dev/docs/validation/latest/get-started/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q01",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "An accelerometer samples at 2 kHz. A 1.3 kHz gear-mesh tone is present at the sensor and there is no anti-alias filter. Where does it appear in the spectrum?",
+   "options": [
+    "1300 Hz",
+    "700 Hz",
+    "300 Hz",
+    "It is removed automatically"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Nyquist is fs/2 = 1 kHz. A tone above it folds to |f - fs| = |1300 - 2000| = 700 Hz.",
+   "learn": [
+    {
+     "label": "Nyquist-Shannon sampling theorem (Wikipedia)",
+     "href": "https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem"
+    }
+   ]
+  },
+  {
+   "id": "w2-q02",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "Where must anti-aliasing happen for a sensor stream that will be sampled or decimated?",
+   "options": [
+    "After the FFT",
+    "Before sampling (analog) or before dropping samples (digital low-pass)",
+    "Only in the cloud",
+    "In the detector threshold"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Once a tone has folded it is indistinguishable from real content. Filter before sampling or before decimation.",
+   "learn": [
+    {
+     "label": "Nyquist-Shannon sampling theorem (Wikipedia)",
+     "href": "https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem"
+    },
+    {
+     "label": "SciPy signal processing tutorial",
+     "href": "https://docs.scipy.org/doc/scipy/tutorial/signal.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q03",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "You compute an FFT over 4096 samples at 20 kHz. What is the bin spacing?",
+   "options": [
+    "0.2 Hz",
+    "4.88 Hz",
+    "20 Hz",
+    "4096 Hz"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Frequency resolution = fs / N = 20000 / 4096 = 4.88 Hz.",
+   "learn": [
+    {
+     "label": "SciPy FFT tutorial",
+     "href": "https://docs.scipy.org/doc/scipy/tutorial/fft.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q04",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "Why apply a Hann window before the FFT of a vibration window?",
+   "options": [
+    "It increases the frequency resolution",
+    "It reduces spectral leakage from the discontinuity at the window edges",
+    "It removes DC",
+    "It doubles the sample rate"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Windowing tapers the edges so a tone that is not bin-centred does not smear across the spectrum; it slightly widens the main lobe.",
+   "learn": [
+    {
+     "label": "SciPy FFT tutorial",
+     "href": "https://docs.scipy.org/doc/scipy/tutorial/fft.html"
+    },
+    {
+     "label": "The Scientist and Engineer's Guide to DSP",
+     "href": "https://www.dspguide.com/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q05",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "Vibration teams summarise spectra with Welch's method rather than one long FFT. Why?",
+   "options": [
+    "It is the only method SciPy supports",
+    "Averaging overlapping windowed segments lowers the variance of the PSD estimate",
+    "It increases the resolution",
+    "It removes aliasing"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Welch trades resolution for a much less noisy estimate by averaging periodograms of overlapping segments.",
+   "learn": [
+    {
+     "label": "scipy.signal.welch",
+     "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q06",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "A bearing outer-race defect on a pump does not show a line at BPFO in the raw spectrum, only a hump near 3 kHz. What reveals BPFO?",
+   "options": [
+    "A longer FFT",
+    "The envelope spectrum: band-pass around the resonance, Hilbert envelope, then the spectrum of the envelope",
+    "Low-pass filtering at 100 Hz",
+    "Kurtosis alone"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Each impact rings a structural resonance; the defect rate modulates that resonance. Demodulating (the envelope) turns sidebands into a line at BPFO and its harmonics.",
+   "learn": [
+    {
+     "label": "SciPy signal processing tutorial",
+     "href": "https://docs.scipy.org/doc/scipy/tutorial/signal.html"
+    },
+    {
+     "label": "CWRU Bearing Data Center",
+     "href": "https://engineering.case.edu/bearingdatacenter"
+    }
+   ]
+  },
+  {
+   "id": "w2-q07",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "multi",
+   "stem": "Which two features rise sharply for impulsive signals such as early bearing damage? (choose two)",
+   "options": [
+    "Kurtosis",
+    "Crest factor",
+    "Mean",
+    "Sample rate"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Impulses make the tails heavy (kurtosis well above 3) and the peak large relative to RMS (crest factor).",
+   "learn": [
+    {
+     "label": "scikit-learn novelty and outlier detection",
+     "href": "https://scikit-learn.org/stable/modules/outlier_detection.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q08",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "<code>scipy.signal.filtfilt</code> works well offline but is wrong on the live gateway stream. Why?",
+   "options": [
+    "It is too slow",
+    "It is zero-phase, so it needs future samples (non-causal) and pads each chunk edge",
+    "It only supports FIR filters",
+    "It changes the sample rate"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Zero-phase filtering runs forwards and backwards over the whole signal. Streaming needs a causal filter with its state carried between chunks.",
+   "learn": [
+    {
+     "label": "scipy.signal.butter",
+     "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html"
+    },
+    {
+     "label": "SciPy signal processing tutorial",
+     "href": "https://docs.scipy.org/doc/scipy/tutorial/signal.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q09",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "BPFO + BPFI equals which quantity for a rolling-element bearing?",
+   "options": [
+    "The shaft speed",
+    "Number of balls x shaft speed",
+    "Twice the cage frequency",
+    "The ball spin frequency"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "BPFO = n/2 fr (1 - r) and BPFI = n/2 fr (1 + r); their sum is n fr.",
+   "learn": [
+    {
+     "label": "CWRU Bearing Data Center",
+     "href": "https://engineering.case.edu/bearingdatacenter"
+    }
+   ]
+  },
+  {
+   "id": "w2-q10",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "A firmware update multiplies every raw sample by 1.6. Which detector scores are unaffected?",
+   "options": [
+    "An absolute RMS threshold in raw counts",
+    "A peak-to-median ratio in dB on the spectrum",
+    "Band energy in raw counts squared",
+    "Peak amplitude in raw counts"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A uniform gain cancels in any ratio; absolute thresholds in raw units move.",
+   "learn": [
+    {
+     "label": "The Scientist and Engineer's Guide to DSP",
+     "href": "https://www.dspguide.com/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q11",
+   "week": 2,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "Shaft speed on a variable-speed pump drifts from 25 to 32 Hz. What keeps BPFO-based detection valid?",
+   "options": [
+    "A fixed BPFO band computed at 29.5 Hz",
+    "Recompute defect frequencies per window from a tachometer or a 1x speed estimate (order tracking)",
+    "Higher sample rate",
+    "A longer window"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Defect frequencies scale with shaft speed; track speed or resample to orders.",
+   "learn": [
+    {
+     "label": "CWRU Bearing Data Center",
+     "href": "https://engineering.case.edu/bearingdatacenter"
+    },
+    {
+     "label": "SciPy signal processing tutorial",
+     "href": "https://docs.scipy.org/doc/scipy/tutorial/signal.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q01",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "single",
+   "stem": "A promotion gate compares challenger and champion. Which design avoids comparing apples to oranges?",
+   "options": [
+    "Use each model's validation metric from its training run",
+    "Evaluate both on the same fixed holdout set (hash checked) in the same job",
+    "Use the metric with the most recent timestamp for the model name",
+    "Compare training loss"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Same data, same code, same job. Metrics from different runs or datasets are not comparable.",
+   "learn": [
+    {
+     "label": "MLflow model evaluation",
+     "href": "https://mlflow.org/docs/latest/ml/evaluation/"
+    },
+    {
+     "label": "Continuous delivery for machine learning",
+     "href": "https://martinfowler.com/articles/cd4ml.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q02",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "multi",
+   "stem": "The eval step crashed but CI continued (<code>|| true</code>) and the gate read the latest metrics for the model name, which belonged to the previous version. What two changes close the hole? (choose two)",
+   "options": [
+    "Fail the eval step on error (non-zero exit)",
+    "Bind metrics to the exact model version and holdout hash, and fail closed when missing",
+    "Use >= instead of > in the comparison",
+    "Retrain more often"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "A gate that cannot find the challenger's own metrics must reject (fail closed). Silent eval failures must fail the pipeline.",
+   "learn": [
+    {
+     "label": "MLflow Model Registry",
+     "href": "https://mlflow.org/docs/latest/ml/model-registry/"
+    },
+    {
+     "label": "MLOps: continuous delivery and automation pipelines (Google Cloud)",
+     "href": "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning"
+    }
+   ]
+  },
+  {
+   "id": "w3-q03",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "single",
+   "stem": "Why use registry aliases (champion, challenger) rather than hard-coded version numbers in the serving config?",
+   "options": [
+    "Aliases are faster to load",
+    "Promotion and rollback become moving a pointer, with history, without redeploying config",
+    "Versions cannot be deleted",
+    "Aliases encrypt the model"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Aliases decouple deployment from version numbers and make rollback a one-line change.",
+   "learn": [
+    {
+     "label": "MLflow Model Registry",
+     "href": "https://mlflow.org/docs/latest/ml/model-registry/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q04",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "multi",
+   "stem": "For a pump-fault detector, which pair of metrics should the gate use? (choose two)",
+   "options": [
+    "Recall on confirmed failures",
+    "False alarms per machine-week",
+    "Accuracy on all windows",
+    "Training time"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Faults are rare, so accuracy is meaningless (always 'healthy' scores 99%). The business cares about catching failures and not crying wolf.",
+   "learn": [
+    {
+     "label": "Rules of Machine Learning (Google)",
+     "href": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    }
+   ]
+  },
+  {
+   "id": "w3-q05",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "single",
+   "stem": "Input drift is detected on three pumps after a seasonal temperature change. What should happen first?",
+   "options": [
+    "Retrain automatically on the last week",
+    "Investigate: check whether prediction quality (confirmed outcomes, alert rate) changed and why",
+    "Delete the drifted data",
+    "Roll back to the oldest model"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Drift is a signal to investigate, not an automatic retrain trigger; retraining on unlabelled shifted data can make things worse.",
+   "learn": [
+    {
+     "label": "Evidently (drift and model monitoring)",
+     "href": "https://docs.evidentlyai.com/introduction"
+    }
+   ]
+  },
+  {
+   "id": "w3-q06",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "single",
+   "stem": "Which practice makes any registered model rebuildable months later?",
+   "options": [
+    "Store only the ONNX file",
+    "Version the training data (DVC or table snapshots) and record its hash, code commit and params on the run",
+    "Keep the notebook",
+    "Tag the model with the author's name"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Lineage needs data, code and parameters. The artifact alone cannot be reproduced or audited.",
+   "learn": [
+    {
+     "label": "DVC",
+     "href": "https://doc.dvc.org/"
+    },
+    {
+     "label": "MLflow Model Registry",
+     "href": "https://mlflow.org/docs/latest/ml/model-registry/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q07",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "single",
+   "stem": "According to 'Hidden technical debt in ML systems', most of a production ML system is:",
+   "options": [
+    "The model code",
+    "Infrastructure around it: data collection, features, serving, monitoring, configuration",
+    "GPU drivers",
+    "Hyperparameters"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The model is a small box in the middle; the surrounding pipeline is where debt and failures live.",
+   "learn": [
+    {
+     "label": "Hidden technical debt in ML systems",
+     "href": "https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q08",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "single",
+   "stem": "The first model ever for a site has no champion. What should the gate do?",
+   "options": [
+    "Promote anything",
+    "Require it to clear absolute thresholds agreed with the client (recall, false alarms, latency)",
+    "Refuse forever",
+    "Promote only on Fridays"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "With no champion, compare against the agreed absolute bar (and the baseline process).",
+   "learn": [
+    {
+     "label": "Rules of Machine Learning (Google)",
+     "href": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    }
+   ]
+  },
+  {
+   "id": "w3-q09",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "single",
+   "stem": "A challenger ties the champion on recall and false alarms. With a strict-improvement rule, what is the outcome and why can that be right?",
+   "options": [
+    "Promote, ties are improvements",
+    "Reject: promotion carries risk and cost, so it needs evidence of benefit",
+    "Average the models",
+    "Promote the older one"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Non-inferiority rules are possible but must be explicit. A tie with >= quietly promotes untested changes, as in the stale-metric incident.",
+   "learn": [
+    {
+     "label": "Continuous delivery for machine learning",
+     "href": "https://martinfowler.com/articles/cd4ml.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q10",
+   "week": 3,
+   "set": "weekly",
+   "area": "mlops",
+   "type": "single",
+   "stem": "Which serving option fits a plant with intermittent WAN and 10 gateways?",
+   "options": [
+    "A cloud REST endpoint called per window",
+    "On-device inference with the model shipped as a versioned artifact",
+    "Batch scoring in the cloud once a week",
+    "Notebook on a laptop"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Local inference keeps working offline; the registry still governs which version each device runs.",
+   "learn": [
+    {
+     "label": "MLOps: continuous delivery and automation pipelines (Google Cloud)",
+     "href": "https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning"
+    }
+   ]
+  },
+  {
+   "id": "w4-q01",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "After static INT8 quantization the model's recall collapses from 0.91 to 0.35, but FP32 is fine. Preprocessing at runtime applies a StandardScaler outside the graph. What is the most likely cause?",
+   "options": [
+    "INT8 is not supported on ARM",
+    "The calibration data reader fed raw unscaled features, so activation ranges were calibrated on the wrong distribution",
+    "The opset is too new",
+    "Per-tensor quantization"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Calibration must see exactly what the model sees at runtime. Wrong input scale means wrong scales and zero points everywhere.",
+   "learn": [
+    {
+     "label": "ONNX Runtime quantization",
+     "href": "https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q02",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "What is the difference between dynamic and static quantization in ONNX Runtime?",
+   "options": [
+    "Dynamic quantizes only weights ahead of time and activations at runtime; static needs calibration data to fix activation ranges ahead of time",
+    "Static is for GPUs only",
+    "Dynamic needs a calibration set",
+    "There is none"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Static (QDQ) usually gives better latency on CPUs/NPUs but needs representative calibration data.",
+   "learn": [
+    {
+     "label": "ONNX Runtime quantization",
+     "href": "https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q03",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "multi",
+   "stem": "Which two belong in an honest edge benchmark? (choose two)",
+   "options": [
+    "Warm-up runs, then p50 and p95 latency at batch size 1",
+    "Size, latency and accuracy reported together for FP32 and INT8",
+    "Only the fastest run",
+    "Latency measured with batch size 256"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Edge inference is usually batch 1; tail latency matters; a smaller faster model that is wrong is not a win.",
+   "learn": [
+    {
+     "label": "ONNX Runtime performance tuning",
+     "href": "https://onnxruntime.ai/docs/performance/tune-performance/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q04",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "A TensorRT engine built on a Jetson Orin is copied to a Jetson Xavier and fails to load. Why?",
+   "options": [
+    "TensorRT engines are tied to the GPU architecture and TensorRT version they were built with",
+    "ONNX files cannot be copied",
+    "The engine is encrypted",
+    "Xavier does not support FP16"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Ship the ONNX model and build (or cache) engines per target; or use the ORT TensorRT EP with an engine cache.",
+   "learn": [
+    {
+     "label": "TensorRT documentation",
+     "href": "https://docs.nvidia.com/deeplearning/tensorrt/latest/index.html"
+    },
+    {
+     "label": "TensorRT execution provider",
+     "href": "https://onnxruntime.ai/docs/execution-providers/TensorRT-ExecutionProvider.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q05",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "One ONNX file must run on an Intel-based industrial PC and an NVIDIA Jetson. What does ONNX Runtime offer?",
+   "options": [
+    "Two separate model formats",
+    "Execution providers (OpenVINO, CUDA/TensorRT, CPU) selected at session creation for the same model",
+    "Nothing; you need two runtimes",
+    "Automatic retraining per device"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Execution providers let the same graph use vendor accelerators, with CPU fallback for unsupported ops.",
+   "learn": [
+    {
+     "label": "ONNX Runtime execution providers",
+     "href": "https://onnxruntime.ai/docs/execution-providers/"
+    },
+    {
+     "label": "OpenVINO execution provider",
+     "href": "https://onnxruntime.ai/docs/execution-providers/OpenVINO-ExecutionProvider.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q06",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "After exporting an sklearn pipeline with skl2onnx, what is the first check before quantizing?",
+   "options": [
+    "File size",
+    "Parity: ONNX FP32 outputs match sklearn within a tolerance on real inputs",
+    "Opset is the newest",
+    "Graph has fewer than 10 nodes"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Prove the export is correct before optimising it, otherwise quantization errors and export bugs mix.",
+   "learn": [
+    {
+     "label": "sklearn-onnx",
+     "href": "https://onnx.ai/sklearn-onnx/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q07",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "A colleague sets intra_op_num_threads to 16 on a 4-core ARM gateway that also runs the feature pipeline. Likely effect?",
+   "options": [
+    "Faster inference",
+    "Oversubscription: worse and noisier latency for both inference and the pipeline",
+    "No effect",
+    "Lower memory"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Match threads to available cores and the workload mix; measure.",
+   "learn": [
+    {
+     "label": "ONNX Runtime performance tuning",
+     "href": "https://onnxruntime.ai/docs/performance/tune-performance/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q08",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "Which graph optimization level should you use when you want to ship a pre-optimized model file to many identical devices?",
+   "options": [
+    "Apply optimizations offline and save the optimized model, then load with minimal runtime optimization",
+    "Always disable optimizations",
+    "Optimize on every boot",
+    "Optimizations change accuracy, so never"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Offline optimization saves start-up time on devices; keep it per hardware target where EP-specific.",
+   "learn": [
+    {
+     "label": "ONNX Runtime graph optimizations",
+     "href": "https://onnxruntime.ai/docs/performance/model-optimizations/graph-optimizations.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q09",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "The client does multi-camera video analytics on NVIDIA Jetson. Which stack is most likely already in use?",
+   "options": [
+    "DeepStream on JetPack with TensorRT",
+    "OpenVINO",
+    "LiteRT Micro",
+    "A Raspberry Pi"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Vision on Jetson usually means JetPack, TensorRT and DeepStream pipelines.",
+   "learn": [
+    {
+     "label": "NVIDIA JetPack",
+     "href": "https://developer.nvidia.com/embedded/jetpack"
+    },
+    {
+     "label": "TensorRT documentation",
+     "href": "https://docs.nvidia.com/deeplearning/tensorrt/latest/index.html"
+    }
+   ]
+  },
+  {
+   "id": "w4-q10",
+   "week": 4,
+   "set": "weekly",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "INT8 model size dropped only from 13 KB to 10 KB. Why so little?",
+   "options": [
+    "Quantization failed",
+    "Small models are dominated by graph structure, metadata and Q/DQ nodes; weight savings show on larger layers",
+    "INT8 is 16 bits",
+    "ONNX compresses FP32"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Report the numbers honestly; on small models the latency and accuracy matter more than size.",
+   "learn": [
+    {
+     "label": "ONNX Runtime quantization",
+     "href": "https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"
+    }
+   ]
+  },
+  {
+   "id": "w5-q01",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "A new model version is rolled out to 10 gateways. Which order is right?",
+   "options": [
+    "All at once, roll back if anyone complains",
+    "Canary one device, gate on health and model metrics for N windows, then batches, automatic rollback on failure",
+    "Alphabetical by hostname",
+    "Only devices that are offline"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Same as a Kubernetes canary: limit blast radius, gate on real signals, roll back automatically.",
+   "learn": [
+    {
+     "label": "Mender deployments",
+     "href": "https://docs.mender.io/overview/deployment"
+    },
+    {
+     "label": "AWS IoT Jobs",
+     "href": "https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html"
+    }
+   ]
+  },
+  {
+   "id": "w5-q02",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "During a rollout two devices are offline. How should the controller treat them?",
+   "options": [
+    "As failures that trigger rollback",
+    "Not as failures; they block phase completion until a timeout, then are reported and retried later",
+    "Mark the rollout complete",
+    "Delete them from the fleet"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Unreachable is not unhealthy. Rolling back the fleet because of a WAN blip is its own outage.",
+   "learn": [
+    {
+     "label": "AWS IoT Jobs",
+     "href": "https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html"
+    }
+   ]
+  },
+  {
+   "id": "w5-q03",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "After a WAN outage, the cloud shows three times the alerts for line 2. The buffer generates event ids with uuid4 at send time. What is wrong?",
+   "options": [
+    "uuid4 collisions",
+    "The id is not stable across retries, so the server cannot dedupe resends after lost acks",
+    "SQLite is too slow",
+    "Clock drift"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Assign the event id at capture (device + sequence or window) and dedupe on it server-side.",
+   "learn": [
+    {
+     "label": "SQLite write-ahead logging",
+     "href": "https://www.sqlite.org/wal.html"
+    }
+   ]
+  },
+  {
+   "id": "w5-q04",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "Why SQLite in WAL mode for the gateway's offline buffer?",
+   "options": [
+    "It is the only embedded database",
+    "Readers and the writer do not block each other, and commits are durable and fast on small devices",
+    "It compresses data",
+    "It replicates to the cloud"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "WAL lets the replay reader run while the capture path keeps writing; transactions make mark-as-sent atomic.",
+   "learn": [
+    {
+     "label": "SQLite write-ahead logging",
+     "href": "https://www.sqlite.org/wal.html"
+    }
+   ]
+  },
+  {
+   "id": "w5-q05",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "multi",
+   "stem": "Which two help when gateways are on slow metered links? (choose two)",
+   "options": [
+    "Send features and alerts, raw clips only on request",
+    "Cap the buffer on disk with an explicit drop policy that is reported",
+    "Upload raw waveforms every second",
+    "Disable buffering"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Bandwidth and disk are budgets; make the trade-off explicit.",
+   "learn": [
+    {
+     "label": "AWS IoT Greengrass V2",
+     "href": "https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html"
+    }
+   ]
+  },
+  {
+   "id": "w5-q06",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "Why separate the model artifact from the application image?",
+   "options": [
+    "Smaller Docker layers only",
+    "Ship a new model (with version reported back) without rebuilding or redeploying the app, and roll back the model alone",
+    "Models cannot be in images",
+    "Licensing"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Model and code change at different rates; each needs its own version and rollback.",
+   "learn": [
+    {
+     "label": "AWS IoT Greengrass V2",
+     "href": "https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html"
+    }
+   ]
+  },
+  {
+   "id": "w5-q07",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "A site with no internet needs k3s on the gateways. What does the air-gap install use?",
+   "options": [
+    "A VPN to the internet",
+    "The k3s binary and the airgap images tarball copied to each node, plus a private registry if needed",
+    "apt-get on site",
+    "Pulling from Docker Hub through USB tethering"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "k3s documents an air-gap path with saved images; same idea for docker image save/load.",
+   "learn": [
+    {
+     "label": "K3s air-gap install",
+     "href": "https://docs.k3s.io/installation/airgap"
+    }
+   ]
+  },
+  {
+   "id": "w5-q08",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "Device identity for 200 gateways should use:",
+   "options": [
+    "One shared API key baked into the image",
+    "Per-device certificates issued at enrollment, revocable individually",
+    "The MAC address as password",
+    "No auth on the plant network"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Shared keys mean one leak compromises the fleet and cannot be revoked per device.",
+   "learn": [
+    {
+     "label": "AWS IoT Greengrass V2",
+     "href": "https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html"
+    }
+   ]
+  },
+  {
+   "id": "w5-q09",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "The rollout controller crashes halfway. What property lets it continue safely?",
+   "options": [
+    "It restarts from the beginning",
+    "Its state (phase, touched devices, versions) is persisted and every step is idempotent, so it resumes",
+    "It deletes the manifest",
+    "It waits for a human every time"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Controllers must be restartable; desired-state reconciliation (like ArgoCD) gives this naturally.",
+   "learn": [
+    {
+     "label": "Mender deployments",
+     "href": "https://docs.mender.io/overview/deployment"
+    }
+   ]
+  },
+  {
+   "id": "w5-q10",
+   "week": 5,
+   "set": "weekly",
+   "area": "fleet",
+   "type": "single",
+   "stem": "A/B partition (image-based) updates as in Mender give which main benefit on devices?",
+   "options": [
+    "Smaller downloads",
+    "Atomic update with automatic fallback to the previous partition if the new one fails to boot",
+    "No reboot needed",
+    "Faster CPUs"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A bad image cannot brick the device; the bootloader falls back.",
+   "learn": [
+    {
+     "label": "Mender deployments",
+     "href": "https://docs.mender.io/overview/deployment"
+    }
+   ]
+  },
+  {
+   "id": "w6-q01",
+   "week": 6,
+   "set": "weekly",
+   "area": "network",
+   "type": "single",
+   "stem": "pip on a client build box fails with 'certificate verify failed: unable to get local issuer certificate' through a TLS-inspecting proxy. The right fix:",
+   "options": [
+    "Add trusted-host for every index",
+    "Point pip (and every other client) at a CA bundle that contains the proxy's issuing chain plus the public roots",
+    "Set PYTHONHTTPSVERIFY=0",
+    "Use http:// indexes"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The proxy re-signs traffic; clients must trust its chain. Disabling verification is a security finding, not a fix.",
+   "learn": [
+    {
+     "label": "pip: HTTPS certificates",
+     "href": "https://pip.pypa.io/en/stable/topics/https-certificates/"
+    },
+    {
+     "label": "uv: TLS certificates",
+     "href": "https://docs.astral.sh/uv/concepts/authentication/certificates/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q02",
+   "week": 6,
+   "set": "weekly",
+   "area": "network",
+   "type": "single",
+   "stem": "openssl s_client through the proxy shows a one-certificate chain issued by 'Corp Inspection Issuing CA 2' and verify code 20, with only the corporate root in the CAfile. What is missing?",
+   "options": [
+    "The leaf certificate",
+    "The intermediate 'Corp Inspection Issuing CA 2' (the proxy does not send it)",
+    "The public roots",
+    "An OCSP response"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Code 20 means the chain cannot be built to a trusted root: an intermediate is missing.",
+   "learn": [
+    {
+     "label": "Requests: SSL verification and proxies",
+     "href": "https://requests.readthedocs.io/en/latest/user/advanced/"
+    },
+    {
+     "label": "Everything curl: proxies",
+     "href": "https://everything.curl.dev/usingcurl/proxies/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q03",
+   "week": 6,
+   "set": "weekly",
+   "area": "network",
+   "type": "single",
+   "stem": "Which NO_PROXY value correctly bypasses the proxy for every host under corp.internal?",
+   "options": [
+    "*corp.internal*",
+    ".corp.internal",
+    "corp.internal/*",
+    "*"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A leading dot (or the bare domain in most clients) matches subdomains; '*' disables the proxy for everything.",
+   "learn": [
+    {
+     "label": "Everything curl: proxies",
+     "href": "https://everything.curl.dev/usingcurl/proxies/"
+    },
+    {
+     "label": "Requests: SSL verification and proxies",
+     "href": "https://requests.readthedocs.io/en/latest/user/advanced/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q04",
+   "week": 6,
+   "set": "weekly",
+   "area": "network",
+   "type": "multi",
+   "stem": "The site has no internet at all. Which two prepare a Python install? (choose two)",
+   "options": [
+    "pip download (or a locked uv environment) into a wheelhouse for the target platform",
+    "Save container images to tar files with checksums",
+    "Install from PyPI on site",
+    "Ask the client to open the firewall for a day"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Build the field kit before you travel: wheelhouse, saved images, mirrored model files with checksums.",
+   "learn": [
+    {
+     "label": "pip download",
+     "href": "https://pip.pypa.io/en/stable/cli/pip_download/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q05",
+   "week": 6,
+   "set": "weekly",
+   "area": "network",
+   "type": "single",
+   "stem": "docker pull fails on a client host behind a proxy while curl works. Most likely:",
+   "options": [
+    "Docker does not support proxies",
+    "The Docker daemon has its own proxy configuration; the shell's HTTPS_PROXY does not apply to it",
+    "The image is too big",
+    "DNS is broken"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The daemon pulls images, not the CLI; configure the daemon proxy (and its CA) separately.",
+   "learn": [
+    {
+     "label": "Docker daemon proxy configuration",
+     "href": "https://docs.docker.com/engine/daemon/proxy/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q06",
+   "week": 6,
+   "set": "weekly",
+   "area": "llm",
+   "type": "single",
+   "stem": "An edge assistant runs a small local model. Which tasks suit it best?",
+   "options": [
+    "Long multi-step plans over many tools",
+    "Short tool-calling lookups and summaries grounded in tool results",
+    "Writing new firmware",
+    "Unbounded autonomous operation"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Small models do well on short, well-scoped tool tasks; route harder questions elsewhere when policy allows.",
+   "learn": [
+    {
+     "label": "Ollama tool calling",
+     "href": "https://docs.ollama.com/capabilities/tool-calling"
+    },
+    {
+     "label": "llama.cpp",
+     "href": "https://github.com/ggml-org/llama.cpp"
+    }
+   ]
+  },
+  {
+   "id": "w6-q07",
+   "week": 6,
+   "set": "weekly",
+   "area": "llm",
+   "type": "multi",
+   "stem": "Which two belong in a hybrid edge-cloud router policy? (choose two)",
+   "options": [
+    "Cloud only when a policy flag allows it",
+    "Never send raw site data to the cloud without approval",
+    "Always prefer the cloud for speed",
+    "Send everything to both and compare"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Residency and network policy are the client's; the router enforces them in code.",
+   "learn": [
+    {
+     "label": "Effective context engineering for AI agents",
+     "href": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+    }
+   ]
+  },
+  {
+   "id": "w6-q08",
+   "week": 6,
+   "set": "weekly",
+   "area": "fde",
+   "type": "single",
+   "stem": "A plant manager asks for 'AI on the pumps'. What is the FDE's first deliverable?",
+   "options": [
+    "A model demo",
+    "A one-page brief: who has the problem, today's cost, the target metric and baseline, constraints, out of scope",
+    "A cloud account",
+    "A chatbot"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Frame the problem and agree the measurable outcome before code, so the result is not argued later.",
+   "learn": [
+    {
+     "label": "What are Forward Deployed Engineers? (The Pragmatic Engineer)",
+     "href": "https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers"
+    },
+    {
+     "label": "The Mom Test",
+     "href": "https://www.momtestbook.com/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q09",
+   "week": 6,
+   "set": "weekly",
+   "area": "fde",
+   "type": "single",
+   "stem": "Which question follows The Mom Test when interviewing a maintenance planner?",
+   "options": [
+    "Would you use an app that predicts failures?",
+    "Tell me about the last unplanned bearing failure: what happened and what did it cost?",
+    "Do you like AI?",
+    "How much would you pay for this?"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Ask about past behaviour and real costs, not hypothetical wishes.",
+   "learn": [
+    {
+     "label": "The Mom Test",
+     "href": "https://www.momtestbook.com/"
+    }
+   ]
+  },
+  {
+   "id": "w6-q10",
+   "week": 6,
+   "set": "weekly",
+   "area": "fde",
+   "type": "single",
+   "stem": "Which handoff list makes the work customer-owned?",
+   "options": [
+    "A slide deck",
+    "Code in their repo, model card, runbooks (retrain, roll back, add a device), an eval suite they can rerun, each with a client owner",
+    "Your personal notes",
+    "A support contract with you"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The client must be able to operate and change it without calling you.",
+   "learn": [
+    {
+     "label": "Trading margin for moat (a16z)",
+     "href": "https://a16z.com/services-led-growth/"
+    },
+    {
+     "label": "What are Forward Deployed Engineers? (The Pragmatic Engineer)",
+     "href": "https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers"
+    }
+   ]
+  },
+  {
+   "id": "w6-q11",
+   "week": 6,
+   "set": "weekly",
+   "area": "network",
+   "type": "single",
+   "stem": "On site, a connection to the historian times out and the client's network team says 'the firewall is open'. Best next step?",
+   "options": [
+    "Escalate to their CIO",
+    "Capture packets (tcpdump) on both ends to show where SYN/ACK stops, and share the evidence",
+    "Disable the host firewall",
+    "Retry for an hour"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Evidence ends arguments; show exactly where the conversation stops.",
+   "learn": [
+    {
+     "label": "Effective troubleshooting (Google SRE book)",
+     "href": "https://sre.google/sre-book/effective-troubleshooting/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q01",
+   "week": "ai",
+   "set": "weekly",
+   "area": "llm",
+   "type": "single",
+   "stem": "An alert note typed by a contractor tells the assistant to raise a threshold, and the threshold changes. Where must the control live?",
+   "options": [
+    "In the system prompt",
+    "In the tool dispatcher: an explicit allow-list, write tools behind a human approval the model cannot satisfy",
+    "In the model choice",
+    "In the alert UI colour"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Prompts are not enforcement. The model can call whatever the dispatcher will run.",
+   "learn": [
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    },
+    {
+     "label": "The lethal trifecta (Simon Willison)",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q02",
+   "week": "ai",
+   "set": "weekly",
+   "area": "llm",
+   "type": "multi",
+   "stem": "The lethal trifecta has three legs. Which two of these options are legs? (choose two)",
+   "options": [
+    "Access to private data and exposure to untrusted content",
+    "An exfiltration channel",
+    "A small model",
+    "Prompt caching"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Private data + untrusted content + a way to send data out. Remove one leg.",
+   "learn": [
+    {
+     "label": "The lethal trifecta (Simon Willison)",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q03",
+   "week": "ai",
+   "set": "weekly",
+   "area": "llm",
+   "type": "single",
+   "stem": "The assistant cites tool call 'c9' that never ran. What should the loop do?",
+   "options": [
+    "Accept it",
+    "Reject the answer as invalid and retry once with the error, then fail",
+    "Run c9 now",
+    "Delete the citation silently"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Citations are checked against executed calls in code; otherwise grounding is decoration.",
+   "learn": [
+    {
+     "label": "Claude tool use overview",
+     "href": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
+    }
+   ]
+  },
+  {
+   "id": "ai-q04",
+   "week": "ai",
+   "set": "weekly",
+   "area": "llm",
+   "type": "single",
+   "stem": "Why return tool errors as data ({\"error\": ...}) instead of raising?",
+   "options": [
+    "Exceptions are slow",
+    "The model can read the error and correct its call (for example a valid machine id), and the loop stays in control",
+    "JSON is required",
+    "To hide errors"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Errors the model can act on, with the valid choices listed, are part of tool design.",
+   "learn": [
+    {
+     "label": "Claude tool use overview",
+     "href": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
+    },
+    {
+     "label": "Building effective agents",
+     "href": "https://www.anthropic.com/research/building-effective-agents"
+    }
+   ]
+  },
+  {
+   "id": "ai-q05",
+   "week": "ai",
+   "set": "weekly",
+   "area": "llm",
+   "type": "single",
+   "stem": "Your eval suite for the assistant should start with:",
+   "options": [
+    "LLM-as-judge on everything",
+    "Error analysis of real transcripts, then deterministic checks (schema, citations, tool calls) before any model-graded rubric",
+    "Exact-match on the answer text",
+    "Only latency"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Read outputs, categorise failures, then test the real failure modes deterministically first.",
+   "learn": [
+    {
+     "label": "LLM evals FAQ (Hamel Husain)",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q06",
+   "week": "ai",
+   "set": "weekly",
+   "area": "llm",
+   "type": "single",
+   "stem": "Which telemetry lets you debug a slow answer on the plant server?",
+   "options": [
+    "A single log line per day",
+    "Spans per model call and per tool call with token counts and latency (OTel GenAI conventions)",
+    "CPU temperature only",
+    "Nothing; models are black boxes"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Trace each turn: model, tool, tokens, latency.",
+   "learn": [
+    {
+     "label": "OpenTelemetry GenAI semantic conventions",
+     "href": "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q07",
+   "week": "ai",
+   "set": "weekly",
+   "area": "llm",
+   "type": "single",
+   "stem": "A small local model returns prose instead of the JSON object about 10% of the time. Best first fix?",
+   "options": [
+    "Switch to a cloud model",
+    "Validate with Pydantic and retry once with the exact validation error; measure the rate in evals",
+    "Regex the prose",
+    "Ignore failures"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Validate-and-retry fixes most format errors; the eval tells you whether it is enough.",
+   "learn": [
+    {
+     "label": "Pydantic docs",
+     "href": "https://pydantic.dev/docs/validation/latest/get-started/"
+    },
+    {
+     "label": "LLM evals FAQ (Hamel Husain)",
+     "href": "https://hamel.dev/blog/posts/evals-faq/"
+    }
+   ]
+  },
+  {
+   "id": "ai-q08",
+   "week": "ai",
+   "set": "weekly",
+   "area": "llm",
+   "type": "single",
+   "stem": "What does GGUF Q4 vs Q8 trade on an edge box?",
+   "options": [
+    "Nothing",
+    "Q4 halves memory and speeds up tokens per second at some quality cost versus Q8",
+    "Q8 is smaller",
+    "Q4 only runs on GPUs"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Quantization levels trade RAM and speed against quality; measure on your tasks and hardware.",
+   "learn": [
+    {
+     "label": "GGUF format (Hugging Face)",
+     "href": "https://huggingface.co/docs/hub/gguf"
+    },
+    {
+     "label": "Jetson AI Lab",
+     "href": "https://www.jetson-ai-lab.com/"
+    }
+   ]
+  },
+  {
+   "id": "w7-q01",
+   "week": 7,
+   "set": "weekly",
+   "area": "integrations",
+   "type": "single",
+   "stem": "A POST to create a work order times out. The server may have created it. How do you retry safely?",
+   "options": [
+    "Retry without changes",
+    "Retry with the same Idempotency-Key derived from the anomaly (machine + alert window)",
+    "Never retry",
+    "Create a new key per attempt"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The server dedupes on the key, so a lost response cannot create a second work order.",
+   "learn": [
+    {
+     "label": "Making retries safe with idempotent APIs",
+     "href": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/"
+    },
+    {
+     "label": "Idempotent requests (Stripe API)",
+     "href": "https://docs.stripe.com/api/idempotent_requests"
+    }
+   ]
+  },
+  {
+   "id": "w7-q02",
+   "week": 7,
+   "set": "weekly",
+   "area": "integrations",
+   "type": "multi",
+   "stem": "Which errors should the client retry? (choose two)",
+   "options": [
+    "503 and timeouts",
+    "429 honouring Retry-After",
+    "400 validation errors",
+    "401 without refreshing the token"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Retry transient errors with backoff and a budget; fix the request for 4xx; refresh the token on 401 once.",
+   "learn": [
+    {
+     "label": "Timeouts, retries and backoff with jitter",
+     "href": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"
+    },
+    {
+     "label": "Tenacity (retries)",
+     "href": "https://tenacity.readthedocs.io/en/latest/"
+    }
+   ]
+  },
+  {
+   "id": "w7-q03",
+   "week": 7,
+   "set": "weekly",
+   "area": "integrations",
+   "type": "single",
+   "stem": "Why full jitter on exponential backoff?",
+   "options": [
+    "It is faster",
+    "It spreads retries from many clients so they do not hit the server in synchronized waves",
+    "It is required by HTTP",
+    "It reduces payload size"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Synchronized retries cause thundering herds; jitter decorrelates them.",
+   "learn": [
+    {
+     "label": "Timeouts, retries and backoff with jitter",
+     "href": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"
+    }
+   ]
+  },
+  {
+   "id": "w7-q04",
+   "week": 7,
+   "set": "weekly",
+   "area": "integrations",
+   "type": "single",
+   "stem": "A Python HTTP client in the integration has no timeout set. What happens on a half-open connection?",
+   "options": [
+    "It fails fast",
+    "The call can hang indefinitely and block the worker",
+    "It retries automatically",
+    "It switches to HTTP/2"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Every external call needs connect and read timeouts (httpx makes them explicit).",
+   "learn": [
+    {
+     "label": "HTTPX",
+     "href": "https://www.python-httpx.org/"
+    }
+   ]
+  },
+  {
+   "id": "w7-q05",
+   "week": 7,
+   "set": "weekly",
+   "area": "signals",
+   "type": "single",
+   "stem": "A streaming band-pass reset on every 1-second chunk produces a spike at each chunk start on a DC-coupled accelerometer. Why?",
+   "options": [
+    "Clock drift",
+    "Each chunk starts from zero state, so the +1 g gravity offset looks like a step that rings the filter",
+    "Aliasing",
+    "The window is too short"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Carry the filter state (zi) between chunks and initialise it to the steady state.",
+   "learn": [
+    {
+     "label": "scipy.signal.butter",
+     "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html"
+    }
+   ]
+  }
+ ]
+}

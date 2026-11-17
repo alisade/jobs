@@ -1,0 +1,30 @@
+[
+ {
+  "id": "AR-901",
+  "team": "payments",
+  "user": "jdiaz",
+  "entitlement": "prod-db-read",
+  "status": "pending"
+ },
+ {
+  "id": "AR-902",
+  "team": "payments",
+  "user": "lwong",
+  "entitlement": "ledger-admin",
+  "status": "pending"
+ },
+ {
+  "id": "AR-903",
+  "team": "claims",
+  "user": "mchen",
+  "entitlement": "claims-export",
+  "status": "pending"
+ },
+ {
+  "id": "AR-904",
+  "team": "payments",
+  "user": "tkhan",
+  "entitlement": "ledger-read",
+  "status": "approved"
+ }
+]

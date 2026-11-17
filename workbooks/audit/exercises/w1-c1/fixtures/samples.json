@@ -1,0 +1,82 @@
+{
+  "S01": {
+    "change_id": "CHG-104118",
+    "pr_number": 2231,
+    "title": "Rate engine: fuel surcharge table v14",
+    "author": "dkwan",
+    "ticket": {
+      "id": "CHG-104118",
+      "summary": "Fuel surcharge table v14",
+      "requested_by": "dkwan",
+      "risk": "medium",
+      "state": "closed"
+    },
+    "pr": {
+      "number": 2231,
+      "repo": "mfh/rate-engine",
+      "author": "dkwan",
+      "merged_at": "2026-03-04T15:02:11Z",
+      "base": "main"
+    }
+  },
+  "S02": {
+    "change_id": "CHG-104163",
+    "pr_number": 2240,
+    "title": "Billing export: add currency column",
+    "author": "mreyes",
+    "ticket": {
+      "id": "CHG-104163",
+      "summary": "Billing export currency column",
+      "requested_by": "mreyes",
+      "risk": "low",
+      "state": "closed"
+    },
+    "pr": {
+      "number": 2240,
+      "repo": "mfh/billing-export",
+      "author": "mreyes",
+      "merged_at": "2026-03-11T19:40:00Z",
+      "base": "main"
+    }
+  },
+  "S05": {
+    "change_id": "CHG-104390",
+    "pr_number": 2302,
+    "title": "GL posting job: retry on lock timeout",
+    "author": "j.ortiz",
+    "ticket": {
+      "id": "CHG-104390",
+      "summary": "GL posting retry",
+      "requested_by": "j.ortiz",
+      "risk": "high",
+      "state": "closed"
+    },
+    "pr": {
+      "number": 2302,
+      "repo": "mfh/gl-posting",
+      "author": "j.ortiz",
+      "merged_at": "2026-05-20T13:10:00Z",
+      "base": "main"
+    }
+  },
+  "S06": {
+    "change_id": "CHG-104455",
+    "pr_number": 2318,
+    "title": "Carrier invoice matcher: tolerance 0.5%",
+    "author": "akhan",
+    "ticket": {
+      "id": "CHG-104455",
+      "summary": "Invoice matcher tolerance",
+      "requested_by": "akhan",
+      "risk": "medium",
+      "state": "closed"
+    },
+    "pr": {
+      "number": 2318,
+      "repo": "mfh/invoice-matcher",
+      "author": "akhan",
+      "merged_at": "2026-06-02T16:30:00Z",
+      "base": "main"
+    }
+  }
+}

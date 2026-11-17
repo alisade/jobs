@@ -1,0 +1,26 @@
+:ID,:LABEL,name:String,tenant_id:String,country:String,category:String
+acme-foods:sup-01,Supplier,Sierra Farms,acme-foods,US,
+acme-foods:sup-02,Supplier,Pacific Packaging,acme-foods,MX,
+acme-foods:sup-03,Supplier,Golden Grain Mills,acme-foods,US,
+acme-foods:sup-04,Supplier,ColdBox Containers,acme-foods,CA,
+acme-foods:part-01,Part,Durum wheat flour,acme-foods,,ingredient
+acme-foods:part-02,Part,Corrugated case 12x1kg,acme-foods,,packaging
+acme-foods:part-03,Part,Tomato paste,acme-foods,,ingredient
+acme-foods:part-04,Part,Glass jar 680g,acme-foods,,packaging
+acme-foods:part-05,Part,Insulated liner,acme-foods,,packaging
+acme-foods:prod-01,Product,Penne 1kg,acme-foods,,dry
+acme-foods:prod-02,Product,Marinara 680g,acme-foods,,dry
+acme-foods:prod-03,Product,Fresh pasta kit,acme-foods,,chilled
+acme-foods:cust-01,Customer,Northgate Grocers,acme-foods,US,
+acme-foods:cust-02,Customer,Hillside Markets,acme-foods,US,
+acme-foods:cust-03,Customer,Maple Row Deli Co-op,acme-foods,CA,
+acme-foods:fac-01,Facility,Fresno mill,acme-foods,US,
+acme-foods:fac-02,Facility,Tijuana box plant,acme-foods,MX,
+acme-foods:fac-03,Facility,Mississauga liner plant,acme-foods,CA,
+corvid-logistics:sup-01,Supplier,Ridge Tire Supply,corvid-logistics,US,
+corvid-logistics:sup-02,Supplier,Pacific Packaging,corvid-logistics,US,
+corvid-logistics:part-01,Part,Drive tire 295/75R22.5,corvid-logistics,,tires
+corvid-logistics:part-02,Part,Pallet wrap,corvid-logistics,,packaging
+corvid-logistics:prod-01,Product,Trailer service kit,corvid-logistics,,service
+corvid-logistics:cust-01,Customer,Hillside Markets,corvid-logistics,US,
+corvid-logistics:fac-01,Facility,Reno tire depot,corvid-logistics,US,

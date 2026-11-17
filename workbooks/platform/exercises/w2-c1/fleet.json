@@ -1,0 +1,247 @@
+{
+  "now": "2026-11-16T12:00:00Z",
+  "target_version": "1.34.1-gke.1200000",
+  "policy": {
+    "environment_order": [
+      "dev",
+      "stg",
+      "prod"
+    ],
+    "soak_hours": {
+      "dev": 48,
+      "stg": 72,
+      "prod": 24
+    },
+    "cluster_gap_hours": 24,
+    "max_node_skew": 3
+  },
+  "channel_versions": {
+    "REGULAR": [
+      "1.33.5-gke.1080000",
+      "1.34.1-gke.1200000",
+      "1.34.2-gke.1050000"
+    ],
+    "STABLE": [
+      "1.32.9-gke.1100000",
+      "1.33.4-gke.1010000",
+      "1.33.5-gke.1080000",
+      "1.34.1-gke.1200000"
+    ]
+  },
+  "clusters": [
+    {
+      "name": "prod-green",
+      "project": "tsl-riq-prod",
+      "location": "us-east4",
+      "environment": "prod",
+      "channel": "STABLE",
+      "control_plane": "1.33.5-gke.1080000",
+      "node_pools": [
+        {
+          "name": "default",
+          "version": "1.33.5-gke.1080000",
+          "node_count": 6,
+          "machine_type": "n2-standard-8",
+          "vcpus_per_node": 8,
+          "strategy": {
+            "type": "BLUE_GREEN",
+            "batch_percent": 25,
+            "soak_minutes": 30
+          }
+        },
+        {
+          "name": "batch",
+          "version": "1.33.5-gke.1080000",
+          "node_count": 3,
+          "machine_type": "n2-standard-16",
+          "vcpus_per_node": 16,
+          "strategy": {
+            "type": "SURGE",
+            "max_surge": 1,
+            "max_unavailable": 0
+          }
+        }
+      ],
+      "maintenance_window": {
+        "days": [
+          "TU",
+          "WE",
+          "TH"
+        ],
+        "start": "03:00",
+        "duration_hours": 4
+      },
+      "exclusions": [],
+      "quota": {
+        "cpus_limit": 160,
+        "cpus_used": 124
+      },
+      "pdbs": [
+        {
+          "namespace": "riq",
+          "name": "riq-api",
+          "disruptions_allowed": 1
+        }
+      ]
+    },
+    {
+      "name": "dev-1",
+      "project": "tsl-platform-dev",
+      "location": "us-central1-a",
+      "environment": "dev",
+      "channel": "REGULAR",
+      "control_plane": "1.33.5-gke.1080000",
+      "node_pools": [
+        {
+          "name": "default",
+          "version": "1.33.5-gke.1080000",
+          "node_count": 3,
+          "machine_type": "n2-standard-4",
+          "vcpus_per_node": 4,
+          "strategy": {
+            "type": "SURGE",
+            "max_surge": 1,
+            "max_unavailable": 0
+          }
+        }
+      ],
+      "maintenance_window": {
+        "days": [
+          "TU",
+          "WE",
+          "TH"
+        ],
+        "start": "03:00",
+        "duration_hours": 4
+      },
+      "exclusions": [],
+      "quota": {
+        "cpus_limit": 96,
+        "cpus_used": 12
+      },
+      "pdbs": []
+    },
+    {
+      "name": "stg-1",
+      "project": "tsl-platform-stg",
+      "location": "us-central1",
+      "environment": "stg",
+      "channel": "REGULAR",
+      "control_plane": "1.33.5-gke.1080000",
+      "node_pools": [
+        {
+          "name": "default",
+          "version": "1.33.5-gke.1080000",
+          "node_count": 3,
+          "machine_type": "n2-standard-8",
+          "vcpus_per_node": 8,
+          "strategy": {
+            "type": "SURGE",
+            "max_surge": 1,
+            "max_unavailable": 0
+          }
+        },
+        {
+          "name": "spot",
+          "version": "1.33.5-gke.1080000",
+          "node_count": 2,
+          "machine_type": "n2-standard-8",
+          "vcpus_per_node": 8,
+          "strategy": {
+            "type": "SURGE",
+            "max_surge": 2,
+            "max_unavailable": 0
+          }
+        }
+      ],
+      "maintenance_window": {
+        "days": [
+          "TU",
+          "WE",
+          "TH"
+        ],
+        "start": "03:00",
+        "duration_hours": 4
+      },
+      "exclusions": [],
+      "quota": {
+        "cpus_limit": 128,
+        "cpus_used": 40
+      },
+      "pdbs": [
+        {
+          "namespace": "riq",
+          "name": "riq-api",
+          "disruptions_allowed": 1
+        }
+      ]
+    },
+    {
+      "name": "prod-blue",
+      "project": "tsl-riq-prod",
+      "location": "us-central1",
+      "environment": "prod",
+      "channel": "STABLE",
+      "canary": true,
+      "control_plane": "1.32.9-gke.1100000",
+      "node_pools": [
+        {
+          "name": "default",
+          "version": "1.32.9-gke.1100000",
+          "node_count": 6,
+          "machine_type": "n2-standard-8",
+          "vcpus_per_node": 8,
+          "strategy": {
+            "type": "SURGE",
+            "max_surge": 1,
+            "max_unavailable": 0
+          }
+        },
+        {
+          "name": "legacy-io",
+          "version": "1.30.14-gke.1200000",
+          "node_count": 2,
+          "machine_type": "n2-standard-8",
+          "vcpus_per_node": 8,
+          "strategy": {
+            "type": "SURGE",
+            "max_surge": 1,
+            "max_unavailable": 0
+          }
+        }
+      ],
+      "maintenance_window": {
+        "days": [
+          "WE",
+          "TH"
+        ],
+        "start": "03:00",
+        "duration_hours": 4
+      },
+      "exclusions": [
+        {
+          "name": "thanksgiving-freeze",
+          "start": "2026-11-25T00:00:00Z",
+          "end": "2026-12-03T00:00:00Z",
+          "scope": "NO_MINOR_UPGRADES"
+        }
+      ],
+      "quota": {
+        "cpus_limit": 256,
+        "cpus_used": 80
+      },
+      "pdbs": [
+        {
+          "namespace": "riq",
+          "name": "riq-api",
+          "disruptions_allowed": 1
+        },
+        {
+          "namespace": "mdm",
+          "name": "mdm-api",
+          "disruptions_allowed": 2
+        }
+      ]
+    }
+  ]
+}

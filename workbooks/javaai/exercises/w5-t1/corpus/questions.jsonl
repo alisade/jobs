@@ -1,0 +1,20 @@
+{"id": "q01", "course": "bio-210", "question": "How do respiratory droplets and aerosols differ in how far they travel?", "relevant": ["l1-s1"]}
+{"id": "q02", "course": "bio-210", "question": "What are fomites?", "relevant": ["l1-s1"]}
+{"id": "q03", "course": "bio-210", "question": "What is a vector such as a mosquito or tick?", "relevant": ["l1-s2"]}
+{"id": "q04", "course": "bio-210", "question": "Which animals act as a reservoir for hantavirus?", "relevant": ["l1-s2"]}
+{"id": "q05", "course": "bio-210", "question": "What does R0 measure in a susceptible population?", "relevant": ["l1-s3"]}
+{"id": "q06", "course": "bio-210", "question": "When does an outbreak decline according to the effective reproduction number?", "relevant": ["l1-s3"]}
+{"id": "q07", "course": "bio-210", "question": "How does ventilation help break the chain of infection?", "relevant": ["l1-s4"]}
+{"id": "q08", "course": "bio-210", "question": "Why does isolation shorten the infectious period among contacts?", "relevant": ["l1-s4"]}
+{"id": "q09", "course": "bio-210", "question": "Does innate immunity improve with repeated exposure?", "relevant": ["l2-s1"]}
+{"id": "q10", "course": "bio-210", "question": "Which lymphocytes recognise specific antigens?", "relevant": ["l2-s1"]}
+{"id": "q11", "course": "bio-210", "question": "Why does a later infection trigger a faster secondary response after a vaccine?", "relevant": ["l2-s2"]}
+{"id": "q12", "course": "bio-210", "question": "What do mRNA vaccines deliver to cells?", "relevant": ["l2-s3"]}
+{"id": "q13", "course": "bio-210", "question": "What is an adjuvant for?", "relevant": ["l2-s3"]}
+{"id": "q14", "course": "bio-210", "question": "How does the herd immunity threshold depend on R0?", "relevant": ["l2-s4"]}
+{"id": "q15", "course": "bio-210", "question": "Why do antibiotics not treat influenza or the common cold?", "relevant": ["l3-s1"]}
+{"id": "q16", "course": "bio-210", "question": "What role do plasmids and horizontal gene transfer play in resistance?", "relevant": ["l3-s2"]}
+{"id": "q17", "course": "bio-210", "question": "Why should carbapenems be reserved?", "relevant": ["l3-s3"]}
+{"id": "q18", "course": "bio-210", "question": "What does narrow spectrum prescribing mean in stewardship?", "relevant": ["l3-s3"]}
+{"id": "q90", "course": "bio-210", "question": "How do I master a lesson in this course?", "relevant": ["l0-s1"]}
+{"id": "q91", "course": "bio-210", "question": "What biosafety level do the teaching labs use?", "relevant": ["l0-s2"]}

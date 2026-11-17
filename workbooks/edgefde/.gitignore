@@ -1,0 +1,10 @@
+# Shared toolchain (rebuilt by make deps / make setup)
+.venv/
+node_modules
+# Build and test output
+__pycache__/
+.pytest_cache/
+*.pyc
+# OS / editor
+.DS_Store
+*.swp

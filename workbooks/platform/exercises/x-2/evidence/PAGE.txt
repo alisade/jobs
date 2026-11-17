@@ -1,0 +1,18 @@
+PagerDuty  INCIDENT #4471  P1  triggered 2026-11-10 15:11:37 UTC
+Service:   RIQ API (prod)
+Summary:   [FIRING] RIQAPIAvailabilityBurnRateFast  prod-blue AND prod-green
+           error ratio 5m = 0.97, 1h = 0.18 (SLO 99.9%)
+Assigned:  Priya N. (platform on-call, 12 h shift 08:00-20:00 UTC)
+
+#riq-incident  (Slack export, times UTC)
+15:12 priya.n     paged. riq-api 5xx on BOTH prod clusters at once. pods CrashLoopBackOff:
+                  "config: required key database.dsn not set"
+15:13 marco.d     we were only supposed to canary 3.0.0 today?? dana bumped canary at 14:40
+15:14 dana.k      yes canary only: dev-1 and stg-1. prod should be on 2.4.1 until thursday
+15:15 marco.d     argo shows prod-blue-riq-api and prod-green-riq-api synced to 3.0.0 at 15:06
+15:16 jun.w       selfHeal was turned on last week (PLAT-1201). selfHeal is pulling 3.0.0 in.
+                  turn selfHeal off and roll back?
+15:18 priya.n     disabling automated sync on both prod apps, then argocd app rollback to 2.4.1
+15:24 priya.n     prod-blue healthy on 2.4.1, prod-green healthy on 2.4.1. error ratio back < 0.1%
+15:25 priya.n     automated sync left OFF on prod for now. need a real root cause before re-enabling
+15:31 dana.k      postmortem owner: you (platform). why did a canary bump reach prod?

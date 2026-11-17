@@ -1,0 +1,27 @@
+{
+  "id": "backend/w5-t1",
+  "title": "Duplicate stage-change events after the relay restart",
+  "type": "troubleshooting",
+  "estimate": "2 h",
+  "week": 5,
+  "optional": false,
+  "area": "Events and messaging: outbox, Kafka, consumers",
+  "scenario": "After the 14:02 rollout of outbox-relay, opportunity timelines show 212 stage changes twice and the deal desk got duplicate emails. The consumer team says their event_id dedupe is on; the broker had a planned restart and a latency spike at the same minute. You get both relay pods' logs, the consumer log, an outbox dump and broker metrics.",
+  "task": [
+    "Find why duplicates reached the timeline despite consumer dedupe, with evidence",
+    "Fix the relay: stable message identity, a conditional claim, per-row completion that respects lease ownership",
+    "Explain what is expected at-least-once behavior and what was a bug",
+    "Write ANSWER.md, including the red herring"
+  ],
+  "acceptance": [
+    "A relay killed mid-batch and restarted leads to every event applied exactly once downstream",
+    "Message ids equal outbox event ids; a crash republishes at most the in-flight row",
+    "A relay that lost its lease stops publishing; per-aggregate order preserved",
+    "ANSWER.md names the root cause with log evidence"
+  ],
+  "practices": [
+    {"label": "Week 5 Tue - dual writes and the transactional outbox", "href": "week5"},
+    {"label": "Week 5 Wed - idempotent consumers, DLQ, event design", "href": "week5"},
+    {"label": "Week 5 Mon - Kafka model", "href": "week5"}
+  ]
+}

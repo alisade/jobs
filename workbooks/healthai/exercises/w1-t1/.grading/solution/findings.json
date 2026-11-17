@@ -1,0 +1,13 @@
+{
+  "root_cause_file": "clockreport/deadlines.py",
+  "root_cause_function": "add_days",
+  "late_standard_decisions": 21,
+  "late_expedited_decisions": 7,
+  "audit_sample_confirmed": [
+    "PA-2026-00201",
+    "PA-2026-00419",
+    "PA-2026-00592",
+    "PA-2026-00606",
+    "PA-2026-00611"
+  ]
+}

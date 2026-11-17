@@ -1,0 +1,21 @@
+{
+  "ingestionJob": {
+    "knowledgeBaseId": "KBTIDEWATER01",
+    "dataSourceId": "DSTENANTDOCS",
+    "ingestionJobId": "IJ7Q2M4K9Z",
+    "description": "ASK-398 re-ingest with hierarchical chunking",
+    "status": "COMPLETE",
+    "statistics": {
+      "numberOfDocumentsScanned": 14,
+      "numberOfMetadataDocumentsScanned": 14,
+      "numberOfNewDocumentsIndexed": 0,
+      "numberOfModifiedDocumentsIndexed": 14,
+      "numberOfMetadataDocumentsModified": 0,
+      "numberOfDocumentsDeleted": 0,
+      "numberOfDocumentsFailed": 0
+    },
+    "failureReasons": [],
+    "startedAt": "2026-11-10T02:00:04Z",
+    "updatedAt": "2026-11-10T02:07:51Z"
+  }
+}

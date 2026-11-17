@@ -1,0 +1,19 @@
+PR #388 "security: least-privilege WIF bindings for foundation CI" (merged 2026-11-10 08:40 UTC by dana-k,
+approved by infosec-bot). Applied by the apply job of the merge commit itself (run 4398, which used the
+old binding and succeeded). PR #391 merged at 09:10 and its apply (run 4412) is the first run that
+needed the new binding.
+
+Description: "Only main may apply. Bind tf-apply to the exact OIDC subject of main instead of every
+workflow in the repo. Adds attribute.ref to the mapping for future use."
+
+--- a/infra/wif.tf.json
++++ b/infra/wif.tf.json
+@@ provider "github" attribute_mapping
+       "attribute.repository": "assertion.repository",
+-      "attribute.repository_owner": "assertion.repository_owner"
++      "attribute.repository_owner": "assertion.repository_owner",
++      "attribute.ref": "assertion.ref"
+@@ google_service_account_iam_member "apply_wif"
+       "role": "roles/iam.workloadIdentityUser",
+-      "member": "principalSet://iam.googleapis.com/projects/${local.ci_project_number}/locations/global/workloadIdentityPools/${local.pool_id}/attribute.repository/${local.repo}"
++      "member": "principal://iam.googleapis.com/projects/${local.ci_project_number}/locations/global/workloadIdentityPools/${local.pool_id}/subject/repo:${local.repo}:ref:refs/heads/main"

@@ -1,0 +1,61 @@
+# RIQ API availability SLO: 99.9% of requests succeed (non-5xx) over 30 days.
+# Multi-window, multi-burn-rate alerts (Google SRE workbook, "Alerting on SLOs"):
+#   page when the 1h AND 5m burn rate > 14.4, or the 6h AND 30m burn rate > 6.
+# Owner: TechOps platform (PLAT-1022). Deployed as a GMP Rules resource in namespace riq.
+#
+# 2026-11-05 (PLAT-1240): managed collection (PodMonitoring) does not attach the `service` label the old
+# ServiceMonitor added through targetLabels. Series now carry project_id, location, cluster, namespace,
+# job (the PodMonitoring name) and instance. Aggregate and select on job + namespace, keep cluster so a
+# bad cluster pages on its own (an outage on one of two clusters would be diluted by half otherwise).
+groups:
+  - name: riq-slo.rules
+    interval: 60s
+    rules:
+      - record: job_code:http_requests:rate5m
+        expr: sum by (job, namespace, cluster, code) (rate(http_requests_total{job="riq-api", namespace="riq"}[5m]))
+      - record: job_code:http_requests:rate30m
+        expr: sum by (job, namespace, cluster, code) (rate(http_requests_total{job="riq-api", namespace="riq"}[30m]))
+      - record: job_code:http_requests:rate1h
+        expr: sum by (job, namespace, cluster, code) (rate(http_requests_total{job="riq-api", namespace="riq"}[1h]))
+      - record: job_code:http_requests:rate6h
+        expr: sum by (job, namespace, cluster, code) (rate(http_requests_total{job="riq-api", namespace="riq"}[6h]))
+      - record: job:http_errors:ratio_rate5m
+        expr: sum by (job, namespace, cluster) (job_code:http_requests:rate5m{code=~"5.."}) / sum by (job, namespace, cluster) (job_code:http_requests:rate5m)
+      - record: job:http_errors:ratio_rate30m
+        expr: sum by (job, namespace, cluster) (job_code:http_requests:rate30m{code=~"5.."}) / sum by (job, namespace, cluster) (job_code:http_requests:rate30m)
+      - record: job:http_errors:ratio_rate1h
+        expr: sum by (job, namespace, cluster) (job_code:http_requests:rate1h{code=~"5.."}) / sum by (job, namespace, cluster) (job_code:http_requests:rate1h)
+      - record: job:http_errors:ratio_rate6h
+        expr: sum by (job, namespace, cluster) (job_code:http_requests:rate6h{code=~"5.."}) / sum by (job, namespace, cluster) (job_code:http_requests:rate6h)
+
+  - name: riq-slo.alerts
+    interval: 60s
+    rules:
+      - alert: RiqApiErrorBudgetBurnFast
+        expr: job:http_errors:ratio_rate1h{job="riq-api", namespace="riq"} > (14.4 * 0.001) and job:http_errors:ratio_rate5m{job="riq-api", namespace="riq"} > (14.4 * 0.001)
+        for: 2m
+        labels:
+          severity: page
+          team: riq
+        annotations:
+          summary: RIQ API is burning its 30-day error budget 14.4x too fast (2% of budget in 1h)
+          runbook: https://runbooks.tessellate.example/riq/error-budget-burn
+      - alert: RiqApiErrorBudgetBurnSlow
+        expr: job:http_errors:ratio_rate6h{job="riq-api", namespace="riq"} > (6 * 0.001) and job:http_errors:ratio_rate30m{job="riq-api", namespace="riq"} > (6 * 0.001)
+        for: 15m
+        labels:
+          severity: page
+          team: riq
+        annotations:
+          summary: RIQ API is burning its 30-day error budget 6x too fast (5% of budget in 6h)
+          runbook: https://runbooks.tessellate.example/riq/error-budget-burn
+      # Guard: an SLO alert built on a selector that matches nothing is silent forever. Page the owner
+      # (ticket severity) when the request series the SLO depends on disappear.
+      - alert: RiqApiSLOSeriesMissing
+        expr: absent(job_code:http_requests:rate5m{job="riq-api", namespace="riq"})
+        for: 10m
+        labels:
+          severity: ticket
+          team: platform
+        annotations:
+          summary: No riq-api request rate series; the RIQ SLO alerts cannot fire (label drift or scrape failure)

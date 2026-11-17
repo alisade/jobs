@@ -1,0 +1,28 @@
+{
+  "id": "backend/w4-c1",
+  "title": "Opportunity stage transitions with an outbox (Fastify + Kysely)",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 4,
+  "optional": false,
+  "area": "TypeScript services: Node, Fastify, Kysely",
+  "scenario": "pipeline-svc's stage-transition endpoint is the pipeline's most important write: the forecast consumes its OpportunityStageChanged events and the Keystone agent will call it through a tool, with retries. The CRM port works only in the demo: no transaction, no tenant, any stage, lost updates, events for changes that never committed, ad-hoc errors and requests killed on every rollout.",
+  "task": [
+    "Zod validation and RFC 9457 problem+json for every error (400, 404, 409, 422, 500)",
+    "One transaction as the app role with the tenant set locally: SELECT ... FOR UPDATE, version check, transition graph and closed-won rules",
+    "Write stage_history and the outbox row in the same transaction; nothing written on rollback",
+    "Graceful shutdown: readiness 503, refuse new work, drain in-flight, then exit"
+  ],
+  "acceptance": [
+    "Concurrent transitions with one version: one 200, one 409, one outbox row",
+    "Other tenant's opportunity is a 404 and writes nothing",
+    "Failure before commit leaves no outbox row",
+    "In-flight requests finish before exit(0)"
+  ],
+  "practices": [
+    {"label": "Week 4 Tue - Fastify schemas and Zod", "href": "week4"},
+    {"label": "Week 4 Wed - Kysely, transactions, FOR UPDATE, SET LOCAL", "href": "week4"},
+    {"label": "Week 4 Mon - Node event loop and graceful shutdown", "href": "week4"},
+    {"label": "Week 5 Tue - dual writes and the transactional outbox", "href": "week5"}
+  ]
+}

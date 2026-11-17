@@ -1,0 +1,46 @@
+# RIQ API availability SLO: 99.9% of requests succeed (non-5xx) over 30 days.
+# Multi-window, multi-burn-rate alerts (Google SRE workbook, "Alerting on SLOs"):
+#   page when the 1h AND 5m burn rate > 14.4, or the 6h AND 30m burn rate > 6.
+# Owner: TechOps platform (PLAT-1022). Deployed as a GMP Rules resource in namespace riq.
+groups:
+  - name: riq-slo.rules
+    interval: 60s
+    rules:
+      - record: service_code:http_requests:rate5m
+        expr: sum by (service, code) (rate(http_requests_total{namespace="riq"}[5m]))
+      - record: service_code:http_requests:rate30m
+        expr: sum by (service, code) (rate(http_requests_total{namespace="riq"}[30m]))
+      - record: service_code:http_requests:rate1h
+        expr: sum by (service, code) (rate(http_requests_total{namespace="riq"}[1h]))
+      - record: service_code:http_requests:rate6h
+        expr: sum by (service, code) (rate(http_requests_total{namespace="riq"}[6h]))
+      - record: service:http_errors:ratio_rate5m
+        expr: sum by (service) (service_code:http_requests:rate5m{code=~"5.."}) / sum by (service) (service_code:http_requests:rate5m)
+      - record: service:http_errors:ratio_rate30m
+        expr: sum by (service) (service_code:http_requests:rate30m{code=~"5.."}) / sum by (service) (service_code:http_requests:rate30m)
+      - record: service:http_errors:ratio_rate1h
+        expr: sum by (service) (service_code:http_requests:rate1h{code=~"5.."}) / sum by (service) (service_code:http_requests:rate1h)
+      - record: service:http_errors:ratio_rate6h
+        expr: sum by (service) (service_code:http_requests:rate6h{code=~"5.."}) / sum by (service) (service_code:http_requests:rate6h)
+
+  - name: riq-slo.alerts
+    interval: 60s
+    rules:
+      - alert: RiqApiErrorBudgetBurnFast
+        expr: service:http_errors:ratio_rate1h{service="riq-api"} > (14.4 * 0.001) and service:http_errors:ratio_rate5m{service="riq-api"} > (14.4 * 0.001)
+        for: 2m
+        labels:
+          severity: page
+          team: riq
+        annotations:
+          summary: RIQ API is burning its 30-day error budget 14.4x too fast (2% of budget in 1h)
+          runbook: https://runbooks.tessellate.example/riq/error-budget-burn
+      - alert: RiqApiErrorBudgetBurnSlow
+        expr: service:http_errors:ratio_rate6h{service="riq-api"} > (6 * 0.001) and service:http_errors:ratio_rate30m{service="riq-api"} > (6 * 0.001)
+        for: 15m
+        labels:
+          severity: page
+          team: riq
+        annotations:
+          summary: RIQ API is burning its 30-day error budget 6x too fast (5% of budget in 6h)
+          runbook: https://runbooks.tessellate.example/riq/error-budget-burn

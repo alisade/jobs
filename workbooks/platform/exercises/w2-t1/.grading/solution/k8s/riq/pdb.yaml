@@ -1,0 +1,15 @@
+# Scoped to the stable track: the RIQ canary Deployment shares app: riq-api for Service traffic,
+# but must not consume the stable budget (with maxUnavailable, an unready canary pod uses it up).
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: riq-api
+  namespace: riq
+spec:
+  maxUnavailable: 1
+  unhealthyPodEvictionPolicy: AlwaysAllow
+  selector:
+    matchLabels:
+      app: riq-api
+    matchExpressions:
+      - {key: track, operator: NotIn, values: [canary]}

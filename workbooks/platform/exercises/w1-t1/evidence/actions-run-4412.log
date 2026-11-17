@@ -1,0 +1,12 @@
+2026-11-10T09:12:03.118Z ##[group]Run google-github-actions/auth@v2
+2026-11-10T09:12:03.119Z with:
+2026-11-10T09:12:03.119Z   workload_identity_provider: projects/417203958311/locations/global/workloadIdentityPools/github/providers/github-actions
+2026-11-10T09:12:03.119Z   service_account: tf-apply@tsl-platform-ci.iam.gserviceaccount.com
+2026-11-10T09:12:03.119Z   create_credentials_file: true
+2026-11-10T09:12:03.119Z   export_environment_variables: true
+2026-11-10T09:12:03.120Z ##[endgroup]
+2026-11-10T09:12:03.402Z Created credentials file at "/home/runner/work/platform-foundation/gha-creds-1f0a7c2e9b4d6e31.json"
+2026-11-10T09:12:04.551Z ##[group]Run terraform init -input=false
+2026-11-10T09:12:07.902Z Initializing the backend...
+2026-11-10T09:12:08.613Z ##[error]Error: Failed to get existing workspaces: querying Cloud Storage failed: Get "https://storage.googleapis.com/storage/v1/b/tsl-tfstate-prod/o?alt=json&delimiter=%2F&pageToken=&prefix=foundation%2F&prettyPrint=false&projection=full&versions=false": oauth2/google: unable to generate access token: Post "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/tf-apply@tsl-platform-ci.iam.gserviceaccount.com:generateAccessToken": {"error":{"code":403,"message":"Permission 'iam.serviceAccounts.getAccessToken' denied on resource (or it may not exist).","status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"IAM_PERMISSION_DENIED","domain":"iam.googleapis.com","metadata":{"permission":"iam.serviceAccounts.getAccessToken"}}]}}
+2026-11-10T09:12:08.701Z ##[error]Process completed with exit code 1.

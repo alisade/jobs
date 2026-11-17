@@ -1,0 +1,4 @@
+[
+  {"published": "2026-11-10T14:00:00.000Z", "eventType": "system.signing_key.rotate", "displayMessage": "Automatic signing key rotation", "target": [{"type": "AuthorizationServer", "displayName": "ClaimDesk API (aus1claimdesk)"}], "debugContext": {"newKid": "k-2026-11", "previousKid": "k-2026-10", "previousKeyPublishedUntil": "2026-12-10T14:00:00.000Z"}},
+  {"published": "2026-11-10T14:00:00.512Z", "eventType": "system.signing_key.activate", "displayMessage": "New tokens are signed with k-2026-11", "target": [{"type": "AuthorizationServer", "displayName": "ClaimDesk API (aus1claimdesk)"}]}
+]

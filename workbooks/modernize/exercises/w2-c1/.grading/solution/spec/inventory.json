@@ -1,0 +1,499 @@
+{
+  "system": "claimdesk-web 7.4.2 (WAR on JBoss EAP 7.4, Oracle CLMPRD)",
+  "db_objects": [
+    {
+      "name": "CLAIM",
+      "kind": "table",
+      "access": [
+        "read"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/ClaimDao.java:23",
+          "quote": "FROM CLAIM WHERE CLAIM_NUMBER"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/batch/NightlyReinsuranceExport.java:38",
+          "quote": "FROM CLAIM c "
+        }
+      ]
+    },
+    {
+      "name": "CLMARCH.CLAIM_ARCHIVE_<YYYY>",
+      "kind": "table",
+      "access": [
+        "read",
+        "delete"
+      ],
+      "notes": "one table per year, name built by string concatenation; the weekly cron deletes from it",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/ClaimDao.java:29",
+          "quote": ".CLAIM_ARCHIVE_\" + year"
+        },
+        {
+          "ref": "app/ops/purge-archive.sh:6",
+          "quote": "DELETE FROM CLMARCH.CLAIM_ARCHIVE_${YEAR}"
+        }
+      ]
+    },
+    {
+      "name": "CLAIM_NOTE",
+      "kind": "table",
+      "access": [
+        "insert"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/ClaimDao.java:35",
+          "quote": "INSERT INTO CLAIM_NOTE"
+        }
+      ]
+    },
+    {
+      "name": "SEQ_NOTE",
+      "kind": "sequence",
+      "access": [
+        "read"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/ClaimDao.java:35",
+          "quote": "SEQ_NOTE.NEXTVAL"
+        }
+      ]
+    },
+    {
+      "name": "RESERVE_LINE",
+      "kind": "table",
+      "access": [
+        "read",
+        "update"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/ReserveDao.java:22",
+          "quote": "UPDATE RESERVE_LINE SET OUTSTANDING"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/batch/NightlyReinsuranceExport.java:39",
+          "quote": "JOIN RESERVE_LINE r"
+        }
+      ]
+    },
+    {
+      "name": "PKG_RESERVE.RECALC",
+      "kind": "procedure",
+      "access": [
+        "execute"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/ReserveDao.java:27",
+          "quote": "{call PKG_RESERVE.RECALC(?)}"
+        }
+      ]
+    },
+    {
+      "name": "CLAIMS.PAYMENT",
+      "kind": "table",
+      "access": [
+        "insert"
+      ],
+      "notes": "JPA entity mapped only in orm.xml, no annotations",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/resources/META-INF/orm.xml:4",
+          "quote": "<table name=\"PAYMENT\" schema=\"CLAIMS\"/>"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/PaymentDao.java:19",
+          "quote": "em.persist(p);"
+        }
+      ]
+    },
+    {
+      "name": "SEQ_PAYMENT",
+      "kind": "sequence",
+      "access": [
+        "read"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/resources/META-INF/orm.xml:9",
+          "quote": "sequence-name=\"SEQ_PAYMENT\""
+        }
+      ]
+    },
+    {
+      "name": "USER_ROLE",
+      "kind": "table",
+      "access": [
+        "read"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/resources/queries.properties:2",
+          "quote": "FROM USER_ROLE WHERE USER_ID"
+        }
+      ]
+    },
+    {
+      "name": "ADJUSTER",
+      "kind": "table",
+      "access": [
+        "read"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/resources/queries.properties:3",
+          "quote": "FROM ADJUSTER WHERE REGION"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/batch/NightlyReinsuranceExport.java:41",
+          "quote": "queries().getProperty(\"adjuster.byRegion\")"
+        }
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "name": "Corporate LDAP (group check for payments)",
+      "protocol": "ldap",
+      "direction": "outbound",
+      "status": "live",
+      "endpoint_source": "ldap.url in /etc/claimdesk/claimdesk.properties",
+      "failure_behaviour": "NamingException returns false: payments are denied (fail closed)",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/web/LdapGroupFilter.java:43",
+          "quote": "Context.PROVIDER_URL"
+        },
+        {
+          "ref": "app/config/claimdesk.properties:2",
+          "quote": "ldap.url=ldaps://ldap-vip.corvane.local:636"
+        }
+      ]
+    },
+    {
+      "name": "Sentinel fraud scoring (SIU)",
+      "protocol": "http",
+      "direction": "outbound",
+      "status": "live",
+      "endpoint_source": "JNDI java:global/claimdesk/fraudScoreUrl, bound in the jboss-cli build script",
+      "failure_behaviour": "any IOException returns score 0: fails open",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/integration/FraudClient.java:18",
+          "quote": "java:global/claimdesk/fraudScoreUrl"
+        },
+        {
+          "ref": "app/ops/datasource-claimdesk.cli:6",
+          "quote": "http://sentinel.siu.corvane.local:8080/score"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/integration/FraudClient.java:36",
+          "quote": "return 0;"
+        }
+      ]
+    },
+    {
+      "name": "PAS 6 policy inquiry",
+      "protocol": "soap",
+      "direction": "outbound",
+      "status": "live",
+      "endpoint_source": "policyadmin.wsdl in claimdesk.properties",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/integration/PolicyAdminClient.java:19",
+          "quote": "Service.create(wsdl, SERVICE)"
+        },
+        {
+          "ref": "app/config/claimdesk.properties:5",
+          "quote": "policyadmin.wsdl="
+        }
+      ]
+    },
+    {
+      "name": "SIU alert mail",
+      "protocol": "smtp",
+      "direction": "outbound",
+      "status": "live",
+      "endpoint_source": "JNDI java:/mail/ClaimDesk (mail subsystem)",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/integration/MailNotifier.java:15",
+          "quote": "java:/mail/ClaimDesk"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/integration/MailNotifier.java:24",
+          "quote": "Transport.send(m);"
+        }
+      ]
+    },
+    {
+      "name": "Reserving events queue",
+      "protocol": "jms",
+      "direction": "outbound",
+      "status": "live",
+      "endpoint_source": "JNDI java:/jms/queue/ReservingEvents",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/web/PaymentServlet.java:29",
+          "quote": "java:/jms/queue/ReservingEvents"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/web/PaymentServlet.java:46",
+          "quote": "send(reservingEvents"
+        }
+      ]
+    },
+    {
+      "name": "Halberd Re bordereau upload",
+      "protocol": "sftp",
+      "direction": "outbound",
+      "status": "live",
+      "endpoint_source": "halberd.sftp.host and halberd.sftp.key in claimdesk.properties",
+      "failure_behaviour": "StrictHostKeyChecking=no: host key not verified",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/batch/NightlyReinsuranceExport.java:61",
+          "quote": "openChannel(\"sftp\")"
+        },
+        {
+          "ref": "app/config/claimdesk.properties:6",
+          "quote": "halberd.sftp.host="
+        }
+      ]
+    },
+    {
+      "name": "RightFax gateway",
+      "protocol": "socket",
+      "direction": "outbound",
+      "status": "dead",
+      "endpoint_source": "hard-coded rightfax01.corvane.local:8099",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/integration/LegacyFaxGateway.java:9",
+          "quote": "nothing calls this any more"
+        }
+      ]
+    }
+  ],
+  "auth_checks": [
+    {
+      "role": "CLAIMS_USER",
+      "mechanism": "container",
+      "protects": "/* (every page)",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/webapp/WEB-INF/web.xml:64",
+          "quote": "<role-name>CLAIMS_USER</role-name>"
+        }
+      ]
+    },
+    {
+      "role": "CLAIMS_ADMIN",
+      "mechanism": "container",
+      "protects": "/admin/*",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/webapp/WEB-INF/web.xml:55",
+          "quote": "<role-name>CLAIMS_ADMIN</role-name>"
+        }
+      ]
+    },
+    {
+      "role": "CLAIMS_SUPERVISOR",
+      "mechanism": "code",
+      "protects": "payments over 25000",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/web/PaymentServlet.java:36",
+          "quote": "isUserInRole(\"CLAIMS_SUPERVISOR\")"
+        }
+      ]
+    },
+    {
+      "role": "cn=claims-payments,ou=groups,dc=corvane,dc=local",
+      "mechanism": "filter",
+      "protects": "/payments/* (direct LDAP membership, nested groups ignored)",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/webapp/WEB-INF/web.xml:41",
+          "quote": "cn=claims-payments"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/web/LdapGroupFilter.java:50",
+          "quote": "ctx.search(requiredGroup"
+        }
+      ]
+    },
+    {
+      "role": "AUDITOR",
+      "mechanism": "jsp",
+      "protects": "audit trail tab on claim.jsp",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/webapp/claim.jsp:10",
+          "quote": "isUserInRole(\"AUDITOR\")"
+        }
+      ]
+    },
+    {
+      "role": "REASSIGN_CLAIMS",
+      "mechanism": "database",
+      "protects": "admin reassign action, from USER_ROLE",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/web/AdminServlet.java:22",
+          "quote": "REASSIGN_CLAIMS"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/resources/queries.properties:2",
+          "quote": "role.byUser="
+        }
+      ]
+    }
+  ],
+  "scheduled_jobs": [
+    {
+      "name": "NightlyReinsuranceExport",
+      "schedule": "02:00 every day, EJB timer, non-persistent",
+      "runs_in": "app-server",
+      "touches": [
+        "CLAIM",
+        "RESERVE_LINE",
+        "ADJUSTER",
+        "/var/claimdesk/outbox",
+        "Halberd Re SFTP"
+      ],
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/batch/NightlyReinsuranceExport.java:31",
+          "quote": "@Schedule(hour = \"2\""
+        }
+      ]
+    },
+    {
+      "name": "purge-archive.sh",
+      "schedule": "Sunday 03:30 (cron, cdk-app-01 only)",
+      "runs_in": "cron",
+      "touches": [
+        "CLMARCH.CLAIM_ARCHIVE_<YYYY>"
+      ],
+      "evidence": [
+        {
+          "ref": "app/ops/crontab:3",
+          "quote": "30 3 * * 0"
+        },
+        {
+          "ref": "app/ops/purge-archive.sh:6",
+          "quote": "DELETE FROM CLMARCH"
+        }
+      ]
+    }
+  ],
+  "runtime_assumptions": [
+    {
+      "topic": "timezone",
+      "value": "America/New_York forced by -Duser.timezone",
+      "risk": "SYSDATE and LocalDate.now() mix database and JVM zones",
+      "evidence": [
+        {
+          "ref": "app/ops/standalone-claimdesk.conf:4",
+          "quote": "-Duser.timezone=America/New_York"
+        }
+      ]
+    },
+    {
+      "topic": "charset",
+      "value": "ISO-8859-1 JVM default, JSP and bordereau",
+      "risk": "JDK 18+ defaults to UTF-8 (JEP 400)",
+      "evidence": [
+        {
+          "ref": "app/ops/standalone-claimdesk.conf:5",
+          "quote": "-Dfile.encoding=ISO-8859-1"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/webapp/claim.jsp:1",
+          "quote": "charset=ISO-8859-1"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/batch/NightlyReinsuranceExport.java:51",
+          "quote": "getBytes(\"ISO-8859-1\")"
+        }
+      ]
+    },
+    {
+      "topic": "datasource",
+      "value": "java:/jdbc/ClaimDeskDS, max pool 60",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/ClaimDao.java:17",
+          "quote": "java:/jdbc/ClaimDeskDS"
+        },
+        {
+          "ref": "app/ops/datasource-claimdesk.cli:4",
+          "quote": "--max-pool-size=60"
+        }
+      ]
+    },
+    {
+      "topic": "database-vendor",
+      "value": "Oracle: NVL, ROWNUM, SYSDATE, sequences, PL/SQL package",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/src/main/java/com/corvane/claimdesk/dao/ClaimDao.java:30",
+          "quote": "ROWNUM = 1"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/resources/META-INF/persistence.xml:7",
+          "quote": "Oracle12cDialect"
+        }
+      ]
+    },
+    {
+      "topic": "filesystem",
+      "value": "/var/claimdesk/outbox and /etc/claimdesk on local disk; only cdk-app-01 runs the cron",
+      "evidence": [
+        {
+          "ref": "app/config/claimdesk.properties:8",
+          "quote": "outbox.dir=/var/claimdesk/outbox"
+        },
+        {
+          "ref": "app/ops/crontab:1",
+          "quote": "cdk-app-01 only"
+        }
+      ]
+    },
+    {
+      "topic": "app-server",
+      "value": "JBoss EAP 7.4, PicketBox security domain claimdesk-ldap",
+      "evidence": [
+        {
+          "ref": "app/ops/standalone-claimdesk.conf:1",
+          "quote": "JBoss EAP 7.4"
+        },
+        {
+          "ref": "app/claimdesk-web/src/main/webapp/WEB-INF/jboss-web.xml:4",
+          "quote": "<security-domain>claimdesk-ldap</security-domain>"
+        }
+      ]
+    },
+    {
+      "topic": "jdk",
+      "value": "Java 8 (source/target 1.8, jre-1.8.0-openjdk)",
+      "evidence": [
+        {
+          "ref": "app/claimdesk-web/pom.xml:8",
+          "quote": "<maven.compiler.source>1.8</maven.compiler.source>"
+        },
+        {
+          "ref": "app/ops/standalone-claimdesk.conf:2",
+          "quote": "JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk"
+        }
+      ]
+    }
+  ]
+}

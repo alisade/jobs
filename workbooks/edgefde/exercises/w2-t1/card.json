@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w2-t1",
+  "title": "Phantom fault peak on the new pumps",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 2,
+  "optional": false,
+  "area": "Signal processing and sensor data",
+  "scenario": "The outer-race early warning fires on all four new gearbox-driven pumps at 702 Hz, every capture, three weeks after installation with new bearings. A firmware update changed the accelerometer gain the same week. The plant is close to switching the system off.",
+  "task": [
+    "Explain where the 702 Hz line comes from, with the Nyquist numbers",
+    "Rule the firmware gain change in or out with a reason",
+    "Fix the 10 kHz to 2 kHz reduction without touching the signed-off detector",
+    "Say what to ask the sensor vendor and the sample rate needed to watch the mesh"
+  ],
+  "acceptance": [
+    "P07-P10 quiet, P01-P06 quiet, P03 still flagged near 772 Hz",
+    "1298 Hz attenuated at least 40 dB at 702 Hz; 100/300/772 Hz pass within 1 dB",
+    "2 kHz output and detector constants unchanged",
+    "ANSWER.md: aliasing explained with numbers; red herring ruled out"
+  ],
+  "practices": [
+    {"label": "Week 2 Mon - sampling, Nyquist and aliasing", "href": "week2"},
+    {"label": "Week 2 Wed - anti-alias filters and decimation", "href": "week2"}
+  ]
+}

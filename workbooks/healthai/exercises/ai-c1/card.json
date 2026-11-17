@@ -1,0 +1,24 @@
+{
+  "id": "healthai/ai-c1",
+  "title": "Eval gate in CI for the PA assistant",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": "ai",
+  "optional": false,
+  "area": "Evals in CI for probabilistic software",
+  "scenario": "Kestrel's CI replays a labelled synthetic PA set three times per change, but the gate only checks route agreement, so hallucinated quotes or an auto-finalized denial would pass. Write the layered gate: schema validity, citation support and criteria accuracy on Wilson lower bounds, consistency across runs, a hard safety invariant, cost and latency, and a CI summary.",
+  "task": [
+    "Implement the five gates with the exact rules in the README",
+    "Wilson lower bound, nearest-rank p95 and token cost per run",
+    "Markdown job summary and a CLI exit code"
+  ],
+  "acceptance": [
+    "Good runs pass; each recorded regression trips exactly its own gate",
+    "Exact statistics, cost and safety violation list",
+    "CLI exits 0 or 1 and writes the summary"
+  ],
+  "practices": [
+    {"label": "AI Integration - 5 Evals", "href": "ai"},
+    {"label": "Week 6 Thu - evals in CI: layered gates and variance", "href": "week6"}
+  ]
+}

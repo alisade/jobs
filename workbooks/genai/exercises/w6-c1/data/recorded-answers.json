@@ -1,0 +1,18 @@
+{
+ "NWT-4471": [
+  "{\"title\": \"Ridgeline Two Person Freestanding Backpacking Tent With Two Doors And Two Vestibules Sage\", \"category\": \"tents\", \"material\": \"ripstop nylon\", \"weight_kg\": 1.9, \"capacity_l\": null, \"color\": \"sage green\", \"care\": \"Spot clean only; dry before storing.\", \"description\": \"Freestanding two-person tent with two doors and two vestibules.\", \"confidence\": 0.92}",
+  "{\"title\": \"Ridgeline 2-Person Backpacking Tent\", \"category\": \"tents\", \"material\": \"ripstop nylon\", \"weight_kg\": 1.9, \"capacity_l\": null, \"color\": \"sage green\", \"care\": \"Spot clean only; dry before storing.\", \"description\": \"Freestanding two-person tent with two doors and two vestibules.\", \"confidence\": 0.92}"
+ ],
+ "GLC-45R": [
+  "{\"title\": \"Glacier 45 qt Rotomolded Cooler\", \"category\": \"coolers\", \"material\": null, \"weight_kg\": 10.66, \"capacity_l\": 45.0, \"color\": \"slate\", \"care\": \"Wash with mild soap.\", \"description\": \"Rotomolded cooler with thick insulation that holds ice for up to five days.\", \"confidence\": 0.88}"
+ ],
+ "DPR-RJ2": [
+  "{\"title\": \"Downpour 2.5-Layer Rain Jacket\", \"category\": \"jackets\", \"material\": \"recycled polyester\", \"weight_kg\": 0.34, \"capacity_l\": null, \"color\": \"tide blue\", \"care\": \"Machine wash cold.\", \"description\": \"Fully seam-taped waterproof, breathable rain shell.\", \"confidence\": 0.9}"
+ ],
+ "BCN-L400": [
+  "{\"title\": \"Beacon 400 Lumen Rechargeable Lantern\", \"category\": \"lighting\", \"material\": null, \"weight_kg\": 0.28, \"capacity_l\": null, \"color\": \"black\", \"care\": null, \"description\": \"Rechargeable 400 lumen lantern with three modes and USB-C charging.\", \"confidence\": 0.45}"
+ ],
+ "CMP-CH9": [
+  "{\"title\": \"Campfire Folding Camp Chair\", \"category\": \"camp-furniture\", \"material\": \"aluminum\", \"weight_kg\": 4.1, \"capacity_l\": null, \"color\": \"forest\", \"care\": null, \"description\": \"Sturdy eco-friendly folding chair with a cup holder.\", \"confidence\": 0.85}"
+ ]
+}

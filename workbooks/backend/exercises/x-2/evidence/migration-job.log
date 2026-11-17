@@ -1,0 +1,5 @@
+2026-11-12T02:00:04Z kmigrate 3.4.1 database=keystone user=kmigrate
+2026-11-12T02:00:05Z applying 0057_activities_contact_fk.sql (transaction)
+2026-11-12T02:10:41Z ERROR 0057_activities_contact_fk.sql: FATAL: terminating connection due to administrator command
+2026-11-12T02:10:41Z rolled back 0057_activities_contact_fk.sql
+Error: UPGRADE FAILED: pre-upgrade hooks failed: job keystone-migrate failed: BackoffLimitExceeded

@@ -1,0 +1,89 @@
+{
+  "scenario": "s01",
+  "turns": [
+    {
+      "expect": {
+        "tools_offered": [
+          "get_alert",
+          "query_metrics",
+          "read_runbook",
+          "recent_deploys",
+          "silence_alert"
+        ]
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Fetching the alert."
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_s01_1",
+            "name": "get_alert",
+            "input": {
+              "alert_id": "ALR-10411"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "expect": {
+        "tool_results": [
+          {
+            "tool_use_id": "toolu_s01_1",
+            "is_error": false
+          }
+        ]
+      },
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s01_2",
+            "name": "recent_deploys",
+            "input": {
+              "service": "riq-api",
+              "hours": 6
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_s01_3",
+            "name": "query_metrics",
+            "input": {
+              "query": "job:http_errors:ratio_rate5m{job=\"riq-api\"}",
+              "window": "1h"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "expect": {
+        "tool_results": [
+          {
+            "tool_use_id": "toolu_s01_2",
+            "is_error": false
+          },
+          {
+            "tool_use_id": "toolu_s01_3",
+            "is_error": false
+          }
+        ]
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Here is the triage note.\n{\"alert_id\": \"ALR-10411\", \"severity\": \"SEV2\", \"suspected_cause\": \"riq-api 5.3.0 deploy at 13:55 (CHG-8840) lines up with the error ratio jump to 5.8%\", \"evidence\": [{\"tool_use_id\": \"toolu_s01_2\", \"summary\": \"riq-api 5.3.0 synced 13:55, 7 minutes before the alert\"}, {\"tool_use_id\": \"toolu_s01_3\", \"summary\": \"5m error ratio rose from 0.04% to 5.8% after 13:55\"}], \"next_steps\": [\"Roll back riq-api to 5.2.x through the deploy job\", \"Confirm the error ratio recovers\"], \"needs_human\": true}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    }
+  ]
+}

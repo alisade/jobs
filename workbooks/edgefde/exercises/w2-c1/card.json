@@ -1,0 +1,27 @@
+{
+  "id": "edgefde/w2-c1",
+  "title": "Spectral features and bearing-fault detection",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "Signal processing and sensor data",
+  "scenario": "Corvane's pumps run 6205-class bearings at 29.5 Hz with 20 kHz accelerometers. The gateway needs a feature module per 2-second window: time-domain health numbers, Welch band energies, and an outer/inner race early warning from the envelope spectrum that never fires on healthy pumps.",
+  "task": [
+    "Time-domain AC features: RMS, peak, crest factor, kurtosis",
+    "Welch PSD, band energies and sub-bin dominant frequency",
+    "Bearing defect frequencies from geometry (BPFO, BPFI, BSF, FTF)",
+    "Envelope spectrum and a harmonic-confirmed fault detector"
+  ],
+  "acceptance": [
+    "Known-answer tests on synthetic signals pass (kurtosis, band power, sub-bin frequency, identities)",
+    "Healthy captures never flagged; outer, inner and a weak outer fault found and labelled",
+    "Input validation incl. band above Nyquist",
+    "ANSWER.md explains the envelope in plain words"
+  ],
+  "practices": [
+    {"label": "Week 2 Mon - sampling, Nyquist and the FFT", "href": "week2"},
+    {"label": "Week 2 Tue - windowing, leakage and Welch PSD", "href": "week2"},
+    {"label": "Week 2 Thu - features and bearing defect frequencies", "href": "week2"}
+  ]
+}

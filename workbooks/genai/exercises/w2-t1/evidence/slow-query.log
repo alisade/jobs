@@ -1,0 +1,9 @@
+2026-11-05 09:18:41.207 UTC [5512] catalog_ro@catalog LOG:  duration: 3.912 ms  plan:
+    Query Text: SELECT sku, name, category, price_cents FROM products WHERE name ILIKE '%tent%' ORDER BY price_cents, sku LIMIT 20
+    Limit  (cost=41.20..41.25 rows=20 width=64) (actual time=3.801..3.806 rows=20 loops=1)
+      ->  Sort  (cost=41.20..42.05 rows=338 width=64) (actual time=3.799..3.802 rows=20 loops=1)
+            ->  Seq Scan on products  (cost=0.00..32.20 rows=338 width=64) (actual time=0.019..3.512 rows=338 loops=1)
+                  Filter: ((name)::text ~~* '%tent%'::text)
+                  Rows Removed by Filter: 1662
+# log_min_duration_statement = 2ms on the read replica; 2,000 rows in products.
+# pg_stat_statements for this query at 09:10: calls 39,412  mean 3.7 ms  max 9.8 ms

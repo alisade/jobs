@@ -1,0 +1,28 @@
+{
+  "id": "backend/w5-c1",
+  "title": "Idempotent timeline consumer in Go",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "Go",
+  "scenario": "Keystone's timeline-consumer reads ActivityLogged, ActivityEdited and ActivityDeleted events (keyed by account) and builds the account timeline and live activity counter that sales sees. The relay and the topic are at-least-once, producers retry, and the spike version double counts, resurrects deleted activities and stalls on one bad message. Make it correct under redelivery, in Go.",
+  "task": [
+    "Dedupe by event_id, recorded in the same transaction as the timeline change",
+    "Guard every change with the activity version: ignore stale edits, never resurrect a delete",
+    "Commit the offset only after the record is handled",
+    "Retry transient store errors (3 attempts), then park on the DLQ; poison messages straight to the DLQ",
+    "Graceful shutdown: finish the in-flight record, take no new work"
+  ],
+  "acceptance": [
+    "go test -race passes on visible and hidden tests (duplicates, crash between apply and commit, stale and late edits, poison, retries, shutdown, 4 partitions)",
+    "The live counter equals the number of non-deleted activities after any redelivery",
+    "No partition stalls behind a bad message",
+    "ANSWER.md explains why dedupe and mutation share one transaction"
+  ],
+  "practices": [
+    {"label": "Week 5 Wed - idempotent consumers, DLQ, event design", "href": "week5"},
+    {"label": "Week 5 Thu - Go for platform glue: context, shutdown", "href": "week5"},
+    {"label": "Week 5 Mon - Kafka model: partitions, keys, offsets", "href": "week5"}
+  ]
+}

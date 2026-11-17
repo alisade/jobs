@@ -1,0 +1,16 @@
+# Shared Python toolchain for the aiarch workbook (aiarch/.venv, built by uv). Test-time is offline.
+pytest==9.2.0
+boto3==1.44.2
+botocore==1.44.2
+moto==5.2.5
+pyyaml==6.0.3
+jsonschema==4.26.0
+cedarpy==4.12.2
+mcp==2.3.0
+strands-agents==1.65.0
+pyjwt==2.15.1
+cryptography==50.0.2
+opentelemetry-api==1.45.2
+opentelemetry-sdk==1.45.2
+pydantic==2.14.3
+anyio==4.16.0

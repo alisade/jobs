@@ -1,0 +1,121 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-12T16:03:10Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "cyclonedx-maven-plugin",
+          "version": "2.9.1"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "group": "com.corvane.claimdesk",
+      "name": "claimdesk-web",
+      "version": "7.5.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.9.8",
+      "group": "com.fasterxml.jackson.core",
+      "name": "jackson-annotations",
+      "version": "2.9.8",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.9.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.9.8",
+      "group": "com.fasterxml.jackson.core",
+      "name": "jackson-core",
+      "version": "2.9.8",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.9.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8",
+      "group": "com.fasterxml.jackson.core",
+      "name": "jackson-databind",
+      "version": "2.9.8",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final",
+      "group": "io.netty",
+      "name": "netty-codec-http",
+      "version": "4.1.108.Final",
+      "purl": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-compress@1.21",
+      "group": "org.apache.commons",
+      "name": "commons-compress",
+      "version": "1.21",
+      "purl": "pkg:maven/org.apache.commons/commons-compress@1.21"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-lang3@3.12.0",
+      "group": "org.apache.commons",
+      "name": "commons-lang3",
+      "version": "3.12.0",
+      "purl": "pkg:maven/org.apache.commons/commons-lang3@3.12.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.commons/commons-text@1.9",
+      "group": "org.apache.commons",
+      "name": "commons-text",
+      "version": "1.9",
+      "purl": "pkg:maven/org.apache.commons/commons-text@1.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.logging.log4j/log4j-core@2.17.1",
+      "group": "org.apache.logging.log4j",
+      "name": "log4j-core",
+      "version": "2.17.1",
+      "purl": "pkg:maven/org.apache.logging.log4j/log4j-core@2.17.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@9.0.83",
+      "group": "org.apache.tomcat.embed",
+      "name": "tomcat-embed-core",
+      "version": "9.0.83",
+      "purl": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@9.0.83"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.slf4j/slf4j-api@1.7.36",
+      "group": "org.slf4j",
+      "name": "slf4j-api",
+      "version": "1.7.36",
+      "purl": "pkg:maven/org.slf4j/slf4j-api@1.7.36"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.wildfly.security/wildfly-elytron@2.2.3.Final",
+      "group": "org.wildfly.security",
+      "name": "wildfly-elytron",
+      "version": "2.2.3.Final",
+      "purl": "pkg:maven/org.wildfly.security/wildfly-elytron@2.2.3.Final"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.yaml/snakeyaml@2.2",
+      "group": "org.yaml",
+      "name": "snakeyaml",
+      "version": "2.2",
+      "purl": "pkg:maven/org.yaml/snakeyaml@2.2"
+    }
+  ]
+}

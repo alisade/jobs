@@ -1,0 +1,25 @@
+$ kubectl --context prod-blue get pdb -A
+NAMESPACE   NAME        MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+mdm         mdm-api     N/A             1                 1                     211d
+mdm         rdm-cache   2               N/A               1                     211d
+riq         riq-api     N/A             1                 0                     211d
+
+$ kubectl --context prod-blue -n riq get pods -o wide -L track
+NAME                              READY   STATUS             RESTARTS        AGE   NODE                                  TRACK
+riq-api-5d8f9c7b6-2hwkt           1/1     Running            0               3d    gke-prod-blue-default-8f2c41d0-p3x9
+riq-api-5d8f9c7b6-8jzrm           1/1     Running            0               3d    gke-prod-blue-default-8f2c41d0-q8w1
+riq-api-5d8f9c7b6-c4vbn           1/1     Running            0               3d    gke-prod-blue-default-8f2c41d0-t5n6
+riq-api-5d8f9c7b6-r7qsd           1/1     Running            0               3d    gke-prod-blue-default-8f2c41d0-v2r4
+riq-api-canary-6c9d7b5f8-m4kz9    0/1     CrashLoopBackOff   14 (2m ago)     54m   gke-prod-blue-default-8f2c41d0-s1u1   canary
+
+$ kubectl --context prod-blue -n riq get pdb riq-api -o jsonpath='{.status}'
+{"currentHealthy":4,"desiredHealthy":4,"disruptionsAllowed":0,"expectedPods":5,"observedGeneration":1}
+
+$ kubectl --context prod-blue get events -n riq --sort-by=.lastTimestamp | tail -4
+54m  Normal   Killing          pod/riq-api-canary-6c9d7b5f8-xq2lp   Stopping container api (evicted by node drain)
+53m  Warning  BackOff          pod/riq-api-canary-6c9d7b5f8-m4kz9   Back-off restarting failed container api
+2m   Warning  FailedEviction   pod/riq-api-5d8f9c7b6-2hwkt   Cannot evict pod as it would violate the pod's disruption budget.
+1m   Warning  FailedEviction   pod/riq-api-5d8f9c7b6-2hwkt   Cannot evict pod as it would violate the pod's disruption budget.
+
+$ kubectl --context prod-blue -n riq logs riq-api-canary-6c9d7b5f8-m4kz9 --previous | tail -1
+{"level":"fatal","msg":"config: RIQ_FEATURE_SCORING_V3 requires RIQ_MODEL_BUCKET","ts":"2026-11-12T04:50:11Z"}

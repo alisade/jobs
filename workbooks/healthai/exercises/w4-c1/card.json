@@ -1,0 +1,26 @@
+{
+  "id": "healthai/w4-c1",
+  "title": "PA intake graph where no denial is ever automatic",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 4,
+  "optional": false,
+  "area": "LangGraph: state, checkpointer, interrupts",
+  "scenario": "Kestrel Health Plan's hackathon LangGraph prototype copies the model's outcome into the determination, so a model can deny care. Rebuild it so that only a confident, fully cited approval finalizes automatically and every denial, pend, low-confidence or invalid recommendation and eligibility problem waits at an interrupt for a reviewer, resumable from a SQLite checkpoint in a new process.",
+  "task": [
+    "Add check_completeness, request_info, human_review and the routing between them",
+    "Validate model output with the Pydantic Recommendation contract; invalid output goes to review",
+    "Validate reviewer input (reviewer, specific reason for deny/pend) and loop on bad input",
+    "Make finalize() refuse to deny or pend without a human decision"
+  ],
+  "acceptance": [
+    "Every adverse or uncertain path stops at human_review with the right reason",
+    "Exhaustive drive over all cases never yields an adverse outcome decided by auto",
+    "Resume from a SQLite checkpoint in a new graph without calling the model again"
+  ],
+  "practices": [
+    {"label": "Week 4 Mon-Tue - Graph API, state and reducers", "href": "week4"},
+    {"label": "Week 4 Wed - persistence and interrupts", "href": "week4"},
+    {"label": "Week 1 - CMS-0057-F and the PA flow", "href": "week1"}
+  ]
+}

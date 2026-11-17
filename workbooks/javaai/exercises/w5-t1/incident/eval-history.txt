@@ -1,0 +1,4 @@
+# python -m ingest.eval in the release checklist (bio-210)
+2026-11-04 10:12  ingest 3.1  model 004  recall@3 = 0.900 over 18 questions (11 rows)
+2026-11-11 16:52  ingest 3.2  model 005  recall@3 = 0.900 over 18 questions (11 rows)
+2026-11-12 09:03  ingest 3.2  model 005  recall@3 = 0.050 over 20 questions (13 rows)   <- content merge PR #412

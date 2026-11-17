@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/w3-t1",
+  "title": "Agent v2.5.0 never becomes healthy on AgentCore Runtime",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 3,
+  "optional": false,
+  "area": "AgentCore Runtime and Gateway",
+  "scenario": "The first CI-built agent image deploys cleanly but the Runtime endpoint never becomes ready and invocations fail. Earlier versions were built on laptops. On-call blames a slow /ping. Find the cause in ECR metadata and Runtime logs, fix the GitLab build, and add a blocking architecture gate.",
+  "task": [
+    "Compare ECR and imagetools metadata for the working and failing versions",
+    "Read the Runtime container logs",
+    "Fix the build for linux/arm64 (ARM runner or buildx with QEMU)",
+    "Implement and wire a blocking image architecture gate"
+  ],
+  "acceptance": [
+    "Gate decisions on index, multi-arch, attestation and single manifests",
+    "Build is arm64, immutable tag, gate inputs published",
+    "ANSWER.md names the architecture mismatch with evidence"
+  ],
+  "practices": [
+    {"label": "Week 3 Mon - Runtime contract, Docker and ARM64", "href": "week3"},
+    {"label": "Week 3 Fri - Runtime troubleshooting", "href": "week3"}
+  ]
+}

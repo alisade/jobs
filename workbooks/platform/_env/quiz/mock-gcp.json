@@ -1,0 +1,640 @@
+{
+ "questions": [
+  {
+   "id": "mg-q01",
+   "set": "mock",
+   "area": "oncall",
+   "type": "single",
+   "stem": "Tessellate's RIQ API has an availability SLO of 99.9% over 28 days. Halfway through the window, 80% of the error budget is spent. What does an SRE error budget policy typically prescribe?",
+   "options": [
+    "Delete the SLO",
+    "Ignore it until the window ends",
+    "Slow or freeze risky feature releases and prioritize reliability work until the budget recovers",
+    "Raise the SLO to 99.99%"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The budget balances velocity and reliability; when it is nearly gone, releases slow down and reliability work takes priority.",
+   "learn": [
+    {
+     "label": "Alerting on SLOs (SRE workbook)",
+     "href": "https://sre.google/workbook/alerting-on-slos/"
+    }
+   ]
+  },
+  {
+   "id": "mg-q02",
+   "set": "mock",
+   "area": "obs",
+   "type": "single",
+   "stem": "Which SLI best reflects user experience for the RIQ query API?",
+   "options": [
+    "Number of pods",
+    "Node CPU utilization",
+    "Disk IOPS",
+    "Proportion of valid requests served successfully under the latency threshold, measured at the load balancer or service"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "SLIs measure what users feel: availability and latency of good requests, as close to the user as practical.",
+   "learn": [
+    {
+     "label": "Alerting on SLOs (SRE workbook)",
+     "href": "https://sre.google/workbook/alerting-on-slos/"
+    },
+    {
+     "label": "Cloud Monitoring docs",
+     "href": "https://docs.cloud.google.com/monitoring/docs"
+    }
+   ]
+  },
+  {
+   "id": "mg-q03",
+   "set": "mock",
+   "area": "obs",
+   "type": "single",
+   "stem": "You want a metric of how often MDM logs `ERROR import failed` and to alert on it. What is the native approach?",
+   "options": [
+    "Create a log-based counter metric with a filter on that entry and an alerting policy on the metric",
+    "Use an uptime check",
+    "Add a Prometheus exporter that reads Cloud Logging",
+    "Export logs to a VM and grep"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Log-based metrics turn matching log entries into time series you can alert on.",
+   "learn": [
+    {
+     "label": "Cloud Monitoring docs",
+     "href": "https://docs.cloud.google.com/monitoring/docs"
+    }
+   ]
+  },
+  {
+   "id": "mg-q04",
+   "set": "mock",
+   "area": "obs",
+   "type": "multi",
+   "stem": "Security wants every project's audit logs retained centrally for a year, including new projects. Choose two.",
+   "options": [
+    "Set the destination bucket's retention to the required period and restrict access to it",
+    "Create a sink in each project by hand",
+    "Create an aggregated sink at the organization (or folder) with child resources included, routing to a central log bucket or storage",
+    "Rely on the default project retention",
+    "Export logs from the console monthly"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Aggregated sinks cover existing and future projects; retention and access control live at the destination.",
+   "learn": [
+    {
+     "label": "Cloud Monitoring docs",
+     "href": "https://docs.cloud.google.com/monitoring/docs"
+    },
+    {
+     "label": "Enterprise foundations blueprint",
+     "href": "https://docs.cloud.google.com/architecture/blueprints/security-foundations"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "mg-q05",
+   "set": "mock",
+   "area": "tf",
+   "type": "single",
+   "stem": "You need managed promotion of a release from stg-1 to prod-blue with a manual approval and rollback. Which GCP service fits best?",
+   "options": [
+    "Cloud Scheduler",
+    "Cloud Functions",
+    "Cloud Tasks",
+    "Cloud Deploy, with a delivery pipeline whose prod target requires approval"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Cloud Deploy models delivery pipelines and targets, promotions, approvals and rollbacks for GKE and Cloud Run.",
+   "learn": [
+    {
+     "label": "Professional Cloud DevOps Engineer",
+     "href": "https://cloud.google.com/learn/certification/cloud-devops-engineer"
+    }
+   ]
+  },
+  {
+   "id": "mg-q06",
+   "set": "mock",
+   "area": "tf",
+   "type": "single",
+   "stem": "Cloud Build must reach a private GKE control plane and an internal artifact mirror. What do you use?",
+   "options": [
+    "Default Cloud Build workers with public IPs",
+    "A service account key",
+    "Cloud Build private pools peered to your VPC",
+    "Cloud NAT on the default pool"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Private pools run in a Google-managed network peered to yours, giving builds private connectivity.",
+   "learn": [
+    {
+     "label": "Professional Cloud DevOps Engineer",
+     "href": "https://cloud.google.com/learn/certification/cloud-devops-engineer"
+    }
+   ]
+  },
+  {
+   "id": "mg-q07",
+   "set": "mock",
+   "area": "secops",
+   "type": "single",
+   "stem": "Which is the least-privilege way for Cloud Build to deploy to tsl-riq-prod?",
+   "options": [
+    "Use a developer's credentials",
+    "Run the trigger as a user-specified service account that holds only the deploy roles it needs in the target project",
+    "Store a key in the repo",
+    "Give the default Cloud Build service account project owner"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Per-pipeline service accounts with narrow roles are the recommended model.",
+   "learn": [
+    {
+     "label": "Best practices for using service accounts",
+     "href": "https://docs.cloud.google.com/iam/docs/best-practices-service-accounts"
+    }
+   ]
+  },
+  {
+   "id": "mg-q08",
+   "set": "mock",
+   "area": "gke",
+   "type": "single",
+   "stem": "A canary of riq-api v2 receives 10% of traffic. Error rate on the canary is 3x the baseline. What should the process do?",
+   "options": [
+    "Ignore it because 10% is small",
+    "Restart the baseline",
+    "Stop and roll back the canary automatically based on the comparison with the baseline",
+    "Promote to 50%"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Canary analysis compares canary and baseline; a regression aborts the rollout.",
+   "learn": [
+    {
+     "label": "Alerting on SLOs (SRE workbook)",
+     "href": "https://sre.google/workbook/alerting-on-slos/"
+    },
+    {
+     "label": "GKE cluster upgrades",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades"
+    }
+   ]
+  },
+  {
+   "id": "mg-q09",
+   "set": "mock",
+   "area": "gke",
+   "type": "single",
+   "stem": "A Deployment's pods are killed during node upgrades mid-request. Which change helps most?",
+   "options": [
+    "Use hostPath volumes",
+    "More replicas only",
+    "Handle SIGTERM: fail readiness, drain in-flight requests within terminationGracePeriodSeconds (a preStop hook if needed), plus a PDB",
+    "Disable upgrades"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Graceful termination and a PDB make node maintenance invisible to users.",
+   "learn": [
+    {
+     "label": "Safely drain a node",
+     "href": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/"
+    },
+    {
+     "label": "Specifying a disruption budget",
+     "href": "https://kubernetes.io/docs/tasks/run-application/configure-pdb/"
+    }
+   ]
+  },
+  {
+   "id": "mg-q10",
+   "set": "mock",
+   "area": "gke",
+   "type": "single",
+   "stem": "prod-green must not receive minor upgrades during a two-week launch, but should still get security patches. What do you configure?",
+   "options": [
+    "Switch to No channel",
+    "A no-minor-upgrades maintenance exclusion covering the launch",
+    "Delete the cluster's maintenance window",
+    "A no-upgrades exclusion"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "No-minor-upgrades keeps patches flowing.",
+   "learn": [
+    {
+     "label": "Maintenance windows and exclusions",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions"
+    }
+   ]
+  },
+  {
+   "id": "mg-q11",
+   "set": "mock",
+   "area": "oncall",
+   "type": "multi",
+   "stem": "During a major incident, which two roles from Google's incident management practice should be explicit? Choose two.",
+   "options": [
+    "Every engineer debugging independently",
+    "Communications lead who keeps stakeholders updated",
+    "Incident commander who coordinates and delegates",
+    "The CEO as operations lead",
+    "A blame owner"
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "explanation": "Clear roles (IC, ops, comms) prevent freelancing and keep stakeholders informed.",
+   "learn": [
+    {
+     "label": "Eliminating toil (SRE book)",
+     "href": "https://sre.google/sre-book/eliminating-toil/"
+    },
+    {
+     "label": "Alerting on SLOs (SRE workbook)",
+     "href": "https://sre.google/workbook/alerting-on-slos/"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "mg-q12",
+   "set": "mock",
+   "area": "oncall",
+   "type": "single",
+   "stem": "Your on-call team spends 60% of its time on manual certificate renewals and import requests. What does SRE guidance say?",
+   "options": [
+    "Toil should be capped (Google targets under 50% of SRE time); automate the repetitive work and measure the hours saved",
+    "This is normal",
+    "Hire more on-call engineers only",
+    "Stop renewing certificates"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Google SRE aims to keep toil below half of an engineer's time and invest the rest in engineering that removes it.",
+   "learn": [
+    {
+     "label": "Eliminating toil (SRE book)",
+     "href": "https://sre.google/sre-book/eliminating-toil/"
+    }
+   ]
+  },
+  {
+   "id": "mg-q13",
+   "set": "mock",
+   "area": "obs",
+   "type": "single",
+   "stem": "You need to know if the public RIQ endpoint is reachable from several regions. What do you set up?",
+   "options": [
+    "Profiler",
+    "Cloud Trace",
+    "Uptime check against the endpoint with an alerting policy",
+    "Log-based metric"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Uptime checks probe from multiple locations and alert on failures.",
+   "learn": [
+    {
+     "label": "Cloud Monitoring docs",
+     "href": "https://docs.cloud.google.com/monitoring/docs"
+    }
+   ]
+  },
+  {
+   "id": "mg-q14",
+   "set": "mock",
+   "area": "obs",
+   "type": "single",
+   "stem": "Developers want to see where latency is spent across MDM microservices. What do you recommend?",
+   "options": [
+    "Uptime checks",
+    "More logs",
+    "CPU alerts",
+    "Distributed tracing via OpenTelemetry instrumentation exported to Cloud Trace (through a Collector)"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Traces show per-hop latency; OTel keeps instrumentation vendor-neutral.",
+   "learn": [
+    {
+     "label": "OpenTelemetry docs",
+     "href": "https://opentelemetry.io/docs/"
+    },
+    {
+     "label": "OpenTelemetry Collector",
+     "href": "https://opentelemetry.io/docs/collector/"
+    }
+   ]
+  },
+  {
+   "id": "mg-q15",
+   "set": "mock",
+   "area": "obs",
+   "type": "single",
+   "stem": "A team on GKE wants Prometheus metrics without running Prometheus servers. What do you offer?",
+   "options": [
+    "Stackdriver legacy agent",
+    "Managed Service for Prometheus with managed collection (PodMonitoring), queried with PromQL in Cloud Monitoring or Grafana",
+    "Self-managed Prometheus per namespace",
+    "Log-based metrics only"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "GMP keeps PromQL and the Prometheus model while Google runs the storage and collectors.",
+   "learn": [
+    {
+     "label": "Google Cloud Managed Service for Prometheus",
+     "href": "https://docs.cloud.google.com/stackdriver/docs/managed-prometheus"
+    }
+   ]
+  },
+  {
+   "id": "mg-q16",
+   "set": "mock",
+   "area": "secops",
+   "type": "single",
+   "stem": "An image with a critical CVE is running in prod. Where do you look to find which images and digests are affected across projects?",
+   "options": [
+    "Cloud Build history only",
+    "Cloud DNS",
+    "Billing reports",
+    "Artifact Analysis vulnerability occurrences for Artifact Registry images (and Security Command Center findings at org level)"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Artifact Analysis records vulnerabilities per digest; SCC aggregates findings.",
+   "learn": [
+    {
+     "label": "Artifact Analysis",
+     "href": "https://docs.cloud.google.com/artifact-analysis/docs/artifact-analysis"
+    },
+    {
+     "label": "Security Command Center overview",
+     "href": "https://docs.cloud.google.com/security-command-center/docs/security-command-center-overview"
+    }
+   ]
+  },
+  {
+   "id": "mg-q17",
+   "set": "mock",
+   "area": "gcp",
+   "type": "single",
+   "stem": "A Compute Engine VM in tsl-rdm-prod needs to read a bucket. How should it authenticate?",
+   "options": [
+    "An attached user-managed service account with only the needed role; the metadata server provides short-lived tokens",
+    "The default compute service account with editor",
+    "Your own user credentials",
+    "A key file on disk"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Attached service accounts with least privilege avoid keys; the default compute SA historically had broad roles.",
+   "learn": [
+    {
+     "label": "Service accounts overview",
+     "href": "https://docs.cloud.google.com/iam/docs/service-account-overview"
+    },
+    {
+     "label": "Best practices for using service accounts",
+     "href": "https://docs.cloud.google.com/iam/docs/best-practices-service-accounts"
+    }
+   ]
+  },
+  {
+   "id": "mg-q18",
+   "set": "mock",
+   "area": "gcp",
+   "type": "single",
+   "stem": "Which statement about IAM role types is correct?",
+   "options": [
+    "Predefined roles are curated per service; custom roles fit when no predefined role is narrow enough; basic roles are too broad for production",
+    "Predefined roles cannot be bound at folder level",
+    "Basic roles (owner, editor, viewer) are recommended for production",
+    "Custom roles can be created only at project level"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Prefer predefined, then custom; avoid basic roles.",
+   "learn": [
+    {
+     "label": "IAM overview",
+     "href": "https://docs.cloud.google.com/iam/docs/overview"
+    }
+   ]
+  },
+  {
+   "id": "mg-q19",
+   "set": "mock",
+   "area": "tf",
+   "type": "single",
+   "stem": "Your CI applies Terraform. How do you prevent two pipelines from corrupting the state of the network stack?",
+   "options": [
+    "Use local state",
+    "Ask people not to run at the same time",
+    "Commit state to Git",
+    "Use a remote backend with locking (GCS) and run applies only from the pipeline"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Remote state with locking and a single apply path.",
+   "learn": [
+    {
+     "label": "GCS backend",
+     "href": "https://developer.hashicorp.com/terraform/language/backend/gcs"
+    },
+    {
+     "label": "Terraform state",
+     "href": "https://developer.hashicorp.com/terraform/language/state"
+    }
+   ]
+  },
+  {
+   "id": "mg-q20",
+   "set": "mock",
+   "area": "oncall",
+   "type": "single",
+   "stem": "After an incident, leadership asks for a blameless postmortem. What does blameless mean in practice?",
+   "options": [
+    "No one is accountable",
+    "Focus on how the system and process allowed the failure and fix those, assuming people acted reasonably with the information they had",
+    "Only the manager writes it",
+    "Skip writing it"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Blameless postmortems surface the real contributing causes.",
+   "learn": [
+    {
+     "label": "Eliminating toil (SRE book)",
+     "href": "https://sre.google/sre-book/eliminating-toil/"
+    }
+   ]
+  },
+  {
+   "id": "mg-q21",
+   "set": "mock",
+   "area": "gke",
+   "type": "single",
+   "stem": "Cluster autoscaler scales riq-api nodes slowly at 08:00 every weekday. What is a cost-aware fix?",
+   "options": [
+    "Remove resource requests",
+    "Scheduled scaling of replicas before the known peak, or keep modest headroom; right-size requests so scaling decisions are accurate",
+    "Disable autoscaling",
+    "Use the largest machine type"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Predictable peaks favor scheduled scaling; accurate requests drive both cost and scheduling.",
+   "learn": [
+    {
+     "label": "Autopilot overview",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview"
+    },
+    {
+     "label": "Cloud Monitoring docs",
+     "href": "https://docs.cloud.google.com/monitoring/docs"
+    }
+   ]
+  },
+  {
+   "id": "mg-q22",
+   "set": "mock",
+   "area": "obs",
+   "type": "multi",
+   "stem": "Which two belong in a good alerting policy for a paging alert? Choose two.",
+   "options": [
+    "It links to a runbook and is routed to the on-call rotation",
+    "It is tied to user-facing symptoms or SLO burn, not every cause metric",
+    "It fires on any single error",
+    "It has no documentation",
+    "It pages for disk at 50%"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Page on symptoms with runbooks; send causes and warnings to tickets or dashboards.",
+   "learn": [
+    {
+     "label": "Alerting on SLOs (SRE workbook)",
+     "href": "https://sre.google/workbook/alerting-on-slos/"
+    },
+    {
+     "label": "Cloud Monitoring docs",
+     "href": "https://docs.cloud.google.com/monitoring/docs"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "mg-q23",
+   "set": "mock",
+   "area": "secops",
+   "type": "single",
+   "stem": "Prod should reject images not attested by the CI attestor, but a vendor DaemonSet image cannot be attested. What do you configure?",
+   "options": [
+    "Disable Binary Authorization",
+    "An allowlist (exempt image pattern) for that specific vendor image path in the policy, reviewed and documented",
+    "Break-glass on every node",
+    "Use tags instead of digests"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Binary Authorization policies support exempt image patterns for images you cannot attest; keep them narrow.",
+   "learn": [
+    {
+     "label": "Binary Authorization overview",
+     "href": "https://docs.cloud.google.com/binary-authorization/docs/overview"
+    },
+    {
+     "label": "Set up Binary Authorization",
+     "href": "https://docs.cloud.google.com/binary-authorization/docs/setting-up"
+    }
+   ]
+  },
+  {
+   "id": "mg-q24",
+   "set": "mock",
+   "area": "gcp",
+   "type": "single",
+   "stem": "Billing for tsl-sandbox-legacy spiked. Where do you start?",
+   "options": [
+    "Restart VMs",
+    "Check IAM",
+    "Billing reports and cost breakdown by service and SKU, then labels or GKE cost allocation to attribute it, and budgets with alerts to catch it next time",
+    "Delete the project"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Attribute, then prevent with budgets and alerts.",
+   "learn": [
+    {
+     "label": "Cloud Monitoring docs",
+     "href": "https://docs.cloud.google.com/monitoring/docs"
+    }
+   ]
+  },
+  {
+   "id": "mg-q25",
+   "set": "mock",
+   "area": "oncall",
+   "type": "single",
+   "stem": "Which practice best reduces the risk of a change causing an outage on the platform?",
+   "options": [
+    "Big-bang releases on Fridays",
+    "No monitoring during deploys",
+    "Progressive rollouts with automated health checks and quick rollback, plus change records tied to deploys",
+    "Manual changes in the console"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Most outages follow changes; progressive delivery limits blast radius.",
+   "learn": [
+    {
+     "label": "Alerting on SLOs (SRE workbook)",
+     "href": "https://sre.google/workbook/alerting-on-slos/"
+    },
+    {
+     "label": "GKE cluster upgrades",
+     "href": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades"
+    }
+   ]
+  }
+ ]
+}

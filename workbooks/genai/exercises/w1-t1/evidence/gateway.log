@@ -1,0 +1,7 @@
+# assistant gateway (assist-gw), structured log excerpt, conversation c-9d21e0
+{"ts":"2026-11-06T16:58:02.520Z","pod":"assist-gw-2","conv":"c-9d21e0","msg":"stream start","last_event_id":null}
+{"ts":"2026-11-06T16:58:03.910Z","pod":"assist-gw-2","conv":"c-9d21e0","msg":"tool_call","tool":"check_inventory","args":{"skus":["KO-TENT-2P","KO-TENT-3P"],"stores":"all"}}
+{"ts":"2026-11-06T16:58:17.104Z","pod":"assist-gw-2","conv":"c-9d21e0","msg":"client disconnected","sent_through_id":8}
+{"ts":"2026-11-06T16:58:17.690Z","pod":"assist-gw-1","conv":"c-9d21e0","msg":"stream start","last_event_id":""}
+{"ts":"2026-11-06T16:58:17.691Z","pod":"assist-gw-1","conv":"c-9d21e0","msg":"resume: no last_event_id, replaying buffered answer from id 1"}
+{"ts":"2026-11-06T16:58:23.789Z","pod":"assist-gw-1","conv":"c-9d21e0","msg":"stream done","events":21,"output_tokens":61}

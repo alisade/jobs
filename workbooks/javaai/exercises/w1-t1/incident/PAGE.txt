@@ -1,0 +1,20 @@
+INC-20481  P2  kestrel-progress-api: learner dashboard slow, intermittent 500s
+Opened 2026-10-14 09:12 by on-call (Cloud Monitoring alert "progress p95 > 1500 ms for 10 min")
+
+Customer impact
+  Learner dashboard takes 3-6 s to render, some loads fail with "Something went wrong".
+  Tutor sessions that call the progress endpoint (agent tool get_learner_progress) time out.
+
+Timeline
+  2026-10-13 17:40  release progress-api 0.9.0 deployed (Cloud Run revision progress-api-00042-kiv)
+                    change log: "dashboard shows per-lesson progress for every enrolled course"
+  2026-10-14 08:30  traffic ramps (semester start, cohort of 2,400 learners enrolled into 6-9 courses)
+  2026-10-14 08:52  p95 1.9 s, p99 4.8 s; Cloud SQL CPU 85%
+  2026-10-14 09:05  first HikariPool "Connection is not available" errors
+  2026-10-14 09:12  page
+
+Work notes
+  09:20 L2: Hikari pool exhausted. Proposal: raise spring.datasource.hikari.maximum-pool-size 10 -> 50
+        and Cloud Run max instances 4 -> 12. Change request drafted, not applied.
+  09:31 DBA: Cloud SQL max_connections is 100. 12 x 50 = 600. Please do not.
+  09:40 Assigned to you. Logs, metrics and a query sample are in this folder.

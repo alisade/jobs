@@ -1,0 +1,9 @@
+apiVersion: platform.tessellate.example/v1alpha1
+kind: AppDatabase
+metadata:
+  name: riq-scores
+  namespace: team-riq
+spec:
+  size: medium
+  version: postgres-16
+  team: riq

@@ -1,0 +1,5 @@
+commit 7a1c9e2  2026-11-05 16:12  pod-dev-tom   prompt: add current time to the system prompt so the change log has timestamps (POD-212)
+commit 51be0d4  2026-11-05 11:03  pod-dev-tom   bump MODEL to claude-sonnet-4-5 (POD-215)
+commit c90f3aa  2026-10-29 09:40  pod-dev-mia   skills: load every skill file from skills/ instead of a hard-coded list (POD-207)
+commit 2e77b10  2026-10-20 14:22  pod-dev-mia   prompt: list repository files from a set (dedupe) (POD-209)
+commit 0b4d6f1  2026-10-02 10:00  lead          headless migration agent: first version with prompt caching on the system prompt

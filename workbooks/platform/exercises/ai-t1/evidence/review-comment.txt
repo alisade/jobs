@@ -1,0 +1,12 @@
+Review on PR #212 by dana-k, 2026-11-10 09:05 UTC (changes requested)
+
+The ticket the agent worked from (OPS-7719) lists 14 unmanaged resources, the PR says 8 imports. I ran
+the plan myself:
+
+  Plan: 14 to import, 1 to add, 0 to change, 1 to destroy.
+  # google_sql_database_instance.riq_main must be replaced
+  -/+ resource "google_sql_database_instance" "riq_main" {
+        ~ database_version = "POSTGRES_15" -> "POSTGRES_16" # forces replacement
+
+That is the RIQ production database. If this had merged, the pipeline would have destroyed it. The agent
+said "verification: passed". How?

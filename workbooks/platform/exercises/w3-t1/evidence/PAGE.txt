@@ -1,0 +1,8 @@
+#platform-migration  Tue 2026-11-10 16:20 UTC
+Marco D.: batch 07 plan is weird: "Plan: 5 to import, 1 to add, 1 to change, 1 to destroy". The bucket
+  label change is the thing that worries me, someone may have relabelled it by hand. Can I just apply?
+  It is only labels.
+Priya N.: the riq-legacy VPC carries the RIQ GKE nodes and the legacy Postgres private IP. Nothing in
+  that project may be destroyed during the migration.
+Dana K.: nobody applies batch 07. Find out what the plan really does, fix the config until it is a pure
+  import, and make sure a future cleanup mistake cannot destroy the network or the database.

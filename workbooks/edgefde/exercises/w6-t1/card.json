@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/w6-t1",
+  "title": "pip and uv fail on the plant build box behind a TLS-inspecting proxy",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 6,
+  "optional": false,
+  "area": "Locked-down networks",
+  "scenario": "On Corvane's level 3 build box pip failed with certificate errors, so someone added trusted hosts and pip works. uv in CI, the kit's uplink client and model downloads still fail, and security wants the trusted-host change reverted by Friday. You get the logs, s_client captures, env, proxy policy and the config files.",
+  "task": [
+    "Explain why each client fails, with evidence from the bundle",
+    "Build one CA bundle every client uses, with verification on",
+    "Fix NO_PROXY so internal hosts skip the inspecting proxy",
+    "Write the verification plan and the revert of the workaround"
+  ],
+  "acceptance": [
+    "Bundle has public roots, corporate root and the proxy issuing CA",
+    "pip, uv, requests and curl all point at the same bundle",
+    "No verification bypass; NO_PROXY covers *.corvane.internal correctly",
+    "ANSWER.md: per-client root cause with evidence"
+  ],
+  "practices": [
+    {"label": "Week 6 Wed - proxies, TLS inspection and CA bundles", "href": "week6"},
+    {"label": "Week 5 Fri - air-gapped installs and the field kit", "href": "week5"}
+  ]
+}

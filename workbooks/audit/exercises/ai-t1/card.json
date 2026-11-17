@@ -1,0 +1,27 @@
+{
+  "id": "audit/ai-t1",
+  "title": "Gemini cost up over 4x and latency up after the prompt refactor",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": "ai",
+  "optional": false,
+  "area": "AI integration: context and caching",
+  "scenario": "After release 2026.10.06 the nightly CM-03 batch costs about $0.30 per 100 samples instead of $0.08 and p50 latency went from 180 to 830 ms. The release also bumped the model to gemini-3.8-flash-002 and added a second Function instance, and the team suspects the model. You get per-call usage logs before and after, the dashboard, the release notes and a fake Gemini endpoint that simulates implicit caching.",
+  "task": [
+    "Explain why cached_content_token_count is 0 on every call after the release",
+    "Compare serialized requests across samples and across processes with different hash seeds",
+    "Rule the model bump in or out with evidence",
+    "Fix the request builder so the static prefix is byte-stable; verify with make replay"
+  ],
+  "acceptance": [
+    "Tools plus system prefix identical across samples, runs and PYTHONHASHSEED values",
+    "Per-request data only in the last user content; request contract unchanged",
+    "Cache hit ratio about 0.9 again across two instances; cost and latency back to baseline",
+    "Root cause and evidence in ANSWER.md match the injected faults"
+  ],
+  "practices": [
+    {"label": "AI Integration - 3 Context and caching", "href": "ai"},
+    {"label": "AI Integration - 7 Observability (usage metadata)", "href": "ai"},
+    {"label": "Week 6 Wed - cost and latency per control", "href": "week6"}
+  ]
+}

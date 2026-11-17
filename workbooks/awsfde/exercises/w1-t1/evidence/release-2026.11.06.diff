@@ -1,0 +1,130 @@
+diff --git a/answer_svc/bedrock_client.py
+--- a/answer_svc/bedrock_client.py
++++ b/answer_svc/bedrock_client.py
+@@ -5,7 +5,8 @@
+ import boto3
+ from botocore.config import Config
+ 
+-SDK_RETRIES = {"max_attempts": 2, "mode": "standard"}
++# Release 2026.11.06 "resilience hardening": more SDK retries for Bedrock throttling (INC-4410).
++SDK_RETRIES = {"max_attempts": 10, "mode": "standard"}
+ 
+ 
+ def make_client(region: str = "us-east-1"):
+diff --git a/answer_svc/resilience.py
+--- a/answer_svc/resilience.py
++++ b/answer_svc/resilience.py
+@@ -0,0 +1,46 @@
++"""Application-level retry helper (added in release 2026.11.06)."""
++
++from __future__ import annotations
++
++from dataclasses import dataclass
++from typing import Any, Callable
++
++from botocore.exceptions import ClientError
++
++
++@dataclass(frozen=True)
++class RetryPolicy:
++    max_attempts: int = 5            # total attempts made by this layer, including the first
++    base_delay: float = 1.0          # seconds
++    max_delay: float = 1.0           # seconds; cap on a single delay
++    jitter: bool = False
++    retryable_codes: frozenset | None = None   # None = retry every ClientError
++
++    def should_retry(self, code: str, attempt: int) -> bool:
++        """attempt is the 1-based number of the attempt that just failed."""
++        if attempt >= self.max_attempts:
++            return False
++        return self.retryable_codes is None or code in self.retryable_codes
++
++    def delay(self, attempt: int, rng: Callable[[], float]) -> float:
++        """Seconds to wait after failed attempt number `attempt` (1-based)."""
++        d = min(self.max_delay, self.base_delay * (2 ** (attempt - 1)))
++        return rng() * d if self.jitter else d
++
++
++# "Be resilient: never give up on the first error." -- release 2026.11.06
++APP_POLICY = RetryPolicy(max_attempts=5, base_delay=1.0, max_delay=1.0, jitter=False, retryable_codes=None)
++
++
++def call_with_retries(fn: Callable[[], Any], policy: RetryPolicy, sleep: Callable[[float], None],
++                      rng: Callable[[], float]) -> Any:
++    attempt = 1
++    while True:
++        try:
++            return fn()
++        except ClientError as e:
++            code = e.response.get("Error", {}).get("Code", "Unknown")
++            if not policy.should_retry(code, attempt):
++                raise
++            sleep(policy.delay(attempt, rng))
++            attempt += 1
+diff --git a/answer_svc/service.py
+--- a/answer_svc/service.py
++++ b/answer_svc/service.py
+@@ -5,28 +5,44 @@
+ import json
+ import logging
+ import pathlib
+-from typing import Any
++import random
++import time
++from typing import Any, Callable
+ 
+ from botocore.exceptions import ClientError
+ 
++from .resilience import APP_POLICY, RetryPolicy, call_with_retries
++
+ log = logging.getLogger("tidewater.answer")
+ CONFIG = json.loads((pathlib.Path(__file__).resolve().parent.parent / "config" / "release.json").read_text())
+ 
+ 
+ def outcome_for_error(code: str) -> int:
++    """HTTP status returned to the caller when the model call finally fails with `code`."""
+     return 500
+ 
+ 
+-def answer(question: str, client: Any) -> dict:
+-    try:
+-        resp = client.converse(
++def error_response(code: str) -> dict:
++    status = outcome_for_error(code)
++    return {"statusCode": status, "headers": {"Content-Type": "application/json"},
++            "body": json.dumps({"error": "internal_error", "detail": code})}
++
++
++def answer(question: str, client: Any, *, policy: RetryPolicy = APP_POLICY,
++           sleep: Callable[[float], None] = time.sleep, rng: Callable[[], float] = random.random) -> dict:
++    def call() -> dict:
++        return client.converse(
+             modelId=CONFIG["model_id"],
+             messages=[{"role": "user", "content": [{"text": question}]}],
+             inferenceConfig={"maxTokens": CONFIG["max_tokens"]},
+         )
++
++    try:
++        resp = call_with_retries(call, policy, sleep=sleep, rng=rng)
+     except ClientError as e:
+         code = e.response.get("Error", {}).get("Code", "Unknown")
+         log.error(json.dumps({"event": "model_call_failed", "code": code}))
+-        return {"statusCode": outcome_for_error(code), "body": json.dumps({"error": "internal_error"})}
++        return error_response(code)
+     text = "".join(b.get("text", "") for b in resp["output"]["message"]["content"])
+-    return {"statusCode": 200, "body": json.dumps({"answer": text})}
++    return {"statusCode": 200, "headers": {"Content-Type": "application/json"},
++            "body": json.dumps({"answer": text})}
+--- a/config/release.json
++++ b/config/release.json
+@@ -1,8 +1,8 @@
+ {
+-  "release": "2026.10.30",
++  "release": "2026.11.06",
+   "model_id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+   "max_tokens": 1024,
+-  "lambda_reserved_concurrency": 100,
++  "lambda_reserved_concurrency": 150,
+   "lambda_timeout_s": 60,
+   "api_gateway_timeout_s": 29
+ }

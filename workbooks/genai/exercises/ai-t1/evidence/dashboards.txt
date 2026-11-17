@@ -1,0 +1,11 @@
+# Grafana "assistant cost" (computed by assistant/cost.py from provider usage), USD per day
+2026-11-08  412.10
+2026-11-09  398.77
+2026-11-10  431.05
+2026-11-11  426.30
+# Provider invoice preview, USD per day
+2026-11-08  418.92
+2026-11-09  405.13
+2026-11-10  1281.44
+2026-11-11  1302.68
+# p50 time to first token: 0.9 s (11/08-11/09) -> 2.6 s (11/10-11/11). Requests per day flat (about 61k).

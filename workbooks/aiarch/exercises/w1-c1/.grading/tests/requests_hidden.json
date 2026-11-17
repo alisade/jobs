@@ -1,0 +1,316 @@
+[
+ {
+  "name": "cross-Region inference lands in us-west-2 via the US profile",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/lighthouse-agent-runtime",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:us-west-2::foundation-model/anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "region": "us-west-2",
+  "expect": "ALLOW",
+  "context": {
+   "bedrock:InferenceProfileArn": "arn:aws:bedrock:us-east-1:111100000003:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "cross-Region inference streaming lands in us-east-2",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/lighthouse-agent-runtime",
+  "action": "bedrock:InvokeModelWithResponseStream",
+  "resource": "arn:aws:bedrock:us-east-2::foundation-model/anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "region": "us-east-2",
+  "expect": "ALLOW",
+  "context": {
+   "bedrock:InferenceProfileArn": "arn:aws:bedrock:us-east-1:111100000003:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "direct model call in us-west-2 without a profile",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/lighthouse-agent-runtime",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:us-west-2::foundation-model/anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "region": "us-west-2",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "non-Bedrock call in us-west-2",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "ec2:RunInstances",
+  "resource": "arn:aws:ec2:us-west-2:111100000003:instance/*",
+  "region": "us-west-2",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "EU inference profile destination eu-west-1",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/lighthouse-agent-runtime",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:eu-west-1::foundation-model/anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "region": "eu-west-1",
+  "expect": "DENY",
+  "context": {
+   "bedrock:InferenceProfileArn": "arn:aws:bedrock:eu-central-1:111100000003:inference-profile/eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "sts GetCallerIdentity on the us-west-2 regional endpoint",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "sts:GetCallerIdentity",
+  "resource": "*",
+  "region": "us-west-2",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "management account admin works in ap-south-1",
+  "account": "111100000000",
+  "principal_arn": "arn:aws:iam::111100000000:role/OrgAdmin",
+  "action": "lambda:CreateFunction",
+  "resource": "arn:aws:lambda:ap-south-1:111100000000:function:x",
+  "region": "ap-south-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "service-linked role in prod acts in eu-west-1",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/aws-service-role/ops.apigateway.amazonaws.com/AWSServiceRoleForAPIGateway",
+  "action": "ec2:CreateNetworkInterface",
+  "resource": "*",
+  "region": "eu-west-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "GitLab OIDC web identity assumes the dev deploy role",
+  "account": "gitlab-oidc",
+  "principal_arn": "arn:aws:iam::111100000003:oidc-provider/gitlab.com",
+  "action": "sts:AssumeRoleWithWebIdentity",
+  "resource": "arn:aws:iam::111100000003:role/gitlab-deploy-dev",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {},
+  "resource_account": "111100000003"
+ },
+ {
+  "name": "external principal assumes a prod role",
+  "account": "999988887777",
+  "principal_arn": "arn:aws:iam::999988887777:role/ci",
+  "action": "sts:AssumeRole",
+  "resource": "arn:aws:iam::111100000004:role/lighthouse-readonly",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {},
+  "resource_account": "111100000004"
+ },
+ {
+  "name": "external principal decrypts with a prod KMS key",
+  "account": "999988887777",
+  "principal_arn": "arn:aws:iam::999988887777:role/ci",
+  "action": "kms:Decrypt",
+  "resource": "arn:aws:kms:us-east-1:111100000004:key/1111aaaa-2222-bbbb-3333-cccc4444dddd",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {},
+  "resource_account": "111100000004"
+ },
+ {
+  "name": "CloudTrail service writes to the org trail bucket",
+  "account": "aws-service",
+  "principal_arn": "cloudtrail.amazonaws.com",
+  "action": "s3:PutObject",
+  "resource": "arn:aws:s3:::hpm-org-cloudtrail-111100000001/AWSLogs/o-hpm4k2x9qa/x.json.gz",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalIsAWSService": "true"
+  },
+  "resource_account": "111100000001"
+ },
+ {
+  "name": "developer deletes an object in the trail bucket",
+  "account": "111100000001",
+  "principal_arn": "arn:aws:iam::111100000001:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_PlatformAdmin_aaaa",
+  "action": "s3:DeleteObject",
+  "resource": "arn:aws:s3:::hpm-org-cloudtrail-111100000001/AWSLogs/o-hpm4k2x9qa/x.json.gz",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer deletes an object in an ordinary dev bucket",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "s3:DeleteObject",
+  "resource": "arn:aws:s3:::hpm-lighthouse-dev-scratch/tmp/a.txt",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer creates an IAM access key",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "iam:CreateAccessKey",
+  "resource": "arn:aws:iam::111100000003:role/x",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "break-glass creates an emergency IAM user",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/hpm-breakglass",
+  "action": "iam:CreateUser",
+  "resource": "arn:aws:iam::111100000004:user/emergency",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "sandbox invokes an unapproved Opus model",
+  "account": "111100000005",
+  "principal_arn": "arn:aws:iam::111100000005:role/sandbox-agent",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-opus-4-1-20250805-v1:0",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "sandbox invokes approved Haiku",
+  "account": "111100000005",
+  "principal_arn": "arn:aws:iam::111100000005:role/sandbox-agent",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-haiku-4-5-20251001-v1:0",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "prod caller invokes the agent runtime without the VPC endpoint",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/helpdesk-portal",
+  "action": "bedrock-agentcore:InvokeAgentRuntime",
+  "resource": "arn:aws:bedrock-agentcore:us-east-1:111100000004:runtime/helpdesk_agent-AbCdEf1234",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "prod caller invokes the agent runtime through the VPC endpoint",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/helpdesk-portal",
+  "action": "bedrock-agentcore:InvokeAgentRuntime",
+  "resource": "arn:aws:bedrock-agentcore:us-east-1:111100000004:runtime/helpdesk_agent-AbCdEf1234",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:SourceVpce": "vpce-0a1b2c3d4e5f60002",
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "dev caller invokes the agent runtime without a VPC endpoint",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "bedrock-agentcore:InvokeAgentRuntime",
+  "resource": "arn:aws:bedrock-agentcore:us-east-1:111100000003:runtime/helpdesk_agent-XyZ987",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "break-glass works in eu-west-1",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/hpm-breakglass",
+  "action": "ec2:DescribeInstances",
+  "resource": "*",
+  "region": "eu-west-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "shared-services pushes an image to ECR in us-east-2",
+  "account": "111100000002",
+  "principal_arn": "arn:aws:iam::111100000002:role/gitlab-image-push",
+  "action": "ecr:PutImage",
+  "resource": "arn:aws:ecr:us-east-2:111100000002:repository/lighthouse/agent",
+  "region": "us-east-2",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "shared-services pushes an image to ECR in us-west-2",
+  "account": "111100000002",
+  "principal_arn": "arn:aws:iam::111100000002:role/gitlab-image-push",
+  "action": "ecr:PutImage",
+  "resource": "arn:aws:ecr:us-west-2:111100000002:repository/lighthouse/agent",
+  "region": "us-west-2",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "in-org principal from another account reads a prod bucket",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/lighthouse-agent-runtime",
+  "action": "s3:GetObject",
+  "resource": "arn:aws:s3:::hpm-lighthouse-prod-artifacts/model-cards/a.json",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  },
+  "resource_account": "111100000004"
+ },
+ {
+  "name": "break-glass role name from an outside account is not exempt from the RCP",
+  "account": "999988887777",
+  "principal_arn": "arn:aws:iam::999988887777:role/hpm-breakglass",
+  "action": "s3:GetObject",
+  "resource": "arn:aws:s3:::hpm-lighthouse-prod-artifacts/x",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {},
+  "resource_account": "111100000004"
+ }
+]

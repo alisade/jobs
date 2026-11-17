@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- SDK-style, .NET 10 (CLM-4520). Was a .NET Framework 4.8 classic project with packages.config. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>PolicyPortal.Rating</RootNamespace>
+    <AssemblyName>PolicyPortal.Rating</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- Properties/AssemblyInfo.cs keeps the existing version attributes -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Production rating parameters, moved from App.config appSettings (same keys, same values). -->
+    <Content Include="rating.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Remove="App.config" />
+    <None Remove="packages.config" />
+  </ItemGroup>
+</Project>

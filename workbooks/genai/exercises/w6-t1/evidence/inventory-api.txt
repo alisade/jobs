@@ -1,0 +1,9 @@
+$ curl -s 'https://inventory.internal.kestrel.example/v2/stock?sku=KO-COOL-45&store=087' | jq .
+{ "sku": "KO-COOL-45", "store_id": "087", "on_hand": 0, "reserved": 0, "as_of": "2026-11-28T18:29:41-08:00" }
+
+$ curl -s 'https://inventory.internal.kestrel.example/v2/stock?sku=KO-COOL-45&store=012' | jq .
+{ "sku": "KO-COOL-45", "store_id": "012", "on_hand": 0, "reserved": 0, "as_of": "2026-11-28T18:29:44-08:00" }
+
+# inventory audit trail for KO-COOL-45 @ 012: 08:00 on_hand 6 ... 11:58 last unit sold (POS), on_hand 0
+# inventory audit trail for KO-COOL-45 @ 087: on_hand 0 since 2026-11-26 (sold out before the weekend)
+# assistant -> inventory API calls for KO-COOL-45 today: 1 (08:00:11, store 012)

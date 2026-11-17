@@ -1,0 +1,16 @@
+2026-11-10T14:41:05Z applicationset-controller  riq-api-canary   generated 2 applications (dev-1-riq-api, stg-1-riq-api), updated 2
+2026-11-10T14:41:07Z application-controller     stg-1-riq-api    ComparisonError: chart riq-api version 3.0.0 not found in repository https://charts.tessellate.example/platform
+2026-11-10T14:41:07Z application-controller     dev-1-riq-api    ComparisonError: chart riq-api version 3.0.0 not found in repository https://charts.tessellate.example/platform
+2026-11-10T15:02:44Z chart-releaser (CI)        riq-api          published riq-api-3.0.0.tgz, index.yaml regenerated
+2026-11-10T15:03:12Z application-controller     stg-1-riq-api    Updated sync status: Unknown -> OutOfSync (3.0.0)
+2026-11-10T15:03:13Z application-controller     stg-1-riq-api    Initiated automated sync to '3.0.0'
+2026-11-10T15:03:14Z application-controller     dev-1-riq-api    Initiated automated sync to '3.0.0'
+2026-11-10T15:05:58Z application-controller     prod-blue-riq-api   Refreshing app (reason: periodic, timeout.reconciliation=180s)
+2026-11-10T15:05:59Z application-controller     prod-blue-riq-api   Updated sync status: Synced -> OutOfSync (resolved targetRevision '>=2.0.0' to 3.0.0)
+2026-11-10T15:06:00Z application-controller     prod-blue-riq-api   Initiated automated sync to '3.0.0'
+2026-11-10T15:06:01Z application-controller     prod-green-riq-api  Refreshing app (reason: periodic, timeout.reconciliation=180s)
+2026-11-10T15:06:02Z application-controller     prod-green-riq-api  Updated sync status: Synced -> OutOfSync (resolved targetRevision '>=2.0.0' to 3.0.0)
+2026-11-10T15:06:03Z application-controller     prod-green-riq-api  Initiated automated sync to '3.0.0'
+2026-11-10T15:07:40Z kubelet (prod-blue)        riq/riq-api-7d9c6f   Back-off restarting failed container riq-api
+2026-11-10T15:19:02Z application-controller     prod-blue-riq-api   automated sync disabled by priya.n
+2026-11-10T15:19:30Z application-controller     prod-green-riq-api  automated sync disabled by priya.n

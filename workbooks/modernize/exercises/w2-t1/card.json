@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w2-t1",
+  "title": "The reverse-engineer skill missed the batch job's tables",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 2,
+  "area": "Agent skills and tool design",
+  "scenario": "The pod planned an EAP 8 schema migration from a spec the team's reverse-engineer skill wrote. Month-end rehearsal failed with ORA-00942 in reporting-batch, a module the spec says never touches the database. A draft postmortem blames model hallucination and asks for a bigger model.",
+  "task": [
+    "Prove from the transcript, the repo and the tool what the model actually saw",
+    "Rule the context-window and hallucination theories in or out",
+    "Fix the scanner so partial output can never look complete; keep it context-friendly",
+    "Fix the skill so absence claims need proof; write the failure-mode log entry"
+  ],
+  "acceptance": [
+    "Complete summary of all tables and modules; paged output that announces truncation; working offsets",
+    "Default output names every table within a context budget",
+    "SKILL.md instructs coverage checks",
+    "ANSWER.md names the silent truncation with evidence"
+  ],
+  "practices": [
+    {"label": "Week 2 Tue - subagents, context and tool output size", "href": "week2"},
+    {"label": "Week 2 Fri - writing tools for agents", "href": "week2"}
+  ]
+}

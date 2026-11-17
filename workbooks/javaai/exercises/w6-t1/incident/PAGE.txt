@@ -1,0 +1,14 @@
+INC-20590  P3  learner dashboard "Recent activity" card slow; Cloud SQL CPU high at peak
+Opened 2026-11-13 09:40 by on-call (alert "dashboard-api p95 > 1 s")
+
+Impact
+  The Recent activity card takes 1.5-4 s; the rest of the dashboard waits for it. Cloud SQL
+  (db-custom-4-16384, PostgreSQL 16) CPU 80-90% between 08:30 and 10:00.
+
+Work notes
+  09:50 DBA on call: "quiz_attempt is 41M rows and has an index on created_at already (PERF-88).
+        Autovacuum has not run on it for 6 days. Suggest VACUUM ANALYZE quiz_attempt and bigger
+        shared_buffers." VACUUM ANALYZE ran 10:20, p95 unchanged.
+  10:35 App team: the query has not changed since July. Data volume doubled since semester start.
+  10:40 Assigned to you. Query Insights, the plan and the migrations are in this folder.
+        Locally: make setup builds a 200k-row copy (SQLite, same schema and plan shapes); make explain.

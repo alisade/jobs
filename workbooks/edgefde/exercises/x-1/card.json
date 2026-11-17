@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/x-1",
+  "title": "CMMS work-order client: retries, Retry-After and idempotency keys",
+  "type": "coding",
+  "estimate": "2 h",
+  "week": 7,
+  "optional": true,
+  "area": "API integrations",
+  "scenario": "The edge kit raises a draft work order in Corvane's CMMS when an anomaly is confirmed. The prototype's single POST lost orders during the CMMS's nightly 503s and duplicated them when a response was lost. One anomaly must mean one work order, always.",
+  "task": [
+    "Idempotency key derived from machine and alert window",
+    "One retry loop: timeouts, retryable errors only, full-jitter backoff, Retry-After, budget",
+    "OAuth client credentials with caching, expiry refresh and one refresh on 401",
+    "Pydantic WorkOrder results and complete pagination"
+  ],
+  "acceptance": [
+    "40 anomalies through 30% faults create exactly 40 work orders",
+    "Retry-After in seconds and HTTP-date honoured; no retry on 422; budget enforced",
+    "Timeout on every call; token refresh paths; pagination complete",
+    "ANSWER.md explains why the key, not the retries, prevents duplicates"
+  ],
+  "practices": [
+    {"label": "Week 7 Mon - API integrations: timeouts, retries, backoff with jitter", "href": "week7"},
+    {"label": "Week 7 Tue - idempotency keys, pagination, OAuth client credentials", "href": "week7"}
+  ]
+}

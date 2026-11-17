@@ -1,0 +1,8 @@
+$ ./jboss-cli.sh --connect --file=config/migrate-security.cli
+The batch failed with the following error (you are remaining in the batch editing mode to have a chance to correct the error): WFLYCTL0062: Composite operation failed and was rolled back. Steps that failed:
+    Step: step-1
+    Operation: /subsystem=security/security-domain=claimdesk-ldap:add(cache-type=default)
+    Failure: WFLYCTL0030: No resource definition is registered for address [("subsystem" => "security")]
+
+$ ./jboss-cli.sh --connect --command='/subsystem=elytron:read-children-types'
+{"outcome" => "success", "result" => ["aggregate-realm", "credential-store", "dir-context", "filesystem-realm", "http-authentication-factory", "jdbc-realm", "ldap-realm", "mapped-role-mapper", "permission-set", "properties-realm", "security-domain", "simple-permission-mapper", "simple-role-decoder", "..."]}

@@ -1,0 +1,27 @@
+{
+  "id": "edgefde/w4-c1",
+  "title": "Export to ONNX, quantize to INT8, prove the budget",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 4,
+  "optional": false,
+  "area": "Edge AI runtimes",
+  "scenario": "Corvane's controls engineer allows the anomaly model on the shared ARM gateways only within a written budget, and the reliability lead allows INT8 only if it keeps detections. Build the rerunnable export pipeline: scikit-learn MLP to ONNX, parity check, static INT8 with correct calibration, batch-1 benchmark, and a report with a budget verdict CI can act on.",
+  "task": [
+    "skl2onnx export with a dynamic batch and no ZipMap; parity vs scikit-learn < 1e-4",
+    "Static INT8 (QDQ) calibrated the way the gateway feeds the model",
+    "Batch-1 benchmark with warm-up: p50 and p95",
+    "Budget check and report.json / report.md; exit 0 / 4 / 2"
+  ],
+  "acceptance": [
+    "Graph contract and parity checks pass",
+    "INT8 is quantized, smaller, and within the recall and false-alarm budget",
+    "Each budget rule fires independently; report schema; CLI exit codes",
+    "ANSWER.md: benchmark table and the limits of a laptop benchmark"
+  ],
+  "practices": [
+    {"label": "Week 4 Mon - ONNX and export paths from scikit-learn", "href": "week4"},
+    {"label": "Week 4 Wed - static INT8 quantization and calibration data", "href": "week4"},
+    {"label": "Week 4 Thu - benchmarking honestly at batch size 1", "href": "week4"}
+  ]
+}

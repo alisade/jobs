@@ -1,0 +1,12 @@
+{"tenant_id": "acme-foods", "question": "How long do customers have to return unopened dry goods?"}
+{"tenant_id": "acme-foods", "question": "What temperature must reefer trailers hold?"}
+{"tenant_id": "acme-foods", "question": "What is the maximum pallet height and weight?"}
+{"tenant_id": "brightline-health", "question": "Can we return sterile items after the seal is broken?"}
+{"tenant_id": "brightline-health", "question": "What does vendor onboarding require before the first purchase order?"}
+{"tenant_id": "corvid-logistics", "question": "How much are detention fees per hour?"}
+{"tenant_id": "corvid-logistics", "question": "What do customs holds at Buffalo need for release?"}
+{"tenant_id": "delta-outfitters", "question": "How many loyalty points do members earn per dollar on kayaks?"}
+{"tenant_id": "delta-outfitters", "question": "What is the return window for a kayak bought in store?"}
+{"tenant_id": "delta-outfitters", "question": "How do I file a damage claim for a tent that arrived damaged?"}
+{"tenant_id": "delta-outfitters", "question": "Do gift cards expire?"}
+{"tenant_id": "delta-outfitters", "question": "Can I return refrigerated items?"}

@@ -1,0 +1,18 @@
+# Prometheus: histogram_quantile over http_server_request_duration_seconds, 1m windows, prod
+# window: 2026-11-05 08:40 - 09:20 PT     (rps = requests per second across all pods)
+
+time   route     rps    p50     p95     p99
+08:40  /search   41     0.27s   0.61s   0.93s
+08:50  /search   44     0.29s   0.88s   1.40s
+09:00  /search   63     1.10s   3.20s   4.90s
+09:10  /search   66     1.90s   4.10s   6.20s
+09:20  /search   65     2.00s   4.30s   6.80s
+
+08:40  /healthz  1.2    0.001s  0.31s   0.58s
+08:50  /healthz  1.2    0.002s  0.52s   0.94s
+09:00  /healthz  1.2    0.40s   2.70s   4.10s
+09:10  /healthz  1.2    1.20s   3.90s   5.50s
+
+# same week before the release (2026-10-29 09:10, 70 rps): /search p95 0.08s, /healthz p95 0.002s
+# per pod CPU at 09:10: 0.09 cores of 1.0 requested; memory flat
+# outbound PromoHub calls at 09:10: p50 0.24s, p95 0.31s (from the SDK's own metrics)

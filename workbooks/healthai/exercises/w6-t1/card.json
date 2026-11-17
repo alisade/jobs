@@ -1,0 +1,26 @@
+{
+  "id": "healthai/w6-t1",
+  "title": "Member names in exported spans, with redaction switched on",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 6,
+  "optional": false,
+  "area": "HIPAA in AI pipelines: logs, traces and redaction",
+  "scenario": "Security found member names and ids in about 3% of exported trace spans and in a log sample, although both log handlers have a redaction filter and the exporter scrubs attributes. The platform team blames a nested-attribute TODO in the exporter. Exports to the vendor are paused.",
+  "task": [
+    "Reproduce with the pipeline and the leak scanner",
+    "Find what the leaking records have in common and why",
+    "Fix redaction for every logging style, in the sink and in span events",
+    "Assess the exposure; fill in findings.json and ANSWER.md"
+  ],
+  "acceptance": [
+    "No identifiers for args, mapping args, f-strings, extras or exceptions",
+    "Pipeline exports clean end to end",
+    "Root cause and red herring backed by records and numbers"
+  ],
+  "practices": [
+    {"label": "Week 6 Tue - de-identification", "href": "week6"},
+    {"label": "Week 6 Wed - PHI flow map, audit logs", "href": "week6"},
+    {"label": "Week 6 Fri - LLM security for PHI pipelines", "href": "week6"}
+  ]
+}

@@ -1,0 +1,126 @@
+{
+ "CHG-10001": {
+  "id": "CHG-10001",
+  "service": "claims-intake",
+  "summary": "Rotate TLS certificate on the intake ALB",
+  "risk": "low",
+  "state": "scheduled",
+  "window_start": "2026-11-20T02:00:00Z",
+  "requester": "lwong",
+  "comments": [
+   "approved by CAB"
+  ]
+ },
+ "CHG-10002": {
+  "id": "CHG-10002",
+  "service": "payments-ledger",
+  "summary": "Increase ledger writer concurrency to 12",
+  "risk": "medium",
+  "state": "draft",
+  "window_start": "2026-11-22T03:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ },
+ "CHG-10003": {
+  "id": "CHG-10003",
+  "service": "payments-ledger",
+  "summary": "Patch PostgreSQL minor version",
+  "risk": "high",
+  "state": "closed",
+  "window_start": "2026-10-30T03:00:00Z",
+  "requester": "lwong",
+  "comments": [
+   "done"
+  ]
+ },
+ "CHG-10004": {
+  "id": "CHG-10004",
+  "service": "agent-gateway",
+  "summary": "Add user-directory target to the gateway",
+  "risk": "low",
+  "state": "draft",
+  "window_start": "2026-11-21T15:00:00Z",
+  "requester": "mchen",
+  "comments": []
+ },
+ "CHG-10005": {
+  "id": "CHG-10005",
+  "service": "claims-intake",
+  "summary": "Routine config change number 5",
+  "risk": "low",
+  "state": "draft",
+  "window_start": "2026-11-25T02:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ },
+ "CHG-10006": {
+  "id": "CHG-10006",
+  "service": "claims-intake",
+  "summary": "Routine config change number 6",
+  "risk": "low",
+  "state": "scheduled",
+  "window_start": "2026-11-25T02:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ },
+ "CHG-10007": {
+  "id": "CHG-10007",
+  "service": "claims-intake",
+  "summary": "Routine config change number 7",
+  "risk": "low",
+  "state": "draft",
+  "window_start": "2026-11-25T02:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ },
+ "CHG-10008": {
+  "id": "CHG-10008",
+  "service": "claims-intake",
+  "summary": "Routine config change number 8",
+  "risk": "low",
+  "state": "scheduled",
+  "window_start": "2026-11-25T02:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ },
+ "CHG-10009": {
+  "id": "CHG-10009",
+  "service": "claims-intake",
+  "summary": "Routine config change number 9",
+  "risk": "low",
+  "state": "draft",
+  "window_start": "2026-11-25T02:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ },
+ "CHG-10010": {
+  "id": "CHG-10010",
+  "service": "claims-intake",
+  "summary": "Routine config change number 10",
+  "risk": "low",
+  "state": "scheduled",
+  "window_start": "2026-11-25T02:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ },
+ "CHG-10011": {
+  "id": "CHG-10011",
+  "service": "claims-intake",
+  "summary": "Routine config change number 11",
+  "risk": "low",
+  "state": "draft",
+  "window_start": "2026-11-25T02:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ },
+ "CHG-10012": {
+  "id": "CHG-10012",
+  "service": "claims-intake",
+  "summary": "Routine config change number 12",
+  "risk": "low",
+  "state": "scheduled",
+  "window_start": "2026-11-25T02:00:00Z",
+  "requester": "lwong",
+  "comments": []
+ }
+}

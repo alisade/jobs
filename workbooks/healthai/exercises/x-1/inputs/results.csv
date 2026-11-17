@@ -1,0 +1,10 @@
+metric,prompted_large,lora_small
+micro_f1_codes,0.861,0.884
+macro_f1_codes,0.792,0.741
+exact_match_note,0.612,0.655
+invalid_code_rate,0.009,0.031
+json_parse_failure_rate,0.002,0.018
+p50_latency_ms,1850,310
+p95_latency_ms,4200,690
+f1_on_rare_codes_(<10_train_examples),0.701,0.488
+f1_on_top_50_codes,0.902,0.931

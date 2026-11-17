@@ -1,0 +1,1330 @@
+{
+ "questions": [
+  {
+   "id": "w1-q01",
+   "week": 1,
+   "set": "weekly",
+   "area": "design",
+   "type": "single",
+   "stem": "In a 45-minute whiteboard session you are asked to design the Keystone platform layer that replaces Lumenfold's CRM. The interviewer has given you only one sentence of context. What is the best first five minutes?",
+   "options": [
+    "Draw the service diagram you used at your last job so the interviewer sees boxes early",
+    "Clarify requirements and non-goals, then estimate scale (tenants, records, write rate) before naming any technology",
+    "Pick PostgreSQL, Kafka and Temporal up front, then justify each one in turn",
+    "Start with the database schema because data models drive everything else"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A repeatable method starts with requirements, non-goals and rough scale; those numbers decide later trade-offs (one Postgres or sharding, sync or async). Jumping to a schema or a stack anchors you before you know what matters, which is the most common way senior candidates lose the round.",
+   "learn": [
+    {
+     "label": "Hello Interview: system design in a hurry",
+     "href": "https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction"
+    },
+    {
+     "label": "System Design Primer",
+     "href": "https://github.com/donnemartin/system-design-primer"
+    }
+   ]
+  },
+  {
+   "id": "w1-q02",
+   "week": 1,
+   "set": "weekly",
+   "area": "design",
+   "type": "single",
+   "stem": "Keystone has four capabilities: accounts and contacts, sales pipeline, activities, and automation. Which rule for drawing service boundaries fits the platform best?",
+   "options": [
+    "One service per technical layer: an API service, a business-logic service and a data service",
+    "One service per database table so each table can scale independently",
+    "Boundaries around business capability and data ownership: each service owns its tables, others use its API or events",
+    "A single shared schema that every service reads and writes, with views for each team"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Capability plus ownership keeps change local: the pipeline team can migrate its tables without breaking accounts. Layered services couple every feature to three deploys, and a shared schema makes every column a cross-team contract nobody can change.",
+   "learn": [
+    {
+     "label": "Microservice architecture patterns",
+     "href": "https://microservices.io/patterns/microservices.html"
+    },
+    {
+     "label": "Monolith to Microservices (Newman)",
+     "href": "https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q03",
+   "week": 1,
+   "set": "weekly",
+   "area": "design",
+   "type": "multi",
+   "stem": "Lumenfold's tenants are business units (bu-amer, bu-emea, bu-apac) plus a partner portal app. Which TWO are real advantages of a shared schema with a tenant_id column and row-level security over a database per tenant?",
+   "options": [
+    "Strongest isolation against a noisy neighbor running a heavy report",
+    "One migration run covers every tenant, so schema drift between tenants cannot happen",
+    "Cross-tenant analytics and reporting are plain queries instead of a fan-out",
+    "Per-tenant restore from backup is trivial",
+    "No application code needs to know about tenants at all"
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "explanation": "Shared schema wins on operational simplicity (one migration, one pool) and cross-tenant queries. It loses on noisy-neighbor isolation and per-tenant restore, which database-per-tenant gives you. The application still has to set the tenant on every transaction; RLS enforces it, it does not remove the need.",
+   "learn": [
+    {
+     "label": "Azure multitenant architecture guide",
+     "href": "https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/overview"
+    },
+    {
+     "label": "AWS SaaS architecture fundamentals",
+     "href": "https://docs.aws.amazon.com/whitepapers/latest/saas-architecture-fundamentals/saas-architecture-fundamentals.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w1-q04",
+   "week": 1,
+   "set": "weekly",
+   "area": "design",
+   "type": "single",
+   "stem": "When an opportunity is closed-won, Keystone must create an onboarding project in a separate delivery service and notify finance. Which consistency approach fits?",
+   "options": [
+    "A distributed two-phase commit across the pipeline and delivery databases",
+    "Write the stage change and an outbox event in one local transaction; downstream services react to the event, with a saga or workflow for steps that need compensation",
+    "Have the pipeline service write directly into the delivery service's tables in the same transaction",
+    "Call the delivery API synchronously and roll back the stage change if it times out"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Local transaction plus outbox gives atomicity where you own the data and eventual consistency across services. A synchronous call with rollback fails badly on a timeout after the remote side committed; 2PC and cross-service writes couple availability and ownership.",
+   "learn": [
+    {
+     "label": "Transactional outbox pattern",
+     "href": "https://microservices.io/patterns/data/transactional-outbox.html"
+    },
+    {
+     "label": "Saga pattern",
+     "href": "https://microservices.io/patterns/data/saga.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q05",
+   "week": 1,
+   "set": "weekly",
+   "area": "design",
+   "type": "single",
+   "stem": "After a whiteboard session your team agrees to use Temporal for approvals. What should the ADR for that decision contain so it is useful in a year?",
+   "options": [
+    "The final diagram and a link to the Temporal docs",
+    "Context, the options considered, the decision, and its consequences including what you gave up",
+    "A list of every team member who attended the session",
+    "Only the decision, because the reasoning is in the meeting recording"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "An ADR is a one-page record of context, options, decision and consequences. Consequences (operating a Temporal cluster, worker versioning) are what a future reader needs to judge whether the decision still holds.",
+   "learn": [
+    {
+     "label": "Microservice architecture patterns",
+     "href": "https://microservices.io/patterns/microservices.html"
+    }
+   ]
+  },
+  {
+   "id": "w1-q06",
+   "week": 1,
+   "set": "weekly",
+   "area": "crm",
+   "type": "single",
+   "stem": "A Salesforce Task row has WhoId = 00Q5e00000AbCdEFGH and WhatId = 0065e00000XyZaBCDE. What do these point at?",
+   "options": [
+    "WhoId is the owning User; WhatId is the record type",
+    "WhoId points at a Lead or Contact; WhatId is polymorphic and points at an Account, Opportunity or other object",
+    "Both are foreign keys to Account",
+    "WhoId is the parent Task; WhatId is the child Event"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Activities link to a person through WhoId (Lead or Contact, prefix 00Q or 003) and to a business record through the polymorphic WhatId (Account 001, Opportunity 006 and others). The new schema needs either typed nullable FKs or a target_type plus target_id with integrity checks.",
+   "learn": [
+    {
+     "label": "Trailhead: data modeling",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/data_modeling"
+    },
+    {
+     "label": "Trailhead: leads and opportunities",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience"
+    }
+   ]
+  },
+  {
+   "id": "w1-q07",
+   "week": 1,
+   "set": "weekly",
+   "area": "crm",
+   "type": "single",
+   "stem": "The migration lead wants to key legacy rows on the 15-character Salesforce ID because the partner-portal extract only has 15-character IDs. What is the risk?",
+   "options": [
+    "None: 15- and 18-character IDs are interchangeable in every context",
+    "15-character IDs are case-sensitive, so a case-insensitive comparison or collation can merge two different records",
+    "15-character IDs are reused after a record is deleted",
+    "15-character IDs only exist for custom objects"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The 15-character ID is case-sensitive; the 18-character form appends a 3-character checksum of the casing so it is safe in case-insensitive systems. Convert to 18 characters on import and store it in an indexed column on every migrated row.",
+   "learn": [
+    {
+     "label": "Trailhead: data modeling",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/data_modeling"
+    },
+    {
+     "label": "Trailhead: Salesforce API basics",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/api_basics"
+    }
+   ]
+  },
+  {
+   "id": "w1-q08",
+   "week": 1,
+   "set": "weekly",
+   "area": "crm",
+   "type": "multi",
+   "stem": "Before modeling the Keystone opportunity tables, which THREE Salesforce artifacts must you inventory because they hold business logic the new platform has to replace?",
+   "options": [
+    "Validation rules",
+    "Flows and Apex triggers",
+    "Roll-up summary and formula fields",
+    "The Lightning page layout colors",
+    "The org's login history"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Validation rules, flows/triggers and formula/roll-up fields are logic hidden in the CRM. If you only migrate data, the new platform silently stops enforcing rules users rely on. Page layout styling and login history do not change behavior.",
+   "learn": [
+    {
+     "label": "Trailhead: data modeling",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/data_modeling"
+    },
+    {
+     "label": "Trailhead: large data volumes",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/large-data-volumes"
+    }
+   ],
+   "choose": 3
+  },
+  {
+   "id": "w1-q09",
+   "week": 1,
+   "set": "weekly",
+   "area": "crm",
+   "type": "single",
+   "stem": "A Lead is converted in Salesforce. What does conversion produce?",
+   "options": [
+    "Only a new Contact; the Lead is deleted",
+    "An Account, a Contact and optionally an Opportunity, with the Lead marked converted",
+    "A Case linked to the existing Account",
+    "A duplicate Lead owned by the sales manager"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Conversion creates (or merges into) an Account and Contact and optionally an Opportunity, and keeps the Lead as converted with pointers to what it became. Your migrated model needs those lineage links for reporting and reconciliation.",
+   "learn": [
+    {
+     "label": "Trailhead: leads and opportunities",
+     "href": "https://trailhead.salesforce.com/content/learn/modules/leads_opportunities_lightning_experience"
+    }
+   ]
+  },
+  {
+   "id": "w1-q10",
+   "week": 1,
+   "set": "weekly",
+   "area": "agents",
+   "type": "single",
+   "stem": "You want a guardrail so that Claude Code can never run a migration against a production database URL, even if a skill tells it to. Where does that rule belong?",
+   "options": [
+    "In CLAUDE.md as a bold instruction",
+    "In a PreToolUse hook that inspects the command and blocks it",
+    "In the skill description so the model reads it first",
+    "In the system prompt of every session"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Instructions are probabilistic; a PreToolUse hook is deterministic code that runs before the tool call and can deny it. Use instructions for guidance and hooks for rules that must hold.",
+   "learn": [
+    {
+     "label": "Claude Code hooks",
+     "href": "https://code.claude.com/docs/en/hooks"
+    },
+    {
+     "label": "Claude Code skills",
+     "href": "https://code.claude.com/docs/en/skills"
+    }
+   ]
+  },
+  {
+   "id": "w1-q11",
+   "week": 1,
+   "set": "weekly",
+   "area": "agents",
+   "type": "single",
+   "stem": "Which combination is Simon Willison's lethal trifecta for an agent?",
+   "options": [
+    "A large model, a long context window and tool calling",
+    "Access to private data, exposure to untrusted content, and a way to communicate externally",
+    "No evals, no tracing and no rate limits",
+    "Prompt injection, jailbreaks and hallucination"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "When an agent can read private data, ingest attacker-controlled content and send data out, an injection can exfiltrate. Remove one leg: scope data by the user's identity, isolate untrusted content, or close the exfiltration channel.",
+   "learn": [
+    {
+     "label": "The lethal trifecta",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    },
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    }
+   ]
+  },
+  {
+   "id": "w1-q12",
+   "week": 1,
+   "set": "weekly",
+   "area": "design",
+   "type": "order",
+   "stem": "Order the steps of a 45-minute platform design interview, using the method from week 1.",
+   "options": [
+    "Core entities and the API",
+    "High-level design",
+    "Back-of-envelope scale estimates",
+    "Pick the cloud provider's logo color",
+    "Deep dives on the two riskiest parts",
+    "Requirements and non-goals"
+   ],
+   "answer": [
+    5,
+    2,
+    0,
+    1,
+    4
+   ],
+   "explanation": "Requirements and scale come before entities and API; the high-level design comes before deep dives, so the deep dives land on the parts the numbers say are risky.",
+   "learn": [
+    {
+     "label": "Hello Interview: system design in a hurry",
+     "href": "https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction"
+    }
+   ],
+   "choose": 5
+  },
+  {
+   "id": "w2-q01",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "Keystone's query is <code>WHERE tenant_id = $1 AND account_id = $2 ORDER BY occurred_at DESC, id DESC LIMIT 50</code> on activities. Which index serves it best?",
+   "options": [
+    "(occurred_at DESC)",
+    "(tenant_id, account_id, occurred_at DESC, id DESC)",
+    "(account_id) plus a separate (tenant_id)",
+    "A GIN index on (tenant_id, account_id)"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Equality columns first, then the sort columns in the ORDER BY direction, so the planner reads the first 50 index entries and stops. Two single-column indexes need a bitmap AND and a sort; GIN does not support ordering.",
+   "learn": [
+    {
+     "label": "PostgreSQL: indexes",
+     "href": "https://www.postgresql.org/docs/current/indexes.html"
+    },
+    {
+     "label": "Use The Index, Luke",
+     "href": "https://use-the-index-luke.com/"
+    }
+   ]
+  },
+  {
+   "id": "w2-q02",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "Contacts are soft-deleted with deleted_at. Business rule: an email is unique per tenant among live contacts only. Which constraint implements it?",
+   "options": [
+    "UNIQUE (tenant_id, email)",
+    "CREATE UNIQUE INDEX ON contacts (tenant_id, lower(email)) WHERE deleted_at IS NULL",
+    "A CHECK constraint comparing email to other rows",
+    "A trigger that sleeps and re-reads the table"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A partial unique expression index enforces uniqueness only for live rows and makes the comparison case-insensitive. A plain UNIQUE blocks re-creating a contact that was soft-deleted; CHECK constraints cannot see other rows.",
+   "learn": [
+    {
+     "label": "PostgreSQL: indexes",
+     "href": "https://www.postgresql.org/docs/current/indexes.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q03",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "Custom fields from Salesforce (__c) vary per business unit. Users filter with <code>custom_fields @&gt; '{\"region__c\": \"EMEA\"}'</code>. What do you model and index?",
+   "options": [
+    "A text column holding JSON and a B-tree on it",
+    "jsonb with a GIN index (jsonb_path_ops)",
+    "One nullable column per custom field across all tenants",
+    "An EAV table with no indexes"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "jsonb plus GIN supports containment queries efficiently, and jsonb_path_ops is smaller and faster for @&gt;. Keep core, queried-everywhere fields as real columns; jsonb is for genuinely open-ended fields.",
+   "learn": [
+    {
+     "label": "PostgreSQL: JSON types",
+     "href": "https://www.postgresql.org/docs/current/datatype-json.html"
+    },
+    {
+     "label": "PostgreSQL: indexes",
+     "href": "https://www.postgresql.org/docs/current/indexes.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q04",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "EXPLAIN ANALYZE shows <code>Seq Scan on activities (rows=12 estimated) (actual rows=480000)</code> right after a bulk import of 2M rows. What is the most likely cause and fix?",
+   "options": [
+    "The index is corrupt; REINDEX",
+    "Stale statistics after the load; run ANALYZE (and let autovacuum keep up)",
+    "work_mem is too small; raise it",
+    "The table needs partitioning immediately"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A row estimate off by orders of magnitude right after a bulk load is the classic stale-statistics signature. ANALYZE refreshes them; the planner then picks a plan for the real row counts.",
+   "learn": [
+    {
+     "label": "PostgreSQL: using EXPLAIN",
+     "href": "https://www.postgresql.org/docs/current/using-explain.html"
+    },
+    {
+     "label": "pgMustard: EXPLAIN glossary",
+     "href": "https://www.pgmustard.com/docs/explain"
+    }
+   ]
+  },
+  {
+   "id": "w2-q05",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "multi",
+   "stem": "Which TWO settings are required so RLS policies apply to Keystone's application even when it connects as the role that owns the tables?",
+   "options": [
+    "ALTER TABLE ... ENABLE ROW LEVEL SECURITY",
+    "ALTER TABLE ... FORCE ROW LEVEL SECURITY",
+    "GRANT BYPASSRLS to the app role",
+    "SET search_path to the tenant schema",
+    "CREATE EXTENSION pg_partman"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "ENABLE turns RLS on; owners bypass it unless FORCE is also set. Better still, the app connects as a non-owner role without BYPASSRLS, and FORCE protects you if someone later runs the app as owner.",
+   "learn": [
+    {
+     "label": "PostgreSQL: row security policies",
+     "href": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html"
+    },
+    {
+     "label": "Row-level security for tenants (Crunchy Data)",
+     "href": "https://www.crunchydata.com/blog/row-level-security-for-tenants-in-postgres"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w2-q06",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "Keystone runs behind PgBouncer in transaction pooling mode. The RLS policy uses current_setting('app.tenant_id'). How must the service set the tenant?",
+   "options": [
+    "SET app.tenant_id once when the connection is opened",
+    "SET LOCAL (or set_config(..., true)) inside each transaction",
+    "Put the tenant in the connection string application_name",
+    "Store it in a temp table at login"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "In transaction mode a server connection is shared between clients across transactions. A session-level SET leaks to the next client; SET LOCAL lasts only until commit or rollback, so it cannot leak.",
+   "learn": [
+    {
+     "label": "Row-level security for tenants (Crunchy Data)",
+     "href": "https://www.crunchydata.com/blog/row-level-security-for-tenants-in-postgres"
+    },
+    {
+     "label": "PostgreSQL: row security policies",
+     "href": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q07",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "The policy is <code>USING (tenant_id = current_setting('app.tenant_id', true))</code>. A code path forgets to set the tenant. What does a query return?",
+   "options": [
+    "All rows of all tenants",
+    "Zero rows, because the missing setting yields NULL and the comparison is not true",
+    "An error for every query",
+    "Rows of the default tenant"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "With missing_ok = true, current_setting returns NULL; tenant_id = NULL is never true, so the policy filters everything. Failing closed is what you want, and it is the test you run to prove RLS works.",
+   "learn": [
+    {
+     "label": "PostgreSQL: CREATE POLICY",
+     "href": "https://www.postgresql.org/docs/current/sql-createpolicy.html"
+    },
+    {
+     "label": "Row-level security for tenants (Crunchy Data)",
+     "href": "https://www.crunchydata.com/blog/row-level-security-for-tenants-in-postgres"
+    }
+   ]
+  },
+  {
+   "id": "w2-q08",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "Two transactions in Read Committed both read an opportunity at stage 'proposal' and both transition it to a different next stage. What prevents a lost update?",
+   "options": [
+    "Nothing; Read Committed already serializes writes",
+    "SELECT ... FOR UPDATE on the row (or an optimistic version check in the UPDATE)",
+    "Raising max_connections",
+    "A unique index on stage"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Read Committed lets both read the old value. Locking the row with FOR UPDATE, or UPDATE ... WHERE version = $v and checking the row count, makes the second writer wait or fail instead of silently overwriting.",
+   "learn": [
+    {
+     "label": "PostgreSQL: transaction isolation",
+     "href": "https://www.postgresql.org/docs/current/transaction-iso.html"
+    },
+    {
+     "label": "PostgreSQL: explicit locking",
+     "href": "https://www.postgresql.org/docs/current/explicit-locking.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q09",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "multi",
+   "stem": "Which TWO statements about MVCC in PostgreSQL are true?",
+   "options": [
+    "Readers do not block writers and writers do not block readers",
+    "An UPDATE writes a new row version; the old one becomes dead and is reclaimed by vacuum",
+    "DELETE immediately frees disk space",
+    "Long-running transactions have no effect on bloat",
+    "SELECT takes a row-level exclusive lock"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "MVCC keeps versions so reads and writes do not block each other. Dead versions are cleaned by vacuum, and a long-running transaction holds back the cleanup horizon, which is a common source of bloat.",
+   "learn": [
+    {
+     "label": "PostgreSQL: concurrency control",
+     "href": "https://www.postgresql.org/docs/current/mvcc.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w2-q10",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "pg_stat_statements is installed. Where do you start when users say Keystone 'feels slow'?",
+   "options": [
+    "The query with the single highest max_exec_time",
+    "Queries ordered by total_exec_time, then look at calls and mean time",
+    "The query with the most rows returned",
+    "Whatever the ORM logs at DEBUG level"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Total time shows where the database actually spends its time: a 2 ms query called 5 million times outweighs one 10 s report. Then check mean time and calls to decide whether to tune the query or call it less.",
+   "learn": [
+    {
+     "label": "PostgreSQL: pg_stat_statements",
+     "href": "https://www.postgresql.org/docs/current/pgstatstatements.html"
+    }
+   ]
+  },
+  {
+   "id": "w2-q11",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "Which pagination design scales for an activity feed of 50M rows?",
+   "options": [
+    "OFFSET/LIMIT with an index on occurred_at",
+    "Keyset: WHERE (occurred_at, id) &lt; ($t, $id) ORDER BY occurred_at DESC, id DESC LIMIT n, backed by a matching index",
+    "SELECT all rows and page in the API",
+    "Random sampling"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Keyset pagination reads only the next n entries; OFFSET makes the database walk and discard every skipped row, so deep pages get linearly slower. The id tie-breaker keeps the order total.",
+   "learn": [
+    {
+     "label": "Use The Index, Luke",
+     "href": "https://use-the-index-luke.com/"
+    },
+    {
+     "label": "AIP-158: pagination",
+     "href": "https://google.aip.dev/158"
+    }
+   ]
+  },
+  {
+   "id": "w2-q12",
+   "week": 2,
+   "set": "weekly",
+   "area": "postgres",
+   "type": "single",
+   "stem": "A covering index is <code>CREATE INDEX ON opportunities (tenant_id, owner_id) INCLUDE (amount, stage)</code>. What does INCLUDE buy?",
+   "options": [
+    "The included columns become part of the uniqueness check",
+    "An index-only scan can return amount and stage without visiting the heap (if the visibility map allows)",
+    "The index can be used for ORDER BY amount",
+    "It partitions the index by stage"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "INCLUDE stores payload columns in the leaf pages without making them key columns, enabling index-only scans for queries that need them. They do not participate in ordering or uniqueness.",
+   "learn": [
+    {
+     "label": "PostgreSQL: indexes",
+     "href": "https://www.postgresql.org/docs/current/indexes.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q01",
+   "week": 3,
+   "set": "weekly",
+   "area": "python",
+   "type": "single",
+   "stem": "A FastAPI endpoint is declared <code>async def</code> and calls a synchronous requests.get to a slow partner API. What happens under load?",
+   "options": [
+    "Nothing; FastAPI runs async endpoints in a thread pool",
+    "The blocking call stalls the event loop, so every other request on that worker waits",
+    "Python's GIL makes it safe",
+    "Uvicorn automatically converts it to an awaitable"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "async def endpoints run on the event loop; a blocking call there blocks everything. Use an async client (httpx.AsyncClient) or declare the endpoint def so FastAPI runs it in its thread pool.",
+   "learn": [
+    {
+     "label": "FastAPI: concurrency and async/await",
+     "href": "https://fastapi.tiangolo.com/async/"
+    },
+    {
+     "label": "Python asyncio",
+     "href": "https://docs.python.org/3/library/asyncio.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q02",
+   "week": 3,
+   "set": "weekly",
+   "area": "python",
+   "type": "single",
+   "stem": "With SQLAlchemy 2 async, what is the right session scope for accounts-svc?",
+   "options": [
+    "One global AsyncSession shared by all requests",
+    "One AsyncSession per request, provided by a dependency that closes it",
+    "A new engine per request",
+    "One session per worker thread"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "An AsyncSession is not safe for concurrent use; one per request via a yield dependency gives a clear unit of work and cleanup. The engine and its pool are shared process-wide.",
+   "learn": [
+    {
+     "label": "SQLAlchemy asyncio extension",
+     "href": "https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html"
+    },
+    {
+     "label": "FastAPI: dependencies",
+     "href": "https://fastapi.tiangolo.com/tutorial/dependencies/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q03",
+   "week": 3,
+   "set": "weekly",
+   "area": "python",
+   "type": "single",
+   "stem": "You run 8 Uvicorn workers per pod, 6 pods, each engine with pool_size=10 and max_overflow=10. Postgres max_connections is 300. What is the risk?",
+   "options": [
+    "None; pools are shared across pods",
+    "Up to 960 connections can be requested, far above max_connections, so a traffic spike fails with connection errors",
+    "SQLAlchemy caps the total at max_connections automatically",
+    "Only overflow connections count"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Each worker process has its own pool: 6 x 8 x 20 = 960. Size pools against max_connections (minus admin and migration headroom) or put PgBouncer in front.",
+   "learn": [
+    {
+     "label": "SQLAlchemy asyncio extension",
+     "href": "https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html"
+    },
+    {
+     "label": "asyncpg docs",
+     "href": "https://magicstack.github.io/asyncpg/current/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q04",
+   "week": 3,
+   "set": "weekly",
+   "area": "python",
+   "type": "single",
+   "stem": "Where should accounts-svc set the RLS tenant for a request?",
+   "options": [
+    "In a middleware that runs SET app.tenant_id on a random pooled connection",
+    "In the session dependency, inside the request's transaction, with set_config('app.tenant_id', :t, true)",
+    "In the Alembic env.py",
+    "In the Pydantic model validator"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The setting must apply to the same connection and transaction that runs the queries. set_config with is_local = true inside the transaction is equivalent to SET LOCAL and cannot leak through the pool.",
+   "learn": [
+    {
+     "label": "FastAPI: dependencies",
+     "href": "https://fastapi.tiangolo.com/tutorial/dependencies/"
+    },
+    {
+     "label": "Row-level security for tenants (Crunchy Data)",
+     "href": "https://www.crunchydata.com/blog/row-level-security-for-tenants-in-postgres"
+    }
+   ]
+  },
+  {
+   "id": "w3-q05",
+   "week": 3,
+   "set": "weekly",
+   "area": "api",
+   "type": "single",
+   "stem": "A client retries POST /v1/accounts with the same Idempotency-Key but a different body. What should the API do?",
+   "options": [
+    "Create a second account",
+    "Replay the first response",
+    "Reject with an error (for example 422) because the key was reused with a different request",
+    "Silently merge the two bodies"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The stored request fingerprint does not match, so this is a client bug, not a retry. Replaying would return a result for a request the client did not send; creating would break idempotency.",
+   "learn": [
+    {
+     "label": "IETF draft: Idempotency-Key header",
+     "href": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/"
+    },
+    {
+     "label": "Stripe: idempotent requests",
+     "href": "https://docs.stripe.com/api/idempotent_requests"
+    }
+   ]
+  },
+  {
+   "id": "w3-q06",
+   "week": 3,
+   "set": "weekly",
+   "area": "api",
+   "type": "multi",
+   "stem": "Which TWO design points make idempotency keys safe under concurrent retries?",
+   "options": [
+    "Claim the key with an INSERT protected by a unique constraint before doing the work",
+    "Check whether the key exists with a SELECT, then insert it later",
+    "Store the response and replay it on later retries",
+    "Keep keys only in process memory",
+    "Use the key as the account's primary key"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Insert-first with a unique constraint makes the database arbitrate the race; check-then-insert lets two requests both see 'absent'. Stored responses make retries return exactly what the first call returned. In-process memory fails across pods.",
+   "learn": [
+    {
+     "label": "Idempotency keys in Postgres (Brandur Leach)",
+     "href": "https://brandur.org/idempotency-keys"
+    },
+    {
+     "label": "Stripe: idempotent requests",
+     "href": "https://docs.stripe.com/api/idempotent_requests"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w3-q07",
+   "week": 3,
+   "set": "weekly",
+   "area": "api",
+   "type": "single",
+   "stem": "Which error body follows RFC 9457?",
+   "options": [
+    "{\"error\": true, \"msg\": \"bad\"}",
+    "Content-Type application/problem+json with type, title, status, detail and instance members",
+    "An HTML error page",
+    "HTTP 200 with {\"ok\": false}"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "RFC 9457 defines problem details: a JSON object with type (a URI), title, status, detail and instance, plus extension members such as errors. Clients can handle errors generically.",
+   "learn": [
+    {
+     "label": "RFC 9457: problem details",
+     "href": "https://www.rfc-editor.org/rfc/rfc9457.html"
+    }
+   ]
+  },
+  {
+   "id": "w3-q08",
+   "week": 3,
+   "set": "weekly",
+   "area": "api",
+   "type": "single",
+   "stem": "Why use an opaque cursor (base64 of the sort key) rather than exposing ?after_created_at=...&after_id=...?",
+   "options": [
+    "It makes responses smaller",
+    "You can change the sort key or encoding later without breaking clients, and clients cannot construct invalid positions",
+    "Opaque cursors make OFFSET faster",
+    "It is required by HTTP"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Opaque cursors are a contract that hides the implementation, so you can evolve it. Validate and reject tampered cursors with a 400 problem.",
+   "learn": [
+    {
+     "label": "AIP-158: pagination",
+     "href": "https://google.aip.dev/158"
+    },
+    {
+     "label": "Google API design guide",
+     "href": "https://docs.cloud.google.com/apis/design"
+    }
+   ]
+  },
+  {
+   "id": "w3-q09",
+   "week": 3,
+   "set": "weekly",
+   "area": "api",
+   "type": "single",
+   "stem": "A field status on Account is a string with values active and churned. A new value paused is needed. Within v1, what is safe?",
+   "options": [
+    "Rename status to state",
+    "Change the meaning of churned to also include paused",
+    "Add paused as a new value only if clients were told to tolerate unknown enum values; otherwise add a new field",
+    "Remove the field and add it back later"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Additive changes are safe only if clients tolerate them; a new enum value breaks clients with exhaustive switches. Never change the meaning of a field or rename it within a version.",
+   "learn": [
+    {
+     "label": "Google API design guide",
+     "href": "https://docs.cloud.google.com/apis/design"
+    }
+   ]
+  },
+  {
+   "id": "w3-q10",
+   "week": 3,
+   "set": "weekly",
+   "area": "python",
+   "type": "single",
+   "stem": "Alembic autogenerate produced a migration. What is the correct next step?",
+   "options": [
+    "Apply it directly; autogenerate is authoritative",
+    "Review it: autogenerate misses or misreads renames, server defaults, some constraint and type changes",
+    "Delete it and write raw SQL in the app startup",
+    "Run it only in production"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Autogenerate compares models with the database and cannot infer intent: a rename becomes drop plus add (data loss). Every generated file is reviewed and linted.",
+   "learn": [
+    {
+     "label": "Alembic docs",
+     "href": "https://alembic.sqlalchemy.org/en/latest/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q11",
+   "week": 3,
+   "set": "weekly",
+   "area": "python",
+   "type": "single",
+   "stem": "How do you test accounts-svc's endpoints without calling the real auth service?",
+   "options": [
+    "Monkeypatch the requests library globally",
+    "Use app.dependency_overrides to replace the current-user dependency in tests",
+    "Comment out the auth code",
+    "Run tests against production"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "FastAPI dependency overrides swap a dependency for a test double cleanly, keeping the rest of the stack real.",
+   "learn": [
+    {
+     "label": "FastAPI: testing with dependency overrides",
+     "href": "https://fastapi.tiangolo.com/advanced/testing-dependencies/"
+    }
+   ]
+  },
+  {
+   "id": "w3-q12",
+   "week": 3,
+   "set": "weekly",
+   "area": "python",
+   "type": "order",
+   "stem": "Order the steps a FastAPI request goes through in accounts-svc for POST /v1/accounts.",
+   "options": [
+    "The transaction commits and the response is serialized",
+    "The handler inserts the row",
+    "Pydantic validates the body",
+    "The session dependency opens a transaction and sets the tenant",
+    "The worker restarts"
+   ],
+   "answer": [
+    2,
+    3,
+    1,
+    0
+   ],
+   "explanation": "Validation happens before the handler; the dependency provides the session and tenant; commit happens before the response is sent so the client never sees an uncommitted result.",
+   "learn": [
+    {
+     "label": "FastAPI: dependencies",
+     "href": "https://fastapi.tiangolo.com/tutorial/dependencies/"
+    },
+    {
+     "label": "SQLAlchemy 2.0 unified tutorial",
+     "href": "https://docs.sqlalchemy.org/en/20/tutorial/index.html"
+    }
+   ],
+   "choose": 4
+  },
+  {
+   "id": "w4-q01",
+   "week": 4,
+   "set": "weekly",
+   "area": "typescript",
+   "type": "single",
+   "stem": "pipeline-svc computes a 40 ms CPU-heavy forecast inside a Fastify handler. p99 latency for unrelated routes jumps. Why?",
+   "options": [
+    "Fastify limits concurrency to one request",
+    "The synchronous CPU work blocks the single event loop thread, so every other request waits",
+    "Node runs each request in its own thread",
+    "The JSON serializer is slow"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Node runs your JavaScript on one thread. CPU work blocks the event loop; move it to worker threads or a separate job, and keep handlers I/O-bound.",
+   "learn": [
+    {
+     "label": "Node.js: the event loop",
+     "href": "https://nodejs.org/learn/asynchronous-work/event-loop-timers-and-nexttick"
+    }
+   ]
+  },
+  {
+   "id": "w4-q02",
+   "week": 4,
+   "set": "weekly",
+   "area": "typescript",
+   "type": "single",
+   "stem": "Kubernetes sends SIGTERM to a pipeline-svc pod during a rollout. What should the service do?",
+   "options": [
+    "process.exit(0) immediately",
+    "Fail readiness, stop accepting new connections, let in-flight requests finish (fastify.close()), close the DB pool, then exit before the grace period ends",
+    "Ignore it until SIGKILL",
+    "Restart itself"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Graceful shutdown drains in-flight work. Exiting immediately drops requests; ignoring SIGTERM means SIGKILL cuts everything off after terminationGracePeriodSeconds.",
+   "learn": [
+    {
+     "label": "Node.js: the event loop",
+     "href": "https://nodejs.org/learn/asynchronous-work/event-loop-timers-and-nexttick"
+    },
+    {
+     "label": "Fastify docs",
+     "href": "https://fastify.dev/docs/latest/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q03",
+   "week": 4,
+   "set": "weekly",
+   "area": "typescript",
+   "type": "single",
+   "stem": "Why is Fastify a good fit for contract-first APIs?",
+   "options": [
+    "It generates database tables",
+    "Routes declare JSON Schemas for body, params and response, used for validation and fast serialization",
+    "It requires decorators and DI",
+    "It only supports GraphQL"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Fastify is schema-first per route: request validation and response serialization come from JSON Schema, which also feeds OpenAPI. NestJS is the decorator/DI option.",
+   "learn": [
+    {
+     "label": "Fastify docs",
+     "href": "https://fastify.dev/docs/latest/"
+    },
+    {
+     "label": "NestJS docs",
+     "href": "https://docs.nestjs.com/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q04",
+   "week": 4,
+   "set": "weekly",
+   "area": "typescript",
+   "type": "single",
+   "stem": "Where does Zod add the most value in pipeline-svc?",
+   "options": [
+    "Inside every internal function call",
+    "At the edges: config at startup, inbound events from Kafka, and third-party responses",
+    "Only in the frontend",
+    "Replacing database constraints"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "TypeScript types vanish at runtime; data crossing a trust boundary must be validated. Validate at the edges and keep the core typed. Constraints stay in the database.",
+   "learn": [
+    {
+     "label": "Zod",
+     "href": "https://zod.dev/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q05",
+   "week": 4,
+   "set": "weekly",
+   "area": "typescript",
+   "type": "single",
+   "stem": "Why does the plan pick Kysely over Prisma for pipeline-svc?",
+   "options": [
+    "Kysely is an ORM that hides SQL",
+    "Kysely is a type-safe SQL builder, so Postgres features (FOR UPDATE, SET LOCAL inside a transaction, plan-aware queries) map directly",
+    "Prisma cannot talk to Postgres",
+    "Kysely has no TypeScript types"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Kysely keeps queries SQL-shaped with types, so index and plan work carries over. Prisma abstracts SQL more and per-transaction session settings for RLS take extra work. Drizzle is a close SQL-first alternative.",
+   "learn": [
+    {
+     "label": "Kysely docs",
+     "href": "https://kysely.dev/docs/intro"
+    },
+    {
+     "label": "Prisma docs",
+     "href": "https://www.prisma.io/docs"
+    },
+    {
+     "label": "Drizzle ORM docs",
+     "href": "https://orm.drizzle.team/docs/overview"
+    }
+   ]
+  },
+  {
+   "id": "w4-q06",
+   "week": 4,
+   "set": "weekly",
+   "area": "typescript",
+   "type": "multi",
+   "stem": "A stage transition must be atomic and race-free. Which TWO belong inside the same Kysely transaction?",
+   "options": [
+    "SELECT the opportunity FOR UPDATE and validate the transition",
+    "INSERT the outbox row for OpportunityStageChanged",
+    "Publish the event to Kafka",
+    "Call the email service to notify the owner",
+    "Log the request to stdout"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "The row lock and the outbox row commit together with the stage change. Publishing to Kafka or calling another service inside the transaction reintroduces the dual-write problem and holds locks during network calls.",
+   "learn": [
+    {
+     "label": "Kysely docs",
+     "href": "https://kysely.dev/docs/intro"
+    },
+    {
+     "label": "Transactional outbox pattern",
+     "href": "https://microservices.io/patterns/data/transactional-outbox.html"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w4-q07",
+   "week": 4,
+   "set": "weekly",
+   "area": "api",
+   "type": "single",
+   "stem": "A GraphQL query lists 50 opportunities with their account names; the resolver issues 51 SQL queries. What is the standard fix?",
+   "options": [
+    "Cache every account in a module-level Map forever",
+    "A DataLoader created per request that batches account lookups into one query per tick",
+    "Disable the account field",
+    "Increase the database pool"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "DataLoader batches and caches within a request. Per request matters: a shared loader caches across users and tenants, which leaks data and serves stale values.",
+   "learn": [
+    {
+     "label": "GraphQL: best practices",
+     "href": "https://graphql.org/learn/best-practices/"
+    },
+    {
+     "label": "GraphQL: authorization",
+     "href": "https://graphql.org/learn/authorization/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q08",
+   "week": 4,
+   "set": "weekly",
+   "area": "api",
+   "type": "single",
+   "stem": "Where should field-level authorization live in Keystone's GraphQL layer?",
+   "options": [
+    "In the client, which hides fields the user may not see",
+    "In the business logic layer the resolvers call, using the request's identity",
+    "Only in the API gateway",
+    "In the schema descriptions"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "GraphQL recommends delegating authorization to the business logic layer so every entry point (REST, GraphQL, MCP) enforces the same rules.",
+   "learn": [
+    {
+     "label": "GraphQL: authorization",
+     "href": "https://graphql.org/learn/authorization/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q09",
+   "week": 4,
+   "set": "weekly",
+   "area": "api",
+   "type": "single",
+   "stem": "Which pagination model does the Relay connections spec define?",
+   "options": [
+    "page and pageSize integers",
+    "edges with cursors, plus pageInfo with hasNextPage and endCursor, using first/after arguments",
+    "A Link header only",
+    "OFFSET in the query string"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Connections expose edges, node, cursor and pageInfo; clients request first: n, after: cursor. It maps directly onto keyset pagination in the database.",
+   "learn": [
+    {
+     "label": "Relay cursor connections spec",
+     "href": "https://relay.dev/graphql/connections.htm"
+    },
+    {
+     "label": "GraphQL: pagination",
+     "href": "https://graphql.org/learn/pagination/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q10",
+   "week": 4,
+   "set": "weekly",
+   "area": "api",
+   "type": "multi",
+   "stem": "Which TWO protections stop one client from overloading the GraphQL read layer?",
+   "options": [
+    "Query depth and cost limits",
+    "Persisted queries or allow-listed operations for known clients",
+    "Returning all fields by default",
+    "Removing pagination arguments",
+    "Disabling DataLoader"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Cost and depth limits bound what a single query can request; persisted queries restrict clients to reviewed operations. Unbounded lists and N+1 resolvers make overload easier.",
+   "learn": [
+    {
+     "label": "GraphQL: best practices",
+     "href": "https://graphql.org/learn/best-practices/"
+    },
+    {
+     "label": "Apollo: schema design",
+     "href": "https://www.apollographql.com/docs/graphos/schema-design"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "w4-q11",
+   "week": 4,
+   "set": "weekly",
+   "area": "go",
+   "type": "single",
+   "stem": "In Go, how are errors handled idiomatically?",
+   "options": [
+    "Exceptions with try/catch",
+    "Functions return an error value as the last result; callers check it and wrap with fmt.Errorf(\"...: %w\", err)",
+    "Panics for every failure",
+    "A global errno"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Errors are values. Wrapping with %w keeps the chain for errors.Is and errors.As. Panic is for programmer bugs, not for expected failures.",
+   "learn": [
+    {
+     "label": "Effective Go",
+     "href": "https://go.dev/doc/effective_go"
+    },
+    {
+     "label": "A Tour of Go",
+     "href": "https://go.dev/tour/"
+    }
+   ]
+  },
+  {
+   "id": "w4-q12",
+   "week": 4,
+   "set": "weekly",
+   "area": "typescript",
+   "type": "single",
+   "stem": "Kysely transaction code calls <code>sql`select set_config('app.tenant_id', ${t}, true)`.execute(trx)</code>. Why pass trx and not db?",
+   "options": [
+    "It is faster",
+    "The setting must run on the transaction's connection; db would take another pooled connection and the setting would not apply",
+    "db does not support raw SQL",
+    "trx enables FORCE RLS"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Session settings belong to a connection. Inside a transaction you must use the transaction object so the setting and the queries share a connection.",
+   "learn": [
+    {
+     "label": "Kysely docs",
+     "href": "https://kysely.dev/docs/intro"
+    },
+    {
+     "label": "Row-level security for tenants (Crunchy Data)",
+     "href": "https://www.crunchydata.com/blog/row-level-security-for-tenants-in-postgres"
+    }
+   ]
+  }
+ ]
+}

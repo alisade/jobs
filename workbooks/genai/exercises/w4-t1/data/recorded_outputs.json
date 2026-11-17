@@ -1,0 +1,30 @@
+{
+  "Is the Ridgeline 2P on sale?": {
+    "skus": ["KO-TENT-2P"], "conversation_id": "c-3a91f0", "at": "2026-11-08T19:42:10Z",
+    "answer": "The Ridgeline 2P Tent [KO-TENT-2P] is $249.00. Good news: code SPRING20 gives 20% off this tent at checkout, so today it is $199.20."
+  },
+  "Any deals on warm sleeping bags?": {
+    "skus": ["KO-BAG-20F"], "conversation_id": "c-3b07aa", "at": "2026-11-08T20:03:51Z",
+    "answer": "The Alpine 20F Sleeping Bag [KO-BAG-20F] is $159.00 and code WINTER15 takes 15% off, so it comes to $135.15."
+  },
+  "Compare the Basecamp 3P and the Ridgeline 2P": {
+    "skus": ["KO-TENT-3P", "KO-TENT-2P"], "conversation_id": "c-3c55d2", "at": "2026-11-09T09:15:02Z",
+    "answer": "The Basecamp 3P [KO-TENT-3P] is $329.00 and HOLIDAY10 gives 10% off it. The Ridgeline 2P [KO-TENT-2P] is $249.00 and lighter for backpacking."
+  },
+  "Do you have a coupon for sleeping bags?": {
+    "skus": ["KO-BAG-20F"], "conversation_id": "c-3d1e40", "at": "2026-11-09T16:30:44Z",
+    "answer": "Yes! FREESHIP50 takes 50 percent off sleeping bags like the Alpine 20F [KO-BAG-20F] ($159.00)."
+  },
+  "How much is the lantern?": {
+    "skus": ["KO-LAMP-1"], "conversation_id": "c-3e0b19", "at": "2026-11-09T17:02:11Z",
+    "answer": "The Trail Lantern [KO-LAMP-1] is $34.50."
+  },
+  "What does the Basecamp cost?": {
+    "skus": ["KO-TENT-3P"], "conversation_id": "c-3f7720", "at": "2026-11-10T08:41:37Z",
+    "answer": "The Basecamp 3P [KO-TENT-3P] is $289.00 right now."
+  },
+  "Can I use FALL20 on the Ridgeline 2P?": {
+    "skus": ["KO-TENT-2P"], "conversation_id": "c-40aa31", "at": "2026-11-10T11:12:09Z",
+    "answer": "Yes, FALL20 gives 20% off the Ridgeline 2P [KO-TENT-2P]."
+  }
+}

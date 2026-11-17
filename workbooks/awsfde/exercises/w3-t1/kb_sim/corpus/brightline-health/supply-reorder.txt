@@ -1,0 +1,1 @@
+Brightline Health clinic supply reorder process. Clinics reorder gloves, syringes and gauze through the portal every Monday. Urgent orders ship same day if placed before noon.

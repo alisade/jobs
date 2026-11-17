@@ -1,0 +1,56 @@
+{
+  "scps": {
+    "Root": [
+      "FullAWSAccess",
+      "scp-region-guardrail",
+      "scp-protect-audit",
+      "scp-org-membership"
+    ],
+    "Security": [
+      "FullAWSAccess"
+    ],
+    "Infrastructure": [
+      "FullAWSAccess"
+    ],
+    "Workloads": [
+      "FullAWSAccess",
+      "scp-bedrock-models",
+      "scp-iam-change-control"
+    ],
+    "Dev": [
+      "FullAWSAccess"
+    ],
+    "Prod": [
+      "FullAWSAccess",
+      "scp-prod-private-bedrock"
+    ],
+    "Sandbox": [
+      "FullAWSAccess",
+      "scp-bedrock-models"
+    ],
+    "Suspended": [
+      "FullAWSAccess"
+    ],
+    "111100000001": [
+      "FullAWSAccess"
+    ],
+    "111100000002": [
+      "FullAWSAccess"
+    ],
+    "111100000003": [
+      "FullAWSAccess"
+    ],
+    "111100000004": [
+      "FullAWSAccess"
+    ],
+    "111100000005": [
+      "FullAWSAccess"
+    ]
+  },
+  "rcps": {
+    "Root": [
+      "RCPFullAWSAccess",
+      "rcp-org-boundary"
+    ]
+  }
+}

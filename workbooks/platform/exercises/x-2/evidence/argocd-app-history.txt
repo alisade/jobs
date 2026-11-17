@@ -1,0 +1,24 @@
+$ argocd app history argocd/prod-blue-riq-api
+ID  DATE                           REVISION
+41  2026-10-21 10:02:13 +0000 UTC  2.4.1
+42  2026-11-10 15:06:02 +0000 UTC  3.0.0
+43  2026-11-10 15:21:40 +0000 UTC  2.4.1    (rollback by priya.n)
+
+$ argocd app history argocd/prod-green-riq-api
+ID  DATE                           REVISION
+37  2026-10-21 10:02:15 +0000 UTC  2.4.1
+38  2026-11-10 15:06:04 +0000 UTC  3.0.0
+39  2026-11-10 15:22:31 +0000 UTC  2.4.1    (rollback by priya.n)
+
+$ argocd app history argocd/stg-1-riq-api
+ID  DATE                           REVISION
+55  2026-10-21 09:51:40 +0000 UTC  2.4.1
+56  2026-11-10 15:03:20 +0000 UTC  3.0.0
+
+$ argocd app get argocd/prod-blue-riq-api -o yaml | yq '.spec.source'
+repoURL: https://charts.tessellate.example/platform
+chart: riq-api
+targetRevision: '>=2.0.0'
+helm:
+  valueFiles:
+    - values-prod.yaml

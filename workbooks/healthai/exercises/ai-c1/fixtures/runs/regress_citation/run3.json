@@ -1,0 +1,212 @@
+[
+ {
+  "case_id": "EV-001",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.96, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 940,
+  "input_tokens": 3138,
+  "output_tokens": 312
+ },
+ {
+  "case_id": "EV-002",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.88, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 1191,
+  "input_tokens": 3085,
+  "output_tokens": 277
+ },
+ {
+  "case_id": "EV-003",
+  "output": "{\"outcome\": \"pend\", \"confidence\": 0.66, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": false, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": false, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 1345,
+  "input_tokens": 3650,
+  "output_tokens": 294
+ },
+ {
+  "case_id": "EV-004",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.91, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 2072,
+  "input_tokens": 2847,
+  "output_tokens": 257
+ },
+ {
+  "case_id": "EV-005",
+  "output": "{\"outcome\": \"pend\", \"confidence\": 0.61, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": false, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 1229,
+  "input_tokens": 2804,
+  "output_tokens": 246
+ },
+ {
+  "case_id": "EV-006",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.88, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 2079,
+  "input_tokens": 3306,
+  "output_tokens": 351
+ },
+ {
+  "case_id": "EV-007",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.92, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 1675,
+  "input_tokens": 3140,
+  "output_tokens": 334
+ },
+ {
+  "case_id": "EV-008",
+  "output": "{\"outcome\": \"deny\", \"confidence\": 0.8, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0388 1.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": false, \"citation\": \"KHP-MP-0388 1.b\", \"quote\": \"show a meniscal tear consistent with\"}]}",
+  "latency_ms": 1810,
+  "input_tokens": 3048,
+  "output_tokens": 185
+ },
+ {
+  "case_id": "EV-009",
+  "output": "{\"outcome\": \"pend\", \"confidence\": 0.65, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": false, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"the member clearly meets all requirements\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 1714,
+  "input_tokens": 3218,
+  "output_tokens": 286
+ },
+ {
+  "case_id": "EV-010",
+  "output": "{\"outcome\": \"deny\", \"confidence\": 0.87, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"is covered when radicular pain persists\"}, {\"criterion_id\": \"C2\", \"met\": false, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 2400,
+  "input_tokens": 2958,
+  "output_tokens": 349
+ },
+ {
+  "case_id": "EV-011",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.95, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 1704,
+  "input_tokens": 2845,
+  "output_tokens": 187
+ },
+ {
+  "case_id": "EV-012",
+  "output": "{\"outcome\": \"deny\", \"confidence\": 0.56, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": false, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"is covered when radicular pain persists\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 2443,
+  "input_tokens": 4100,
+  "output_tokens": 184
+ },
+ {
+  "case_id": "EV-013",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.94, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 1813,
+  "input_tokens": 3456,
+  "output_tokens": 403
+ },
+ {
+  "case_id": "EV-014",
+  "output": "{\"outcome\": \"pend\", \"confidence\": 0.64, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": false, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 2209,
+  "input_tokens": 3914,
+  "output_tokens": 257
+ },
+ {
+  "case_id": "EV-015",
+  "output": "{\"outcome\": \"deny\", \"confidence\": 0.73, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": false, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 1249,
+  "input_tokens": 3806,
+  "output_tokens": 343
+ },
+ {
+  "case_id": "EV-016",
+  "output": "{\"outcome\": \"pend\", \"confidence\": 0.78, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0388 1.a\", \"quote\": \"requires mechanical symptoms and failed conservative\"}, {\"criterion_id\": \"C2\", \"met\": false, \"citation\": \"KHP-MP-0388 1.b\", \"quote\": \"show a meniscal tear consistent with\"}]}",
+  "latency_ms": 1175,
+  "input_tokens": 3711,
+  "output_tokens": 347
+ },
+ {
+  "case_id": "EV-017",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.95, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 2047,
+  "input_tokens": 3038,
+  "output_tokens": 341
+ },
+ {
+  "case_id": "EV-018",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.88, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0388 1.a\", \"quote\": \"requires mechanical symptoms and failed conservative\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0388 1.b\", \"quote\": \"show a meniscal tear consistent with\"}]}",
+  "latency_ms": 2412,
+  "input_tokens": 3941,
+  "output_tokens": 285
+ },
+ {
+  "case_id": "EV-019",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.97, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 1995,
+  "input_tokens": 3881,
+  "output_tokens": 199
+ },
+ {
+  "case_id": "EV-020",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.94, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0388 1.a\", \"quote\": \"requires mechanical symptoms and failed conservative\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0388 1.b\", \"quote\": \"show a meniscal tear consistent with\"}]}",
+  "latency_ms": 2367,
+  "input_tokens": 4175,
+  "output_tokens": 276
+ },
+ {
+  "case_id": "EV-021",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.88, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 1571,
+  "input_tokens": 3550,
+  "output_tokens": 321
+ },
+ {
+  "case_id": "EV-022",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.9, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0388 1.a\", \"quote\": \"requires mechanical symptoms and failed conservative\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0388 1.b\", \"quote\": \"show a meniscal tear consistent with\"}]}",
+  "latency_ms": 1706,
+  "input_tokens": 3916,
+  "output_tokens": 244
+ },
+ {
+  "case_id": "EV-023",
+  "output": "{\"outcome\": \"pend\", \"confidence\": 0.88, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": false, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 2390,
+  "input_tokens": 2993,
+  "output_tokens": 286
+ },
+ {
+  "case_id": "EV-024",
+  "output": "{\"outcome\": \"deny\", \"confidence\": 0.57, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": false, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"is covered when radicular pain persists\"}, {\"criterion_id\": \"C2\", \"met\": false, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 2342,
+  "input_tokens": 3077,
+  "output_tokens": 273
+ },
+ {
+  "case_id": "EV-025",
+  "output": "{\"outcome\": \"deny\", \"confidence\": 0.8, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": false, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"is covered when radicular pain persists\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 2507,
+  "input_tokens": 3839,
+  "output_tokens": 327
+ },
+ {
+  "case_id": "EV-026",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.9, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0388 1.a\", \"quote\": \"requires mechanical symptoms and failed conservative\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0388 1.b\", \"quote\": \"show a meniscal tear consistent with\"}]}",
+  "latency_ms": 1938,
+  "input_tokens": 3998,
+  "output_tokens": 244
+ },
+ {
+  "case_id": "EV-027",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.96, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0388 1.a\", \"quote\": \"requires mechanical symptoms and failed conservative\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0388 1.b\", \"quote\": \"show a meniscal tear consistent with\"}]}",
+  "latency_ms": 1534,
+  "input_tokens": 3949,
+  "output_tokens": 415
+ },
+ {
+  "case_id": "EV-028",
+  "output": "{\"outcome\": \"pend\", \"confidence\": 0.8, \"route\": \"review\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": false, \"citation\": \"KHP-MP-0388 1.a\", \"quote\": \"requires mechanical symptoms and failed conservative\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0388 1.b\", \"quote\": \"show a meniscal tear consistent with\"}]}",
+  "latency_ms": 1853,
+  "input_tokens": 2838,
+  "output_tokens": 184
+ },
+ {
+  "case_id": "EV-029",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.91, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0417 2.a\", \"quote\": \"is covered when radicular pain persists\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0417 2.b\", \"quote\": \"six weeks of conservative therapy such\"}]}",
+  "latency_ms": 1223,
+  "input_tokens": 3307,
+  "output_tokens": 392
+ },
+ {
+  "case_id": "EV-030",
+  "output": "{\"outcome\": \"approve\", \"confidence\": 0.92, \"route\": \"auto\", \"criteria\": [{\"criterion_id\": \"C1\", \"met\": true, \"citation\": \"KHP-MP-0212 3.a\", \"quote\": \"requires a prior nondiagnostic stress test\"}, {\"criterion_id\": \"C2\", \"met\": true, \"citation\": \"KHP-MP-0212 3.b\", \"quote\": \"or attenuation artifact limiting SPECT must\"}]}",
+  "latency_ms": 1436,
+  "input_tokens": 3910,
+  "output_tokens": 288
+ }
+]

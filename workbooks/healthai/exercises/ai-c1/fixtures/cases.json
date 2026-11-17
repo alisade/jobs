@@ -1,0 +1,272 @@
+[
+ {
+  "case_id": "EV-001",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-002",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-003",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": false,
+   "C2": false
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-004",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-005",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": false,
+   "C2": true
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-006",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-007",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-008",
+  "service": "knee-arthroscopy",
+  "gold_criteria": {
+   "C1": true,
+   "C2": false
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-009",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": false,
+   "C2": true
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-010",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": true,
+   "C2": false
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-011",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-012",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": false,
+   "C2": true
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-013",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-014",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": false,
+   "C2": true
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-015",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": false
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-016",
+  "service": "knee-arthroscopy",
+  "gold_criteria": {
+   "C1": true,
+   "C2": false
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-017",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-018",
+  "service": "knee-arthroscopy",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-019",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-020",
+  "service": "knee-arthroscopy",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-021",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-022",
+  "service": "knee-arthroscopy",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-023",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-024",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": false,
+   "C2": false
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-025",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": false,
+   "C2": true
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-026",
+  "service": "knee-arthroscopy",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-027",
+  "service": "knee-arthroscopy",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-028",
+  "service": "knee-arthroscopy",
+  "gold_criteria": {
+   "C1": false,
+   "C2": true
+  },
+  "gold_route": "review"
+ },
+ {
+  "case_id": "EV-029",
+  "service": "lumbar-mri",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ },
+ {
+  "case_id": "EV-030",
+  "service": "cardiac-pet",
+  "gold_criteria": {
+   "C1": true,
+   "C2": true
+  },
+  "gold_route": "auto"
+ }
+]

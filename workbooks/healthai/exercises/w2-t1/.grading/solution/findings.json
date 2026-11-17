@@ -1,0 +1,6 @@
+{
+  "root_cause_file": "criteria/server.py",
+  "root_cause_function": "_check",
+  "permits_free_before_fix_after_spike": 0,
+  "red_herring": "The FHIR latency spike at 09:10: it triggered the timeouts, but the outage persisted after FHIR recovered because each timed-out or cancelled check leaked a semaphore permit."
+}

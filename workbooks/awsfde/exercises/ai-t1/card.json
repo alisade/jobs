@@ -1,0 +1,26 @@
+{
+  "id": "awsfde/ai-t1",
+  "title": "A weekly summary email went to an outside address",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": "ai",
+  "optional": false,
+  "area": "AI integration (shared core)",
+  "scenario": "Corvid Logistics' mail gateway caught Tidewater's scheduled weekly summary going to an external address nobody configured. The job definition has one recipient; the guardrail was bumped to version 4 the same week. You have the agent log with tool calls, the KB ingestion audit and a replay of three Mondays.",
+  "task": [
+    "Find the content that made the model add a recipient and how it entered the tenant's documents",
+    "Explain the three conditions that had to hold together (the lethal trifecta)",
+    "Rule the guardrail change in or out with a replay",
+    "Move recipient control and write approval to the server; mark retrieved text as untrusted"
+  ],
+  "acceptance": [
+    "No replayed run sends outside verified domains, with either guardrail version",
+    "Only recipients approved outside the model and on a verified domain receive mail",
+    "Root cause, evidence and exposure statement in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "AI page 4 - security: prompt injection, enforcement server-side", "href": "ai"},
+    {"label": "AI page 2 - the agent loop", "href": "ai"},
+    {"label": "AI page 1 - tool design", "href": "ai"}
+  ]
+}

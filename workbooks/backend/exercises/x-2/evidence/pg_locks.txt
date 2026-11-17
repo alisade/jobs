@@ -1,0 +1,14 @@
+-- captured 2026-11-12 02:08:13 UTC
+SELECT l.pid, a.application_name, l.locktype, l.relation::regclass, l.mode, l.granted
+FROM pg_locks l JOIN pg_stat_activity a USING (pid)
+WHERE l.relation IN ('activities'::regclass, 'contacts'::regclass) ORDER BY l.granted DESC, l.pid;
+
+  pid  | application_name | locktype | relation   | mode                  | granted
+-------+------------------+----------+------------+-----------------------+---------
+ 47102 | finance-recon    | relation | activities | AccessShareLock       | t
+ 47102 | finance-recon    | relation | contacts   | AccessShareLock       | t
+ 48213 | kmigrate         | relation | activities | AccessExclusiveLock   | f
+ 48290 | accounts-svc     | relation | activities | AccessShareLock       | f
+ 48291 | accounts-svc     | relation | activities | RowExclusiveLock      | f
+ 48297 | accounts-svc     | relation | activities | AccessShareLock       | f
+   ... 236 more rows, all accounts-svc / timeline-api, granted = f

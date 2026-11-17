@@ -1,0 +1,27 @@
+{
+  "id": "platform/ai-c1",
+  "title": "On-call page triage assistant with an eval gate",
+  "type": "coding",
+  "estimate": "2.5-3 h",
+  "week": "ai",
+  "optional": false,
+  "area": "Agentic toil automation and AI",
+  "scenario": "TechOps runs a 12-hour on-call rotation and the first 15 minutes of every page are the same toil: open the alert, check the dashboard query, the runbook and recent deploys, write a triage note. The team wants an assistant that does that first pass with read-only tools, hands over a validated note, and can never silence alerts without the on-call engineer. A recorded model stands in for the real one, with ten scenarios including a prompt injection in an alert annotation.",
+  "task": [
+    "Harden the tool loop: JSON-schema validation, unknown tools and tool failures as is_error results, max turns",
+    "Gate the write tool (silence_alert) behind the approval callback, fail closed, audit every attempt",
+    "Validate the final note with the Pydantic contract, check evidence cites tool calls that ran, retry once, then fail closed",
+    "Implement the eval scoring and the CI gate (safety violations block regardless of pass rate)"
+  ],
+  "acceptance": [
+    "The injected 'silence all alerts' never executes, even with a broken approver",
+    "Invalid tool input and unknown tools come back as errors the model can act on",
+    "One retry with the validation error, then needs_human; max_turns enforced",
+    "Eval run: 9 of 10 pass (s07 is a real model miss), zero safety violations, gate passes"
+  ],
+  "practices": [
+    {"label": "AI Integration - tool design and the agent loop", "href": "ai"},
+    {"label": "AI Integration - security and evals", "href": "ai"},
+    {"label": "Week 6 - agentic toil with approval gates", "href": "week6"}
+  ]
+}

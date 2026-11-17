@@ -1,0 +1,197 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.13.4",
+  "resource_changes": [
+    {
+      "address": "data.google_project.this",
+      "mode": "data",
+      "type": "google_project",
+      "name": "this",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "read"
+        ],
+        "before": null,
+        "after": {
+          "project_id": "tsl-riq-prod"
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false
+      }
+    },
+    {
+      "address": "google_compute_network.riq_core",
+      "mode": "managed",
+      "type": "google_compute_network",
+      "name": "riq_core",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq-core",
+          "project": "tsl-riq-prod",
+          "auto_create_subnetworks": false,
+          "routing_mode": "REGIONAL",
+          "mtu": 1460
+        },
+        "after": {
+          "name": "riq-core",
+          "project": "tsl-riq-prod",
+          "auto_create_subnetworks": false,
+          "routing_mode": "REGIONAL",
+          "mtu": 1460
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false,
+        "importing": {
+          "id": "projects/tsl-riq-prod/global/networks/riq-core"
+        }
+      }
+    },
+    {
+      "address": "google_compute_subnetwork.riq_gke_usc1",
+      "mode": "managed",
+      "type": "google_compute_subnetwork",
+      "name": "riq_gke_usc1",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq-gke-usc1",
+          "project": "tsl-riq-prod",
+          "region": "us-central1",
+          "ip_cidr_range": "10.40.0.0/20",
+          "private_ip_google_access": true
+        },
+        "after": {
+          "name": "riq-gke-usc1",
+          "project": "tsl-riq-prod",
+          "region": "us-central1",
+          "ip_cidr_range": "10.40.0.0/20",
+          "private_ip_google_access": true
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false,
+        "importing": {
+          "id": "projects/tsl-riq-prod/regions/us-central1/subnetworks/riq-gke-usc1"
+        }
+      }
+    },
+    {
+      "address": "google_storage_bucket.riq_exports",
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "riq_exports",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "update"
+        ],
+        "before": {
+          "name": "tsl-riq-prod-exports",
+          "location": "US-CENTRAL1",
+          "uniform_bucket_level_access": true,
+          "labels": {
+            "team": "riq"
+          },
+          "terraform_labels": {},
+          "effective_labels": {
+            "team": "riq"
+          }
+        },
+        "after": {
+          "name": "tsl-riq-prod-exports",
+          "location": "US-CENTRAL1",
+          "uniform_bucket_level_access": true,
+          "labels": {
+            "team": "riq"
+          },
+          "terraform_labels": {
+            "team": "riq"
+          },
+          "effective_labels": {
+            "team": "riq"
+          }
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false,
+        "importing": {
+          "id": "tsl-riq-prod-exports"
+        }
+      }
+    },
+    {
+      "address": "google_sql_database_instance.riq_scores",
+      "mode": "managed",
+      "type": "google_sql_database_instance",
+      "name": "riq_scores",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq-scores-pg",
+          "project": "tsl-riq-prod",
+          "database_version": "POSTGRES_16",
+          "region": "us-central1",
+          "deletion_protection": true
+        },
+        "after": {
+          "name": "riq-scores-pg",
+          "project": "tsl-riq-prod",
+          "database_version": "POSTGRES_16",
+          "region": "us-central1",
+          "deletion_protection": true
+        },
+        "after_unknown": {},
+        "before_sensitive": false,
+        "after_sensitive": false,
+        "importing": {
+          "id": "projects/tsl-riq-prod/instances/riq-scores-pg"
+        }
+      }
+    },
+    {
+      "address": "google_sql_user.riq_app",
+      "mode": "managed",
+      "type": "google_sql_user",
+      "name": "riq_app",
+      "provider_name": "registry.terraform.io/hashicorp/google",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "name": "riq-app",
+          "instance": "riq-scores-pg",
+          "password": "s3cr3t-from-console"
+        },
+        "after": {
+          "name": "riq-app",
+          "instance": "riq-scores-pg",
+          "password": "s3cr3t-from-console"
+        },
+        "after_unknown": {},
+        "before_sensitive": {
+          "password": true
+        },
+        "after_sensitive": {
+          "password": true
+        },
+        "importing": {
+          "id": "tsl-riq-prod/riq-scores-pg/riq-app"
+        }
+      }
+    }
+  ]
+}

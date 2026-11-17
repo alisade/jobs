@@ -1,0 +1,19 @@
+PR #418 "migration: import batch 07 (RIQ legacy)" by marco-d. Description: "Moved generated.tf into
+network.tf and data.tf. Removed computed attributes, provider defaults and noise per the cleanup guide
+(anything that is false, null or equal to a default goes)."
+
+-  auto_create_subnetworks                   = false
+-  delete_default_routes_on_create           = false
+   description                               = "RIQ legacy VPC (hand-built 2023)"
+-  enable_ula_internal_ipv6                  = false
+-  internal_ipv6_range                       = null
+-  mtu                                       = 1460
+   name                                      = "riq-legacy"
+-  network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
+   project                                   = "tsl-riq-prod"
+   routing_mode                              = "GLOBAL"
+ ...
+-  labels                      = { env = "prod", owner = "riq" }
++  labels = {
++    owner = "riq"
++  }

@@ -1,0 +1,1306 @@
+{
+ "questions": [
+  {
+   "id": "q1-01",
+   "week": 1,
+   "set": "weekly",
+   "area": "patterns",
+   "type": "single",
+   "stem": "ControlPilot tests CM-03 for 25 sampled changes. The steps are: draw the sample, fetch ticket/PR/deploy records, read the approval evidence, decide each attribute, write the workpaper. Where does a model add value without weakening reproducibility for the external auditor?",
+   "options": [
+    "In drawing the sample, because a model can pick riskier changes",
+    "Everywhere, as one autonomous agent with all tools",
+    "In deciding pass or exception for each attribute, because it understands context",
+    "Only in reading the messy approval evidence and returning typed facts with citations"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Sampling, attribute rules and conclusions must be reproducible: same inputs, same result, explainable to an external auditor. The model's comparative advantage is reading unstructured evidence; its output should be typed facts with citations that deterministic rules consume.",
+   "learn": [
+    {
+     "label": "Building effective agents",
+     "href": "https://www.anthropic.com/research/building-effective-agents"
+    },
+    {
+     "label": "Effective context engineering for AI agents",
+     "href": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+    }
+   ]
+  },
+  {
+   "id": "q1-02",
+   "week": 1,
+   "set": "weekly",
+   "area": "patterns",
+   "type": "single",
+   "stem": "A colleague proposes one autonomous agent that decides on its own which tools to call to test any control. For CM-03, where the steps are fixed and known in advance, which pattern does Building effective agents suggest first?",
+   "options": [
+    "An orchestrator-workers agent with open-ended tool choice for every sample",
+    "Fine-tuning a model on past workpapers",
+    "A predefined workflow (prompt chain) with code orchestrating the steps, adding agentic autonomy only where the path cannot be known in advance",
+    "An evaluator-optimizer loop that retries until a second model agrees"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Workflows are predictable and cheaper when the steps are known; agents fit open-ended problems where the path is not known. CM-03 testing is a fixed procedure, so code orchestrates and the model is one bounded step.",
+   "learn": [
+    {
+     "label": "Building effective agents",
+     "href": "https://www.anthropic.com/research/building-effective-agents"
+    }
+   ]
+  },
+  {
+   "id": "q1-03",
+   "week": 1,
+   "set": "weekly",
+   "area": "genai",
+   "type": "multi",
+   "stem": "The prototype's contract is <code>class ChangeEvidence(BaseModel): approver: str = \"\"; tests_passed: bool = True; approval_at: datetime | None = None</code>. Which TWO changes stop a missing key from silently becoming a passing value?",
+   "options": [
+    "Make <code>tests_passed: bool | None</code> with no default, so absent CI evidence is explicit null",
+    "Raise the temperature so the model includes more fields",
+    "Remove the defaults so every key is required (a field may be nullable, but the key must be present)",
+    "Set <code>model_config = ConfigDict(extra=\"forbid\")</code> and keep the defaults",
+    "Rely on <code>response.parsed</code> being None when a field is missing"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "explanation": "Defaults are the bug: a missing <code>tests_passed</code> becomes True. Required-but-nullable fields force the model to say null explicitly, and code routes null to not_evaluable. extra=forbid is good hygiene but does not fix defaults; parsed being None is a symptom, not a control.",
+   "learn": [
+    {
+     "label": "Pydantic: models and model_config",
+     "href": "https://pydantic.dev/docs/validation/latest/concepts/models/"
+    },
+    {
+     "label": "Gemini structured output",
+     "href": "https://aistudio.google.com/docs/structured-output"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q1-04",
+   "week": 1,
+   "set": "weekly",
+   "area": "genai",
+   "type": "single",
+   "stem": "You pass <code>response_schema=ChangeEvidence</code> to <code>generate_content</code>. Why does ControlPilot still validate <code>response.text</code> with <code>ChangeEvidence.model_validate_json</code> itself?",
+   "options": [
+    "Constrained decoding is not a guarantee: output can be truncated, some schema keywords are ignored, and <code>response.parsed</code> is silently None when parsing fails",
+    "Gemini returns XML unless you validate it",
+    "Pydantic validation is required to count tokens",
+    "The SDK never parses responses when tools are declared"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The structured output docs list unsupported or ignored schema constraints, and MAX_TOKENS can cut a JSON object. Your own validation is the contract; parsed is a convenience that becomes None on failure.",
+   "learn": [
+    {
+     "label": "Gemini structured output",
+     "href": "https://aistudio.google.com/docs/structured-output"
+    }
+   ]
+  },
+  {
+   "id": "q1-05",
+   "week": 1,
+   "set": "weekly",
+   "area": "genai",
+   "type": "multi",
+   "stem": "ControlPilot runs the tool loop itself. Which TWO settings or behaviours are needed for that?",
+   "options": [
+    "Set <code>temperature=2</code> so the model calls tools more often",
+    "Declare tools only after the first response",
+    "<code>automatic_function_calling=AutomaticFunctionCallingConfig(disable=True)</code>, so the SDK does not execute Python callables on its own",
+    "Append the model's function_call content, then a user content with <code>Part.from_function_response</code> for each call",
+    "Put the tool results in the system instruction for the next turn"
+   ],
+   "answer": [
+    2,
+    3
+   ],
+   "explanation": "With automatic calling off, your code sees, allow-lists and logs every call. The conversation must carry the model's call and your function response so the next turn can use it. Tool results are data in contents, never system instructions.",
+   "learn": [
+    {
+     "label": "Gemini function calling",
+     "href": "https://aistudio.google.com/docs/function-calling"
+    },
+    {
+     "label": "Google Gen AI Python SDK docs",
+     "href": "https://googleapis.github.io/python-genai/"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q1-06",
+   "week": 1,
+   "set": "weekly",
+   "area": "security",
+   "type": "single",
+   "stem": "During a CM-03 run the model asks for <code>close_change(change_id=\"CHG-104390\")</code>, which is not in ControlPilot's allowed tool list. What should the loop do?",
+   "options": [
+    "Raise an exception and abort the whole batch",
+    "Execute it, since the model asked and the change is in the sample",
+    "Not execute it; return a function response with an error naming the allowed tools, and continue within the turn budget",
+    "Silently drop the call and send nothing back"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Never execute a tool outside the allow-list. Returning an actionable error keeps the loop going and leaves a trail; silently dropping it confuses the model, aborting the batch is out of proportion.",
+   "learn": [
+    {
+     "label": "Writing effective tools for agents",
+     "href": "https://www.anthropic.com/research/writing-tools-for-agents"
+    },
+    {
+     "label": "Gemini function calling",
+     "href": "https://aistudio.google.com/docs/function-calling"
+    }
+   ]
+  },
+  {
+   "id": "q1-07",
+   "week": 1,
+   "set": "weekly",
+   "area": "genai",
+   "type": "multi",
+   "stem": "Which TWO finish reasons should send a sample straight to needs_review without a retry?",
+   "options": [
+    "STOP with a schema error in the text",
+    "SAFETY",
+    "STOP with valid JSON for another change id",
+    "RECITATION",
+    "MAX_TOKENS"
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "explanation": "Safety and recitation stops are not fixed by asking again. MAX_TOKENS (truncation) and schema or id mismatches are retryable with the error fed back.",
+   "learn": [
+    {
+     "label": "Gemini structured output",
+     "href": "https://aistudio.google.com/docs/structured-output"
+    },
+    {
+     "label": "Gemini API docs",
+     "href": "https://aistudio.google.com/docs"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q1-08",
+   "week": 1,
+   "set": "weekly",
+   "area": "genai",
+   "type": "single",
+   "stem": "A response validates against ChangeEvidence but reports <code>change_id: CHG-999999</code> for sample CHG-104118. What is the right handling?",
+   "options": [
+    "Treat it as a validation failure: tell the model the expected id and retry, then needs_review if it persists",
+    "Accept it, because the schema validated",
+    "Overwrite the id with CHG-104118 and keep the other fields",
+    "Mark the sample as an exception"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Schema validity is not grounding. Cross-check the facts that identify the item against the sample; a wrong id means the other facts may be about another change too, so do not patch it.",
+   "learn": [
+    {
+     "label": "Gemini structured output",
+     "href": "https://aistudio.google.com/docs/structured-output"
+    },
+    {
+     "label": "Pydantic docs",
+     "href": "https://pydantic.dev/docs/validation/latest/get-started/"
+    }
+   ]
+  },
+  {
+   "id": "q1-09",
+   "week": 1,
+   "set": "weekly",
+   "area": "genai",
+   "type": "single",
+   "stem": "Release notes for ControlPilot say \"model: gemini-3.8-flash\". The audit manager asks for evidence of exactly which model produced each conclusion. What do you log per call?",
+   "options": [
+    "Only the final workpaper row",
+    "The API key used for the call",
+    "Only the configured model alias, since aliases never change",
+    "The response's <code>model_version</code>, a hash of system instruction, config and tool declarations, the request and response, and usage"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Aliases can move. The response's model_version plus a hash of what you sent makes a conclusion reproducible and lets you tie a regression to a model or prompt change. Never log secrets.",
+   "learn": [
+    {
+     "label": "Gemini models",
+     "href": "https://aistudio.google.com/docs/models"
+    },
+    {
+     "label": "Understand and count tokens",
+     "href": "https://aistudio.google.com/docs/tokens"
+    }
+   ]
+  },
+  {
+   "id": "q1-10",
+   "week": 1,
+   "set": "weekly",
+   "area": "genai",
+   "type": "single",
+   "stem": "Usage for one sample: three calls with prompt tokens 850, 900, 900 and output tokens 20, 1024, 120. The second call ended with MAX_TOKENS. What does the per-sample cost line need?",
+   "options": [
+    "Only the last successful call",
+    "Nothing; retries are free",
+    "The sum over all three calls, including the truncated one, since you pay for every call",
+    "Only output tokens"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Cost per sample is the sum of usage_metadata over every call, retries and tool turns included. Truncated calls cost output tokens too, which is why repeated MAX_TOKENS is a cost signal.",
+   "learn": [
+    {
+     "label": "Understand and count tokens",
+     "href": "https://aistudio.google.com/docs/tokens"
+    }
+   ]
+  },
+  {
+   "id": "q1-11",
+   "week": 1,
+   "set": "weekly",
+   "area": "platform",
+   "type": "single",
+   "stem": "An architect says \"we use Vertex AI\". The current Google docs for the enterprise model and agent platform live under <code>docs.cloud.google.com/gemini-enterprise-agent-platform/...</code>. How do you reconcile the two in a design review?",
+   "options": [
+    "Gemini Enterprise Agent Platform only supports open-weight models",
+    "Gemini Enterprise Agent Platform is the current name for Vertex AI's generative AI and agent platform; same platform, use both names until everyone is aligned",
+    "Vertex AI is the consumer Gemini app",
+    "They are competing products and ControlPilot must choose one"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Google renamed Vertex AI's gen AI and agent capabilities to Gemini Enterprise Agent Platform; older tutorials and postings still say Vertex AI. The Gemini API with an API key is the other access path.",
+   "learn": [
+    {
+     "label": "Gemini Enterprise Agent Platform overview",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview"
+    },
+    {
+     "label": "Gemini Enterprise Agent Platform: models (formerly Vertex AI generative AI)",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models"
+    }
+   ]
+  },
+  {
+   "id": "q1-12",
+   "week": 1,
+   "set": "weekly",
+   "area": "genai",
+   "type": "multi",
+   "stem": "Which TWO reasons argue for Gemini Enterprise Agent Platform rather than the Gemini API with an API key for ControlPilot in production?",
+   "options": [
+    "It makes temperature 0 deterministic",
+    "It removes the need to validate model output",
+    "Google Cloud IAM and service accounts instead of a shared API key",
+    "Enterprise controls such as data residency, quotas per project and audit logging",
+    "It is the only way to use structured output"
+   ],
+   "answer": [
+    2,
+    3
+   ],
+   "explanation": "The enterprise platform runs in a Google Cloud project with IAM, quotas, logging and data governance, which an audit function needs. Structured output exists on both paths; neither removes validation or guarantees determinism.",
+   "learn": [
+    {
+     "label": "Gemini Enterprise Agent Platform overview",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview"
+    },
+    {
+     "label": "Gemini API docs",
+     "href": "https://aistudio.google.com/docs"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q2-01",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "MFH's CM-03 control is well designed on paper, but the auditor needs to know whether it worked from January to September. Which test answers that?",
+   "options": [
+    "A test of design using a single walkthrough",
+    "A survey of developers",
+    "A review of the change policy document",
+    "A test of operating effectiveness over a sample from the period"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Design effectiveness asks whether the control, if operated as described, would prevent or detect the risk; operating effectiveness asks whether it operated consistently over the period, tested on a sample.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2201: audit of ICFR",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201"
+    }
+   ]
+  },
+  {
+   "id": "q2-02",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "multi",
+   "stem": "Which TWO are ITGC domains that support ICFR?",
+   "options": [
+    "Program changes",
+    "Access to programs and data",
+    "Treasury hedging",
+    "Inventory counts",
+    "Revenue recognition"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "The usual ITGC domains are access to programs and data, program changes, computer operations and program development. The others are business-process areas.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2201: audit of ICFR",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201"
+    },
+    {
+     "label": "COSO internal control guidance",
+     "href": "https://www.coso.org/guidance-on-ic"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q2-03",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "The CM-03 population was produced from the deployment pipeline by an MFH engineer. What makes it acceptable evidence for the auditor?",
+   "options": [
+    "The engineer's statement that it is complete",
+    "Evidence about the report itself (IPE): source, parameters, who ran it and when, a reconciliation to an independent control total, and accuracy tests",
+    "A screenshot of the first page of the export",
+    "The fact that it came from production"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Information produced by the entity needs its own completeness and accuracy evidence. Without it every sample drawn from the population inherits the doubt.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2201: audit of ICFR",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201"
+    }
+   ]
+  },
+  {
+   "id": "q2-04",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "Which source should define the CM-03 population of production changes?",
+   "options": [
+    "The deploy log of production deployments in the period, because it proves a change reached production",
+    "Merged pull requests on main, because they are easier to export",
+    "Developer commit counts",
+    "Closed change tickets, because they have approvals"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The population is what reached production. Merged PRs miss direct deploys and include unreleased changes; tickets miss changes that skipped the process, which are exactly the ones the control should catch.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2201: audit of ICFR",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201"
+    }
+   ]
+  },
+  {
+   "id": "q2-05",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "The extraction returned 38 pull requests; the deploy log shows 421 production deployments. The script requested <code>per_page=100</code> and stopped when a page had fewer than 100 items. What is the likely cause?",
+   "options": [
+    "GitHub deletes old pull requests",
+    "Time zone conversion dropped most items",
+    "The deploy log double counts",
+    "The API capped the page size, so the first short page was taken as the last; pagination must follow the Link header rel=\"next\""
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "A short page is not proof of the last page. The GitHub REST pagination guide tells you to follow the Link header until there is no rel=\"next\".",
+   "learn": [
+    {
+     "label": "GitHub REST: using pagination",
+     "href": "https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api"
+    }
+   ]
+  },
+  {
+   "id": "q2-06",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "MFH reports in America/Chicago. A deploy at 2026-10-01T03:30:00Z is in which local quarter?",
+   "options": [
+    "It depends on the developer's laptop time zone",
+    "Q4 2026, because the UTC date is October 1",
+    "Q3 2026, because it is 2026-09-30 22:30 local (UTC-5 in daylight time)",
+    "Neither; it must be excluded"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Period boundaries are local to the entity. Convert with zoneinfo before filtering; filtering on UTC dates moves items across the period boundary.",
+   "learn": [
+    {
+     "label": "Python zoneinfo",
+     "href": "https://docs.python.org/3/library/zoneinfo.html"
+    }
+   ]
+  },
+  {
+   "id": "q2-07",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "CM-03 operates many times a day. Using the common rule of thumb, roughly how many items do you sample for the period?",
+   "options": [
+    "Every item",
+    "About 25",
+    "About 2",
+    "About 5"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A common rule of thumb is about 25 for daily or recurring controls, 2 for quarterly; firms publish their own tables and adjust for risk.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2315: audit sampling",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315"
+    }
+   ]
+  },
+  {
+   "id": "q2-08",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "AC-01, the user access review, runs quarterly. Roughly how many instances does the rule of thumb suggest for an annual test?",
+   "options": [
+    "About 2",
+    "About 25",
+    "About 60",
+    "Exactly 4, every quarter, always"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "For quarterly controls the common rule of thumb is about 2 instances; firm methodology may differ.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2315: audit sampling",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315"
+    }
+   ]
+  },
+  {
+   "id": "q2-09",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "multi",
+   "stem": "A year from now the external auditor wants to reproduce your CM-03 selection. Which TWO things must you have recorded?",
+   "options": [
+    "The time of day the script ran",
+    "The seed and the selection method (for example random.Random(seed).sample over the population sorted by a stable key)",
+    "The analyst's laptop name",
+    "A hash or the identity of the exact population file used",
+    "The model temperature"
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "explanation": "Reproducible selection needs the same population (identified by a hash) in the same order, plus the seed and method. Python's random is deterministic for a given seed and version.",
+   "learn": [
+    {
+     "label": "Python random (seeded selection)",
+     "href": "https://docs.python.org/3/library/random.html"
+    },
+    {
+     "label": "PCAOB AS 2315: audit sampling",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q2-10",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "Put these in order of increasing severity.",
+   "options": [
+    "Material weakness, significant deficiency, deficiency, exception",
+    "Deficiency, exception, material weakness, significant deficiency",
+    "Exception, deficiency, significant deficiency, material weakness",
+    "Exception, material weakness, deficiency, significant deficiency"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "An exception is a deviation found in testing; a deficiency is a control that does not prevent or detect misstatements timely; significant deficiency and material weakness are the higher severity levels evaluated by management and auditors.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2201: audit of ICFR",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201"
+    }
+   ]
+  },
+  {
+   "id": "q2-11",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "single",
+   "stem": "ControlPilot finds that CHG-104390 was approved by its own author. What may ControlPilot conclude on its own?",
+   "options": [
+    "That the change was fraudulent",
+    "An exception on the independent_approver attribute for that sample, routed to a human reviewer",
+    "That the control is ineffective for the year",
+    "That CM-03 has a material weakness"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Attribute-level exceptions are mechanical; severity (deficiency and above) is a judgement by people, considering compensating controls and the rest of the sample.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2201: audit of ICFR",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201"
+    },
+    {
+     "label": "PCAOB AS 2315: audit sampling",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2315"
+    }
+   ]
+  },
+  {
+   "id": "q2-12",
+   "week": 2,
+   "set": "weekly",
+   "area": "audit",
+   "type": "multi",
+   "stem": "Which TWO belong in a CM-03 exception write-up so a reviewer can sign it?",
+   "options": [
+    "Cause and effect, plus the control owner's response",
+    "Condition and criteria: what was found versus what the control requires, with evidence citations",
+    "A recommendation to fire the developer",
+    "The model's confidence score as the main evidence",
+    "The full prompt used"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Exception documentation follows condition, criteria, cause, effect and management response, with cited evidence. Model internals are logged elsewhere, not the basis of the finding.",
+   "learn": [
+    {
+     "label": "PCAOB AS 2201: audit of ICFR",
+     "href": "https://pcaobus.org/oversight/standards/auditing-standards/details/AS2201"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q3-01",
+   "week": 3,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "In ADK, a tool stores sample progress under <code>temp:tested_ids</code>. After the next invocation on the same session, the list is empty. Why?",
+   "options": [
+    "Lists cannot be stored in state",
+    "The session service has a 1 KB state limit",
+    "Tools cannot write state; only callbacks can",
+    "temp: keys live for the current invocation only and are dropped afterwards; use an unprefixed (session), user: or app: key for state that must persist"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "ADK state prefixes: no prefix is session-scoped, user: is per user across sessions, app: across the app, temp: is discarded after the invocation.",
+   "learn": [
+    {
+     "label": "ADK: state and state prefixes",
+     "href": "https://adk.dev/sessions/state/"
+    }
+   ]
+  },
+  {
+   "id": "q3-02",
+   "week": 3,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "A reviewer CLI fetches the session with <code>get_session</code> and sets <code>session.state[\"review:CHG-104390\"] = \"confirm\"</code>. After a restart the decision is gone. What is the correct way?",
+   "options": [
+    "Use the temp: prefix",
+    "Call <code>get_session</code> twice",
+    "Change state through context objects (tool or callback context) or an appended event with a state_delta, so the session service persists it",
+    "Restart the Runner after each change"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "State changes are persisted when they travel in events (state_delta), which is what tool_context.state and callback_context.state produce. Mutating a fetched session object only changes a local copy.",
+   "learn": [
+    {
+     "label": "ADK: sessions and conversational context",
+     "href": "https://adk.dev/sessions/"
+    },
+    {
+     "label": "ADK: state and state prefixes",
+     "href": "https://adk.dev/sessions/state/"
+    }
+   ]
+  },
+  {
+   "id": "q3-03",
+   "week": 3,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "Your <code>before_tool_callback</code> returns <code>{\"error\": \"CHG-200001 is not in the sample\"}</code>. What does ADK do?",
+   "options": [
+    "Runs the tool anyway and appends the dict",
+    "Skips the tool and uses the returned dict as the tool's result for the model",
+    "Stops the agent with an exception",
+    "Ignores the return value"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Returning a value from before_tool_callback short-circuits the tool: the value becomes the function response. Returning None lets the tool run.",
+   "learn": [
+    {
+     "label": "ADK: callbacks",
+     "href": "https://adk.dev/callbacks/"
+    }
+   ]
+  },
+  {
+   "id": "q3-04",
+   "week": 3,
+   "set": "weekly",
+   "area": "adk",
+   "type": "multi",
+   "stem": "Which TWO guardrails belong in ADK callbacks rather than in the instruction text?",
+   "options": [
+    "A per-sample tool-call budget that ends the run in needs_review",
+    "Asking the model to be careful with evidence",
+    "Telling the model it is an expert auditor",
+    "Choosing a friendly tone",
+    "Blocking tool calls for ids outside the sample"
+   ],
+   "answer": [
+    0,
+    4
+   ],
+   "explanation": "Deterministic code around a non-deterministic agent: scoping and budgets enforced in callbacks hold even when the model is confused or manipulated. Instructions only influence it.",
+   "learn": [
+    {
+     "label": "ADK: callbacks",
+     "href": "https://adk.dev/callbacks/"
+    },
+    {
+     "label": "Hooks",
+     "href": "https://code.claude.com/docs/en/hooks"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q3-05",
+   "week": 3,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "You want ADK tests that never call Gemini and can make \"the model\" request any tool. What is the standard approach?",
+   "options": [
+    "Use temperature 0 and hope for determinism",
+    "Mock the Runner class",
+    "Set the API key to an empty string",
+    "Subclass BaseLlm with a scripted generate_content_async that yields LlmResponse objects, and pass it as the agent's model"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "ADK accepts any BaseLlm implementation as model. A scripted one makes tool-calling paths, errors and injections repeatable in tests.",
+   "learn": [
+    {
+     "label": "ADK: models (including custom BaseLlm)",
+     "href": "https://adk.dev/agents/models/"
+    },
+    {
+     "label": "Agent Development Kit (ADK) docs",
+     "href": "https://adk.dev/"
+    }
+   ]
+  },
+  {
+   "id": "q3-06",
+   "week": 3,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "ControlPilot must keep sessions across a nightly process restart on a single VM for a pilot. Which ADK session service fits?",
+   "options": [
+    "No session service; state lives in the prompt",
+    "A temp: state prefix",
+    "DatabaseSessionService (for example SQLite or Postgres)",
+    "InMemorySessionService"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "InMemorySessionService loses everything on restart. DatabaseSessionService persists sessions and events; the managed runtime on Gemini Enterprise Agent Platform provides sessions in production.",
+   "learn": [
+    {
+     "label": "ADK: sessions and conversational context",
+     "href": "https://adk.dev/sessions/"
+    }
+   ]
+  },
+  {
+   "id": "q3-07",
+   "week": 3,
+   "set": "weekly",
+   "area": "adk",
+   "type": "single",
+   "stem": "Which ADK construct tests 25 samples concurrently, each with the same sub-agent logic?",
+   "options": [
+    "A LoopAgent with max_iterations=1",
+    "A ParallelAgent over per-sample sub-agents (or a fan-out in your orchestration code)",
+    "A SequentialAgent",
+    "A single LlmAgent with a longer instruction"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Workflow agents: SequentialAgent runs steps in order, ParallelAgent runs sub-agents concurrently, LoopAgent repeats. Concurrency limits and quota still matter.",
+   "learn": [
+    {
+     "label": "ADK: workflow agents",
+     "href": "https://adk.dev/agents/workflow-agents/"
+    }
+   ]
+  },
+  {
+   "id": "q3-08",
+   "week": 3,
+   "set": "weekly",
+   "area": "platform",
+   "type": "single",
+   "stem": "Where do you deploy an ADK agent as a managed service with sessions and memory on Google Cloud today?",
+   "options": [
+    "Gemini Enterprise Agent Platform, \"scale and deploy agents\" (formerly Agent Engine)",
+    "Cloud Shell",
+    "Gemini Enterprise, the end-user app",
+    "A2A protocol registry"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The managed agent runtime that was called Agent Engine is documented under Gemini Enterprise Agent Platform as scale and deploy agents. Gemini Enterprise is where business users use the agents.",
+   "learn": [
+    {
+     "label": "Gemini Enterprise Agent Platform: scale and deploy agents (formerly Agent Engine)",
+     "href": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale"
+    },
+    {
+     "label": "Gemini Enterprise",
+     "href": "https://cloud.google.com/gemini-enterprise"
+    }
+   ]
+  },
+  {
+   "id": "q3-09",
+   "week": 3,
+   "set": "weekly",
+   "area": "patterns",
+   "type": "single",
+   "stem": "The finance systems team already runs an agent that answers questions about ERP journal entries. ControlPilot needs those answers for a related control. Which integration fits?",
+   "options": [
+    "Screen-scrape their chat UI",
+    "Copy their prompts into ControlPilot",
+    "Give ControlPilot direct write access to the ERP",
+    "A2A: call their agent as an agent, with its own identity and capabilities, rather than re-implementing it"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "A2A is for agent-to-agent calls across teams. MCP connects an agent to tools and data; A2A connects it to another agent.",
+   "learn": [
+    {
+     "label": "A2A protocol",
+     "href": "https://a2a-protocol.org/latest/"
+    },
+    {
+     "label": "ADK: A2A protocol",
+     "href": "https://adk.dev/a2a/"
+    }
+   ]
+  },
+  {
+   "id": "q3-10",
+   "week": 3,
+   "set": "weekly",
+   "area": "patterns",
+   "type": "multi",
+   "stem": "You design ControlPilot's skill format, one skill per control, borrowing from Claude Code skills. Which TWO properties matter most?",
+   "options": [
+    "Skill bodies are always in the system prompt",
+    "Progressive disclosure: a short description loads first, the full body only when the skill is triggered",
+    "An explicit verification step and a human approval point in the skill",
+    "Every skill may call every tool",
+    "Skills are edited directly in production without review"
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "explanation": "Progressive disclosure keeps context small; verification and approval points make a skill auditable. Tool scoping per skill and change control on skills follow from the same principle.",
+   "learn": [
+    {
+     "label": "Claude Code skills",
+     "href": "https://code.claude.com/docs/en/skills"
+    },
+    {
+     "label": "Equipping agents for the real world with Agent Skills",
+     "href": "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills"
+    },
+    {
+     "label": "Agent Skills open format",
+     "href": "https://agentskills.io/"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q3-11",
+   "week": 3,
+   "set": "weekly",
+   "area": "patterns",
+   "type": "single",
+   "stem": "Which ControlPilot integration is the best candidate for an MCP server rather than a tool function inside the agent code?",
+   "options": [
+    "A pure function that compares two timestamps",
+    "The GRC system, used by several agents and hosts, exposed once with scoped read tools",
+    "A string formatter for workpaper dates",
+    "The seeded sampling routine"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "MCP standardizes access to shared systems across hosts. Pure deterministic helpers stay plain code in the orchestrator.",
+   "learn": [
+    {
+     "label": "MCP introduction",
+     "href": "https://modelcontextprotocol.io/docs/getting-started/intro"
+    },
+    {
+     "label": "MCP specification",
+     "href": "https://modelcontextprotocol.io/specification/latest"
+    }
+   ]
+  },
+  {
+   "id": "q3-12",
+   "week": 3,
+   "set": "weekly",
+   "area": "adk",
+   "type": "multi",
+   "stem": "In the w3-t1 incident, the agent re-tested finished samples after the nightly restart. Which TWO findings would confirm the root cause?",
+   "options": [
+    "A 429 retry appears once in the log",
+    "The model temperature changed from 0 to 0.2",
+    "Progress was written to a temp: key, which is absent from the persisted session state after restart",
+    "The token usage warning about missing metadata",
+    "Events in the session database show the tool calls but the state has no progress key"
+   ],
+   "answer": [
+    2,
+    4
+   ],
+   "explanation": "temp: state is discarded after each invocation, so the persisted session has no progress. The temperature, a single 429 and metadata warnings are noise.",
+   "learn": [
+    {
+     "label": "ADK: state and state prefixes",
+     "href": "https://adk.dev/sessions/state/"
+    },
+    {
+     "label": "ADK: sessions and conversational context",
+     "href": "https://adk.dev/sessions/"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q4-01",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "single",
+   "stem": "A worker crashes after the model call for sample S07 returned, but before the result was committed. On restart, what happens with a check-work-commit design?",
+   "options": [
+    "The whole run restarts from sample 1",
+    "The run is corrupted and must be deleted",
+    "S07 is skipped because the call already happened",
+    "The model step for S07 runs again (at-least-once); committed steps of other samples are not repeated"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Work between execution and commit is repeated on restart. That is fine for a read-only model call (it costs once more) and dangerous for side effects, which therefore need idempotency.",
+   "learn": [
+    {
+     "label": "Temporal docs",
+     "href": "https://docs.temporal.io/"
+    },
+    {
+     "label": "Azure Durable Functions overview",
+     "href": "https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview"
+    }
+   ]
+  },
+  {
+   "id": "q4-02",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "multi",
+   "stem": "Which TWO make the GRC issue creation exactly-once across retries and restarts?",
+   "options": [
+    "Writing the checkpoint before the call and never calling again even if it failed",
+    "An Idempotency-Key derived from (run_id, sample_id, step) and sent on every attempt",
+    "A server that returns the original issue for a repeated key",
+    "A new uuid4 key per attempt",
+    "Retrying faster"
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "explanation": "A deterministic key reused on every attempt, plus server-side deduplication by key, makes the effect idempotent. A per-attempt uuid defeats it; skipping on a pre-written checkpoint loses the effect when the call failed.",
+   "learn": [
+    {
+     "label": "Designing robust APIs with idempotency (Stripe)",
+     "href": "https://stripe.com/blog/idempotency"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q4-03",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "single",
+   "stem": "The GRC gateway log shows <code>201 ISS-7400 (response not delivered)</code>, then a retry with a different key creates ISS-7401. What is this failure mode called and what fixes it?",
+   "options": [
+    "Rate limiting; request a higher quota",
+    "Commit-then-timeout; reuse the same idempotency key on every attempt",
+    "Clock skew; sync NTP",
+    "Split-brain; add a second GRC"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The server committed but the client never saw the response, so it cannot know whether to retry. Only an idempotent request makes the retry safe.",
+   "learn": [
+    {
+     "label": "Designing robust APIs with idempotency (Stripe)",
+     "href": "https://stripe.com/blog/idempotency"
+    }
+   ]
+  },
+  {
+   "id": "q4-04",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "single",
+   "stem": "Writing a workpaper row to Azure Blob, which call makes the write safe to repeat without overwriting a different existing workpaper?",
+   "options": [
+    "upload_blob with overwrite=False (If-None-Match: *) and a compare on conflict",
+    "Delete the blob, then upload",
+    "upload_blob with overwrite=True every time",
+    "Append to the blob on every attempt"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A conditional create fails with a conflict if the blob exists; comparing the existing content turns identical retries into success and catches real conflicts. Overwrite would destroy evidence.",
+   "learn": [
+    {
+     "label": "Azure Blob: conditional headers",
+     "href": "https://learn.microsoft.com/en-us/rest/api/storageservices/specifying-conditional-headers-for-blob-service-operations"
+    }
+   ]
+  },
+  {
+   "id": "q4-05",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "multi",
+   "stem": "ControlPilot's human review gate for exceptions. Which TWO rules must be enforced in code, not only in the UI?",
+   "options": [
+    "An override to pass requires a reason and an evidence reference",
+    "The reviewer is a different person than the preparer",
+    "The model must agree with the reviewer",
+    "Reviews happen within one hour",
+    "Reviewers must use dark mode"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Segregation of duties and documented overrides are control requirements; if they live only in a UI, any other caller bypasses them.",
+   "learn": [
+    {
+     "label": "LangGraph interrupts (human-in-the-loop)",
+     "href": "https://docs.langchain.com/oss/python/langgraph/interrupts"
+    },
+    {
+     "label": "Azure Durable Functions overview",
+     "href": "https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q4-06",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "single",
+   "stem": "A LangGraph graph pauses with interrupt() for a reviewer who answers three days later. What makes the resume possible?",
+   "options": [
+    "Re-running the graph from the start with the answer",
+    "Keeping the Python process alive for three days",
+    "A persistent checkpointer that saved the graph state at the interrupt, resumed with the same thread id",
+    "A longer model context window"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Interrupts need persistence: the checkpointer stores the state per thread, and resuming with the thread id continues from the interrupt.",
+   "learn": [
+    {
+     "label": "LangGraph interrupts (human-in-the-loop)",
+     "href": "https://docs.langchain.com/oss/python/langgraph/interrupts"
+    },
+    {
+     "label": "LangGraph persistence and checkpointers",
+     "href": "https://docs.langchain.com/oss/python/langgraph/persistence"
+    }
+   ]
+  },
+  {
+   "id": "q4-07",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "single",
+   "stem": "Your execution log is JSONL where each line has seq, kind, data, prev (hash of the previous line) and hash. What can verify_log NOT detect by itself?",
+   "options": [
+    "A deleted line in the middle",
+    "Truncation of the newest lines, unless the head hash is anchored somewhere else",
+    "Two swapped lines",
+    "An edited line"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A hash chain catches edits, deletions and reorders inside the chain, but dropping the tail leaves a valid shorter chain. Anchor the head hash in immutable storage or the GRC.",
+   "learn": [
+    {
+     "label": "Azure Blob immutable storage (WORM)",
+     "href": "https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-storage-overview"
+    }
+   ]
+  },
+  {
+   "id": "q4-08",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "multi",
+   "stem": "An auditor wants to reconstruct what ControlPilot did for one sample. Which TWO records are essential in the execution log?",
+   "options": [
+    "Every tool call with arguments, a result digest and the model version and prompt hash that requested it",
+    "The reviewer decision with identity, reason and evidence reference",
+    "The developer's commit messages",
+    "Browser history of the reviewer",
+    "CPU utilization of the worker"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Reconstruction needs what was asked, what came back, which model and prompt decided, and what the human decided. Infrastructure metrics belong elsewhere.",
+   "learn": [
+    {
+     "label": "OpenTelemetry semantic conventions for GenAI",
+     "href": "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+    },
+    {
+     "label": "Azure Durable Functions overview",
+     "href": "https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview"
+    }
+   ],
+   "choose": 2
+  },
+  {
+   "id": "q4-09",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "single",
+   "stem": "Durable Functions and Temporal both replay orchestrator code from history. What does that imply for an activity that creates a GRC issue?",
+   "options": [
+    "Orchestrator code may call the GRC directly",
+    "Activities run exactly once by construction, so no keys are needed",
+    "Replays skip activities that failed",
+    "Activities can run more than once, so they still need idempotency keys"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "These platforms guarantee the orchestration resumes, not that an activity's side effect happens once; retries and timeouts make activities at-least-once.",
+   "learn": [
+    {
+     "label": "Azure Durable Functions overview",
+     "href": "https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview"
+    },
+    {
+     "label": "Temporal workflows",
+     "href": "https://docs.temporal.io/workflows"
+    }
+   ]
+  },
+  {
+   "id": "q4-10",
+   "week": 4,
+   "set": "weekly",
+   "area": "security",
+   "type": "single",
+   "stem": "ControlPilot's evidence-reading agent currently holds a tool that closes GRC exceptions. What is the least-privilege design?",
+   "options": [
+    "Give the agent owner rights so it never fails",
+    "Keep the tool but add \"never close exceptions\" to the instruction",
+    "Read-only tools for the agent; writes go through a separate gated path that needs a human approval",
+    "Let the agent close exceptions with confidence above 0.9"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Instructions are not controls. Removing write capability from the agent that reads untrusted evidence, and gating writes on human approval, is what holds.",
+   "learn": [
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    },
+    {
+     "label": "The lethal trifecta (Simon Willison)",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "q4-11",
+   "week": 4,
+   "set": "weekly",
+   "area": "platform",
+   "type": "single",
+   "stem": "The orchestrator runs in Azure and calls Blob Storage and Key Vault. How should it authenticate?",
+   "options": [
+    "A shared admin user's password",
+    "A managed identity with role assignments scoped to the container and the vault",
+    "A storage account key in an app setting",
+    "Anonymous access with a private URL"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Managed identities remove secrets from configuration and allow scoped role assignments.",
+   "learn": [
+    {
+     "label": "Managed identities for Azure resources",
+     "href": "https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview"
+    }
+   ]
+  },
+  {
+   "id": "q4-12",
+   "week": 4,
+   "set": "weekly",
+   "area": "orchestration",
+   "type": "multi",
+   "stem": "In the w4-t1 incident, which TWO observations rule out GRC rate limiting as the cause of the duplicates?",
+   "options": [
+    "The 429 request was rejected before anything was committed and the client honored Retry-After",
+    "The sample that saw the 429 has exactly one issue",
+    "Rate limits only apply to GET requests",
+    "The duplicates all have the same idempotency key",
+    "The gateway log has no 201 lines"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "A 429 means nothing was created and the retry is safe; the evidence shows exactly one issue for that sample. The duplicates come from committed requests with different keys.",
+   "learn": [
+    {
+     "label": "Designing robust APIs with idempotency (Stripe)",
+     "href": "https://stripe.com/blog/idempotency"
+    }
+   ],
+   "choose": 2
+  }
+ ]
+}

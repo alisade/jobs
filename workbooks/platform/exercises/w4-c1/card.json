@@ -1,0 +1,28 @@
+{
+  "id": "platform/w4-c1",
+  "title": "AppDatabase composition function and readiness",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 4,
+  "optional": false,
+  "area": "Crossplane v2 and developer self-service",
+  "scenario": "Tessellate's platform team is replacing the ticket that asks for a Cloud SQL database with a Crossplane v2 API: developers create a namespaced AppDatabase in their team namespace and get an instance, a database, a user and a connection secret. You write the composition logic (what a function-style pipeline step would return) and the composite reconcile loop that applies it, prunes what is no longer desired and reports Ready honestly.",
+  "task": [
+    "Validate the XR and return a Fatal result with the field path instead of panicking",
+    "Compose namespaced sql.gcp.m.upbound.io MRs with deterministic names, labels, tier and version maps, deletion policy and provider config reference",
+    "Add a read replica and REGIONAL availability for size large",
+    "Reconcile idempotently over the fake client: apply only what changed, prune what is gone, stay inside the XR namespace",
+    "Set Synced and Ready conditions; Ready names the resources still not ready"
+  ],
+  "acceptance": [
+    "Visible and hidden go test suites pass with -race",
+    "A second reconcile of an unchanged XR issues zero Apply/Delete calls",
+    "Downsizing large to medium deletes the replica; other namespaces are untouched",
+    "ANSWER.md explains the v2 choices (namespaced XR, no claim, ClusterProviderConfig default) and deletion behavior"
+  ],
+  "practices": [
+    {"label": "Week 4 - Crossplane v2 model: XRDs, compositions, functions", "href": "week4"},
+    {"label": "Week 4 - Namespaced XRs and managed resources, claims as legacy", "href": "week4"},
+    {"label": "Week 6 - Go for platform tooling", "href": "week6"}
+  ]
+}

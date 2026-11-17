@@ -1,0 +1,16 @@
+$ gcloud compute regions describe us-central1 --project tsl-riq-prod --format='table(quotas.metric,quotas.limit,quotas.usage)' | grep -E 'N2_CPUS|SSD_TOTAL|IN_USE_ADDRESSES|LOCAL_SSD'
+N2_CPUS                      480     400
+SSD_TOTAL_GB               20480   14200
+IN_USE_ADDRESSES             128      61
+LOCAL_SSD_TOTAL_GB         12000    9000
+
+$ gcloud compute regions describe us-east4 --project tsl-riq-prod ...
+N2_CPUS                      400     304
+SSD_TOTAL_GB               20480   10400
+IN_USE_ADDRESSES             128      44
+LOCAL_SSD_TOTAL_GB         12000    9000
+
+Notes:
+- prod-blue pool-default-v2 is 18 x n2-standard-8 = 144 vCPU; pool-stateful 6 x n2-highmem-16 = 96 vCPU.
+- A blue-green upgrade of pool-default-v2 needs another 144 vCPU in the region while both pools exist.
+- Quota increase requests for N2_CPUS have taken 2-5 business days this year.

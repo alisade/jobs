@@ -1,0 +1,21 @@
+# Tessellate foundation guardrails (input to guardrails.py). Owned by TechOps platform.
+org_id: "812345678901"
+github_owner: tessellate
+allowed_regions:
+  - us-central1
+  - us-east4
+# Bucket locations: regions above, upper or lower case, plus these multi/dual-regions.
+extra_bucket_locations:
+  - US
+required_org_policies:
+  boolean:
+    - iam.disableServiceAccountKeyCreation
+    - storage.uniformBucketLevelAccess
+    - compute.skipDefaultNetworkCreation
+  deny_all:
+    - compute.vmExternalIpAccess
+  locations: gcp.resourceLocations
+basic_roles:
+  - roles/owner
+  - roles/editor
+  - roles/viewer

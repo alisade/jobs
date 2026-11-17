@@ -1,0 +1,571 @@
+{
+ "S01": {
+  "sample_id": "S01",
+  "change_id": "CHG-104901",
+  "pr_number": 2401,
+  "author": "mreyes",
+  "ticket": {
+   "id": "CHG-104901",
+   "approvals": [
+    {
+     "approver": "tnguyen",
+     "decision": "approved",
+     "at": "2026-07-04T05:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2401,
+   "author": "mreyes",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S02": {
+  "sample_id": "S02",
+  "change_id": "CHG-104902",
+  "pr_number": 2402,
+  "author": "akhan",
+  "ticket": {
+   "id": "CHG-104902",
+   "approvals": [
+    {
+     "approver": "hsato",
+     "decision": "approved",
+     "at": "2026-07-07T09:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2402,
+   "author": "akhan",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S03": {
+  "sample_id": "S03",
+  "change_id": "CHG-104903",
+  "pr_number": 2403,
+  "author": "j.ortiz",
+  "ticket": {
+   "id": "CHG-104903",
+   "approvals": [
+    {
+     "approver": "bmorales",
+     "decision": "approved",
+     "at": "2026-07-09T14:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2403,
+   "author": "j.ortiz",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S04": {
+  "sample_id": "S04",
+  "change_id": "CHG-104904",
+  "pr_number": 2404,
+  "author": "sbrandt",
+  "ticket": {
+   "id": "CHG-104904",
+   "approvals": [
+    {
+     "approver": "lpatel",
+     "decision": "approved",
+     "at": "2026-07-12T20:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2404,
+   "author": "sbrandt",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S05": {
+  "sample_id": "S05",
+  "change_id": "CHG-104905",
+  "pr_number": 2405,
+  "author": "cokafor",
+  "ticket": {
+   "id": "CHG-104905",
+   "approvals": [
+    {
+     "approver": "tnguyen",
+     "decision": "approved",
+     "at": "2026-07-16T10:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2405,
+   "author": "cokafor",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S06": {
+  "sample_id": "S06",
+  "change_id": "CHG-104906",
+  "pr_number": 2406,
+  "author": "lwu",
+  "ticket": {
+   "id": "CHG-104906",
+   "approvals": [
+    {
+     "approver": "hsato",
+     "decision": "approved",
+     "at": "2026-07-19T05:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2406,
+   "author": "lwu",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S07": {
+  "sample_id": "S07",
+  "change_id": "CHG-104907",
+  "pr_number": 2407,
+  "author": "rgarcia",
+  "ticket": {
+   "id": "CHG-104907",
+   "approvals": [
+    {
+     "approver": "bmorales",
+     "decision": "approved",
+     "at": "2026-07-22T12:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2407,
+   "author": "rgarcia",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S08": {
+  "sample_id": "S08",
+  "change_id": "CHG-104908",
+  "pr_number": 2408,
+  "author": "dkwan",
+  "ticket": {
+   "id": "CHG-104908",
+   "approvals": [
+    {
+     "approver": "lpatel",
+     "decision": "approved",
+     "at": "2026-07-24T21:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2408,
+   "author": "dkwan",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S09": {
+  "sample_id": "S09",
+  "change_id": "CHG-104909",
+  "pr_number": 2409,
+  "author": "mreyes",
+  "ticket": {
+   "id": "CHG-104909",
+   "approvals": [
+    {
+     "approver": "tnguyen",
+     "decision": "approved",
+     "at": "2026-07-28T00:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2409,
+   "author": "mreyes",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S10": {
+  "sample_id": "S10",
+  "change_id": "CHG-104910",
+  "pr_number": 2410,
+  "author": "akhan",
+  "ticket": {
+   "id": "CHG-104910",
+   "approvals": [
+    {
+     "approver": "hsato",
+     "decision": "approved",
+     "at": "2026-07-30T14:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2410,
+   "author": "akhan",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S11": {
+  "sample_id": "S11",
+  "change_id": "CHG-104911",
+  "pr_number": 2411,
+  "author": "j.ortiz",
+  "ticket": {
+   "id": "CHG-104911",
+   "approvals": [
+    {
+     "approver": "bmorales",
+     "decision": "approved",
+     "at": "2026-08-03T09:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2411,
+   "author": "j.ortiz",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S12": {
+  "sample_id": "S12",
+  "change_id": "CHG-104912",
+  "pr_number": 2412,
+  "author": "j.ortiz",
+  "ticket": {
+   "id": "CHG-104912",
+   "approvals": [
+    {
+     "approver": "jortiz@meridianfreight.example",
+     "decision": "approved",
+     "at": "2026-08-05T19:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2412,
+   "author": "j.ortiz",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S13": {
+  "sample_id": "S13",
+  "change_id": "CHG-104913",
+  "pr_number": 2413,
+  "author": "cokafor",
+  "ticket": {
+   "id": "CHG-104913",
+   "approvals": [
+    {
+     "approver": "tnguyen",
+     "decision": "approved",
+     "at": "2026-08-09T00:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2413,
+   "author": "cokafor",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S14": {
+  "sample_id": "S14",
+  "change_id": "CHG-104914",
+  "pr_number": 2414,
+  "author": "lwu",
+  "ticket": {
+   "id": "CHG-104914",
+   "approvals": [
+    {
+     "approver": "hsato",
+     "decision": "approved",
+     "at": "2026-08-11T18:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2414,
+   "author": "lwu",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S15": {
+  "sample_id": "S15",
+  "change_id": "CHG-104915",
+  "pr_number": 2415,
+  "author": "rgarcia",
+  "ticket": {
+   "id": "CHG-104915",
+   "approvals": [
+    {
+     "approver": "bmorales",
+     "decision": "approved",
+     "at": "2026-08-14T13:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2415,
+   "author": "rgarcia",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S16": {
+  "sample_id": "S16",
+  "change_id": "CHG-104916",
+  "pr_number": 2416,
+  "author": "dkwan",
+  "ticket": {
+   "id": "CHG-104916",
+   "approvals": [
+    {
+     "approver": "lpatel",
+     "decision": "approved",
+     "at": "2026-08-17T23:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2416,
+   "author": "dkwan",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S17": {
+  "sample_id": "S17",
+  "change_id": "CHG-104917",
+  "pr_number": 2417,
+  "author": "mreyes",
+  "ticket": {
+   "id": "CHG-104917",
+   "approvals": [
+    {
+     "approver": "tnguyen",
+     "decision": "approved",
+     "at": "2026-08-21T00:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2417,
+   "author": "mreyes",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S18": {
+  "sample_id": "S18",
+  "change_id": "CHG-104918",
+  "pr_number": 2418,
+  "author": "akhan",
+  "ticket": {
+   "id": "CHG-104918",
+   "approvals": []
+  },
+  "pr": {
+   "number": 2418,
+   "author": "akhan",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S19": {
+  "sample_id": "S19",
+  "change_id": "CHG-104919",
+  "pr_number": 2419,
+  "author": "j.ortiz",
+  "ticket": {
+   "id": "CHG-104919",
+   "approvals": [
+    {
+     "approver": "bmorales",
+     "decision": "approved",
+     "at": "2026-08-27T09:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2419,
+   "author": "j.ortiz",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S20": {
+  "sample_id": "S20",
+  "change_id": "CHG-104920",
+  "pr_number": 2420,
+  "author": "sbrandt",
+  "ticket": {
+   "id": "CHG-104920",
+   "approvals": [
+    {
+     "approver": "lpatel",
+     "decision": "approved",
+     "at": "2026-08-29T20:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2420,
+   "author": "sbrandt",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S21": {
+  "sample_id": "S21",
+  "change_id": "CHG-104921",
+  "pr_number": 2421,
+  "author": "cokafor",
+  "ticket": {
+   "id": "CHG-104921",
+   "approvals": [
+    {
+     "approver": "lpatel",
+     "decision": "approved",
+     "at": "2026-09-02T09:10:00+02:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2421,
+   "author": "cokafor",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S22": {
+  "sample_id": "S22",
+  "change_id": "CHG-104922",
+  "pr_number": 2422,
+  "author": "lwu",
+  "ticket": {
+   "id": "CHG-104922",
+   "approvals": [
+    {
+     "approver": "hsato",
+     "decision": "approved",
+     "at": "2026-09-04T13:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2422,
+   "author": "lwu",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S23": {
+  "sample_id": "S23",
+  "change_id": "CHG-104923",
+  "pr_number": 2423,
+  "author": "rgarcia",
+  "ticket": {
+   "id": "CHG-104923",
+   "approvals": [
+    {
+     "approver": "bmorales",
+     "decision": "approved",
+     "at": "2026-09-07T16:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2423,
+   "author": "rgarcia",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S24": {
+  "sample_id": "S24",
+  "change_id": "CHG-104924",
+  "pr_number": 2424,
+  "author": "dkwan",
+  "ticket": {
+   "id": "CHG-104924",
+   "approvals": [
+    {
+     "approver": "lpatel",
+     "decision": "approved",
+     "at": "2026-09-11T08:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2424,
+   "author": "dkwan",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ },
+ "S25": {
+  "sample_id": "S25",
+  "change_id": "CHG-104925",
+  "pr_number": 2425,
+  "author": "mreyes",
+  "ticket": {
+   "id": "CHG-104925",
+   "approvals": [
+    {
+     "approver": "tnguyen",
+     "decision": "approved",
+     "at": "2026-09-13T13:00:00-05:00"
+    }
+   ]
+  },
+  "pr": {
+   "number": 2425,
+   "author": "mreyes",
+   "checks": {
+    "conclusion": "success"
+   }
+  }
+ }
+}

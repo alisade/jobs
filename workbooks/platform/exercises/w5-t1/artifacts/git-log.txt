@@ -1,0 +1,6 @@
+platform-observability (main), newest first
+
+a91c3d2 2026-11-03 marco.d     PLAT-1231 alertmanager: route core-services pages with continue: true
+5e07b44 2026-10-21 priya.n     PLAT-1199 port riq/mdm/rdm SLO rules to GMP Rules resources (expressions unchanged)
+c2f9e10 2026-10-20 priya.n     PLAT-1199 move riq/mdm/rdm scraping to managed collection (PodMonitoring); delete ServiceMonitors
+0d4b8aa 2026-08-14 dana.k      PLAT-1022 RIQ availability SLO: multi-window multi-burn-rate alerts (SRE workbook)

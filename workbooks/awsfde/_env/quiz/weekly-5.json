@@ -1,0 +1,167 @@
+{
+  "questions": [
+    {
+      "id": "w5-q01", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "Acme Foods asks Tidewater Ask: \"which customers are exposed if Pacific Packaging's Tijuana plant stops shipping?\" The answer needs supplier, part, product and customer relationships. Why does a Knowledge Base with vector search alone answer this badly?",
+      "options": [
+        "Vector search cannot store more than one document per supplier",
+        "The answer is a multi-hop traversal over relationships; similarity search returns chunks that look like the question, not the chain of facts that connects them",
+        "Bedrock Knowledge Bases do not support metadata filters, so the plant cannot be selected",
+        "Embeddings cannot represent company names"
+      ],
+      "answer": [1],
+      "explanation": "Relationship questions need the path supplier -> part -> product -> customer. Vector retrieval returns semantically similar chunks and leaves the model to infer the chain, which misses or invents links. Metadata filters exist, and embeddings handle names fine; neither turns retrieval into a traversal.",
+      "learn": [{"label": "What is Neptune Analytics", "href": "https://docs.aws.amazon.com/neptune-analytics/latest/userguide/what-is-neptune-analytics.html"}]
+    },
+    {
+      "id": "w5-q02", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "A customer asks you to choose between Neptune Database and Neptune Analytics for an agent that runs a few multi-hop queries and graph algorithms over a 20 GB supply-chain graph rebuilt nightly from the ERP, plus vector similarity on product descriptions. Which fits best, and why?",
+      "options": [
+        "Neptune Database, because only it supports openCypher",
+        "Neptune Analytics: an in-memory analytics engine with graph algorithms and vector similarity search, loaded from S3, suited to analytical queries over a graph you rebuild",
+        "Neptune Database, because Neptune Analytics cannot be queried from Lambda",
+        "Either; they are the same engine with different names"
+      ],
+      "answer": [1],
+      "explanation": "Neptune Analytics is the in-memory engine for analytics, algorithms and vector similarity over a graph you load in bulk. Neptune Database is the transactional, cluster-based database for high-throughput OLTP graph workloads. Both support openCypher, and both are reachable from Lambda.",
+      "learn": [{"label": "What is Neptune Analytics", "href": "https://docs.aws.amazon.com/neptune-analytics/latest/userguide/what-is-neptune-analytics.html"},
+                {"label": "What is Amazon Neptune", "href": "https://docs.aws.amazon.com/neptune/latest/userguide/intro.html"}]
+    },
+    {
+      "id": "w5-q03", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "Which header row is a valid Neptune openCypher <b>node</b> load file?",
+      "options": [
+        "<code>~id,~label,name:String</code>",
+        "<code>:ID,:LABEL,name:String,tenant_id:String</code>",
+        "<code>:START_ID,:END_ID,:TYPE</code>",
+        "<code>id,label,name</code>"
+      ],
+      "answer": [1],
+      "explanation": "openCypher load files use the system columns :ID and :LABEL for nodes and :ID, :START_ID, :END_ID, :TYPE for relationships, with typed property columns like name:String. ~id and ~label are the Gremlin CSV format. :START_ID/:END_ID/:TYPE is a relationship file.",
+      "learn": [{"label": "Load format for openCypher data", "href": "https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html"}]
+    },
+    {
+      "id": "w5-q04", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "Two tenants' supply chains go into one shared graph. Each ERP numbers its parts from 100, and the export writes <code>:ID</code> values like <code>part-100</code>. What happens on the second tenant's load?",
+      "options": [
+        "The loader creates a second vertex with the same id, one per tenant",
+        "The load fails with a duplicate id error, so nothing is affected",
+        "Ids are global to the graph, so the second load refers to the first tenant's existing vertices; their properties and relationships get mixed across tenants",
+        "Neptune adds the tenant automatically because tenant_id is a property"
+      ],
+      "answer": [2],
+      "explanation": "Node ids must be unique across all node files in the current and previous loads. A colliding id is the same vertex, so the second tenant's properties and edges land on the first tenant's nodes. Prefix ids with the tenant (acme-foods:part-100) and validate before loading.",
+      "learn": [{"label": "Load format for openCypher data", "href": "https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html"}]
+    },
+    {
+      "id": "w5-q05", "week": 5, "set": "weekly", "area": "graph", "type": "multi", "choose": 2,
+      "stem": "The agent's graph tool runs this template on a shared Neptune Analytics graph: <code>MATCH (s:Supplier)-[:SUPPLIES]-&gt;(p:Part)-[:USED_IN]-&gt;(x:Product {tenant_id: $tenant_id, name: $product}) RETURN s.name</code>. Which two changes make it tenant-safe and correct? (Choose two.)",
+      "options": [
+        "Constrain every node pattern to <code>tenant_id: $tenant_id</code>, not only the product",
+        "Let the model pass <code>tenant_id</code> as a tool argument so it can query on behalf of partners",
+        "Add <code>DISTINCT</code>, because a supplier of two parts of the product appears once per path",
+        "Concatenate the product name into the query string instead of using a parameter",
+        "Remove the labels so the query also matches unlabeled vertices"
+      ],
+      "answer": [0, 2],
+      "explanation": "Scoping every node makes any path that crosses into another tenant's vertices match nothing, which protects you from bad data and id collisions. DISTINCT fixes repeated rows from multiple paths. The tenant must come from the verified token, never the model; parameters (not concatenation) prevent injection and keep plans cacheable.",
+      "learn": [{"label": "openCypher on Neptune", "href": "https://docs.aws.amazon.com/neptune/latest/userguide/access-graph-opencypher.html"}]
+    },
+    {
+      "id": "w5-q06", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "A teammate writes <code>MATCH (s:Supplier {name: $s})-[*]-&gt;(x) RETURN x</code> to find everything downstream of a supplier. In production it times out on some tenants. What is the best fix?",
+      "options": [
+        "Raise queryTimeoutMilliseconds to the maximum",
+        "Bound the variable-length pattern (for example <code>-[*1..3]-&gt;</code>), restrict relationship types and target labels, and keep the timeout and a row limit",
+        "Run the query twice and merge the results",
+        "Switch the language to SPARQL"
+      ],
+      "answer": [1],
+      "explanation": "An unbounded variable-length path on a dense or cyclic graph explodes. Bound the hops, restrict types and labels, and keep timeouts and limits so one question cannot consume the graph. A longer timeout only makes the runaway more expensive.",
+      "learn": [{"label": "ExecuteQuery (Neptune Analytics)", "href": "https://docs.aws.amazon.com/neptune-analytics/latest/userguide/query-APIs-execute-query.html"}]
+    },
+    {
+      "id": "w5-q07", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "How should the graph tool Lambda authenticate to Neptune Analytics?",
+      "options": [
+        "A database user and password stored in an environment variable",
+        "IAM: sign requests with SigV4 using the Lambda execution role, scoped to the graph, ideally over private connectivity",
+        "No authentication; the graph is inside the VPC",
+        "An API key generated in the Neptune console"
+      ],
+      "answer": [1],
+      "explanation": "Neptune uses IAM authentication with SigV4-signed requests, so the Lambda role's policy decides what it can do. Network placement is defense in depth, not authentication. There are no database passwords or API keys for this.",
+      "learn": [{"label": "Neptune IAM authentication", "href": "https://docs.aws.amazon.com/neptune/latest/userguide/iam-auth.html"}]
+    },
+    {
+      "id": "w5-q08", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "What does GraphRAG with a Bedrock Knowledge Base on Neptune Analytics add over plain vector RAG?",
+      "options": [
+        "It replaces embeddings entirely with keyword search",
+        "During ingestion it extracts entities and relationships into a graph, and retrieval follows graph links as well as vector similarity, which helps questions that span several documents",
+        "It lets the model write and run arbitrary openCypher against your data",
+        "It removes the need for chunking"
+      ],
+      "answer": [1],
+      "explanation": "GraphRAG builds a graph of entities and relationships from your documents and uses those links during retrieval, alongside vector similarity. It does not hand the model a query console, and documents are still chunked and embedded.",
+      "learn": [{"label": "Build a Knowledge Base with Neptune Analytics graphs", "href": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-build-graphs.html"},
+                {"label": "Build GraphRAG applications using Bedrock Knowledge Bases (AWS blog)", "href": "https://aws.amazon.com/blogs/machine-learning/build-graphrag-applications-using-amazon-bedrock-knowledge-bases/"}]
+    },
+    {
+      "id": "w5-q09", "week": 5, "set": "weekly", "area": "graph", "type": "multi", "choose": 2,
+      "stem": "An agent framework offers a generic <code>run_cypher(query)</code> tool. Why should your graph tool expose named templates with typed arguments instead? (Choose two.)",
+      "options": [
+        "Model-written query text can drop the tenant constraint or be steered by prompt injection in retrieved content",
+        "openCypher cannot be sent through the ExecuteQuery API",
+        "Templates let you check tenant scoping, bound cost (limits, timeouts) and test every query before it ships",
+        "Named templates make the model faster",
+        "Neptune rejects queries longer than 200 characters"
+      ],
+      "answer": [0, 2],
+      "explanation": "Letting the model author queries hands it the authorization decision and an injection surface. Templates are reviewed, tested, scoped and bounded. ExecuteQuery accepts any openCypher text; length and speed are not the reason.",
+      "learn": [{"label": "ExecuteQuery (Neptune Analytics)", "href": "https://docs.aws.amazon.com/neptune-analytics/latest/userguide/query-APIs-execute-query.html"},
+                {"label": "OWASP Top 10 for LLM Applications", "href": "https://genai.owasp.org/llm-top-10/"}]
+    },
+    {
+      "id": "w5-q10", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "A customer only needs \"list the parts a supplier provides\" and \"list the suppliers of a part\", by id, at high request rates. What do you recommend?",
+      "options": [
+        "Neptune Analytics with a graph per supplier",
+        "A DynamoDB adjacency list (items keyed by supplier and by part, with a GSI for the reverse direction); a graph database is overkill for one-hop lookups",
+        "An OpenSearch Serverless vector index",
+        "Neptune Database with a GraphRAG Knowledge Base"
+      ],
+      "answer": [1],
+      "explanation": "One-hop lookups by key in both directions are a classic DynamoDB adjacency-list pattern: cheap, fast, serverless. A graph database earns its cost when you need multi-hop traversals, algorithms or ad hoc relationship questions.",
+      "learn": [{"label": "NoSQL design for DynamoDB", "href": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-general-nosql-design.html"}]
+    },
+    {
+      "id": "w5-q11", "week": 5, "set": "weekly", "area": "graph", "type": "single",
+      "stem": "You must isolate tenants strictly in Neptune Analytics. Compared with one shared graph plus tenant_id scoping, what is the main trade-off of one graph per tenant?",
+      "options": [
+        "Per-tenant graphs cannot run openCypher",
+        "Stronger isolation and smaller blast radius, but each graph is provisioned and billed separately, so cost and operations grow with the number of tenants",
+        "Per-tenant graphs share memory, so they are cheaper",
+        "There is no trade-off; per-tenant graphs are always better"
+      ],
+      "answer": [1],
+      "explanation": "Each Neptune Analytics graph has its own capacity and cost, so silo isolation multiplies spend and operational work. A shared graph is cheaper but relies on disciplined scoping, tenant-prefixed ids and load validation. Pick per tier: silo for regulated tenants, pooled for the rest.",
+      "learn": [{"label": "What is Neptune Analytics", "href": "https://docs.aws.amazon.com/neptune-analytics/latest/userguide/what-is-neptune-analytics.html"},
+                {"label": "SaaS Lens (Well-Architected)", "href": "https://docs.aws.amazon.com/wellarchitected/latest/saas-lens/saas-lens.html"}]
+    },
+    {
+      "id": "w5-q12", "week": 5, "set": "weekly", "area": "graph", "type": "multi", "choose": 2,
+      "stem": "After a bulk load into the shared graph, Acme answers show another tenant's suppliers. Which two signals are the fastest evidence that the load merged vertices across tenants? (Choose two.)",
+      "options": [
+        "The load statistics show the second tenant's load updated existing vertices instead of only creating new ones",
+        "Rows in Acme's query results whose vertices carry another tenant's tenant_id",
+        "The model's temperature setting",
+        "CloudWatch shows the Lambda's duration went up",
+        "The query has no DISTINCT"
+      ],
+      "answer": [0, 1],
+      "explanation": "A load that updates vertices it should have created means ids collided; results whose vertices carry another tenant's tenant_id show the mixed paths. Missing DISTINCT explains duplicates, not foreign rows; latency and temperature are unrelated.",
+      "learn": [{"label": "Load format for openCypher data", "href": "https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html"}]
+    }
+  ]
+}

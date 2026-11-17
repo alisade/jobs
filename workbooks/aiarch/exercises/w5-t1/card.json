@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/w5-t1",
+  "title": "Tool spans start new traces when tools run in parallel",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 5,
+  "optional": false,
+  "area": "AgentOps and observability",
+  "scenario": "After the change assistant started calling tools in parallel, Transaction Search shows tool and tool-server spans as orphan traces and the per-conversation latency panel is wrong. Single-tool turns are fine. On-call blames propagators and sampling. Find the real break in the exported spans and the agent code.",
+  "task": [
+    "Compare exported spans of parallel and single-tool turns",
+    "Find where the OTEL context is lost",
+    "Fix it while keeping tool calls parallel",
+    "Rule out the propagator and sampling theories"
+  ],
+  "acceptance": [
+    "One trace per turn with correct parents at both hops",
+    "Parallelism and GenAI attributes kept",
+    "ANSWER.md names the lost context with span evidence"
+  ],
+  "practices": [
+    {"label": "Week 5 Mon - OTEL GenAI conventions and ADOT", "href": "week5"},
+    {"label": "Week 5 Tue - Transaction Search and AgentCore Observability", "href": "week5"}
+  ]
+}

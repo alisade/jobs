@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.1">
+  <entity class="com.corvane.claimdesk.model.Payment" access="FIELD">
+    <table name="PAYMENT" schema="CLAIMS"/>
+    <attributes>
+      <id name="id">
+        <column name="PAYMENT_ID"/>
+        <generated-value strategy="SEQUENCE" generator="paySeq"/>
+        <sequence-generator name="paySeq" sequence-name="SEQ_PAYMENT" allocation-size="1"/>
+      </id>
+      <basic name="claimNumber"><column name="CLAIM_NUMBER"/></basic>
+      <basic name="amount"><column name="AMOUNT" precision="12" scale="2"/></basic>
+      <basic name="approvedBy"><column name="APPROVED_BY"/></basic>
+    </attributes>
+  </entity>
+</entity-mappings>

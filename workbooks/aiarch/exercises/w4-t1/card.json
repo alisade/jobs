@@ -1,0 +1,25 @@
+{
+  "id": "aiarch/w4-t1",
+  "title": "A contractor approved another team's access request (Cedar)",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 4,
+  "optional": false,
+  "area": "Identity and authorization",
+  "scenario": "A contractor manager approved a payments request through the agent's gateway tool even though the Cedar policy set forbids cross-team approvals. The engine had just moved from LOG_ONLY to ENFORCE, and on-call wants to roll back. Find the real cause in the decision log, fix the policy and prove it with schema validation.",
+  "task": [
+    "Read determining policies and evaluation errors in the decision log",
+    "Explain how Cedar treats a policy that errors",
+    "Fix the forbid with the smallest change; keep every guard rail",
+    "Pass schema validation and say why it would have caught this"
+  ],
+  "acceptance": [
+    "Correct decisions for workforce and partner principals",
+    "Schema validation passes; no evaluation errors",
+    "ANSWER.md explains error-skip with log evidence"
+  ],
+  "practices": [
+    {"label": "Week 4 Thu - Cedar and Policy in AgentCore", "href": "week4"},
+    {"label": "Week 4 Fri - LOG_ONLY then ENFORCE", "href": "week4"}
+  ]
+}

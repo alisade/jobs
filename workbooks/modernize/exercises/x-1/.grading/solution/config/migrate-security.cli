@@ -1,0 +1,14 @@
+# ClaimDesk security on JBoss EAP 8: Elytron replaces the legacy security subsystem (PicketBox), which
+# EAP 8 no longer has. The web app keeps <security-domain>claimdesk-ldap</security-domain>: Undertow
+# maps that name to the application-security-domain below. The bind password comes from the existing
+# credential store (vault expressions are not supported on EAP 8).
+batch
+/subsystem=elytron/dir-context=claimdesk-ldap-dc:add(url="ldaps://ldap-vip.corvane.local:636", principal="uid=svc-claimdesk,ou=service,dc=corvane,dc=local", credential-reference={store=claimdesk-cs, alias=ldap-bind})
+/subsystem=elytron/ldap-realm=claimdesk-ldap-realm:add(dir-context=claimdesk-ldap-dc, direct-verification=true, identity-mapping={rdn-identifier=uid, search-base-dn="ou=people,dc=corvane,dc=local", use-recursive-search=true, attribute-mapping=[{filter-base-dn="ou=groups,dc=corvane,dc=local", filter="(member={1})", from=cn, to=Roles, role-recursion=2}]})
+/subsystem=elytron/simple-role-decoder=claimdesk-from-roles:add(attribute=Roles)
+/subsystem=elytron/mapped-role-mapper=claimdesk-roles:add(keep-mapped=false, keep-non-mapped=false, role-map={claims-users=[CLAIMS_USER], claims-admins=[CLAIMS_ADMIN], claims-supervisors=[CLAIMS_SUPERVISOR], claims-auditors=[AUDITOR]})
+/subsystem=elytron/security-domain=claimdesk-sd:add(realms=[{realm=claimdesk-ldap-realm, role-decoder=claimdesk-from-roles}], default-realm=claimdesk-ldap-realm, role-mapper=claimdesk-roles, permission-mapper=default-permission-mapper)
+/subsystem=elytron/http-authentication-factory=claimdesk-http-auth:add(security-domain=claimdesk-sd, http-server-mechanism-factory=global, mechanism-configurations=[{mechanism-name=FORM, mechanism-realm-configurations=[{realm-name=ClaimDesk}]}])
+/subsystem=undertow/application-security-domain=claimdesk-ldap:add(http-authentication-factory=claimdesk-http-auth)
+run-batch
+reload

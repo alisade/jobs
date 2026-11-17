@@ -1,0 +1,13 @@
+PAGE  P2  claimdesk-intake-nightly FAILED  2026-11-13 02:14 ET
+Service: ClaimDesk / FNOL intake batch (cron on cdk-batch-03.prod)
+Impact: 1 of 214 FNOL files processed. No claim.opened events reached reserving, fraud or
+        reinsurance. Adjusters cannot see last night's new claims.
+
+-- #claimdesk-oncall --
+02:16 oncall-dana: intake died again, second night in a row. stack trace says NoSuchMethodError
+02:19 oncall-dana: 4.13.0 went out Tuesday, that is the JDK 21 release. JVM prints a warning about
+                   --illegal-access too. I think JDK 21 broke Jackson.
+02:22 oncall-dana: proposing rollback to 4.12.3 on JDK 8 (CHG-88213 draft)
+02:30 dev-ravi:   CI was green for 4.13.0, all unit tests passed on JDK 21. Works on my machine??
+02:41 lead:       hold the rollback. please find the actual cause first, rolling back loses the
+                  event schema v3 that reserving went live with on Wednesday.

@@ -1,0 +1,20 @@
+{
+  "riq-api": [
+    {
+      "at": "2026-11-10T13:55:00Z",
+      "version": "5.3.0",
+      "by": "argocd/riq-api-prod2",
+      "change": "CHG-8840"
+    }
+  ],
+  "mdm-api": [
+    {
+      "at": "2026-11-10T02:58:00Z",
+      "version": "2.9.0",
+      "by": "argocd/mdm-api-prod2",
+      "change": "CHG-8831",
+      "note": "memory limit 512Mi unchanged, new cache warmup"
+    }
+  ],
+  "rdm-worker": []
+}

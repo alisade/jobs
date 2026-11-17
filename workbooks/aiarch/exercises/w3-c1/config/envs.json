@@ -1,0 +1,24 @@
+{
+  "sharedServices": { "account": "111100000002", "region": "us-east-1", "repositoryName": "lighthouse/helpdesk-agent" },
+  "envs": {
+    "dev": {
+      "account": "111100000003", "region": "us-east-1",
+      "vpcCidr": "10.40.0.0/20",
+      "inferenceProfileId": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "foundationModelId": "anthropic.claude-haiku-4-5-20251001-v1:0",
+      "idpDiscoveryUrl": "https://idp.harborpoint.example/oauth2/lighthouse/.well-known/openid-configuration",
+      "gatewayAudience": "lighthouse-gateway-dev",
+      "endpoints": { "dev": null }
+    },
+    "prod": {
+      "account": "111100000004", "region": "us-east-1",
+      "vpcCidr": "10.41.0.0/20",
+      "inferenceProfileId": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "foundationModelId": "anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "idpDiscoveryUrl": "https://idp.harborpoint.example/oauth2/lighthouse/.well-known/openid-configuration",
+      "gatewayAudience": "lighthouse-gateway",
+      "endpoints": { "canary": null, "prod": "7" }
+    }
+  },
+  "tags": { "CostCenter": "cc-4410-lighthouse", "Owner": "platform-engineering" }
+}

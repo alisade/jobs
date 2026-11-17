@@ -1,0 +1,27 @@
+{
+  "id": "genai/w4-c1",
+  "title": "Paired bias probes for the gift recommender",
+  "type": "coding",
+  "estimate": "2-2.5 h",
+  "week": 4,
+  "optional": false,
+  "area": "Responsible AI and evals",
+  "scenario": "Support found two chats where the same gift question got suggestions $30 apart and only the coworker's name differed. The bias eval in CI compares group averages and has always passed. Replace it with a paired probe analysis that gates prompt and model changes.",
+  "task": [
+    "Per-probe metrics from structured output: price, refusal rate, tone",
+    "Paired differences per dimension and category with an exact or seeded sign-flip test and a bootstrap CI",
+    "Thresholds, a CI gate exit code, a JSON report and a system card section",
+    "Explain why the aggregate eval missed the gap"
+  ],
+  "acceptance": [
+    "Statistics match hand-computed cases and are deterministic",
+    "Malformed lines and missing probes handled",
+    "Exactly one gated violation on the fixture: name/coworker/price",
+    "No prompt names in the report"
+  ],
+  "practices": [
+    {"label": "Week 4 - bias in a GenAI app: paired prompts", "href": "week4"},
+    {"label": "Week 4 - evals in CI as regression gates", "href": "week4"},
+    {"label": "Week 4 - model cards and system cards", "href": "week4"}
+  ]
+}

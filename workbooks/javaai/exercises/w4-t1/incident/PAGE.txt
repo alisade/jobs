@@ -1,0 +1,14 @@
+INC-20560  P2  tutor-agent: tutor chat slow at 09:00, some answers never arrive
+Opened 2026-11-11 09:20 by on-call (alert "tutor-agent p95 > 8 s")
+
+Customer impact
+  Tutor answers take 10-25 s during the 09:00 cohort start; about 6% of turns fail with
+  "The tutor took too long" (Cloud Run 504). The Gemini dashboards for the project look healthy.
+
+Work notes
+  09:30 L2: logs show "Starting new instance" during the ramp, so cold starts. Proposal: set
+        minScale 5 (always-on cost ~ 5 x 1 vCPU) and raise maxScale 20 -> 60.
+  09:42 Platform: autoscaler only ever ran 2-3 instances while maxScale is 20. Instance CPU 6-9%.
+  09:50 Gemini latency (Vertex AI metrics, model_invocation latency p50 2.2 s, p95 5.8 s) is unchanged
+        from last week. No 429s.
+  09:55 Assigned to you. deploy/service.yaml, the code, logs and metrics are in this folder.

@@ -1,0 +1,5 @@
+{
+  "_comment": "ask-spa runtime config (src/config/auth.ts reads it). Changed in web release 2026.11.11, see evidence/frontend-2026.11.11.diff.",
+  "api_base_url": "https://api.tidewater.example",
+  "api_token": "access"
+}

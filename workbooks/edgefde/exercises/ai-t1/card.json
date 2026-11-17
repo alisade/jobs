@@ -1,0 +1,26 @@
+{
+  "id": "edgefde/ai-t1",
+  "title": "The assistant raised machine 4's alarm threshold after reading an alert note",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": "ai",
+  "optional": false,
+  "area": "LLMs at the edge",
+  "scenario": "P04's alarms stopped while vibration kept rising: after an operator asked the read-only assistant about the afternoon alerts, the P04 threshold was 40 dB. The model was upgraded that morning. You have the transcript, the audit log and the recorded model turns.",
+  "task": [
+    "Separate the trigger from the root cause using the transcript and audit log",
+    "Rule the model upgrade in or out",
+    "Enforce read-only in the dispatcher with an allow-list and audited blocks",
+    "Replace the combined read/write tool with a read-only one"
+  ],
+  "acceptance": [
+    "Recorded injection and alias variant: no write, P04 stays at 12 dB, blocks audited",
+    "Offered tools are read-only; dispatch refuses writes even when called directly",
+    "Legitimate reads still work",
+    "ANSWER.md: trigger vs cause, red herring, security argument"
+  ],
+  "practices": [
+    {"label": "AI Integration - security: enforcement lives server-side", "href": "ai"},
+    {"label": "Week 6 Tue - tool scoping for edge agents", "href": "week6"}
+  ]
+}

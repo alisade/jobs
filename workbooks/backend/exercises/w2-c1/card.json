@@ -1,0 +1,29 @@
+{
+  "id": "backend/w2-c1",
+  "title": "Keystone core schema with tenancy enforced in the database",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 2,
+  "optional": false,
+  "area": "PostgreSQL: modeling, indexing, RLS, migrations",
+  "scenario": "Lumenfold's security review says tenancy in Keystone is enforced by PostgreSQL, not by every developer remembering a WHERE clause, and the CRM's validation rules become constraints an agent cannot route around. Write the first migration for accounts, contacts, opportunities and activities, with forced row-level security and indexes for the three hot queries, and prove it on real PostgreSQL (PGlite) with 87k seeded rows.",
+  "task": [
+    "Model five tables with identity keys, composite (tenant_id, id) foreign keys and CHECK/UNIQUE business rules",
+    "Partial unique index for live contact emails, sf_id unique per tenant, GIN on custom_fields",
+    "RLS ENABLE + FORCE with USING and WITH CHECK on current_setting('app.tenant_id', true); NOLOGIN app role without BYPASSRLS",
+    "Indexes so the timeline, open-opportunities and custom-field queries avoid sequential scans as keystone_app",
+    "Explain the plans, including what happens to the GIN index under RLS, in ANSWER.md"
+  ],
+  "acceptance": [
+    "No tenant set: zero rows; tenant set: only own rows; cross-tenant inserts and updates rejected",
+    "Cross-tenant references impossible even as the owner; stage, amount, close-date and email rules enforced",
+    "No Seq Scan on the big tables for the three queries after ANALYZE",
+    "ANSWER.md quotes the plans and explains them"
+  ],
+  "practices": [
+    {"label": "Week 2 Mon - modeling and constraints", "href": "week2"},
+    {"label": "Week 2 Tue - indexes", "href": "week2"},
+    {"label": "Week 2 Wed - reading plans (EXPLAIN)", "href": "week2"},
+    {"label": "Week 2 Thu - row-level security for tenancy and SET LOCAL", "href": "week2"}
+  ]
+}

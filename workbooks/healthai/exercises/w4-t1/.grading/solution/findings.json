@@ -1,0 +1,6 @@
+{
+  "root_cause_file": "pa_graph/review_service.py",
+  "root_cause_symbol": "RUN_CONFIG (module-level config mutated in submit_decision before an await)",
+  "thread_id_scheme_is_the_cause": false,
+  "cases_with_wrong_determinations": ["PA-2026-0008"]
+}

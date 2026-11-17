@@ -1,0 +1,26 @@
+{
+  "id": "genai/ai-t1",
+  "title": "Prompt cache hit rate fell to zero after the release; latency and cost up",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": "ai",
+  "optional": false,
+  "area": "AI integration fundamentals",
+  "scenario": "After a release that moved tools to a feature-flag set and added the current time to every request, the assistant's prompt cache hit rate fell from 87% to 2%, time to first token tripled and the invoice tripled, while the internal cost dashboard stayed flat. The team blames the timestamp.",
+  "task": [
+    "Compare request dumps and per-worker usage to find what changes in the cached prefix",
+    "Explain why a few requests still hit and whether the timestamp matters",
+    "Make the prefix byte-stable across processes; keep one breakpoint and dynamic data after it",
+    "Fix the cost formula so the dashboard matches the invoice"
+  ],
+  "acceptance": [
+    "Same prefix hash across worker processes with different PYTHONHASHSEED",
+    "Tools sorted, one breakpoint after the static system prompt",
+    "Cache writes and reads priced correctly",
+    "Root cause named with evidence; timestamp ruled out"
+  ],
+  "practices": [
+    {"label": "AI Integration - context engineering and prompt caching", "href": "ai"},
+    {"label": "AI Integration - observability: tokens and cost per call", "href": "ai"}
+  ]
+}

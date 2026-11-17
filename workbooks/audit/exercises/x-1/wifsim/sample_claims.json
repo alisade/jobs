@@ -1,0 +1,19 @@
+{
+  "aud": "api://b6d0a3f2-41c9-4e7a-9b5d-0e8c2f71a6d4",
+  "iss": "https://sts.windows.net/7c1e4b2a-5d3f-4e81-9a6c-2b0d8f4e1a37/",
+  "iat": 1791349800,
+  "nbf": 1791349800,
+  "exp": 1791436500,
+  "aio": "k2BgYHi9...",
+  "appid": "9a41e0b5-2c7d-4f38-8e19-d5b6a3c0f271",
+  "appidacr": "2",
+  "idp": "https://sts.windows.net/7c1e4b2a-5d3f-4e81-9a6c-2b0d8f4e1a37/",
+  "idtyp": "app",
+  "oid": "3f9d2c71-8a4b-4e6f-b1d2-6c7e9a0f5b84",
+  "rh": "0.AXwA...",
+  "sub": "3f9d2c71-8a4b-4e6f-b1d2-6c7e9a0f5b84",
+  "tid": "7c1e4b2a-5d3f-4e81-9a6c-2b0d8f4e1a37",
+  "uti": "Qx3v7l1",
+  "ver": "1.0",
+  "xms_mirid": "/subscriptions/2d6e9f10-4b7a-4c3e-9d21-7f8a0b3c5e66/resourcegroups/rg-controlpilot-prod/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-controlpilot-func"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "javaai/w2-t1",
+  "title": "The quiz shows the previous lesson's questions and answers are rejected",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 2,
+  "optional": false,
+  "area": "Angular and TypeScript",
+  "scenario": "On slow connections learners click a new lesson and still see the previous lesson's quiz; submitting fails with a 409 'quiz item does not belong to lesson'. L2 blames CDN caching and wants no-store. You get a HAR summary, client error beacons, CDN headers and the RxJS store behind the screen.",
+  "task": [
+    "Reproduce the bug in a test with responses released out of order",
+    "Rule the cache theory in or out",
+    "Fix the store: latest wins, cancel in flight, clear and gate submit"
+  ],
+  "acceptance": [
+    "Hidden jest tests for ordering, cancellation, gating and recovery",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 2 Tue - RxJS flattening operators", "href": "week2"},
+    {"label": "Week 2 Wed - HttpClient and cancellation", "href": "week2"}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "platform/w5-c1",
+  "title": "Admission gate for Helm-rendered manifests",
+  "type": "coding",
+  "estimate": "2-3 h",
+  "week": 5,
+  "optional": false,
+  "area": "DevSecOps on GCP",
+  "scenario": "Tessellate is about to switch Binary Authorization on prod-blue from dry-run to enforce. Before that, the platform team wants the same decisions made in CI, on the output of helm template, so a chart fails in the pull request instead of at admission. A spike left a half-written gate.py; the security team wrote the rules (PLAT-1201).",
+  "task": [
+    "Load helm template output: empty documents, comment-only documents, kind: List",
+    "Find every pod template (Deployment, StatefulSet, DaemonSet, Job, CronJob, Pod) and every container including init containers",
+    "Registry allow-list (Artifact Registry, prod project only), digest pinning, attestation by the required attestor",
+    "Pod hardening, resources, readiness probes, PDBs, Workload Identity Federation for GKE",
+    "Break-glass waives only the attestation rule and is reported as an audited exception; dry-run vs enforce exit codes"
+  ],
+  "acceptance": [
+    "The shipped render yields exactly the five expected findings; mdm-api is clean",
+    "Look-alike registry hosts and other projects are rejected; tag+digest counts as pinned",
+    "Attestations count only for the right attestor, digest and repository",
+    "Exit 0 in dry-run, 1 on violations in enforce, 2 on unparseable input"
+  ],
+  "practices": [
+    {"label": "Week 5 - Mon: Artifact Registry and Artifact Analysis", "href": "week5"},
+    {"label": "Week 5 - Tue: Binary Authorization and SLSA", "href": "week5"},
+    {"label": "Week 5 - Wed: GKE hardening and Workload Identity Federation for GKE", "href": "week5"}
+  ]
+}

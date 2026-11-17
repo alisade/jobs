@@ -1,0 +1,12 @@
+[
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "text": "{\"change_id\": \"CHG-104240\", \"recommendation\": \"keep_open\", \"reason\": \"self-approved, CAB skipped\", \"citations\": [\"approval-email p1 para3\"]}"
+    }
+   ]
+  }
+ }
+]

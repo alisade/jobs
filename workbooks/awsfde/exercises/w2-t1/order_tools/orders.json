@@ -1,0 +1,11 @@
+{
+  "orders": [
+    {"order_id": "PO-48812", "customer": "Acme Foods Denver DC", "status": "SHIPPED", "shipment_id": "SH-10001",
+     "placed": "2026-11-03", "lines": [{"sku": "PAL-STD-48", "qty": 40, "unit_price": 12.5}, {"sku": "WRAP-HD", "qty": 12, "unit_price": 31.0}]},
+    {"order_id": "PO-48817", "customer": "Acme Foods Boise DC", "status": "DELIVERED", "shipment_id": "SH-10002",
+     "placed": "2026-11-01", "lines": [{"sku": "PAL-STD-48", "qty": 20, "unit_price": 12.5}]},
+    {"order_id": "PO-48830", "customer": "Acme Foods Fresno Plant", "status": "OPEN", "shipment_id": null,
+     "placed": "2026-11-09", "lines": [{"sku": "REEFER-SLOT", "qty": 3, "unit_price": 410.0}, {"sku": "TEMP-LOG", "qty": 3, "unit_price": 18.75}]}
+  ],
+  "tax_rate": 0.08
+}

@@ -1,0 +1,9 @@
+{
+  "_comment": "Groups claim the Okta custom authorization server emits for each user (direct memberships only; Okta does not expand nested groups). Captured from the preview tenant on 2026-11-06.",
+  "ana":  ["Everyone", "APP_ClaimDesk_Users", "APP_ClaimDesk_Adjusters"],
+  "ben":  ["Everyone", "APP_ClaimDesk_Users", "APP_ClaimDesk_SeniorAdjusters"],
+  "cara": ["Everyone", "APP_ClaimDesk_Users", "APP_ClaimDesk_Managers"],
+  "dev":  ["Everyone", "APP_ClaimDesk_Users", "APP_ClaimDesk_Auditors"],
+  "eli":  ["Everyone", "APP_ClaimDesk_Users"],
+  "gus":  ["Everyone", "APP_ClaimDesk_Viewers_EMEA"]
+}

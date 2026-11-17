@@ -1,0 +1,6 @@
+{"tenant_id": "brightline-health",
+ "suppliers": [{"seq": 1, "name": "Northwind Medical Gloves"}, {"seq": 2, "name": "Clearview Syringe Co"}],
+ "parts": [{"seq": 100, "name": "Nitrile glove M"}, {"seq": 101, "name": "Syringe 5ml"}],
+ "products": [{"seq": 910, "name": "Exam room kit"}],
+ "supplies": [[1, 100], [2, 101]],
+ "bom": [[100, 910], [101, 910]]}

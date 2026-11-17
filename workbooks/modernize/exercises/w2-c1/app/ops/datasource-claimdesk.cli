@@ -1,0 +1,6 @@
+# jboss-cli script used when the hosts were built (2019)
+data-source add --name=ClaimDeskDS --jndi-name=java:/jdbc/ClaimDeskDS --driver-name=oracle \
+  --connection-url=jdbc:oracle:thin:@//clmprd-scan.corvane.local:1521/CLMPRD \
+  --user-name=claimdesk_app --password=${env.CLAIMDESK_DB_PW} --max-pool-size=60
+/subsystem=mail/mail-session=claimdesk:add(jndi-name=java:/mail/ClaimDesk)
+/subsystem=naming/binding=java\:global\/claimdesk\/fraudScoreUrl:add(binding-type=simple, value="http://sentinel.siu.corvane.local:8080/score")

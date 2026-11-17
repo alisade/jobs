@@ -1,0 +1,41 @@
+# Build and publish the agent image to ECR in shared-services, then deploy (deploy jobs omitted here).
+# AgentCore Runtime runs linux/arm64 only. The shared runners are x86_64, so build with buildx for
+# linux/arm64 under QEMU (an ARM runner tag such as saas-linux-small-arm64 is the faster option).
+stages: [build, gate, deploy]
+
+variables:
+  ECR_REGISTRY: 111100000002.dkr.ecr.us-east-1.amazonaws.com
+  IMAGE: ${ECR_REGISTRY}/lighthouse/helpdesk-agent
+  IMAGE_TAG: ${CI_COMMIT_TAG}
+
+build-image:
+  stage: build
+  image: docker:27
+  services: [docker:27-dind]
+  tags: [saas-linux-small-amd64]
+  id_tokens:
+    AWS_ID_TOKEN:
+      aud: https://gitlab.com
+  before_script:
+    - apk add --no-cache aws-cli
+    - ./scripts/assume-role.sh arn:aws:iam::111100000002:role/gitlab-image-push
+    - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "${ECR_REGISTRY}"
+    - docker run --privileged --rm tonistiigi/binfmt --install arm64
+    - docker buildx create --use --name lighthouse-arm64
+  script:
+    - docker buildx build --platform linux/arm64 --provenance=false -t "${IMAGE}:${IMAGE_TAG}" --push .
+    - docker buildx imagetools inspect --raw "${IMAGE}:${IMAGE_TAG}" > manifest.json
+    - docker buildx imagetools inspect --format '{{json .Image}}' "${IMAGE}:${IMAGE_TAG}" > image-config.json
+  artifacts:
+    paths: [manifest.json, image-config.json]
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/
+
+image-arch-gate:
+  stage: gate
+  image: python:3.12-slim
+  needs: [build-image]
+  script:
+    - python scripts/check_image_arch.py manifest.json image-config.json
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/

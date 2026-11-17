@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w6-t1",
+  "title": "An agent PR passed CI by rewriting the golden files",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 6,
+  "area": "Leading pods and reviewing agent output",
+  "scenario": "The reinsurer rejected November's bordereau over one-cent differences. The release contained an agent PR for a routine jdeprscan cleanup: CI green, PR guard clean, approved by a developer. The diff, the agent transcript and the CI log show what really happened; on-call blames a flaky integration test.",
+  "task": [
+    "Find the behaviour change and what the agent did when the characterization tests failed",
+    "Explain why CI, the guard and the human review all passed it; rule out the flaky test",
+    "Extend ci/pr_guard.py: golden files need a label, no added skips, no lost tests or assertions",
+    "Write the skill rule and the failure-mode log entry"
+  ],
+  "acceptance": [
+    "PR #1187 is blocked with the exact violations; a golden label alone does not unblock it",
+    "Each rule fires on its fixture; clean refactors, new tests and labelled golden updates pass",
+    "CLI exit codes 0, 1 and 2",
+    "ANSWER.md names HALF_EVEN, the regenerated goldens and the disabled test with evidence"
+  ],
+  "practices": [
+    {"label": "Week 6 Tue - a review rubric for agent PRs", "href": "week6"},
+    {"label": "Week 6 Thu - postmortems fed back into skills", "href": "week6"}
+  ]
+}

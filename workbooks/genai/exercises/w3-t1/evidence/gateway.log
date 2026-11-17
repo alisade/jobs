@@ -1,0 +1,14 @@
+2026-11-11T06:14:02.118Z WARN gateway conv=c-8f21aa model=primary attempt=1 read timeout after 10.0s
+2026-11-11T06:14:12.131Z WARN gateway conv=c-8f21aa model=primary attempt=2 read timeout after 10.0s
+2026-11-11T06:14:22.140Z WARN gateway conv=c-8f21aa model=primary attempt=3 read timeout after 10.0s
+2026-11-11T06:14:32.152Z WARN gateway conv=c-8f21aa model=primary attempt=4 read timeout after 10.0s
+2026-11-11T06:14:42.166Z WARN gateway conv=c-8f21aa model=fallback attempt=1 read timeout after 10.0s
+2026-11-11T06:14:52.170Z WARN gateway conv=c-8f21aa model=fallback attempt=2 read timeout after 10.0s
+2026-11-11T06:15:02.181Z WARN gateway conv=c-8f21aa model=fallback attempt=3 read timeout after 10.0s
+2026-11-11T06:15:12.190Z WARN gateway conv=c-8f21aa model=fallback attempt=4 read timeout after 10.0s
+2026-11-11T06:15:12.191Z ERROR api /assistant/answer conv=c-8f21aa 500 GatewayError: all models failed (70.1s)
+2026-11-11T06:15:13.004Z INFO gateway conv=c-90b1e2 model=primary attempt=1 outcome=ok input_tokens=1311 output_tokens=187 cost_usd=0.0067
+2026-11-11T06:15:20.877Z WARN gateway conv=c-77d0c4 model=primary attempt=1 read timeout after 10.0s
+2026-11-11T06:15:30.889Z WARN gateway conv=c-77d0c4 model=primary attempt=2 read timeout after 10.0s
+2026-11-11T06:15:35.410Z INFO gateway conv=c-77d0c4 model=primary attempt=3 outcome=ok input_tokens=1322 output_tokens=402 cost_usd=0.0100
+# note: only successful attempts are written with tokens and cost; failed attempts log a warning only

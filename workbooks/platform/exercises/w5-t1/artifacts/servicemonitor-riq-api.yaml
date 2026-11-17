@@ -1,0 +1,30 @@
+# Deleted 2026-10-20 in PLAT-1199 (kube-prometheus-stack, before the move to managed collection).
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: riq-api
+  namespace: riq
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: riq-api
+  targetLabels: [service]
+  endpoints:
+    - port: http
+      interval: 30s
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: riq-api
+  namespace: riq
+  labels:
+    app.kubernetes.io/name: riq-api
+    service: riq-api
+spec:
+  selector:
+    app.kubernetes.io/name: riq-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080

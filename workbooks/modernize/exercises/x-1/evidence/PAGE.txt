@@ -1,0 +1,10 @@
+CHG-88302  ClaimDesk on JBoss EAP 8 (cdk-app8-01, test)  status: FAILED, rolled back to EAP 7.4
+Owner: modernization pod. Window: 2026-11-14 20:00-23:00 ET.
+
+20:14 pod-dev-tom: ran config/migrate-security.cli on the EAP 8 node: errors (see cli-output.txt)
+20:31 pod-dev-tom: deployed claimdesk-web.war anyway, deployment fails (server.log excerpt)
+20:40 pod-dev-tom: lots of warnings too, the WFLYEE0007 ones and a datasource deprecation. maybe the WAR
+                   needs rebuilding for Jakarta first?
+20:52 lead: the WAR is the Jakarta EE 10 build that passed on WildFly in CI (w4-c1 work). Find out what
+            the server needs, write the Elytron config, and keep login and roles identical. The
+            security team wants the same LDAP, the same groups, and no secrets in the CLI script.

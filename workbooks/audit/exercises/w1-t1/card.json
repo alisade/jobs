@@ -1,0 +1,27 @@
+{
+  "id": "audit/w1-t1",
+  "title": "Every change passes after the prompt v2 rollout",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 1,
+  "optional": false,
+  "area": "Gemini tool calling and structured outputs",
+  "scenario": "After release 2026.10.2, ControlPilot scores 25 of 25 CM-03 samples as pass with zero validation errors; last quarter there were 3 exceptions, and the senior reviewer found two misses in a five-sample spot check. The team blames the temperature bump or the new model version. You get the code, recordings, release notes, diff and logs.",
+  "task": [
+    "Reproduce the all-pass run and trace one reviewer exception end to end",
+    "Prove the root cause with the recordings, contract and diff; rule the team's theories in or out",
+    "Fix it so a missing or renamed key can never become a passing attribute",
+    "Write root cause, evidence and the impact on conclusions already issued in ANSWER.md"
+  ],
+  "acceptance": [
+    "The Q3 run reports exactly the real exceptions with the failed attribute",
+    "Schema on the request; contract rejects missing and unknown keys",
+    "Attributes come from timestamps and the directory, not the model's booleans",
+    "Root cause and evidence in ANSWER.md match the injected fault"
+  ],
+  "practices": [
+    {"label": "Week 1 Wed - structured outputs and the danger of defaults", "href": "week1"},
+    {"label": "Week 1 Fri - validation and retry", "href": "week1"},
+    {"label": "Week 6 - evals as a regression gate", "href": "week6"}
+  ]
+}

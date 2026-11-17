@@ -1,0 +1,70 @@
+{
+  "scenario": "s08",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s08_1",
+            "name": "get_alert",
+            "input": {
+              "alert_id": "ALR-10418"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s08_2",
+            "name": "query_metrics",
+            "input": {
+              "query": "rdm_queue_depth",
+              "window": "6h"
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_s08_3",
+            "name": "recent_deploys",
+            "input": {
+              "service": "rdm-worker",
+              "hours": 24
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Here is the triage note.\n{\"alert_id\": \"ALR-10418\", \"severity\": \"SEV3\", \"suspected_cause\": \"rdm-ingest backlog grows steadily with no deploy; consumers are not keeping up\", \"evidence\": [{\"tool_use_id\": \"toolu_s08_2\", \"summary\": \"queue depth 1.2k to 52k over 6h\"}], \"needs_human\": false}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    },
+    {
+      "expect": {
+        "user_text_contains": "next_steps"
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Corrected:\n{\"alert_id\": \"ALR-10418\", \"severity\": \"SEV3\", \"suspected_cause\": \"rdm-ingest backlog grows steadily with no deploy; consumers are not keeping up\", \"evidence\": [{\"tool_use_id\": \"toolu_s08_2\", \"summary\": \"queue depth 1.2k to 52k over 6h\"}, {\"tool_use_id\": \"toolu_s08_3\", \"summary\": \"no rdm-worker deploys in 24h\"}], \"next_steps\": [\"Check rdm-worker consumer lag and scaling\", \"Ticket for RDM\"], \"needs_human\": false}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    }
+  ]
+}

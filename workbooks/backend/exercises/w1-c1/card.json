@@ -1,0 +1,30 @@
+{
+  "id": "backend/w1-c1",
+  "title": "Whiteboard write-up: the Keystone platform layer",
+  "type": "design",
+  "estimate": "2-3 h",
+  "week": 1,
+  "optional": false,
+  "area": "System design and platform architecture",
+  "scenario": "Lumenfold is moving its sales, partner and renewals apps off a third-party CRM onto Keystone, a platform it builds and owns. You are in the first architecture session: turn the brief, the CRM inventory and the volumes into a platform design with service boundaries, a data model, interfaces (APIs, events, workflows, agent tools) and a migration path, plus two ADRs.",
+  "task": [
+    "Requirements and non-goals, back-of-envelope scale from inputs/volumes.md",
+    "Service boundaries drawn around data ownership, with a diagram",
+    "Core data model for accounts, contacts, leads, opportunities and activities, multi-tenant",
+    "Interfaces: which capabilities are APIs, which are events, which are workflows, which are agent tools",
+    "Deep dives on the two riskiest parts, migration path off the CRM",
+    "ADR 0001 (tenancy model) and ADR 0002 (how services integrate)"
+  ],
+  "acceptance": [
+    "Graded by rubric only (grade.sh reports 0/0; the automated row does not apply)",
+    "Every table has exactly one owning service; no service reads another's tables",
+    "Numbers drive choices: storage, write rate, fan-out of the activity timeline",
+    "Each ADR has context, at least two real options, a decision and consequences"
+  ],
+  "practices": [
+    {"label": "Week 1 Mon - whiteboard method", "href": "week1"},
+    {"label": "Week 1 Tue - service boundaries, data ownership, multi-tenancy", "href": "week1"},
+    {"label": "Week 1 Wed - consistency, sagas and ADRs", "href": "week1"},
+    {"label": "Week 1 Thu - CRM domain: Salesforce objects, IDs, hidden logic", "href": "week1"}
+  ]
+}

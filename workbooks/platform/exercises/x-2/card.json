@@ -1,0 +1,28 @@
+{
+  "id": "platform/x-2",
+  "title": "Chart 3.0 reached every cluster at once",
+  "type": "troubleshooting",
+  "estimate": "1.5-2 h",
+  "week": 7,
+  "optional": true,
+  "area": "Helm and ArgoCD at fleet scale",
+  "scenario": "Dana bumped the riq-api canary ApplicationSet to chart 3.0.0 for dev-1 and stg-1 with a 48-hour soak planned. Twenty-five minutes later both prod clusters were CrashLooping on 3.0.0 and Priya was paged for a fast burn on the RIQ SLO. The on-call channel blames the selfHeal change from last week. You get the ApplicationSets, cluster secrets, the chart index, Argo events and app history, and the git log.",
+  "task": [
+    "Reproduce what each cluster resolves with the local ApplicationSet simulator",
+    "Trace why prod synced 3.0.0 without a stable bump; rule out the red herring",
+    "Fix the stable ApplicationSet so a new major can only reach prod through a reviewed bump",
+    "Keep every cluster, including new unlabelled ones, in exactly one wave",
+    "Root cause with evidence and a safer promotion design in ANSWER.md"
+  ],
+  "acceptance": [
+    "prod-blue and prod-green stay on 2.x even when newer 2.x and 3.x charts are published",
+    "Canary clusters stay on a 3.x release; Application names and value files unchanged",
+    "Every cluster is targeted by exactly one ApplicationSet",
+    "Root cause names the unbounded targetRevision, with evidence, and explains selfHeal's role"
+  ],
+  "practices": [
+    {"label": "Week 4 - ArgoCD ApplicationSets and fleet promotion", "href": "week4"},
+    {"label": "Week 4 - Helm chart versioning discipline", "href": "week4"},
+    {"label": "Add-on week - fleet design and incident drills", "href": "week7"}
+  ]
+}

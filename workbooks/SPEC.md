@@ -1,6 +1,6 @@
 # Workbook specification
 
-The workbooks (fde, go, ms, connect) share one layout and one grader. A workbook is an HTML page with the
+The workbooks (fde, go, ms, connect, audit, modernize, genai, awsfde, javaai, platform, backend, edgefde, aiarch, healthai) share one layout and one grader. A workbook is an HTML page with the
 problems and a self-exam quiz; each hands-on problem is a folder you solve in your editor
 and grade with `/grade <track>/<id>` in Claude Code, run from this directory.
 
@@ -14,7 +14,7 @@ workbooks/
   grades/grades.json          source of truth for scores
   grades/grades.js            generated: window.GRADES = {...}; loaded by every workbook
   grades/feedback/<track>/<id>/<timestamp>.md
-  <track>/workbook.html       track = fde | go | ms
+  <track>/workbook.html       track = one of the names above
   <track>/exercises/<id>/     one folder per hands-on exercise
 ```
 
@@ -128,5 +128,5 @@ Self-contained single file in the same visual style and behavior as `../study-pl
 5. Scoreboard tab: every exercise with latest/best score, pass/retry, attempts, and the quiz
    score per week; overall percent complete.
 6. The page notes at the top: "Scores update after /grade; reload the page."
-7. localStorage key distinct per workbook: `wb-fde-v1`, `wb-go-v1`, `wb-ms-v1`, `wb-connect-v1`.
+7. localStorage key distinct per workbook: `wb-<track>-v1` (e.g. `wb-fde-v1`, `wb-connect-v1`, `wb-healthai-v1`).
 8. Link checks: docs.aws.amazon.com returns HTTP 200 for missing pages, so compare page titles, not only status codes.

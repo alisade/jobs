@@ -1,0 +1,6 @@
+Brightline Health change BH-CHG-2231 (customer side)
+Window: 2026-11-11 22:00-22:30 ET
+Action: rotate the SAML signing certificate on the Brightline IdP; Tidewater ops uploaded the new
+metadata file to the brightline-saml identity provider in user pool us-east-1_TideW8ter at 22:14 ET
+(UpdateIdentityProvider). Test sign-in by Brightline IT at 22:20 ET: success.
+Attribute mapping unchanged: custom:tenant_id <- "tenant".

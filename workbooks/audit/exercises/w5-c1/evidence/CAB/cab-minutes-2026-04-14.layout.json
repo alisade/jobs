@@ -1,0 +1,296 @@
+{
+ "apiVersion": "2024-11-30",
+ "modelId": "prebuilt-layout",
+ "content": "Change Advisory Board - minutes\nMeeting held 2026-04-14 from 15:00 to 15:45 America/Chicago. Chair: T. Nguyen. Quorum present.\nEmergency changes reviewed after the fact are recorded with the time of the CAB decision.\nDecisions",
+ "pages": [
+  {
+   "pageNumber": 1,
+   "width": 8.5,
+   "height": 11,
+   "unit": "inch"
+  },
+  {
+   "pageNumber": 2,
+   "width": 8.5,
+   "height": 11,
+   "unit": "inch"
+  }
+ ],
+ "paragraphs": [
+  {
+   "content": "Change Advisory Board - minutes",
+   "boundingRegions": [
+    {
+     "pageNumber": 1,
+     "polygon": [
+      1.0,
+      1.0,
+      7.5,
+      1.0,
+      7.5,
+      1.3,
+      1.0,
+      1.3
+     ]
+    }
+   ],
+   "spans": [
+    {
+     "offset": 0,
+     "length": 31
+    }
+   ],
+   "role": "title"
+  },
+  {
+   "content": "Meeting held 2026-04-14 from 15:00 to 15:45 America/Chicago. Chair: T. Nguyen. Quorum present.",
+   "boundingRegions": [
+    {
+     "pageNumber": 1,
+     "polygon": [
+      1.0,
+      1.0,
+      7.5,
+      1.0,
+      7.5,
+      1.3,
+      1.0,
+      1.3
+     ]
+    }
+   ],
+   "spans": [
+    {
+     "offset": 0,
+     "length": 94
+    }
+   ]
+  },
+  {
+   "content": "Emergency changes reviewed after the fact are recorded with the time of the CAB decision.",
+   "boundingRegions": [
+    {
+     "pageNumber": 1,
+     "polygon": [
+      1.0,
+      1.0,
+      7.5,
+      1.0,
+      7.5,
+      1.3,
+      1.0,
+      1.3
+     ]
+    }
+   ],
+   "spans": [
+    {
+     "offset": 0,
+     "length": 89
+    }
+   ]
+  },
+  {
+   "content": "Decisions",
+   "boundingRegions": [
+    {
+     "pageNumber": 2,
+     "polygon": [
+      1.0,
+      1.0,
+      7.5,
+      1.0,
+      7.5,
+      1.3,
+      1.0,
+      1.3
+     ]
+    }
+   ],
+   "spans": [
+    {
+     "offset": 0,
+     "length": 9
+    }
+   ],
+   "role": "sectionHeading"
+  }
+ ],
+ "tables": [
+  {
+   "rowCount": 4,
+   "columnCount": 4,
+   "cells": [
+    {
+     "rowIndex": 0,
+     "columnIndex": 0,
+     "content": "Change",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ],
+     "kind": "columnHeader"
+    },
+    {
+     "rowIndex": 0,
+     "columnIndex": 1,
+     "content": "Decision",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ],
+     "kind": "columnHeader"
+    },
+    {
+     "rowIndex": 0,
+     "columnIndex": 2,
+     "content": "Decided at",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ],
+     "kind": "columnHeader"
+    },
+    {
+     "rowIndex": 0,
+     "columnIndex": 3,
+     "content": "Chair",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ],
+     "kind": "columnHeader"
+    },
+    {
+     "rowIndex": 1,
+     "columnIndex": 0,
+     "content": "CHG-104190",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 1,
+     "columnIndex": 1,
+     "content": "approved",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 1,
+     "columnIndex": 2,
+     "content": "2026-04-14T15:05:00-05:00",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 1,
+     "columnIndex": 3,
+     "content": "T. Nguyen",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 2,
+     "columnIndex": 0,
+     "content": "CHG-104201",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 2,
+     "columnIndex": 1,
+     "content": "approved (retrospective)",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 2,
+     "columnIndex": 2,
+     "content": "2026-04-14T15:30:00-05:00",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 2,
+     "columnIndex": 3,
+     "content": "T. Nguyen",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 3,
+     "columnIndex": 0,
+     "content": "CHG-104215",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 3,
+     "columnIndex": 1,
+     "content": "deferred",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 3,
+     "columnIndex": 2,
+     "content": "2026-04-14T15:40:00-05:00",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    },
+    {
+     "rowIndex": 3,
+     "columnIndex": 3,
+     "content": "T. Nguyen",
+     "boundingRegions": [
+      {
+       "pageNumber": 2
+      }
+     ]
+    }
+   ],
+   "boundingRegions": [
+    {
+     "pageNumber": 2
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+{
+  "coverage": {
+    "M-100201": {"status": "active", "plan": "KHP Gold PPO", "lob": "commercial", "pa_required": ["lumbar-mri", "knee-arthroscopy", "home-infusion"]},
+    "M-100202": {"status": "active", "plan": "KHP Medicare Advantage HMO", "lob": "medicare-advantage", "pa_required": ["lumbar-mri", "home-infusion", "cardiac-pet"]},
+    "M-100203": {"status": "cancelled", "plan": "KHP Silver HMO", "lob": "commercial", "pa_required": ["lumbar-mri"]},
+    "M-100204": {"status": "active", "plan": "KHP Medicaid Managed Care", "lob": "medicaid", "pa_required": ["lumbar-mri", "cardiac-pet", "knee-arthroscopy"]}
+  }
+}

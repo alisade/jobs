@@ -1,0 +1,2 @@
+2026-11-11T08:15:00-05:00 cdk-app-02 chronyd[912]: System clock wrong by 18.204 seconds, adjustment started
+2026-11-11T08:15:00-05:00 cdk-app-02 chronyd[912]: Selected source 10.40.0.11 (ntp1.corvane.local)

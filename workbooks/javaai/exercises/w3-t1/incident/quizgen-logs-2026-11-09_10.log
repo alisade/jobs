@@ -1,0 +1,1247 @@
+# Cloud Logging export, service=quiz-gen (Cloud Run), 2026-11-09 and 2026-11-10 08:00-16:00 UTC
+2026-11-09T08:03:12.168Z INFO quizsvc trace=fc132d0d quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:03:12.168Z INFO uvicorn.access trace=fc132d0d "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:03:36.699Z INFO quizsvc trace=658cda14 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:03:36.699Z INFO uvicorn.access trace=658cda14 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:05:11.254Z INFO quizsvc trace=3b618676 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:05:11.254Z INFO uvicorn.access trace=3b618676 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:06:23.728Z INFO quizsvc trace=068739fa quiz generated lesson=hist-220-l2 items=3 tokens=2417
+2026-11-09T08:06:23.728Z INFO uvicorn.access trace=068739fa "POST /quiz/generate HTTP/1.1" 200 lesson=hist-220-l2
+2026-11-09T08:09:25.766Z INFO quizsvc trace=0c5c7fd0 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:09:25.766Z INFO uvicorn.access trace=0c5c7fd0 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:09:59.600Z INFO quizsvc trace=6bf46c69 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T08:09:59.600Z INFO uvicorn.access trace=6bf46c69 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T08:15:50.284Z INFO quizsvc trace=b2f14c94 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:15:50.284Z INFO uvicorn.access trace=b2f14c94 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:19:33.606Z INFO quizsvc trace=e00902c7 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T08:19:33.606Z INFO uvicorn.access trace=e00902c7 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T08:21:38.153Z INFO quizsvc trace=1a358ca0 quiz generated lesson=hist-220-l2 items=3 tokens=2417
+2026-11-09T08:21:38.153Z INFO uvicorn.access trace=1a358ca0 "POST /quiz/generate HTTP/1.1" 200 lesson=hist-220-l2
+2026-11-09T08:21:38.153Z WARNING quizsvc trace=1a358ca0 gemini 429 lesson=hist-220-l2 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T08:23:37.159Z INFO quizsvc trace=e8e25d94 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:23:37.159Z INFO uvicorn.access trace=e8e25d94 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:25:25.508Z INFO quizsvc trace=64e50cad quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T08:25:25.508Z INFO uvicorn.access trace=64e50cad "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T08:26:22.799Z INFO quizsvc trace=e25a7605 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:26:22.799Z INFO uvicorn.access trace=e25a7605 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:27:26.171Z INFO quizsvc trace=3d9c1724 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T08:27:26.171Z INFO uvicorn.access trace=3d9c1724 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T08:28:18.833Z INFO quizsvc trace=62c33a4f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:28:18.833Z INFO uvicorn.access trace=62c33a4f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:29:22.272Z INFO quizsvc trace=9c653938 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:29:22.272Z INFO uvicorn.access trace=9c653938 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:34:23.724Z INFO quizsvc trace=90fbbd11 quiz generated lesson=bio-210-l5 items=3 tokens=2410
+2026-11-09T08:34:23.724Z INFO uvicorn.access trace=90fbbd11 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l5
+2026-11-09T08:35:54.236Z INFO quizsvc trace=4a23d596 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:35:54.236Z INFO uvicorn.access trace=4a23d596 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:36:03.733Z INFO quizsvc trace=34b9b5df quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:36:03.733Z INFO uvicorn.access trace=34b9b5df "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:36:19.673Z INFO quizsvc trace=d0eda82f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:36:19.673Z INFO uvicorn.access trace=d0eda82f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:36:40.292Z INFO quizsvc trace=5f557203 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T08:36:40.292Z INFO uvicorn.access trace=5f557203 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T08:38:04.220Z INFO quizsvc trace=830e07bc quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:38:04.220Z INFO uvicorn.access trace=830e07bc "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:44:22.708Z INFO quizsvc trace=7f26144b quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:44:22.708Z INFO uvicorn.access trace=7f26144b "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:46:44.417Z INFO quizsvc trace=a5aa3c81 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T08:46:44.417Z INFO uvicorn.access trace=a5aa3c81 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T08:48:35.686Z INFO quizsvc trace=ca02135e quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:48:35.686Z INFO uvicorn.access trace=ca02135e "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:49:18.232Z INFO quizsvc trace=bd0561e6 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T08:49:18.232Z INFO uvicorn.access trace=bd0561e6 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T08:49:20.576Z INFO quizsvc trace=95e761d1 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:49:20.576Z INFO uvicorn.access trace=95e761d1 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:52:36.226Z INFO quizsvc trace=f28c105d quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:52:36.226Z INFO uvicorn.access trace=f28c105d "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:53:05.376Z INFO quizsvc trace=795e8229 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:53:05.376Z INFO uvicorn.access trace=795e8229 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:53:37.286Z INFO quizsvc trace=43435cc5 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T08:53:37.286Z INFO uvicorn.access trace=43435cc5 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T08:54:32.732Z INFO quizsvc trace=a7abe1c2 quiz generated lesson=bio-210-l4 items=3 tokens=2410
+2026-11-09T08:54:32.732Z INFO uvicorn.access trace=a7abe1c2 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l4
+2026-11-09T08:55:31.182Z INFO quizsvc trace=2a96fb1a quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T08:55:31.182Z INFO uvicorn.access trace=2a96fb1a "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T08:56:08.938Z INFO quizsvc trace=6e36aab0 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T08:56:08.938Z INFO uvicorn.access trace=6e36aab0 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T08:57:55.898Z INFO quizsvc trace=f3aed0b6 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T08:57:55.898Z INFO uvicorn.access trace=f3aed0b6 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T09:00:51.843Z INFO quizsvc trace=a6511445 quiz generated lesson=bio-210-l5 items=3 tokens=2410
+2026-11-09T09:00:51.843Z INFO uvicorn.access trace=a6511445 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l5
+2026-11-09T09:05:14.204Z INFO quizsvc trace=3a12917c quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T09:05:14.204Z INFO uvicorn.access trace=3a12917c "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T09:07:35.163Z INFO quizsvc trace=537390e5 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T09:07:35.163Z INFO uvicorn.access trace=537390e5 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T09:08:27.992Z INFO quizsvc trace=31dec4f4 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:08:27.992Z INFO uvicorn.access trace=31dec4f4 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:10:10.230Z INFO quizsvc trace=070d7109 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T09:10:10.230Z INFO uvicorn.access trace=070d7109 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T09:13:33.470Z INFO quizsvc trace=2587be6b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T09:13:33.470Z INFO uvicorn.access trace=2587be6b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T09:14:34.654Z INFO quizsvc trace=c7702420 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T09:14:34.654Z INFO uvicorn.access trace=c7702420 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T09:15:52.510Z INFO quizsvc trace=bd685167 quiz generated lesson=chem-101-l7 items=3 tokens=2417
+2026-11-09T09:15:52.510Z INFO uvicorn.access trace=bd685167 "POST /quiz/generate HTTP/1.1" 200 lesson=chem-101-l7
+2026-11-09T09:16:13.399Z INFO quizsvc trace=804c25d6 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T09:16:13.399Z INFO uvicorn.access trace=804c25d6 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T09:16:34.529Z INFO quizsvc trace=d58dcdb4 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T09:16:34.529Z INFO uvicorn.access trace=d58dcdb4 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T09:22:51.758Z INFO quizsvc trace=15b40aeb quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:22:51.758Z INFO uvicorn.access trace=15b40aeb "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:22:57.569Z INFO quizsvc trace=a997f351 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:22:57.569Z INFO uvicorn.access trace=a997f351 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:24:09.749Z INFO quizsvc trace=4093f6de quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T09:24:09.749Z INFO uvicorn.access trace=4093f6de "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T09:24:50.828Z INFO quizsvc trace=c0093492 quiz generated lesson=bio-210-l4 items=3 tokens=2410
+2026-11-09T09:24:50.828Z INFO uvicorn.access trace=c0093492 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l4
+2026-11-09T09:26:52.999Z INFO quizsvc trace=806c10b5 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:26:52.999Z INFO uvicorn.access trace=806c10b5 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:27:50.751Z INFO quizsvc trace=551fd8f9 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:27:50.751Z INFO uvicorn.access trace=551fd8f9 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:30:07.218Z INFO quizsvc trace=d953ee26 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T09:30:07.218Z INFO uvicorn.access trace=d953ee26 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T09:30:16.298Z INFO quizsvc trace=b1491e24 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:30:16.298Z INFO uvicorn.access trace=b1491e24 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:30:30.419Z INFO quizsvc trace=15fc899e quiz generated lesson=psych-101-l6 items=3 tokens=2424
+2026-11-09T09:30:30.419Z INFO uvicorn.access trace=15fc899e "POST /quiz/generate HTTP/1.1" 200 lesson=psych-101-l6
+2026-11-09T09:30:39.724Z INFO quizsvc trace=d726c86b quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T09:30:39.724Z INFO uvicorn.access trace=d726c86b "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T09:30:39.724Z WARNING quizsvc trace=d726c86b gemini 429 lesson=stats-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T09:30:50.895Z INFO quizsvc trace=1b29fc99 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T09:30:50.895Z INFO uvicorn.access trace=1b29fc99 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T09:31:22.848Z ERROR uvicorn.error trace=076b3e36 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-09T09:31:22.848Z INFO uvicorn.access trace=076b3e36 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-09T09:32:01.993Z INFO quizsvc trace=70ac06ac quiz generated lesson=hist-220-l2 items=3 tokens=2417
+2026-11-09T09:32:01.993Z INFO uvicorn.access trace=70ac06ac "POST /quiz/generate HTTP/1.1" 200 lesson=hist-220-l2
+2026-11-09T09:39:51.907Z INFO quizsvc trace=fc241d0b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T09:39:51.907Z INFO uvicorn.access trace=fc241d0b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T09:42:59.458Z INFO quizsvc trace=27e9e06f quiz generated lesson=psych-101-l6 items=3 tokens=2424
+2026-11-09T09:42:59.458Z INFO uvicorn.access trace=27e9e06f "POST /quiz/generate HTTP/1.1" 200 lesson=psych-101-l6
+2026-11-09T09:46:25.574Z INFO quizsvc trace=66c1494e quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:46:25.574Z INFO uvicorn.access trace=66c1494e "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:47:16.590Z INFO quizsvc trace=d42fddbb quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:47:16.590Z INFO uvicorn.access trace=d42fddbb "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:48:33.405Z INFO quizsvc trace=fa7f0eab quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:48:33.405Z INFO uvicorn.access trace=fa7f0eab "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:49:51.253Z INFO quizsvc trace=2c1eea1f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T09:49:51.253Z INFO uvicorn.access trace=2c1eea1f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T09:51:41.249Z INFO quizsvc trace=9c9011ef quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T09:51:41.249Z INFO uvicorn.access trace=9c9011ef "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T09:51:59.840Z INFO quizsvc trace=fcf00fec quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T09:51:59.840Z INFO uvicorn.access trace=fcf00fec "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T09:54:16.630Z INFO quizsvc trace=5de00997 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T09:54:16.630Z INFO uvicorn.access trace=5de00997 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T10:01:21.667Z INFO quizsvc trace=756b7289 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:01:21.667Z INFO uvicorn.access trace=756b7289 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:01:46.617Z INFO quizsvc trace=8d118e37 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T10:01:46.617Z INFO uvicorn.access trace=8d118e37 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T10:01:48.164Z INFO quizsvc trace=7178ba0a quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:01:48.164Z INFO uvicorn.access trace=7178ba0a "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:02:33.826Z INFO quizsvc trace=3d0a270b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:02:33.826Z INFO uvicorn.access trace=3d0a270b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:03:53.232Z INFO quizsvc trace=03a63966 quiz generated lesson=psych-101-l6 items=3 tokens=2424
+2026-11-09T10:03:53.232Z INFO uvicorn.access trace=03a63966 "POST /quiz/generate HTTP/1.1" 200 lesson=psych-101-l6
+2026-11-09T10:04:42.346Z INFO quizsvc trace=6da79a87 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:04:42.346Z INFO uvicorn.access trace=6da79a87 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:12:17.143Z INFO quizsvc trace=c5b2e75a quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T10:12:17.143Z INFO uvicorn.access trace=c5b2e75a "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T10:15:59.557Z INFO quizsvc trace=1b35411b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:15:59.557Z INFO uvicorn.access trace=1b35411b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:16:03.285Z INFO quizsvc trace=33a71568 quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T10:16:03.285Z INFO uvicorn.access trace=33a71568 "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T10:16:27.267Z INFO quizsvc trace=0e2ec40a quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T10:16:27.267Z INFO uvicorn.access trace=0e2ec40a "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T10:17:01.749Z INFO quizsvc trace=16ac4191 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T10:17:01.749Z INFO uvicorn.access trace=16ac4191 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T10:17:02.897Z INFO quizsvc trace=2e7a26e9 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T10:17:02.897Z INFO uvicorn.access trace=2e7a26e9 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T10:17:03.918Z INFO quizsvc trace=b02e3d8d quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T10:17:03.918Z INFO uvicorn.access trace=b02e3d8d "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T10:17:22.922Z INFO quizsvc trace=04a65651 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:17:22.922Z INFO uvicorn.access trace=04a65651 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:19:44.320Z INFO quizsvc trace=fb813921 quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T10:19:44.320Z INFO uvicorn.access trace=fb813921 "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T10:21:26.300Z INFO quizsvc trace=5b4b1b75 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:21:26.300Z INFO uvicorn.access trace=5b4b1b75 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:21:33.738Z INFO quizsvc trace=4ba2e161 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T10:21:33.738Z INFO uvicorn.access trace=4ba2e161 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T10:21:35.527Z INFO quizsvc trace=ed3a32a8 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:21:35.527Z INFO uvicorn.access trace=ed3a32a8 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:23:09.359Z INFO quizsvc trace=e2015522 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:23:09.359Z INFO uvicorn.access trace=e2015522 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:27:54.792Z INFO quizsvc trace=d1a89b37 quiz generated lesson=bio-210-l5 items=3 tokens=2410
+2026-11-09T10:27:54.792Z INFO uvicorn.access trace=d1a89b37 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l5
+2026-11-09T10:33:48.310Z INFO quizsvc trace=4a3adf99 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:33:48.310Z INFO uvicorn.access trace=4a3adf99 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:34:58.627Z INFO quizsvc trace=9212824c quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T10:34:58.627Z INFO uvicorn.access trace=9212824c "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T10:38:32.304Z INFO quizsvc trace=b156d1ad quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T10:38:32.304Z INFO uvicorn.access trace=b156d1ad "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T10:42:31.659Z INFO quizsvc trace=d5a9422a quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:42:31.659Z INFO uvicorn.access trace=d5a9422a "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:47:06.507Z INFO quizsvc trace=e28af604 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:47:06.507Z INFO uvicorn.access trace=e28af604 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:50:07.895Z INFO quizsvc trace=2789d059 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:50:07.895Z INFO uvicorn.access trace=2789d059 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:51:30.619Z INFO quizsvc trace=f10637ce quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:51:30.619Z INFO uvicorn.access trace=f10637ce "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:53:14.265Z INFO quizsvc trace=b4d19ec1 quiz generated lesson=psych-101-l6 items=3 tokens=2424
+2026-11-09T10:53:14.265Z INFO uvicorn.access trace=b4d19ec1 "POST /quiz/generate HTTP/1.1" 200 lesson=psych-101-l6
+2026-11-09T10:53:28.240Z INFO quizsvc trace=6aa8b9e0 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T10:53:28.240Z INFO uvicorn.access trace=6aa8b9e0 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T10:54:14.168Z INFO quizsvc trace=43b30f66 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T10:54:14.168Z INFO uvicorn.access trace=43b30f66 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T10:56:45.846Z ERROR uvicorn.error trace=a2cf62ba Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-09T10:56:45.846Z INFO uvicorn.access trace=a2cf62ba "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-09T10:56:59.365Z INFO quizsvc trace=ec3b9605 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T10:56:59.365Z INFO uvicorn.access trace=ec3b9605 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T10:58:50.334Z INFO quizsvc trace=f8c110fb quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T10:58:50.334Z INFO uvicorn.access trace=f8c110fb "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T11:02:56.416Z INFO quizsvc trace=37c60e98 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T11:02:56.416Z INFO uvicorn.access trace=37c60e98 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T11:04:37.192Z INFO quizsvc trace=24491df6 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T11:04:37.192Z INFO uvicorn.access trace=24491df6 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T11:04:54.371Z INFO quizsvc trace=3c1ae917 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T11:04:54.371Z INFO uvicorn.access trace=3c1ae917 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T11:06:24.955Z INFO quizsvc trace=738e0b77 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:06:24.955Z INFO uvicorn.access trace=738e0b77 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:07:45.473Z INFO quizsvc trace=3b3bf4bf quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T11:07:45.473Z INFO uvicorn.access trace=3b3bf4bf "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T11:07:57.662Z INFO quizsvc trace=33020ccd quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:07:57.662Z INFO uvicorn.access trace=33020ccd "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:09:02.944Z INFO quizsvc trace=d5d5891f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:09:02.944Z INFO uvicorn.access trace=d5d5891f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:12:04.714Z INFO quizsvc trace=25bda659 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:12:04.714Z INFO uvicorn.access trace=25bda659 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:14:05.699Z INFO quizsvc trace=f527b5c2 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T11:14:05.699Z INFO uvicorn.access trace=f527b5c2 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T11:16:23.436Z INFO quizsvc trace=f8fdd208 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:16:23.436Z INFO uvicorn.access trace=f8fdd208 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:18:02.570Z INFO quizsvc trace=2f733b05 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T11:18:02.570Z INFO uvicorn.access trace=2f733b05 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T11:18:45.628Z INFO quizsvc trace=491961a1 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:18:45.628Z INFO uvicorn.access trace=491961a1 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:20:46.606Z INFO quizsvc trace=26433798 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T11:20:46.606Z INFO uvicorn.access trace=26433798 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T11:23:08.717Z INFO quizsvc trace=d1f9bdfe quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T11:23:08.717Z INFO uvicorn.access trace=d1f9bdfe "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T11:24:05.586Z INFO quizsvc trace=4767e1fa quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T11:24:05.586Z INFO uvicorn.access trace=4767e1fa "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T11:25:37.142Z INFO quizsvc trace=64dbc8d3 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T11:25:37.142Z INFO uvicorn.access trace=64dbc8d3 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T11:25:37.142Z WARNING quizsvc trace=64dbc8d3 gemini 429 lesson=bio-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T11:27:46.817Z INFO quizsvc trace=cfed943b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:27:46.817Z INFO uvicorn.access trace=cfed943b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:28:17.496Z INFO quizsvc trace=35b7e448 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:28:17.496Z INFO uvicorn.access trace=35b7e448 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:30:01.396Z INFO quizsvc trace=757f1cba quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T11:30:01.396Z INFO uvicorn.access trace=757f1cba "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T11:31:17.788Z INFO quizsvc trace=197a14e2 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:31:17.788Z INFO uvicorn.access trace=197a14e2 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:32:49.105Z ERROR uvicorn.error trace=17420e94 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-09T11:32:49.105Z INFO uvicorn.access trace=17420e94 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-09T11:40:34.797Z INFO quizsvc trace=3e9b768f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:40:34.797Z INFO uvicorn.access trace=3e9b768f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:41:14.187Z INFO quizsvc trace=07fa22f7 quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T11:41:14.187Z INFO uvicorn.access trace=07fa22f7 "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T11:42:33.167Z INFO quizsvc trace=bee80626 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:42:33.167Z INFO uvicorn.access trace=bee80626 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:42:57.833Z INFO quizsvc trace=c8b6eaff quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T11:42:57.833Z INFO uvicorn.access trace=c8b6eaff "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T11:43:37.917Z INFO quizsvc trace=e4907d49 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T11:43:37.917Z INFO uvicorn.access trace=e4907d49 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T11:44:19.736Z INFO quizsvc trace=9158d4a8 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T11:44:19.736Z INFO uvicorn.access trace=9158d4a8 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T11:47:41.571Z ERROR uvicorn.error trace=7e736d5f Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-09T11:47:41.571Z INFO uvicorn.access trace=7e736d5f "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-09T11:48:32.682Z INFO quizsvc trace=d5be785a quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T11:48:32.682Z INFO uvicorn.access trace=d5be785a "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T11:51:04.866Z INFO quizsvc trace=eeb89ff1 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T11:51:04.866Z INFO uvicorn.access trace=eeb89ff1 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T11:55:32.786Z INFO quizsvc trace=f88ede10 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T11:55:32.786Z INFO uvicorn.access trace=f88ede10 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T11:58:43.394Z INFO quizsvc trace=c458272f quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T11:58:43.394Z INFO uvicorn.access trace=c458272f "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T12:04:23.538Z INFO quizsvc trace=c172b298 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:04:23.538Z INFO uvicorn.access trace=c172b298 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:05:11.450Z INFO quizsvc trace=8e4dc3a3 quiz generated lesson=chem-101-l7 items=3 tokens=2417
+2026-11-09T12:05:11.450Z INFO uvicorn.access trace=8e4dc3a3 "POST /quiz/generate HTTP/1.1" 200 lesson=chem-101-l7
+2026-11-09T12:05:35.895Z INFO quizsvc trace=0a1fb43b quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:05:35.895Z INFO uvicorn.access trace=0a1fb43b "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:05:35.895Z WARNING quizsvc trace=0a1fb43b gemini 429 lesson=econ-101-l2 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T12:06:03.954Z INFO quizsvc trace=a97766fb quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T12:06:03.954Z INFO uvicorn.access trace=a97766fb "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T12:06:04.407Z INFO quizsvc trace=86417b60 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:06:04.407Z INFO uvicorn.access trace=86417b60 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:06:14.258Z INFO quizsvc trace=26edf1bd quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T12:06:14.258Z INFO uvicorn.access trace=26edf1bd "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T12:07:53.439Z INFO quizsvc trace=00721f84 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T12:07:53.439Z INFO uvicorn.access trace=00721f84 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T12:08:02.535Z INFO quizsvc trace=b5a29061 quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T12:08:02.535Z INFO uvicorn.access trace=b5a29061 "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T12:08:43.615Z INFO quizsvc trace=877b55cb quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T12:08:43.615Z INFO uvicorn.access trace=877b55cb "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T12:13:05.377Z INFO quizsvc trace=e59409c1 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:13:05.377Z INFO uvicorn.access trace=e59409c1 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:15:17.546Z INFO quizsvc trace=82ce786f quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:15:17.546Z INFO uvicorn.access trace=82ce786f "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:16:23.166Z INFO quizsvc trace=64950dc2 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:16:23.166Z INFO uvicorn.access trace=64950dc2 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:16:51.683Z INFO quizsvc trace=33bf9157 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T12:16:51.683Z INFO uvicorn.access trace=33bf9157 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T12:18:31.150Z INFO quizsvc trace=e9729f3f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T12:18:31.150Z INFO uvicorn.access trace=e9729f3f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T12:21:48.163Z INFO quizsvc trace=7f867d5f quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T12:21:48.163Z INFO uvicorn.access trace=7f867d5f "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T12:21:48.560Z INFO quizsvc trace=6d6b987a quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T12:21:48.560Z INFO uvicorn.access trace=6d6b987a "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T12:25:01.262Z INFO quizsvc trace=00eb4e11 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:25:01.262Z INFO uvicorn.access trace=00eb4e11 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:25:07.300Z INFO quizsvc trace=b688b661 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T12:25:07.300Z INFO uvicorn.access trace=b688b661 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T12:25:07.300Z WARNING quizsvc trace=b688b661 gemini 429 lesson=stats-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T12:25:19.844Z INFO quizsvc trace=24056360 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T12:25:19.844Z INFO uvicorn.access trace=24056360 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T12:26:24.523Z INFO quizsvc trace=beef67fb quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:26:24.523Z INFO uvicorn.access trace=beef67fb "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:28:27.419Z INFO quizsvc trace=d9435541 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T12:28:27.419Z INFO uvicorn.access trace=d9435541 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T12:30:26.451Z INFO quizsvc trace=48208231 quiz generated lesson=bio-210-l5 items=3 tokens=2410
+2026-11-09T12:30:26.451Z INFO uvicorn.access trace=48208231 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l5
+2026-11-09T12:32:57.931Z INFO quizsvc trace=7f405bc8 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T12:32:57.931Z INFO uvicorn.access trace=7f405bc8 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T12:36:58.138Z INFO quizsvc trace=a53fddc9 quiz generated lesson=bio-210-l4 items=3 tokens=2410
+2026-11-09T12:36:58.138Z INFO uvicorn.access trace=a53fddc9 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l4
+2026-11-09T12:37:31.100Z INFO quizsvc trace=12b92a01 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:37:31.100Z INFO uvicorn.access trace=12b92a01 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:40:16.640Z INFO quizsvc trace=a2e3f93a quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T12:40:16.640Z INFO uvicorn.access trace=a2e3f93a "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T12:41:16.515Z INFO quizsvc trace=a7ef4f5d quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:41:16.515Z INFO uvicorn.access trace=a7ef4f5d "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:42:25.222Z INFO quizsvc trace=2ad64ce9 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T12:42:25.222Z INFO uvicorn.access trace=2ad64ce9 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T12:46:26.561Z INFO quizsvc trace=9d6b023f quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T12:46:26.561Z INFO uvicorn.access trace=9d6b023f "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T12:50:27.129Z INFO quizsvc trace=cfdcc257 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:50:27.129Z INFO uvicorn.access trace=cfdcc257 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:52:33.975Z INFO quizsvc trace=77d8c569 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T12:52:33.975Z INFO uvicorn.access trace=77d8c569 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T12:52:46.817Z INFO quizsvc trace=a5b89b2f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T12:52:46.817Z INFO uvicorn.access trace=a5b89b2f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T12:56:35.662Z INFO quizsvc trace=34145e87 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T12:56:35.662Z INFO uvicorn.access trace=34145e87 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:02:29.164Z INFO quizsvc trace=cda79077 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T13:02:29.164Z INFO uvicorn.access trace=cda79077 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T13:03:45.584Z INFO quizsvc trace=321a6ec1 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:03:45.584Z INFO uvicorn.access trace=321a6ec1 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:09:26.153Z INFO quizsvc trace=b5b94af3 quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T13:09:26.153Z INFO uvicorn.access trace=b5b94af3 "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T13:10:21.295Z INFO quizsvc trace=2f7dba08 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T13:10:21.295Z INFO uvicorn.access trace=2f7dba08 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T13:12:20.472Z INFO quizsvc trace=bcc0fd98 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T13:12:20.472Z INFO uvicorn.access trace=bcc0fd98 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T13:16:14.909Z INFO quizsvc trace=99df209b quiz generated lesson=chem-101-l7 items=3 tokens=2417
+2026-11-09T13:16:14.909Z INFO uvicorn.access trace=99df209b "POST /quiz/generate HTTP/1.1" 200 lesson=chem-101-l7
+2026-11-09T13:16:14.909Z WARNING quizsvc trace=99df209b gemini 429 lesson=chem-101-l7 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T13:17:19.103Z INFO quizsvc trace=b8b8f270 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:17:19.103Z INFO uvicorn.access trace=b8b8f270 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:19:52.808Z INFO quizsvc trace=c5d6d5e9 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T13:19:52.808Z INFO uvicorn.access trace=c5d6d5e9 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T13:21:28.273Z INFO quizsvc trace=1be4a5db quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T13:21:28.273Z INFO uvicorn.access trace=1be4a5db "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T13:21:28.273Z WARNING quizsvc trace=1be4a5db gemini 429 lesson=econ-101-l2 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T13:22:26.226Z INFO quizsvc trace=8fa624f7 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:22:26.226Z INFO uvicorn.access trace=8fa624f7 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:22:49.941Z INFO quizsvc trace=4f06e95a quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:22:49.941Z INFO uvicorn.access trace=4f06e95a "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:23:14.604Z INFO quizsvc trace=08ba9bd9 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:23:14.604Z INFO uvicorn.access trace=08ba9bd9 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:23:43.505Z INFO quizsvc trace=32b558fd quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T13:23:43.505Z INFO uvicorn.access trace=32b558fd "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T13:23:43.505Z WARNING quizsvc trace=32b558fd gemini 429 lesson=cs-101-l3 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T13:26:15.931Z INFO quizsvc trace=a01ac23a quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T13:26:15.931Z INFO uvicorn.access trace=a01ac23a "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T13:29:02.419Z INFO quizsvc trace=aa181345 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T13:29:02.419Z INFO uvicorn.access trace=aa181345 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T13:29:17.423Z INFO quizsvc trace=a502e8a8 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T13:29:17.423Z INFO uvicorn.access trace=a502e8a8 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T13:29:49.495Z INFO quizsvc trace=ca304218 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T13:29:49.495Z INFO uvicorn.access trace=ca304218 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T13:31:08.608Z INFO quizsvc trace=2ed51b12 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:31:08.608Z INFO uvicorn.access trace=2ed51b12 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:31:08.608Z WARNING quizsvc trace=2ed51b12 gemini 429 lesson=stats-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T13:32:12.501Z INFO quizsvc trace=c0bd1d84 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T13:32:12.501Z INFO uvicorn.access trace=c0bd1d84 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T13:33:15.660Z INFO quizsvc trace=3f3f37ea quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:33:15.660Z INFO uvicorn.access trace=3f3f37ea "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:33:15.660Z WARNING quizsvc trace=3f3f37ea gemini 429 lesson=stats-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T13:38:09.502Z INFO quizsvc trace=0dea6e4e quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T13:38:09.502Z INFO uvicorn.access trace=0dea6e4e "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T13:39:02.368Z INFO quizsvc trace=bf168da7 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:39:02.368Z INFO uvicorn.access trace=bf168da7 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:40:04.124Z INFO quizsvc trace=d375eff1 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T13:40:04.124Z INFO uvicorn.access trace=d375eff1 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T13:41:19.156Z INFO quizsvc trace=0593dba2 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:41:19.156Z INFO uvicorn.access trace=0593dba2 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:41:26.183Z INFO quizsvc trace=41db898e quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T13:41:26.183Z INFO uvicorn.access trace=41db898e "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T13:47:04.720Z INFO quizsvc trace=56cd42d2 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:47:04.720Z INFO uvicorn.access trace=56cd42d2 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:49:52.298Z ERROR uvicorn.error trace=3b164943 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-09T13:49:52.298Z INFO uvicorn.access trace=3b164943 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-09T13:54:32.169Z INFO quizsvc trace=34893498 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:54:32.169Z INFO uvicorn.access trace=34893498 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:55:20.571Z INFO quizsvc trace=5ca2c132 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:55:20.571Z INFO uvicorn.access trace=5ca2c132 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:56:18.211Z INFO quizsvc trace=f3b17af0 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:56:18.211Z INFO uvicorn.access trace=f3b17af0 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T13:57:14.596Z INFO quizsvc trace=6ac26ae0 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T13:57:14.596Z INFO uvicorn.access trace=6ac26ae0 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T13:57:45.421Z INFO quizsvc trace=bb93c8eb quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T13:57:45.421Z INFO uvicorn.access trace=bb93c8eb "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:00:06.752Z INFO quizsvc trace=989d181c quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T14:00:06.752Z INFO uvicorn.access trace=989d181c "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T14:00:27.260Z INFO quizsvc trace=6c7b31e2 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T14:00:27.260Z INFO uvicorn.access trace=6c7b31e2 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:00:30.938Z INFO quizsvc trace=3b2a421a quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T14:00:30.938Z INFO uvicorn.access trace=3b2a421a "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T14:02:23.448Z INFO quizsvc trace=2430ca6d quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T14:02:23.448Z INFO uvicorn.access trace=2430ca6d "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:02:38.849Z INFO quizsvc trace=a6d21040 quiz generated lesson=psych-101-l6 items=3 tokens=2424
+2026-11-09T14:02:38.849Z INFO uvicorn.access trace=a6d21040 "POST /quiz/generate HTTP/1.1" 200 lesson=psych-101-l6
+2026-11-09T14:02:56.400Z INFO quizsvc trace=3b9edacb quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T14:02:56.400Z INFO uvicorn.access trace=3b9edacb "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T14:03:35.245Z INFO quizsvc trace=a402bb72 quiz generated lesson=bio-210-l5 items=3 tokens=2410
+2026-11-09T14:03:35.245Z INFO uvicorn.access trace=a402bb72 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l5
+2026-11-09T14:04:13.132Z INFO quizsvc trace=cb978be3 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T14:04:13.132Z INFO uvicorn.access trace=cb978be3 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T14:04:25.357Z INFO quizsvc trace=fe111ebc quiz generated lesson=chem-101-l7 items=3 tokens=2417
+2026-11-09T14:04:25.357Z INFO uvicorn.access trace=fe111ebc "POST /quiz/generate HTTP/1.1" 200 lesson=chem-101-l7
+2026-11-09T14:08:53.144Z ERROR uvicorn.error trace=f9bd6bbb Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-09T14:08:53.144Z INFO uvicorn.access trace=f9bd6bbb "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-09T14:11:14.236Z INFO quizsvc trace=6ab6114f quiz generated lesson=lit-210-l4 items=3 tokens=2410
+2026-11-09T14:11:14.236Z INFO uvicorn.access trace=6ab6114f "POST /quiz/generate HTTP/1.1" 200 lesson=lit-210-l4
+2026-11-09T14:11:28.717Z INFO quizsvc trace=428bf773 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T14:11:28.717Z INFO uvicorn.access trace=428bf773 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T14:13:06.531Z INFO quizsvc trace=7f9c1321 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T14:13:06.531Z INFO uvicorn.access trace=7f9c1321 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T14:15:09.388Z INFO quizsvc trace=e258d268 quiz generated lesson=chem-101-l7 items=3 tokens=2417
+2026-11-09T14:15:09.388Z INFO uvicorn.access trace=e258d268 "POST /quiz/generate HTTP/1.1" 200 lesson=chem-101-l7
+2026-11-09T14:15:47.651Z INFO quizsvc trace=d8d4250d quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T14:15:47.651Z INFO uvicorn.access trace=d8d4250d "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T14:16:47.366Z INFO quizsvc trace=32fe1f36 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T14:16:47.366Z INFO uvicorn.access trace=32fe1f36 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:18:10.633Z INFO quizsvc trace=2bfa1f10 quiz generated lesson=bio-210-l5 items=3 tokens=2410
+2026-11-09T14:18:10.633Z INFO uvicorn.access trace=2bfa1f10 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l5
+2026-11-09T14:18:42.414Z INFO quizsvc trace=6af7ea31 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T14:18:42.414Z INFO uvicorn.access trace=6af7ea31 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:26:06.914Z INFO quizsvc trace=65322a48 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T14:26:06.914Z INFO uvicorn.access trace=65322a48 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T14:27:56.207Z INFO quizsvc trace=fce205cd quiz generated lesson=hist-220-l2 items=3 tokens=2417
+2026-11-09T14:27:56.207Z INFO uvicorn.access trace=fce205cd "POST /quiz/generate HTTP/1.1" 200 lesson=hist-220-l2
+2026-11-09T14:31:48.924Z INFO quizsvc trace=caca003c quiz generated lesson=bio-210-l4 items=3 tokens=2410
+2026-11-09T14:31:48.924Z INFO uvicorn.access trace=caca003c "POST /quiz/generate HTTP/1.1" 200 lesson=bio-210-l4
+2026-11-09T14:34:05.768Z INFO quizsvc trace=29e78b06 quiz generated lesson=hist-220-l2 items=3 tokens=2417
+2026-11-09T14:34:05.768Z INFO uvicorn.access trace=29e78b06 "POST /quiz/generate HTTP/1.1" 200 lesson=hist-220-l2
+2026-11-09T14:36:39.479Z INFO quizsvc trace=bcbc58a3 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T14:36:39.479Z INFO uvicorn.access trace=bcbc58a3 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:36:56.465Z INFO quizsvc trace=6a01260f quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T14:36:56.465Z INFO uvicorn.access trace=6a01260f "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:36:56.473Z INFO quizsvc trace=75fdf37c quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T14:36:56.473Z INFO uvicorn.access trace=75fdf37c "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T14:38:59.751Z INFO quizsvc trace=634d1952 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T14:38:59.751Z INFO uvicorn.access trace=634d1952 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:41:02.593Z INFO quizsvc trace=8d76d7a1 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T14:41:02.593Z INFO uvicorn.access trace=8d76d7a1 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T14:41:51.202Z INFO quizsvc trace=a74068b2 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T14:41:51.202Z INFO uvicorn.access trace=a74068b2 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T14:44:52.264Z INFO quizsvc trace=a3ec4d32 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T14:44:52.264Z INFO uvicorn.access trace=a3ec4d32 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T14:49:53.400Z INFO quizsvc trace=4b354e93 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T14:49:53.400Z INFO uvicorn.access trace=4b354e93 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T14:51:23.759Z INFO quizsvc trace=327bcda3 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T14:51:23.759Z INFO uvicorn.access trace=327bcda3 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T14:52:20.518Z INFO quizsvc trace=ada65cc4 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T14:52:20.518Z INFO uvicorn.access trace=ada65cc4 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T14:52:37.298Z INFO quizsvc trace=ee1fdde0 quiz generated lesson=chem-101-l7 items=3 tokens=2417
+2026-11-09T14:52:37.298Z INFO uvicorn.access trace=ee1fdde0 "POST /quiz/generate HTTP/1.1" 200 lesson=chem-101-l7
+2026-11-09T15:01:00.733Z INFO quizsvc trace=fc7383bf quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:01:00.733Z INFO uvicorn.access trace=fc7383bf "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:01:03.102Z INFO quizsvc trace=912eda41 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:01:03.102Z INFO uvicorn.access trace=912eda41 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:02:56.675Z INFO quizsvc trace=d7ad18a7 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T15:02:56.675Z INFO uvicorn.access trace=d7ad18a7 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T15:05:51.552Z INFO quizsvc trace=811c8fa7 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T15:05:51.552Z INFO uvicorn.access trace=811c8fa7 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T15:07:09.352Z INFO quizsvc trace=f87f4a4d quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T15:07:09.352Z INFO uvicorn.access trace=f87f4a4d "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T15:09:18.730Z INFO quizsvc trace=a0288056 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T15:09:18.730Z INFO uvicorn.access trace=a0288056 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T15:11:39.861Z INFO quizsvc trace=f53e2c38 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:11:39.861Z INFO uvicorn.access trace=f53e2c38 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:13:02.509Z INFO quizsvc trace=f044c032 quiz generated lesson=hist-220-l3 items=3 tokens=2417
+2026-11-09T15:13:02.509Z INFO uvicorn.access trace=f044c032 "POST /quiz/generate HTTP/1.1" 200 lesson=hist-220-l3
+2026-11-09T15:14:04.953Z INFO quizsvc trace=59d4697f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:14:04.953Z INFO uvicorn.access trace=59d4697f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:15:20.481Z INFO quizsvc trace=096de421 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:15:20.481Z INFO uvicorn.access trace=096de421 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:16:19.754Z INFO quizsvc trace=f748f931 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T15:16:19.754Z INFO uvicorn.access trace=f748f931 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T15:16:32.591Z INFO quizsvc trace=3554ada8 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:16:32.591Z INFO uvicorn.access trace=3554ada8 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:18:51.914Z INFO quizsvc trace=2a44bf93 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T15:18:51.914Z INFO uvicorn.access trace=2a44bf93 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T15:20:57.728Z INFO quizsvc trace=4665ea19 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T15:20:57.728Z INFO uvicorn.access trace=4665ea19 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T15:25:39.966Z INFO quizsvc trace=3234752b quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T15:25:39.966Z INFO uvicorn.access trace=3234752b "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T15:25:47.916Z INFO quizsvc trace=5f186904 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:25:47.916Z INFO uvicorn.access trace=5f186904 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:27:24.774Z INFO quizsvc trace=5e113423 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:27:24.774Z INFO uvicorn.access trace=5e113423 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:30:25.209Z INFO quizsvc trace=112ed1df quiz generated lesson=hist-220-l3 items=3 tokens=2417
+2026-11-09T15:30:25.209Z INFO uvicorn.access trace=112ed1df "POST /quiz/generate HTTP/1.1" 200 lesson=hist-220-l3
+2026-11-09T15:32:05.155Z INFO quizsvc trace=c086ee53 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-09T15:32:05.155Z INFO uvicorn.access trace=c086ee53 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-09T15:36:09.468Z INFO quizsvc trace=54b13301 quiz generated lesson=psych-101-l6 items=3 tokens=2424
+2026-11-09T15:36:09.468Z INFO uvicorn.access trace=54b13301 "POST /quiz/generate HTTP/1.1" 200 lesson=psych-101-l6
+2026-11-09T15:40:08.184Z INFO quizsvc trace=ec1072ee quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T15:40:08.184Z INFO uvicorn.access trace=ec1072ee "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T15:40:49.413Z INFO quizsvc trace=a626b097 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:40:49.413Z INFO uvicorn.access trace=a626b097 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:40:59.384Z INFO quizsvc trace=adff8165 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T15:40:59.384Z INFO uvicorn.access trace=adff8165 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T15:42:57.420Z INFO quizsvc trace=bba86df7 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:42:57.420Z INFO uvicorn.access trace=bba86df7 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:42:57.420Z WARNING quizsvc trace=bba86df7 gemini 429 lesson=cs-101-l3 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-09T15:44:52.212Z INFO quizsvc trace=3196cd44 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:44:52.212Z INFO uvicorn.access trace=3196cd44 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:48:39.898Z INFO quizsvc trace=d1a80888 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T15:48:39.898Z INFO uvicorn.access trace=d1a80888 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T15:50:08.126Z INFO quizsvc trace=db68f275 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T15:50:08.126Z INFO uvicorn.access trace=db68f275 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T15:50:50.370Z INFO quizsvc trace=1d75cc23 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-09T15:50:50.370Z INFO uvicorn.access trace=1d75cc23 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-09T15:53:20.220Z INFO quizsvc trace=63cc537b quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T15:53:20.220Z INFO uvicorn.access trace=63cc537b "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T15:54:23.993Z INFO quizsvc trace=73fa5648 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-09T15:54:23.993Z INFO uvicorn.access trace=73fa5648 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-09T15:56:57.207Z INFO quizsvc trace=40852477 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:56:57.207Z INFO uvicorn.access trace=40852477 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-09T15:57:03.235Z INFO quizsvc trace=7d076c0b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-09T15:57:03.235Z INFO uvicorn.access trace=7d076c0b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:01:25.290Z INFO quizsvc trace=3cd7dcef quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T08:01:25.290Z INFO uvicorn.access trace=3cd7dcef "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T08:02:08.809Z INFO quizsvc trace=a4bf58e7 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T08:02:08.809Z INFO uvicorn.access trace=a4bf58e7 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T08:06:00.727Z INFO quizsvc trace=8d094979 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T08:06:00.727Z INFO uvicorn.access trace=8d094979 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T08:13:07.134Z INFO quizsvc trace=08d0323c quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T08:13:07.134Z INFO uvicorn.access trace=08d0323c "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T08:13:23.738Z INFO quizsvc trace=d416b8a9 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:13:23.738Z INFO uvicorn.access trace=d416b8a9 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:15:24.972Z INFO quizsvc trace=a1754ba6 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T08:15:24.972Z INFO uvicorn.access trace=a1754ba6 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T08:16:00.157Z INFO quizsvc trace=a51b453f quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T08:16:00.157Z INFO uvicorn.access trace=a51b453f "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T08:16:57.341Z INFO quizsvc trace=d77b26d3 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T08:16:57.341Z INFO uvicorn.access trace=d77b26d3 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T08:18:20.444Z INFO quizsvc trace=6c7be37e quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:18:20.444Z INFO uvicorn.access trace=6c7be37e "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:19:50.317Z INFO quizsvc trace=643d79f1 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:19:50.317Z INFO uvicorn.access trace=643d79f1 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:22:34.329Z ERROR uvicorn.error trace=69c9fef0 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T08:22:34.329Z INFO uvicorn.access trace=69c9fef0 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l4
+2026-11-10T08:24:54.547Z INFO quizsvc trace=bec49ab4 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:24:54.547Z INFO uvicorn.access trace=bec49ab4 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:26:12.630Z ERROR uvicorn.error trace=9bab5340 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T08:26:12.630Z INFO uvicorn.access trace=9bab5340 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-10T08:26:52.727Z INFO quizsvc trace=2cb52c32 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:26:52.727Z INFO uvicorn.access trace=2cb52c32 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:27:43.907Z INFO quizsvc trace=ead28c16 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:27:43.907Z INFO uvicorn.access trace=ead28c16 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:30:06.235Z INFO quizsvc trace=190d78d3 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:30:06.235Z INFO uvicorn.access trace=190d78d3 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:31:15.269Z INFO quizsvc trace=e74c00f4 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:31:15.269Z INFO uvicorn.access trace=e74c00f4 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:31:15.269Z WARNING quizsvc trace=e74c00f4 gemini 429 lesson=cs-101-l3 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T08:38:41.692Z INFO quizsvc trace=7199e0b3 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T08:38:41.692Z INFO uvicorn.access trace=7199e0b3 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T08:40:03.841Z INFO quizsvc trace=c870fef2 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T08:40:03.841Z INFO uvicorn.access trace=c870fef2 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T08:40:09.992Z INFO quizsvc trace=aa5c6817 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T08:40:09.992Z INFO uvicorn.access trace=aa5c6817 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T08:41:02.226Z INFO quizsvc trace=55e4615b quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T08:41:02.226Z INFO uvicorn.access trace=55e4615b "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T08:41:28.279Z INFO quizsvc trace=39d7c140 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T08:41:28.279Z INFO uvicorn.access trace=39d7c140 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T08:41:59.322Z INFO quizsvc trace=15de2868 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T08:41:59.322Z INFO uvicorn.access trace=15de2868 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T08:47:02.167Z INFO quizsvc trace=db437386 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:47:02.167Z INFO uvicorn.access trace=db437386 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:47:58.434Z INFO quizsvc trace=3122c815 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T08:47:58.434Z INFO uvicorn.access trace=3122c815 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T08:48:40.189Z INFO quizsvc trace=d337264b quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T08:48:40.189Z INFO uvicorn.access trace=d337264b "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T08:48:58.828Z INFO quizsvc trace=f1bf55ed quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T08:48:58.828Z INFO uvicorn.access trace=f1bf55ed "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T08:52:52.646Z INFO quizsvc trace=e42af0ad quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T08:52:52.646Z INFO uvicorn.access trace=e42af0ad "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T08:53:34.580Z ERROR uvicorn.error trace=78de3361 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T08:53:34.580Z INFO uvicorn.access trace=78de3361 "POST /quiz/generate HTTP/1.1" 500 lesson=psych-101-l6
+2026-11-10T08:54:01.547Z INFO quizsvc trace=f4a88753 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T08:54:01.547Z INFO uvicorn.access trace=f4a88753 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T08:54:16.828Z INFO quizsvc trace=0d72cb97 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T08:54:16.828Z INFO uvicorn.access trace=0d72cb97 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T08:58:10.248Z INFO quizsvc trace=086d06d8 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T08:58:10.248Z INFO uvicorn.access trace=086d06d8 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T08:58:10.248Z WARNING quizsvc trace=086d06d8 gemini 429 lesson=bio-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T08:59:10.453Z ERROR uvicorn.error trace=fa376a6e Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T08:59:10.453Z INFO uvicorn.access trace=fa376a6e "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l4
+2026-11-10T08:59:51.349Z ERROR uvicorn.error trace=b51cecef Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T08:59:51.349Z INFO uvicorn.access trace=b51cecef "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T09:00:22.602Z ERROR uvicorn.error trace=187f132d Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T09:00:22.602Z INFO uvicorn.access trace=187f132d "POST /quiz/generate HTTP/1.1" 500 lesson=psych-101-l6
+2026-11-10T09:00:33.306Z ERROR uvicorn.error trace=49d04ce5 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T09:00:33.306Z INFO uvicorn.access trace=49d04ce5 "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T09:01:50.522Z INFO quizsvc trace=07ffe38e quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:01:50.522Z INFO uvicorn.access trace=07ffe38e "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:06:25.504Z INFO quizsvc trace=e44fbd3e quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T09:06:25.504Z INFO uvicorn.access trace=e44fbd3e "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T09:06:57.529Z INFO quizsvc trace=3e0dac1c quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:06:57.529Z INFO uvicorn.access trace=3e0dac1c "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:09:09.913Z ERROR uvicorn.error trace=4d56c5ae Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T09:09:09.913Z INFO uvicorn.access trace=4d56c5ae "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-10T09:09:16.718Z INFO quizsvc trace=bcfd527b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:09:16.718Z INFO uvicorn.access trace=bcfd527b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:10:15.435Z INFO quizsvc trace=f4aedd02 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:10:15.435Z INFO uvicorn.access trace=f4aedd02 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:11:31.706Z INFO quizsvc trace=58e1290d quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T09:11:31.706Z INFO uvicorn.access trace=58e1290d "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T09:12:06.753Z INFO quizsvc trace=e951acba quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T09:12:06.753Z INFO uvicorn.access trace=e951acba "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T09:14:29.229Z INFO quizsvc trace=88134e5e quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T09:14:29.229Z INFO uvicorn.access trace=88134e5e "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T09:17:19.872Z INFO quizsvc trace=b402b288 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:17:19.872Z INFO uvicorn.access trace=b402b288 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:21:29.758Z INFO quizsvc trace=e2979619 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T09:21:29.758Z INFO uvicorn.access trace=e2979619 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T09:22:30.821Z INFO quizsvc trace=0c5166f0 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T09:22:30.821Z INFO uvicorn.access trace=0c5166f0 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T09:24:29.134Z ERROR uvicorn.error trace=033ae330 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T09:24:29.134Z INFO uvicorn.access trace=033ae330 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-10T09:26:54.334Z INFO quizsvc trace=aafb3717 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T09:26:54.334Z INFO uvicorn.access trace=aafb3717 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T09:29:28.805Z INFO quizsvc trace=c5ffd933 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T09:29:28.805Z INFO uvicorn.access trace=c5ffd933 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T09:31:10.212Z INFO quizsvc trace=f04f6294 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:31:10.212Z INFO uvicorn.access trace=f04f6294 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:36:10.390Z INFO quizsvc trace=d0b3a175 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:36:10.390Z INFO uvicorn.access trace=d0b3a175 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:38:41.134Z INFO quizsvc trace=59365783 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:38:41.134Z INFO uvicorn.access trace=59365783 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:40:10.356Z INFO quizsvc trace=d974fec5 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:40:10.356Z INFO uvicorn.access trace=d974fec5 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:41:07.564Z INFO quizsvc trace=6eba35e0 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:41:07.564Z INFO uvicorn.access trace=6eba35e0 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:44:14.612Z INFO quizsvc trace=fb1b0902 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T09:44:14.612Z INFO uvicorn.access trace=fb1b0902 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T09:46:06.268Z ERROR uvicorn.error trace=f65ee8fc Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T09:46:06.268Z INFO uvicorn.access trace=f65ee8fc "POST /quiz/generate HTTP/1.1" 500 lesson=lit-210-l4
+2026-11-10T09:46:09.353Z INFO quizsvc trace=b92101a2 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:46:09.353Z INFO uvicorn.access trace=b92101a2 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:49:38.615Z INFO quizsvc trace=79e08f86 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T09:49:38.615Z INFO uvicorn.access trace=79e08f86 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T09:49:41.816Z INFO quizsvc trace=9571623c quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T09:49:41.816Z INFO uvicorn.access trace=9571623c "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T09:50:44.674Z INFO quizsvc trace=c974732b quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T09:50:44.674Z INFO uvicorn.access trace=c974732b "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T09:55:52.193Z INFO quizsvc trace=93151cf9 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T09:55:52.193Z INFO uvicorn.access trace=93151cf9 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T09:55:53.561Z INFO quizsvc trace=a97f65bd quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T09:55:53.561Z INFO uvicorn.access trace=a97f65bd "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T09:56:41.125Z INFO quizsvc trace=5f381d79 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T09:56:41.125Z INFO uvicorn.access trace=5f381d79 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T09:57:34.613Z INFO quizsvc trace=2bcd85d2 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T09:57:34.613Z INFO uvicorn.access trace=2bcd85d2 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T09:58:54.540Z INFO quizsvc trace=b37f58f4 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T09:58:54.540Z INFO uvicorn.access trace=b37f58f4 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T09:59:18.149Z INFO quizsvc trace=b73c30c8 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T09:59:18.149Z INFO uvicorn.access trace=b73c30c8 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T10:04:51.917Z INFO quizsvc trace=a261621f quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:04:51.917Z INFO uvicorn.access trace=a261621f "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:05:47.959Z INFO quizsvc trace=70472ec8 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T10:05:47.959Z INFO uvicorn.access trace=70472ec8 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T10:07:16.529Z ERROR uvicorn.error trace=3bf2f108 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T10:07:16.529Z INFO uvicorn.access trace=3bf2f108 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l4
+2026-11-10T10:07:46.728Z INFO quizsvc trace=5b004753 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:07:46.728Z INFO uvicorn.access trace=5b004753 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:10:53.428Z INFO quizsvc trace=77cc40da quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:10:53.428Z INFO uvicorn.access trace=77cc40da "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:11:57.770Z INFO quizsvc trace=53fb51b9 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:11:57.770Z INFO uvicorn.access trace=53fb51b9 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:14:11.894Z ERROR uvicorn.error trace=73b3a2cf Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T10:14:11.894Z INFO uvicorn.access trace=73b3a2cf "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T10:15:31.268Z INFO quizsvc trace=8a1f7883 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:15:31.268Z INFO uvicorn.access trace=8a1f7883 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:17:22.350Z INFO quizsvc trace=a786effc quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:17:22.350Z INFO uvicorn.access trace=a786effc "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:18:53.576Z INFO quizsvc trace=5ffd3d40 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:18:53.576Z INFO uvicorn.access trace=5ffd3d40 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:19:47.510Z ERROR uvicorn.error trace=f09f5791 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T10:19:47.510Z INFO uvicorn.access trace=f09f5791 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l4
+2026-11-10T10:24:25.162Z INFO quizsvc trace=03682cec quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T10:24:25.162Z INFO uvicorn.access trace=03682cec "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T10:27:39.752Z INFO quizsvc trace=15de2f14 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:27:39.752Z INFO uvicorn.access trace=15de2f14 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:27:43.290Z INFO quizsvc trace=7b481ae2 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:27:43.290Z INFO uvicorn.access trace=7b481ae2 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:27:43.290Z WARNING quizsvc trace=7b481ae2 gemini 429 lesson=cs-101-l3 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T10:29:13.800Z INFO quizsvc trace=2f0db088 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:29:13.800Z INFO uvicorn.access trace=2f0db088 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:29:34.309Z INFO quizsvc trace=b7a0b785 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:29:34.309Z INFO uvicorn.access trace=b7a0b785 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:31:58.208Z INFO quizsvc trace=09c3e7c0 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T10:31:58.208Z INFO uvicorn.access trace=09c3e7c0 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T10:35:03.595Z INFO quizsvc trace=77937b86 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:35:03.595Z INFO uvicorn.access trace=77937b86 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:38:50.192Z INFO quizsvc trace=ab200eff quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:38:50.192Z INFO uvicorn.access trace=ab200eff "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:39:54.519Z INFO quizsvc trace=84ac2e30 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:39:54.519Z INFO uvicorn.access trace=84ac2e30 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:40:37.115Z INFO quizsvc trace=a845063a quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:40:37.115Z INFO uvicorn.access trace=a845063a "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:40:37.115Z WARNING quizsvc trace=a845063a gemini 429 lesson=econ-101-l2 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T10:40:44.791Z INFO quizsvc trace=5a24dd36 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:40:44.791Z INFO uvicorn.access trace=5a24dd36 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:40:53.404Z INFO quizsvc trace=3286dfae quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:40:53.404Z INFO uvicorn.access trace=3286dfae "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:41:18.356Z INFO quizsvc trace=9bb308bd quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:41:18.356Z INFO uvicorn.access trace=9bb308bd "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:45:50.304Z INFO quizsvc trace=84eb99bd quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T10:45:50.304Z INFO uvicorn.access trace=84eb99bd "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T10:46:14.934Z INFO quizsvc trace=f6bfce1a quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:46:14.934Z INFO uvicorn.access trace=f6bfce1a "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:48:35.765Z ERROR uvicorn.error trace=200ae258 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T10:48:35.765Z INFO uvicorn.access trace=200ae258 "POST /quiz/generate HTTP/1.1" 500 lesson=psych-101-l6
+2026-11-10T10:50:53.478Z INFO quizsvc trace=858d5cd2 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T10:50:53.478Z INFO uvicorn.access trace=858d5cd2 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T10:50:54.335Z INFO quizsvc trace=4475ee53 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:50:54.335Z INFO uvicorn.access trace=4475ee53 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:51:25.573Z ERROR uvicorn.error trace=36467838 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T10:51:25.573Z INFO uvicorn.access trace=36467838 "POST /quiz/generate HTTP/1.1" 500 lesson=lit-210-l4
+2026-11-10T10:53:52.914Z INFO quizsvc trace=d0f11e05 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T10:53:52.914Z INFO uvicorn.access trace=d0f11e05 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T10:57:20.902Z INFO quizsvc trace=f14f10cb quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T10:57:20.902Z INFO uvicorn.access trace=f14f10cb "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T10:57:25.910Z ERROR uvicorn.error trace=88d66a76 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T10:57:25.910Z INFO uvicorn.access trace=88d66a76 "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T10:59:19.974Z INFO quizsvc trace=62969d5a quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T10:59:19.974Z INFO uvicorn.access trace=62969d5a "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T11:00:03.115Z INFO quizsvc trace=e2220a7f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:00:03.115Z INFO uvicorn.access trace=e2220a7f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T11:00:43.496Z INFO quizsvc trace=9807633c quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:00:43.496Z INFO uvicorn.access trace=9807633c "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T11:01:39.146Z INFO quizsvc trace=aebe1773 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:01:39.146Z INFO uvicorn.access trace=aebe1773 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T11:02:13.835Z INFO quizsvc trace=6a643531 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:02:13.835Z INFO uvicorn.access trace=6a643531 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:02:25.840Z INFO quizsvc trace=8de63750 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T11:02:25.840Z INFO uvicorn.access trace=8de63750 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T11:03:25.407Z INFO quizsvc trace=1bc6b08b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:03:25.407Z INFO uvicorn.access trace=1bc6b08b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T11:03:25.407Z WARNING quizsvc trace=1bc6b08b gemini 429 lesson=cs-101-l3 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T11:03:31.681Z INFO quizsvc trace=85abe2ed quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:03:31.681Z INFO uvicorn.access trace=85abe2ed "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:05:18.743Z INFO quizsvc trace=8eb7980d quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:05:18.743Z INFO uvicorn.access trace=8eb7980d "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:05:24.418Z INFO quizsvc trace=4fffa8e1 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:05:24.418Z INFO uvicorn.access trace=4fffa8e1 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:09:30.888Z INFO quizsvc trace=69942abd quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:09:30.888Z INFO uvicorn.access trace=69942abd "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:11:55.137Z INFO quizsvc trace=6bec1ab7 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T11:11:55.137Z INFO uvicorn.access trace=6bec1ab7 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T11:13:41.604Z INFO quizsvc trace=cabd4f53 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:13:41.604Z INFO uvicorn.access trace=cabd4f53 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T11:15:28.851Z INFO quizsvc trace=be845f95 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:15:28.851Z INFO uvicorn.access trace=be845f95 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T11:20:01.541Z INFO quizsvc trace=90fb2d7d quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T11:20:01.541Z INFO uvicorn.access trace=90fb2d7d "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T11:25:21.615Z INFO quizsvc trace=fbfa3797 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:25:21.615Z INFO uvicorn.access trace=fbfa3797 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:30:13.255Z INFO quizsvc trace=a07c30a8 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T11:30:13.255Z INFO uvicorn.access trace=a07c30a8 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T11:30:13.255Z WARNING quizsvc trace=a07c30a8 gemini 429 lesson=bio-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T11:35:03.946Z INFO quizsvc trace=4a059e92 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T11:35:03.946Z INFO uvicorn.access trace=4a059e92 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T11:35:45.364Z INFO quizsvc trace=dcc98e43 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:35:45.364Z INFO uvicorn.access trace=dcc98e43 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:41:00.477Z INFO quizsvc trace=df3648fb quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:41:00.477Z INFO uvicorn.access trace=df3648fb "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:42:40.568Z INFO quizsvc trace=a0123246 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T11:42:40.568Z INFO uvicorn.access trace=a0123246 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T11:43:04.284Z ERROR uvicorn.error trace=a3151d0c Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T11:43:04.284Z INFO uvicorn.access trace=a3151d0c "POST /quiz/generate HTTP/1.1" 500 lesson=psych-101-l6
+2026-11-10T11:43:42.224Z INFO quizsvc trace=fc94fa42 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T11:43:42.224Z INFO uvicorn.access trace=fc94fa42 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T11:44:44.710Z INFO quizsvc trace=e056a8d5 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:44:44.710Z INFO uvicorn.access trace=e056a8d5 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T11:45:19.230Z ERROR uvicorn.error trace=9621a9d3 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'candidates'
+2026-11-10T11:45:19.230Z INFO uvicorn.access trace=9621a9d3 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-101-l7
+2026-11-10T11:49:47.830Z INFO quizsvc trace=b1e13663 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T11:49:47.830Z INFO uvicorn.access trace=b1e13663 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T11:49:58.315Z INFO quizsvc trace=48be1fa6 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:49:58.315Z INFO uvicorn.access trace=48be1fa6 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T11:51:06.622Z ERROR uvicorn.error trace=7bf2a7f5 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T11:51:06.622Z INFO uvicorn.access trace=7bf2a7f5 "POST /quiz/generate HTTP/1.1" 500 lesson=psych-101-l6
+2026-11-10T11:51:26.689Z ERROR uvicorn.error trace=b21a30cc Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T11:51:26.689Z INFO uvicorn.access trace=b21a30cc "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l4
+2026-11-10T11:55:07.232Z INFO quizsvc trace=78eabc3a quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T11:55:07.232Z INFO uvicorn.access trace=78eabc3a "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T11:55:07.232Z WARNING quizsvc trace=78eabc3a gemini 429 lesson=bio-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T11:55:42.474Z INFO quizsvc trace=57602f21 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T11:55:42.474Z INFO uvicorn.access trace=57602f21 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T11:58:30.723Z ERROR uvicorn.error trace=c417857d Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'candidates'
+2026-11-10T11:58:30.723Z INFO uvicorn.access trace=c417857d "POST /quiz/generate HTTP/1.1" 500 lesson=chem-101-l7
+2026-11-10T11:58:34.726Z INFO quizsvc trace=60446ef6 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T11:58:34.726Z INFO uvicorn.access trace=60446ef6 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T11:59:56.360Z INFO quizsvc trace=e9dc8561 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T11:59:56.360Z INFO uvicorn.access trace=e9dc8561 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:02:13.991Z INFO quizsvc trace=ddb79513 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T12:02:13.991Z INFO uvicorn.access trace=ddb79513 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T12:02:21.305Z INFO quizsvc trace=fe9f0bb4 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T12:02:21.305Z INFO uvicorn.access trace=fe9f0bb4 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T12:03:02.670Z INFO quizsvc trace=5ea049a4 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T12:03:02.670Z INFO uvicorn.access trace=5ea049a4 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T12:05:34.666Z INFO quizsvc trace=7c1964bb quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T12:05:34.666Z INFO uvicorn.access trace=7c1964bb "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T12:05:58.785Z INFO quizsvc trace=81aa0cf0 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T12:05:58.785Z INFO uvicorn.access trace=81aa0cf0 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T12:06:23.747Z INFO quizsvc trace=76a399f8 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T12:06:23.747Z INFO uvicorn.access trace=76a399f8 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T12:07:45.192Z INFO quizsvc trace=41d77253 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T12:07:45.192Z INFO uvicorn.access trace=41d77253 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T12:09:15.145Z INFO quizsvc trace=ec30b3c2 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:09:15.145Z INFO uvicorn.access trace=ec30b3c2 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:10:23.340Z INFO quizsvc trace=fde11576 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:10:23.340Z INFO uvicorn.access trace=fde11576 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:12:13.296Z INFO quizsvc trace=1799a7da quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:12:13.296Z INFO uvicorn.access trace=1799a7da "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:13:16.897Z INFO quizsvc trace=47a293f3 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:13:16.897Z INFO uvicorn.access trace=47a293f3 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:16:22.160Z ERROR uvicorn.error trace=e71aeba5 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T12:16:22.160Z INFO uvicorn.access trace=e71aeba5 "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T12:20:16.374Z INFO quizsvc trace=6c28f618 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:20:16.374Z INFO uvicorn.access trace=6c28f618 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:23:36.677Z INFO quizsvc trace=5be04057 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:23:36.677Z INFO uvicorn.access trace=5be04057 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:26:30.494Z INFO quizsvc trace=c7311fda quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:26:30.494Z INFO uvicorn.access trace=c7311fda "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:27:56.352Z INFO quizsvc trace=606de4eb quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T12:27:56.352Z INFO uvicorn.access trace=606de4eb "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T12:29:45.311Z INFO quizsvc trace=ed0e4528 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:29:45.311Z INFO uvicorn.access trace=ed0e4528 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:36:46.549Z INFO quizsvc trace=7844f240 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T12:36:46.549Z INFO uvicorn.access trace=7844f240 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T12:38:01.453Z ERROR uvicorn.error trace=47d1ffb9 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T12:38:01.453Z INFO uvicorn.access trace=47d1ffb9 "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T12:41:45.921Z INFO quizsvc trace=d3d10e24 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T12:41:45.921Z INFO uvicorn.access trace=d3d10e24 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T12:46:00.951Z INFO quizsvc trace=26afd434 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T12:46:00.951Z INFO uvicorn.access trace=26afd434 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T12:48:46.339Z ERROR uvicorn.error trace=4f397397 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T12:48:46.339Z INFO uvicorn.access trace=4f397397 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-10T12:48:56.901Z INFO quizsvc trace=0ad3f2d6 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T12:48:56.901Z INFO uvicorn.access trace=0ad3f2d6 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T12:49:04.338Z INFO quizsvc trace=65ef8db0 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T12:49:04.338Z INFO uvicorn.access trace=65ef8db0 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T12:49:37.938Z INFO quizsvc trace=9bd541eb quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T12:49:37.938Z INFO uvicorn.access trace=9bd541eb "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T12:49:57.339Z INFO quizsvc trace=ceb71a8f quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T12:49:57.339Z INFO uvicorn.access trace=ceb71a8f "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T12:50:24.570Z INFO quizsvc trace=8a6243fd quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T12:50:24.570Z INFO uvicorn.access trace=8a6243fd "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T12:50:48.680Z INFO quizsvc trace=557985e0 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T12:50:48.680Z INFO uvicorn.access trace=557985e0 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T12:51:07.471Z ERROR uvicorn.error trace=f4324d92 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T12:51:07.471Z INFO uvicorn.access trace=f4324d92 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T12:51:35.801Z INFO quizsvc trace=c6ec6e3e quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T12:51:35.801Z INFO uvicorn.access trace=c6ec6e3e "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T12:54:58.165Z INFO quizsvc trace=dceb9e13 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T12:54:58.165Z INFO uvicorn.access trace=dceb9e13 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T12:55:53.598Z ERROR uvicorn.error trace=9be4078c Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T12:55:53.598Z INFO uvicorn.access trace=9be4078c "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T12:56:53.634Z INFO quizsvc trace=522c9583 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T12:56:53.634Z INFO uvicorn.access trace=522c9583 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T12:56:55.685Z ERROR uvicorn.error trace=25a1ba53 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T12:56:55.685Z INFO uvicorn.access trace=25a1ba53 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T13:00:04.808Z INFO quizsvc trace=bb933a15 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:00:04.808Z INFO uvicorn.access trace=bb933a15 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:02:10.952Z ERROR uvicorn.error trace=38761dc7 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'candidates'
+2026-11-10T13:02:10.952Z INFO uvicorn.access trace=38761dc7 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-101-l7
+2026-11-10T13:04:07.465Z ERROR uvicorn.error trace=b6ef5dfc Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T13:04:07.465Z INFO uvicorn.access trace=b6ef5dfc "POST /quiz/generate HTTP/1.1" 500 lesson=lit-210-l4
+2026-11-10T13:09:21.326Z INFO quizsvc trace=bc6e9d5f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T13:09:21.326Z INFO uvicorn.access trace=bc6e9d5f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T13:10:03.952Z INFO quizsvc trace=b9fa20fb quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:10:03.952Z INFO uvicorn.access trace=b9fa20fb "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:11:08.963Z INFO quizsvc trace=2e1cfdd8 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:11:08.963Z INFO uvicorn.access trace=2e1cfdd8 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:11:12.715Z INFO quizsvc trace=144ad2a4 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:11:12.715Z INFO uvicorn.access trace=144ad2a4 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:12:43.866Z INFO quizsvc trace=4c7dae57 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T13:12:43.866Z INFO uvicorn.access trace=4c7dae57 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T13:16:15.343Z INFO quizsvc trace=18fa029e quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:16:15.343Z INFO uvicorn.access trace=18fa029e "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:18:07.363Z INFO quizsvc trace=c13de7cf quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T13:18:07.363Z INFO uvicorn.access trace=c13de7cf "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T13:21:20.942Z INFO quizsvc trace=3bdfae68 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T13:21:20.942Z INFO uvicorn.access trace=3bdfae68 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T13:21:51.271Z INFO quizsvc trace=42bb68de quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T13:21:51.271Z INFO uvicorn.access trace=42bb68de "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T13:23:27.141Z INFO quizsvc trace=e9779c99 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:23:27.141Z INFO uvicorn.access trace=e9779c99 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:23:30.488Z INFO quizsvc trace=2b27df87 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:23:30.488Z INFO uvicorn.access trace=2b27df87 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:23:56.867Z INFO quizsvc trace=23c77e7a quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T13:23:56.867Z INFO uvicorn.access trace=23c77e7a "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T13:26:15.259Z INFO quizsvc trace=0681edaf quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:26:15.259Z INFO uvicorn.access trace=0681edaf "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:28:00.908Z INFO quizsvc trace=d50dfdea quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T13:28:00.908Z INFO uvicorn.access trace=d50dfdea "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T13:30:08.992Z INFO quizsvc trace=aa5d0b4b quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T13:30:08.992Z INFO uvicorn.access trace=aa5d0b4b "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T13:35:56.248Z INFO quizsvc trace=706067ab quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T13:35:56.248Z INFO uvicorn.access trace=706067ab "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T13:40:01.552Z ERROR uvicorn.error trace=ce99106f Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T13:40:01.552Z INFO uvicorn.access trace=ce99106f "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T13:40:55.604Z INFO quizsvc trace=171fddd2 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:40:55.604Z INFO uvicorn.access trace=171fddd2 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:40:55.604Z WARNING quizsvc trace=171fddd2 gemini 429 lesson=stats-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T13:41:06.582Z INFO quizsvc trace=52ec5127 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T13:41:06.582Z INFO uvicorn.access trace=52ec5127 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T13:42:45.743Z ERROR uvicorn.error trace=cfc3f35a Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T13:42:45.743Z INFO uvicorn.access trace=cfc3f35a "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T13:46:31.879Z INFO quizsvc trace=461d8db6 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T13:46:31.879Z INFO uvicorn.access trace=461d8db6 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T13:48:30.157Z INFO quizsvc trace=19dedb49 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T13:48:30.157Z INFO uvicorn.access trace=19dedb49 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T13:53:23.137Z ERROR uvicorn.error trace=29da5ad2 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'candidates'
+2026-11-10T13:53:23.137Z INFO uvicorn.access trace=29da5ad2 "POST /quiz/generate HTTP/1.1" 500 lesson=chem-101-l7
+2026-11-10T13:54:00.464Z INFO quizsvc trace=85131e93 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T13:54:00.464Z INFO uvicorn.access trace=85131e93 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T13:57:30.216Z INFO quizsvc trace=2743314b quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T13:57:30.216Z INFO uvicorn.access trace=2743314b "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T13:57:50.784Z INFO quizsvc trace=ecdbc47b quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T13:57:50.784Z INFO uvicorn.access trace=ecdbc47b "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T13:58:03.364Z INFO quizsvc trace=c94fc1ab quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T13:58:03.364Z INFO uvicorn.access trace=c94fc1ab "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T13:58:03.630Z INFO quizsvc trace=cf869269 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T13:58:03.630Z INFO uvicorn.access trace=cf869269 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T13:58:20.897Z INFO quizsvc trace=b6105065 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T13:58:20.897Z INFO uvicorn.access trace=b6105065 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T13:58:43.112Z INFO quizsvc trace=77c82d55 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T13:58:43.112Z INFO uvicorn.access trace=77c82d55 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T13:59:59.494Z ERROR uvicorn.error trace=d79da6a3 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T13:59:59.494Z INFO uvicorn.access trace=d79da6a3 "POST /quiz/generate HTTP/1.1" 500 lesson=lit-210-l4
+2026-11-10T13:59:59.494Z WARNING quizsvc trace=d79da6a3 gemini 429 lesson=lit-210-l4 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T14:02:18.215Z INFO quizsvc trace=4e2f76c2 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T14:02:18.215Z INFO uvicorn.access trace=4e2f76c2 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T14:03:38.626Z ERROR uvicorn.error trace=e6c38898 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:03:38.626Z INFO uvicorn.access trace=e6c38898 "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T14:05:47.659Z INFO quizsvc trace=4983cdd8 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T14:05:47.659Z INFO uvicorn.access trace=4983cdd8 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T14:09:42.686Z INFO quizsvc trace=764937d8 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T14:09:42.686Z INFO uvicorn.access trace=764937d8 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T14:13:18.158Z INFO quizsvc trace=c5aa385e quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T14:13:18.158Z INFO uvicorn.access trace=c5aa385e "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T14:13:18.158Z WARNING quizsvc trace=c5aa385e gemini 429 lesson=stats-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T14:15:05.329Z ERROR uvicorn.error trace=9e7bf788 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:15:05.329Z INFO uvicorn.access trace=9e7bf788 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T14:15:20.670Z ERROR uvicorn.error trace=535282cb Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:15:20.670Z INFO uvicorn.access trace=535282cb "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T14:16:35.936Z INFO quizsvc trace=f4921539 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T14:16:35.936Z INFO uvicorn.access trace=f4921539 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T14:18:58.516Z ERROR uvicorn.error trace=93cce111 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:18:58.516Z INFO uvicorn.access trace=93cce111 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T14:19:01.348Z INFO quizsvc trace=556b29dd quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:19:01.348Z INFO uvicorn.access trace=556b29dd "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:23:06.643Z INFO quizsvc trace=2fffb94b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:23:06.643Z INFO uvicorn.access trace=2fffb94b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:23:21.510Z INFO quizsvc trace=3d895a43 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T14:23:21.510Z INFO uvicorn.access trace=3d895a43 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T14:24:37.505Z INFO quizsvc trace=030a7221 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:24:37.505Z INFO uvicorn.access trace=030a7221 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:25:56.240Z ERROR uvicorn.error trace=8aa62560 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:25:56.240Z INFO uvicorn.access trace=8aa62560 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l4
+2026-11-10T14:28:32.126Z INFO quizsvc trace=87cf894b quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T14:28:32.126Z INFO uvicorn.access trace=87cf894b "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T14:29:57.661Z INFO quizsvc trace=4dbf5d84 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:29:57.661Z INFO uvicorn.access trace=4dbf5d84 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:31:37.612Z ERROR uvicorn.error trace=c2f268b9 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:31:37.612Z INFO uvicorn.access trace=c2f268b9 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l4
+2026-11-10T14:32:42.121Z INFO quizsvc trace=39b8f4a7 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T14:32:42.121Z INFO uvicorn.access trace=39b8f4a7 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T14:34:59.251Z INFO quizsvc trace=70a25794 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:34:59.251Z INFO uvicorn.access trace=70a25794 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:36:14.765Z INFO quizsvc trace=62fb96f0 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:36:14.765Z INFO uvicorn.access trace=62fb96f0 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:36:29.635Z INFO quizsvc trace=3d05a4cb quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:36:29.635Z INFO uvicorn.access trace=3d05a4cb "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:38:33.137Z INFO quizsvc trace=65483c3c quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:38:33.137Z INFO uvicorn.access trace=65483c3c "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:38:55.456Z INFO quizsvc trace=70a2ee42 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:38:55.456Z INFO uvicorn.access trace=70a2ee42 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:39:06.356Z INFO quizsvc trace=1f27b474 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T14:39:06.356Z INFO uvicorn.access trace=1f27b474 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T14:43:39.379Z INFO quizsvc trace=a0d4f2e3 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T14:43:39.379Z INFO uvicorn.access trace=a0d4f2e3 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T14:44:47.299Z INFO quizsvc trace=42ec600e quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T14:44:47.299Z INFO uvicorn.access trace=42ec600e "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T14:44:47.299Z WARNING quizsvc trace=42ec600e gemini 429 lesson=bio-101-l1 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T14:49:59.564Z ERROR uvicorn.error trace=a21a2672 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:49:59.564Z INFO uvicorn.access trace=a21a2672 "POST /quiz/generate HTTP/1.1" 500 lesson=lit-210-l4
+2026-11-10T14:52:01.750Z ERROR uvicorn.error trace=6384c698 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:52:01.750Z INFO uvicorn.access trace=6384c698 "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T14:53:36.923Z INFO quizsvc trace=fc5f26b9 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:53:36.923Z INFO uvicorn.access trace=fc5f26b9 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:54:35.154Z INFO quizsvc trace=532b51fc quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T14:54:35.154Z INFO uvicorn.access trace=532b51fc "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T14:55:06.834Z INFO quizsvc trace=2dd11155 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T14:55:06.834Z INFO uvicorn.access trace=2dd11155 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T14:56:02.135Z ERROR uvicorn.error trace=dd986619 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:56:02.135Z INFO uvicorn.access trace=dd986619 "POST /quiz/generate HTTP/1.1" 500 lesson=psych-101-l6
+2026-11-10T14:57:03.398Z INFO quizsvc trace=df700a5f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T14:57:03.398Z INFO uvicorn.access trace=df700a5f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T14:59:22.355Z ERROR uvicorn.error trace=ded8ddd2 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T14:59:22.355Z INFO uvicorn.access trace=ded8ddd2 "POST /quiz/generate HTTP/1.1" 500 lesson=lit-210-l4
+2026-11-10T15:00:43.169Z INFO quizsvc trace=8676ab61 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:00:43.169Z INFO uvicorn.access trace=8676ab61 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:08:26.991Z INFO quizsvc trace=1a7592a5 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T15:08:26.991Z INFO uvicorn.access trace=1a7592a5 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T15:08:26.991Z WARNING quizsvc trace=1a7592a5 gemini 429 lesson=econ-101-l2 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T15:09:10.630Z INFO quizsvc trace=c26e5270 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:09:10.630Z INFO uvicorn.access trace=c26e5270 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:11:07.771Z INFO quizsvc trace=e4fead80 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:11:07.771Z INFO uvicorn.access trace=e4fead80 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T15:12:26.598Z ERROR uvicorn.error trace=66d1eec9 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T15:12:26.598Z INFO uvicorn.access trace=66d1eec9 "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l2
+2026-11-10T15:18:22.500Z INFO quizsvc trace=86afe7df quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:18:22.500Z INFO uvicorn.access trace=86afe7df "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:19:45.807Z INFO quizsvc trace=8d8cf9a8 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T15:19:45.807Z INFO uvicorn.access trace=8d8cf9a8 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T15:19:45.807Z WARNING quizsvc trace=8d8cf9a8 gemini 429 lesson=econ-101-l2 attempt=1: 429 RESOURCE_EXHAUSTED: Quota exceeded for aiplatform.googleapis.com/generate_content_requests_per_minute
+2026-11-10T15:20:00.905Z INFO quizsvc trace=beeb48dd quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:20:00.905Z INFO uvicorn.access trace=beeb48dd "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T15:20:53.722Z INFO quizsvc trace=d691305e quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T15:20:53.722Z INFO uvicorn.access trace=d691305e "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T15:23:20.475Z INFO quizsvc trace=fa7a2cf0 quiz generated lesson=bio-101-l1 items=3 tokens=2410
+2026-11-10T15:23:20.475Z INFO uvicorn.access trace=fa7a2cf0 "POST /quiz/generate HTTP/1.1" 200 lesson=bio-101-l1
+2026-11-10T15:24:54.563Z INFO quizsvc trace=b1511400 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:24:54.563Z INFO uvicorn.access trace=b1511400 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:26:54.902Z INFO quizsvc trace=4780c42f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:26:54.902Z INFO uvicorn.access trace=4780c42f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:27:33.945Z INFO quizsvc trace=846b853b quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:27:33.945Z INFO uvicorn.access trace=846b853b "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:27:57.110Z INFO quizsvc trace=068c1935 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:27:57.110Z INFO uvicorn.access trace=068c1935 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T15:28:19.288Z INFO quizsvc trace=8970978f quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:28:19.288Z INFO uvicorn.access trace=8970978f "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:29:22.141Z INFO quizsvc trace=983f9a9a quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:29:22.141Z INFO uvicorn.access trace=983f9a9a "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T15:30:17.903Z INFO quizsvc trace=a17370f4 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T15:30:17.903Z INFO uvicorn.access trace=a17370f4 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T15:31:19.649Z INFO quizsvc trace=c602e3de quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:31:19.649Z INFO uvicorn.access trace=c602e3de "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:31:49.666Z ERROR uvicorn.error trace=9128a82e Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T15:31:49.666Z INFO uvicorn.access trace=9128a82e "POST /quiz/generate HTTP/1.1" 500 lesson=chem-330-l2
+2026-11-10T15:32:13.617Z INFO quizsvc trace=e4a4e6b8 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:32:13.617Z INFO uvicorn.access trace=e4a4e6b8 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T15:32:25.764Z INFO quizsvc trace=8fb3e428 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:32:25.764Z INFO uvicorn.access trace=8fb3e428 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T15:33:06.856Z INFO quizsvc trace=db340bb0 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T15:33:06.856Z INFO uvicorn.access trace=db340bb0 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T15:34:32.247Z INFO quizsvc trace=93105115 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:34:32.247Z INFO uvicorn.access trace=93105115 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:36:24.695Z ERROR uvicorn.error trace=3b603d92 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T15:36:24.695Z INFO uvicorn.access trace=3b603d92 "POST /quiz/generate HTTP/1.1" 500 lesson=bio-210-l5
+2026-11-10T15:37:07.609Z INFO quizsvc trace=65c220e7 quiz generated lesson=econ-101-l2 items=3 tokens=2417
+2026-11-10T15:37:07.609Z INFO uvicorn.access trace=65c220e7 "POST /quiz/generate HTTP/1.1" 200 lesson=econ-101-l2
+2026-11-10T15:37:21.808Z INFO quizsvc trace=87b72d51 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:37:21.808Z INFO uvicorn.access trace=87b72d51 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:40:36.717Z ERROR uvicorn.error trace=1b4b76d5 Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'candidates'
+2026-11-10T15:40:36.717Z INFO uvicorn.access trace=1b4b76d5 "POST /quiz/generate HTTP/1.1" 500 lesson=hist-220-l3
+2026-11-10T15:40:46.143Z ERROR uvicorn.error trace=b115d13b Exception in ASGI application
+  File "/app/quizsvc/service.py", line 58, in generate_quiz
+    text = resp["candidates"][0]["content"]["parts"][0]["text"]
+KeyError: 'content'
+2026-11-10T15:40:46.143Z INFO uvicorn.access trace=b115d13b "POST /quiz/generate HTTP/1.1" 500 lesson=psych-101-l6
+2026-11-10T15:43:12.731Z INFO quizsvc trace=9c5a8a4f quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:43:12.731Z INFO uvicorn.access trace=9c5a8a4f "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T15:43:47.258Z INFO quizsvc trace=6ab03eaa quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:43:47.258Z INFO uvicorn.access trace=6ab03eaa "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:53:06.700Z INFO quizsvc trace=03f3f20d quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:53:06.700Z INFO uvicorn.access trace=03f3f20d "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1
+2026-11-10T15:53:28.462Z INFO quizsvc trace=bc4406c6 quiz generated lesson=cs-101-l3 items=3 tokens=2403
+2026-11-10T15:53:28.462Z INFO uvicorn.access trace=bc4406c6 "POST /quiz/generate HTTP/1.1" 200 lesson=cs-101-l3
+2026-11-10T15:59:32.530Z INFO quizsvc trace=a18fda26 quiz generated lesson=stats-101-l1 items=3 tokens=2424
+2026-11-10T15:59:32.530Z INFO uvicorn.access trace=a18fda26 "POST /quiz/generate HTTP/1.1" 200 lesson=stats-101-l1

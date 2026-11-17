@@ -1,0 +1,26 @@
+{
+  "id": "javaai/w3-t1",
+  "title": "Generate quiz fails for biology, history and psychology lessons",
+  "type": "troubleshooting",
+  "estimate": "1.5 h",
+  "week": 3,
+  "optional": false,
+  "area": "Gemini on Vertex AI",
+  "scenario": "Since Monday's release 2.3, Generate quiz returns 500 for many biology, history and psychology lessons while statistics and CS work. Error rate 2.3% to 17.8%. L2 sees 429s and wants a quota increase and more retries. You get logs for both days, the release diff, metrics and a replay of the model with recorded safety ratings.",
+  "task": [
+    "Find the change and the mechanism that turns it into a 500",
+    "Explain the errors that existed before the release",
+    "Rule the quota theory in or out",
+    "Restore the right thresholds and return a graceful 422 for blocked content"
+  ],
+  "acceptance": [
+    "No lesson returns 500; ordinary lessons generate again",
+    "Blocked responses: 422 with status, source, category, message",
+    "All four categories configured, not LOW_AND_ABOVE, not NONE",
+    "Root cause and evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 3 Wed - safety filters and blocked responses", "href": "week3"},
+    {"label": "Week 3 Tue - quotas, PayGo and 429s", "href": "week3"}
+  ]
+}

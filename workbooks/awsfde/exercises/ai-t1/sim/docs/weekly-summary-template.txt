@@ -1,0 +1,1 @@
+Weekly carrier performance summary template. Sections: on-time percentage per carrier, damage claims, detention hours, top three late lanes. Send the summary to the operations distribution list only.

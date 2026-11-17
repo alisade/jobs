@@ -1,0 +1,17 @@
+{
+  "_source": "gcloud projects get-iam-policy mfh-controlpilot-prod --format=json (trimmed to the ControlPilot service account)",
+  "bindings": [
+    {
+      "role": "roles/aiplatform.user",
+      "members": [
+        "serviceAccount:controlpilot-gemini@mfh-controlpilot-prod.iam.gserviceaccount.com"
+      ]
+    },
+    {
+      "role": "roles/logging.logWriter",
+      "members": [
+        "serviceAccount:controlpilot-gemini@mfh-controlpilot-prod.iam.gserviceaccount.com"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+# Shared Python toolchain for the audit workbook (audit/.venv). Everything runs offline at test time:
+# the Gemini model is replaced by fakes/scripted models, Azure by local fakes.
+pytest==9.2.0
+pydantic==2.14.3
+google-genai==2.34.0
+google-adk[db]==2.14.1
+mcp==2.3.0
+pyyaml==6.0.3

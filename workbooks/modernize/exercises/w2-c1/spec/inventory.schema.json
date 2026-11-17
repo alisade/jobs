@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reverse-engineering inventory",
+  "type": "object",
+  "required": ["system", "db_objects", "integrations", "auth_checks", "scheduled_jobs", "runtime_assumptions"],
+  "$defs": {
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["ref", "quote"],
+        "properties": {
+          "ref": {"type": "string", "pattern": "^app/[^:]+:[0-9]+$", "description": "app/<path>:<1-based line>"},
+          "quote": {"type": "string", "minLength": 4, "description": "text copied from that line"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "properties": {
+    "system": {"type": "string"},
+    "db_objects": {"type": "array", "items": {"type": "object",
+      "required": ["name", "kind", "access", "evidence"],
+      "properties": {
+        "name": {"type": "string", "description": "table, view, sequence or procedure name as the database knows it"},
+        "kind": {"enum": ["table", "view", "sequence", "procedure"]},
+        "access": {"type": "array", "items": {"enum": ["read", "insert", "update", "delete", "execute"]}, "minItems": 1},
+        "notes": {"type": "string"},
+        "evidence": {"$ref": "#/$defs/evidence"}}}},
+    "integrations": {"type": "array", "items": {"type": "object",
+      "required": ["name", "protocol", "direction", "status", "endpoint_source", "evidence"],
+      "properties": {
+        "name": {"type": "string"},
+        "protocol": {"enum": ["ldap", "http", "soap", "smtp", "jms", "sftp", "jdbc", "socket", "other"]},
+        "direction": {"enum": ["outbound", "inbound"]},
+        "status": {"enum": ["live", "dead"]},
+        "endpoint_source": {"type": "string", "description": "where the address comes from: a config key, a JNDI binding, a constant"},
+        "failure_behaviour": {"type": "string"},
+        "evidence": {"$ref": "#/$defs/evidence"}}}},
+    "auth_checks": {"type": "array", "items": {"type": "object",
+      "required": ["role", "mechanism", "protects", "evidence"],
+      "properties": {
+        "role": {"type": "string", "description": "role, group or permission name exactly as the code uses it"},
+        "mechanism": {"enum": ["container", "code", "filter", "jsp", "database"]},
+        "protects": {"type": "string"},
+        "evidence": {"$ref": "#/$defs/evidence"}}}},
+    "scheduled_jobs": {"type": "array", "items": {"type": "object",
+      "required": ["name", "schedule", "runs_in", "evidence"],
+      "properties": {
+        "name": {"type": "string"},
+        "schedule": {"type": "string"},
+        "runs_in": {"enum": ["app-server", "cron", "other"]},
+        "touches": {"type": "array", "items": {"type": "string"}},
+        "evidence": {"$ref": "#/$defs/evidence"}}}},
+    "runtime_assumptions": {"type": "array", "items": {"type": "object",
+      "required": ["topic", "value", "evidence"],
+      "properties": {
+        "topic": {"enum": ["timezone", "charset", "datasource", "filesystem", "database-vendor", "app-server", "jdk", "security-domain", "other"]},
+        "value": {"type": "string"},
+        "risk": {"type": "string"},
+        "evidence": {"$ref": "#/$defs/evidence"}}}}
+  }
+}

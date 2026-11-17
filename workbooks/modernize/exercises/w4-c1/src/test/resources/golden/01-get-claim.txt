@@ -1,0 +1,6 @@
+status: 200
+content-type: application/json;charset=utf-8
+x-request-id: golden-1
+location: -
+
+{"number":"CLM-2026-118204","policy":"HO-3318820","status":"OPEN","notes":["FNOL received from agent 4471"]}

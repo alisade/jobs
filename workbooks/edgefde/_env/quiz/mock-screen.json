@@ -1,0 +1,491 @@
+{
+ "questions": [
+  {
+   "id": "m-01",
+   "week": "mock",
+   "set": "mock",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "Gateways resend a day of features after an outage. The sink uses INSERT with a surrogate id. What happens and what fixes it?",
+   "options": [
+    "Nothing; Kafka dedupes",
+    "Duplicates; upsert on (device, window_start) with a seq guard",
+    "Data loss; enable auto-commit",
+    "Duplicates; increase partitions"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Redelivery is normal; the write must be idempotent on a natural key.",
+   "learn": [
+    {
+     "label": "Message delivery semantics (Confluent)",
+     "href": "https://docs.confluent.io/kafka/design/delivery-semantics.html"
+    }
+   ]
+  },
+  {
+   "id": "m-02",
+   "week": "mock",
+   "set": "mock",
+   "area": "pipelines",
+   "type": "single",
+   "stem": "Which statement about Kafka transactions is correct?",
+   "options": [
+    "They make writes to an external database exactly-once",
+    "They provide exactly-once between Kafka topics (read-process-write), not into your database",
+    "They replace consumer groups",
+    "They require auto-commit"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "EOS covers Kafka-to-Kafka; external sinks still need idempotency.",
+   "learn": [
+    {
+     "label": "Exactly-once semantics in Kafka (Confluent)",
+     "href": "https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/"
+    }
+   ]
+  },
+  {
+   "id": "m-03",
+   "week": "mock",
+   "set": "mock",
+   "area": "signals",
+   "type": "single",
+   "stem": "A 120 Hz tone sampled at 200 Hz appears at:",
+   "options": [
+    "120 Hz",
+    "80 Hz",
+    "20 Hz",
+    "200 Hz"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Nyquist 100 Hz; 200 - 120 = 80 Hz.",
+   "learn": [
+    {
+     "label": "Nyquist-Shannon sampling theorem (Wikipedia)",
+     "href": "https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem"
+    }
+   ]
+  },
+  {
+   "id": "m-04",
+   "week": "mock",
+   "set": "mock",
+   "area": "signals",
+   "type": "single",
+   "stem": "You need 1 Hz resolution at fs = 10 kHz. Minimum FFT length?",
+   "options": [
+    "1,000",
+    "10,000",
+    "100",
+    "20,000"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Resolution = fs / N, so N = 10,000 samples (1 s).",
+   "learn": [
+    {
+     "label": "SciPy FFT tutorial",
+     "href": "https://docs.scipy.org/doc/scipy/tutorial/fft.html"
+    }
+   ]
+  },
+  {
+   "id": "m-05",
+   "week": "mock",
+   "set": "mock",
+   "area": "signals",
+   "type": "multi",
+   "stem": "Which two are frequency-domain features? (choose two)",
+   "options": [
+    "Band energy from a Welch PSD",
+    "Dominant frequency",
+    "Crest factor",
+    "Kurtosis"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Crest factor and kurtosis are time-domain.",
+   "learn": [
+    {
+     "label": "scipy.signal.welch",
+     "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html"
+    }
+   ]
+  },
+  {
+   "id": "m-06",
+   "week": "mock",
+   "set": "mock",
+   "area": "mlops",
+   "type": "single",
+   "stem": "Your champion/challenger gate cannot find metrics for the challenger. It should:",
+   "options": [
+    "Use the champion's metrics",
+    "Exit with an error and not move any alias (fail closed)",
+    "Promote and alert",
+    "Retry forever"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Missing evidence is a reject.",
+   "learn": [
+    {
+     "label": "MLflow Model Registry",
+     "href": "https://mlflow.org/docs/latest/ml/model-registry/"
+    }
+   ]
+  },
+  {
+   "id": "m-07",
+   "week": "mock",
+   "set": "mock",
+   "area": "mlops",
+   "type": "single",
+   "stem": "Why is accuracy a poor gate metric for rare-fault detection?",
+   "options": [
+    "It is hard to compute",
+    "Predicting 'healthy' always scores near 100%",
+    "It needs labels",
+    "It ignores latency"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Use recall on faults and false alarms per machine-week.",
+   "learn": [
+    {
+     "label": "Rules of Machine Learning (Google)",
+     "href": "https://developers.google.com/machine-learning/guides/rules-of-ml"
+    }
+   ]
+  },
+  {
+   "id": "m-08",
+   "week": "mock",
+   "set": "mock",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "INT8 accuracy is far below FP32 only after static quantization. First thing to check:",
+   "options": [
+    "Opset version",
+    "That calibration inputs match the runtime preprocessing and distribution",
+    "Disk space",
+    "Thread count"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Calibration on the wrong distribution is the classic failure.",
+   "learn": [
+    {
+     "label": "ONNX Runtime quantization",
+     "href": "https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html"
+    }
+   ]
+  },
+  {
+   "id": "m-09",
+   "week": "mock",
+   "set": "mock",
+   "area": "edgeai",
+   "type": "single",
+   "stem": "Which execution provider would you try first on an Intel industrial PC with an iGPU?",
+   "options": [
+    "CUDA",
+    "OpenVINO",
+    "TensorRT",
+    "CoreML"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "OpenVINO targets Intel CPUs, GPUs and NPUs.",
+   "learn": [
+    {
+     "label": "OpenVINO execution provider",
+     "href": "https://onnxruntime.ai/docs/execution-providers/OpenVINO-ExecutionProvider.html"
+    }
+   ]
+  },
+  {
+   "id": "m-10",
+   "week": "mock",
+   "set": "mock",
+   "area": "edgeai",
+   "type": "multi",
+   "stem": "p50 latency is 2 ms but p95 is 40 ms on the gateway. Likely causes? (choose two)",
+   "options": [
+    "Thread oversubscription with the feature pipeline",
+    "Thermal throttling or CPU frequency scaling on the small board",
+    "The model is FP32",
+    "Batch size 1"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Tails come from contention and thermals; measure under the real load.",
+   "learn": [
+    {
+     "label": "ONNX Runtime performance tuning",
+     "href": "https://onnxruntime.ai/docs/performance/tune-performance/"
+    }
+   ]
+  },
+  {
+   "id": "m-11",
+   "week": "mock",
+   "set": "mock",
+   "area": "fleet",
+   "type": "single",
+   "stem": "The canary device passes health checks but its alert rate is 8x the fleet baseline. The controller should:",
+   "options": [
+    "Promote: it is healthy",
+    "Fail the canary on the model-metric gate and roll it back",
+    "Ignore alert rates",
+    "Promote half the fleet"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Health is necessary, not sufficient; model behaviour is a gate too.",
+   "learn": [
+    {
+     "label": "Mender deployments",
+     "href": "https://docs.mender.io/overview/deployment"
+    }
+   ]
+  },
+  {
+   "id": "m-12",
+   "week": "mock",
+   "set": "mock",
+   "area": "fleet",
+   "type": "multi",
+   "stem": "Replay after an outage must not duplicate. Which two are required? (choose two)",
+   "options": [
+    "An event id assigned at capture time",
+    "Server-side dedupe on that id and marking rows sent per acknowledged id",
+    "Generating ids at send time",
+    "Sending larger batches"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "explanation": "Stable ids plus per-id acks make replay idempotent.",
+   "learn": [
+    {
+     "label": "SQLite write-ahead logging",
+     "href": "https://www.sqlite.org/wal.html"
+    }
+   ]
+  },
+  {
+   "id": "m-13",
+   "week": "mock",
+   "set": "mock",
+   "area": "network",
+   "type": "single",
+   "stem": "A previous engineer set PIP_TRUSTED_HOST to make pip work behind the proxy. Why is uv still failing and requests too?",
+   "options": [
+    "uv and requests ignore pip settings; and verification was never fixed, only bypassed for pip",
+    "uv is broken",
+    "requests needs HTTP/2",
+    "The wheel is corrupt"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Fix the trust store for every client instead of bypassing one.",
+   "learn": [
+    {
+     "label": "uv: TLS certificates",
+     "href": "https://docs.astral.sh/uv/concepts/authentication/certificates/"
+    },
+    {
+     "label": "Requests: SSL verification and proxies",
+     "href": "https://requests.readthedocs.io/en/latest/user/advanced/"
+    }
+   ]
+  },
+  {
+   "id": "m-14",
+   "week": "mock",
+   "set": "mock",
+   "area": "network",
+   "type": "single",
+   "stem": "Which variable does uv read for a custom CA file (with native TLS off)?",
+   "options": [
+    "UV_CA",
+    "SSL_CERT_FILE",
+    "PIP_CERT",
+    "CURL_CA_BUNDLE"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "uv honours SSL_CERT_FILE (or native-tls to use the system store).",
+   "learn": [
+    {
+     "label": "uv: TLS certificates",
+     "href": "https://docs.astral.sh/uv/concepts/authentication/certificates/"
+    }
+   ]
+  },
+  {
+   "id": "m-15",
+   "week": "mock",
+   "set": "mock",
+   "area": "llm",
+   "type": "single",
+   "stem": "Which control actually prevents an injected note from changing state?",
+   "options": [
+    "A stronger system prompt",
+    "Only read-only tools are dispatchable; writes need out-of-band human approval",
+    "A bigger model",
+    "Lower temperature"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Enforcement is server-side.",
+   "learn": [
+    {
+     "label": "OWASP Top 10 for LLM Applications",
+     "href": "https://genai.owasp.org/llm-top-10/"
+    }
+   ]
+  },
+  {
+   "id": "m-16",
+   "week": "mock",
+   "set": "mock",
+   "area": "llm",
+   "type": "single",
+   "stem": "The cloud fallback must never receive raw waveforms. How do you guarantee it?",
+   "options": [
+    "Ask the cloud model not to request them",
+    "Build the cloud run without the raw-data tool and strip raw fields in code",
+    "Encrypt the waveform",
+    "Use a smaller payload"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Do not offer or dispatch it; prove it in a test.",
+   "learn": [
+    {
+     "label": "The lethal trifecta (Simon Willison)",
+     "href": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+    }
+   ]
+  },
+  {
+   "id": "m-17",
+   "week": "mock",
+   "set": "mock",
+   "area": "integrations",
+   "type": "single",
+   "stem": "The CMMS returns 429 with Retry-After: 30. Your backoff says 2 s. Which wins?",
+   "options": [
+    "2 s",
+    "30 s (honour the server), within the retry budget",
+    "0 s",
+    "Give up"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Retry-After is the server's explicit instruction.",
+   "learn": [
+    {
+     "label": "Timeouts, retries and backoff with jitter",
+     "href": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter"
+    }
+   ]
+  },
+  {
+   "id": "m-18",
+   "week": "mock",
+   "set": "mock",
+   "area": "fde",
+   "type": "single",
+   "stem": "Two weeks into an 8-week engagement, what should exist?",
+   "options": [
+    "A complete architecture deck",
+    "A thin end-to-end slice on one machine, measured against the baseline",
+    "All ten pumps instrumented",
+    "A signed renewal"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Ship thin and measure, then widen.",
+   "learn": [
+    {
+     "label": "What are Forward Deployed Engineers? (The Pragmatic Engineer)",
+     "href": "https://newsletter.pragmaticengineer.com/p/forward-deployed-engineers"
+    }
+   ]
+  },
+  {
+   "id": "m-19",
+   "week": "mock",
+   "set": "mock",
+   "area": "fde",
+   "type": "single",
+   "stem": "The controls engineer distrusts alarms after a failed vendor trial. Best design response?",
+   "options": [
+    "Hide the alarm count",
+    "Shadow mode with false alarms per machine-week as a signed metric before going live",
+    "Escalate to the plant manager",
+    "Lower the threshold"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Make the fear a metric and let them sign it.",
+   "learn": [
+    {
+     "label": "The Mom Test",
+     "href": "https://www.momtestbook.com/"
+    }
+   ]
+  },
+  {
+   "id": "m-20",
+   "week": "mock",
+   "set": "mock",
+   "area": "fde",
+   "type": "single",
+   "stem": "What is a 'defensible wedge' in FDE terms?",
+   "options": [
+    "A patent",
+    "A customer-owned asset that solves the first problem well and makes the next engagement easier",
+    "An exclusivity clause",
+    "A proprietary file format"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Value the client keeps and builds on.",
+   "learn": [
+    {
+     "label": "Trading margin for moat (a16z)",
+     "href": "https://a16z.com/services-led-growth/"
+    }
+   ]
+  }
+ ]
+}

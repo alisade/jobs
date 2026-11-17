@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+  <!-- PicketBox LDAP login module, defined in standalone-claimdesk.xml -->
+  <security-domain>claimdesk-ldap</security-domain>
+  <context-root>/claimdesk</context-root>
+</jboss-web>

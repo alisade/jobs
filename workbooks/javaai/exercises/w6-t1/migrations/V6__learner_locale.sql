@@ -1,0 +1,1 @@
+ALTER TABLE learner ADD COLUMN locale TEXT NOT NULL DEFAULT 'en';

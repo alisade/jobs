@@ -1,0 +1,1742 @@
+{
+ "q01": [
+  {
+   "content": {
+    "text": "chunk 0 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.9251
+  },
+  {
+   "content": {
+    "text": "chunk 1 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.8539
+  },
+  {
+   "content": {
+    "text": "chunk 2 of carrier-sla-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-2.pdf"
+   },
+   "score": 0.7868
+  },
+  {
+   "content": {
+    "text": "chunk 3 of api-limits-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/api-limits-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/api-limits-1.pdf"
+   },
+   "score": 0.7121
+  },
+  {
+   "content": {
+    "text": "chunk 4 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.6433
+  }
+ ],
+ "q02": [
+  {
+   "content": {
+    "text": "chunk 0 of damage-claims-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+   },
+   "score": 0.9261
+  },
+  {
+   "content": {
+    "text": "chunk 1 of damage-claims-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+   },
+   "score": 0.8565
+  },
+  {
+   "content": {
+    "text": "chunk 2 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.7884
+  },
+  {
+   "content": {
+    "text": "chunk 3 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.7184
+  },
+  {
+   "content": {
+    "text": "chunk 4 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.649
+  }
+ ],
+ "q03": [
+  {
+   "content": {
+    "text": "chunk 0 of api-limits-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/api-limits-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/api-limits-2.pdf"
+   },
+   "score": 0.9262
+  },
+  {
+   "content": {
+    "text": "chunk 1 of api-limits-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/api-limits-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/api-limits-2.pdf"
+   },
+   "score": 0.8531
+  },
+  {
+   "content": {
+    "text": "chunk 2 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.7842
+  },
+  {
+   "content": {
+    "text": "chunk 3 of damage-claims-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+   },
+   "score": 0.7178
+  },
+  {
+   "content": {
+    "text": "chunk 4 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.6416
+  }
+ ],
+ "q04": [
+  {
+   "content": {
+    "text": "chunk 0 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.9202
+  },
+  {
+   "content": {
+    "text": "chunk 1 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.8527
+  },
+  {
+   "content": {
+    "text": "chunk 2 of pallet-specs-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/pallet-specs-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/pallet-specs-2.pdf"
+   },
+   "score": 0.7807
+  },
+  {
+   "content": {
+    "text": "chunk 3 of damage-claims-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+   },
+   "score": 0.7121
+  },
+  {
+   "content": {
+    "text": "chunk 4 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.6484
+  }
+ ],
+ "q05": [
+  {
+   "content": {
+    "text": "chunk 0 of customs-holds-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-2.pdf"
+   },
+   "score": 0.921
+  },
+  {
+   "content": {
+    "text": "chunk 1 of customs-holds-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-2.pdf"
+   },
+   "score": 0.8506
+  },
+  {
+   "content": {
+    "text": "chunk 2 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-1.pdf"
+   },
+   "score": 0.7889
+  },
+  {
+   "content": {
+    "text": "chunk 3 of returns-policy-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/returns-policy-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/returns-policy-1.pdf"
+   },
+   "score": 0.7143
+  },
+  {
+   "content": {
+    "text": "chunk 4 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.6411
+  }
+ ],
+ "q06": [
+  {
+   "content": {
+    "text": "chunk 0 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.9243
+  },
+  {
+   "content": {
+    "text": "chunk 1 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.8555
+  },
+  {
+   "content": {
+    "text": "chunk 2 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/customs-holds-1.pdf"
+   },
+   "score": 0.7815
+  },
+  {
+   "content": {
+    "text": "chunk 3 of damage-claims-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/damage-claims-1.pdf"
+   },
+   "score": 0.7162
+  },
+  {
+   "content": {
+    "text": "chunk 4 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.6456
+  }
+ ],
+ "q07": [
+  {
+   "content": {
+    "text": "chunk 0 of invoice-disputes-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/invoice-disputes-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/invoice-disputes-2.pdf"
+   },
+   "score": 0.9231
+  },
+  {
+   "content": {
+    "text": "chunk 1 of invoice-disputes-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/invoice-disputes-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/invoice-disputes-2.pdf"
+   },
+   "score": 0.8548
+  },
+  {
+   "content": {
+    "text": "chunk 2 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.787
+  },
+  {
+   "content": {
+    "text": "chunk 3 of returns-policy-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/returns-policy-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/returns-policy-1.pdf"
+   },
+   "score": 0.7192
+  },
+  {
+   "content": {
+    "text": "chunk 4 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.6487
+  }
+ ],
+ "q08": [
+  {
+   "content": {
+    "text": "chunk 0 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.924
+  },
+  {
+   "content": {
+    "text": "chunk 1 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.8505
+  },
+  {
+   "content": {
+    "text": "chunk 2 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+   },
+   "score": 0.7866
+  },
+  {
+   "content": {
+    "text": "chunk 3 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.7194
+  },
+  {
+   "content": {
+    "text": "chunk 4 of api-limits-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/api-limits-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/api-limits-1.pdf"
+   },
+   "score": 0.6461
+  }
+ ],
+ "q09": [
+  {
+   "content": {
+    "text": "chunk 0 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.9201
+  },
+  {
+   "content": {
+    "text": "chunk 1 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.8502
+  },
+  {
+   "content": {
+    "text": "chunk from another tenant",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "acme-foods",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/acme-foods/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.81
+  },
+  {
+   "content": {
+    "text": "chunk 2 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.7899
+  },
+  {
+   "content": {
+    "text": "chunk 3 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.7133
+  }
+ ],
+ "q10": [
+  {
+   "content": {
+    "text": "chunk 0 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.9235
+  },
+  {
+   "content": {
+    "text": "chunk 1 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.8513
+  },
+  {
+   "content": {
+    "text": "chunk 2 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+   },
+   "score": 0.7835
+  },
+  {
+   "content": {
+    "text": "chunk 3 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.7174
+  },
+  {
+   "content": {
+    "text": "chunk 4 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.6408
+  }
+ ],
+ "q11": [
+  {
+   "content": {
+    "text": "chunk 0 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.9278
+  },
+  {
+   "content": {
+    "text": "chunk 1 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.8543
+  },
+  {
+   "content": {
+    "text": "chunk 2 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.7814
+  },
+  {
+   "content": {
+    "text": "chunk 3 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.7171
+  },
+  {
+   "content": {
+    "text": "chunk 4 of returns-policy-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/returns-policy-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/returns-policy-1.pdf"
+   },
+   "score": 0.6458
+  }
+ ],
+ "q12": [
+  {
+   "content": {
+    "text": "chunk 0 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+   },
+   "score": 0.926
+  },
+  {
+   "content": {
+    "text": "chunk 1 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+   },
+   "score": 0.8509
+  },
+  {
+   "content": {
+    "text": "chunk 2 of returns-policy-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/returns-policy-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/returns-policy-1.pdf"
+   },
+   "score": 0.7823
+  },
+  {
+   "content": {
+    "text": "chunk 3 of api-limits-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/api-limits-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/api-limits-1.pdf"
+   },
+   "score": 0.7103
+  },
+  {
+   "content": {
+    "text": "chunk 4 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.6468
+  }
+ ],
+ "q13": [
+  {
+   "content": {
+    "text": "chunk 0 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.9223
+  },
+  {
+   "content": {
+    "text": "chunk 1 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.859
+  },
+  {
+   "content": {
+    "text": "chunk 2 of invoice-disputes-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/invoice-disputes-2.pdf"
+   },
+   "score": 0.7836
+  },
+  {
+   "content": {
+    "text": "chunk 3 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.712
+  },
+  {
+   "content": {
+    "text": "chunk 4 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.649
+  }
+ ],
+ "q14": [
+  {
+   "content": {
+    "text": "chunk 0 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.9203
+  },
+  {
+   "content": {
+    "text": "chunk 1 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.8538
+  },
+  {
+   "content": {
+    "text": "chunk 2 of returns-policy-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/returns-policy-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/returns-policy-1.pdf"
+   },
+   "score": 0.7859
+  },
+  {
+   "content": {
+    "text": "chunk 3 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/customs-holds-1.pdf"
+   },
+   "score": 0.7192
+  },
+  {
+   "content": {
+    "text": "chunk 4 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "brightline-health",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/brightline-health/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.6453
+  }
+ ],
+ "q15": [
+  {
+   "content": {
+    "text": "chunk 0 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.9252
+  },
+  {
+   "content": {
+    "text": "chunk 1 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.8525
+  },
+  {
+   "content": {
+    "text": "chunk 2 of returns-policy-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/returns-policy-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/returns-policy-1.pdf"
+   },
+   "score": 0.7837
+  },
+  {
+   "content": {
+    "text": "chunk 3 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.7175
+  },
+  {
+   "content": {
+    "text": "chunk 4 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.6492
+  }
+ ],
+ "q16": [
+  {
+   "content": {
+    "text": "chunk 0 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/customs-holds-1.pdf"
+   },
+   "score": 0.9264
+  },
+  {
+   "content": {
+    "text": "chunk 1 of customs-holds-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/customs-holds-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/customs-holds-1.pdf"
+   },
+   "score": 0.8595
+  },
+  {
+   "content": {
+    "text": "chunk 2 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.7895
+  },
+  {
+   "content": {
+    "text": "chunk 3 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.7131
+  },
+  {
+   "content": {
+    "text": "chunk 4 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.6498
+  }
+ ],
+ "q17": [
+  {
+   "content": {
+    "text": "chunk 0 of pallet-specs-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-2.pdf"
+   },
+   "score": 0.922
+  },
+  {
+   "content": {
+    "text": "chunk 1 of pallet-specs-2.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-2.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-2.pdf"
+   },
+   "score": 0.8577
+  },
+  {
+   "content": {
+    "text": "chunk 2 of pallet-specs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/pallet-specs-1.pdf"
+   },
+   "score": 0.7868
+  },
+  {
+   "content": {
+    "text": "chunk 3 of damage-claims-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/damage-claims-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/damage-claims-1.pdf"
+   },
+   "score": 0.7129
+  },
+  {
+   "content": {
+    "text": "chunk 4 of returns-policy-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/returns-policy-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/returns-policy-1.pdf"
+   },
+   "score": 0.6416
+  }
+ ],
+ "q18": [
+  {
+   "content": {
+    "text": "chunk 0 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.9219
+  },
+  {
+   "content": {
+    "text": "chunk 1 of holiday-cutoffs-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/holiday-cutoffs-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/holiday-cutoffs-1.pdf"
+   },
+   "score": 0.8588
+  },
+  {
+   "content": {
+    "text": "chunk 2 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.783
+  },
+  {
+   "content": {
+    "text": "chunk 3 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.7191
+  },
+  {
+   "content": {
+    "text": "chunk 4 of onboarding-guide-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/onboarding-guide-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/onboarding-guide-1.pdf"
+   },
+   "score": 0.6406
+  }
+ ],
+ "q19": [
+  {
+   "content": {
+    "text": "chunk 0 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.9296
+  },
+  {
+   "content": {
+    "text": "chunk 1 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.8557
+  },
+  {
+   "content": {
+    "text": "chunk 2 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.7805
+  },
+  {
+   "content": {
+    "text": "chunk 3 of api-limits-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/api-limits-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/api-limits-1.pdf"
+   },
+   "score": 0.7101
+  },
+  {
+   "content": {
+    "text": "chunk 4 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.6414
+  }
+ ],
+ "q20": [
+  {
+   "content": {
+    "text": "chunk 0 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.9216
+  },
+  {
+   "content": {
+    "text": "chunk 1 of carrier-sla-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/carrier-sla-1.pdf"
+   },
+   "score": 0.8505
+  },
+  {
+   "content": {
+    "text": "chunk 2 of invoice-disputes-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/invoice-disputes-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/invoice-disputes-1.pdf"
+   },
+   "score": 0.785
+  },
+  {
+   "content": {
+    "text": "chunk 3 of api-limits-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/api-limits-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/api-limits-1.pdf"
+   },
+   "score": 0.7141
+  },
+  {
+   "content": {
+    "text": "chunk 4 of cold-chain-sop-1.pdf",
+    "type": "TEXT"
+   },
+   "location": {
+    "type": "S3",
+    "s3Location": {
+     "uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+    }
+   },
+   "metadata": {
+    "tenant_id": "corvid-logistics",
+    "x-amz-bedrock-kb-source-uri": "s3://tidewater-kb-docs-111122223333/tenants/corvid-logistics/docs/cold-chain-sop-1.pdf"
+   },
+   "score": 0.6479
+  }
+ ]
+}

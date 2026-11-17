@@ -1,0 +1,25 @@
+{
+  "id": "modernize/w4-c1",
+  "title": "javax.servlet to jakarta.servlet with characterization tests that stay green",
+  "type": "coding",
+  "estimate": "2.5 h",
+  "week": 4,
+  "area": "Safe change on monoliths",
+  "scenario": "claimdesk-notes, the service the agent portal reads claims and posts notes through, moves from Servlet 4.0 (Tomcat 9) to Servlet 6.0 ahead of JBoss EAP 8. Golden masters of eight production flows, including the error JSON the portal parses, must stay byte-identical. A sed-based attempt last week broke the build and two error screens.",
+  "task": [
+    "Move to tomcat-embed-core 10.1 and the jakarta.servlet namespace",
+    "Keep every characterization test green without touching the golden files",
+    "Migrate only what belongs to Jakarta EE; find the old namespace outside import statements",
+    "Write what you did not change and why, and the EAP 8 follow-ups"
+  ],
+  "acceptance": [
+    "Eight golden flows identical on Tomcat 10.1",
+    "No javax.servlet in src/main; Tomcat 9 removed",
+    "javax.sql and javax.naming intact",
+    "ANSWER.md covers the namespace rules and the app-server follow-ups"
+  ],
+  "practices": [
+    {"label": "Week 4 Mon - characterization tests", "href": "week4"},
+    {"label": "Week 4 Tue - javax to jakarta", "href": "week4"}
+  ]
+}

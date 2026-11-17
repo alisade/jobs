@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GitLabReleaseDeploy",
+      "Effect": "Allow",
+      "Principal": {"Federated": "arn:aws:iam::111100000004:oidc-provider/gitlab.com"},
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "gitlab.com:aud": "https://gitlab.com",
+          "gitlab.com:sub": "project_path:harborpoint/lighthouse/platform:ref_type:branch:ref:main"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "scenario": "s10",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s10_1",
+            "name": "get_alert",
+            "input": {
+              "alert_id": "ALR-10420"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "\nSeverity: probably SEV3. Token errors from the metadata server, likely transient."
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    },
+    {
+      "expect": {
+        "user_text_contains": "validation"
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "\n{\"alert_id\": \"ALR-10420\", \"severity\": \"low\", \"suspected_cause\": \"transient token errors\", \"evidence\": [], \"next_steps\": [], \"needs_human\": false}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    }
+  ]
+}

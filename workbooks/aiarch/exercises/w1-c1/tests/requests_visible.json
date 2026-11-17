@@ -1,0 +1,122 @@
+[
+ {
+  "name": "dev runtime invokes approved Sonnet profile in us-east-1",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/lighthouse-agent-runtime",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:us-east-1:111100000003:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "dev runtime invokes an unapproved Llama model",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/lighthouse-agent-runtime",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:us-east-1::foundation-model/meta.llama3-3-70b-instruct-v1:0",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer creates a Lambda in eu-west-1",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "lambda:CreateFunction",
+  "resource": "arn:aws:lambda:eu-west-1:111100000003:function:scratch",
+  "region": "eu-west-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer creates an IAM role (global service)",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "iam:CreateRole",
+  "resource": "arn:aws:iam::111100000003:role/scratch",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer stops the org trail",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "cloudtrail:StopLogging",
+  "resource": "arn:aws:cloudtrail:us-east-1:111100000000:trail/hpm-org-trail",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "break-glass stops logging during an incident",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/hpm-breakglass",
+  "action": "cloudtrail:StopLogging",
+  "resource": "arn:aws:cloudtrail:us-east-1:111100000000:trail/hpm-org-trail",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "developer tries to leave the organization",
+  "account": "111100000003",
+  "principal_arn": "arn:aws:iam::111100000003:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AgentDeveloper_0123456789abcdef",
+  "action": "organizations:LeaveOrganization",
+  "resource": "*",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "external account reads a prod bucket",
+  "account": "999988887777",
+  "principal_arn": "arn:aws:iam::999988887777:role/reader",
+  "action": "s3:GetObject",
+  "resource": "arn:aws:s3:::hpm-lighthouse-prod-artifacts/model-cards/a.json",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {},
+  "resource_account": "111100000004"
+ },
+ {
+  "name": "prod runtime invokes approved profile through the VPC endpoint",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/lighthouse-agent-runtime",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:us-east-1:111100000004:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "region": "us-east-1",
+  "expect": "ALLOW",
+  "context": {
+   "aws:SourceVpce": "vpce-0a1b2c3d4e5f60001",
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ },
+ {
+  "name": "prod runtime invokes approved profile over the public endpoint",
+  "account": "111100000004",
+  "principal_arn": "arn:aws:iam::111100000004:role/lighthouse-agent-runtime",
+  "action": "bedrock:InvokeModel",
+  "resource": "arn:aws:bedrock:us-east-1:111100000004:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "region": "us-east-1",
+  "expect": "DENY",
+  "context": {
+   "aws:PrincipalOrgID": "o-hpm4k2x9qa"
+  }
+ }
+]

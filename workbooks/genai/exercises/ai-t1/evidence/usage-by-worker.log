@@ -1,0 +1,19 @@
+# provider usage, one line per request, joined with our access log (pod/pid) - 2026-11-12 09:00-09:02 PT
+ts        pod                      pid  input  cache_creation  cache_read  output  ttft_ms
+09:00:03  assistant-6d8f7-2kq9p    41   212    9840            0           188     2710
+09:00:04  assistant-6d8f7-7xwr2    38   198    9840            0           241     2590
+09:00:06  assistant-6d8f7-2kq9p    44   205    9840            0           173     2655
+09:00:09  assistant-6d8f7-m3c1d    40   221    9840            0           205     2702
+09:00:11  assistant-6d8f7-2kq9p    41   209    0               9840        196     870
+09:00:14  assistant-6d8f7-q8h5t    39   230    9840            0           167     2630
+09:00:15  assistant-6d8f7-7xwr2    41   201    9840            0           220     2611
+09:00:19  assistant-6d8f7-m3c1d    43   215    9840            0           199     2688
+09:00:22  assistant-6d8f7-7xwr2    38   207    0               9840        251     905
+09:00:27  assistant-6d8f7-z0b7k    40   219    9840            0           181     2640
+09:00:31  assistant-6d8f7-q8h5t    42   226    9840            0           176     2702
+09:00:36  assistant-6d8f7-2kq9p    44   203    0               9840        190     881
+09:00:40  assistant-6d8f7-z0b7k    41   211    9840            0           202     2655
+09:00:47  assistant-6d8f7-m3c1d    40   198    0               9840        214     912
+09:01:02  assistant-6d8f7-q8h5t    39   224    0               9840        188     890
+# 48 worker processes in total; the only hits are requests that land on a pid that has already
+# written the cache within the 5 minute TTL. Before 11/10: 87% of requests had cache_read 9840.

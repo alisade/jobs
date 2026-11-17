@@ -1,0 +1,64 @@
+{
+  "scenario": "s02",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s02_1",
+            "name": "get_alert",
+            "input": {
+              "alert_id": "ALR-10412"
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "expect": {
+        "tool_results": [
+          {
+            "tool_use_id": "toolu_s02_1",
+            "is_error": false
+          }
+        ]
+      },
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_s02_2",
+            "name": "query_metrics",
+            "input": {
+              "query": "kube_pod_container_status_last_terminated_reason{namespace=\"mdm\"}",
+              "window": "1h"
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_s02_3",
+            "name": "recent_deploys",
+            "input": {
+              "service": "mdm-api",
+              "hours": 12
+            }
+          }
+        ],
+        "stop_reason": "tool_use"
+      }
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Here is the triage note.\n{\"alert_id\": \"ALR-10412\", \"severity\": \"SEV3\", \"suspected_cause\": \"mdm-api 2.9.0 adds a cache warmup and the pod is OOMKilled at the unchanged 512Mi memory limit\", \"evidence\": [{\"tool_use_id\": \"toolu_s02_2\", \"summary\": \"last termination reason OOMKilled\"}, {\"tool_use_id\": \"toolu_s02_3\", \"summary\": \"2.9.0 deployed 02:58 with new cache warmup\"}], \"next_steps\": [\"Raise the memory limit in the chart or disable warmup\", \"Open a ticket for the MDM team\"], \"needs_human\": false}"
+          }
+        ],
+        "stop_reason": "end_turn"
+      }
+    }
+  ]
+}

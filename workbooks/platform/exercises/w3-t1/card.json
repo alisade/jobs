@@ -1,0 +1,26 @@
+{
+  "id": "platform/w3-t1",
+  "title": "Import batch 07 plans to replace the core VPC",
+  "type": "troubleshooting",
+  "estimate": "1-1.5 h",
+  "week": 3,
+  "optional": false,
+  "area": "Migrating into Terraform",
+  "scenario": "The seventh batch of the RIQ migration into Terraform should be a pure import, but the plan says 1 to add, 1 to change, 1 to destroy. The engineer worries about a bucket label and wants to apply because 'it is only labels'. The VPC carries the RIQ GKE nodes and the legacy Postgres. You get the cleaned config, the generated config it came from, the cleanup PR, the live inventory and a local plan simulator.",
+  "task": [
+    "Run make plan and find what will be destroyed and why",
+    "Trace it to the cleanup of the generated config; deal with the label diff too",
+    "Fix migration/ until the plan is imports only, and make a future destroy of the network or database impossible",
+    "Root cause, evidence and a better cleanup rule in ANSWER.md"
+  ],
+  "acceptance": [
+    "Plan: 5 to import, 0 to add, 0 to change, 0 to destroy",
+    "Import IDs unchanged; auto_create_subnetworks explicit",
+    "prevent_destroy on the network and the Cloud SQL instance, so a later ForceNew drift errors instead of planning a destroy",
+    "Root cause with evidence in ANSWER.md"
+  ],
+  "practices": [
+    {"label": "Week 3 - import blocks and generated config", "href": "week3"},
+    {"label": "Week 3 - a migration method: batches, no-op plan, prevent_destroy", "href": "week3"}
+  ]
+}

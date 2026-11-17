@@ -1,0 +1,29 @@
+{
+  "Id": "E2TIDEWATER9K",
+  "Aliases": ["app.tidewater.example"],
+  "Comment": "Tidewater Ask web app: SPA from S3, /api/* to the API Gateway HTTP API",
+  "DefaultCacheBehavior": {
+    "TargetOriginId": "spa-s3",
+    "ViewerProtocolPolicy": "redirect-to-https",
+    "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6"
+  },
+  "CacheBehaviors": [
+    {
+      "PathPattern": "/api/*",
+      "TargetOriginId": "ask-http-api",
+      "ViewerProtocolPolicy": "https-only",
+      "AllowedMethods": ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"],
+      "CachePolicyId": "3c1f6b2e-7d4a-4e1b-9a55-2f0c8e6d1a77",
+      "OriginRequestPolicyId": "b689b0a8-53d0-40ab-baf2-68738e2966ac"
+    }
+  ],
+  "CachePolicies": {
+    "658327ea-f89d-4fab-a63d-7e88639e58f6": {"Name": "Managed-CachingOptimized", "MinTTL": 1, "DefaultTTL": 86400, "MaxTTL": 31536000,
+                                             "HeadersInCacheKey": [], "QueryStringsInCacheKey": "none"},
+    "4135ea2d-6df8-44a3-9df3-4b5a84be39ad": {"Name": "Managed-CachingDisabled", "MinTTL": 0, "DefaultTTL": 0, "MaxTTL": 0,
+                                             "HeadersInCacheKey": [], "QueryStringsInCacheKey": "none"},
+    "3c1f6b2e-7d4a-4e1b-9a55-2f0c8e6d1a77": {"Name": "tw-api-short-cache", "Comment": "ASK-377: cache catalog GETs for 5 minutes",
+                                             "MinTTL": 0, "DefaultTTL": 300, "MaxTTL": 3600,
+                                             "HeadersInCacheKey": [], "QueryStringsInCacheKey": "all"}
+  }
+}

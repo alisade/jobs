@@ -1,0 +1,4 @@
+{
+  "google_compute_firewall.allow_health_checks": "projects/tsl-riq-prod/global/firewalls/allow-health-checks",
+  "google_project_iam_member.riq[\"roles/logging.logWriter\"]": "tsl-riq-prod roles/logging.logWriter serviceAccount:riq-api@tsl-riq-prod.iam.gserviceaccount.com"
+}

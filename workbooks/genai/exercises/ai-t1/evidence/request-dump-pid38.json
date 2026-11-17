@@ -1,0 +1,4 @@
+{"model": "claude-sonnet-4-5", "max_tokens": 1024,
+ "tools": [{"name": "store_hours", "...": "..."}, {"name": "get_order_status", "...": "..."}, {"name": "search_products", "...": "..."}, {"name": "start_return", "...": "..."}, {"name": "check_inventory", "...": "..."}],
+ "system": [{"type": "text", "text": "You are Kestrel Outfitters' shopping assistant ... (policy)"}, {"type": "text", "text": "Category guide: ...", "cache_control": {"type": "ephemeral"}}],
+ "messages": [{"role": "user", "content": "[context: store 087, current time 2026-11-12 09:00:04 UTC]\nwhat headlamp for night hikes?"}]}
